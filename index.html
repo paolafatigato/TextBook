@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Fredoka:wght@600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Patrick+Hand&family=Quicksand:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="grammar-games.css">
 </head>
 <body>
   <nav class="toolbar">
@@ -38,11 +39,16 @@
       </div>
     </header>
 
+    <form class="home-search" role="search" onsubmit="return false">
+      <input type="search" id="topicSearch" placeholder="🔍 Search a topic or a page…" aria-label="Search topics" autocomplete="off">
+    </form>
+    <div class="topic-list" id="topicList"></div>
+
+    <h2 class="home-h2">Games</h2>
+    <div class="topic-list" id="gameList"></div>
+
     <h2 class="home-h2">Chapters</h2>
     <div class="chapter-grid" id="chapterGrid"></div>
-
-    <h2 class="home-h2">Topics</h2>
-    <div class="topic-list" id="topicList"></div>
   </section>
 
   <div class="spread" data-pages="2-3" data-title="Unit 1 · Lesson 1" data-name="Getting to know each other · Yes/no questions">
@@ -1621,7 +1627,9 @@
         <div class="dice-row">
           <button class="dice-btn" type="button" id="diceBtn">🎲 Roll the dice</button>
           <span class="dice-face" id="diceFace" aria-live="polite"></span>
+          <button class="dice-btn alt" type="button" id="gameSetupBtn">👥 Players</button>
         </div>
+        <p class="game-turn" id="gameTurn" aria-live="polite">Choose your tokens to start.</p>
       </div>
       <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Present Simple</span>
     </section>
@@ -2487,7 +2495,54 @@
 
   </main>
 
+  <!-- conversation game (pp. 34-35): token choice and question cards -->
+  <div class="gm-overlay" id="gmSetup" hidden>
+    <div class="gm-box">
+      <h2>Choose your tokens</h2>
+      <p>Click the tokens of the players, then press Play.</p>
+      <div class="gm-tokens" id="gmTokens"></div>
+      <div class="gm-actions">
+        <button type="button" class="dice-btn" id="gmPlay">▶ Play</button>
+        <button type="button" class="dice-btn alt" id="gmCancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="gm-overlay" id="gmCard" hidden>
+    <div class="gm-box gm-card">
+      <div class="gm-who" id="gmWho"></div>
+      <div class="gm-timer"><i id="gmBar"></i></div>
+      <p class="gm-q" id="gmQ"></p>
+      <div class="gm-opts" id="gmOpts"></div>
+      <p class="gm-fb" id="gmFb" hidden></p>
+      <div class="gm-actions" id="gmJudge">
+        <button type="button" class="dice-btn ok" id="gmRight">✓ Right answer</button>
+        <button type="button" class="dice-btn no" id="gmWrong">✗ Wrong</button>
+      </div>
+      <div class="gm-actions"><button type="button" class="dice-btn" id="gmNext" hidden>Continue</button></div>
+    </div>
+  </div>
+
+  <!-- grammar games: pop up at the end of pp. 21, 23 and 31 -->
+  <button type="button" class="gq-fab" id="gqFab" hidden>🎮 Play the games</button>
+  <div class="gq-overlay" id="gqModal" role="dialog" aria-modal="true" aria-labelledby="gqTitle" hidden>
+    <div class="gq-flash" id="gqFlash"></div>
+    <div class="gq-box">
+      <div class="gq-top">
+        <button type="button" class="gq-back" id="gqBack" hidden>← Menu</button>
+        <span class="gq-title" id="gqTitle"></span>
+        <span class="gq-lives" id="gqLives"></span>
+        <span class="gq-score" id="gqScore"></span>
+        <button type="button" class="gq-close" id="gqClose" aria-label="Close">✕</button>
+      </div>
+      <div class="gq-area" id="gqArea"></div>
+    </div>
+  </div>
+
   <script src="contents.js"></script>
   <script src="script.js"></script>
+  <script src="game-questions.js"></script>
+  <script src="game.js"></script>
+  <script src="grammar-games-data.js"></script>
+  <script src="grammar-games.js"></script>
 </body>
 </html>

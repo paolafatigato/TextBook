@@ -42,6 +42,7 @@ function show(index) {
   try { localStorage.setItem(KEY + ':page', first); } catch { /* ignore */ }
   window.scrollTo(0, 0);
   redrawAllMatches();
+  document.dispatchEvent(new Event('spreadchange'));
 }
 
 function goToPage(n) {
@@ -60,6 +61,7 @@ function showHome() {
   pageInput.value = '';
   updateContinueLink();
   window.scrollTo(0, 0);
+  document.dispatchEvent(new Event('spreadchange'));
 }
 
 // #home → home page, #p6 → page 6, nothing → home page
@@ -352,17 +354,7 @@ document.querySelectorAll('.check[data-toggles]').forEach(btn => {
   });
 });
 
-/* ================= dice ================= */
-
-const diceBtn = document.getElementById('diceBtn');
-const diceFace = document.getElementById('diceFace');
-diceBtn?.addEventListener('click', () => {
-  const n = 1 + Math.floor(Math.random() * 6);
-  diceFace.textContent = '⚀⚁⚂⚃⚄⚅'[n - 1] + ' ' + n;
-  diceFace.classList.remove('roll');
-  void diceFace.offsetWidth; // restart the animation
-  diceFace.classList.add('roll');
-});
+/* the dice of the conversation game (pp. 34-35) lives in game.js */
 
 /* ================= Big 5 scores ================= */
 // each sentence gets 0, 1 or 2: the total of the trait is added up by itself
@@ -441,7 +433,7 @@ function pageLink(a, b, label = '') {
 }
 
 function renderHome() {
-  const { chapters = [], topics = [] } = typeof CONTENTS === 'undefined' ? {} : CONTENTS;
+  const { chapters = [] } = typeof CONTENTS === 'undefined' ? {} : CONTENTS;
 
   document.getElementById('chapterGrid').innerHTML = chapters.map(ch => {
     const [start, end] = ch.pages;
@@ -459,12 +451,26 @@ function renderHome() {
       </article>`;
   }).join('');
 
-  document.getElementById('topicList').innerHTML = topics.map(t => `
+  renderTopics();
+}
+
+// topics are listed only while something is typed in the search bar
+function renderTopics() {
+  const list = document.getElementById('topicList');
+  const words = norm(document.getElementById('topicSearch').value).split(' ').filter(Boolean);
+  if (!words.length) { list.innerHTML = ''; return; }
+  const topics = (typeof CONTENTS === 'undefined' ? [] : CONTENTS.topics || []).filter(t => {
+    // a word matches the title, or a number falls inside one of the pages
+    const pages = t.pages.map(([a, b]) => [a, b ?? a]);
+    return words.every(w => norm(t.title).includes(w) || (/^\d+$/.test(w) && pages.some(([a, b]) => +w >= a && +w <= b)));
+  });
+  list.innerHTML = topics.length ? topics.map(t => `
     <article class="topic" style="--c:${esc(t.color || '#7b3fc4')}">
       <h3>${esc(t.title)}</h3>
       <div class="topic-pages">${t.pages.map(([a, b]) => pageLink(a, b ?? a)).join('')}</div>
-    </article>`).join('');
+    </article>`).join('') : '<p class="topic-none">No topic found.</p>';
 }
+document.getElementById('topicSearch').addEventListener('input', renderTopics);
 
 function updateContinueLink() {
   const link = document.getElementById('continueLink');
