@@ -382,6 +382,24 @@ document.querySelectorAll('.b5-score').forEach(inp => inp.addEventListener('inpu
 }));
 b5Totals();
 
+/* ================= evaluation grid (p. 55) ================= */
+// performance + pronunciation + creativity = total
+
+const egScores = [...document.querySelectorAll('.eg-n')];
+function egTotal() {
+  const out = document.getElementById('eg-total');
+  if (!out) return;
+  const vals = egScores.map(i => i.value).filter(v => v !== '');
+  out.textContent = vals.length ? vals.reduce((t, v) => t + Number(v), 0) : '';
+}
+egScores.forEach(inp => inp.addEventListener('input', () => {
+  inp.value = inp.value.replace(/[^1-4]/g, '').slice(-1);
+  saved[inp.id] = inp.value;
+  persist();
+  egTotal();
+}));
+egTotal();
+
 /* ================= half-page flap (p. 46-47) ================= */
 // the flap hides the English words on one page or the other
 
@@ -406,6 +424,7 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   ticks.forEach(t => t.classList.remove('on'));
   toggles.forEach(t => t.classList.remove('on', 'ok', 'no'));
   b5Totals();
+  egTotal();
 });
 
 /* ================= home page ================= */

@@ -41,7 +41,7 @@ const CONTENTS = {
     },
     {
       title: 'Greek mythology',
-      pages: [48, 51],
+      pages: [48, 57],
       color: '#fe7366',
       image: 'img/greekstatue-p49.jpg',
     },
@@ -68,6 +68,9 @@ const CONTENTS = {
     { title: 'Greek gods', color: '#fe7366', pages: [[48, 48]] },
     { title: 'Reading: Prometheus', color: '#4aa8ec', pages: [[49, 49]] },
     { title: 'Reading: Persephone', color: '#fd7366', pages: [[50, 51]] },
+    { title: 'Drama: Persephone, the play', color: '#fd7366', pages: [[52, 55]] },
+    { title: 'Reading: Circe', color: '#f9a191', pages: [[56, 57]] },
+    { title: 'Family vocabulary', color: '#fd7366', pages: [[56, 56]] },
     { title: 'Writing a book review', color: '#3d8f3d', pages: [[16, 17]] },
   ],
 };

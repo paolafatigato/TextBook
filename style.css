@@ -1072,6 +1072,88 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .ps-list.tight li { height: 3.37cqw; line-height: 3.37cqw; }
 .ps-list input.fill.blank { width: 8.5cqw; height: 2.4cqw; font-size: 1.9cqw; }
 
+/* ---------- p. 52-53: Persephone, the play ---------- */
+.play { z-index: 1; padding: 1.4cqw 2cqw 1.4cqw 1.8cqw; background: linear-gradient(90deg, #fbebd9, #fffaf4 80%, rgba(255,255,255,0)); font: 400 1.75cqw/1.45 'Nunito', sans-serif; color: #444; }
+.play p { position: relative; margin: 0 0 2.2cqw; }
+.play p:last-child { margin-bottom: 0; }
+.play b { font-weight: 800; color: #222; }
+.play i { color: #9a98a8; }
+.play p::before { content: ""; position: absolute; left: -1.8cqw; top: -.4cqw; width: 1.5cqw; height: 3.4cqw; }
+.play .who-persephone::before { background: #fd7366; }
+.play .who-demeter::before { background: #fdf57a; }
+.play .who-hades::before { background: #253040; }
+.play .who-zeus::before { background: #4aa8ec; }
+.play.flip { transform: rotate(180deg); }
+/* the Underworld scene: wide coloured bands behind the names */
+.play.bands { overflow: hidden; padding-left: 19.7cqw; }
+.play.bands p::before { display: none; }
+.play.bands b { position: relative; padding: .2cqw .6cqw .2cqw 0; }
+.play.bands b::before { content: ""; position: absolute; top: 0; bottom: 0; right: 100%; width: 22cqw; background: inherit; }
+.play.bands .who-persephone b { background: #fd7366; }
+.play.bands .who-hades b { background: #fff; }
+.play.plain { background: none; padding: 0; }
+.play.plain p::before { display: none; }
+.play.plain p { margin-bottom: 1.9cqw; }
+.play b.hl { position: relative; background: #fdf57a; padding: .3cqw .4cqw .3cqw 0; }
+.play b.hl::before { content: ""; position: absolute; top: 0; bottom: 0; right: 100%; width: 3.3cqw; background: #fdf57a; }
+.play-art { position: absolute; left: 41.22%; top: 13.8%; width: 17.9%; height: 78.2%; object-fit: contain; }
+
+/* ---------- p. 54-55: acting tips, evaluation grid ---------- */
+.page.at-page { background: #fef1ef; }
+.at-title { font: 500 34px/1 'Quicksand', 'Nunito', sans-serif; fill: #f9a191; letter-spacing: 8px; }
+.pk-num { font: 700 1.2cqw/1 'Nunito', sans-serif; color: #fff; background: #fdd9d3; border-radius: 999px; padding: .6cqw 1.4cqw; }
+.pk-num.beige { background: #fde8d4; color: #f4927f; }
+.at-char { font: 800 2.1cqw/1 'Nunito', sans-serif; color: #fd7366; z-index: 2; }
+.tips { list-style: none; margin: 0; padding: 0; z-index: 1; font: 400 1.75cqw/1.42 'Nunito', sans-serif; color: #555; }
+.tips li { display: grid; grid-template-columns: 1fr 26.6cqw; column-gap: 1cqw; align-items: end; min-height: 8.7cqw; }
+.tips li > div { align-self: start; }
+.tips b { font-weight: 800; color: #222; }
+.tips input.fill, .tips .tips-ex { height: 3.4cqw; border-bottom: .14cqw solid #b9b6d3; margin-bottom: 2.2cqw; }
+.tips .tips-ex { display: flex; align-items: flex-end; padding-left: 1.4cqw; font: 500 2.6cqw/1 'Caveat', cursive; color: #555; }
+.tips.costumes li { min-height: 8.7cqw; }
+.eg-title { margin: 0; font: 700 6cqw/1 'Quicksand', 'Nunito', sans-serif; color: #f9a191; letter-spacing: .01em; }
+.eg-box { background: #fef0ee; }
+.eg-head { margin: 0; height: 5.4cqw; padding-left: 2.8cqw; background: #fff; font: 700 2.6cqw/5.4cqw 'Fredoka', 'Nunito', sans-serif; }
+.eg-head.eg-perf { color: #c97df6; } .eg-head.eg-pron { color: #4aa8ec; } .eg-head.eg-crea { color: #d6e65a; } .eg-head.eg-video { color: #fbc3b8; }
+.eg-list { list-style: none; margin: 0; padding: 0; counter-reset: eg; font: 400 1.65cqw/1 'Nunito', sans-serif; color: #555; }
+.eg-list li { counter-increment: eg; display: flex; align-items: center; gap: 2.4cqw; height: 4.8cqw; }
+.eg-list li::before { content: counter(eg); flex: 0 0 3.5cqw; height: 3.5cqw; border-radius: 50%; display: grid; place-items: center; font: 700 2cqw/1 'Fredoka', 'Nunito', sans-serif; color: #fff; }
+.eg-list.eg-perf li::before { background: #8e3bc9; } .eg-list.eg-pron li::before { background: #2a5a8a; } .eg-list.eg-crea li::before { background: #3d8f3d; } .eg-list.eg-video li::before { background: #f9a191; }
+.eg-brace { font: 300 11cqw/1 'Quicksand', 'Nunito', sans-serif; color: #f9a191; }
+.eg-score { display: flex; align-items: flex-end; justify-content: space-around; padding: 0 6cqw 2cqw 2cqw; background: #fff; }
+.eg-score label { display: flex; flex-direction: column; align-items: center; }
+.eg-arc { width: 12cqw; height: 4.4cqw; overflow: visible; }
+.eg-arc text { font: 700 4.6px/1 'Fredoka', 'Nunito', sans-serif; letter-spacing: .2px; }
+input.fill.eg-n { width: 5.4cqw; height: 5.4cqw; padding: 0; border: .14cqw solid #f9b7aa; border-radius: 50%; text-align: center; font-size: 2.8cqw; }
+.eg-score > span { padding-bottom: 1.6cqw; font: 700 2.2cqw/1 'Nunito', sans-serif; color: #fd7366; }
+.eg-total { width: 5.4cqw; height: 5.4cqw; display: grid; place-items: center; font: 3cqw/1 'Patrick Hand', cursive; color: #fd7366; }
+
+/* ---------- p. 56-57: Circe ---------- */
+.circe-quote { font: 700 330px/1 'Fredoka', 'Nunito', sans-serif; fill: #fe7366; }
+.ft-box { z-index: 0; background: #fbeee0; border: .2cqw solid #fbe2d2; border-radius: 6.5cqw; }
+.ft-names text { font-family: 'Quicksand', 'Nunito', sans-serif; font-weight: 600; fill: #333; }
+.fam-bank { margin: 0; z-index: 1; font: 700 1.75cqw/1.55 'Fredoka', 'Nunito', sans-serif; color: #fd7366; word-spacing: 2.6cqw; }
+.fam-list { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 3.5cqw; counter-reset: fam; font: 500 1.9cqw/1 'Quicksand', 'Nunito', sans-serif; color: #333; }
+.fam-list li { display: flex; align-items: flex-end; height: 4.73cqw; break-inside: avoid; counter-increment: fam; white-space: nowrap; }
+.fam-list li::before { content: counter(fam) "."; flex: 0 0 3cqw; }
+.fam-list input.fill { flex: 1; height: 3.2cqw; border-bottom: .14cqw solid #b9b6d3; font-size: 2cqw; }
+.cc-line { height: .3cqw; background: #fde8d4; }
+.cc-pill { margin: 0; font: 700 1.5cqw/1 'Quicksand', 'Nunito', sans-serif; color: #b3b0c0; background: #fde8d4; border-radius: 999px; padding: .7cqw 1.4cqw; }
+.cc-pill b { color: #f4927f; margin-right: .6cqw; }
+.cc-opts .opt { display: flex; flex-direction: column; align-items: flex-start; }
+.cc-opts .opt button { height: 4.7cqw; font: 500 1.9cqw/1 'Quicksand', 'Nunito', sans-serif; color: #333; padding: 0 .6cqw; }
+.cc-refs { list-style: none; margin: 0; padding: 0; counter-reset: cr; font: 500 1.9cqw/1 'Quicksand', 'Nunito', sans-serif; color: #333; }
+.cc-refs li { display: flex; align-items: flex-end; height: 4.7cqw; counter-increment: cr; white-space: nowrap; }
+.cc-refs li::before { content: counter(cr) "."; flex: 0 0 3cqw; }
+.cc-refs input.fill { flex: 1; height: 3.2cqw; margin-left: 1cqw; border-bottom: .14cqw solid #b9b6d3; font-size: 2cqw; }
+.cc-first { color: #a5a3b8; }
+.cc-rule { height: .2cqw; background: #fbc3b8; }
+.cc-title { margin: 0; text-align: right; font: 700 4cqw/1 'Quicksand', 'Nunito', sans-serif; color: #333; }
+.cc-title small { display: block; margin-top: .6cqw; font: 700 1.6cqw/1 'Quicksand', 'Nunito', sans-serif; color: #fd7366; }
+.cc-text { z-index: 1; font: 500 2cqw/5.06cqw 'Quicksand', 'Nunito', sans-serif; color: #333; text-align: justify; }
+.cc-text p { margin: 0 0 1.7cqw; }
+.cc-float { float: left; width: 18cqw; height: 20cqw; shape-outside: polygon(0 0, 65% 0, 65% 27%, 100% 27%, 100% 100%, 0 100%); }
+
 /* ---------- home page ---------- */
 .home-btn {
   font: 700 14px 'Nunito', sans-serif; color: #444; text-decoration: none;
