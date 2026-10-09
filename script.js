@@ -130,7 +130,7 @@ document.querySelectorAll('.check[data-list]').forEach(btn => {
 /* ================= connect the words ================= */
 // Click a word, then its meaning (or the other way round) to draw a line.
 // Click a connected item again to remove its line.
-// Three columns (p. 48): a .match-set holds the lists and two .match layers,
+// Three columns (p. 54): a .match-set holds the lists and two .match layers,
 // each one says which buttons it connects (data-words / data-defs).
 
 const matches = [...document.querySelectorAll('.match')].map(box => {
@@ -374,7 +374,7 @@ document.querySelectorAll('.b5-score').forEach(inp => inp.addEventListener('inpu
 }));
 b5Totals();
 
-/* ================= evaluation grid (p. 55) ================= */
+/* ================= evaluation grid (p. 61) ================= */
 // performance + pronunciation + creativity = total
 
 const egScores = [...document.querySelectorAll('.eg-n')];
@@ -392,12 +392,229 @@ egScores.forEach(inp => inp.addEventListener('input', () => {
 }));
 egTotal();
 
-/* ================= half-page flap (p. 46-47) ================= */
+/* ================= half-page flap (p. 52-53) ================= */
 // the flap hides the English words on one page or the other
 
 document.querySelectorAll('.flap').forEach(flap => flap.addEventListener('click', () => {
   flap.closest('.spread').classList.toggle('flap-left');
 }));
+
+/* ================= detective games (pp. 42-47) ================= */
+
+// Text without spaces: click a letter to put a slash after it (click again to take it away).
+// data-words holds the real words; the correct slashes are the ends of the words.
+const slashables = [...document.querySelectorAll('.slashable')].map(box => {
+  const words = box.dataset.words.split(' ');
+  const text = words.join('');
+  const right = new Set();
+  let end = -1;
+  words.slice(0, -1).forEach(w => { end += w.length; right.add(end); });
+  let cuts = new Set();
+  try { cuts = new Set(JSON.parse(saved[box.id] || '[]')); } catch { cuts = new Set(); }
+  const score = document.getElementById(box.id + '-score');
+
+  const letters = [...text].map((c, i) => {
+    const s = document.createElement('span');
+    s.className = 'ch';
+    s.textContent = c;
+    if (i < text.length - 1) s.addEventListener('click', () => {
+      cuts.has(i) ? cuts.delete(i) : cuts.add(i);
+      saved[box.id] = JSON.stringify([...cuts]);
+      persist();
+      paint();
+    });
+    return s;
+  });
+  box.append(...letters);
+
+  function paint(checked) {
+    letters.forEach((s, i) => {
+      s.classList.toggle('cut', cuts.has(i));
+      s.classList.remove('ok', 'no');
+      if (checked && cuts.has(i)) s.classList.add(right.has(i) ? 'ok' : 'no');
+    });
+    if (!score) return;
+    score.classList.toggle('done', !!checked);
+    if (!checked) { score.textContent = ''; return; }
+    const good = [...cuts].filter(i => right.has(i)).length;
+    const bad = cuts.size - good;
+    score.textContent = `${good} / ${right.size} slashes in the right place` + (bad ? ` · ${bad} in the wrong place` : '') + (good === right.size && !bad ? ' 🎉' : '');
+  }
+  paint();
+  return { box, paint, reset() { cuts = new Set(); paint(); } };
+});
+
+document.querySelectorAll('.check[data-slash]').forEach(btn => btn.addEventListener('click', () => {
+  slashables.find(s => s.box.id === btn.dataset.slash)?.paint(true);
+}));
+
+// Drawing areas: pick a colour, draw with the mouse or a finger. The drawing is saved in this browser.
+const drawings = [...document.querySelectorAll('.pd-draw')].map(wrap => {
+  const canvas = wrap.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  let colour = '#222';
+  let last = null;
+  ctx.lineCap = ctx.lineJoin = 'round';
+
+  if (saved[wrap.id]) {
+    const img = new Image();
+    img.onload = () => ctx.drawImage(img, 0, 0);
+    img.src = saved[wrap.id];
+  }
+
+  const at = e => {
+    const r = canvas.getBoundingClientRect();
+    return [(e.clientX - r.left) * canvas.width / r.width, (e.clientY - r.top) * canvas.height / r.height];
+  };
+  const line = (a, b) => {
+    ctx.globalCompositeOperation = colour === 'erase' ? 'destination-out' : 'source-over';
+    ctx.strokeStyle = colour === 'erase' ? '#000' : colour;
+    ctx.lineWidth = colour === 'erase' ? 36 : 5;
+    ctx.beginPath(); ctx.moveTo(...a); ctx.lineTo(...b); ctx.stroke();
+  };
+  canvas.addEventListener('pointerdown', e => {
+    canvas.setPointerCapture(e.pointerId);
+    last = at(e);
+    line(last, [last[0] + .01, last[1]]);
+  });
+  canvas.addEventListener('pointermove', e => {
+    if (!last) return;
+    const p = at(e);
+    line(last, p);
+    last = p;
+  });
+  const stop = () => {
+    if (!last) return;
+    last = null;
+    saved[wrap.id] = canvas.toDataURL('image/webp', .85);
+    persist();
+  };
+  canvas.addEventListener('pointerup', stop);
+  canvas.addEventListener('pointercancel', stop);
+
+  wrap.querySelectorAll('.pd-sw').forEach(b => b.addEventListener('click', () => {
+    colour = b.dataset.c;
+    wrap.querySelectorAll('.pd-sw').forEach(o => o.classList.toggle('on', o === b));
+  }));
+  // "Add a photo": the picture is drawn in the same box, so it can be drawn over or rubbed out
+  const fileInput = wrap.querySelector('input[type=file]');
+  wrap.querySelector('.pd-photo-btn')?.addEventListener('click', () => fileInput.click());
+  fileInput?.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    fileInput.value = '';
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      const k = Math.max(canvas.width / img.width, canvas.height / img.height);
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, (canvas.width - img.width * k) / 2, (canvas.height - img.height * k) / 2, img.width * k, img.height * k);
+      URL.revokeObjectURL(url);
+      saved[wrap.id] = canvas.toDataURL('image/webp', .85);
+      persist();
+    };
+    img.src = url;
+  });
+  const reset = () => { ctx.globalCompositeOperation = 'source-over'; ctx.clearRect(0, 0, canvas.width, canvas.height); };
+  wrap.querySelector('.pd-clear').addEventListener('click', () => {
+    if (!confirm('Clear this drawing?')) return;
+    reset();
+    saved[wrap.id] = '';
+    persist();
+  });
+  return { reset };
+});
+
+// Sorting exercise: type a number and the sentence jumps there; drag a sentence and the numbers follow.
+// A number stays light grey until the student types it.
+const sorts = [...document.querySelectorAll('.pd-sort')].map(list => {
+  const items = [...list.children];
+  const byKey = k => items.find(li => li.dataset.k === k);
+  const start = () => ({ order: items.map(li => li.dataset.k), set: [] });
+  let st = start();
+  try {
+    const sv = JSON.parse(saved[list.id] || 'null');
+    if (sv && sv.order?.length === items.length && sv.order.every(k => byKey(k))) st = sv;
+  } catch { st = start(); }
+
+  function paint(checked) {
+    st.order.forEach(k => list.append(byKey(k)));
+    [...list.children].forEach((li, i) => {
+      const n = li.querySelector('.pd-num');
+      if (document.activeElement !== n || n.value === '') n.value = i + 1;
+      n.classList.toggle('set', st.set.includes(li.dataset.k));
+      li.classList.remove('ok', 'no');
+    });
+    if (!checked) return;
+    // two orders are accepted: use the one that fits better
+    const rows = [...list.children];
+    const hits = key => rows.filter((li, i) => Number(li.dataset[key]) === i + 1).length;
+    const key = hits('alt') > hits('answer') ? 'alt' : 'answer';
+    rows.forEach((li, i) => li.classList.add(Number(li.dataset[key]) === i + 1 ? 'ok' : 'no'));
+  }
+  const save = () => { saved[list.id] = JSON.stringify(st); persist(); };
+  const move = (k, to) => { st.order = st.order.filter(x => x !== k); st.order.splice(to, 0, k); };
+
+  items.forEach(li => {
+    const k = li.dataset.k;
+    const num = li.querySelector('.pd-num');
+    num.addEventListener('focus', () => num.select());
+    num.addEventListener('input', () => {
+      const v = Number(num.value.replace(/[^1-8]/g, '').slice(-1));
+      if (!v || v > items.length) { num.value = ''; return; }
+      if (!st.set.includes(k)) st.set.push(k);
+      move(k, v - 1);
+      save();
+      num.value = v;
+      paint();
+      const again = byKey(k).querySelector('.pd-num');
+      again.focus();
+    });
+    num.addEventListener('blur', () => paint());
+
+    li.querySelector('.grip').addEventListener('pointerdown', e => {
+      e.preventDefault();
+      li.classList.add('drag');
+      const rowH = li.getBoundingClientRect().height;
+      const onMove = ev => {
+        const top = list.getBoundingClientRect().top;
+        const to = Math.max(0, Math.min(items.length - 1, Math.floor((ev.clientY - top) / rowH)));
+        if (st.order.indexOf(k) !== to) { move(k, to); paint(); }
+      };
+      const onUp = () => {
+        document.removeEventListener('pointermove', onMove);
+        document.removeEventListener('pointerup', onUp);
+        document.removeEventListener('pointercancel', onUp);
+        li.classList.remove('drag');
+        save();
+      };
+      document.addEventListener('pointermove', onMove);
+      document.addEventListener('pointerup', onUp);
+      document.addEventListener('pointercancel', onUp);
+    });
+  });
+  paint();
+  return { id: list.id, paint, reset() { st = start(); paint(); } };
+});
+document.querySelectorAll('.check[data-order]').forEach(btn => btn.addEventListener('click', () => {
+  sorts.find(x => x.id === btn.dataset.order)?.paint(true);
+}));
+
+// Evidence table: click a cell to cycle  empty → ✓ → ✗
+const marks = [...document.querySelectorAll('.pd-mark')];
+const paintMark = m => {
+  m.classList.toggle('yes', saved[m.id] === 'y');
+  m.classList.toggle('nope', saved[m.id] === 'n');
+};
+marks.forEach(m => {
+  paintMark(m);
+  m.addEventListener('click', () => {
+    saved[m.id] = { '': 'y', y: 'n', n: '' }[saved[m.id] || ''];
+    persist();
+    paintMark(m);
+  });
+});
 
 /* ================= toolbar ================= */
 
@@ -417,6 +634,10 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   toggles.forEach(t => t.classList.remove('on', 'ok', 'no'));
   b5Totals();
   egTotal();
+  slashables.forEach(sl => sl.reset());
+  sorts.forEach(so => so.reset());
+  drawings.forEach(d => d.reset());
+  marks.forEach(paintMark);
 });
 
 /* ================= home page ================= */
