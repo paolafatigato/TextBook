@@ -2087,10 +2087,407 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="50-51" data-title="Describing people" data-name="Personality: the Big 5">
+  <div class="spread" data-pages="50-51" data-title="Literature · Metaphors" data-name="What is a metaphor? · Rule 1">
 
     <!-- ============ PAGE 50 ============ -->
     <section class="page page-left" aria-label="Page 50">
+      <div class="lt-pill abs" style="--x:6;--y:5">📖 Literature</div>
+      <h1 class="mt-title abs" style="--x:6;--y:9">Metaphors</h1>
+
+      <!-- butterflies in the stomach, as in the first slide -->
+      <svg class="mt-bflies abs" style="--x:60;--y:3;--w:36" viewBox="0 0 340 300" aria-hidden="true">
+        <defs><symbol id="mt-bfly" viewBox="0 0 40 32"><path d="M20 16C14 2 2 0 3 9c1 5 6 7 12 7-6 1-10 5-8 10 3 6 10 0 13-9 3 9 10 15 13 9 2-5-2-9-8-10 6 0 11-2 12-7 1-9-11-7-17 7z"/><path d="M20 9v17" stroke="#555" stroke-width="1.6"/></symbol></defs>
+        <g fill="none" stroke-width="4" stroke-dasharray="12 9" stroke-linecap="round">
+          <path d="M40 260c40-70 120-20 150-80s-40-110 20-140 100 30 110 60" stroke="#c08be8"/>
+          <path d="M20 160c50 10 70-40 120-30s40 80 100 70" stroke="#f7836d"/>
+        </g>
+        <use href="#mt-bfly" x="70" y="40" width="70" height="56" fill="#f05f4b" transform="rotate(-18 105 68)"/>
+        <use href="#mt-bfly" x="190" y="120" width="80" height="64" fill="#c08be8" transform="rotate(14 230 152)"/>
+        <use href="#mt-bfly" x="40" y="170" width="60" height="48" fill="#4aa8ec" transform="rotate(10 70 194)"/>
+        <use href="#mt-bfly" x="230" y="20" width="56" height="45" fill="#c9de3c" transform="rotate(-8 258 42)"/>
+        <use href="#mt-bfly" x="150" y="220" width="58" height="46" fill="#f6a978" transform="rotate(-20 179 243)"/>
+      </svg>
+
+      <p class="mt-def abs" style="--x:6;--y:21;--w:56">A figure of speech that describes an object by <b>comparing</b> it to another object with similar characteristics.</p>
+      <p class="mt-note abs" style="--x:6;--y:37;--w:88">“I have <b>butterflies in my stomach</b>” = I feel nervous and excited. There are no real butterflies inside me! 🦋</p>
+
+      <div class="mt-formula abs" style="--x:6;--y:44;--w:88">
+        <p><span class="mt-box a"><small>A · the real thing</small>Your smile</span><b>IS</b><span class="mt-box b"><small>B · the image</small>sunshine</span></p>
+        <p class="mt-common">What do they have in common? <i>bright · warm · they make people happy</i></p>
+      </div>
+
+      <div class="mt-vs abs" style="--x:6;--y:63;--w:88">
+        <p><b>METAPHOR</b> one thing <u>IS</u> another<i>Your lips are cherries. 🍒</i></p>
+        <p><b>SIMILE</b> one thing is <u>LIKE</u> another (like / as)<i>You are sly as a fox. 🦊</i></p>
+      </div>
+
+      <h2 class="mt-h2 abs" style="--x:6;--y:79">The 4 rules of metaphors</h2>
+      <ol class="mt-map abs" style="--x:6;--y:85;--w:88">
+        <li class="mt-r1"><a href="#p51"><b>1</b><span>NOT to be taken literally</span><small>p. 51</small></a></li>
+        <li class="mt-r2"><a href="#p53"><b>2</b><span>They CANNOT be reversed</span><small>p. 53</small></a></li>
+        <li class="mt-r3"><a href="#p54"><b>3</b><span>We can’t help but consider the literal meaning</span><small>p. 54</small></a></li>
+        <li class="mt-r4"><a href="#p55"><b>4</b><span>We can’t ignore the metaphorical meaning either</span><small>p. 55</small></a></li>
+      </ol>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">50</span>
+    </section>
+
+    <!-- ============ PAGE 51 ============ -->
+    <section class="page page-right mt-r1" aria-label="Page 51">
+      <div class="mt-band" aria-hidden="true"></div>
+      <div class="mt-rulehead abs" style="--x:6;--y:4;--w:62"><span>RULE 1</span><h1>NOT to be taken literally</h1></div>
+      <svg class="mt-rain abs" style="--x:70;--y:2;--w:26" viewBox="0 0 200 200" aria-hidden="true"><image href="img/metaphors-p50.svg" width="200" height="200"/></svg>
+      <p class="mt-text abs" style="--x:6;--y:15;--w:62">“It’s raining <b>cats and dogs</b>!” = It’s raining very, very hard. No animals are falling from the sky! A metaphor is an <b>image</b>, not a fact.</p>
+
+      <div class="lt-pill pink abs" style="--x:6;--y:30"><b>1.1</b> Literal or metaphor? Choose!</div>
+      <button class="check abs" type="button" style="--x:82;--y:30" data-tf="mt-lit">✓ Check</button>
+      <ol class="mt-opts abs" id="mt-lit" style="--x:6;--y:35;--w:88">
+        <li><span>My brother is a couch potato.</span><span class="opt" id="mt-lit-1" data-answer="metaphor"><button type="button">literal</button><button type="button">metaphor</button></span></li>
+        <li><span>My brother is lying on the couch.</span><span class="opt" id="mt-lit-2" data-answer="literal"><button type="button">literal</button><button type="button">metaphor</button></span></li>
+        <li><span>The classroom was a zoo this morning.</span><span class="opt" id="mt-lit-3" data-answer="metaphor"><button type="button">literal</button><button type="button">metaphor</button></span></li>
+        <li><span>We saw two lions at the zoo.</span><span class="opt" id="mt-lit-4" data-answer="literal"><button type="button">literal</button><button type="button">metaphor</button></span></li>
+        <li><span>Her words were daggers.</span><span class="opt" id="mt-lit-5" data-answer="metaphor"><button type="button">literal</button><button type="button">metaphor</button></span></li>
+        <li><span>She cut the bread with a knife.</span><span class="opt" id="mt-lit-6" data-answer="literal"><button type="button">literal</button><button type="button">metaphor</button></span></li>
+        <li><span>Life is a rollercoaster.</span><span class="opt" id="mt-lit-7" data-answer="metaphor"><button type="button">literal</button><button type="button">metaphor</button></span></li>
+        <li><span>We rode a rollercoaster at the fair.</span><span class="opt" id="mt-lit-8" data-answer="literal"><button type="button">literal</button><button type="button">metaphor</button></span></li>
+      </ol>
+
+      <div class="lt-pill pink abs" style="--x:6;--y:72"><b>1.2</b> Everyday metaphors: match each idiom to its meaning</div>
+      <button class="check abs" type="button" style="--x:82;--y:72" data-match="mt-idioms">✓ Check</button>
+      <p class="pd-intro abs" style="--x:6;--y:77;--w:88"><b>Idioms</b> are metaphors that everybody uses. Look at the example!</p>
+      <div class="match mt-idioms abs" id="mt-idioms" data-example="1-0" style="--x:6;--y:82">
+        <ul class="match-words">
+          <li><button type="button" data-key="topic">The elephant in the room</button></li>
+          <li><button type="button" data-key="unc">A fish out of water</button></li>
+          <li><button type="button" data-key="find">A needle in a haystack</button></li>
+          <li><button type="button" data-key="anger">A storm in a teacup</button></li>
+          <li><button type="button" data-key="fault">The pot calling the kettle black</button></li>
+          <li><button type="button" data-key="wolf">A wolf in sheep’s clothing</button></li>
+        </ul>
+        <ul class="match-defs">
+          <li><button type="button" data-key="unc">uncomfortable</button></li>
+          <li><button type="button" data-key="find">something hard to find</button></li>
+          <li><button type="button" data-key="topic">a difficult topic nobody talks about</button></li>
+          <li><button type="button" data-key="fault">accusing someone of the same fault you have</button></li>
+          <li><button type="button" data-key="wolf">someone who seems harmless but is dangerous</button></li>
+          <li><button type="button" data-key="anger">a lot of anger about something small</button></li>
+        </ul>
+        <svg class="match-lines" aria-hidden="true"></svg>
+      </div>
+      <p class="mt-remember abs" style="--x:6;--y:118;--w:88"><b>Every language has its own metaphors!</b> In Italian it doesn’t rain cats and dogs: it rains <i>a catinelle</i> (basins!). Find more on p. 52.</p>
+      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Literature · Metaphors</span>
+    </section>
+  </div>
+
+  <div class="spread" data-pages="52-53" data-title="Literature · Metaphors" data-name="Rule 1: in your language · Rule 2">
+
+    <!-- ============ PAGE 52 ============ -->
+    <section class="page page-left mt-r1" aria-label="Page 52">
+      <div class="lt-pill pink abs" style="--x:6;--y:5"><b>1.3</b> Metaphors in YOUR language</div>
+      <p class="pd-intro abs" style="--x:6;--y:10;--w:88">Think of Italian expressions that must <b>not</b> be taken literally. Translate them word for word: what would an English person imagine? What do they really mean?</p>
+      <div class="mt-table abs" style="--x:6;--y:18;--w:88">
+        <p class="mt-head"><span>In Italian</span><span>Word for word in English</span><span>What it really means</span></p>
+        <p><span class="ink">Sei un coniglio!</span><span class="ink">You are a rabbit!</span><span class="ink">You are a coward. (English: chicken!)</span></p>
+        <p><input class="fill" id="mt-it-1a" autocomplete="off" aria-label="Italian expression 1"><input class="fill" id="mt-it-1b" autocomplete="off" aria-label="Expression 1 word for word"><input class="fill" id="mt-it-1c" autocomplete="off" aria-label="Expression 1 meaning"></p>
+        <p><input class="fill" id="mt-it-2a" autocomplete="off" aria-label="Italian expression 2"><input class="fill" id="mt-it-2b" autocomplete="off" aria-label="Expression 2 word for word"><input class="fill" id="mt-it-2c" autocomplete="off" aria-label="Expression 2 meaning"></p>
+        <p><input class="fill" id="mt-it-3a" autocomplete="off" aria-label="Italian expression 3"><input class="fill" id="mt-it-3b" autocomplete="off" aria-label="Expression 3 word for word"><input class="fill" id="mt-it-3c" autocomplete="off" aria-label="Expression 3 meaning"></p>
+        <p><input class="fill" id="mt-it-4a" autocomplete="off" aria-label="Italian expression 4"><input class="fill" id="mt-it-4b" autocomplete="off" aria-label="Expression 4 word for word"><input class="fill" id="mt-it-4c" autocomplete="off" aria-label="Expression 4 meaning"></p>
+      </div>
+      <p class="mt-ideas abs" style="--x:6;--y:46;--w:88">💡 Ideas: <i>costare un occhio della testa · avere la testa tra le nuvole · essere un pezzo di pane · piovere a catinelle · prendere due piccioni con una fava</i></p>
+
+      <div class="lt-pill pink abs" style="--x:6;--y:53"><b>1.4</b> Draw a metaphor as if it were literal!</div>
+      <p class="pd-intro abs" style="--x:6;--y:58;--w:88">Choose a metaphor (English or Italian) and draw it as if it were <b>TRUE</b>: an elephant in the classroom, a fish on the sofa, a sky full of cats and dogs…</p>
+      <p class="mt-line abs" style="--x:6;--y:65;--w:88"><span>My metaphor:</span><input class="fill" id="mt-draw-title" autocomplete="off" aria-label="The metaphor I draw"></p>
+      <div class="pd-draw mt-draw abs" id="mt-lit-draw" data-photo="1" style="--x:6;--y:71;--w:76">
+        <canvas width="800" height="600" aria-label="Drawing of a metaphor taken literally"></canvas>
+        <div class="pd-tools">
+          <button type="button" class="pd-photo-btn">📷 Add a photo</button>
+          <button type="button" class="pd-sw on" data-c="#222" style="--c:#222" aria-label="Black"></button>
+          <button type="button" class="pd-sw" data-c="#e53935" style="--c:#e53935" aria-label="Red"></button>
+          <button type="button" class="pd-sw" data-c="#8d5524" style="--c:#8d5524" aria-label="Brown"></button>
+          <button type="button" class="pd-sw" data-c="#1e88e5" style="--c:#1e88e5" aria-label="Blue"></button>
+          <button type="button" class="pd-sw" data-c="#43a047" style="--c:#43a047" aria-label="Green"></button>
+          <button type="button" class="pd-sw" data-c="#fdd835" style="--c:#fdd835" aria-label="Yellow"></button>
+          <button type="button" class="pd-sw rub" data-c="erase" aria-label="Rubber">⌫</button>
+          <button type="button" class="pd-clear">Clear</button>
+          <input type="file" accept="image/*" hidden>
+        </div>
+      </div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">52</span>
+    </section>
+
+    <!-- ============ PAGE 53 ============ -->
+    <section class="page page-right mt-r2" aria-label="Page 53">
+      <div class="mt-band" aria-hidden="true"></div>
+      <div class="mt-rulehead abs" style="--x:6;--y:4;--w:88"><span>RULE 2</span><h1>Metaphors CANNOT be reversed</h1></div>
+      <div class="mt-rev abs" style="--x:6;--y:15;--w:88">
+        <p><span class="mt-ok">✓</span> Time is a thief. <i>(time “steals” our days)</i> <span class="mt-arrow">→</span> <span class="mt-x">✗ Thieves are time.</span></p>
+        <p><span class="mt-ok">✓</span> It’s raining cats and dogs. <span class="mt-arrow">→</span> <span class="mt-x">✗ My drop of rain, Fluffy, enjoys playing fetch.</span> 🐕</p>
+        <p class="mt-why-small">A metaphor goes from something <b>real</b> (A) to an <b>image</b> (B). If you swap them, the image disappears and the sentence becomes nonsense.</p>
+      </div>
+
+      <div class="lt-pill abs" style="--x:6;--y:34"><b>2.1</b> Find A, B and what they have in common</div>
+      <div class="mt-table four abs" style="--x:6;--y:39;--w:88">
+        <p class="mt-head"><span>Metaphor</span><span>A · real thing</span><span>B · image</span><span>In common</span></p>
+        <p><span>Time is a thief.</span><span class="ink">time</span><span class="ink">a thief</span><span class="ink">they take things away</span></p>
+        <p><span>My teacher is a walking dictionary.</span><input class="fill" id="mt-ab-1a" autocomplete="off" aria-label="1: A"><input class="fill" id="mt-ab-1b" autocomplete="off" aria-label="1: B"><input class="fill" id="mt-ab-1c" autocomplete="off" aria-label="1: in common"></p>
+        <p><span>All the world’s a stage. <small>(Shakespeare)</small></span><input class="fill" id="mt-ab-2a" autocomplete="off" aria-label="2: A"><input class="fill" id="mt-ab-2b" autocomplete="off" aria-label="2: B"><input class="fill" id="mt-ab-2c" autocomplete="off" aria-label="2: in common"></p>
+        <p><span>Her heart is a stone.</span><input class="fill" id="mt-ab-3a" autocomplete="off" aria-label="3: A"><input class="fill" id="mt-ab-3b" autocomplete="off" aria-label="3: B"><input class="fill" id="mt-ab-3c" autocomplete="off" aria-label="3: in common"></p>
+      </div>
+
+      <div class="lt-pill abs" style="--x:6;--y:64"><b>2.2</b> Reverse it! Why does it sound strange?</div>
+      <ol class="mt-q abs" style="--x:6;--y:69;--w:88">
+        <li><i>e.g.</i><span>The classroom is a zoo. → <b>The zoo is a classroom.</b></span><span class="ink mt-ink">The animals don’t study! The image of chaos is gone.</span></li>
+        <li><i>1.</i><span>Her eyes are stars. → <input class="fill mt-inline" id="mt-rev-1a" autocomplete="off" aria-label="Reversed metaphor 1"></span><input class="fill" id="mt-rev-1" placeholder="Why does it sound strange?" autocomplete="off" aria-label="Why 1"></li>
+        <li><i>2.</i><span>My brother is a couch potato. → <input class="fill mt-inline" id="mt-rev-2a" autocomplete="off" aria-label="Reversed metaphor 2"></span><input class="fill" id="mt-rev-2" placeholder="Why does it sound strange?" autocomplete="off" aria-label="Why 2"></li>
+      </ol>
+
+      <div class="lt-pill abs" style="--x:6;--y:89"><b>2.3</b> Imagine a reversed metaphor and try to explain it</div>
+      <p class="pd-intro abs" style="--x:6;--y:94;--w:88">Take a metaphor, swap A and B, then invent a story where the reversed sentence makes sense! Can a friend guess the original metaphor?</p>
+      <p class="mt-line abs" style="--x:6;--y:101;--w:88"><span>Original:</span><input class="fill" id="mt-inv-orig" autocomplete="off" aria-label="Original metaphor"></p>
+      <p class="mt-line abs" style="--x:6;--y:106;--w:88"><span>Reversed:</span><input class="fill" id="mt-inv-rev" autocomplete="off" aria-label="Reversed metaphor"></p>
+      <textarea class="fill mt-lines abs" id="mt-inv-story" style="--x:6;--y:112;--w:88;--h:20" placeholder="My explanation / my story…" aria-label="Explanation of the reversed metaphor"></textarea>
+      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Literature · Metaphors</span>
+    </section>
+  </div>
+
+  <div class="spread" data-pages="54-55" data-title="Literature · Metaphors" data-name="Rule 3: the Stroop test · Rule 4">
+
+    <!-- ============ PAGE 54 ============ -->
+    <section class="page page-left mt-r3" aria-label="Page 54">
+      <div class="mt-band" aria-hidden="true"></div>
+      <div class="mt-rulehead abs" style="--x:6;--y:4;--w:88"><span>RULE 3</span><h1>We can’t help but consider the literal meaning</h1></div>
+      <p class="mt-text abs" style="--x:6;--y:20;--w:88">When we read a word, its literal meaning arrives <b>first and automatically</b>. Try the <b>Stroop test</b>: don’t read the words, say the <b>COLOUR of the ink</b> out loud, as fast as you can!</p>
+
+      <div class="mt-stroop abs" style="--x:4;--y:28;--w:92" aria-label="Colour words written in different colours">
+        <span style="--c:#1e5bd8">blue</span><span style="--c:#f08a00">orange</span><span style="--c:#2e9e3a">green</span><span style="--c:#e53935">red</span><span style="--c:#a62bc9">purple</span>
+        <span style="--c:#1e5bd8">red</span><span style="--c:#2e9e3a">purple</span><span style="--c:#e53935">blue</span><span style="--c:#a62bc9">orange</span><span style="--c:#f08a00">green</span>
+        <span style="--c:#a62bc9">green</span><span style="--c:#f08a00">red</span><span style="--c:#e53935">purple</span><span style="--c:#1e5bd8">blue</span><span style="--c:#2e9e3a">orange</span>
+        <span style="--c:#e53935">red</span><span style="--c:#1e5bd8">blue</span><span style="--c:#2e9e3a">green</span><span style="--c:#f08a00">orange</span><span style="--c:#a62bc9">purple</span>
+      </div>
+
+      <div class="lt-pill abs" style="--x:6;--y:63"><b>3.1</b> Time yourself with a friend</div>
+      <div class="mt-rounds abs" style="--x:6;--y:68;--w:88">
+        <p><b>Round 1</b> READ the words <button type="button" class="mt-timer" data-for="mt-st-1">⏱ Start</button><input class="fill" id="mt-st-1" autocomplete="off" aria-label="Round 1: seconds"><span>seconds</span></p>
+        <p><b>Round 2</b> say the INK colours <button type="button" class="mt-timer" data-for="mt-st-2">⏱ Start</button><input class="fill" id="mt-st-2" autocomplete="off" aria-label="Round 2: seconds"><span>seconds</span></p>
+      </div>
+
+      <div class="lt-pill abs" style="--x:6;--y:81"><b>3.2</b> Play the Stroop game</div>
+      <button type="button" class="mt-play abs" data-game="stroop" style="--x:6;--y:86">▶ Play the Stroop game</button>
+      <p class="mt-rounds mt-res abs" style="--x:40;--y:85.4;--w:54"><span>Level 1</span><input class="fill" id="mt-game-1" autocomplete="off" aria-label="Game level 1 result"><span>Level 2</span><input class="fill" id="mt-game-2" autocomplete="off" aria-label="Game level 2 result"></p>
+
+      <p class="mt-why abs" style="--x:6;--y:93;--w:88">Round 2 is harder because your brain reads the word “red” even when the ink is blue: <b>we can’t help but consider the literal meaning of words.</b> <small>The Stroop effect: John Ridley Stroop, 1935.</small></p>
+
+      <div class="lt-pill abs" style="--x:6;--y:105"><b>3.3</b> What picture does your brain see FIRST?</div>
+      <div class="mt-table three abs" style="--x:6;--y:110;--w:88">
+        <p class="mt-head"><span>Metaphor</span><span>The literal picture</span><span>The real meaning</span></p>
+        <p><span>She has a heart of gold.</span><span class="ink">a heart made of gold</span><span class="ink">she is very kind</span></p>
+        <p><span>He has his head in the clouds.</span><input class="fill" id="mt-pic-1a" autocomplete="off" aria-label="Head in the clouds: picture"><input class="fill" id="mt-pic-1b" autocomplete="off" aria-label="Head in the clouds: meaning"></p>
+        <p><span>That test was a piece of cake.</span><input class="fill" id="mt-pic-2a" autocomplete="off" aria-label="Piece of cake: picture"><input class="fill" id="mt-pic-2b" autocomplete="off" aria-label="Piece of cake: meaning"></p>
+      </div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">54</span>
+    </section>
+
+    <!-- ============ PAGE 55 ============ -->
+    <section class="page page-right mt-r4" aria-label="Page 55">
+      <div class="mt-band" aria-hidden="true"></div>
+      <div class="mt-rulehead abs" style="--x:6;--y:4;--w:88"><span>RULE 4</span><h1>But we can’t ignore the metaphorical meaning either</h1></div>
+
+      <div class="mt-exp abs" style="--x:6;--y:20;--w:88">
+        <h3>🔬 The experiment</h3>
+        <ol>
+          <li>People read sentences and say as fast as possible: is it <b>literally true</b> or <b>false</b>?</li>
+          <li>Some sentences are simply false: <i>“A cat is a car.”</i> Others are metaphors: <i>“My teacher is a dragon.”</i> Literally, they are false too!</li>
+          <li>Saying “false” to a metaphor takes <b>longer</b>: the brain understands the metaphorical meaning anyway, and it gets in the way.</li>
+          <li><b>Stroke patients</b> had much bigger difficulties recognising metaphors as not literally true.</li>
+        </ol>
+        <p class="mt-gloss">stroke = ictus · literally = alla lettera</p>
+      </div>
+
+      <div class="lt-pill abs" style="--x:6;--y:46"><b>4.1</b> Try the experiment yourself!</div>
+      <button type="button" class="mt-play abs" data-game="truth" style="--x:6;--y:51">▶ Play: literally true?</button>
+      <div class="mt-rounds abs" style="--x:40;--y:50.4;--w:54">
+        <p><span>False sentences</span><input class="fill" id="mt-tr-false" autocomplete="off" aria-label="Average time for false sentences"></p>
+        <p><span>Metaphors</span><input class="fill" id="mt-tr-meta" autocomplete="off" aria-label="Average time for metaphors"></p>
+      </div>
+
+      <div class="lt-pill abs" style="--x:6;--y:63"><b>4.2</b> Is it LITERALLY true?</div>
+      <button class="check abs" type="button" style="--x:82;--y:63" data-tf="mt-true">✓ Check</button>
+      <ol class="mt-opts abs" id="mt-true" style="--x:6;--y:68;--w:88">
+        <li><span>Our teacher is a dragon.</span><span class="opt" id="mt-true-1" data-answer="false"><button type="button">true</button><button type="button">false</button></span></li>
+        <li><span>Dragons are animals from stories.</span><span class="opt" id="mt-true-2" data-answer="true"><button type="button">true</button><button type="button">false</button></span></li>
+        <li><span>My best friend is a rock.</span><span class="opt" id="mt-true-3" data-answer="false"><button type="button">true</button><button type="button">false</button></span></li>
+        <li><span>A rock is a big, hard stone.</span><span class="opt" id="mt-true-4" data-answer="true"><button type="button">true</button><button type="button">false</button></span></li>
+        <li><span>Some jobs are jails.</span><span class="opt" id="mt-true-5" data-answer="false"><button type="button">true</button><button type="button">false</button></span></li>
+      </ol>
+
+      <div class="lt-pill abs" style="--x:6;--y:92"><b>4.3</b> Which sentences took you longer in the game? Why?</div>
+      <textarea class="fill mt-lines abs" id="mt-tr-why" style="--x:6;--y:97;--w:88;--h:34" aria-label="Which sentences took longer? Why?"></textarea>
+      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Literature · Metaphors</span>
+    </section>
+  </div>
+
+  <div class="spread" data-pages="56-57" data-title="Literature · Metaphors" data-name="Rule 4: metaphors change reality · Simile vs metaphor">
+
+    <!-- ============ PAGE 56 ============ -->
+    <section class="page page-left mt-r4" aria-label="Page 56">
+      <div class="mt-rulehead small abs" style="--x:6;--y:5;--w:88"><span>RULE 4</span><h1>Metaphors change our perception of reality!</h1></div>
+
+      <div class="mt-exp abs" style="--x:6;--y:15;--w:88">
+        <h3>🏠 Experiment 1</h3>
+        <p>People were asked to predict house prices after reading sentences like these:</p>
+        <p class="mt-sent"><span>House prices are <b>diving</b> 🤿</span><span>House prices are <b>falling</b> 🍂</span></p>
+      </div>
+      <div class="lt-pill abs" style="--x:6;--y:31"><b>4.4</b> Who predicted LOWER prices for the next day?</div>
+      <button class="check abs" type="button" style="--x:82;--y:31" data-tf="mt-pred">✓ Check</button>
+      <ol class="mt-opts abs" id="mt-pred" style="--x:6;--y:36;--w:88">
+        <li><span>The people who read…</span><span class="opt" id="mt-pred-1" data-answer="diving"><button type="button">diving</button><button type="button">falling</button></span></li>
+        <li class="mt-li-in"><span>Why?</span><input class="fill" id="mt-pred-why" autocomplete="off" aria-label="Why?"></li>
+      </ol>
+
+      <div class="mt-exp abs" style="--x:6;--y:48;--w:88">
+        <h3>🐺 Experiment 2 <small>(Thibodeau &amp; Boroditsky, 2011)</small></h3>
+        <p>Two groups read about crime in a city. For one group crime was <b>a beast</b> attacking the city. For the other group crime was <b>a virus</b> infecting the city.</p>
+      </div>
+      <div class="lt-pill abs" style="--x:6;--y:64"><b>4.5</b> Which solution did each group choose?</div>
+      <button class="check abs" type="button" style="--x:82;--y:64" data-tf="mt-crime">✓ Check</button>
+      <ol class="mt-opts wide abs" id="mt-crime" style="--x:6;--y:69;--w:88">
+        <li><span>BEAST 🐺</span><span class="opt" id="mt-crime-1" data-answer="catch and lock up criminals"><button type="button">catch and lock up criminals</button><button type="button">find the causes and prevent it</button></span></li>
+        <li><span>VIRUS 🦠</span><span class="opt" id="mt-crime-2" data-answer="find the causes and prevent it"><button type="button">catch and lock up criminals</button><button type="button">find the causes and prevent it</button></span></li>
+      </ol>
+
+      <div class="lt-pill abs" style="--x:6;--y:82"><b>4.6</b> Be a journalist! Same news, two metaphors</div>
+      <p class="pd-intro abs" style="--x:6;--y:87;--w:88">News: <b>“Our school team lost 5–0.”</b> Write a headline that makes readers worried, and one that makes them calm.</p>
+      <p class="mt-line abs" style="--x:6;--y:93;--w:88"><span>😱 Worried:</span><input class="fill" id="mt-news-1" placeholder="Our team was crushed by…" autocomplete="off" aria-label="Worried headline"></p>
+      <p class="mt-line abs" style="--x:6;--y:99;--w:88"><span>😌 Calm:</span><input class="fill" id="mt-news-2" placeholder="Our team stumbled…" autocomplete="off" aria-label="Calm headline"></p>
+
+      <div class="lt-pill abs" style="--x:6;--y:109"><b>4.7</b> Your turn! Finish the metaphor</div>
+      <p class="mt-line abs" style="--x:6;--y:114;--w:88"><span>School is</span><input class="fill" id="mt-school" autocomplete="off" aria-label="School is…"></p>
+      <p class="mt-line abs" style="--x:6;--y:120;--w:88"><span>because</span><input class="fill" id="mt-school-why" autocomplete="off" aria-label="because…"></p>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">56</span>
+    </section>
+
+    <!-- ============ PAGE 57 ============ -->
+    <section class="page page-right" aria-label="Page 57">
+      <div class="mt-circle coral abs" style="--x:8;--y:-9;--w:34" aria-hidden="true"><span>🍒</span><b>METAPHOR</b></div>
+      <div class="mt-circle lilac abs" style="--x:56;--y:-9;--w:34" aria-hidden="true"><span>🦊</span><b>SIMILE</b></div>
+      <p class="mt-cap abs" style="--x:6;--y:28;--w:42">Your lips are cherries<small>no <u>like</u> / <u>as</u>: one thing IS another</small></p>
+      <p class="mt-cap abs" style="--x:54;--y:28;--w:42">You are sly as a fox<small><u>like</u> / <u>as</u>: one thing is LIKE another</small></p>
+
+      <div class="lt-pill abs" style="--x:6;--y:37"><b>5.1</b> Complete with a metaphor (left) and a simile (right)</div>
+      <div class="mt-sm abs" style="--x:6;--y:42;--w:42">
+        <p><b>River =</b><input class="fill" id="mt-sm-river" autocomplete="off" aria-label="River equals"></p>
+        <p><b>Sky =</b><input class="fill" id="mt-sm-sky" autocomplete="off" aria-label="Sky equals"></p>
+        <p><b>Eyes =</b><input class="fill" id="mt-sm-eyes" autocomplete="off" aria-label="Eyes equals"></p>
+        <p><b>Lips =</b><input class="fill" id="mt-sm-lips" autocomplete="off" aria-label="Lips equals"></p>
+      </div>
+      <div class="mt-sm abs" style="--x:52;--y:42;--w:42">
+        <p><b>Your smile…</b><input class="fill" id="mt-sm-smile" autocomplete="off" aria-label="Your smile…"></p>
+        <p><b>(Strong)</b><input class="fill" id="mt-sm-strong" placeholder="as strong as …" autocomplete="off" aria-label="Strong"></p>
+        <p><b>(Scared)</b><input class="fill" id="mt-sm-scared" autocomplete="off" aria-label="Scared"></p>
+        <p><b>My mom…</b><input class="fill" id="mt-sm-mom" autocomplete="off" aria-label="My mom…"></p>
+      </div>
+
+      <div class="lt-pill abs" style="--x:6;--y:66"><b>5.2</b> Detective 🔎 Simile, metaphor or just a fact?</div>
+      <button class="check abs" type="button" style="--x:82;--y:66" data-tf="mt-det">✓ Check</button>
+      <ol class="mt-opts three abs" id="mt-det" style="--x:6;--y:71;--w:88">
+        <li><span>Her eyes are lamps in the dark.</span><span class="opt" id="mt-det-1" data-answer="metaphor"><button type="button">simile</button><button type="button">metaphor</button><button type="button">fact</button></span></li>
+        <li><span>His voice is like thunder.</span><span class="opt" id="mt-det-2" data-answer="simile"><button type="button">simile</button><button type="button">metaphor</button><button type="button">fact</button></span></li>
+        <li><span>He has a long scar on his arm.</span><span class="opt" id="mt-det-3" data-answer="fact"><button type="button">simile</button><button type="button">metaphor</button><button type="button">fact</button></span></li>
+        <li><span>My hands are ice.</span><span class="opt" id="mt-det-4" data-answer="metaphor"><button type="button">simile</button><button type="button">metaphor</button><button type="button">fact</button></span></li>
+        <li><span>Her cheeks are as red as tomatoes.</span><span class="opt" id="mt-det-5" data-answer="simile"><button type="button">simile</button><button type="button">metaphor</button><button type="button">fact</button></span></li>
+        <li><span>She is as tall as her brother.</span><span class="opt" id="mt-det-6" data-answer="fact"><button type="button">simile</button><button type="button">metaphor</button><button type="button">fact</button></span></li>
+        <li><span>His heart is a locked door.</span><span class="opt" id="mt-det-7" data-answer="metaphor"><button type="button">simile</button><button type="button">metaphor</button><button type="button">fact</button></span></li>
+        <li><span>Her laugh sounds like a bell.</span><span class="opt" id="mt-det-8" data-answer="simile"><button type="button">simile</button><button type="button">metaphor</button><button type="button">fact</button></span></li>
+        <li><span>She has the same nose as her mother.</span><span class="opt" id="mt-det-9" data-answer="fact"><button type="button">simile</button><button type="button">metaphor</button><button type="button">fact</button></span></li>
+        <li><span>My feet are two tired boats.</span><span class="opt" id="mt-det-10" data-answer="metaphor"><button type="button">simile</button><button type="button">metaphor</button><button type="button">fact</button></span></li>
+      </ol>
+      <p class="mt-remember abs" style="--x:6;--y:118;--w:88"><b>Careful!</b> <u>like</u> and <u>as</u> are not always a simile. If you compare two <b>real</b> things of the same kind (two people, two noses), it’s just a fact: there is no image.</p>
+      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Literature · Metaphors</span>
+    </section>
+  </div>
+
+  <div class="spread" data-pages="58-59" data-title="Literature · Metaphors" data-name="Metaphor workshop · Portrait poem">
+
+    <!-- ============ PAGE 58 ============ -->
+    <section class="page page-left" aria-label="Page 58">
+      <h1 class="mt-title small abs" style="--x:6;--y:4">Metaphor workshop 🎡</h1>
+      <div class="mt-recipe abs" style="--x:6;--y:12;--w:88">
+        <p class="mt-formula-txt">THE RECIPE: <b>A is B + because…</b></p>
+        <p><i>My heart is a drum <u>that calls every butterfly to dance</u>.</i></p>
+        <p class="mt-chips"><span>+ an ACTION: what does it do?</span><span>+ a PLACE or a TIME</span><span>+ a FEELING</span><span>+ SENSE words: look, sound, touch</span></p>
+      </div>
+
+      <div class="lt-pill abs" style="--x:6;--y:27"><b>6.1</b> Cut the “like”, then explain it!</div>
+      <button class="check abs" type="button" style="--x:82;--y:27" data-mt-meta="mt-cut">✓ Check</button>
+      <ol class="mt-q abs" id="mt-cut" style="--x:6;--y:32;--w:88">
+        <li><i>e.g.</i><span>Your smile is white <mark>like</mark> milk.</span><span class="ink mt-ink">Your smile is milk for my soul.</span></li>
+        <li><i>1.</i><span>Her eyes are bright <mark>like</mark> stars.</span><input class="fill" id="mt-cut-1" data-rule="extended" autocomplete="off" aria-label="Metaphor 1"></li>
+        <li><i>2.</i><span>His hands are rough <mark>like</mark> sandpaper.</span><input class="fill" id="mt-cut-2" data-rule="extended" autocomplete="off" aria-label="Metaphor 2"></li>
+        <li><i>3.</i><span>My heart beats loud <mark>like</mark> a drum.</span><input class="fill" id="mt-cut-3" data-rule="extended" autocomplete="off" aria-label="Metaphor 3"></li>
+        <li><i>4.</i><span>His shoulders are <mark>as</mark> strong <mark>as</mark> mountains.</span><input class="fill" id="mt-cut-4" data-rule="extended" autocomplete="off" aria-label="Metaphor 4"></li>
+      </ol>
+      <p class="mt-fb abs" id="mt-cut-fb" style="--x:6;--y:60.4;--w:88" role="status"></p>
+
+      <div class="lt-pill abs" style="--x:6;--y:64"><b>6.2</b> Enrich! What did the writer add?</div>
+      <button class="check abs" type="button" style="--x:82;--y:64" data-tf="mt-enr">✓ Check</button>
+      <ol class="mt-enr abs" id="mt-enr" style="--x:6;--y:69;--w:88">
+        <li><p>Her smile is a sunrise <mark>on a grey Monday morning</mark>.</p><span class="opt" id="mt-enr-1" data-answer="a place or a time"><button type="button">an action</button><button type="button">a place or a time</button><button type="button">a feeling</button><button type="button">sense words</button></span></li>
+        <li><p>His shoulders are mountains <mark>carrying the whole sky</mark>.</p><span class="opt" id="mt-enr-2" data-answer="an action"><button type="button">an action</button><button type="button">a place or a time</button><button type="button">a feeling</button><button type="button">sense words</button></span></li>
+        <li><p>His voice is <mark>deep, rumbling</mark> thunder.</p><span class="opt" id="mt-enr-3" data-answer="sense words"><button type="button">an action</button><button type="button">a place or a time</button><button type="button">a feeling</button><button type="button">sense words</button></span></li>
+        <li><p>His stare is a cold hand <mark>that makes my stomach shrink</mark>.</p><span class="opt" id="mt-enr-4" data-answer="a feeling"><button type="button">an action</button><button type="button">a place or a time</button><button type="button">a feeling</button><button type="button">sense words</button></span></li>
+      </ol>
+
+      <div class="lt-pill abs" style="--x:6;--y:99"><b>6.3</b> Level-up ladder 🪜 Climb with one body part</div>
+      <button class="check abs" type="button" style="--x:82;--y:99" data-mt-meta="mt-lad">✓ Check</button>
+      <p class="mt-line abs" style="--x:6;--y:103.5;--w:88"><span>My body part:</span><input class="fill" id="mt-lad-part" placeholder="eyes, hair, nose, hands, smile…" autocomplete="off" aria-label="Body part"></p>
+      <ol class="mt-ladder abs" id="mt-lad" style="--x:6;--y:108.5;--w:88">
+        <li><b>1</b><span>Plain<small>My hands are cold.</small></span><input class="fill" id="mt-lad-1" data-rule="plain" autocomplete="off" aria-label="Rung 1: plain"></li>
+        <li><b>2</b><span>Simile<small>…cold like ice.</small></span><input class="fill" id="mt-lad-2" data-rule="simile" autocomplete="off" aria-label="Rung 2: simile"></li>
+        <li><b>3</b><span>Metaphor<small>My hands are ice.</small></span><input class="fill" id="mt-lad-3" data-rule="metaphor" autocomplete="off" aria-label="Rung 3: metaphor"></li>
+        <li><b>4</b><span>Extended<small>…ice that freezes every handshake.</small></span><input class="fill" id="mt-lad-4" data-rule="extended" autocomplete="off" aria-label="Rung 4: extended metaphor"></li>
+      </ol>
+      <p class="mt-fb abs" id="mt-lad-fb" style="--x:20;--y:131.5;--w:74" role="status"></p>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">58</span>
+    </section>
+
+    <!-- ============ PAGE 59 ============ -->
+    <section class="page page-right" aria-label="Page 59">
+      <div class="lt-pill abs" style="--x:6;--y:5"><b>6.4</b> Write a poem: a portrait in metaphors ✍️</div>
+      <p class="pd-intro abs" style="--x:6;--y:10;--w:88">Describe a person (you, a friend, a character) with <b>one metaphor for each step</b>. Go from the whole person to the smallest detail, like the Description Ladder on p. 46!</p>
+      <p class="mt-line big abs" style="--x:6;--y:18;--w:88"><span>Title</span><input class="fill" id="mt-poem-title" placeholder="A portrait in metaphors" autocomplete="off" aria-label="Poem title"></p>
+      <ol class="mt-poem abs" style="--x:6;--y:23.5;--w:88">
+        <li><b>1</b><small>Who? Height &amp; build</small><input class="fill" id="mt-poem-1" placeholder="My grandpa is a mountain…" autocomplete="off" aria-label="Line 1: who, height and build"></li>
+        <li><b>2</b><small>Face</small><input class="fill" id="mt-poem-2" placeholder="His face is a map…" autocomplete="off" aria-label="Line 2: face"></li>
+        <li><b>3</b><small>Eyes &amp; eyebrows</small><input class="fill" id="mt-poem-3" autocomplete="off" aria-label="Line 3: eyes and eyebrows"></li>
+        <li><b>4</b><small>Nose</small><input class="fill" id="mt-poem-4" autocomplete="off" aria-label="Line 4: nose"></li>
+        <li><b>5</b><small>Mouth</small><input class="fill" id="mt-poem-5" autocomplete="off" aria-label="Line 5: mouth"></li>
+        <li><b>6</b><small>Skin</small><input class="fill" id="mt-poem-6" autocomplete="off" aria-label="Line 6: skin"></li>
+        <li><b>7</b><small>Hair</small><input class="fill" id="mt-poem-7" autocomplete="off" aria-label="Line 7: hair"></li>
+        <li><b>8</b><small>Special feature</small><input class="fill" id="mt-poem-8" autocomplete="off" aria-label="Line 8: special feature"></li>
+        <li><b>★</b><small>Last line</small><input class="fill" id="mt-poem-last" placeholder="This is…" autocomplete="off" aria-label="Last line"></li>
+      </ol>
+
+      <div class="mt-hw abs" style="--x:6;--y:70;--w:88">
+        <h3>🏠 HOMEWORK</h3>
+        <ol>
+          <li>Draw or make a collage of a metaphor taken literally <small>(on a sheet, or on p. 52)</small></li>
+          <li>Write a sentence with a reversed metaphor:
+            <input class="fill" id="mt-hw-rev" autocomplete="off" aria-label="A sentence with a reversed metaphor"></li>
+          <li>Find a metaphor in a poem of your choosing:
+            <span class="mt-hw-row"><em>Poem</em><input class="fill" id="mt-hw-poem" autocomplete="off" aria-label="Poem title"><em>Poet</em><input class="fill" id="mt-hw-poet" autocomplete="off" aria-label="Poet"></span>
+            <span class="mt-hw-row"><em>Metaphor</em><input class="fill" id="mt-hw-met" autocomplete="off" aria-label="The metaphor"></span>
+            <span class="mt-hw-row"><em>It means</em><input class="fill" id="mt-hw-means" autocomplete="off" aria-label="What the metaphor means"></span></li>
+        </ol>
+        <a class="mt-online" href="https://paolafatigato.github.io/Metaphors/" target="_blank" rel="noopener">🎡 Practise online: Metaphor Workshop →</a>
+      </div>
+      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Literature · Metaphors</span>
+    </section>
+  </div>
+
+  <div class="spread" data-pages="60-61" data-title="Personality" data-name="Personality: the Big 5">
+
+    <!-- ============ PAGE 60 ============ -->
+    <section class="page page-left" aria-label="Page 60">
       <div class="art" aria-hidden="true">
         <svg viewBox="0 0 922 651" preserveAspectRatio="none" fill="none" stroke-width="36">
           <path d="M565,-25 C545,40 475,58 432,36 C402,20 392,-2 360,4 C318,12 284,24 266,62 C246,106 246,164 186,170 C126,176 104,140 52,150 C16,158 4,192 -4,236" stroke="#dfee6a"/>
@@ -2162,11 +2559,11 @@
         <p class="b5-tot"><output>&nbsp;</output><span>TOT.</span></p>
       </div>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2">50</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">60</span>
     </section>
 
-    <!-- ============ PAGE 51 ============ -->
-    <section class="page page-right" aria-label="Page 51">
+    <!-- ============ PAGE 61 ============ -->
+    <section class="page page-right" aria-label="Page 61">
       <div class="art" aria-hidden="true">
         <svg viewBox="0 0 922 651" preserveAspectRatio="none" fill="none" stroke-width="36">
           <path d="M565,-25 C545,40 475,58 432,36 C402,20 392,-2 360,4" stroke="#dfee6a"/>
@@ -2218,10 +2615,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="52-53" data-title="Describing people" data-name="Personality adjectives">
+  <div class="spread" data-pages="62-63" data-title="Personality" data-name="Personality adjectives">
 
-    <!-- ============ PAGE 52 ============ -->
-    <section class="page page-left" aria-label="Page 52">
+    <!-- ============ PAGE 62 ============ -->
+    <section class="page page-left" aria-label="Page 62">
       <h1 class="big-title left abs" style="--x:4.3;--y:2.6;color:#f96d5a;font-size:6.2cqw">Personality<br>adjectives</h1>
       <div class="voc-bar abs" style="--x:49;--w:1.1"></div>
       <ol class="voc it-en abs" style="--x:4.3;--y:16.5;--w:90.1">
@@ -2250,11 +2647,11 @@
       </ol>
       <!-- the back of the half page: turned to the left it hides the English words -->
       <button class="flap back abs" type="button" style="--x:44.5;--w:55.5" aria-label="Turn the flap back to the right"><span>⟳ turn</span></button>
-      <span class="pageno abs" style="--x:9.7;--y:134.2">52</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">62</span>
     </section>
 
-    <!-- ============ PAGE 53 ============ -->
-    <section class="page page-right" aria-label="Page 53">
+    <!-- ============ PAGE 63 ============ -->
+    <section class="page page-right" aria-label="Page 63">
       <div class="voc-bar abs" style="--x:49.7;--w:1.1"></div>
       <ol class="voc en-it abs" style="--x:4.8;--y:11.3;--w:90.6">
           <li><b>OUTGOING</b><span class="ink voc-ex">estroversa/espansiva</span></li>
@@ -2287,10 +2684,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="54-55" data-title="Greek mythology" data-name="The gods · Prometheus">
+  <div class="spread" data-pages="64-65" data-title="Greek mythology" data-name="The gods · Prometheus">
 
-    <!-- ============ PAGE 54 ============ -->
-    <section class="page page-left gm-page" aria-label="Page 54">
+    <!-- ============ PAGE 64 ============ -->
+    <section class="page page-left gm-page" aria-label="Page 64">
       <h1 class="gm-title abs" style="--x:5.4;--y:5.2">Gr<span>e</span>ek<br>mythology</h1>
 
       <div class="match-set gm abs" style="--x:0;--y:0;--w:100;--h:141.42">
@@ -2326,11 +2723,11 @@
       </div>
       <button class="check abs" type="button" style="--x:80;--y:131" data-match="gm-a gm-b">✓ Check</button>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2;color:rgba(255,255,255,.55)">54</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2;color:rgba(255,255,255,.55)">64</span>
     </section>
 
-    <!-- ============ PAGE 55 ============ -->
-    <section class="page page-right gm-photo" aria-label="Page 55">
+    <!-- ============ PAGE 65 ============ -->
+    <section class="page page-right gm-photo" aria-label="Page 65">
       <div class="gm-white abs" style="--x:0;--y:0;--w:59.6;--h:141.42"></div>
       <span class="unit-pill lit abs" style="--x:74;--y:6.4">LITERATURE · 1</span>
 
@@ -2354,10 +2751,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="56-57" data-title="Greek mythology" data-name="Persephone">
+  <div class="spread" data-pages="66-67" data-title="Greek mythology" data-name="Persephone">
 
-    <!-- ============ PAGE 56 ============ -->
-    <section class="page page-left" aria-label="Page 56">
+    <!-- ============ PAGE 66 ============ -->
+    <section class="page page-left" aria-label="Page 66">
       <svg class="page-svg ps-p" viewBox="0 0 100 141.42" aria-hidden="true" style="z-index:0">
         <path d="M12.6,0 V55.4 M12.6,.75 H27.3 A11.4,11.4 0 0 1 27.3,23.5 H12.6" fill="none" stroke="#fd7366" stroke-width="1.5"/>
       </svg>
@@ -2406,11 +2803,11 @@
           <li>Demeter and Persephone live together. <input class="fill blank" id="ps14-8" data-given="" data-answer="their" autocomplete="off" aria-label="8 blank"> home is beautiful.</li>
       </ol>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2">56</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">66</span>
     </section>
 
-    <!-- ============ PAGE 57 ============ -->
-    <section class="page page-right" aria-label="Page 57">
+    <!-- ============ PAGE 67 ============ -->
+    <section class="page page-right" aria-label="Page 67">
       <div class="ps-box bar abs" style="--x:12.1;--y:13.7;--w:74.2">
         <p>In the Underworld, everything is dark and sad. But Persephone is not boring as Hades, so she starts to decorate. She adds some flowers and style. Suddenly, the Underworld looks almost... cozy.</p>
         <p>Meanwhile, on Earth, Demeter is super sad. Her daughter is gone! And when Demeter is sad, all the plants die, and everything freezes. 🥶 Nobody even knows what “winter” is yet. But now it is winter every day, and life is terrible.</p>
@@ -2444,10 +2841,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="58-59" data-title="Greek mythology" data-name="Persephone: the play">
+  <div class="spread" data-pages="68-69" data-title="Greek mythology" data-name="Persephone: the play">
 
-    <!-- ============ PAGE 58 ============ -->
-    <section class="page page-left" aria-label="Page 58">
+    <!-- ============ PAGE 68 ============ -->
+    <section class="page page-left" aria-label="Page 68">
       <div class="art art-top" aria-hidden="true"><img class="play-art" src="img/persephone.png" alt="" onerror="this.remove()"></div>
       <svg class="page-svg" viewBox="0 0 100 141.42" aria-hidden="true" style="z-index:0">
         <path d="M11,0 V36 M11,.75 H25.7 A11.4,11.4 0 0 1 25.7,23.5 H11" fill="none" stroke="#fd7366" stroke-width="1.5"/>
@@ -2478,11 +2875,11 @@
           <p class="who-hades"><b class="">Hades</b>: Ugh… fine. One pillow. Black pillow!</p>
       </div>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2">58</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">68</span>
     </section>
 
-    <!-- ============ PAGE 59 ============ -->
-    <section class="page page-right" aria-label="Page 59">
+    <!-- ============ PAGE 69 ============ -->
+    <section class="page page-right" aria-label="Page 69">
       <div class="art art-top" aria-hidden="true"><img class="play-art" src="img/persephone.png" alt="" onerror="this.remove()"></div>
       <div class="play plain abs" style="--x:14.5;--y:9.6;--w:80">
           <p style="margin-left:0cqw" class="who-zeus"><b class="">Zeus</b> <i>(alone on a cloud)</i>: Why is the world frozen? For days! Olive trees are ice, beaches are closed, even my thunder is cold!</p>
@@ -2514,10 +2911,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="60-61" data-title="Greek mythology" data-name="Acting tips · Evaluation grid">
+  <div class="spread" data-pages="70-71" data-title="Greek mythology" data-name="Acting tips · Evaluation grid">
 
-    <!-- ============ PAGE 60 ============ -->
-    <section class="page page-left at-page" aria-label="Page 60">
+    <!-- ============ PAGE 70 ============ -->
+    <section class="page page-left at-page" aria-label="Page 70">
       <div class="art" aria-hidden="true">
         <svg viewBox="0 0 922 652" preserveAspectRatio="none">
           <path d="M0,98 C40,135 90,150 150,150 C220,150 265,100 330,85 C400,70 455,80 490,105 C520,128 535,175 560,240 C590,300 640,305 680,300 C760,290 820,255 922,248 L922,318 C820,330 740,385 660,382 C580,378 545,350 525,320 C505,270 490,200 461,175 C430,150 400,135 360,140 C300,150 260,215 200,225 C130,235 60,215 0,185 Z" fill="#fe7366"/>
@@ -2547,11 +2944,11 @@
         <li><div>Black cape (or big black t-shirt), silver jewellery, cardboard crown painted black/silver.</div><input class="fill" id="cost-4" data-given="" data-answer="Hades" autocomplete="off" aria-label="Which character?"></li>
       </ol>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2">60</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">70</span>
     </section>
 
-    <!-- ============ PAGE 61 ============ -->
-    <section class="page page-right" aria-label="Page 61">
+    <!-- ============ PAGE 71 ============ -->
+    <section class="page page-right" aria-label="Page 71">
       <div class="art" aria-hidden="true">
         <svg viewBox="0 0 922 652" preserveAspectRatio="none">
           <path d="M0,98 C40,135 90,150 150,150 C220,150 265,100 330,85 C400,70 455,80 490,105 C520,128 535,175 560,240 C590,300 640,305 680,300 C760,290 820,255 922,248 L922,318 C820,330 740,385 660,382 C580,378 545,350 525,320 C505,270 490,200 461,175 C430,150 400,135 360,140 C300,150 260,215 200,225 C130,235 60,215 0,185 Z" fill="#fe7366"/>
@@ -2601,10 +2998,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="62-63" data-title="Greek mythology" data-name="Reading: Circe">
+  <div class="spread" data-pages="72-73" data-title="Greek mythology" data-name="Reading: Circe">
 
-    <!-- ============ PAGE 62 ============ -->
-    <section class="page page-left" aria-label="Page 62">
+    <!-- ============ PAGE 72 ============ -->
+    <section class="page page-left" aria-label="Page 72">
       <div class="art" aria-hidden="true"><svg viewBox="0 0 922 652" preserveAspectRatio="none"><text class="circe-quote" x="436" y="318">“</text></svg></div>
       <div class="ft-box abs" style="--x:6.5;--y:5.4;--w:89.6;--h:39.6"></div>
       <svg class="page-svg ft" viewBox="0 0 461 652" aria-hidden="true" style="z-index:1">
@@ -2665,11 +3062,11 @@
         <li><span>"She is yours if you want her."</span><input class="fill" id="cc18-4" data-given="" data-answer="Perse|Oceanos's daughter|Oceanus's daughter|Oceanos daughter" autocomplete="off" aria-label="She is yours"></li>
       </ol>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2">62</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">72</span>
     </section>
 
-    <!-- ============ PAGE 63 ============ -->
-    <section class="page page-right" aria-label="Page 63">
+    <!-- ============ PAGE 73 ============ -->
+    <section class="page page-right" aria-label="Page 73">
       <div class="art" aria-hidden="true"><svg viewBox="0 0 922 652" preserveAspectRatio="none"><text class="circe-quote" x="436" y="318">“</text></svg></div>
       <p class="first-page cc-first abs" style="--x:60;--y:3.6;--w:39">First page.</p>
       <div class="cc-rule abs" style="--x:27.5;--y:7.2;--w:72.5"></div>
@@ -2735,6 +3132,7 @@
 
   <script src="contents.js"></script>
   <script src="script.js"></script>
+  <script src="metaphors.js"></script>
   <script src="game-questions.js"></script>
   <script src="game.js"></script>
   <script src="grammar-games-data.js"></script>
