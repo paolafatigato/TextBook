@@ -128,15 +128,21 @@ document.querySelectorAll('.check[data-list]').forEach(btn => {
 /* ================= connect the words ================= */
 // Click a word, then its meaning (or the other way round) to draw a line.
 // Click a connected item again to remove its line.
+// Three columns (p. 48): a .match-set holds the lists and two .match layers,
+// each one says which buttons it connects (data-words / data-defs).
 
 const matches = [...document.querySelectorAll('.match')].map(box => {
-  const words = [...box.querySelectorAll('.match-words button')];
-  const defs = [...box.querySelectorAll('.match-defs button')];
+  const root = box.closest('.match-set') || box;
+  const words = [...root.querySelectorAll(box.dataset.words || '.match-words button')];
+  const defs = [...root.querySelectorAll(box.dataset.defs || '.match-defs button')];
   const svg = box.querySelector('.match-lines');
   let links = []; // [wordIndex, defIndex]
   let selected = null;
   let checked = false;
-  try { links = JSON.parse(saved[box.id] || '[]'); } catch { links = []; }
+  // an example already connected in the book, e.g. data-example="4-0"
+  const example = box.dataset.example ? [box.dataset.example.split('-').map(Number)] : [];
+  const fresh = () => example.map(l => [...l]);
+  try { links = saved[box.id] ? JSON.parse(saved[box.id]) : fresh(); } catch { links = fresh(); }
 
   function store() {
     saved[box.id] = JSON.stringify(links);
@@ -146,8 +152,8 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
   function draw() {
     const base = box.getBoundingClientRect();
     if (!base.width) return; // spread not visible
-    words.forEach(b => b.classList.toggle('linked', links.some(l => words[l[0]] === b)));
-    defs.forEach(b => b.classList.toggle('linked', links.some(l => defs[l[1]] === b)));
+    words.forEach(b => b.classList.toggle('linked-w', links.some(l => words[l[0]] === b)));
+    defs.forEach(b => b.classList.toggle('linked-d', links.some(l => defs[l[1]] === b)));
     svg.innerHTML = links.map(([w, d]) => {
       const a = words[w].getBoundingClientRect();
       const b = defs[d].getBoundingClientRect();
@@ -159,23 +165,37 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
     }).join('');
   }
 
-  function pick(side, index) {
+  function unselect() {
+    selected?.el.classList.remove('selected');
+    selected = null;
+  }
+
+  // a line was drawn in the other layer of the same set: forget what was picked here
+  function linkedElsewhere() {
+    matches.filter(m => m.root === root && m.id !== box.id).forEach(m => m.unselect());
+  }
+
+  function pick(side, index, e) {
+    if (e.matchDone && e.matchDone !== box) { unselect(); return; }
     const list = side === 'w' ? words : defs;
     const pos = side === 'w' ? 0 : 1;
     checked = false;
     const existing = links.findIndex(l => l[pos] === index);
-    if (existing >= 0 && !selected) {
+    // the middle column belongs to two layers: clicking it never removes a line
+    if (existing >= 0 && !selected && !list[index].closest('[data-shared]')) {
       links.splice(existing, 1);
       store(); draw();
+      e.matchDone = box;
       return;
     }
     if (selected && selected.side !== side) {
       const pair = side === 'w' ? [index, selected.index] : [selected.index, index];
       links = links.filter(l => l[0] !== pair[0] && l[1] !== pair[1]);
       links.push(pair);
-      selected.el.classList.remove('selected');
-      selected = null;
+      unselect();
       store(); draw();
+      e.matchDone = box;
+      linkedElsewhere();
       return;
     }
     selected?.el.classList.remove('selected');
@@ -183,14 +203,16 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
     list[index].classList.add('selected');
   }
 
-  words.forEach((b, i) => b.addEventListener('click', () => pick('w', i)));
-  defs.forEach((b, i) => b.addEventListener('click', () => pick('d', i)));
+  words.forEach((b, i) => b.addEventListener('click', e => pick('w', i, e)));
+  defs.forEach((b, i) => b.addEventListener('click', e => pick('d', i, e)));
 
   return {
     id: box.id,
+    root,
+    unselect,
     draw,
     check() { checked = true; draw(); },
-    reset() { links = []; checked = false; selected?.el.classList.remove('selected'); selected = null; draw(); },
+    reset() { links = fresh(); checked = false; unselect(); draw(); },
   };
 });
 
@@ -199,7 +221,9 @@ window.addEventListener('resize', redrawAllMatches);
 document.fonts?.ready.then(redrawAllMatches);
 
 document.querySelectorAll('.check[data-match]').forEach(btn => {
-  btn.addEventListener('click', () => matches.find(m => m.id === btn.dataset.match)?.check());
+  // one button can check several layers: data-match="gm-a gm-b"
+  const ids = btn.dataset.match.split(' ');
+  btn.addEventListener('click', () => matches.filter(m => ids.includes(m.id)).forEach(m => m.check()));
 });
 
 /* ================= true / false ================= */
@@ -340,6 +364,31 @@ diceBtn?.addEventListener('click', () => {
   diceFace.classList.add('roll');
 });
 
+/* ================= Big 5 scores ================= */
+// each sentence gets 0, 1 or 2: the total of the trait is added up by itself
+
+const b5Sections = [...document.querySelectorAll('.b5-sec')];
+function b5Totals() {
+  b5Sections.forEach(sec => {
+    const scores = [...sec.querySelectorAll('.b5-score')].map(inp => inp.value).filter(v => v !== '');
+    sec.querySelector('.b5-tot output').textContent = scores.length ? scores.reduce((t, v) => t + Number(v), 0) : ' ';
+  });
+}
+document.querySelectorAll('.b5-score').forEach(inp => inp.addEventListener('input', () => {
+  inp.value = inp.value.replace(/[^012]/g, '').slice(-1);
+  saved[inp.id] = inp.value;
+  persist();
+  b5Totals();
+}));
+b5Totals();
+
+/* ================= half-page flap (p. 46-47) ================= */
+// the flap hides the English words on one page or the other
+
+document.querySelectorAll('.flap').forEach(flap => flap.addEventListener('click', () => {
+  flap.closest('.spread').classList.toggle('flap-left');
+}));
+
 /* ================= toolbar ================= */
 
 document.getElementById('printBtn').addEventListener('click', () => window.print());
@@ -356,6 +405,7 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   document.querySelectorAll('.apos-list li').forEach(li => li.classList.remove('ok', 'no'));
   ticks.forEach(t => t.classList.remove('on'));
   toggles.forEach(t => t.classList.remove('on', 'ok', 'no'));
+  b5Totals();
 });
 
 /* ================= home page ================= */
