@@ -88,7 +88,7 @@ body {
 .page-right::after { left: 0;  background: linear-gradient(to right, rgba(0,0,0,.05), transparent); }
 
 /* the illustration spans both pages: each page shows its own half */
-.art { position: absolute; top: 0; height: 100%; width: 200%; z-index: 0; }
+.art { position: absolute; top: 0; height: 100%; width: 200%; z-index: 2; }
 .page-left  .art { left: 0; }
 .page-right .art { left: -100%; }
 .art svg { display: block; width: 100%; height: 100%; }
@@ -569,16 +569,18 @@ input.fill.nb-num.no { background: #e53935; color: #fff; }
 .br-text { font: 400 2cqw/1.24 'Nunito', sans-serif; color: #444; text-align: justify; }
 .br-text p { margin: 0 0 1.2cqw; }
 .br-green {
-  z-index: 1; background: #4b9b48;
-  clip-path: polygon(41.1cqw 17.3cqw, 84.4cqw 17.3cqw, 84.4cqw 58cqw, 74.2cqw 60.1cqw, 68.2cqw 63.6cqw, 63.8cqw 68.6cqw, 58.7cqw 74.6cqw, 54.6cqw 82cqw, 41.1cqw 118cqw);
+  /* above the drawing, multiplied: covers the white halo of the PNG but keeps its black lines */
+  z-index: 4; background: #4b9b48; mix-blend-mode: multiply;
+  clip-path: polygon(41.1cqw 17.3cqw, 84.4cqw 17.3cqw, 84.4cqw 67cqw, 76.5cqw 68cqw, 76.1cqw 69.5cqw, 75.0cqw 71cqw, 73.8cqw 72.5cqw, 74.0cqw 74cqw, 74.0cqw 75.5cqw, 72.0cqw 77cqw, 71.5cqw 78.5cqw, 68.3cqw 80cqw, 68.0cqw 81.5cqw, 65.0cqw 83cqw, 61.9cqw 84.5cqw, 61.2cqw 86cqw, 61.1cqw 87.5cqw, 61.1cqw 89cqw, 61.2cqw 90.5cqw, 61.6cqw 92cqw, 62.0cqw 93.5cqw, 62.8cqw 95cqw, 63.6cqw 96.5cqw, 64.7cqw 98cqw, 66.0cqw 99.5cqw, 67.2cqw 101cqw, 67.2cqw 102.5cqw, 67.6cqw 104cqw, 68.4cqw 105.5cqw, 65.8cqw 107cqw, 66.7cqw 108.5cqw, 66.5cqw 110cqw, 68.1cqw 111.5cqw, 69.2cqw 113cqw, 70.5cqw 114.5cqw, 68.7cqw 116cqw, 67.2cqw 117.5cqw, 66.1cqw 119cqw, 65.1cqw 120.5cqw, 64.5cqw 122cqw, 63cqw 123cqw, 41.1cqw 118cqw);
 }
+.br-comment-h, .br-comment { z-index: 5; }
 .br-comment-h { font: 700 3.4cqw/1 'Fredoka', 'Nunito', sans-serif; color: #fff; }
 .br-comment { font: 400 1.8cqw/1.24 'Nunito', sans-serif; color: #fff; text-align: justify; }
 .br-comment p { margin: 0 0 1.2cqw; }
 /* keeps the text inside the green shape, away from the drawing */
 .br-shape {
   float: right; width: 38.6cqw; height: 80cqw;
-  shape-outside: polygon(38.6cqw 29.4cqw, 29.4cqw 31.5cqw, 23.4cqw 35cqw, 19cqw 40cqw, 13.9cqw 46cqw, 9.8cqw 53.4cqw, 6cqw 62cqw, 6cqw 80cqw, 38.6cqw 80cqw);
+  shape-outside: polygon(38.6cqw 38.4cqw, 30.2cqw 39.4cqw, 27.5cqw 43.9cqw, 25.7cqw 48.4cqw, 22cqw 51.4cqw, 18.7cqw 54.4cqw, 14.9cqw 57.4cqw, 14.8cqw 80cqw, 38.6cqw 80cqw);
 }
 .br-char { background: var(--bg); padding: 2.2cqw 3cqw 1.6cqw 3cqw; }
 .br-char h3 { margin: 0; font: 800 2.3cqw/1.2 'Nunito', sans-serif; color: #222; }
