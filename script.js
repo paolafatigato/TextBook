@@ -130,7 +130,7 @@ document.querySelectorAll('.check[data-list]').forEach(btn => {
 /* ================= connect the words ================= */
 // Click a word, then its meaning (or the other way round) to draw a line.
 // Click a connected item again to remove its line.
-// Three columns (p. 64): a .match-set holds the lists and two .match layers,
+// Three columns (p. 68): a .match-set holds the lists and two .match layers,
 // each one says which buttons it connects (data-words / data-defs).
 
 const matches = [...document.querySelectorAll('.match')].map(box => {
@@ -374,7 +374,7 @@ document.querySelectorAll('.b5-score').forEach(inp => inp.addEventListener('inpu
 }));
 b5Totals();
 
-/* ================= evaluation grid (p. 71) ================= */
+/* ================= evaluation grid (p. 75) ================= */
 // performance + pronunciation + creativity = total
 
 const egScores = [...document.querySelectorAll('.eg-n')];
@@ -392,14 +392,14 @@ egScores.forEach(inp => inp.addEventListener('input', () => {
 }));
 egTotal();
 
-/* ================= half-page flap (pp. 62-63) ================= */
+/* ================= half-page flap (pp. 66-67) ================= */
 // the flap hides the English words on one page or the other
 
 document.querySelectorAll('.flap').forEach(flap => flap.addEventListener('click', () => {
   flap.closest('.spread').classList.toggle('flap-left');
 }));
 
-/* ================= detective games (pp. 42-47) ================= */
+/* ================= detective games (pp. 46-51) ================= */
 
 // Text without spaces: click a letter to put a slash after it (click again to take it away).
 // data-words holds the real words; the correct slashes are the ends of the words.

@@ -1817,10 +1817,116 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="40-41" data-title="Describing people" data-name="Body description">
+  <div class="spread" data-pages="40-41" data-title="Home" data-name="Home vocabulary · Decorate the house">
 
     <!-- ============ PAGE 40 ============ -->
-    <section class="page page-left bd-page" aria-label="Page 40">
+    <section class="page page-left" aria-label="Page 40">
+      <h1 class="big-title left hm-title abs" style="--x:8;--y:4">Home<br>sweet home</h1>
+      <span class="hm-house-emoji abs" style="--x:74;--y:5" aria-hidden="true">🏠</span>
+      <div class="lt-pill lime-num abs" style="--x:8;--y:19"><b>4.6</b> Write the word to unlock the object 🔓</div>
+      <p class="hm-intro abs" style="--x:8;--y:23.6;--w:84">Type the word, or press 💡 to see its letters. An unlocked object can go into your house on the next page!</p>
+      <div class="hm-cards abs" id="hm-cards" style="--x:8;--y:28.4;--w:84"></div>
+      <span class="hm-score abs" id="hm-score" style="--x:60;--y:19.4;--w:32"></span>
+
+      <span class="pageno abs" style="--x:9.7;--y:134.2">40</span>
+    </section>
+
+    <!-- ============ PAGE 41 ============ -->
+    <section class="page page-right" aria-label="Page 41">
+      <div class="lt-pill lime-num abs" style="--x:6;--y:4"><b>4.7</b> Decorate the house! Name the rooms and drag your objects in</div>
+      <p class="prep-bank abs" style="--x:6;--y:9.4;--w:88">bedroom · bathroom · kitchen · living room · dining room · study · hallway</p>
+
+      <div class="hm-drop hm-house abs" id="hm-house" style="--x:4;--y:13.4;--w:92" data-zone="h">
+        <img class="hm-house-bg" src="img/home/house.png" alt="A house with five empty rooms">
+        <input class="fill hm-room" id="hm-room-1" style="--rx:9;--ry:26.5" autocomplete="off" aria-label="Room 1, top left">
+        <input class="fill hm-room" id="hm-room-2" style="--rx:53;--ry:26.2" autocomplete="off" aria-label="Room 2, top right">
+        <input class="fill hm-room" id="hm-room-3" style="--rx:9;--ry:48.4" autocomplete="off" aria-label="Room 3, middle left">
+        <input class="fill hm-room" id="hm-room-4" style="--rx:44;--ry:48.2" autocomplete="off" aria-label="Room 4, middle right">
+        <input class="fill hm-room" id="hm-room-5" style="--rx:9;--ry:70.4" autocomplete="off" aria-label="Room 5, ground floor">
+      </div>
+      <p class="hm-help abs" style="--x:6;--y:82.4;--w:88">Click an object in the house to make it bigger ➕ or smaller ➖, bring it to the front ⬆ or to the back ⬇, or take it away 🗑.</p>
+
+      <div class="lt-pill lime-num abs" style="--x:6;--y:88"><b>4.8</b> Which room is it?</div>
+      <button class="check abs" type="button" style="--x:80;--y:88" data-list="hm-rooms">✓ Check</button>
+      <ol class="prep-list abs" id="hm-rooms" style="--x:8;--y:92.6;--w:86">
+        <li>I sleep in the <input class="fill blank" id="hmr-1" data-given="" data-answer="bedroom" autocomplete="off" aria-label="1 blank">.</li>
+        <li>We cook dinner in the <input class="fill blank" id="hmr-2" data-given="" data-answer="kitchen" autocomplete="off" aria-label="2 blank">.</li>
+        <li>I have a shower in the <input class="fill blank" id="hmr-3" data-given="" data-answer="bathroom" autocomplete="off" aria-label="3 blank">.</li>
+        <li>We watch TV on the sofa in the <input class="fill blank" id="hmr-4" data-given="" data-answer="living room|sitting room|lounge" autocomplete="off" aria-label="4 blank">.</li>
+        <li>In Coraline's house, the <input class="fill blank" id="hmr-5" data-given="" data-answer="attic" autocomplete="off" aria-label="5 blank"> is under the roof.</li>
+        <li>The <input class="fill blank" id="hmr-6" data-given="" data-answer="cellar|basement" autocomplete="off" aria-label="6 blank"> is under the ground: it's dark and full of old things!</li>
+      </ol>
+
+      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Home</span>
+    </section>
+  </div>
+
+  <div class="spread" data-pages="42-43" data-title="Home" data-name="Prepositions of place · Room missions">
+
+    <!-- ============ PAGE 42 ============ -->
+    <section class="page page-left" aria-label="Page 42">
+      <h1 class="big-title left hm-title abs" style="--x:8;--y:4">Prepositions<br>of place</h1>
+      <div class="lt-pill lime-num abs" style="--x:8;--y:19"><b>4.9</b> Look and translate into Italian</div>
+
+      <!-- drawings: img/home/prep-*.png (an empty frame is shown until the file exists) -->
+      <ul class="hm-preps abs" style="--x:8;--y:24;--w:84">
+        <li><img src="img/home/prep-in.png" alt="The ball is in the box" data-missing="IN"><b>in</b><input class="fill" id="hmp-in" autocomplete="off" aria-label="in, in Italian"></li>
+        <li><img src="img/home/prep-on.png" alt="The ball is on the box" data-missing="ON"><b>on</b><input class="fill" id="hmp-on" autocomplete="off" aria-label="on, in Italian"></li>
+        <li><img src="img/home/prep-under.png" alt="The ball is under the table" data-missing="UNDER"><b>under</b><input class="fill" id="hmp-under" autocomplete="off" aria-label="under, in Italian"></li>
+        <li><img src="img/home/prep-next-to.png" alt="The ball is next to the box" data-missing="NEXT TO"><b>next to</b><input class="fill" id="hmp-next" autocomplete="off" aria-label="next to, in Italian"></li>
+        <li><img src="img/home/prep-between.png" alt="The ball is between two boxes" data-missing="BETWEEN"><b>between</b><input class="fill" id="hmp-between" autocomplete="off" aria-label="between, in Italian"></li>
+        <li><img src="img/home/prep-behind.png" alt="The ball is behind the box" data-missing="BEHIND"><b>behind</b><input class="fill" id="hmp-behind" autocomplete="off" aria-label="behind, in Italian"></li>
+        <li><img src="img/home/prep-in-front-of.png" alt="The ball is in front of the box" data-missing="IN FRONT OF"><b>in front of</b><input class="fill" id="hmp-front" autocomplete="off" aria-label="in front of, in Italian"></li>
+        <li><img src="img/home/prep-above.png" alt="The ball is above the box" data-missing="ABOVE"><b>above</b><input class="fill" id="hmp-above" autocomplete="off" aria-label="above, in Italian"></li>
+        <li><img src="img/home/prep-below.png" alt="The ball is below the shelf" data-missing="BELOW"><b>below</b><input class="fill" id="hmp-below" autocomplete="off" aria-label="below, in Italian"></li>
+        <li><img src="img/home/prep-opposite.png" alt="Two houses on opposite sides of the street" data-missing="OPPOSITE"><b>opposite</b><input class="fill" id="hmp-opposite" autocomplete="off" aria-label="opposite, in Italian"></li>
+      </ul>
+
+      <div class="rule-box lime hm-watch abs" style="--x:8;--y:67;--w:84">
+        <h4>⚠️ Watch out!</h4>
+        <p><b>in front of</b> = davanti a &nbsp;·&nbsp; <b>opposite</b> = di fronte a (dall'altra parte, faccia a faccia)</p>
+        <p><b>on</b> = sopra, appoggiato &nbsp;·&nbsp; <b>above</b> = sopra, più in alto, senza toccare</p>
+        <p><b>under</b> = sotto, coperto &nbsp;·&nbsp; <b>below</b> = più in basso</p>
+      </div>
+
+      <div class="lt-pill lime-num abs" style="--x:8;--y:88"><b>4.10</b> Complete with the right preposition</div>
+      <button class="check abs" type="button" style="--x:80;--y:88" data-list="hm-prep-ex">✓ Check</button>
+      <ol class="prep-list hm-tight abs" id="hm-prep-ex" style="--x:10;--y:92;--w:84">
+        <li>The cat is sleeping <input class="fill blank" id="hmx-1" data-given="" data-answer="under" autocomplete="off" aria-label="1 blank"> the bed. It's dark there!</li>
+        <li>Put the milk back <input class="fill blank" id="hmx-2" data-given="" data-answer="in" autocomplete="off" aria-label="2 blank"> the fridge, please.</li>
+        <li>The clock is <input class="fill blank" id="hmx-3a" data-given="" data-answer="on" autocomplete="off" aria-label="3 first blank"> the wall, <input class="fill blank" id="hmx-3b" data-given="" data-answer="above" autocomplete="off" aria-label="3 second blank"> the sofa.</li>
+        <li>The bathroom is <input class="fill blank" id="hmx-4" data-given="" data-answer="between" autocomplete="off" aria-label="4 blank"> the bedroom and the kitchen.</li>
+        <li>Don't stand <input class="fill blank" id="hmx-5" data-given="" data-answer="in front of" autocomplete="off" aria-label="5 blank"> the TV, I can't see!</li>
+        <li>The garden is <input class="fill blank" id="hmx-6" data-given="" data-answer="behind" autocomplete="off" aria-label="6 blank"> the house: you can't see it from the street.</li>
+        <li>The bakery is <input class="fill blank" id="hmx-7" data-given="" data-answer="opposite" autocomplete="off" aria-label="7 blank"> my house, on the other side of the road.</li>
+        <li>The kettle is <input class="fill blank" id="hmx-8" data-given="" data-answer="on|next to" autocomplete="off" aria-label="8 blank"> the cooker.</li>
+      </ol>
+
+      <span class="pageno abs" style="--x:9.7;--y:134.2">42</span>
+    </section>
+
+    <!-- ============ PAGE 43 ============ -->
+    <section class="page page-right" aria-label="Page 43">
+      <div class="lt-pill lime-num abs" style="--x:6;--y:4"><b>4.11</b> Room missions 🕵️ · Drag the objects into the room</div>
+      <button class="check hm-reset abs" type="button" style="--x:80;--y:4" id="hm-room-reset">↺ Empty the room</button>
+      <p class="hm-intro abs" style="--x:6;--y:9;--w:88">Read the missions and put each object in the right place. A mission turns <b class="hm-green">green</b> when it is done!</p>
+      <div class="hm-palette abs" id="hm-palette" style="--x:6;--y:14;--w:88"></div>
+
+      <div class="hm-drop hm-room-box abs" id="hm-room" style="--x:6;--y:25.6;--w:88" data-zone="r"></div>
+
+      <ol class="hm-missions abs" id="hm-missions" style="--x:6;--y:83;--w:88"></ol>
+
+      <div class="lt-pill lime-num abs" style="--x:6;--y:113"><b>4.12</b> Now describe YOUR bedroom with 4 prepositions</div>
+      <textarea class="fill hm-lines abs" id="hm-describe" style="--x:6;--y:117.4;--w:88;--h:13.6" aria-label="Describe your bedroom"></textarea>
+
+      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Home</span>
+    </section>
+  </div>
+
+  <div class="spread" data-pages="44-45" data-title="Describing people" data-name="Body description">
+
+    <!-- ============ PAGE 44 ============ -->
+    <section class="page page-left bd-page" aria-label="Page 44">
       <div class="art" aria-hidden="true"><svg viewBox="0 0 4961 3508" preserveAspectRatio="none"><rect x="0" y="1270" width="2480" height="2238" fill="#fef0ef"/><rect x="2480" y="0" width="2481" height="1270" fill="#fef0ef"/></svg></div>
       <h1 class="big-title left abs" style="--x:11.9;--y:4.4;color:#f96d5a;font-size:7.4cqw">Body<br>description</h1>
       <span class="unit-pill coral abs" style="--x:73.8;--y:8.4">UNIT 5</span>
@@ -1847,11 +1953,11 @@
       <div class="bd-col abs" style="--x:64.8;--y:91;--w:22.7"><span class="coral-pill">MOUTH</span>
         <ul><li>Full lips<input class="fill" id="bd-m-1" autocomplete="off" aria-label="Full lips"></li><li>Thin lips<input class="fill" id="bd-m-2" autocomplete="off" aria-label="Thin lips"></li><li>Heart shaped lips<input class="fill" id="bd-m-3" autocomplete="off" aria-label="Heart shaped lips"></li><li>Crooked teeth<input class="fill" id="bd-m-4" autocomplete="off" aria-label="Crooked teeth"></li><li>Wears braces<input class="fill" id="bd-m-5" autocomplete="off" aria-label="Wears braces"></li></ul></div>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2">40</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">44</span>
     </section>
 
-    <!-- ============ PAGE 41 ============ -->
-    <section class="page page-right bd-page" aria-label="Page 41">
+    <!-- ============ PAGE 45 ============ -->
+    <section class="page page-right bd-page" aria-label="Page 45">
       <div class="art" aria-hidden="true"><svg viewBox="0 0 4961 3508" preserveAspectRatio="none"><rect x="0" y="1270" width="2480" height="2238" fill="#fef0ef"/><rect x="2480" y="0" width="2481" height="1270" fill="#fef0ef"/></svg></div>
 
       <div class="bd-col abs" style="--x:11.4;--y:11.8;--w:22.7"><span class="coral-pill">AGE</span>
@@ -1879,10 +1985,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="42-43" data-title="Describing people" data-name="Slash &amp; Draw">
+  <div class="spread" data-pages="46-47" data-title="Describing people" data-name="Slash &amp; Draw">
 
-    <!-- ============ PAGE 42 ============ -->
-    <section class="page page-left pd-page" aria-label="Page 42">
+    <!-- ============ PAGE 46 ============ -->
+    <section class="page page-left pd-page" aria-label="Page 46">
       <div class="lt-pill pink abs" style="--x:8;--y:6"><b>5.2</b> Slash &amp; Draw ✏️ · in pairs</div>
       <p class="pd-intro abs" style="--x:8;--y:12.4;--w:84"><b>Oh no!</b> The spaces have escaped from these descriptions! Save the words and then draw the character as accurately as you can.</p>
       <ol class="pd-steps abs" style="--x:8;--y:20.4;--w:84">
@@ -1903,11 +2009,11 @@
       <div class="slashable pd-text abs" id="pd-sb" data-words="sofia is a young greek woman she is short and athletic she has a triangular face with a broad forehead and a pointy chin her eyes are big round and dark brown and she has long lashes her eyebrows are short and thin her nose is small and upturned she has a small mouth with full lips and a dimple on her left cheek her hair is long straight and black with a central parting and a white streak at the front she has a small mole above her lip and a tiny nose piercing" style="--x:8;--y:85.6;--w:84"></div>
 
       <p class="pd-row abs" style="--x:8;--y:113;--w:84"><span>BODY PARTS I FOUND</span><input class="fill" id="pd-bodyparts" autocomplete="off" aria-label="Body parts I found"></p>
-      <span class="pageno abs" style="--x:9.7;--y:134.2">42</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">46</span>
     </section>
 
-    <!-- ============ PAGE 43 ============ -->
-    <section class="page page-right pd-page" aria-label="Page 43">
+    <!-- ============ PAGE 47 ============ -->
+    <section class="page page-right pd-page" aria-label="Page 47">
       <div class="lt-pill pink abs" style="--x:6;--y:5"><b>5.3</b> My drawings – be a detective of details! 🔎</div>
       
       <h3 class="pd-sub abs" style="--x:6;--y:12.8;--w:42">Text A – Oliver</h3>
@@ -1951,10 +2057,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="44-45" data-title="Describing people" data-name="Identikit · Doctor Grammar · Word Lego">
+  <div class="spread" data-pages="48-49" data-title="Describing people" data-name="Identikit · Doctor Grammar · Word Lego">
 
-    <!-- ============ PAGE 44 ============ -->
-    <section class="page page-left pd-page" aria-label="Page 44">
+    <!-- ============ PAGE 48 ============ -->
+    <section class="page page-left pd-page" aria-label="Page 48">
       <div class="lt-pill pink abs" style="--x:8;--y:5"><b>5.4</b> Wanted! The Identikit 🕵️‍♀️ · in pairs or small teams</div>
       <p class="pd-case abs" style="--x:8;--y:10.4;--w:84"><b>CASE FILE:</b> Last night somebody stole a famous painting from the City Museum. The night guard saw the thief. Now there are three suspects at the police station. Read the witness statement carefully and find the thief!</p>
       <h3 class="pd-label abs" style="--x:8;--y:23.4"><span>Witness statement</span></h3>
@@ -1982,11 +2088,11 @@
       </div>
       <p class="pd-row pd-concl abs" style="--x:8;--y:119.4;--w:84"><span>The thief is Suspect</span><input class="fill" id="pd-thief" autocomplete="off" aria-label="The thief is suspect" style="flex:0 0 7cqw;text-align:center"><span>because he has</span><input class="fill" id="pd-thief-why" autocomplete="off" aria-label="because he has"></p>
       <p class="pd-row pd-concl abs" style="--x:8;--y:125.4;--w:84"><span>Suspect</span><input class="fill" id="pd-not" autocomplete="off" aria-label="Suspect" style="flex:0 0 7cqw;text-align:center"><span>is not the thief because he has / does not have</span><input class="fill" id="pd-not-why" autocomplete="off" aria-label="is not the thief because"></p>
-      <span class="pageno abs" style="--x:9.7;--y:134.2">44</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">48</span>
     </section>
 
-    <!-- ============ PAGE 45 ============ -->
-    <section class="page page-right pd-page" aria-label="Page 45">
+    <!-- ============ PAGE 49 ============ -->
+    <section class="page page-right pd-page" aria-label="Page 49">
       <div class="lt-pill pink abs" style="--x:6;--y:5"><b>5.5</b> Doctor Grammar 🩺 · in pairs, race against another pair</div>
       <button class="check abs" type="button" style="--x:83;--y:4.8" data-list="pd-doc">✓ Check</button>
       <p class="pd-intro abs" style="--x:6;--y:11;--w:88">These descriptions are sick! There is <b>ONE</b> mistake in each sentence. Click the mistake to underline it and write the correct sentence. <span class="pd-hint">(has/have, is/are, adjective order, a/an, prepositions)</span></p>
@@ -2017,10 +2123,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="46-47" data-title="Describing people" data-name="The Description Ladder">
+  <div class="spread" data-pages="50-51" data-title="Describing people" data-name="The Description Ladder">
 
-    <!-- ============ PAGE 46 ============ -->
-    <section class="page page-left pd-page" aria-label="Page 46">
+    <!-- ============ PAGE 50 ============ -->
+    <section class="page page-left pd-page" aria-label="Page 50">
       <div class="lt-pill pink abs" style="--x:8;--y:5"><b>5.7</b> Combine! Make richer sentences</div>
       <p class="pd-intro abs" style="--x:8;--y:10.6;--w:84">Use <b>with · and · but · ,</b> and adjectives before the noun. Example: <i>He has a square face. He has a strong jaw. → He has a square face with a strong jaw.</i></p>
       <ol class="pd-q pd-comb abs" style="--x:8;--y:20;--w:84">
@@ -2041,11 +2147,11 @@
         <li><b>2</b><span><u>Face</u><small>shape · jaw · chin · cheekbones</small></span><input class="fill" id="pd-lad-2" placeholder="He / She has a … face with a …" autocomplete="off" aria-label="Step 2: Face"></li>
         <li><b>1</b><span><u>Who? Height & build</u><small>nationality · age · tall/short · slim/athletic</small></span><input class="fill" id="pd-lad-1" placeholder="… is a(n) … He / She is … and …" autocomplete="off" aria-label="Step 1: Who? Height &amp; build"></li>
       </ol>
-      <span class="pageno abs" style="--x:9.7;--y:134.2">46</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">50</span>
     </section>
 
-    <!-- ============ PAGE 47 ============ -->
-    <section class="page page-right pd-page" aria-label="Page 47">
+    <!-- ============ PAGE 51 ============ -->
+    <section class="page page-right pd-page" aria-label="Page 51">
       <div class="lt-pill pink abs" style="--x:6;--y:5"><b>5.9</b> Now describe yourself in as much detail as you can! 🪞</div>
       <p class="pd-intro abs" style="--x:6;--y:11;--w:88">Use the steps of the ladder, from <b>GENERAL</b> to <b>SPECIFIC</b>. Then add a photo of you or draw yourself.</p>
       <textarea class="fill b5-lines pd-lines abs" id="pd-me" style="--x:6;--y:19;--w:54;--h:110" aria-label="Describe yourself"></textarea>
@@ -2073,16 +2179,16 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="48-49" data-title="Describing people" data-name="Describe the characters">
+  <div class="spread" data-pages="52-53" data-title="Describing people" data-name="Describe the characters">
 
-    <!-- ============ PAGE 48 ============ -->
-    <section class="page page-left ruled" aria-label="Page 48">
+    <!-- ============ PAGE 52 ============ -->
+    <section class="page page-left ruled" aria-label="Page 52">
       <div class="art art-top" aria-hidden="true"><svg viewBox="0 0 4961 3508" preserveAspectRatio="none"><image href="img/characters-p42.png" width="4961" height="3508" preserveAspectRatio="none"/></svg></div>
-      <span class="pageno abs" style="--x:9.7;--y:134.2;z-index:4">48</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2;z-index:4">52</span>
     </section>
 
-    <!-- ============ PAGE 49 ============ -->
-    <section class="page page-right ruled" aria-label="Page 49">
+    <!-- ============ PAGE 53 ============ -->
+    <section class="page page-right ruled" aria-label="Page 53">
       <div class="art art-top" aria-hidden="true"><svg viewBox="0 0 4961 3508" preserveAspectRatio="none"><image href="img/characters-p42.png" width="4961" height="3508" preserveAspectRatio="none"/></svg></div>
       <div class="lt-pill abs" style="--x:59.4;--y:11.6"><b>1.3</b> Describe two of these characters</div>
       <textarea class="fill ruled-text abs" id="desc-13" style="--x:42;--y:17.6;--w:54;--h:112" aria-label="Describe two of these characters"></textarea>
@@ -2090,10 +2196,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="50-51" data-title="Literature · Metaphors" data-name="What is a metaphor? · Rule 1">
+  <div class="spread" data-pages="54-55" data-title="Literature · Metaphors" data-name="What is a metaphor? · Rule 1">
 
-    <!-- ============ PAGE 50 ============ -->
-    <section class="page page-left" aria-label="Page 50">
+    <!-- ============ PAGE 54 ============ -->
+    <section class="page page-left" aria-label="Page 54">
       <div class="lt-pill abs" style="--x:6;--y:5">📖 Literature</div>
       <h1 class="mt-title abs" style="--x:6;--y:9">Metaphors</h1>
 
@@ -2126,16 +2232,16 @@
 
       <h2 class="mt-h2 abs" style="--x:6;--y:79">The 4 rules of metaphors</h2>
       <ol class="mt-map abs" style="--x:6;--y:85;--w:88">
-        <li class="mt-r1"><a href="#p51"><b>1</b><span>NOT to be taken literally</span><small>p. 51</small></a></li>
-        <li class="mt-r2"><a href="#p53"><b>2</b><span>They CANNOT be reversed</span><small>p. 53</small></a></li>
-        <li class="mt-r3"><a href="#p54"><b>3</b><span>We can’t help but consider the literal meaning</span><small>p. 54</small></a></li>
-        <li class="mt-r4"><a href="#p55"><b>4</b><span>We can’t ignore the metaphorical meaning either</span><small>p. 55</small></a></li>
+        <li class="mt-r1"><a href="#p55"><b>1</b><span>NOT to be taken literally</span><small>p. 55</small></a></li>
+        <li class="mt-r2"><a href="#p57"><b>2</b><span>They CANNOT be reversed</span><small>p. 57</small></a></li>
+        <li class="mt-r3"><a href="#p58"><b>3</b><span>We can’t help but consider the literal meaning</span><small>p. 58</small></a></li>
+        <li class="mt-r4"><a href="#p59"><b>4</b><span>We can’t ignore the metaphorical meaning either</span><small>p. 59</small></a></li>
       </ol>
-      <span class="pageno abs" style="--x:9.7;--y:134.2">50</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">54</span>
     </section>
 
-    <!-- ============ PAGE 51 ============ -->
-    <section class="page page-right mt-r1" aria-label="Page 51">
+    <!-- ============ PAGE 55 ============ -->
+    <section class="page page-right mt-r1" aria-label="Page 55">
       <div class="mt-band" aria-hidden="true"></div>
       <div class="mt-rulehead abs" style="--x:6;--y:4;--w:62"><span>RULE 1</span><h1>NOT to be taken literally</h1></div>
       <svg class="mt-rain abs" style="--x:70;--y:2;--w:26" viewBox="0 0 200 200" aria-hidden="true"><image href="img/metaphors-p50.svg" width="200" height="200"/></svg>
@@ -2176,15 +2282,15 @@
         </ul>
         <svg class="match-lines" aria-hidden="true"></svg>
       </div>
-      <p class="mt-remember abs" style="--x:6;--y:118;--w:88"><b>Every language has its own metaphors!</b> In Italian it doesn’t rain cats and dogs: it rains <i>a catinelle</i> (basins!). Find more on p. 52.</p>
+      <p class="mt-remember abs" style="--x:6;--y:118;--w:88"><b>Every language has its own metaphors!</b> In Italian it doesn’t rain cats and dogs: it rains <i>a catinelle</i> (basins!). Find more on p. 56.</p>
       <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Literature · Metaphors</span>
     </section>
   </div>
 
-  <div class="spread" data-pages="52-53" data-title="Literature · Metaphors" data-name="Rule 1: in your language · Rule 2">
+  <div class="spread" data-pages="56-57" data-title="Literature · Metaphors" data-name="Rule 1: in your language · Rule 2">
 
-    <!-- ============ PAGE 52 ============ -->
-    <section class="page page-left mt-r1" aria-label="Page 52">
+    <!-- ============ PAGE 56 ============ -->
+    <section class="page page-left mt-r1" aria-label="Page 56">
       <div class="lt-pill pink abs" style="--x:6;--y:5"><b>1.3</b> Metaphors in YOUR language</div>
       <p class="pd-intro abs" style="--x:6;--y:10;--w:88">Think of Italian expressions that must <b>not</b> be taken literally. Translate them word for word: what would an English person imagine? What do they really mean?</p>
       <div class="mt-table abs" style="--x:6;--y:18;--w:88">
@@ -2215,11 +2321,11 @@
           <input type="file" accept="image/*" hidden>
         </div>
       </div>
-      <span class="pageno abs" style="--x:9.7;--y:134.2">52</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">56</span>
     </section>
 
-    <!-- ============ PAGE 53 ============ -->
-    <section class="page page-right mt-r2" aria-label="Page 53">
+    <!-- ============ PAGE 57 ============ -->
+    <section class="page page-right mt-r2" aria-label="Page 57">
       <div class="mt-band" aria-hidden="true"></div>
       <div class="mt-rulehead abs" style="--x:6;--y:4;--w:88"><span>RULE 2</span><h1>Metaphors CANNOT be reversed</h1></div>
       <div class="mt-rev abs" style="--x:6;--y:15;--w:88">
@@ -2253,10 +2359,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="54-55" data-title="Literature · Metaphors" data-name="Rule 3: the Stroop test · Rule 4">
+  <div class="spread" data-pages="58-59" data-title="Literature · Metaphors" data-name="Rule 3: the Stroop test · Rule 4">
 
-    <!-- ============ PAGE 54 ============ -->
-    <section class="page page-left mt-r3" aria-label="Page 54">
+    <!-- ============ PAGE 58 ============ -->
+    <section class="page page-left mt-r3" aria-label="Page 58">
       <div class="mt-band" aria-hidden="true"></div>
       <div class="mt-rulehead abs" style="--x:6;--y:4;--w:88"><span>RULE 3</span><h1>We can’t help but consider the literal meaning</h1></div>
       <p class="mt-text abs" style="--x:6;--y:20;--w:88">When we read a word, its literal meaning arrives <b>first and automatically</b>. Try the <b>Stroop test</b>: don’t read the words, say the <b>COLOUR of the ink</b> out loud, as fast as you can!</p>
@@ -2288,11 +2394,11 @@
         <p><span>He has his head in the clouds.</span><input class="fill" id="mt-pic-1a" autocomplete="off" aria-label="Head in the clouds: picture"><input class="fill" id="mt-pic-1b" autocomplete="off" aria-label="Head in the clouds: meaning"></p>
         <p><span>That test was a piece of cake.</span><input class="fill" id="mt-pic-2a" autocomplete="off" aria-label="Piece of cake: picture"><input class="fill" id="mt-pic-2b" autocomplete="off" aria-label="Piece of cake: meaning"></p>
       </div>
-      <span class="pageno abs" style="--x:9.7;--y:134.2">54</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">58</span>
     </section>
 
-    <!-- ============ PAGE 55 ============ -->
-    <section class="page page-right mt-r4" aria-label="Page 55">
+    <!-- ============ PAGE 59 ============ -->
+    <section class="page page-right mt-r4" aria-label="Page 59">
       <div class="mt-band" aria-hidden="true"></div>
       <div class="mt-rulehead abs" style="--x:6;--y:4;--w:88"><span>RULE 4</span><h1>But we can’t ignore the metaphorical meaning either</h1></div>
 
@@ -2330,10 +2436,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="56-57" data-title="Literature · Metaphors" data-name="Rule 4: metaphors change reality · Simile vs metaphor">
+  <div class="spread" data-pages="60-61" data-title="Literature · Metaphors" data-name="Rule 4: metaphors change reality · Simile vs metaphor">
 
-    <!-- ============ PAGE 56 ============ -->
-    <section class="page page-left mt-r4" aria-label="Page 56">
+    <!-- ============ PAGE 60 ============ -->
+    <section class="page page-left mt-r4" aria-label="Page 60">
       <div class="mt-rulehead small abs" style="--x:6;--y:5;--w:88"><span>RULE 4</span><h1>Metaphors change our perception of reality!</h1></div>
 
       <div class="mt-exp abs" style="--x:6;--y:15;--w:88">
@@ -2367,11 +2473,11 @@
       <div class="lt-pill abs" style="--x:6;--y:109"><b>4.7</b> Your turn! Finish the metaphor</div>
       <p class="mt-line abs" style="--x:6;--y:114;--w:88"><span>School is</span><input class="fill" id="mt-school" autocomplete="off" aria-label="School is…"></p>
       <p class="mt-line abs" style="--x:6;--y:120;--w:88"><span>because</span><input class="fill" id="mt-school-why" autocomplete="off" aria-label="because…"></p>
-      <span class="pageno abs" style="--x:9.7;--y:134.2">56</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">60</span>
     </section>
 
-    <!-- ============ PAGE 57 ============ -->
-    <section class="page page-right" aria-label="Page 57">
+    <!-- ============ PAGE 61 ============ -->
+    <section class="page page-right" aria-label="Page 61">
       <div class="mt-circle coral abs" style="--x:56;--y:-9;--w:34" aria-hidden="true"><span>🍒</span><b>METAPHOR</b></div>
       <div class="mt-circle lilac abs" style="--x:8;--y:-9;--w:34" aria-hidden="true"><span>🦊</span><b>SIMILE</b></div>
       <p class="mt-cap abs" style="--x:54;--y:28;--w:42">Your lips are cherries<small>no <u>like</u> / <u>as</u>: one thing IS another</small></p>
@@ -2410,10 +2516,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="58-59" data-title="Literature · Metaphors" data-name="Metaphor workshop · Portrait poem">
+  <div class="spread" data-pages="62-63" data-title="Literature · Metaphors" data-name="Metaphor workshop · Portrait poem">
 
-    <!-- ============ PAGE 58 ============ -->
-    <section class="page page-left" aria-label="Page 58">
+    <!-- ============ PAGE 62 ============ -->
+    <section class="page page-left" aria-label="Page 62">
       <h1 class="mt-title small abs" style="--x:6;--y:4">Metaphor workshop 🎡</h1>
       <div class="mt-recipe abs" style="--x:6;--y:12;--w:88">
         <p class="mt-formula-txt">THE RECIPE: <b>A is B + because…</b></p>
@@ -2451,13 +2557,13 @@
         <li><b>4</b><span>Extended<small>…ice that freezes every handshake.</small></span><input class="fill" id="mt-lad-4" data-rule="extended" autocomplete="off" aria-label="Rung 4: extended metaphor"></li>
       </ol>
       <p class="mt-fb abs" id="mt-lad-fb" style="--x:20;--y:131.5;--w:74" role="status"></p>
-      <span class="pageno abs" style="--x:9.7;--y:134.2">58</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">62</span>
     </section>
 
-    <!-- ============ PAGE 59 ============ -->
-    <section class="page page-right" aria-label="Page 59">
+    <!-- ============ PAGE 63 ============ -->
+    <section class="page page-right" aria-label="Page 63">
       <div class="lt-pill abs" style="--x:6;--y:5"><b>6.4</b> Write a poem: a portrait in metaphors ✍️</div>
-      <p class="pd-intro abs" style="--x:6;--y:10;--w:88">Describe a person (you, a friend, a character) with <b>one metaphor for each step</b>. Go from the whole person to the smallest detail, like the Description Ladder on p. 46!</p>
+      <p class="pd-intro abs" style="--x:6;--y:10;--w:88">Describe a person (you, a friend, a character) with <b>one metaphor for each step</b>. Go from the whole person to the smallest detail, like the Description Ladder on p. 50!</p>
       <p class="mt-line big abs" style="--x:6;--y:18;--w:88"><span>Title</span><input class="fill" id="mt-poem-title" placeholder="A portrait in metaphors" autocomplete="off" aria-label="Poem title"></p>
       <ol class="mt-poem abs" style="--x:6;--y:23.5;--w:88">
         <li><b>1</b><small>Who? Height &amp; build</small><input class="fill" id="mt-poem-1" placeholder="My grandpa is a mountain…" autocomplete="off" aria-label="Line 1: who, height and build"></li>
@@ -2481,10 +2587,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="60-61" data-title="Personality" data-name="Personality: the Big 5">
+  <div class="spread" data-pages="64-65" data-title="Personality" data-name="Personality: the Big 5">
 
-    <!-- ============ PAGE 60 ============ -->
-    <section class="page page-left" aria-label="Page 60">
+    <!-- ============ PAGE 64 ============ -->
+    <section class="page page-left" aria-label="Page 64">
       <div class="art" aria-hidden="true">
         <svg viewBox="0 0 922 651" preserveAspectRatio="none" fill="none" stroke-width="36">
           <path d="M565,-25 C545,40 475,58 432,36 C402,20 392,-2 360,4 C318,12 284,24 266,62 C246,106 246,164 186,170 C126,176 104,140 52,150 C16,158 4,192 -4,236" stroke="#dfee6a"/>
@@ -2556,11 +2662,11 @@
         <p class="b5-tot"><output>&nbsp;</output><span>TOT.</span></p>
       </div>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2">60</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">64</span>
     </section>
 
-    <!-- ============ PAGE 61 ============ -->
-    <section class="page page-right" aria-label="Page 61">
+    <!-- ============ PAGE 65 ============ -->
+    <section class="page page-right" aria-label="Page 65">
       <div class="art" aria-hidden="true">
         <svg viewBox="0 0 922 651" preserveAspectRatio="none" fill="none" stroke-width="36">
           <path d="M565,-25 C545,40 475,58 432,36 C402,20 392,-2 360,4" stroke="#dfee6a"/>
@@ -2612,10 +2718,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="62-63" data-title="Personality" data-name="Personality adjectives">
+  <div class="spread" data-pages="66-67" data-title="Personality" data-name="Personality adjectives">
 
-    <!-- ============ PAGE 62 ============ -->
-    <section class="page page-left" aria-label="Page 62">
+    <!-- ============ PAGE 66 ============ -->
+    <section class="page page-left" aria-label="Page 66">
       <h1 class="big-title left abs" style="--x:4.3;--y:2.6;color:#f96d5a;font-size:6.2cqw">Personality<br>adjectives</h1>
       <div class="voc-bar abs" style="--x:49;--w:1.1"></div>
       <ol class="voc it-en abs" style="--x:4.3;--y:16.5;--w:90.1">
@@ -2644,11 +2750,11 @@
       </ol>
       <!-- the back of the half page: turned to the left it hides the English words -->
       <button class="flap back abs" type="button" style="--x:44.5;--w:55.5" aria-label="Turn the flap back to the right"><span>⟳ turn</span></button>
-      <span class="pageno abs" style="--x:9.7;--y:134.2">62</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">66</span>
     </section>
 
-    <!-- ============ PAGE 63 ============ -->
-    <section class="page page-right" aria-label="Page 63">
+    <!-- ============ PAGE 67 ============ -->
+    <section class="page page-right" aria-label="Page 67">
       <button type="button" class="pg-play abs" style="--x:62;--y:3.2">▶ Play the adjectives game</button>
       <div class="voc-bar abs" style="--x:49.7;--w:1.1"></div>
       <ol class="voc en-it abs" style="--x:4.8;--y:11.3;--w:90.6">
@@ -2682,10 +2788,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="64-65" data-title="Greek mythology" data-name="The gods · Prometheus">
+  <div class="spread" data-pages="68-69" data-title="Greek mythology" data-name="The gods · Prometheus">
 
-    <!-- ============ PAGE 64 ============ -->
-    <section class="page page-left gm-page" aria-label="Page 64">
+    <!-- ============ PAGE 68 ============ -->
+    <section class="page page-left gm-page" aria-label="Page 68">
       <h1 class="gm-title abs" style="--x:5.4;--y:5.2">Gr<span>e</span>ek<br>mythology</h1>
 
       <div class="match-set gm abs" style="--x:0;--y:0;--w:100;--h:141.42">
@@ -2721,11 +2827,11 @@
       </div>
       <button class="check abs" type="button" style="--x:80;--y:131" data-match="gm-a gm-b">✓ Check</button>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2;color:rgba(255,255,255,.55)">64</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2;color:rgba(255,255,255,.55)">68</span>
     </section>
 
-    <!-- ============ PAGE 65 ============ -->
-    <section class="page page-right gm-photo" aria-label="Page 65">
+    <!-- ============ PAGE 69 ============ -->
+    <section class="page page-right gm-photo" aria-label="Page 69">
       <div class="gm-white abs" style="--x:0;--y:0;--w:59.6;--h:141.42"></div>
       <span class="unit-pill lit abs" style="--x:74;--y:6.4">LITERATURE · 1</span>
 
@@ -2749,10 +2855,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="66-67" data-title="Greek mythology" data-name="Persephone">
+  <div class="spread" data-pages="70-71" data-title="Greek mythology" data-name="Persephone">
 
-    <!-- ============ PAGE 66 ============ -->
-    <section class="page page-left" aria-label="Page 66">
+    <!-- ============ PAGE 70 ============ -->
+    <section class="page page-left" aria-label="Page 70">
       <svg class="page-svg ps-p" viewBox="0 0 100 141.42" aria-hidden="true" style="z-index:0">
         <path d="M12.6,0 V55.4 M12.6,.75 H27.3 A11.4,11.4 0 0 1 27.3,23.5 H12.6" fill="none" stroke="#fd7366" stroke-width="1.5"/>
       </svg>
@@ -2801,11 +2907,11 @@
           <li>Demeter and Persephone live together. <input class="fill blank" id="ps14-8" data-given="" data-answer="their" autocomplete="off" aria-label="8 blank"> home is beautiful.</li>
       </ol>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2">66</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">70</span>
     </section>
 
-    <!-- ============ PAGE 67 ============ -->
-    <section class="page page-right" aria-label="Page 67">
+    <!-- ============ PAGE 71 ============ -->
+    <section class="page page-right" aria-label="Page 71">
       <div class="ps-box bar abs" style="--x:12.1;--y:13.7;--w:74.2">
         <p>In the Underworld, everything is dark and sad. But Persephone is not boring as Hades, so she starts to decorate. She adds some flowers and style. Suddenly, the Underworld looks almost... cozy.</p>
         <p>Meanwhile, on Earth, Demeter is super sad. Her daughter is gone! And when Demeter is sad, all the plants die, and everything freezes. 🥶 Nobody even knows what “winter” is yet. But now it is winter every day, and life is terrible.</p>
@@ -2839,10 +2945,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="68-69" data-title="Greek mythology" data-name="Persephone: the play">
+  <div class="spread" data-pages="72-73" data-title="Greek mythology" data-name="Persephone: the play">
 
-    <!-- ============ PAGE 68 ============ -->
-    <section class="page page-left" aria-label="Page 68">
+    <!-- ============ PAGE 72 ============ -->
+    <section class="page page-left" aria-label="Page 72">
       <div class="art art-top" aria-hidden="true"><img class="play-art" src="img/persephone.png" alt="" onerror="this.remove()"></div>
       <svg class="page-svg" viewBox="0 0 100 141.42" aria-hidden="true" style="z-index:0">
         <path d="M11,0 V36 M11,.75 H25.7 A11.4,11.4 0 0 1 25.7,23.5 H11" fill="none" stroke="#fd7366" stroke-width="1.5"/>
@@ -2873,11 +2979,11 @@
           <p class="who-hades"><b class="">Hades</b>: Ugh… fine. One pillow. Black pillow!</p>
       </div>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2">68</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">72</span>
     </section>
 
-    <!-- ============ PAGE 69 ============ -->
-    <section class="page page-right" aria-label="Page 69">
+    <!-- ============ PAGE 73 ============ -->
+    <section class="page page-right" aria-label="Page 73">
       <div class="art art-top" aria-hidden="true"><img class="play-art" src="img/persephone.png" alt="" onerror="this.remove()"></div>
       <div class="play plain abs" style="--x:14.5;--y:9.6;--w:80">
           <p style="margin-left:0cqw" class="who-zeus"><b class="">Zeus</b> <i>(alone on a cloud)</i>: Why is the world frozen? For days! Olive trees are ice, beaches are closed, even my thunder is cold!</p>
@@ -2909,10 +3015,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="70-71" data-title="Greek mythology" data-name="Acting tips · Evaluation grid">
+  <div class="spread" data-pages="74-75" data-title="Greek mythology" data-name="Acting tips · Evaluation grid">
 
-    <!-- ============ PAGE 70 ============ -->
-    <section class="page page-left at-page" aria-label="Page 70">
+    <!-- ============ PAGE 74 ============ -->
+    <section class="page page-left at-page" aria-label="Page 74">
       <div class="art" aria-hidden="true">
         <svg viewBox="0 0 922 652" preserveAspectRatio="none">
           <path d="M0,98 C40,135 90,150 150,150 C220,150 265,100 330,85 C400,70 455,80 490,105 C520,128 535,175 560,240 C590,300 640,305 680,300 C760,290 820,255 922,248 L922,318 C820,330 740,385 660,382 C580,378 545,350 525,320 C505,270 490,200 461,175 C430,150 400,135 360,140 C300,150 260,215 200,225 C130,235 60,215 0,185 Z" fill="#fe7366"/>
@@ -2942,11 +3048,11 @@
         <li><div>Black cape (or big black t-shirt), silver jewellery, cardboard crown painted black/silver.</div><input class="fill" id="cost-4" data-given="" data-answer="Hades" autocomplete="off" aria-label="Which character?"></li>
       </ol>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2">70</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">74</span>
     </section>
 
-    <!-- ============ PAGE 71 ============ -->
-    <section class="page page-right" aria-label="Page 71">
+    <!-- ============ PAGE 75 ============ -->
+    <section class="page page-right" aria-label="Page 75">
       <div class="art" aria-hidden="true">
         <svg viewBox="0 0 922 652" preserveAspectRatio="none">
           <path d="M0,98 C40,135 90,150 150,150 C220,150 265,100 330,85 C400,70 455,80 490,105 C520,128 535,175 560,240 C590,300 640,305 680,300 C760,290 820,255 922,248 L922,318 C820,330 740,385 660,382 C580,378 545,350 525,320 C505,270 490,200 461,175 C430,150 400,135 360,140 C300,150 260,215 200,225 C130,235 60,215 0,185 Z" fill="#fe7366"/>
@@ -2996,10 +3102,10 @@
     </section>
   </div>
 
-  <div class="spread" data-pages="72-73" data-title="Greek mythology" data-name="Reading: Circe">
+  <div class="spread" data-pages="76-77" data-title="Greek mythology" data-name="Reading: Circe">
 
-    <!-- ============ PAGE 72 ============ -->
-    <section class="page page-left" aria-label="Page 72">
+    <!-- ============ PAGE 76 ============ -->
+    <section class="page page-left" aria-label="Page 76">
       <div class="art" aria-hidden="true"><svg viewBox="0 0 922 652" preserveAspectRatio="none"><text class="circe-quote" x="436" y="318">“</text></svg></div>
       <div class="ft-box abs" style="--x:6.5;--y:5.4;--w:89.6;--h:39.6"></div>
       <svg class="page-svg ft" viewBox="0 0 461 652" aria-hidden="true" style="z-index:1">
@@ -3060,11 +3166,11 @@
         <li><span>"She is yours if you want her."</span><input class="fill" id="cc18-4" data-given="" data-answer="Perse|Oceanos's daughter|Oceanus's daughter|Oceanos daughter" autocomplete="off" aria-label="She is yours"></li>
       </ol>
 
-      <span class="pageno abs" style="--x:9.7;--y:134.2">72</span>
+      <span class="pageno abs" style="--x:9.7;--y:134.2">76</span>
     </section>
 
-    <!-- ============ PAGE 73 ============ -->
-    <section class="page page-right" aria-label="Page 73">
+    <!-- ============ PAGE 77 ============ -->
+    <section class="page page-right" aria-label="Page 77">
       <div class="art" aria-hidden="true"><svg viewBox="0 0 922 652" preserveAspectRatio="none"><text class="circe-quote" x="436" y="318">“</text></svg></div>
       <p class="first-page cc-first abs" style="--x:60;--y:3.6;--w:39">First page.</p>
       <div class="cc-rule abs" style="--x:27.5;--y:7.2;--w:72.5"></div>
@@ -3136,5 +3242,6 @@
   <script src="grammar-games-data.js"></script>
   <script src="grammar-games.js"></script>
   <script src="personality-game.js"></script>
+  <script src="home-game.js"></script>
 </body>
 </html>

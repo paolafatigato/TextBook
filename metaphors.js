@@ -1,4 +1,4 @@
-// Literature · Metaphors (pp. 50-59): the stopwatches and the two games
+// Literature · Metaphors (pp. 54-63): the stopwatches and the two games
 // (rule 3: the Stroop test, rule 4: "literally true?"), and the checks of the metaphors.
 
 (() => {
@@ -18,7 +18,7 @@
   };
   const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
-  /* ================= stopwatches (p. 54) ================= */
+  /* ================= stopwatches (p. 58) ================= */
   // ⏱ Start → the button counts the seconds; ⏹ Stop → the time goes into the box next to it
 
   document.querySelectorAll('.mt-timer').forEach(btn => {
@@ -92,7 +92,7 @@
 
   /* ---------- rule 3: the Stroop game ---------- */
   // Level 1: the word and the ink are the same colour. Level 2: they are different.
-  // Click the colour of the INK. The average time of each level is written on p. 54.
+  // Click the colour of the INK. The average time of each level is written on p. 58.
 
   const COLOURS = [
     { name: 'red', c: '#e53935' },
@@ -164,7 +164,7 @@
           <div><small>Level 2 · different colour</small><b>${a2} ms</b><small>${plural(errors[2], 'mistake')}</small></div>
         </div>
         <p class="mt-gmsg">${msg}</p>
-        <p><small>1000 ms = 1 second. Your results are written on page 54.</small></p>
+        <p><small>1000 ms = 1 second. Your results are written on page 58.</small></p>
         <button type="button" class="mt-gbtn" data-act="again">↻ Play again</button><button type="button" class="mt-gbtn alt" data-act="close">Close</button>`;
       fillIn('mt-game-1', `${a1} ms · ${plural(errors[1], 'mistake')}`);
       fillIn('mt-game-2', `${a2} ms · ${plural(errors[2], 'mistake')}`);
@@ -193,7 +193,7 @@
   })();
 
   /* ---------- rule 4: literally true? ---------- */
-  // The experiment of p. 55: say if a sentence is LITERALLY true or false, as fast as you can.
+  // The experiment of p. 59: say if a sentence is LITERALLY true or false, as fast as you can.
   // Metaphors are literally false, but the brain understands them anyway: saying "false" takes longer.
 
   const SENTENCES = [
@@ -271,7 +271,7 @@
           <div><small>Metaphors<br>“Time is a thief.”</small><b>${m} ms</b></div>
         </div>
         <p class="mt-gmsg">${msg}</p>
-        <p><small>True sentences: ${avg(times.true)} ms · ${plural(errors, 'mistake')}. Your results are written on page 55.</small></p>
+        <p><small>True sentences: ${avg(times.true)} ms · ${plural(errors, 'mistake')}. Your results are written on page 59.</small></p>
         <button type="button" class="mt-gbtn" data-act="again">↻ Play again</button><button type="button" class="mt-gbtn alt" data-act="close">Close</button>`;
       fillIn('mt-tr-false', `${f} ms`);
       fillIn('mt-tr-meta', `${m} ms`);
@@ -297,7 +297,7 @@
   const GAMES = { stroop, truth };
   document.querySelectorAll('.mt-play[data-game]').forEach(btn => btn.addEventListener('click', () => open(GAMES[btn.dataset.game])));
 
-  /* ================= check the metaphors (p. 58) ================= */
+  /* ================= check the metaphors (p. 62) ================= */
   // data-rule on each box: plain · simile (with like/as) · metaphor (without like/as)
   // · extended (a metaphor with an explanation, at least 7 words)
 

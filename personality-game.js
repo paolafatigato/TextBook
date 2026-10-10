@@ -1,4 +1,4 @@
-// Vocabulary · Personality adjectives (pp. 62-63): the "missing letters" game in a pop-up.
+// Vocabulary · Personality adjectives (pp. 66-67): the "missing letters" game in a pop-up.
 // Click (or type) the letters of the adjective, or of its comparative/superlative, in the sentence.
 // 10 pins for each word: a wrong letter knocks one down.
 
