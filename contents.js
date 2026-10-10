@@ -1,6 +1,7 @@
 // Table of contents shown on the home page.
 // Page numbers are the ones printed in the book.
 // A page that is not in the website yet is shown as "coming soon".
+// zoom (optional) enlarges the drawing inside its circle, e.g. 1.5.
 
 const CONTENTS = {
   chapters: [
@@ -27,6 +28,7 @@ const CONTENTS = {
       pages: [30, 37],
       color: '#c97df6',
       image: 'img/game-p34.png',
+      zoom: 1.8,
     },
     {
       title: 'Home',
@@ -39,6 +41,7 @@ const CONTENTS = {
       pages: [44, 53],
       color: '#f96d5a',
       image: 'img/face-p40.png',
+      zoom: 1.6,
     },
     {
       title: 'Literature: Metaphors',

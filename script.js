@@ -664,7 +664,7 @@ function renderHome() {
     return `
       <article class="chapter" style="--c:${esc(ch.color || '#f05f4b')}">
         <a class="chapter-cover" href="#p${start}">
-          ${ch.image ? `<img src="${esc(ch.image)}" alt="">` : ''}
+          ${ch.image ? `<span class="chapter-pic"><img src="${esc(ch.image)}" alt=""${ch.zoom ? ` style="--zoom:${+ch.zoom}"` : ''}></span>` : ''}
           <span class="chapter-pages">${range(start, end)}</span>
           <h3>${esc(ch.title)}</h3>
         </a>
