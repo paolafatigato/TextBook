@@ -381,10 +381,13 @@
       </div>
 
       <!-- the hand and piggy bank sit a little further left than in the drawing file -->
+      <!-- the piggy bank peeks out from behind the white card; the monkey stands on top of it -->
       <svg class="page-art" viewBox="0 0 2480 3508" aria-hidden="true">
         <clipPath id="p8-top"><rect x="0" y="0" width="2480" height="900"/></clipPath>
-        <clipPath id="p8-bottom"><rect x="0" y="900" width="2480" height="2608"/></clipPath>
         <image href="img/catalogue-p8.png" width="2480" height="3508" clip-path="url(#p8-top)" transform="translate(-165 -30)"/>
+      </svg>
+      <svg class="page-art over" viewBox="0 0 2480 3508" aria-hidden="true">
+        <clipPath id="p8-bottom"><rect x="0" y="900" width="2480" height="2608"/></clipPath>
         <image href="img/catalogue-p8.png" width="2480" height="3508" clip-path="url(#p8-bottom)"/>
       </svg>
       <p class="tagline abs" style="--x:0;--y:136.2;--w:100">MAKE MONEY · SPEND IT WISELY</p>
@@ -2117,8 +2120,8 @@
       </div>
 
       <div class="mt-vs abs" style="--x:6;--y:63;--w:88">
-        <p><b>METAPHOR</b> one thing <u>IS</u> another<i>Your lips are cherries. 🍒</i></p>
-        <p><b>SIMILE</b> one thing is <u>LIKE</u> another (like / as)<i>You are sly as a fox. 🦊</i></p>
+        <p class="sim"><b>SIMILE</b> one thing is <u>LIKE</u> another (like / as)<i>You are sly as a fox. 🦊</i></p>
+        <p class="met"><b>METAPHOR</b> one thing <u>IS</u> another<i>Your lips are cherries. 🍒</i></p>
       </div>
 
       <h2 class="mt-h2 abs" style="--x:6;--y:79">The 4 rules of metaphors</h2>
@@ -2265,6 +2268,7 @@
         <span style="--c:#e53935">red</span><span style="--c:#1e5bd8">blue</span><span style="--c:#2e9e3a">green</span><span style="--c:#f08a00">orange</span><span style="--c:#a62bc9">purple</span>
       </div>
 
+      <button type="button" class="check abs" id="mt-st-new" style="--x:73;--y:62.8">🔀 New words</button>
       <div class="lt-pill abs" style="--x:6;--y:63"><b>3.1</b> Time yourself with a friend</div>
       <div class="mt-rounds abs" style="--x:6;--y:68;--w:88">
         <p><b>Round 1</b> READ the words <button type="button" class="mt-timer" data-for="mt-st-1">⏱ Start</button><input class="fill" id="mt-st-1" autocomplete="off" aria-label="Round 1: seconds"><span>seconds</span></p>
@@ -2368,23 +2372,23 @@
 
     <!-- ============ PAGE 57 ============ -->
     <section class="page page-right" aria-label="Page 57">
-      <div class="mt-circle coral abs" style="--x:8;--y:-9;--w:34" aria-hidden="true"><span>🍒</span><b>METAPHOR</b></div>
-      <div class="mt-circle lilac abs" style="--x:56;--y:-9;--w:34" aria-hidden="true"><span>🦊</span><b>SIMILE</b></div>
-      <p class="mt-cap abs" style="--x:6;--y:28;--w:42">Your lips are cherries<small>no <u>like</u> / <u>as</u>: one thing IS another</small></p>
-      <p class="mt-cap abs" style="--x:54;--y:28;--w:42">You are sly as a fox<small><u>like</u> / <u>as</u>: one thing is LIKE another</small></p>
+      <div class="mt-circle coral abs" style="--x:56;--y:-9;--w:34" aria-hidden="true"><span>🍒</span><b>METAPHOR</b></div>
+      <div class="mt-circle lilac abs" style="--x:8;--y:-9;--w:34" aria-hidden="true"><span>🦊</span><b>SIMILE</b></div>
+      <p class="mt-cap abs" style="--x:54;--y:28;--w:42">Your lips are cherries<small>no <u>like</u> / <u>as</u>: one thing IS another</small></p>
+      <p class="mt-cap abs" style="--x:6;--y:28;--w:42">You are sly as a fox<small><u>like</u> / <u>as</u>: one thing is LIKE another</small></p>
 
-      <div class="lt-pill abs" style="--x:6;--y:37"><b>5.1</b> Complete with a metaphor (left) and a simile (right)</div>
-      <div class="mt-sm abs" style="--x:6;--y:42;--w:42">
-        <p><b>River =</b><input class="fill" id="mt-sm-river" autocomplete="off" aria-label="River equals"></p>
-        <p><b>Sky =</b><input class="fill" id="mt-sm-sky" autocomplete="off" aria-label="Sky equals"></p>
-        <p><b>Eyes =</b><input class="fill" id="mt-sm-eyes" autocomplete="off" aria-label="Eyes equals"></p>
-        <p><b>Lips =</b><input class="fill" id="mt-sm-lips" autocomplete="off" aria-label="Lips equals"></p>
-      </div>
-      <div class="mt-sm abs" style="--x:52;--y:42;--w:42">
+      <div class="lt-pill abs" style="--x:6;--y:37"><b>5.1</b> Complete with a simile (left) and a metaphor (right)</div>
+      <div class="mt-sm sim abs" style="--x:6;--y:42;--w:42">
         <p><b>Your smile…</b><input class="fill" id="mt-sm-smile" autocomplete="off" aria-label="Your smile…"></p>
         <p><b>(Strong)</b><input class="fill" id="mt-sm-strong" placeholder="as strong as …" autocomplete="off" aria-label="Strong"></p>
         <p><b>(Scared)</b><input class="fill" id="mt-sm-scared" autocomplete="off" aria-label="Scared"></p>
         <p><b>My mom…</b><input class="fill" id="mt-sm-mom" autocomplete="off" aria-label="My mom…"></p>
+      </div>
+      <div class="mt-sm met abs" style="--x:52;--y:42;--w:42">
+        <p><b>River =</b><input class="fill" id="mt-sm-river" autocomplete="off" aria-label="River equals"></p>
+        <p><b>Sky =</b><input class="fill" id="mt-sm-sky" autocomplete="off" aria-label="Sky equals"></p>
+        <p><b>Eyes =</b><input class="fill" id="mt-sm-eyes" autocomplete="off" aria-label="Eyes equals"></p>
+        <p><b>Lips =</b><input class="fill" id="mt-sm-lips" autocomplete="off" aria-label="Lips equals"></p>
       </div>
 
       <div class="lt-pill abs" style="--x:6;--y:66"><b>5.2</b> Detective 🔎 Simile, metaphor or just a fact?</div>
@@ -2467,19 +2471,12 @@
         <li><b>★</b><small>Last line</small><input class="fill" id="mt-poem-last" placeholder="This is…" autocomplete="off" aria-label="Last line"></li>
       </ol>
 
-      <div class="mt-hw abs" style="--x:6;--y:70;--w:88">
-        <h3>🏠 HOMEWORK</h3>
-        <ol>
-          <li>Draw or make a collage of a metaphor taken literally <small>(on a sheet, or on p. 52)</small></li>
-          <li>Write a sentence with a reversed metaphor:
-            <input class="fill" id="mt-hw-rev" autocomplete="off" aria-label="A sentence with a reversed metaphor"></li>
-          <li>Find a metaphor in a poem of your choosing:
-            <span class="mt-hw-row"><em>Poem</em><input class="fill" id="mt-hw-poem" autocomplete="off" aria-label="Poem title"><em>Poet</em><input class="fill" id="mt-hw-poet" autocomplete="off" aria-label="Poet"></span>
-            <span class="mt-hw-row"><em>Metaphor</em><input class="fill" id="mt-hw-met" autocomplete="off" aria-label="The metaphor"></span>
-            <span class="mt-hw-row"><em>It means</em><input class="fill" id="mt-hw-means" autocomplete="off" aria-label="What the metaphor means"></span></li>
-        </ol>
-        <a class="mt-online" href="https://paolafatigato.github.io/Metaphors/" target="_blank" rel="noopener">🎡 Practise online: Metaphor Workshop →</a>
-      </div>
+      <div class="lt-pill abs" style="--x:6;--y:73"><b>6.5</b> Find a metaphor in a poem of your choosing 📖</div>
+      <p class="mt-line abs" style="--x:6;--y:81;--w:88"><span>Poem</span><input class="fill" id="mt-hw-poem" autocomplete="off" aria-label="Poem title"><span>Poet</span><input class="fill" id="mt-hw-poet" autocomplete="off" aria-label="Poet"></p>
+      <p class="mt-label abs" style="--x:6;--y:89.4;--w:88">The metaphor</p>
+      <textarea class="fill mt-lines abs" id="mt-hw-met" style="--x:6;--y:92.6;--w:88;--h:12.6" aria-label="The metaphor"></textarea>
+      <p class="mt-label abs" style="--x:6;--y:108.4;--w:88">It means…</p>
+      <textarea class="fill mt-lines abs" id="mt-hw-means" style="--x:6;--y:111.6;--w:88;--h:16.8" aria-label="What the metaphor means"></textarea>
       <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Literature · Metaphors</span>
     </section>
   </div>

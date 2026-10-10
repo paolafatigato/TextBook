@@ -339,6 +339,24 @@
     return { clear };
   });
 
+  // Stroop page: "🔀 New words" gives four new random rows (the ink is never the colour of the word)
+  document.getElementById('mt-st-new')?.addEventListener('click', () => {
+    const grid = document.querySelector('.mt-stroop');
+    if (!grid) return;
+    grid.innerHTML = '';
+    for (let r = 0; r < 4; r++) {
+      const words = shuffle(COLOURS);
+      let inks;
+      do { inks = shuffle(COLOURS); } while (inks.some((c, i) => c === words[i]));
+      words.forEach((w, i) => {
+        const s = document.createElement('span');
+        s.style.setProperty('--c', inks[i].c);
+        s.textContent = w.name;
+        grid.append(s);
+      });
+    }
+  });
+
   // "🧹 Clear answers" empties the boxes: take away the marks too
   document.getElementById('clearBtn')?.addEventListener('click', () => setTimeout(() => {
     if (!document.getElementById('mt-cut-1')?.value) checks.forEach(c => c.clear());

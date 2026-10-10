@@ -88,7 +88,7 @@ body {
 .page-right::after { left: 0;  background: linear-gradient(to right, rgba(0,0,0,.05), transparent); }
 
 /* the illustration spans both pages: each page shows its own half */
-.art { position: absolute; top: 0; height: 100%; width: 200%; z-index: 2; }
+.art { position: absolute; top: 0; height: 100%; width: 200%; z-index: 1; } /* decoration: always under the text and its white boxes */
 .page-left  .art { left: 0; }
 .page-right .art { left: -100%; }
 .art svg { display: block; width: 100%; height: 100%; }
@@ -356,7 +356,7 @@ textarea.fill:focus { background: rgba(79,163,227,.08); }
 .big-title.left { text-align: left; }
 .arc { overflow: visible; }
 .arc text, .cat-arc text { font-family: 'Nunito', sans-serif; font-weight: 700; letter-spacing: 3px; }
-.page-art { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3; pointer-events: none; }
+.page-art { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; } /* drawings sit behind the white cards */
 .page-svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; }
 .hr { height: .22cqw; background: #f7a59b; }
 .hr.white { background: #fff; }
@@ -1675,3 +1675,16 @@ textarea.fill.mt-lines { padding: 0 1cqw; font-size: 2cqw; line-height: 4.2cqw; 
 .mt-gmsg { font-weight: 700; }
 @media (prefers-reduced-motion: reduce) { .mt-gword.bad, .mt-gsent.bad { animation: none; } }
 @media print { .mt-timer, .mt-play, .mt-online, .mt-draw .pd-tools, .mt-overlay { display: none !important; } }
+
+/* Big 5: white boxes so the text does not sit directly on the coloured waves */
+.b5-sec::before, .b5-which::before { content: ""; position: absolute; inset: .4cqw -1.2cqw -.6cqw -1.2cqw; background: rgba(255,255,255,.94); border-radius: 1.8cqw; z-index: -1; }
+.page-art.over { z-index: 3; }
+
+/* simile = lilac, metaphor = coral, whichever comes first */
+.mt-vs p.sim { background: #f5f0fd; }
+.mt-vs p.sim b { color: #8e2de2; }
+.mt-vs p.met { background: #fef0ef; }
+.mt-vs p.met b { color: var(--coral); }
+.mt-sm.sim b { color: #8e2de2; }
+.mt-sm.met b { color: var(--coral); }
+.mt-label { margin: 0; font: 800 1.5cqw/1 'Nunito', sans-serif; color: var(--coral); }
