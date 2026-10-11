@@ -616,6 +616,122 @@ marks.forEach(m => {
   });
 });
 
+/* ================= Shakespeare (pp. 92–95) ================= */
+
+// Rhymes: click the last word of a line to give it a letter: A → B → … → G → nothing.
+const RHYMES = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G'];
+const rhymes = [...document.querySelectorAll('.sh-rhyme')];
+const paintRhyme = b => { b.dataset.l = saved[b.id] || ''; };
+rhymes.forEach(b => {
+  paintRhyme(b);
+  b.addEventListener('click', () => {
+    saved[b.id] = RHYMES[(RHYMES.indexOf(saved[b.id] || '') + 1) % RHYMES.length];
+    b.classList.remove('ok', 'no');
+    persist();
+    paintRhyme(b);
+  });
+});
+document.querySelectorAll('.check[data-rhyme]').forEach(btn => btn.addEventListener('click', () => {
+  document.getElementById(btn.dataset.rhyme).querySelectorAll('.sh-rhyme').forEach(b => {
+    b.classList.remove('ok', 'no');
+    // several right letters are separated by "|" (e.g. "D|B": the same sound as before)
+    if (saved[b.id]) b.classList.add(b.dataset.answer.split('|').includes(saved[b.id]) ? 'ok' : 'no');
+  });
+}));
+
+// Syllables: click a letter to put a | after it (click again to take it away).
+// data-line marks the syllables inside a word with "-": "Co-ral is far…".
+// A | at the end of a word is always right; inside a word only the number counts,
+// so "da|masked" and "dam|asked" are both right.
+const syllableLines = [...document.querySelectorAll('.sh-syl')].map(box => {
+  const words = box.dataset.line.split(' ').map(w => {
+    const parts = w.split('-');
+    const text = parts.join('');
+    let last = text.length - 1; // last letter: punctuation after it counts as the end of the word
+    while (last > 0 && !/[a-z]/i.test(text[last])) last--;
+    return { text, inside: parts.length - 1, last };
+  });
+  const need = words.reduce((t, w) => t + w.inside, 0) + words.length - 1;
+  const score = document.getElementById(box.id + '-score');
+  let cuts = new Set();
+  try { cuts = new Set(JSON.parse(saved[box.id] || '[]')); } catch { cuts = new Set(); }
+
+  const toggle = key => {
+    cuts.has(key) ? cuts.delete(key) : cuts.add(key);
+    saved[box.id] = JSON.stringify([...cuts]);
+    persist();
+    paint();
+  };
+  const spans = words.map((w, wi) => {
+    const lastWord = wi === words.length - 1;
+    const row = [...w.text].map((c, ci) => {
+      const s = document.createElement('span');
+      s.className = 'ch';
+      s.textContent = c;
+      const end = ci >= w.last;
+      if (!(end && lastWord)) s.addEventListener('click', () => toggle(`${wi}.${end ? w.last : ci}`));
+      return s;
+    });
+    box.append(...row);
+    if (!lastWord) {
+      const sp = document.createElement('span');
+      sp.className = 'sp';
+      sp.textContent = ' ';
+      sp.addEventListener('click', () => toggle(`${wi}.${w.last}`));
+      box.append(sp);
+    }
+    return row;
+  });
+
+  function paint(checked) {
+    spans.flat().forEach(s => s.classList.remove('cut', 'ok', 'no'));
+    let good = 0, bad = 0;
+    words.forEach((w, wi) => {
+      const mine = [...cuts].filter(k => k.startsWith(wi + '.')).map(k => Number(k.split('.')[1]));
+      const insideOk = mine.filter(c => c < w.last).length === w.inside;
+      mine.forEach(c => {
+        const s = c >= w.last ? spans[wi].at(-1) : spans[wi][c];
+        s.classList.add('cut');
+        if (!checked) return;
+        const ok = c >= w.last || insideOk;
+        s.classList.add(ok ? 'ok' : 'no');
+        ok ? good++ : bad++;
+      });
+    });
+    if (score) score.textContent = checked ? `${good} / ${need} |` + (good === need && !bad ? ' 🎉' : '') : '';
+  }
+  paint();
+  return { box, paint };
+});
+document.querySelectorAll('.check[data-syl]').forEach(btn => btn.addEventListener('click', () => {
+  const list = document.getElementById(btn.dataset.syl);
+  syllableLines.filter(s => list.contains(s.box)).forEach(s => s.paint(true));
+}));
+
+// The student's sonnet: an approximate syllable count next to each line.
+// One syllable for each group of vowels, after taking away a silent final e
+// (like, makes, loved — but not little, roses, wanted); li-on, roy-al are two.
+function countSyllables(line) {
+  return line.toLowerCase().replace(/['’]/g, '').split(/[^a-z]+/).filter(Boolean).reduce((t, w) => {
+    w = w.replace(/qu/g, 'q')
+      .replace(/(?:[^laeiouytd]ed|[^laeiouysxzcg]es|[^laeiouy]e)$/, '')
+      .replace(/^y/, '');
+    const groups = (w.match(/[aeiouy]+/g) || []).length + (w.match(/i[aou]|oya|ua|uo/g) || []).length;
+    return t + Math.max(1, groups);
+  }, 0);
+}
+const sonnetCounts = [...document.querySelectorAll('.sh-sonnet input.fill')].map(inp => {
+  const out = inp.parentElement.querySelector('output');
+  const paint = () => {
+    const n = countSyllables(inp.value);
+    out.textContent = n ? `≈ ${n}` : '';
+    out.classList.toggle('ten', n === 10);
+  };
+  inp.addEventListener('input', paint);
+  paint();
+  return paint;
+});
+
 /* ================= toolbar ================= */
 
 document.getElementById('printBtn').addEventListener('click', () => window.print());
@@ -638,6 +754,9 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   sorts.forEach(so => so.reset());
   drawings.forEach(d => d.reset());
   marks.forEach(paintMark);
+  rhymes.forEach(b => { b.classList.remove('ok', 'no'); paintRhyme(b); });
+  syllableLines.forEach(s => s.paint());
+  sonnetCounts.forEach(paint => paint());
 });
 
 /* ================= home page ================= */
