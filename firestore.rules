@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // only the teacher
+    function isTeacher() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email in ['paola.fatigato@gmail.com'];
+    }
+
+    // which pages students can see: everybody reads, only the teacher writes
+    match /config/{doc} {
+      allow read: if true;
+      allow write: if isTeacher();
+    }
+
+    // a student's answers (and drawings): only that student
+    match /progress/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+      match /drawings/{id} {
+        allow read, write: if request.auth != null && request.auth.uid == uid;
+      }
+    }
+  }
+}

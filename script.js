@@ -7,7 +7,38 @@ try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch { saved = {};
 
 function persist() {
   try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch { /* storage unavailable */ }
+  window.book.onSaved?.(); // cloud.js sends it to Firebase when a student is signed in
 }
+
+/* ================= access: login and visible pages ================= */
+// cloud.js (Firebase) fills this in. Students see only the spreads the teacher ticked;
+// the teacher sees everything and can tick them in the panel.
+
+const VISIBLE_KEY = 'libro-visible';
+let visibleSpreads = new Set();
+try { visibleSpreads = new Set(JSON.parse(localStorage.getItem(VISIBLE_KEY)) || []); } catch { /* none yet */ }
+let account = null; // { name, email, teacher }
+const isTeacher = () => !!account?.teacher;
+
+window.book = {
+  storageKey: KEY,
+  getSaved: () => saved,
+  replaceSaved(data) {
+    saved = data;
+    try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch { /* storage unavailable */ }
+  },
+  forgetLocal() {
+    try { localStorage.removeItem(KEY); localStorage.removeItem(KEY + ':page'); } catch { /* ignore */ }
+  },
+  setVisible(list) {
+    visibleSpreads = new Set(list);
+    try { localStorage.setItem(VISIBLE_KEY, JSON.stringify(list)); } catch { /* ignore */ }
+    refreshAccess();
+  },
+  setUser(u) { account = u; refreshAccess(); },
+  setSyncState(s) { syncState = s; paintAccount(); },
+};
+let syncState = '';
 
 /* ================= page turning ================= */
 
@@ -28,16 +59,26 @@ let current = 0;
 
 const home = document.getElementById('home');
 
+// students only get the spreads the teacher made visible
+const canSee = s => isTeacher() || visibleSpreads.has(s.dataset.pages);
+// the closest spread we can open from i, going forward (+1) or back (-1); -1 if there is none
+const visibleFrom = (i, dir) => {
+  for (let k = i; k >= 0 && k < spreads.length; k += dir) if (canSee(spreads[k])) return k;
+  return -1;
+};
+
 function show(index) {
-  current = Math.max(0, Math.min(spreads.length - 1, index));
+  index = Math.max(0, Math.min(spreads.length - 1, index));
+  if (!canSee(spreads[index])) { showHome(); return; }
+  current = index;
   home.hidden = true;
   document.body.classList.remove('at-home');
   spreads.forEach((s, i) => s.classList.toggle('current', i === current));
   const [first] = pagesOf(spreads[current]);
   pageInput.value = first;
   spreadTitle.textContent = spreads[current].dataset.title;
-  prevBtn.disabled = current === 0;
-  nextBtn.disabled = current === spreads.length - 1;
+  prevBtn.disabled = visibleFrom(current - 1, -1) < 0;
+  nextBtn.disabled = visibleFrom(current + 1, 1) < 0;
   history.replaceState(null, '', `#p${first}`);
   try { localStorage.setItem(KEY + ':page', first); } catch { /* ignore */ }
   window.scrollTo(0, 0);
@@ -72,8 +113,9 @@ function route() {
 }
 window.addEventListener('hashchange', route);
 
-prevBtn.addEventListener('click', () => show(current - 1));
-nextBtn.addEventListener('click', () => show(current + 1));
+const step = dir => { const i = visibleFrom(current + dir, dir); if (i >= 0) show(i); };
+prevBtn.addEventListener('click', () => step(-1));
+nextBtn.addEventListener('click', () => step(1));
 document.getElementById('gotoForm').addEventListener('submit', e => {
   e.preventDefault();
   goToPage(parseInt(pageInput.value, 10));
@@ -81,8 +123,8 @@ document.getElementById('gotoForm').addEventListener('submit', e => {
 });
 document.addEventListener('keydown', e => {
   if (e.target.closest('input, textarea') || !home.hidden) return;
-  if (e.key === 'ArrowLeft') show(current - 1);
-  if (e.key === 'ArrowRight') show(current + 1);
+  if (e.key === 'ArrowLeft') step(-1);
+  if (e.key === 'ArrowRight') step(1);
 });
 
 /* ================= written answers ================= */
@@ -450,7 +492,7 @@ egScores.forEach(inp => inp.addEventListener('input', () => {
 }));
 egTotal();
 
-/* ================= half-page flap (pp. 76-77) ================= */
+/* ================= half-page flap (pp. 82-83) ================= */
 // the flap hides the English words on one page or the other
 
 document.querySelectorAll('.flap').forEach(flap => flap.addEventListener('click', () => {
@@ -674,7 +716,7 @@ marks.forEach(m => {
   });
 });
 
-/* ================= Shakespeare (pp. 112–115) ================= */
+/* ================= Shakespeare (pp. 118–121) ================= */
 
 // Rhymes: click the last word of a line to give it a letter: A → B → … → G → nothing.
 const RHYMES = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G'];
@@ -790,7 +832,7 @@ const sonnetCounts = [...document.querySelectorAll('.sh-sonnet input.fill')].map
   return paint;
 });
 
-/* ================= Villain Lab: "My flaws" circles (p. 82) ================= */
+/* ================= Villain Lab: "My flaws" circles (p. 88) ================= */
 // click the 4th circle = 4 out of 10; click the same one again to start over
 const flawRows = [...document.querySelectorAll('.vl-flaw')].map(row => {
   const dots = [...row.querySelectorAll('button')];
@@ -934,8 +976,11 @@ const range = (a, b) => (a === b ? `p. ${a}` : `p. ${a}–${b}`);
 // a link to a page range, or a grey "coming soon" label when the pages are not online yet
 function pageLink(a, b, label = '') {
   const text = label ? `<b>${range(a, b)}</b> ${esc(label)}` : range(a, b);
+  const spread = spreads.find(s => { const [x, y] = pagesOf(s); return a >= x && a <= y; });
+  if (spread && !canSee(spread)) return ''; // the teacher has not opened it yet
+  const off = spread && !visibleSpreads.has(spread.dataset.pages) ? ' class="off" title="Hidden from students"' : '';
   return a <= lastPage
-    ? `<a href="#p${a}">${text}</a>`
+    ? `<a href="#p${a}"${off}>${text}</a>`
     : `<span class="soon">${text} <i>coming soon</i></span>`;
 }
 
@@ -947,16 +992,19 @@ function renderHome() {
 
   document.getElementById('chapterGrid').innerHTML = chapters.map(ch => {
     const [start, end] = ch.pages;
-    const inside = spreads.filter(s => { const [a] = pagesOf(s); return a >= start && a <= end; });
+    const inside = spreads.filter(s => { const [a] = pagesOf(s); return a >= start && a <= end && canSee(s); });
+    if (!inside.length) return ''; // nothing opened in this chapter yet
     const links = inside.map(s => {
       const [a, b] = pagesOf(s);
       const c = ch.linkColors && ch.linkColors[a];
       return `<li${c ? ` style="--c:${esc(c)}"` : ''}>${pageLink(a, b, s.dataset.name || '')}</li>`;
     });
     if (lastPage < end) links.push(`<li>${pageLink(Math.max(start, lastPage + 1), end)}</li>`);
+    const firstOpen = pagesOf(inside[0])[0];
+    const off = inside.every(s => !visibleSpreads.has(s.dataset.pages));
     return `
-      <article class="chapter" style="--c:${esc(ch.color || '#f05f4b')}">
-        <a class="chapter-cover" href="#p${start}">
+      <article class="chapter${off ? ' off' : ''}" style="--c:${esc(ch.color || '#f05f4b')}">
+        <a class="chapter-cover" href="#p${firstOpen}">
           ${ch.image ? `<span class="chapter-pic"><img src="${esc(ch.image)}" alt=""${ch.zoom ? ` style="--zoom:${+ch.zoom}"` : ''}></span>` : ''}
           <span class="chapter-pages">${range(start, end)}</span>
           <h3>${esc(ch.title)}</h3>
@@ -983,11 +1031,15 @@ function renderTopics() {
     const pages = t.pages.map(([a, b]) => [a, b ?? a]);
     return words.every(w => norm(t.title).includes(w) || (/^\d+$/.test(w) && pages.some(([a, b]) => +w >= a && +w <= b)));
   });
-  list.innerHTML = topics.length ? topics.map(t => `
+  const cards = topics.map(t => {
+    const links = t.pages.map(([a, b]) => pageLink(a, b ?? a)).join('');
+    return links && `
     <article class="topic" style="--c:${esc(t.color || '#7b3fc4')}">
       <h3>${esc(t.title)}</h3>
-      <div class="topic-pages">${t.pages.map(([a, b]) => pageLink(a, b ?? a)).join('')}</div>
-    </article>`).join('') : '<p class="topic-none">No topic found.</p>';
+      <div class="topic-pages">${links}</div>
+    </article>`;
+  }).filter(Boolean);
+  list.innerHTML = cards.length ? cards.join('') : '<p class="topic-none">No topic found.</p>';
 }
 document.getElementById('topicSearch').addEventListener('input', renderTopics);
 
@@ -995,14 +1047,137 @@ function updateContinueLink() {
   const link = document.getElementById('continueLink');
   let last = NaN;
   try { last = parseInt(localStorage.getItem(KEY + ':page'), 10); } catch { /* ignore */ }
-  link.hidden = !Number.isFinite(last);
+  const spread = spreads.find(s => { const [a, b] = pagesOf(s); return last >= a && last <= b; });
+  link.hidden = !Number.isFinite(last) || !spread || !canSee(spread);
   if (!link.hidden) {
     link.href = `#p${last}`;
     link.textContent = `Continue from page ${last} →`;
   }
 }
 
+/* ================= account bar + teacher panel ================= */
+
+const accountBtn = document.getElementById('accountBtn');
+const teacherBtn = document.getElementById('teacherBtn');
+const panel = document.getElementById('teacherPanel');
+const SYNC_TEXT = { saving: '⏳ saving…', ok: '☁️ saved', error: '⚠️ not saved (offline?)' };
+
+function paintAccount() {
+  teacherBtn.hidden = !isTeacher();
+  if (!account) {
+    accountBtn.textContent = '👤 Sign in';
+    accountBtn.title = 'Sign in with Google to keep your answers on every device';
+    return;
+  }
+  const first = (account.name || '').split(' ')[0];
+  accountBtn.textContent = `${first} · sign out`;
+  accountBtn.title = `${account.email} ${SYNC_TEXT[syncState] || ''}`.trim();
+}
+
+accountBtn.addEventListener('click', () => {
+  if (!account) window.book.signIn?.();
+  else if (confirm('Sign out? Your answers stay saved in your account.')) window.book.signOut?.();
+});
+
+// something about who is signed in or what is visible changed
+function refreshAccess() {
+  paintAccount();
+  renderHome();
+  if (home.hidden && !canSee(spreads[current])) showHome();
+  else updateContinueLink();
+  hideClosedGames();
+  syncPanel();
+}
+
+// game pills on the home page: hide the ones that start on a page students cannot open
+function hideClosedGames() {
+  document.querySelectorAll('#gameList .game-topic').forEach(d => {
+    const links = [...d.querySelectorAll('a[href^="#p"]')];
+    const open = links.some(a => {
+      const n = parseInt(a.getAttribute('href').slice(2), 10);
+      const s = spreads.find(x => { const [p, q] = pagesOf(x); return n >= p && n <= q; });
+      return !s || canSee(s);
+    });
+    d.hidden = !open;
+  });
+}
+
+/* the teacher's panel: tick the chapters and pages students can see */
+
+function groups() {
+  const chapters = (typeof CONTENTS === 'undefined' ? [] : CONTENTS.chapters || []);
+  const used = new Set();
+  const list = chapters.map(ch => {
+    const items = spreads.filter(s => { const [a] = pagesOf(s); return a >= ch.pages[0] && a <= ch.pages[1]; });
+    items.forEach(s => used.add(s));
+    return { title: ch.title, color: ch.color, items };
+  });
+  const rest = spreads.filter(s => !used.has(s));
+  if (rest.length) list.push({ title: 'Other pages', color: '#999', items: rest });
+  return list.filter(g => g.items.length);
+}
+
+function buildPanel() {
+  const body = panel.querySelector('.tp-body');
+  body.innerHTML = groups().map((g, gi) => `
+    <fieldset class="tp-chapter" style="--c:${esc(g.color || '#f05f4b')}">
+      <legend><label><input type="checkbox" class="tp-all" data-g="${gi}"> <b>${esc(g.title)}</b></label></legend>
+      ${g.items.map(s => `
+        <label class="tp-page"><input type="checkbox" class="tp-one" data-g="${gi}" value="${esc(s.dataset.pages)}">
+          <b>${range(...pagesOf(s))}</b> ${esc(s.dataset.name || s.dataset.title || '')}</label>`).join('')}
+    </fieldset>`).join('');
+  syncPanel();
+}
+
+// show the current state in the boxes (the chapter box is "half ticked" when only some pages are)
+function syncPanel() {
+  panel.querySelectorAll('.tp-one').forEach(c => { c.checked = visibleSpreads.has(c.value); });
+  panel.querySelectorAll('.tp-all').forEach(all => {
+    const ones = [...panel.querySelectorAll(`.tp-one[data-g="${all.dataset.g}"]`)];
+    const n = ones.filter(c => c.checked).length;
+    all.checked = n === ones.length;
+    all.indeterminate = n > 0 && n < ones.length;
+  });
+}
+
+let saveTimer = null;
+function savePanel() {
+  const list = [...panel.querySelectorAll('.tp-one:checked')].map(c => c.value);
+  const status = panel.querySelector('.tp-status');
+  status.textContent = 'Saving…';
+  window.book.setVisible(list);
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(async () => {
+    try { await window.book.onSaveVisible(list); status.textContent = 'Saved ✓ Students see it right away.'; }
+    catch (err) { status.textContent = 'Could not save: ' + err.message; }
+  }, 300);
+}
+
+panel.addEventListener('change', e => {
+  const c = e.target;
+  if (c.classList.contains('tp-all')) {
+    panel.querySelectorAll(`.tp-one[data-g="${c.dataset.g}"]`).forEach(o => { o.checked = c.checked; });
+  } else if (!c.classList.contains('tp-one')) return;
+  savePanel();
+});
+panel.querySelector('.tp-everything').addEventListener('click', () => {
+  panel.querySelectorAll('.tp-one').forEach(c => { c.checked = true; });
+  savePanel();
+});
+panel.querySelector('.tp-nothing').addEventListener('click', () => {
+  panel.querySelectorAll('.tp-one').forEach(c => { c.checked = false; });
+  savePanel();
+});
+panel.querySelector('.tp-close').addEventListener('click', () => panel.close());
+teacherBtn.addEventListener('click', () => {
+  if (!panel.querySelector('.tp-one')) buildPanel();
+  panel.querySelector('.tp-status').textContent = '';
+  panel.showModal();
+});
+
 /* ================= start ================= */
 
 renderHome();
 route();
+paintAccount();
+window.addEventListener('load', hideClosedGames); // the game pills are built by grammar-games.js, after this file

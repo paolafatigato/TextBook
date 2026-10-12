@@ -1,17 +1,17 @@
-// Clothes & Fashion show (pp. 84-97): the A-Z counter on p. 86 and the judges' totals on p. 93.
+// Clothes & Fashion show (pp. 90-103): the A-Z counter on p. 92 and the judges' totals on p. 99.
 // The answers themselves are saved by script.js.
 
 (() => {
   const $ = id => document.getElementById(id);
   const num = v => { const n = parseFloat(String(v).replace(',', '.')); return Number.isFinite(n) ? n : null; };
 
-  // p. 86: how many letters of the alphabet game are filled in
+  // p. 92: how many letters of the alphabet game are filled in
   const abc = [...document.querySelectorAll('.cl-abc')];
   const count = $('cl-abc-count');
   const paintAbc = () => { if (count) count.textContent = `${abc.filter(i => i.value.trim()).length} / 26`; };
   abc.forEach(i => i.addEventListener('input', paintAbc));
 
-  // p. 93: total of the three scores of each model
+  // p. 99: total of the three scores of each model
   const rows = [...document.querySelectorAll('tr[data-sum]')];
   const paintRows = () => rows.forEach(tr => {
     const scores = [...tr.querySelectorAll('.cl-n')].map(i => num(i.value));

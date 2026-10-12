@@ -1,4 +1,4 @@
-// Future (pp. 140-161): "highlight the future" on p. 157, Mabel's fortune teller dice on p. 148
+// Future (pp. 146-167): "highlight the future" on p. 163, Mabel's fortune teller dice on p. 154
 // and the future games. The games open in a pop-up like the Jobs ones:
 // a button with data-ft="which" opens that game, data-ft="" opens the menu with all the games.
 
@@ -11,7 +11,7 @@
   };
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-  /* ---------- p. 143: highlight the future ---------- */
+  /* ---------- p. 149: highlight the future ---------- */
   // The words are made clickable by script.js (.underlinable). Each future in the letter is a .fut
   // with a group number: a future is found when at least one of its words is highlighted.
   // .fut-any is neither right nor wrong (I'm sketching non-stop).
@@ -39,7 +39,7 @@
     $('clearBtn').addEventListener('click', () => setTimeout(() => { unmark(); card.classList.remove('show'); }));
   });
 
-  /* ---------- p. 152: Mabel rolls the dice ---------- */
+  /* ---------- p. 158: Mabel rolls the dice ---------- */
   // one list of six predictions for each question (data-cat on the dice button)
   const FACES = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
   const PREDICTIONS = [
