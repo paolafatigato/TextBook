@@ -787,7 +787,7 @@ input.fill.nb-num.no { background: #e53935; color: #fff; }
 }
 .tick.on { background: #43a047; border-color: #43a047; color: #fff; }
 
-/* ---------- PAGES 30–35: present simple ---------- */
+/* ---------- PAGES 40–45: present simple ---------- */
 .hr.lav { background: #d6b0f6; height: .3cqw; }
 .ps-block { background: #f7effd; }
 .ps-s { font: 700 66cqw/1 'Fredoka', 'Nunito', sans-serif; color: #dfee6a; transform: rotate(-6deg); z-index: 1; }
@@ -865,7 +865,7 @@ input.fill.nb-num.no { background: #e53935; color: #fff; }
 @keyframes dice { from { transform: rotate(-200deg) scale(.4); opacity: 0; } to { transform: none; opacity: 1; } }
 @media print { .dice-row { display: none; } }
 
-/* ---------- PAGES 36–43 ---------- */
+/* ---------- PAGES 46–53 ---------- */
 .page.pr-page { background: #f8f0fd; }
 .lime-dot { border-radius: 50%; background: #dfee6a; z-index: 3; }
 .pr-box {
@@ -960,7 +960,7 @@ input.fill.bd-line { z-index: 3; height: 3cqw; border-bottom: .14cqw solid #b9b6
 .page.ruled { background: repeating-linear-gradient(#fff 0 3.85cqw, #c9c4e0 3.85cqw 4cqw); }
 textarea.fill.ruled-text { z-index: 2; padding: 0 1cqw; font-size: 2.6cqw; line-height: 4cqw; background: transparent; }
 
-/* ---------- p. 44-45: the Big 5 ---------- */
+/* ---------- p. 74-75: the Big 5 ---------- */
 .lt-pill.pink { background: #fdeeec; color: #9a8fb5; z-index: 1; }
 .b5-sec { z-index: 1; }
 .b5-sec h3 { margin: 0; height: 4.6cqw; font: 800 2.2cqw/4.6cqw 'Nunito', sans-serif; color: #f9806e; }
@@ -989,7 +989,7 @@ input.fill.b5-score { flex: 0 0 5.6cqw; width: 5.6cqw; height: 2.4cqw; margin-ri
 .b5-table input.fill { height: 3.4cqw; font-size: 1.8cqw; padding-right: 1cqw; }
 textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-height: 5cqw; background: repeating-linear-gradient(transparent 0 calc(5cqw - 1px), #b9b6d3 calc(5cqw - 1px) 5cqw); }
 
-/* ---------- p. 46-47: personality adjectives ---------- */
+/* ---------- p. 76-77: personality adjectives ---------- */
 .voc-bar { top: 0; bottom: 0; background: #f9ab9e; }
 .voc { list-style: none; margin: 0; padding: 0; z-index: 1; }
 .voc li { display: grid; align-items: end; height: 5cqw; }
@@ -1006,7 +1006,7 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .voc.en-it input.fill:last-child, .voc.en-it .voc-ex { padding-left: 5.6cqw; }
 .voc-ex { display: flex; align-items: center; font: 400 2cqw/1 'Patrick Hand', cursive; text-transform: uppercase; letter-spacing: .14em; color: #444; }
 
-/* the half page: front (pink) on page 47, back (light pink) on page 46 */
+/* the half page: front (pink) on page 77, back (light pink) on page 76 */
 .flap { top: 0; bottom: 0; z-index: 4; border: 0; padding: 0; cursor: pointer; }
 .flap::after { content: ""; position: absolute; top: 0; bottom: 0; width: .55cqw; background: repeating-linear-gradient(#f6a99a 0 2.6cqw, transparent 2.6cqw 3.9cqw); }
 .flap span { position: absolute; bottom: 3cqw; left: 50%; transform: translateX(-50%); font: 700 1.6cqw/1 'Nunito', sans-serif; color: #f08a75; background: rgba(255,255,255,.7); border-radius: 999px; padding: .7cqw 1.8cqw; opacity: .8; }
@@ -1019,7 +1019,7 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .flap-left .flap.back { transform: none; visibility: visible; transition: transform .3s ease-out .3s, visibility 0s .3s; }
 @media print { .flap { display: none; } }
 
-/* ---------- p. 48-49: Greek mythology ---------- */
+/* ---------- p. 30-31: Greek mythology ---------- */
 .page.gm-page { background: #fe7366; }
 .gm-title { margin: 0; font: 300 16.4cqw/.93 'Quicksand', 'Nunito', sans-serif; color: #fff; letter-spacing: -.01em; }
 .gm-title span { color: #fdf27a; }
@@ -1050,7 +1050,7 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .gm-q i { align-self: center; text-align: right; font-style: normal; color: #9ccdf3; }
 .gm-q input.fill { grid-column: 1; justify-self: end; width: 26cqw; height: 3.1cqw; border-bottom: .14cqw solid #b6d8f3; font-size: 1.9cqw; text-align: right; }
 
-/* ---------- p. 50-51: Persephone ---------- */
+/* ---------- p. 32-33: Persephone ---------- */
 .ps-title { margin: 0; font: 400 7cqw/1 'Quicksand', 'Nunito', sans-serif; color: #fd7366; letter-spacing: .01em; }
 .ps-sub { margin: 0; font: 400 2.2cqw/1 'Nunito', sans-serif; color: #8cc8f2; }
 .ps-box { z-index: 1; padding: 3.4cqw 2cqw 2.4cqw 2cqw; background: linear-gradient(90deg, #fbebd9, #fffaf4 85%, #fff); font: 400 1.75cqw/1.45 'Nunito', sans-serif; color: #555; }
@@ -1074,7 +1074,7 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .ps-list.tight li { height: 3.37cqw; line-height: 3.37cqw; }
 .ps-list input.fill.blank { width: 8.5cqw; height: 2.4cqw; font-size: 1.9cqw; }
 
-/* ---------- p. 52-53: Persephone, the play ---------- */
+/* ---------- p. 34-35: Persephone, the play ---------- */
 .play { z-index: 1; padding: 1.4cqw 2cqw 1.4cqw 1.8cqw; background: linear-gradient(90deg, #fbebd9, #fffaf4 80%, rgba(255,255,255,0)); font: 400 1.75cqw/1.45 'Nunito', sans-serif; color: #444; }
 .play p { position: relative; margin: 0 0 2.2cqw; }
 .play p:last-child { margin-bottom: 0; }
@@ -1100,7 +1100,7 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .play b.hl::before { content: ""; position: absolute; top: 0; bottom: 0; right: 100%; width: 3.3cqw; background: #fdf57a; }
 .play-art { position: absolute; left: 24.2%; top: 2.55%; width: 53%; height: 106.1%; } /* img/persephone.png is a whole page: this puts the figure in the gap at the fold */
 
-/* ---------- p. 54-55: acting tips, evaluation grid ---------- */
+/* ---------- p. 36-37: acting tips, evaluation grid ---------- */
 .page.at-page { background: #fef1ef; }
 .at-title { font: 500 34px/1 'Quicksand', 'Nunito', sans-serif; fill: #f9a191; letter-spacing: 8px; }
 .pk-num { font: 700 1.2cqw/1 'Nunito', sans-serif; color: #fff; background: #fdd9d3; border-radius: 999px; padding: .6cqw 1.4cqw; }
@@ -1130,7 +1130,7 @@ input.fill.eg-n { width: 5.4cqw; height: 5.4cqw; padding: 0; border: .14cqw soli
 .eg-score > span { padding-bottom: 1.6cqw; font: 700 2.2cqw/1 'Nunito', sans-serif; color: #fd7366; }
 .eg-total { width: 5.4cqw; height: 5.4cqw; display: grid; place-items: center; font: 3cqw/1 'Patrick Hand', cursive; color: #fd7366; }
 
-/* ---------- p. 56-57: Circe ---------- */
+/* ---------- p. 38-39: Circe ---------- */
 .circe-quote { font: 700 330px/1 'Fredoka', 'Nunito', sans-serif; fill: #fe7366; }
 .ft-box { z-index: 0; background: #fbeee0; border: .2cqw solid #fbe2d2; border-radius: 6.5cqw; }
 .ft-names text { font-family: 'Quicksand', 'Nunito', sans-serif; font-weight: 600; fill: #333; }
@@ -1156,7 +1156,7 @@ input.fill.eg-n { width: 5.4cqw; height: 5.4cqw; padding: 0; border: .14cqw soli
 .cc-text p { margin: 0 0 1.7cqw; }
 .cc-float { float: left; width: 18cqw; height: 20cqw; shape-outside: polygon(0 0, 65% 0, 65% 27%, 100% 27%, 100% 100%, 0 100%); }
 
-/* ---------- PAGES 78–83: Alice ---------- */
+/* ---------- PAGES 92–97: Alice ---------- */
 input.fill.mind-pill { z-index: 2; height: 3.9cqw; border-radius: 999px; background: #efdcfb; text-align: center; font-size: 1.8cqw; }
 .adv-center { z-index: 2; font: 800 2.9cqw/1 'Nunito', sans-serif; color: #d0144b; background: #efdcfb; padding: 1.3cqw 3cqw; border-radius: 999px; }
 .lt-pill.white { background: #fff; z-index: 2; }
@@ -1232,7 +1232,7 @@ textarea.fill.al-write { font-size: 1.9cqw; line-height: 2.5cqw; border-bottom: 
 .cmp-col li .ink { font-size: 1.8cqw; padding: 0 0 .3cqw .6cqw; }
 .cmp-col input.fill { height: 3cqw; font-size: 1.8cqw; text-align: left; width: 100%; }
 
-/* ---------- PAGES 84–85: yoga ---------- */
+/* ---------- PAGES 98–99: yoga ---------- */
 .yg-title { z-index: 2; font: 800 2.5cqw/1 'Nunito', sans-serif; }
 .yg-text { z-index: 2; font: 400 1.85cqw/2 'Nunito', sans-serif; color: #555; }
 .yg-breath {
@@ -1253,7 +1253,7 @@ textarea.fill.al-write { font-size: 1.9cqw; line-height: 2.5cqw; border-bottom: 
 .yg-row button:hover { background: rgba(223,238,106,.35); }
 .yg-row button.on { background: #dfee6a; font-weight: 800; padding-left: .8cqw; }
 
-/* ---------- PAGES 86–87: ideal society ---------- */
+/* ---------- PAGES 100–101: ideal society ---------- */
 .is-pill { z-index: 2; width: 17cqw; text-align: center; font: 800 1.6cqw/1 'Nunito', sans-serif; color: #fff; background: #4aa8ec; border-radius: 999px; padding: .6cqw 0; }
 .is-sub { z-index: 2; font: 400 1.3cqw/1 'Nunito', sans-serif; color: #9a9aa6; }
 .is-row { z-index: 2; display: grid; grid-template-columns: 16.2cqw 46.2cqw 1fr; align-items: center; column-gap: 0; height: 8.4cqw; }
@@ -1271,7 +1271,7 @@ input.fill.is-line { align-self: center; height: 3cqw; border-bottom: .14cqw sol
 .is-own label { font: 400 1.5cqw/1.2 'Nunito', sans-serif; color: #555; }
 .is-own input.fill { height: 4.6cqw; border-bottom: .14cqw solid #fff; font-size: 1.9cqw; }
 
-/* ---------- PAGES 88–95: Shakespeare ---------- */
+/* ---------- PAGES 102–109: Shakespeare ---------- */
 .sh { --sh: #b23a48; --sh-soft: #fbe3e5; --sh-cream: #fdf4e3; }
 .sh .lt-pill { background: var(--sh-soft); color: var(--sh); }
 .sh .lt-pill b { color: #e0902c; }
@@ -1292,7 +1292,7 @@ input.fill.is-line { align-self: center; height: 3cqw; border-bottom: .14cqw sol
 .sh [data-l="F"] { --rh: #f08a5d; --rh-bg: #fde6db; }
 .sh [data-l="G"] { --rh: #1f9e94; --rh-bg: #d9f3f0; }
 
-/* p. 88: questions */
+/* p. 102: questions */
 .sh-gram { z-index: 2; background: var(--sh-cream); border-radius: 2cqw; padding: 1.2cqw 2cqw; font: 400 1.45cqw/1 'Nunito', sans-serif; color: #444; }
 .sh-gram h3 { margin: .4cqw 0; font: 800 1.6cqw/1.4 'Nunito', sans-serif; color: #e0902c; }
 .sh-gram p { display: grid; grid-template-columns: 15cqw 31cqw 1fr; align-items: center; height: 3.4cqw; margin: 0; }
@@ -1304,7 +1304,7 @@ input.fill.is-line { align-self: center; height: 3cqw; border-bottom: .14cqw sol
 .sh-qs .ink, .sh-qs input.fill { height: 3.9cqw; border-bottom: .14cqw solid #b9b6d3; font-size: 1.9cqw; }
 .sh-qs .ink { display: flex; align-items: flex-end; padding: 0 0 .3cqw .6cqw; font-size: 2.1cqw; }
 
-/* pp. 89–90: the evidence (replace the emoji with an <img> when the picture is ready) */
+/* pp. 103–104: the evidence (replace the emoji with an <img> when the picture is ready) */
 .sh-ev { z-index: 2; display: flex; gap: 2cqw; }
 .sh-slot {
   position: relative; flex: 0 0 14cqw; height: 14cqw; display: grid; place-items: center; overflow: hidden;
@@ -1320,7 +1320,7 @@ input.fill.is-line { align-self: center; height: 3cqw; border-bottom: .14cqw sol
 .sh-ev-lines label i { flex: 0 0 auto; padding: 0 .4cqw .5cqw 0; font: italic 400 1.3cqw/1 'Nunito', sans-serif; color: #b9b6c8; }
 .sh-ev-lines input.fill { height: 3.4cqw; font-size: 1.8cqw; }
 
-/* p. 90: ID card */
+/* p. 104: ID card */
 .sh-id { z-index: 2; display: grid; grid-template-columns: 19cqw 1fr; gap: 2.4cqw; padding: 2cqw; background: var(--sh-cream); border: .3cqw solid var(--sh); border-radius: 2cqw; }
 .sh-id-photo { display: flex; flex-direction: column; align-items: center; gap: 1.2cqw; }
 .sh-pic { width: 19cqw; height: 23cqw; display: grid; place-items: center; font-size: 10cqw; background: #fff; border: .2cqw dashed #e8b9bf; border-radius: 1.2cqw; }
@@ -1331,14 +1331,14 @@ input.fill.is-line { align-self: center; height: 3cqw; border-bottom: .14cqw sol
 .sh-id input.fill { height: 3.4cqw; font-size: 1.8cqw; }
 .sh-id .ink { padding-bottom: .3cqw; font-size: 2.1cqw; }
 
-/* p. 91: what do you remember? */
+/* p. 105: what do you remember? */
 .sh-facts { list-style: none; margin: 0; padding: 0; }
 .sh-facts li { display: flex; align-items: flex-end; gap: 1cqw; height: 5.4cqw; border-bottom: .14cqw solid #b9b6d3; }
 .sh-facts li > i { flex: 0 0 2.6cqw; font: 700 1.2cqw/1.8 'Nunito', sans-serif; font-style: normal; color: var(--sh); }
 .sh-facts input.fill { flex: 1; height: 3.6cqw; font-size: 1.9cqw; }
 .sh-facts .pd-mark { flex: 0 0 4.2cqw; height: 4.2cqw; margin-bottom: .4cqw; border: .14cqw solid #e6e1f0; border-radius: 50%; }
 
-/* p. 92: the sonnet */
+/* p. 106: the sonnet */
 .sh-poem { z-index: 2; list-style: none; margin: 0; padding: 1.4cqw 2.4cqw; background: var(--sh-cream); border-radius: 2cqw; font: 400 1.75cqw/1 'Quicksand', 'Nunito', sans-serif; color: #333; }
 .sh-poem li { display: flex; align-items: center; height: 4.3cqw; }
 .sh-poem li.end { margin-bottom: 1.4cqw; }
@@ -1360,7 +1360,7 @@ input.fill.is-line { align-self: center; height: 3cqw; border-bottom: .14cqw sol
 .sh-gloss dt { font-weight: 800; color: var(--sh); }
 .sh-gloss dd { margin: 0; }
 
-/* p. 93: sonnet rules, syllables, comparisons */
+/* p. 107: sonnet rules, syllables, comparisons */
 .sh-rules { z-index: 2; list-style: none; margin: 0; padding: 1.2cqw 2.4cqw; background: var(--sh); border-radius: 2cqw; font: 400 1.5cqw/1.2 'Nunito', sans-serif; color: #fff; }
 .sh-rules li { display: flex; align-items: center; gap: 1.2cqw; height: 3.8cqw; }
 .sh-rules li > span:first-child { flex: 0 0 2.6cqw; font-size: 1.9cqw; text-align: center; }
@@ -1384,7 +1384,7 @@ input.fill.is-line { align-self: center; height: 3cqw; border-bottom: .14cqw sol
 .sh-cmp input.fill { height: 3.4cqw; font-size: 1.8cqw; }
 .sh-cmp .ink { padding: 0 0 .4cqw .4cqw; font-size: 2cqw; }
 
-/* p. 94: questions and notes */
+/* p. 108: questions and notes */
 .sh-qa { list-style: none; margin: 0; padding: 0; font: 400 1.5cqw/1.2 'Nunito', sans-serif; color: #444; }
 .sh-qa li { display: flex; flex-direction: column; justify-content: flex-end; height: 6.8cqw; }
 .sh-qa p { margin: 0; }
@@ -1396,7 +1396,7 @@ input.fill.is-line { align-self: center; height: 3cqw; border-bottom: .14cqw sol
 .sh-frame li > span b { margin-right: .7cqw; font-weight: 800; color: var(--sh); }
 .sh-frame input.fill { height: 3.4cqw; font-size: 1.8cqw; }
 
-/* p. 95: the student's sonnet */
+/* p. 109: the student's sonnet */
 .sh-sonnet { list-style: none; margin: 0; padding: 0; }
 .sh-sonnet li { display: grid; grid-template-columns: 3.4cqw 1fr 6cqw; align-items: end; gap: 1cqw; height: 4.6cqw; border-bottom: .14cqw solid #ece6f0; }
 .sh-sonnet li.end { margin-bottom: 1.4cqw; }
@@ -1411,7 +1411,7 @@ input.fill.is-line { align-self: center; height: 3cqw; border-bottom: .14cqw sol
 .sh-chk .chip.on { background: var(--sh); color: #fff; }
 .sh-chk .chip.on::before { content: "✓ "; }
 
-/* p. 95: the rhyme machine */
+/* p. 109: the rhyme machine */
 .sh-ex { z-index: 2; display: flex; flex-wrap: wrap; gap: .8cqw; }
 .sh-ex span { border-radius: 999px; padding: .5cqw 1.2cqw; font: 700 1.35cqw/1 'Nunito', sans-serif; }
 .sh-ex .yes { background: #e3f3e1; color: #2e7d32; }
@@ -1459,7 +1459,7 @@ input.fill.is-line { align-self: center; height: 3cqw; border-bottom: .14cqw sol
 .sh-rlist input.fill.armed { background: rgba(178,58,72,.08); border-radius: .5cqw .5cqw 0 0; }
 input.fill.maybe { color: #9a6b00; border-bottom-color: #e0a82c !important; }
 
-/* ---------- PAGES 98–109: Romeo & Juliet (the Shakespeare pieces in red) ---------- */
+/* ---------- PAGES 112–123: Romeo & Juliet (the Shakespeare pieces in red) ---------- */
 .rj { --sh: #d6334f; --sh-soft: #fde3ea; --sh-cream: #fff4f2; }
 .rj input.fill.mind-pill { background: var(--sh-soft); }
 .rj .adv-center { color: #fff; background: var(--sh); }
@@ -1478,7 +1478,7 @@ input.fill.maybe { color: #9a6b00; border-bottom-color: #e0a82c !important; }
 .rj-games button:hover { background: #b0213b; }
 .rj-games button:active { transform: translateY(.25cqw); box-shadow: none; }
 
-/* p. 99: who's who */
+/* p. 113: who's who */
 .rj-who { z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 1.4cqw 1.6cqw; }
 .rj-card-who {
   display: grid; grid-template-columns: 8.6cqw 1fr; grid-template-rows: auto auto 1fr; column-gap: 1.2cqw; align-items: center;
@@ -1506,7 +1506,7 @@ input.fill.maybe { color: #9a6b00; border-bottom-color: #e0a82c !important; }
 .rj-box { z-index: 2; padding: 1.4cqw 2cqw; background: var(--sh-soft); border-radius: 1.6cqw; font: 400 1.5cqw/1.45 'Nunito', sans-serif; color: #444; }
 .rj-box b { color: var(--sh); }
 
-/* p. 102: party */
+/* p. 116: party */
 .rj-tf p { display: flex; align-items: center; justify-content: space-between; gap: 2cqw; height: 4.6cqw; margin: 0; border-bottom: .14cqw solid #ece6f0; font: 400 1.5cqw/1.2 'Nunito', sans-serif; color: #444; }
 .rj-tf p i { margin-right: 1cqw; font: 700 1.1cqw/1 'Nunito', sans-serif; font-style: normal; color: var(--sh); }
 .rj-match .match-words { width: 34cqw; }
@@ -1516,12 +1516,12 @@ input.fill.maybe { color: #9a6b00; border-bottom-color: #e0a82c !important; }
 .rj-voc .match-words b { color: var(--sh); }
 .rj .match button.linked-w::after, .rj .match button.linked-d::before { background: var(--sh); }
 
-/* p. 103 and p. 106: texts to highlight */
+/* p. 117 and p. 120: texts to highlight */
 .rj-read { z-index: 2; font: 400 1.65cqw/1.75 'Quicksand', 'Nunito', sans-serif; color: #333; }
 .rj-read p { margin: 0; }
 .rj-read b { color: var(--sh); font-family: 'Nunito', sans-serif; }
 
-/* p. 104: the kiss sonnet */
+/* p. 118: the kiss sonnet */
 .sh-poem.rj-kiss { font-size: 1.5cqw; }
 .rj-kiss input.fill.blank { width: 9cqw; height: 2.6cqw; }
 .rj-kiss .rj-sp { margin-right: .3cqw; font: 800 1.35cqw/1 'Nunito', sans-serif; color: var(--sh); }
@@ -1530,7 +1530,7 @@ input.fill.maybe { color: #9a6b00; border-bottom-color: #e0a82c !important; }
 .rj-opinion input.fill { flex: 1; height: 3.2cqw; border-bottom: .14cqw solid #b9b6d3; font-size: 1.9cqw; }
 .rj-opinion input.fill::placeholder { color: #c4bfd3; font: italic 1.3cqw 'Nunito', sans-serif; }
 
-/* p. 105: meme */
+/* p. 119: meme */
 
 .pd-draw.rj-meme canvas { aspect-ratio: 4 / 3; border-color: var(--sh-soft); }
 input.fill.rj-cap {
@@ -1545,10 +1545,10 @@ input.fill.rj-cap.bottom { top: 32.1cqw; }
 .rj-ex-meme span { font-size: 11cqw; line-height: 1; }
 .rj-ex-meme small { font: italic 400 1.1cqw/1 'Nunito', sans-serif; color: #aaa; }
 
-/* p. 106: future to past */
+/* p. 120: future to past */
 .rj-past s { text-decoration: none; font-style: italic; color: #9a9aa6; }
 
-/* p. 108: translations */
+/* p. 122: translations */
 .rj-tr-head, .rj-tr p { display: grid; grid-template-columns: 1.3fr 1fr 1fr; column-gap: 1.6cqw; margin: 0; padding: 0 1.6cqw; }
 .rj-tr-head { height: 4cqw; align-items: center; border-radius: 999px; background: var(--sh); font: 800 1.35cqw/1 'Nunito', sans-serif; color: #fff; }
 .rj-tr p { height: 5.4cqw; align-items: end; border-bottom: .14cqw solid #ece6f0; }
@@ -1594,7 +1594,7 @@ input.fill.rj-cap.bottom { top: 32.1cqw; }
 .rj-keys button.hit { background: #e3f3e1; box-shadow: none; color: #2e7d32; }
 .rj-keys button.miss { background: #eee; box-shadow: none; color: #bbb; text-decoration: line-through; }
 
-/* p. 96: rhyme gym */
+/* p. 110: rhyme gym */
 .sh-pairs { z-index: 2; display: grid; grid-template-columns: 1fr 1fr; column-gap: 5cqw; }
 .sh-pairs p { display: flex; align-items: center; justify-content: space-between; height: 4.6cqw; margin: 0; border-bottom: .14cqw solid #ece6f0; font: 600 1.6cqw/1 'Nunito', sans-serif; color: #444; }
 .sh-pairs p i, .sh-odd p > i, .sh-couplets li > i { font: 700 1.1cqw/1 'Nunito', sans-serif; font-style: normal; color: var(--sh); }
@@ -1672,6 +1672,17 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
 }
 .chapter-links a b { color: var(--c); margin-right: 6px; }
 .chapter-links a:hover { background: #f6f1fb; }
+.chapter-more { margin-top: -14px; }
+.chapter-more > .chapter-links { padding-top: 0; }
+.chapter-more summary {
+  cursor: pointer; list-style: none; margin: 0 12px 12px; padding: 6px 10px; border-radius: 10px;
+  font: 700 14px/1.3 'Nunito', sans-serif; color: var(--c);
+}
+.chapter-more summary::-webkit-details-marker { display: none; }
+.chapter-more summary::after { content: ' ▾'; }
+.chapter-more[open] summary { margin-bottom: 0; }
+.chapter-more[open] summary::after { content: ' ▴'; }
+.chapter-more summary:hover { background: #f6f1fb; }
 
 .home-search { margin: 22px 0 14px; }
 .home-search input {
@@ -1695,13 +1706,35 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
 .topic-pages .soon { padding: 6px 12px; border: 1px dashed #ccc; border-radius: 999px; }
 .soon i { font-style: normal; font-size: 12px; }
 
-/* ---------- print: one A4 landscape sheet ---------- */
-@page { size: A4 landscape; margin: 0; }
+/* games on the home page: compact pills, the games drop down under the one you click */
+#gameList { display: flex; flex-wrap: wrap; gap: 8px; }
+.game-topic { position: relative; }
+.game-topic summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px;
+  padding: 7px 14px; border-radius: 999px; background: #fff; border: 2px solid var(--c);
+  font: 700 16px 'Fredoka', 'Nunito', sans-serif; color: var(--c); box-shadow: 0 2px 8px rgba(60,40,20,.08);
+}
+.game-topic summary::-webkit-details-marker { display: none; }
+.game-topic summary::after { content: "▾"; font-size: 13px; transition: transform .2s; }
+.game-topic[open] summary { background: var(--c); color: #fff; }
+.game-topic[open] summary::after { transform: rotate(180deg); }
+.game-topic summary small { font: 800 11px/1 'Nunito', sans-serif; padding: 3px 6px; border-radius: 999px; background: var(--c); color: #fff; }
+.game-topic[open] summary small { background: #fff; color: var(--c); }
+.game-topic .topic-pages {
+  position: absolute; top: calc(100% + 6px); left: 0; z-index: 20; width: max-content; max-width: min(340px, calc(100vw - 32px));
+  padding: 12px; background: #fff; border-radius: 14px; border-left: 5px solid var(--c); box-shadow: 0 8px 24px rgba(60,40,20,.18);
+}
+@media (prefers-reduced-motion: reduce) { .game-topic summary::after { transition: none; } }
+
+/* ---------- print: one A4 portrait sheet per page ---------- */
+@page { size: A4 portrait; margin: 0; }
 @media print {
   body { background: #fff; }
   .toolbar, .check, .side { display: none !important; }
-  .spread { width: 297mm; margin: 0; box-shadow: none; flex-direction: row; gap: 0; }
-  .page { box-shadow: none; }
+  .spread { width: 210mm; margin: 0; box-shadow: none; flex-direction: column; gap: 0; break-after: auto; }
+  .page { flex: none; width: 210mm; height: 297mm; aspect-ratio: auto; box-shadow: none; break-after: page; break-inside: avoid; }
+  .page:last-child { break-after: auto; }
+  .page-left::after, .page-right::after { display: none; }
   .rows li.ok::after, .rows li.no::after { display: none; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
@@ -1738,7 +1771,7 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
 .gm-fb.no { background: #fde6e4; color: #b3342d; }
 @media print { .gm-overlay, .game-turn, .gm-layer { display: none; } }
 
-/* ---------- p. 48-53: detective games ---------- */
+/* ---------- p. 56-63: detective games ---------- */
 .pd-game { margin: 0; font: 700 3.2cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: #f96d5a; }
 .pd-game b { display: inline-block; margin-right: 1.4cqw; padding: .6cqw 1.6cqw .5cqw; font: 800 1.35cqw/1 'Nunito', sans-serif; letter-spacing: .06em; color: #fff; background: #f96d5a; border-radius: 999px; vertical-align: .5cqw; }
 .pd-meta { font: 600 1.35cqw/1 'Nunito', sans-serif; color: #9a8fb5; }
@@ -1878,7 +1911,7 @@ textarea.fill.pd-lines { padding: 0 1cqw; font-size: 2.2cqw; line-height: 5cqw; 
 .pd-remind b { display: inline-block; width: 2.4cqw; height: 2.4cqw; margin-right: .8cqw; border-radius: 50%; background: #f96d5a; color: #fff; font: 800 1.2cqw/2.4cqw 'Nunito', sans-serif; text-align: center; }
 
 
-/* ---------- p. 50-59: Literature · Metaphors ---------- */
+/* ---------- p. 64-73: Literature · Metaphors ---------- */
 /* each rule has its colour: 1 coral · 2 purple · 3 blue · 4 green */
 .page { --rc: #f05f4b; --rbg: #fef0ef; }
 .mt-r1 { --rc: #f05f4b; --rbg: #fef0ef; }
@@ -2029,7 +2062,7 @@ textarea.fill.pd-lines { padding: 0 1cqw; font-size: 2.2cqw; line-height: 5cqw; 
 .mt-sent span:first-child b { color: var(--coral); }
 .mt-sent span + span b { color: #f6a978; }
 
-/* p. 57: simile vs metaphor */
+/* p. 71: simile vs metaphor */
 .mt-circle { aspect-ratio: 1; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 4cqw; overflow: hidden; }
 .mt-circle span { font-size: 9cqw; line-height: 1; }
 .mt-circle b { margin-top: .8cqw; font: 800 1.9cqw/1 'Nunito', sans-serif; letter-spacing: .14em; color: #fff; }
@@ -2053,7 +2086,7 @@ textarea.fill.pd-lines { padding: 0 1cqw; font-size: 2.2cqw; line-height: 5cqw; 
 .mt-draw .pd-photo-btn { padding: .5cqw 1.2cqw; border: 0; border-radius: 999px; background: #fdeeec; color: var(--coral); font: 700 1.15cqw/1 'Nunito', sans-serif; cursor: pointer; }
 textarea.fill.mt-lines { padding: 0 1cqw; font-size: 2cqw; line-height: 4.2cqw; background: repeating-linear-gradient(transparent 0 4cqw, #e6e2ef 4cqw 4.2cqw); }
 
-/* p. 58-59: workshop, poem, homework */
+/* p. 72-73: workshop, poem, homework */
 .mt-recipe { padding: 1.2cqw 2cqw; background: #f5f0fd; border: .2cqw solid #cdb7ef; border-radius: 1.6cqw; font: 400 1.5cqw/1.35 'Nunito', sans-serif; color: #444; }
 .mt-recipe p { margin: 0 0 .5cqw; }
 .mt-formula-txt { font: 800 1.4cqw/1 'Nunito', sans-serif; letter-spacing: .06em; color: #9a8fb5; }
@@ -2147,7 +2180,7 @@ textarea.fill.mt-lines { padding: 0 1cqw; font-size: 2cqw; line-height: 4.2cqw; 
 .mt-sm.met b { color: var(--coral); }
 .mt-label { margin: 0; font: 800 1.5cqw/1 'Nunito', sans-serif; color: var(--coral); }
 
-/* ================= Personality adjectives game (p. 63) ================= */
+/* ================= Personality adjectives game (p. 76-77) ================= */
 .pg-play { cursor: pointer; border: 0; border-radius: 999px; padding: 1.1cqw 2.2cqw; background: #e3266e; color: #fff; font: 800 1.6cqw/1 'Nunito', sans-serif; box-shadow: 0 .4cqw 1cqw rgba(0,0,0,.15); z-index: 5; }
 .pg-play:hover { filter: brightness(.94); }
 .pg-overlay { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(227, 38, 110, .45); font: 400 17px/1.4 'Nunito', sans-serif; }
@@ -2202,7 +2235,7 @@ textarea.fill.mt-lines { padding: 0 1cqw; font-size: 2cqw; line-height: 4.2cqw; 
 @media (prefers-reduced-motion: reduce) { .pg-avatar, .pg-pins span, .pg-letters button { transition: none; } }
 @media print { .pg-play, .pg-overlay { display: none !important; } }
 
-/* ================= Home (pp. 40-43): vocabulary, house, prepositions ================= */
+/* ================= Home (pp. 50-53): vocabulary, house, prepositions ================= */
 .hm-title { font-size: 6.2cqw; color: #3d9a3d; }
 .hm-house-emoji { font-size: 9cqw; line-height: 1; transform: rotate(8deg); }
 .hm-intro, .hm-help { font: 400 1.45cqw/1.35 'Nunito', sans-serif; color: #555; }
@@ -2210,7 +2243,7 @@ textarea.fill.mt-lines { padding: 0 1cqw; font-size: 2cqw; line-height: 4.2cqw; 
 .hm-green { color: #43a047; }
 .hm-score { font: 800 1.4cqw/1 'Nunito', sans-serif; color: #3d9a3d; text-align: right; }
 
-/* p. 40: the cards */
+/* p. 50: the cards */
 .hm-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2cqw; }
 .hm-card {
   position: relative; display: flex; flex-direction: column; gap: .6cqw;
@@ -2283,7 +2316,7 @@ textarea.fill.mt-lines { padding: 0 1cqw; font-size: 2cqw; line-height: 4.2cqw; 
 .hm-tools button { width: 3.2cqw; height: 3.2cqw; padding: 0; border: 0; border-radius: .7cqw; background: #e2b4ff; font-size: 1.5cqw; cursor: pointer; }
 .hm-tools button:hover { background: #dfee6a; }
 
-/* p. 41: the house */
+/* p. 51: the house */
 .hm-house { aspect-ratio: 1600 / 1186; }
 .hm-house-bg { display: block; width: 100%; height: 100%; pointer-events: none; user-select: none; }
 .hm-room {
@@ -2292,7 +2325,7 @@ textarea.fill.mt-lines { padding: 0 1cqw; font-size: 2cqw; line-height: 4.2cqw; 
   background: rgba(255,255,255,.85) !important; border-bottom: .15cqw dashed #9aa42a !important;
 }
 
-/* p. 42: prepositions */
+/* p. 52: prepositions */
 .hm-preps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.6cqw 1.2cqw; }
 .hm-preps li { display: flex; flex-direction: column; align-items: center; gap: .5cqw; }
 .hm-preps img, .hm-missing { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; border-radius: 1cqw; background: #f6f9dc; }
@@ -2307,7 +2340,7 @@ textarea.fill.mt-lines { padding: 0 1cqw; font-size: 2cqw; line-height: 4.2cqw; 
 .hm-watch p b { color: #3d7a3f; }
 .prep-list.hm-tight li { min-height: 4.4cqw; padding-top: .8cqw; }
 
-/* p. 43: room missions */
+/* p. 53: room missions */
 .hm-reset { background: #8bbd3f; }
 .hm-reset:hover { background: #6f9e2c; }
 .hm-palette { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: .6cqw; }
@@ -2335,7 +2368,7 @@ textarea.fill.hm-lines { padding: 0 1cqw; font-size: 2.1cqw; line-height: 4.5cqw
 
 @media print { .hm-hint, .hm-scramble, .hm-tools, .hm-reset, .hm-help { display: none !important; } }
 
-/* ---------- PAGES 110–119: Jobs & CVs (geometric: circles and rectangles, the colours of the job cards) ---------- */
+/* ---------- PAGES 124–133: Jobs & CVs (geometric: circles and rectangles, the colours of the job cards) ---------- */
 .jb { --sh: #e8820c; --sh-soft: #feefd2; --sh-cream: #fff8ec; --jb-sun: #f9b11a; --jb-teal: #6cc4b8; --jb-pink: #eab3d4; --jb-red: #ee3a37; --jb-violet: #7a6bb5; }
 .jb .lt-pill b { color: var(--jb-violet); }
 .jb .pill-line { background: #f6dcae; }
@@ -2354,12 +2387,12 @@ textarea.fill.hm-lines { padding: 0 1cqw; font-size: 2.1cqw; line-height: 4.5cqw
 .jb-web { z-index: 1; height: calc(var(--h) * 1cqw); pointer-events: none; }
 .jb-web path { fill: none; stroke: var(--jb-sun); stroke-width: .25; stroke-dasharray: .8 .6; }
 
-/* p. 110: where do they work? */
+/* p. 124: where do they work? */
 .jb-match .match-words { width: 32cqw; }
 .jb-match .match-words b { color: var(--sh); }
 .jb-match .match-defs button { color: #5b4c99; background: #ece9f6; }
 
-/* p. 111: word search */
+/* p. 125: word search */
 .jb-ws { position: absolute; display: grid; grid-template-columns: repeat(16, 1fr); aspect-ratio: 1; padding: 0; background: var(--sh-cream); border: .3cqw solid var(--jb-sun); border-radius: 1.2cqw; touch-action: none; user-select: none; }
 .jb-ws svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .jb-ws svg line { stroke-width: .78; stroke-linecap: round; opacity: .55; }
@@ -2376,14 +2409,14 @@ textarea.fill.hm-lines { padding: 0 1cqw; font-size: 2.1cqw; line-height: 4.5cqw
 .jb-ws-words li.found:nth-child(even)::before { background: var(--jb-teal); }
 .jb-ws-score { text-align: right; font: 800 1.35cqw/1 'Nunito', sans-serif; color: var(--sh); }
 
-/* p. 111: grammar box */
+/* p. 125: grammar box */
 .jb-gram { border-left: 1.2cqw solid var(--jb-sun); }
 .jb-gram h3 { color: var(--jb-violet); }
 .jb-gram p { grid-template-columns: 17cqw 28cqw 1fr; }
 .jb-gram b { border-color: var(--jb-sun); }
 .jb-gram s { color: #e53935; }
 
-/* p. 112: who do you see? · p. 117: do or don't? */
+/* p. 126: who do you see? · p. 131: do or don't? */
 .jb-rows p { display: flex; align-items: center; justify-content: space-between; gap: 2cqw; height: 5.2cqw; margin: 0; border-bottom: .14cqw solid #f3e6d0; font: 400 1.5cqw/1.2 'Nunito', sans-serif; color: #444; }
 .jb-rows p > b { font: 700 1.6cqw/1 'Nunito', sans-serif; color: var(--sh); }
 .jb-rows p i { margin-right: 1cqw; font: 700 1.1cqw/1 'Nunito', sans-serif; font-style: normal; color: var(--jb-violet); }
@@ -2392,7 +2425,7 @@ textarea.fill.hm-lines { padding: 0 1cqw; font-size: 2.1cqw; line-height: 4.5cqw
 .jb-box { border-left: 1.2cqw solid var(--jb-teal); border-radius: 0 1.6cqw 1.6cqw 0; background: #eaf7f5; }
 .jb-box b { color: #2e8b80; }
 
-/* p. 113: job cards (like the printed cards: coloured frame, white text box) */
+/* p. 127: job cards (like the printed cards: coloured frame, white text box) */
 .jb-bank { z-index: 2; display: flex; flex-wrap: wrap; gap: .6cqw; }
 .jb-bank span { padding: .45cqw 1.1cqw; border-radius: .4cqw; background: var(--sh-soft); font: 700 1.3cqw/1 'Nunito', sans-serif; color: var(--sh); }
 .jb-bank span:nth-child(odd) { border-radius: 999px; background: #eaf7f5; color: #2e8b80; }
@@ -2408,7 +2441,7 @@ textarea.fill.hm-lines { padding: 0 1cqw; font-size: 2.1cqw; line-height: 4.5cqw
 .jb-cards li.ok { border-color: #43a047; }
 .jb-cards li.no { border-color: #e53935; }
 
-/* p. 114: a or an? */
+/* p. 128: a or an? */
 .jb-aan { z-index: 2; display: grid; grid-template-columns: 1fr 1fr; column-gap: 5cqw; }
 .jb-aan p { display: flex; align-items: center; justify-content: space-between; height: 4.6cqw; margin: 0; border-bottom: .14cqw solid #f3e6d0; font: 600 1.55cqw/1 'Nunito', sans-serif; color: #444; }
 .jb-aan p i { margin-right: 1cqw; font: 700 1.1cqw/1 'Nunito', sans-serif; font-style: normal; color: var(--jb-violet); }
@@ -2416,7 +2449,7 @@ textarea.fill.hm-lines { padding: 0 1cqw; font-size: 2.1cqw; line-height: 4.5cqw
 .jb-chk .chip:nth-child(3n+2):not(.on) { background: #eaf7f5; color: #2e8b80; }
 .jb-chk .chip:nth-child(3n):not(.on) { background: #ece9f6; color: #5b4c99; }
 
-/* p. 115: interview questions */
+/* p. 129: interview questions */
 .jb-iv { z-index: 2; display: grid; grid-template-columns: 1fr 1fr; column-gap: 3cqw; margin: 0; padding: 0; list-style: none; counter-reset: iv; font: 400 1.3cqw/1.25 'Nunito', sans-serif; color: #555; }
 .jb-iv li { counter-increment: iv; display: flex; align-items: center; gap: .8cqw; min-height: 4cqw; }
 .jb-iv li::before { content: counter(iv); flex: 0 0 2.4cqw; height: 2.4cqw; display: grid; place-items: center; border-radius: 50%; background: var(--jb-sun); font: 800 1.15cqw/1 'Nunito', sans-serif; color: #fff; }
@@ -2454,13 +2487,13 @@ textarea.fill.hm-lines { padding: 0 1cqw; font-size: 2.1cqw; line-height: 4.5cqw
 .jb-cv-row { display: grid; grid-template-columns: 11cqw 1fr; gap: 1cqw; margin: 0 !important; }
 .jb-cv-form input.fill::placeholder { color: #c4bfd3; font: italic 1.2cqw 'Nunito', sans-serif; }
 
-/* p. 117: CV sections */
+/* p. 131: CV sections */
 .jb-sec .match-words { width: 50cqw; }
 .jb-sec .match-words button { font-size: 1.4cqw; color: #444; }
 .jb-sec .match-defs button { font-weight: 700; color: var(--sh); background: var(--sh-soft); }
 .jb-sec .match-defs li:nth-child(even) button { color: #2e8b80; background: #eaf7f5; }
 
-/* p. 118: words for your profile */
+/* p. 132: words for your profile */
 .jb-words { z-index: 2; font: 400 1.35cqw/1.5 'Nunito', sans-serif; color: #777; }
 .jb-words b { color: var(--jb-violet); }
 
@@ -2475,3 +2508,469 @@ textarea.fill.hm-lines { padding: 0 1cqw; font-size: 2.1cqw; line-height: 4.5cqw
 .jb-modal .rj-card.up, .jb-modal .rj-keys button { box-shadow: inset 0 0 0 2px #f6cf86; }
 .jb-modal .rj-keys button:hover:not(:disabled) { background: #feefd2; }
 @media print { .jb-ws svg { display: none; } }
+
+/* ---------- PAGES 134–141: future (the graphics of the "to be" chapter) ---------- */
+/* one colour per future form: will = coral, be going to = blue, present continuous = lilac */
+.ft { --sh: #8e2de2; --sh-soft: #f1e3fc; --ft-will: #fa6e5f; --ft-going: #4aa8ec; --ft-pc: #c97df6; }
+.ft .rj-games button { box-shadow: 0 .3cqw 0 #5f1aa0; }
+.ft .rj-games button:hover { background: #7a3fa3; }
+.ft-sub { font: 300 1.9cqw/1 'Quicksand', 'Nunito', sans-serif; color: #fff; letter-spacing: .04em; }
+.ft-cover-forms { list-style: none; padding: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 1.2cqw; }
+.ft-cover-forms li { font: 700 2.2cqw/1 'Fredoka', 'Nunito', sans-serif; color: #fff; padding: .9cqw 2cqw; border-radius: 999px; }
+.ft-cover-forms .k-will { background: var(--ft-will); }
+.ft-cover-forms .k-going { background: var(--ft-going); }
+.ft-cover-forms .k-pc { background: var(--ft-pc); }
+
+/* p. 135: talk about */
+.ft-talk { list-style: none; padding: 0; }
+.ft-talk li { display: flex; align-items: center; height: 11cqw; }
+.ft-talk b { flex: 0 0 16cqw; text-align: center; font: 700 6.4cqw/1 'Fredoka', 'Nunito', sans-serif; color: #fff; }
+.ft-talk div { flex: 1; padding-left: 2.4cqw; }
+.ft-talk p { margin: 0 0 .4cqw; font: 800 1.9cqw/1.1 'Nunito', sans-serif; color: #444; text-transform: uppercase; letter-spacing: .02em; }
+.ft-talk input.fill { height: 3.4cqw; border-bottom: .15cqw solid #b9b6d3; }
+
+/* p. 135: predictions, ideas or plans? */
+.ft-legend { display: flex; gap: 1cqw; z-index: 3; }
+.ft-legend span { font: 800 1.25cqw/1 'Nunito', sans-serif; color: #fff; padding: .6cqw 1.3cqw; border-radius: 999px; }
+.ft-legend .k-pred { background: var(--ft-will); }
+.ft-legend .k-idea { background: #e3b505; }
+.ft-legend .k-plan { background: var(--ft-going); }
+.ft-sort { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 3cqw; }
+.ft-sort li { display: flex; align-items: center; justify-content: space-between; gap: .8cqw; height: 6.8cqw; border-bottom: .14cqw solid #e4e0ee; font: 400 1.5cqw/1.2 'Nunito', sans-serif; color: #333; }
+.ft-sort .opt { flex: 0 0 auto; display: flex; gap: .3cqw; border-radius: 999px; }
+.ft-sort .opt button { width: 3.4cqw; height: 3.4cqw; padding: 0; border-radius: 50%; font-size: 1.8cqw; line-height: 1; filter: grayscale(.7); opacity: .7; }
+.ft-sort .opt button.on { filter: none; opacity: 1; background: #fdf27a; }
+
+/* p. 136: the rules */
+.ft-stack { display: flex; flex-direction: column; gap: 2.6cqw; }
+.tb-card.ft-rule { padding: 1.8cqw 2.6cqw 1.6cqw; }
+.tb-card.ft-rule h3 { margin-bottom: 1cqw; font-size: 1.8cqw; }
+.tb-card.ft-rule h3 b { font-size: 2.4cqw; margin-right: .6cqw; }
+.ft-form { display: flex; gap: 2.4cqw; margin: 0 0 1cqw; font: 400 1.4cqw/1.2 'Nunito', sans-serif; color: #555; }
+.ft-form b { color: #8e2de2; }
+.tb-card.ft-rule th:nth-child(1), .tb-card.ft-rule td:nth-child(1) { width: 45%; }
+.tb-card.ft-rule th:nth-child(2), .tb-card.ft-rule td:nth-child(2) { width: auto; }
+.tb-card.ft-rule table { font-size: 1.5cqw; }
+.tb-card.ft-rule td { padding: .55cqw 1cqw; }
+.tb-card.ft-rule td i { color: #666; }
+.tb-card.ft-rule s { color: #e53935; }
+.ft-tip { margin: 0; padding: 1.2cqw 2cqw; background: #fdf27a; border-radius: 999px; font: 400 1.45cqw/1.2 'Nunito', sans-serif; color: #444; }
+
+/* p. 137: highlight the future */
+.ft-art { z-index: 2; height: auto; pointer-events: none; }
+.ft-letter { z-index: 3; background: #fff; padding: 1.8cqw 2.2cqw; box-shadow: 0 .4cqw 1.2cqw rgba(60,0,90,.15); }
+.ft-letter p { margin: 0; font: 400 1.55cqw/1.6 'Nunito', sans-serif; color: #333; }
+.ft-letter .w.ul { text-decoration: none; background: #fdf27a; }
+.ft-letter .w.ul.ok { background: #c8ecc9; }
+.ft-letter .w.ul.no { background: #fbc9c5; }
+.ft-letter.show .fut { box-shadow: inset 0 -.35cqw 0 #8e2de2; }
+.ft-ulbar { z-index: 3; display: flex; align-items: center; gap: 1cqw; }
+.ft-ulbar .check.alt { background: #fff; color: #8e2de2; }
+.ft-ulbar output { font: 800 1.35cqw/1 'Nunito', sans-serif; color: #fff; }
+.ft-uses { list-style: none; padding: 0; counter-reset: ft; }
+.ft-uses li { counter-increment: ft; display: flex; align-items: center; justify-content: space-between; height: 5.3cqw; border-bottom: .14cqw solid #e6d6f6; font: 400 1.55cqw/1.2 'Nunito', sans-serif; color: #333; }
+.ft-uses li::before { content: counter(ft) "."; flex: 0 0 2.6cqw; font-weight: 700; color: #c08be8; }
+.ft-uses li > span:first-of-type { flex: 1; }
+.ft-uses .opt, .ft-choose .opt { display: inline-flex; gap: .4cqw; }
+.ft .opt button { padding: .35cqw .9cqw; border-radius: 999px; }
+.ft-uses .opt button { font: 700 1.25cqw/1.2 'Nunito', sans-serif; background: #f4ecfc; color: #8a6aa8; }
+.ft-uses .opt button.on { background: #8e2de2; color: #fff; }
+.ft-rw { list-style: none; padding: 0; counter-reset: rw; }
+.ft-rw li { counter-increment: rw; display: flex; align-items: flex-end; gap: 1.2cqw; height: 6cqw; font: 400 1.5cqw/1.2 'Nunito', sans-serif; color: #333; }
+.ft-rw li::before { content: counter(rw) "."; flex: 0 0 2cqw; font-weight: 700; color: #c08be8; padding-bottom: .4cqw; }
+.ft-rw .q { flex: 0 0 22cqw; padding-bottom: .4cqw; }
+.ft-rw input.fill { flex: 1; height: 3cqw; font-size: 1.7cqw; border-bottom: .14cqw solid #c9c4d6; }
+.ft-rw li.ok { box-shadow: inset 0 -.25cqw 0 #43a047; }
+.ft-rw li.no { box-shadow: inset 0 -.25cqw 0 #e53935; }
+
+/* p. 138: practice */
+.ft-gaps li { height: 5.6cqw; }
+.ft-gaps input.fill.blank { width: 15cqw; }
+.ft-gaps em, .ft-choose em { font-style: normal; color: #9a9aa6; }
+.ft-gaps .ink { font-size: 2.1cqw; }
+.ft-gaps li.ok, .ft-choose .opt.ok { box-shadow: inset 0 -.25cqw 0 #43a047; }
+.ft-gaps li.no { box-shadow: inset 0 -.25cqw 0 #e53935; }
+.ft-choose { list-style: none; padding: 0; font: 400 1.55cqw/1.2 'Nunito', sans-serif; color: #333; }
+.ft-choose li { display: flex; align-items: center; gap: 1cqw; height: 5.4cqw; border-bottom: .14cqw solid #ece8f3; }
+.ft-choose li > i { flex: 0 0 2cqw; font: 700 1.15cqw/1 'Nunito', sans-serif; font-style: normal; color: #c08be8; }
+.ft-choose .opt { align-items: center; color: #bbb; }
+.ft-choose .opt button { font: 600 1.45cqw/1.2 'Nunito', sans-serif; color: #555; background: #f4ecfc; }
+.ft-choose .opt button.on { background: #fdf27a; color: #333; }
+
+/* p. 139: in groups */
+.ft-grid p { display: grid; grid-template-columns: 19cqw 1fr 1fr; column-gap: 1.4cqw; align-items: end; height: 7.4cqw; margin: 0; border-bottom: .14cqw solid #e4e0ee; }
+.ft-grid .ft-gh { height: 3.8cqw; align-items: center; padding: 0 1.4cqw; border: 0; border-radius: 999px; background: #d6b0f6; font: 800 1.3cqw/1 'Nunito', sans-serif; color: #fff; }
+.ft-grid b { align-self: center; padding: .6cqw 1cqw; border-left: .7cqw solid var(--k); font: 700 1.3cqw/1.2 'Nunito', sans-serif; color: #444; }
+.ft-grid .k-will { --k: var(--ft-will); }
+.ft-grid .k-going { --k: var(--ft-going); }
+.ft-grid .k-pc { --k: var(--ft-pc); }
+.ft-grid input.fill { height: 3.2cqw; font-size: 1.7cqw; border-bottom: .14cqw dashed #cfc8dc; }
+.ft-grid .ink { padding-bottom: .4cqw; font-size: 1.9cqw; }
+.ft-box { z-index: 2; }
+
+/* pp. 140-141: the worst fortune teller in the world */
+.ft-lead { margin: 0; padding-left: 2.4cqw; font: 400 1.5cqw/3.3cqw 'Nunito', sans-serif; color: #444; }
+.ft-intro { z-index: 2; margin: 0; padding: 1cqw 1.8cqw; background: #efe0fc; border-radius: 1cqw; font: 400 1.45cqw/1.35 'Nunito', sans-serif; color: #333; }
+.ft-intro b { color: #8e2de2; }
+.ft-zodiac { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 16.9cqw; gap: 1.2cqw; }
+.ft-zodiac li { display: flex; flex-direction: column; gap: .5cqw; padding: 1cqw 1.3cqw; overflow: hidden; background: #fff; border: .35cqw solid var(--c); border-radius: 1.2cqw; }
+.ft-zodiac b { font: 700 1.9cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--c); }
+.ft-zodiac span { font: 400 1.18cqw/1.35 'Nunito', sans-serif; color: #333; }
+.ft-zodiac .w.ul { text-decoration: none; background: #fdf27a; }
+.ft-qa { list-style: none; padding: 0; }
+.ft-qa li { display: flex; align-items: flex-end; gap: 1.2cqw; height: 5.6cqw; font: 400 1.5cqw/1.2 'Nunito', sans-serif; color: #333; }
+.ft-qa li span { flex: 0 0 auto; padding-bottom: .4cqw; }
+.ft-qa input.fill { flex: 1; height: 3cqw; font-size: 1.8cqw; border-bottom: .14cqw solid #c9c4d6; }
+.match.ft-zmatch li { height: 5.1cqw; }
+.match.ft-zmatch .match-words { width: 30cqw; }
+.match.ft-zmatch .match-words button { font: 700 1.55cqw/1 'Nunito', sans-serif; color: #8e2de2; }
+.match.ft-zmatch .match-defs button { font-size: 1.4cqw; color: #5b3a85; background: #f6edfd; }
+
+/* p. 142: analysis and form */
+.tb-card.ft-an { padding: 1.8cqw 2.6cqw 1.2cqw; }
+.tb-card.ft-an h3 { margin-bottom: .6cqw; font-size: 1.8cqw; }
+.ft-an-list { list-style: none; margin: 0; padding: 0; }
+.ft-an-list li { display: flex; align-items: center; justify-content: space-between; gap: 1cqw; height: 5cqw; border-bottom: .14cqw solid #f0e6fa; font: 400 1.45cqw/1.2 'Nunito', sans-serif; color: #333; }
+.ft-an-list li.q > span:first-child { font-weight: 700; font-style: italic; color: #e5533d; }
+.ft-an-list .opt { display: inline-flex; gap: .4cqw; }
+.ft-an-list .opt button { font: 700 1.2cqw/1.2 'Nunito', sans-serif; background: #f4ecfc; color: #8a6aa8; }
+.ft-an-list .opt button.on { background: #8e2de2; color: #fff; }
+.ft-an-list input.fill { flex: 0 0 12cqw; height: 3cqw; border-bottom: .14cqw solid #c9c4d6; text-align: center; }
+.ft-forms { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6cqw; }
+.ft-forms div { padding: 1.3cqw 1.8cqw; background: #fff; border-left: .8cqw solid var(--accent); box-shadow: 0 .4cqw 1.2cqw rgba(60,0,90,.15); }
+.ft-forms h4 { margin: 0 0 .6cqw; font: 700 1.9cqw/1 'Fredoka', 'Nunito', sans-serif; color: #222; }
+.ft-forms p { margin: 0 0 .5cqw; font: 400 1.35cqw/1.3 'Nunito', sans-serif; color: #333; }
+.ft-forms b { color: #8e2de2; }
+.ft-forms i { font: italic 400 1.3cqw/1.2 'Nunito', sans-serif; color: #888; }
+
+/* p. 143: controlled practice */
+.ft-cp .tb-head { margin: 0 0 .6cqw; }
+.ft-cp > .check { position: absolute; right: 2.2cqw; top: 1.4cqw; }
+.ft-fut { list-style: none; margin: 0; padding: 0; counter-reset: fu; }
+.ft-fut li { counter-increment: fu; display: flex; align-items: flex-end; gap: 1cqw; height: 6.1cqw; border-bottom: .14cqw solid #f0e6fa; }
+.ft-fut li::before { content: counter(fu) "."; flex: 0 0 2.4cqw; padding-bottom: .5cqw; font: 700 1.2cqw/1 'Nunito', sans-serif; color: #c08be8; }
+.ft-fut .q { flex: 0 0 26cqw; padding-bottom: .4cqw; font: italic 400 1.3cqw/1.25 'Nunito', sans-serif; color: #777; }
+.ft-fut input.fill { flex: 1; height: 3cqw; font-size: 1.75cqw; border-bottom: .14cqw solid #c9c4d6; }
+.ft-fut .e { flex: 0 0 auto; padding-bottom: .4cqw; font: 400 1.4cqw/1 'Nunito', sans-serif; color: #333; white-space: nowrap; }
+.ft-fut li.ok, .ft-qa li.ok, .ft-wg li.ok, .ft-mabel li.ok { box-shadow: inset 0 -.25cqw 0 #43a047; }
+.ft-fut li.no, .ft-qa li.no, .ft-wg li.no, .ft-mabel li.no { box-shadow: inset 0 -.25cqw 0 #e53935; }
+.ft-gaps input.fill.blank.small { width: 7cqw; }
+
+/* pp. 144-145: sentence formation */
+.ft-ends { display: flex; flex-wrap: wrap; gap: .6cqw 1.2cqw; z-index: 2; }
+.ft-ends span { font: 400 1.35cqw/1 'Nunito', sans-serif; color: #444; }
+.ft-ends b { display: inline-grid; place-items: center; width: 2.2cqw; height: 2.2cqw; margin-right: .4cqw; border-radius: 50%; background: #d6b0f6; color: #fff; font-size: 1.15cqw; }
+input.fill.ft-partner { height: 3.2cqw; font-size: 1.8cqw; border-bottom: .14cqw dashed #cfc8dc; }
+.ft-survey { list-style: none; padding: 0; }
+.ft-survey li { display: flex; align-items: center; justify-content: space-between; height: 5.2cqw; border-bottom: .14cqw solid #ece8f3; font: 400 1.5cqw/1.2 'Nunito', sans-serif; color: #333; }
+.ft-survey .opt { display: inline-flex; gap: .5cqw; }
+.ft-survey .opt button { font: 700 1.3cqw/1.2 'Nunito', sans-serif; background: #f4ecfc; color: #8a6aa8; }
+.ft-survey .opt button.on { background: #fdf27a; color: #333; }
+.tb-card.ft-cols { padding: 1.2cqw 1.8cqw; }
+.tb-card.ft-cols th, .tb-card.ft-cols td { width: 33.3% !important; padding: .4cqw 1cqw; }
+.ft-8 { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 3cqw; counter-reset: e8; }
+.ft-8 li { counter-increment: e8; display: flex; align-items: flex-end; gap: .8cqw; height: 5.2cqw; }
+.ft-8 li::before { content: counter(e8) "."; padding-bottom: .5cqw; font: 700 1.2cqw/1 'Nunito', sans-serif; color: #c08be8; }
+.ft-8 input.fill { height: 3cqw; font-size: 1.7cqw; border-bottom: .14cqw solid #c9c4d6; }
+.lines.ft-5 li { height: 4.6cqw; }
+
+/* p. 146: Mabel rolls the dice */
+.ft-mabel { list-style: none; padding: 0; counter-reset: mb; }
+.ft-mabel li { counter-increment: mb; display: grid; grid-template-columns: 2.4cqw 1fr 4.4cqw 30cqw; column-gap: 1.2cqw; align-items: center; height: 9.5cqw; border-bottom: .14cqw solid #f3eef8; }
+.ft-mabel li::before { content: counter(mb) "."; align-self: end; padding-bottom: .9cqw; font: 700 1.2cqw/1 'Nunito', sans-serif; color: #c08be8; }
+.ft-mabel small { display: block; font: italic 400 1.25cqw/1.2 'Nunito', sans-serif; color: #9a9aa6; }
+.ft-mabel input.fill { height: 3.2cqw; font-size: 1.8cqw; border-bottom: .14cqw solid #c9c4d6; }
+.ft-mabel output { display: flex; align-items: center; gap: .8cqw; min-height: 6.4cqw; padding: .5cqw 1cqw; border-radius: 1cqw; background: #f6edfd; font: 600 1.25cqw/1.25 'Nunito', sans-serif; color: #5b3a85; }
+.ft-mabel output b { font: 400 3cqw/1 'Nunito', sans-serif; color: #8e2de2; }
+.ft-roll { width: 4.4cqw; height: 4.4cqw; padding: 0; cursor: pointer; border: 0; border-radius: 50%; font-size: 2.3cqw; line-height: 1; background: #8e2de2; box-shadow: 0 .3cqw 0 #5f1aa0; }
+.ft-roll:active { transform: translateY(.25cqw); box-shadow: none; }
+.ft-roll.rolling { animation: ftShake .5s; }
+@keyframes ftShake { 20% { transform: rotate(-12deg); } 40% { transform: rotate(10deg); } 60% { transform: rotate(-8deg); } 80% { transform: rotate(6deg); } }
+
+/* p. 147: will or be going to, make your own fortune teller */
+.ft-wg { list-style: none; padding: 0; counter-reset: wg; }
+.ft-wg li { counter-increment: wg; display: flex; align-items: baseline; gap: 1cqw; min-height: 4.8cqw; padding-bottom: .3cqw; font: 400 1.3cqw/1.5 'Nunito', sans-serif; color: #333; }
+.ft-wg li::before { content: counter(wg) "."; flex: 0 0 2.2cqw; font: 700 1.2cqw/1.6 'Nunito', sans-serif; color: #c08be8; }
+.ft-wg b { color: #8e2de2; }
+.ft-wg em { font-style: normal; color: #9a9aa6; }
+.ft-wg input.fill.blank { width: 13cqw; height: 2.3cqw; }
+.ft-cootie { height: auto; z-index: 2; }
+.ft-cootie-list { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 3cqw; counter-reset: ct; }
+.ft-cootie-list li { counter-increment: ct; display: flex; align-items: flex-end; gap: .8cqw; height: 3.9cqw; }
+.ft-cootie-list li::before { content: counter(ct); display: grid; place-items: center; flex: 0 0 2cqw; height: 2cqw; border-radius: 50%; background: #d6b0f6; color: #fff; font: 800 1.1cqw/1 'Nunito', sans-serif; }
+.ft-cootie-list input.fill { height: 2.8cqw; font-size: 1.6cqw; border-bottom: .14cqw solid #c9c4d6; }
+.ft-cootie-list input.fill::placeholder, .ft-rw input.fill::placeholder { color: #d4cde2; font-size: 1.4cqw; }
+@media print { .ft-roll, .ft-ulbar .check { display: none; } }
+
+/* the future games pop-up, in the colours of the chapter */
+.gq-overlay.ft-modal { --gq-purple: #8e2de2; --gq-coral: #fa6e5f; --gq-card: #f8f1fd; }
+.ft-modal .gq-choice { background: #fff; color: var(--gq-navy); box-shadow: inset 0 0 0 2px #d6b0f6; font-size: 17px; padding: 11px 20px; }
+.ft-modal .gq-choice:disabled { cursor: default; }
+.ft-modal .gq-choice.k-pred { box-shadow: inset 0 0 0 3px #fa6e5f; }
+.ft-modal .gq-choice.k-idea { box-shadow: inset 0 0 0 3px #e3b505; }
+.ft-modal .gq-choice.k-plan { box-shadow: inset 0 0 0 3px #4aa8ec; }
+.ft-ball {
+  width: 170px; height: 170px; margin: 6px auto 14px; padding: 26px; border-radius: 50%;
+  display: grid; place-items: center; text-align: center;
+  background: radial-gradient(circle at 36% 30%, #fff 0, #d6b2f6 30%, #8e2de2 75%, #5a1a99 100%);
+  font: 700 17px/1.2 'Fredoka', 'Nunito', sans-serif; color: #fff; text-shadow: 0 1px 4px rgba(40,0,80,.6);
+  box-shadow: 0 10px 0 -2px #1f2a6b, 0 18px 24px rgba(40,0,80,.25);
+}
+.ft-ball.shake { animation: ftBall .8s; }
+@keyframes ftBall { 15% { transform: translateX(-10px) rotate(-6deg); } 35% { transform: translateX(10px) rotate(6deg); } 55% { transform: translateX(-8px); } 75% { transform: translateX(6px); } }
+@media (prefers-reduced-motion: reduce) { .ft-ball.shake, .ft-roll.rolling { animation: none; } }
+
+/* p. 135: the map of the chapter */
+.ft-map { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2cqw; }
+.ft-map a { display: flex; align-items: center; gap: 1.4cqw; height: 20.5cqw; padding: 1.4cqw 1.8cqw; text-decoration: none; background: #fff; border: .35cqw solid var(--c); border-radius: 1.6cqw; }
+.ft-map a:hover { background: #fbf7fe; }
+.ft-map b { flex: 0 0 5.4cqw; height: 5.4cqw; display: grid; place-items: center; border-radius: 50%; background: var(--c); color: #fff; font: 700 3cqw/1 'Fredoka', 'Nunito', sans-serif; }
+.ft-map span { flex: 1; font: 400 1.35cqw/1.3 'Nunito', sans-serif; color: #555; }
+.ft-map strong { display: block; margin-bottom: .4cqw; font: 700 2.1cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--c); }
+.ft-map i { align-self: flex-end; font: 800 1.2cqw/1 'Nunito', sans-serif; font-style: normal; color: #9a9aa6; }
+
+/* be going to & present continuous: form tables with four columns */
+.tb-card.ft-gt { padding: 1.8cqw 2.6cqw 1.4cqw; }
+.tb-card.ft-gt h3 { margin-bottom: 1cqw; font-size: 1.8cqw; }
+.tb-card.ft-gt table { font-size: 1.4cqw; }
+.tb-card.ft-gt th:nth-child(1), .tb-card.ft-gt td:nth-child(1) { width: 18%; }
+.tb-card.ft-gt th:nth-child(2), .tb-card.ft-gt td:nth-child(2) { width: 25%; }
+.tb-card.ft-gt th:nth-child(3), .tb-card.ft-gt td:nth-child(3) { width: 29%; }
+.tb-card.ft-gt td b { color: #8e2de2; }
+.ft-short { margin: 1cqw 0 0; font: 400 1.35cqw/1.2 'Nunito', sans-serif; color: #555; }
+.ft-short i { color: #333; }
+
+/* p. 145: look and predict */
+.ft-predict { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 17.4cqw; gap: 1.2cqw; }
+.ft-predict li { display: flex; flex-direction: column; gap: .5cqw; padding: 1cqw 1.3cqw; background: #e6f3fd; border-radius: 1.2cqw; }
+.ft-predict b { font-size: 3.4cqw; line-height: 1; }
+.ft-predict span { flex: 1; font: 600 1.25cqw/1.3 'Nunito', sans-serif; color: #335; }
+.ft-predict input.fill { height: 3cqw; font-size: 1.6cqw; border-bottom: .14cqw solid #9cc9ee; }
+.ft-predict input.fill::placeholder { color: #9cc9ee; }
+
+/* p. 147: find someone who */
+.ft-find p { display: grid; grid-template-columns: 30cqw 18cqw 1fr; column-gap: 1.4cqw; align-items: end; height: 5.6cqw; margin: 0; border-bottom: .14cqw solid #e4eef8; }
+.ft-find .ft-gh { height: 3.8cqw; align-items: center; padding: 0 1.4cqw; border: 0; border-radius: 999px; background: #4aa8ec; font: 800 1.3cqw/1 'Nunito', sans-serif; color: #fff; }
+.ft-find b { padding-bottom: .5cqw; font: 600 1.4cqw/1.2 'Nunito', sans-serif; color: #333; }
+.ft-find input.fill { height: 3cqw; font-size: 1.7cqw; border-bottom: .14cqw dashed #b9d6ee; }
+
+/* p. 148: spelling of -ing and the two uses */
+.ft-forms.ft-spell { grid-template-columns: 1fr 1fr; gap: 1.2cqw; }
+.ft-forms.ft-spell div { padding: 1cqw 1.6cqw; }
+.ft-forms.ft-spell h4 { font-size: 1.55cqw; }
+.ft-forms.ft-two div { padding: 1cqw 1.6cqw; }
+.ft-forms.ft-two h4 { font-size: 1.7cqw; }
+.ft-ing { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 4cqw; }
+.ft-ing li { display: flex; align-items: flex-end; gap: 1cqw; height: 5cqw; font: 600 1.5cqw/1 'Nunito', sans-serif; color: #444; }
+.ft-ing span { flex: 0 0 9cqw; padding-bottom: .5cqw; }
+.ft-ing input.fill { flex: 1; height: 3cqw; font-size: 1.8cqw; border-bottom: .14cqw solid #c9c4d6; }
+.ft-ing li.ok, .ft-ing li.no { box-shadow: none; }
+
+/* p. 149: the diary */
+.ft-diary { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 3cqw; }
+.ft-diary li { display: flex; align-items: flex-end; gap: 1cqw; height: 4.4cqw; }
+.ft-diary span { flex: 0 0 5cqw; padding-bottom: .4cqw; font: 800 1.25cqw/1 'Nunito', sans-serif; color: #8e2de2; text-transform: uppercase; }
+.ft-diary input.fill { flex: 1; height: 2.9cqw; font-size: 1.6cqw; border-bottom: .14cqw solid #c9c4d6; }
+.ft-diary input.fill::placeholder { color: #d4cde2; }
+.ft-diary-game { align-items: center !important; justify-content: flex-end; }
+.ft-diary-game button { cursor: pointer; border: 0; border-radius: 999px; padding: .7cqw 1.4cqw; font: 700 1.25cqw/1 'Nunito', sans-serif; color: #fff; background: #8e2de2; box-shadow: 0 .3cqw 0 #5f1aa0; }
+
+/* p. 155: choose the topic */
+.ft-signs { z-index: 2; }
+.ft-signs .opt { display: flex; flex-wrap: wrap; gap: .8cqw; }
+.ft-signs .opt button { font: 600 1.3cqw/1 'Nunito', sans-serif; color: #8a6aa8; background: #f6edfd; padding: .6cqw 1.2cqw; }
+.ft-signs .opt button.on { background: #8e2de2; color: #fff; font-weight: 800; }
+
+/* ---------- PAGES 78–89: clothes & fashion show (pink, yellow and teal of the slides) ---------- */
+.cl { --cl-mag: #d4238b; --cl-pink: #e8387a; --cl-yel: #ffd21f; --cl-teal: #46d9c0; --cl-lime: #e4ee3f; --cl-ink: #2b1a2e; }
+.cl .page-bg { z-index: 0; }
+.cl-pill { font: 800 1.45cqw/1 'Nunito', sans-serif; color: #fff; background: var(--cl-mag); border-radius: 999px; padding: .6cqw 1.6cqw; white-space: nowrap; }
+.cl-pill b { margin-right: .9cqw; color: var(--cl-yel); }
+.cl-kicker { font: 800 1.25cqw/1 'Nunito', sans-serif; letter-spacing: .12em; color: #fff; }
+.cl-big { font: 700 21cqw/.9 'Fredoka', 'Nunito', sans-serif; color: #fff; letter-spacing: -.02em; }
+.cl-sticker { font: 700 5cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--cl-ink); background: var(--cl-yel); padding: .9cqw 2cqw; transform: rotate(-2deg); box-shadow: .5cqw .5cqw 0 rgba(0,0,0,.18); }
+.cl-sticker.cl-teal { background: var(--cl-teal); }
+.cl-cover { z-index: 3; border-radius: 3cqw 3cqw 0 0; }
+.cl-hand { color: #fff; font-size: 3.2cqw; line-height: 1.1; transform: rotate(-5deg); }
+.cl-toc { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1cqw; z-index: 4; }
+.cl-toc li { display: flex; align-items: center; gap: 1.2cqw; }
+.cl-toc b { flex: 0 0 4cqw; height: 4cqw; border-radius: 50%; background: var(--cl-mag); color: #fff; display: grid; place-items: center; font: 700 2.2cqw/1 'Fredoka', sans-serif; }
+.cl-toc span { flex: 1; display: flex; justify-content: space-between; align-items: baseline; font: 800 1.7cqw/1.1 'Nunito', sans-serif; color: var(--cl-ink); background: #fff; border-radius: 999px; padding: 1.1cqw 1.8cqw; }
+.cl-toc i { font: 700 1.2cqw/1 'Nunito', sans-serif; color: var(--cl-mag); font-style: normal; }
+.cl-h { font: 700 5.4cqw/1 'Fredoka', 'Nunito', sans-serif; color: #fff; white-space: nowrap; }
+.cl .unit-vert { color: var(--cl-mag); }
+.cl-h-white { text-shadow: 0 .3cqw 1.2cqw rgba(60,0,40,.55); z-index: 3; font-size: 4.8cqw; }
+.cl-band { object-fit: cover; z-index: 1; }
+
+/* photo cards */
+.cl-card { display: flex; flex-direction: column; background: #fff; border-radius: 1.8cqw; overflow: hidden; box-shadow: 0 .3cqw 0 var(--cl-mag), 0 .6cqw 1.4cqw rgba(120,20,80,.18); border: .15cqw solid #f3c6e0; }
+.cl-card img { display: block; width: 100%; aspect-ratio: 1 / .95; object-fit: cover; object-position: 50% 30%; background: var(--cl-yel); }
+.cl-card .cl-tag { position: absolute; left: .8cqw; top: .8cqw; font: 800 .95cqw/1 'Nunito', sans-serif; letter-spacing: .06em; padding: .45cqw 1cqw; border-radius: 999px; }
+.cl-card b { font: 800 1.3cqw/1.1 'Nunito', sans-serif; color: var(--cl-mag); text-align: center; padding: .9cqw .4cqw .1cqw; }
+.cl-card input.fill { height: 3.2cqw; text-align: center; font-size: 1.9cqw; border-bottom: .14cqw solid #e8b3d2; margin: 0 1cqw .7cqw; width: auto; }
+
+/* read-and-write lists */
+.cl-qa { list-style: none; padding: 0; }
+.cl-qa li { display: flex; align-items: flex-end; gap: .8cqw; min-height: 5.4cqw; border-bottom: .14cqw solid #f0d3e5; position: relative; font: 400 1.5cqw/1.2 'Nunito', sans-serif; color: #444; padding-bottom: .5cqw; }
+.cl-qa li > i { flex: 0 0 2cqw; font: 800 1.2cqw/1.4 'Nunito', sans-serif; font-style: normal; color: var(--cl-mag); }
+.cl-qa li > span { flex: 0 0 auto; }
+.cl-qa input.fill { flex: 1; height: 3cqw; border-bottom: .12cqw solid #bbb; }
+.cl-qa input.fill.cl-short { flex: 0 0 12cqw; text-align: center; }
+.cl-qa li.ok::after, .cl-qa li.no::after { position: absolute; left: -3cqw; bottom: .8cqw; font: 800 1.8cqw/1 'Nunito', sans-serif; }
+.cl-qa li.ok::after { content: "✓"; color: #43a047; }
+.cl-qa li.no::after { content: "✗"; color: #e53935; }
+.cl-qa input.fill.ok { color: #2e7d32; }
+.cl-qa input.fill.no { color: #c62828; }
+
+/* the A-Z game */
+.cl-abc-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: .9cqw 1.4cqw; }
+.cl-abc-grid label { display: flex; align-items: flex-end; gap: .5cqw; border-bottom: .14cqw solid #e8b3d2; height: 4.6cqw; }
+.cl-abc-grid i { flex: 0 0 2.6cqw; height: 2.6cqw; border-radius: 50%; background: var(--cl-mag); color: #fff; display: grid; place-items: center; font: 800 1.4cqw/1 'Nunito', sans-serif; font-style: normal; margin-bottom: .5cqw; }
+.cl-abc-grid input.fill { font-size: 1.5cqw; height: 3cqw; }
+.cl-abc-count { font: 800 1.5cqw/1 'Nunito', sans-serif; color: var(--cl-mag); text-align: right; }
+.cl-match .match-words { width: 19cqw; }
+.cl-match .match-words b { color: var(--cl-mag); }
+.cl-match .match-defs button { font-size: 1.55cqw; }
+.cl-more { font: 400 1.4cqw/1.3 'Nunito', sans-serif; color: #666; }
+.cl-more b { color: var(--cl-mag); }
+
+/* intensifiers */
+.cl-int { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6cqw; }
+.cl-int > div { border-radius: 2cqw; padding: 1cqw 1.6cqw 1.2cqw; }
+.cl-int .soft { background: #e7f9f6; }
+.cl-int .strong { background: #fde5f1; }
+.cl-int h3 { margin: 0 0 .4cqw; font: 800 1.2cqw/1.4 'Nunito', sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+.cl-int .soft h3 { color: #1e9b88; }
+.cl-int .strong h3 { color: var(--cl-mag); }
+.cl-int p { margin: 0; display: flex; flex-direction: column; font: 400 1.4cqw/1.25 'Nunito', sans-serif; color: #444; padding: .45cqw 0; border-top: .12cqw solid rgba(0,0,0,.07); }
+.cl-int p b { font: 800 1.55cqw/1.2 'Nunito', sans-serif; color: var(--cl-ink); }
+
+/* grammar box and decades */
+.cl-gram { background: #fde5f1; }
+.cl-gram h3 { color: var(--cl-mag); }
+.cl-gram p { grid-template-columns: 10cqw 21cqw 1fr; }
+.cl-gram p.note { display: block; height: auto; padding: .8cqw 0 .3cqw; font: 400 1.35cqw/1.4 'Nunito', sans-serif; color: #555; }
+.cl-gram p i { color: #555; font-style: italic; }
+.cl-gram p.note i { color: var(--cl-mag); }
+.cl-dec { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1cqw; }
+.cl-dec li { display: flex; align-items: stretch; gap: 1.4cqw; height: 9.6cqw; }
+.cl-dec b { flex: 0 0 15cqw; display: grid; place-items: center; border-radius: 1.6cqw; background: var(--c); color: #fff; font: 700 3cqw/1 'Fredoka', sans-serif; }
+.cl-dec div { flex: 1; display: flex; flex-direction: column; justify-content: center; border-bottom: .14cqw solid #d8ece9; }
+.cl-dec p { margin: 0; font: 400 1.45cqw/1.2 'Nunito', sans-serif; color: #444; }
+.cl-dec strong { color: var(--c); }
+.cl-dec input.fill { height: 3.4cqw; font-size: 1.8cqw; }
+
+/* opinions */
+.cl-stm { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1.2cqw; }
+.cl-stm li { display: flex; gap: 1.2cqw; background: #f6ecfd; border-radius: 2cqw; padding: 1.2cqw 1.8cqw 1cqw; min-height: 14.2cqw; }
+.cl-stm li > b { flex: 0 0 4cqw; font: 700 8cqw/.8 'Fredoka', sans-serif; color: #c97df6; }
+.cl-stm div { flex: 1; }
+.cl-stm p { margin: 0 0 .3cqw; font: 600 1.45cqw/1.25 'Nunito', sans-serif; color: #3b2a4a; }
+.cl-stm p.q { font-weight: 800; color: #8e2de2; }
+.cl-stm input.fill { height: 3.2cqw; font-size: 1.8cqw; border-bottom: .14cqw solid #c9a9e6; }
+.cl-two { display: flex; gap: 2cqw; }
+.cl-two label { flex: 1; display: flex; align-items: flex-end; gap: .8cqw; font: 800 1.4cqw/1 'Nunito', sans-serif; color: #555; white-space: nowrap; border-bottom: .14cqw solid #bbb; }
+.cl-two input.fill { height: 3.2cqw; }
+.cl-trend { list-style: none; padding: 0; }
+.cl-trend li { display: flex; align-items: flex-end; gap: 1cqw; height: 4.6cqw; border-bottom: .14cqw solid #d8c9ea; font: 800 1.35cqw/1 'Nunito', sans-serif; color: #555; padding-bottom: .4cqw; }
+.cl-trend span { flex: 0 0 auto; white-space: nowrap; }
+.cl-trend input.fill { height: 3cqw; }
+
+/* the roles (pink pages) */
+.cl-lead { font: 600 2.3cqw/1.3 'Nunito', sans-serif; color: #fff; }
+.cl-lead b { color: var(--cl-yel); }
+.cl-roles-title { font: 700 13cqw/.9 'Fredoka', sans-serif; color: #fff; }
+.cl-hand-w { font: 500 2.6cqw/1.1 'Caveat', cursive; color: #fff; transform: rotate(-3deg); }
+.cl-role { display: flex; gap: 1.6cqw; background: #fff; border-radius: 2.4cqw; padding: 1.2cqw; box-shadow: .5cqw .5cqw 0 rgba(0,0,0,.18); border-left: 1.2cqw solid var(--c); min-height: 23cqw; align-items: center; }
+.cl-role img { flex: 0 0 23cqw; width: 23cqw; height: 23cqw; object-fit: cover; border-radius: 1.6cqw; align-self: center; }
+.cl-role div { flex: 1; min-width: 0; }
+.cl-role h3 { display: inline-block; margin: 0 0 .5cqw; font: 700 2.4cqw/1 'Fredoka', sans-serif; color: var(--cl-ink); background: var(--c); padding: .5cqw 1.3cqw; border-radius: .8cqw; transform: rotate(-1.5deg); }
+.cl-role p { margin: .3cqw 0 .6cqw; font: 400 1.5cqw/1.3 'Nunito', sans-serif; color: #333; }
+.cl-role p b { display: inline-grid; place-items: center; width: 1.9cqw; height: 1.9cqw; border-radius: 50%; background: var(--cl-mag); color: #fff; font: 800 1.1cqw/1 'Nunito', sans-serif; margin-right: .2cqw; }
+.cl-role h4 { margin: 0 0 .3cqw; font: 800 1.1cqw/1.2 'Nunito', sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--cl-mag); }
+.cl-role ul { margin: 0; padding-left: 2cqw; font: 400 1.45cqw/1.3 'Nunito', sans-serif; color: #444; }
+.cl-pn-w, .cl-ft-w, .cl-vert-w { color: rgba(255,255,255,.85); }
+
+/* the auction */
+.cl-price { display: flex; flex-direction: column; align-items: center; justify-content: center; aspect-ratio: 1; border-radius: 50%; background: var(--cl-yel); color: var(--cl-ink); transform: rotate(8deg); box-shadow: .5cqw .5cqw 0 rgba(0,0,0,.2); }
+.cl-price b { font: 700 8cqw/1 'Fredoka', sans-serif; color: var(--cl-mag); }
+.cl-price span { font: 800 1.2cqw/1.2 'Nunito', sans-serif; text-align: center; text-transform: uppercase; letter-spacing: .05em; }
+.cl-card-w { background: #fff; border-radius: 2.4cqw; padding: 1.4cqw 2.2cqw; box-shadow: .5cqw .5cqw 0 rgba(0,0,0,.18); }
+.cl-card-w h3 { margin: 0 0 .8cqw; font: 700 2.3cqw/1 'Fredoka', sans-serif; color: var(--cl-mag); }
+.cl-card-w ol { margin: 0; padding-left: 2.6cqw; font: 400 1.75cqw/1.4 'Nunito', sans-serif; color: #333; }
+.cl-card-w li { padding: .25cqw 0; }
+.cl-say { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .8cqw 1.6cqw; }
+.cl-say li { background: #fde5f1; border-radius: 999px; padding: 1cqw 1.6cqw; font: 600 1.65cqw/1.2 'Nunito', sans-serif; color: #3b2a4a; }
+.cl-say u { text-decoration-color: var(--cl-mag); text-decoration-thickness: .2cqw; }
+.cl-slots { width: 100%; border-collapse: collapse; font: 600 1.65cqw/1 'Nunito', sans-serif; color: #333; }
+.cl-slots th { text-align: center; font: 800 1.2cqw/1 'Nunito', sans-serif; color: #fff; background: var(--cl-mag); padding: .6cqw 0; }
+.cl-slots th:first-child { text-align: left; padding-left: 1.2cqw; border-radius: 1cqw 0 0 1cqw; }
+.cl-slots th:last-child { border-radius: 0 1cqw 1cqw 0; }
+.cl-slots td { padding: .75cqw 0; text-align: center; border-bottom: .12cqw solid #f0d3e5; }
+.cl-slots td:first-child { text-align: left; padding-left: 1.2cqw; }
+.cl-slots tr:last-child td { border-bottom: 0; }
+.cl-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2cqw 2.4cqw; }
+.cl-form label { display: flex; align-items: flex-end; gap: .8cqw; font: 800 1.45cqw/1 "Nunito", sans-serif; color: #555; white-space: nowrap; border-bottom: .14cqw solid #bbb; height: 5.4cqw; }
+.cl-form input.fill { height: 3.2cqw; }
+.cl-form i { font: 700 1.8cqw/1.6 'Fredoka', sans-serif; color: var(--cl-mag); font-style: normal; }
+.cl-left { flex: 1; font: 700 2.1cqw/1.5 'Patrick Hand', cursive; color: #2e7d32; }
+input.cl-num { text-align: center; }
+.cl-bids, .cl-judge { border-collapse: collapse; font: 400 1.4cqw/1 'Nunito', sans-serif; color: #444; }
+.cl-bids th, .cl-judge th { font: 800 1.15cqw/1 'Nunito', sans-serif; color: #fff; background: var(--cl-mag); padding: .8cqw .6cqw; text-align: center; }
+.cl-bids th:first-child, .cl-judge th:first-child { border-radius: 1cqw 0 0 1cqw; }
+.cl-bids th:last-child, .cl-judge th:last-child { border-radius: 0 1cqw 1cqw 0; }
+.cl-bids td, .cl-judge td { height: 5.4cqw; border-bottom: .12cqw solid #f0d3e5; text-align: center; padding: 0 .6cqw; }
+.cl-bids td:first-child { width: 8cqw; font: 800 1.5cqw/1 'Nunito', sans-serif; color: var(--cl-mag); }
+.cl-bids input.fill, .cl-judge input.fill { height: 3.2cqw; text-align: center; font-size: 1.9cqw; }
+.cl-judge .cl-tot { font: 800 2cqw/1 'Fredoka', sans-serif; color: var(--cl-mag); }
+
+/* outfit card and script */
+textarea.fill.cl-lines { background: repeating-linear-gradient(to bottom, transparent 0, transparent calc(2.9cqw - .14cqw), #e7bcd6 calc(2.9cqw - .14cqw), #e7bcd6 2.9cqw); font: 2.1cqw/2.9cqw 'Patrick Hand', cursive; border: 0; padding: 0 .6cqw; resize: none; outline: none; color: var(--ink); }
+.cl-script { font: 400 1.6cqw/2.7 'Nunito', sans-serif; color: #333; background: #fde5f1; border-radius: 2cqw; padding: 1cqw 2cqw; }
+.cl-script p { margin: 0; }
+.cl-script b { color: var(--cl-mag); }
+.cl-script input.fill { display: inline-block; width: 18cqw; height: 2.6cqw; vertical-align: baseline; border-bottom: .14cqw solid #888; font-size: 1.8cqw; }
+.cl-script input.fill.cl-short { width: 13cqw; }
+.cl-script input.fill.cl-tiny { width: 5cqw; text-align: center; }
+@media print { .cl .page-bg { print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
+.cl-flow { display: flex; flex-direction: column; gap: calc(var(--g) * 1cqw); }
+.cl-flow > .cl-pill { align-self: flex-start; }
+.cl-flow .match { position: relative; }
+.cl-row { display: flex; justify-content: space-between; align-items: center; gap: 1.6cqw; }
+.cl-tip { font: 400 1.25cqw/1.3 'Nunito', sans-serif; color: #8a7a88; margin: 0; }
+.cl-tip u { text-decoration-color: var(--cl-mag); }
+textarea.fill.cl-lines { height: auto; }
+.cl-script input.fill.cl-long { width: 30cqw; }
+/* word bank and picture cards (p. 79-80) */
+.cl-bank { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .8cqw; justify-content: center; background: #fde5f1; border-radius: 2cqw; padding: 1.2cqw 1.4cqw; }
+.cl-bank li { font: 800 1.35cqw/1 'Nunito', sans-serif; color: #fff; background: var(--cl-mag); border-radius: 999px; padding: .6cqw 1.3cqw; letter-spacing: .02em; }
+.cl-cards { list-style: none; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6cqw; padding: 0; }
+.cl-cards .cl-card { position: relative; }
+.cl-cards .cl-card img { aspect-ratio: 1 / .8; }
+.cl-cards .cl-card input.fill { margin: .5cqw 1cqw .6cqw; }
+.cl-cards .cl-card.ok { box-shadow: 0 .3cqw 0 #43a047, 0 .6cqw 1.4cqw rgba(0,120,40,.2); border-color: #a5d6a7; }
+.cl-cards .cl-card.no { box-shadow: 0 .3cqw 0 #e53935, 0 .6cqw 1.4cqw rgba(200,30,30,.2); border-color: #ef9a9a; }
+.cl-cards input.fill.ok { color: #2e7d32; }
+.cl-cards input.fill.no { color: #c62828; }
+.cl-qa-tight li { min-height: 5cqw; }
+.cl-qa em { color: #8a7a88; font-style: normal; font-size: 1.3cqw; }
+.cl-num-b { color: var(--cl-yel); background: var(--cl-mag); font: 800 1.2cqw/1 'Nunito', sans-serif; padding: .3cqw .8cqw; border-radius: 999px; margin: 0 .6cqw; vertical-align: middle; }
+.cl-tr { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 3cqw; }
+.cl-tr li { display: flex; align-items: flex-end; gap: .8cqw; height: 5.2cqw; border-bottom: .14cqw solid #f0d3e5; padding-bottom: .5cqw; font: 600 1.5cqw/1.1 'Nunito', sans-serif; color: #444; }
+.cl-tr i { font: 800 1.2cqw/1.4 'Nunito', sans-serif; font-style: normal; color: var(--cl-mag); }
+.cl-tr span { flex: 0 0 auto; color: #3b2a4a; }
+.cl-tr input.fill { flex: 1; height: 3cqw; font-size: 1.8cqw; border-bottom: .12cqw solid #bbb; }
+/* describing an outfit: four parts */
+.cl-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1cqw; }
+.cl-steps li { display: flex; gap: 1.4cqw; align-items: center; background: #fff; border-radius: 1.6cqw; border: .15cqw solid #f0d3e5; padding: .8cqw 1.4cqw .8cqw .8cqw; font: 400 1.45cqw/1.3 'Nunito', sans-serif; color: #444; }
+.cl-steps b { flex: 0 0 3.6cqw; height: 3.6cqw; border-radius: 50%; background: var(--c); color: #fff; display: grid; place-items: center; font: 700 2cqw/1 'Fredoka', sans-serif; }
+.cl-steps strong { display: block; font: 800 1.2cqw/1.2 'Nunito', sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
+.cl-steps u { text-decoration-color: var(--c); text-decoration-thickness: .2cqw; }
+.cl-outfit { display: flex; gap: 2cqw; align-items: flex-start; }
+.cl-outfit > img { flex: 0 0 26cqw; width: 26cqw; border-radius: 1.6cqw; border: .15cqw solid #f0d3e5; }
+.cl-outfit > div { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1.2cqw; }
+.cl-part-h { display: flex; align-items: baseline; gap: .8cqw; flex-wrap: wrap; }
+.cl-part-h b { flex: 0 0 2.4cqw; height: 2.4cqw; border-radius: 50%; background: var(--c); color: #fff; display: grid; place-items: center; font: 800 1.3cqw/1 'Nunito', sans-serif; align-self: center; }
+.cl-part-h strong { font: 800 1.35cqw/1.2 'Nunito', sans-serif; color: var(--c); text-transform: uppercase; letter-spacing: .05em; }
+.cl-part-h span { flex-basis: 100%; font: 400 1.2cqw/1.2 'Nunito', sans-serif; color: #8a7a88; margin-left: 3.2cqw; }
+.cl-part textarea.fill.cl-lines { margin-top: .3cqw; }

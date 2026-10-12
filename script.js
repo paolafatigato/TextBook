@@ -130,7 +130,7 @@ document.querySelectorAll('.check[data-list]').forEach(btn => {
 /* ================= connect the words ================= */
 // Click a word, then its meaning (or the other way round) to draw a line.
 // Click a connected item again to remove its line.
-// Three columns (p. 68): a .match-set holds the lists and two .match layers,
+// Three columns (p. 30): a .match-set holds the lists and two .match layers,
 // each one says which buttons it connects (data-words / data-defs).
 
 const matches = [...document.querySelectorAll('.match')].map(box => {
@@ -354,7 +354,7 @@ document.querySelectorAll('.check[data-toggles]').forEach(btn => {
   });
 });
 
-/* the dice of the conversation game (pp. 34-35) lives in game.js */
+/* the dice of the conversation game (pp. 44-45) lives in game.js */
 
 /* ================= Big 5 scores ================= */
 // each sentence gets 0, 1 or 2: the total of the trait is added up by itself
@@ -374,7 +374,7 @@ document.querySelectorAll('.b5-score').forEach(inp => inp.addEventListener('inpu
 }));
 b5Totals();
 
-/* ================= evaluation grid (p. 75) ================= */
+/* ================= evaluation grid (p. 37) ================= */
 // performance + pronunciation + creativity = total
 
 const egScores = [...document.querySelectorAll('.eg-n')];
@@ -392,14 +392,14 @@ egScores.forEach(inp => inp.addEventListener('input', () => {
 }));
 egTotal();
 
-/* ================= half-page flap (pp. 66-67) ================= */
+/* ================= half-page flap (pp. 76-77) ================= */
 // the flap hides the English words on one page or the other
 
 document.querySelectorAll('.flap').forEach(flap => flap.addEventListener('click', () => {
   flap.closest('.spread').classList.toggle('flap-left');
 }));
 
-/* ================= detective games (pp. 46-51) ================= */
+/* ================= detective games (pp. 56-61) ================= */
 
 // Text without spaces: click a letter to put a slash after it (click again to take it away).
 // data-words holds the real words; the correct slashes are the ends of the words.
@@ -616,7 +616,7 @@ marks.forEach(m => {
   });
 });
 
-/* ================= Shakespeare (pp. 92–95) ================= */
+/* ================= Shakespeare (pp. 106–109) ================= */
 
 // Rhymes: click the last word of a line to give it a letter: A → B → … → G → nothing.
 const RHYMES = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G'];
@@ -772,13 +772,20 @@ function pageLink(a, b, label = '') {
     : `<span class="soon">${text} <i>coming soon</i></span>`;
 }
 
+// topics shown under each chapter before the rest goes into a drop-down
+const MAX_LINKS = 3;
+
 function renderHome() {
   const { chapters = [] } = typeof CONTENTS === 'undefined' ? {} : CONTENTS;
 
   document.getElementById('chapterGrid').innerHTML = chapters.map(ch => {
     const [start, end] = ch.pages;
     const inside = spreads.filter(s => { const [a] = pagesOf(s); return a >= start && a <= end; });
-    const links = inside.map(s => { const [a, b] = pagesOf(s); return `<li>${pageLink(a, b, s.dataset.name || '')}</li>`; });
+    const links = inside.map(s => {
+      const [a, b] = pagesOf(s);
+      const c = ch.linkColors && ch.linkColors[a];
+      return `<li${c ? ` style="--c:${esc(c)}"` : ''}>${pageLink(a, b, s.dataset.name || '')}</li>`;
+    });
     if (lastPage < end) links.push(`<li>${pageLink(Math.max(start, lastPage + 1), end)}</li>`);
     return `
       <article class="chapter" style="--c:${esc(ch.color || '#f05f4b')}">
@@ -787,7 +794,12 @@ function renderHome() {
           <span class="chapter-pages">${range(start, end)}</span>
           <h3>${esc(ch.title)}</h3>
         </a>
-        <ul class="chapter-links">${links.join('')}</ul>
+        <ul class="chapter-links">${links.slice(0, MAX_LINKS).join('')}</ul>
+        ${links.length > MAX_LINKS ? `
+        <details class="chapter-more">
+          <summary>+ ${links.length - MAX_LINKS} more</summary>
+          <ul class="chapter-links">${links.slice(MAX_LINKS).join('')}</ul>
+        </details>` : ''}
       </article>`;
   }).join('');
 

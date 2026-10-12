@@ -10,9 +10,9 @@
     '20-21': { title: 'Subject pronouns', intro: 'pp. 18–21 · Scegli un gioco!', games: ['speed', 'subject'] },
     '22-23': { title: 'The verb TO BE', intro: 'pp. 22–23 · Scegli un gioco!', games: ['tobe-rule', 'tobe-fire'] },
     '28-29': { title: 'The Saxon genitive', intro: 'pp. 28–29 · Scegli un gioco!', games: ['sg-order', 'sg-apos', 'sg-tf', 'sg-final'] },
-    '30-31': { title: 'Present simple: the -s', intro: 'pp. 30–31 · Scegli un gioco!', games: ['s-rule', 's-catch'] },
+    '40-41': { title: 'Present simple: the -s', intro: 'pp. 40–41 · Scegli un gioco!', games: ['s-rule', 's-catch'] },
   };
-  const COLORS = { '20-21': '#4aa8ec', '22-23': '#7b3fc4', '28-29': '#4aa8ec', '30-31': '#c97df6' }; // as the topics on the home page
+  const COLORS = { '20-21': '#4aa8ec', '22-23': '#7b3fc4', '28-29': '#4aa8ec', '40-41': '#c97df6' }; // as the topics on the home page
   const INFO = {
     speed: { icon: '⚡', name: 'Speed Clicker', text: 'Clicca il pronome giusto prima che scompaia. 5 vite!' },
     subject: { icon: '🎯', name: 'Subject Hunter', text: 'Trova il soggetto della frase e scegli il pronome.' },
@@ -1035,11 +1035,21 @@
 
   /* ================= index of the games on the home page ================= */
 
+  // each topic is a small pill: click it and its games drop down
   $('gameList').innerHTML = Object.entries(SETS).map(([key, set]) => `
-    <article class="topic" style="--c:${COLORS[key]}">
-      <h3>${set.title}</h3>
+    <details class="game-topic" style="--c:${COLORS[key]}">
+      <summary>${set.title} <small>${set.games.length}</small></summary>
       <div class="topic-pages">${set.games.map(id => `<a href="#p${key.split('-')[0]}" data-set="${key}" data-game="${id}">${INFO[id].icon} ${INFO[id].name}</a>`).join('')}</div>
-    </article>`).join('');
+    </details>`).join('');
+
+  // only one dropdown open at a time; a click outside closes it
+  const topics = [...$('gameList').querySelectorAll('.game-topic')];
+  topics.forEach(d => d.addEventListener('toggle', () => {
+    if (d.open) topics.forEach(o => { if (o !== d) o.open = false; });
+  }));
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#gameList')) topics.forEach(d => { d.open = false; });
+  });
 
   // go to the pages of the topic, then start the game over them
   $('gameList').addEventListener('click', e => {

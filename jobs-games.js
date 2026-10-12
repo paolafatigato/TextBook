@@ -1,4 +1,4 @@
-// Jobs & CVs (pp. 110-119): the word search on p. 111 and the jobs games.
+// Jobs & CVs (pp. 124-133): the word search on p. 125 and the jobs games.
 // The games open in a pop-up that looks like the Romeo & Juliet ones:
 // a button with data-jb="who" opens that game, data-jb="" opens the menu with all the games.
 
@@ -11,7 +11,7 @@
   };
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-  /* ---------- p. 111: word search ---------- */
+  /* ---------- p. 125: word search ---------- */
   // Click the first letter of a word, then the last one (or drag from the first to the last).
   // Words can go across, down or backwards; each found word gets a coloured capsule.
   const COLOURS = ['#f9b11a', '#6cc4b8', '#eab3d4', '#ee3a37', '#7a6bb5'];

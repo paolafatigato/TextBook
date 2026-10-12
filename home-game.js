@@ -1,7 +1,7 @@
-// Home (pp. 40-43): the logic of "Home Sweet Vocab".
-// p. 40: spell the word → the object is unlocked.
-// p. 41: drag the unlocked objects into the house (as many as you like).
-// p. 43: room missions, every object once: the missions check the prepositions of place.
+// Home (pp. 50-53): the logic of "Home Sweet Vocab".
+// p. 50: spell the word → the object is unlocked.
+// p. 51: drag the unlocked objects into the house (as many as you like).
+// p. 53: room missions, every object once: the missions check the prepositions of place.
 // What students do is kept in `saved` (script.js), so "Clear answers" empties it too.
 
 (() => {
@@ -36,7 +36,7 @@
   const BY_KEY = Object.fromEntries(WORDS.map(o => [o.k, o]));
   const src = k => `img/home/${k.replace(/ /g, '-')}.png`;
 
-  // p. 43: the objects of the room (w = % of the room width) and the missions
+  // p. 53: the objects of the room (w = % of the room width) and the missions
   const ROOM = { window: 18, table: 22, computer: 10, chair: 9, plant: 8, sofa: 28, clock: 7, shelf: 18, lamp: 6, bin: 7 };
   const EXTRA = { bin: { k: 'bin', emoji: '🗑️' } };
   const MISSIONS = [
@@ -86,7 +86,7 @@
     return img;
   }
 
-  /* ================= p. 40: spell → unlock ================= */
+  /* ================= p. 50: spell → unlock ================= */
 
   const shuffle = word => {
     const letters = word.replace(/ /g, '').toUpperCase().split('');
@@ -124,7 +124,7 @@
     pic.append(picture(o.k));
     if (!unlocked) pic.insertAdjacentHTML('beforeend', '<span class="hm-lock">🔒</span>');
     else {
-      pic.title = 'Drag me into the house (p. 41)';
+      pic.title = 'Drag me into the house (p. 51)';
       dragSource(pic, () => ({ k: o.k, zone: 'h' }));
     }
     const tl = document.createElement('div');
@@ -133,7 +133,7 @@
     el.append(pic, tl);
 
     if (unlocked) {
-      el.insertAdjacentHTML('beforeend', '<span class="hm-status">✔ drag it to p. 41 →</span>');
+      el.insertAdjacentHTML('beforeend', '<span class="hm-status">✔ drag it to p. 51 →</span>');
       return el;
     }
     const row = document.createElement('div');
@@ -210,7 +210,7 @@
   }
 
   /* ================= dragging ================= */
-  // From a card (p. 40) or the palette (p. 43) into a .hm-drop area.
+  // From a card (p. 50) or the palette (p. 53) into a .hm-drop area.
   // Works with mouse, pen and fingers (pointer events).
 
   let ghost = null;
@@ -396,7 +396,7 @@
     if (area === room) missions();
   });
 
-  /* ================= p. 43: room missions ================= */
+  /* ================= p. 53: room missions ================= */
 
   const palette = $('hm-palette');
   const missionList = $('hm-missions');
@@ -460,7 +460,7 @@
     missions();
   });
 
-  /* ================= p. 42: drawings still to be added ================= */
+  /* ================= p. 52: drawings still to be added ================= */
 
   document.querySelectorAll('img[data-missing]').forEach(img => {
     const empty = () => {
