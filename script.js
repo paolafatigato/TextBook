@@ -128,8 +128,8 @@ document.querySelectorAll('.check[data-list]').forEach(btn => {
 });
 
 /* ================= connect the words ================= */
-// Click a word, then its meaning (or the other way round) to draw a line.
-// Click a connected item again to remove its line.
+// Click a word, then its meaning (or the other way round) to draw a line,
+// or drag the line from one to the other. Click a connected item again to remove its line.
 // Three columns (p. 30): a .match-set holds the lists and two .match layers,
 // each one says which buttons it connects (data-words / data-defs).
 
@@ -205,8 +205,66 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
     list[index].classList.add('selected');
   }
 
-  words.forEach((b, i) => b.addEventListener('click', e => pick('w', i, e)));
-  defs.forEach((b, i) => b.addEventListener('click', e => pick('d', i, e)));
+  // drag & drop: hold a word, drag the line to its meaning and let go (clicking works too)
+  let drag = null;
+  let dragged = false; // a drag just ended: ignore the click that may follow it
+  const dotOf = (el, side) => {
+    const base = box.getBoundingClientRect();
+    const r = el.getBoundingClientRect();
+    const dot = r.height * 0.3;
+    return [side === 'w' ? r.right - base.left + dot : r.left - base.left - dot, r.top + r.height / 2 - base.top];
+  };
+
+  function startDrag(side, index, e) {
+    if (e.button > 0) return;
+    drag = { side, index, x: e.clientX, y: e.clientY, moved: false };
+  }
+
+  document.addEventListener('pointermove', e => {
+    if (!drag) return;
+    if (!drag.moved && Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 8) return;
+    // the middle column belongs to two layers: only the layer in the direction of the drag answers
+    const toRight = e.clientX > drag.x;
+    if ((drag.side === 'w') !== toRight) { if (drag.moved) { drag.moved = false; draw(); } return; }
+    drag.moved = true;
+    const [x1, y1] = dotOf((drag.side === 'w' ? words : defs)[drag.index], drag.side);
+    const base = box.getBoundingClientRect();
+    draw();
+    svg.insertAdjacentHTML('beforeend', `<line class="drag" x1="${x1}" y1="${y1}" x2="${e.clientX - base.left}" y2="${e.clientY - base.top}"/>`);
+  });
+
+  document.addEventListener('pointercancel', () => { if (drag) { drag = null; draw(); } });
+
+  document.addEventListener('pointerup', e => {
+    if (!drag) return;
+    const d = drag;
+    drag = null;
+    if (!d.moved) return;
+    const target = document.elementFromPoint(e.clientX, e.clientY)?.closest('button');
+    const other = d.side === 'w' ? defs : words;
+    const index = other.indexOf(target);
+    if (index >= 0) {
+      const pair = d.side === 'w' ? [d.index, index] : [index, d.index];
+      links = links.filter(l => l[0] !== pair[0] && l[1] !== pair[1]);
+      links.push(pair);
+      checked = false;
+      unselect();
+      store();
+      linkedElsewhere();
+    }
+    draw();
+    dragged = true;
+    setTimeout(() => { dragged = false; });
+  });
+
+  words.forEach((b, i) => {
+    b.addEventListener('pointerdown', e => startDrag('w', i, e));
+    b.addEventListener('click', e => { if (!dragged) pick('w', i, e); });
+  });
+  defs.forEach((b, i) => {
+    b.addEventListener('pointerdown', e => startDrag('d', i, e));
+    b.addEventListener('click', e => { if (!dragged) pick('d', i, e); });
+  });
 
   return {
     id: box.id,
@@ -616,7 +674,7 @@ marks.forEach(m => {
   });
 });
 
-/* ================= Shakespeare (pp. 106–109) ================= */
+/* ================= Shakespeare (pp. 112–115) ================= */
 
 // Rhymes: click the last word of a line to give it a letter: A → B → … → G → nothing.
 const RHYMES = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G'];
@@ -732,6 +790,113 @@ const sonnetCounts = [...document.querySelectorAll('.sh-sonnet input.fill')].map
   return paint;
 });
 
+/* ================= Villain Lab: "My flaws" circles (p. 82) ================= */
+// click the 4th circle = 4 out of 10; click the same one again to start over
+const flawRows = [...document.querySelectorAll('.vl-flaw')].map(row => {
+  const dots = [...row.querySelectorAll('button')];
+  const paint = () => dots.forEach((d, i) => d.classList.toggle('on', i < (Number(saved[row.id]) || 0)));
+  dots.forEach((d, i) => d.addEventListener('click', () => {
+    saved[row.id] = String((Number(saved[row.id]) || 0) === i + 1 ? 0 : i + 1);
+    persist();
+    paint();
+  }));
+  paint();
+  return { paint };
+});
+
+/* ================= drag the phrases to the right place ================= */
+// A .dd-set has a .dd-bank of .dd-chip and some empty .dd-slot: drag a chip into a slot
+// (or click the chip, then the slot). Drag it back to the bank to take it away.
+// A chip is right when its data-key is the same as the slot's.
+
+const dragSets = [...document.querySelectorAll('.dd-set')].map(set => {
+  const bank = set.querySelector('.dd-bank');
+  const chips = [...bank.querySelectorAll('.dd-chip')];
+  const slots = [...set.querySelectorAll('.dd-slot:not(.given)')];
+  let place = {}; // slot id → chip id
+  try { place = JSON.parse(saved[set.id] || '{}'); } catch { place = {}; }
+  let picked = null;
+
+  function paint(checked) {
+    chips.forEach(c => bank.append(c));
+    slots.forEach(s => {
+      s.classList.remove('ok', 'no');
+      const c = chips.find(x => x.id === place[s.id]);
+      if (c) s.append(c);
+      if (checked && c) s.classList.add(c.dataset.key === s.dataset.key ? 'ok' : 'no');
+    });
+    chips.forEach(c => c.classList.toggle('picked', c === picked));
+  }
+  function put(chip, slot) {
+    Object.keys(place).forEach(k => { if (place[k] === chip.id) delete place[k]; });
+    if (slot) place[slot.id] = chip.id; // a chip already there goes back to the bank
+    picked = null;
+    saved[set.id] = JSON.stringify(place);
+    persist();
+    paint();
+  }
+  const dropTarget = (x, y) => {
+    const el = document.elementFromPoint(x, y);
+    return el?.closest('.dd-slot:not(.given)') || (el?.closest('.dd-bank') ? bank : null);
+  };
+
+  chips.forEach(chip => chip.addEventListener('pointerdown', e => {
+    if (e.button > 0) return;
+    e.preventDefault();
+    const r = chip.getBoundingClientRect();
+    const dx = e.clientX - r.left, dy = e.clientY - r.top;
+    let ghost = null, over = null;
+    const move = ev => {
+      if (!ghost) {
+        if (Math.hypot(ev.clientX - e.clientX, ev.clientY - e.clientY) < 6) return;
+        ghost = chip.cloneNode(true);
+        ghost.classList.add('dd-ghost');
+        const cs = getComputedStyle(chip);
+        Object.assign(ghost.style, { width: r.width + 'px', fontSize: cs.fontSize, padding: cs.padding, borderRadius: cs.borderRadius });
+        document.body.append(ghost);
+        chip.classList.add('dragging');
+      }
+      ghost.style.left = ev.clientX - dx + 'px';
+      ghost.style.top = ev.clientY - dy + 'px';
+      const t = dropTarget(ev.clientX, ev.clientY);
+      if (t !== over) { over?.classList.remove('over'); over = t; over?.classList.add('over'); }
+    };
+    const up = ev => {
+      document.removeEventListener('pointermove', move);
+      document.removeEventListener('pointerup', up);
+      document.removeEventListener('pointercancel', up);
+      over?.classList.remove('over');
+      chip.classList.remove('dragging');
+      if (!ghost) { // a click: pick the chip (click again to put it down)
+        picked = picked === chip ? null : chip;
+        paint();
+        return;
+      }
+      ghost.remove();
+      if (ev.type === 'pointercancel') return;
+      const t = dropTarget(ev.clientX, ev.clientY);
+      if (t) put(chip, t === bank ? null : t);
+    };
+    document.addEventListener('pointermove', move);
+    document.addEventListener('pointerup', up);
+    document.addEventListener('pointercancel', up);
+  }));
+
+  // click mode: after picking a chip, click a slot (or the bank)
+  slots.forEach(s => s.addEventListener('click', e => {
+    if (picked && !e.target.closest('.dd-chip')) put(picked, s);
+  }));
+  bank.addEventListener('click', e => {
+    if (picked && !e.target.closest('.dd-chip')) put(picked, null);
+  });
+
+  paint();
+  return { id: set.id, paint, reset() { place = {}; picked = null; paint(); } };
+});
+document.querySelectorAll('.check[data-dd]').forEach(btn => btn.addEventListener('click', () => {
+  dragSets.find(d => d.id === btn.dataset.dd)?.paint(true);
+}));
+
 /* ================= toolbar ================= */
 
 document.getElementById('printBtn').addEventListener('click', () => window.print());
@@ -752,11 +917,13 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   egTotal();
   slashables.forEach(sl => sl.reset());
   sorts.forEach(so => so.reset());
+  flawRows.forEach(r => { r.paint(); });
   drawings.forEach(d => d.reset());
   marks.forEach(paintMark);
   rhymes.forEach(b => { b.classList.remove('ok', 'no'); paintRhyme(b); });
   syllableLines.forEach(s => s.paint());
   sonnetCounts.forEach(paint => paint());
+  dragSets.forEach(d => d.reset());
 });
 
 /* ================= home page ================= */
