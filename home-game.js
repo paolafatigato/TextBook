@@ -6,48 +6,58 @@
 
 (() => {
   // w = width in the house, in % of the house width.
+  // m = the drawings of the word (img/home/<name>.png): guessing the word unlocks all of them.
   // A drawing that is not in img/home/ yet shows its emoji: add the file with that name and it appears.
   const WORDS = [
-    { k: 'bed', w: 13, emoji: '🛏️' },
-    { k: 'wardrobe', w: 8, emoji: '🚪' },
-    { k: 'bedside table', w: 5, emoji: '🗄️' },
+    { k: 'bed', w: 13, emoji: '🛏️', m: ['bed', 'bed-2'] },
+    { k: 'wardrobe', w: 7, emoji: '🚪', m: ['wardrobe', 'wardrobe-2'] },
+    { k: 'bedside table', w: 5, emoji: '🗄️', m: ['bedside-table', 'bedside-table-2'] },
     { k: 'shelf', w: 9, emoji: '📚' },
+    { k: 'bookcase', w: 5, emoji: '📚' },
+    { k: 'books', w: 3, emoji: '📚' },
     { k: 'mirror', w: 4.5, emoji: '🪞' },
     { k: 'curtains', w: 8, emoji: '🪟' },
     { k: 'sofa', w: 13, emoji: '🛋️' },
-    { k: 'armchair', w: 7, emoji: '💺' },
-    { k: 'table', w: 11, emoji: '🪵' },
-    { k: 'chair', w: 4.5, emoji: '🪑' },
+    { k: 'armchair', w: 6, emoji: '💺' },
+    { k: 'rocking chair', w: 6, emoji: '🪑' },
+    { k: 'pouf', w: 4.5, emoji: '🟤' },
+    { k: 'side table', w: 4, emoji: '🪵' },
+    { k: 'floor lamp', w: 5, emoji: '💡' },
     { k: 'lamp', w: 3.5, emoji: '💡' },
     { k: 'clock', w: 4, emoji: '🕰️' },
     { k: 'plant', w: 4.5, emoji: '🪴' },
     { k: 'window', w: 11, emoji: '🪟' },
+    { k: 'table', w: 11, emoji: '🪵' },
+    { k: 'chair', w: 4.5, emoji: '🪑' },
+    { k: 'stool', w: 3, emoji: '🪑' },
+    { k: 'computer', w: 5.5, emoji: '💻' },
     { k: 'fridge', w: 5.5, emoji: '🧊' },
     { k: 'cooker', w: 7, emoji: '🍳' },
     { k: 'sink', w: 9, emoji: '🚰' },
     { k: 'kettle', w: 3, emoji: '🫖' },
     { k: 'cupboard', w: 9, emoji: '🗄️' },
-    { k: 'pot', w: 4, emoji: '🍲' },
-    { k: 'toilet', w: 4, emoji: '🚽' },
+    { k: 'toilet', w: 4, emoji: '🚽', m: ['toilet', 'toilet-2'] },
     { k: 'shower', w: 6, emoji: '🚿' },
     { k: 'bath', w: 12, emoji: '🛁' },
-    { k: 'computer', w: 5.5, emoji: '💻' },
   ];
   const BY_KEY = Object.fromEntries(WORDS.map(o => [o.k, o]));
-  const src = k => `img/home/${k.replace(/ /g, '-')}.png`;
+  const models = k => BY_KEY[k]?.m || [k.replace(/ /g, '-')];
 
   // p. 53: the objects of the room (w = % of the room width) and the missions
-  const ROOM = { window: 18, table: 22, computer: 10, chair: 9, plant: 8, sofa: 28, clock: 7, shelf: 18, lamp: 6, bin: 7 };
+  const ROOM = { window: 18, table: 22, computer: 10, chair: 9, plant: 8, sofa: 28, pouf: 12, clock: 7, shelf: 18, lamp: 6, bin: 7 };
   const EXTRA = { bin: { k: 'bin', emoji: '🗑️' } };
   const MISSIONS = [
     { a: 'table', rel: 'under', b: 'window' },
+    // ON (touching) and ABOVE (higher up, not touching) on the same table
     { a: 'computer', rel: 'on', b: 'table' },
-    { a: 'chair', rel: 'in front of', b: 'table' },
-    { a: 'plant', rel: 'between', b: 'table', c: 'sofa' },
-    { a: 'clock', rel: 'above', b: 'sofa' },
-    { a: 'shelf', rel: 'next to', b: 'window' },
+    { a: 'shelf', rel: 'above', b: 'table' },
     { a: 'lamp', rel: 'on', b: 'shelf' },
-    { a: 'bin', rel: 'behind', b: 'chair' },
+    // BEHIND and IN FRONT OF: the objects overlap, the layer (⬆ ⬇) decides
+    { a: 'chair', rel: 'behind', b: 'table' },
+    { a: 'pouf', rel: 'in front of', b: 'sofa' },
+    { a: 'plant', rel: 'between', b: 'table', c: 'sofa' },
+    { a: 'clock', rel: 'next to', b: 'window' },
+    { a: 'bin', rel: 'beside', b: 'table' },
   ];
 
   const KEY = 'home-game';
@@ -55,6 +65,9 @@
   let state;
   function load() {
     try { state = { ...blank(), ...JSON.parse(saved[KEY] || '{}') }; } catch { state = blank(); }
+    // words taken out of the game since the last visit
+    state.u = state.u.filter(k => BY_KEY[k]);
+    state.h = state.h.filter(i => BY_KEY[i.k]);
   }
   function store() {
     saved[KEY] = JSON.stringify(state);
@@ -69,10 +82,10 @@
   if (!cardsBox || !house || !room) return;
 
   // a picture, or its emoji when the drawing is missing
-  function picture(k, cls) {
+  function picture(k, cls, f = models(k)[0]) {
     const o = BY_KEY[k] || EXTRA[k];
     const img = document.createElement('img');
-    img.src = src(k);
+    img.src = `img/home/${f}.png`;
     img.alt = k;
     img.draggable = false;
     img.className = cls || '';
@@ -80,7 +93,7 @@
       const em = document.createElement('span');
       em.className = `hm-emoji ${cls || ''}`;
       em.textContent = o.emoji;
-      em.title = `${k}: drawing to add (img/home/${k.replace(/ /g, '-')}.png)`;
+      em.title = `${k}: drawing to add (img/home/${f}.png)`;
       img.replaceWith(em);
     };
     return img;
@@ -121,12 +134,18 @@
     el.dataset.k = o.k;
     const pic = document.createElement('div');
     pic.className = 'hm-pic';
-    pic.append(picture(o.k));
+    // one tile for each drawing of the word: each one can be dragged
+    models(o.k).forEach(f => {
+      const tile = document.createElement('span');
+      tile.className = 'hm-model';
+      tile.append(picture(o.k, '', f));
+      pic.append(tile);
+      if (unlocked) {
+        tile.title = 'Drag me into the house (p. 51)';
+        dragSource(tile, () => ({ k: o.k, f, zone: 'h' }));
+      }
+    });
     if (!unlocked) pic.insertAdjacentHTML('beforeend', '<span class="hm-lock">🔒</span>');
-    else {
-      pic.title = 'Drag me into the house (p. 51)';
-      dragSource(pic, () => ({ k: o.k, zone: 'h' }));
-    }
     const tl = document.createElement('div');
     tl.className = 'hm-tiles';
     tiles(tl, o.k.toUpperCase(), '', unlocked);
@@ -221,13 +240,13 @@
       if (e.button) return;
       e.preventDefault();
       const start = { x: e.clientX, y: e.clientY };
-      const { k, zone } = info();
+      const { k, f, zone } = info();
       const move = ev => {
         if (!ghost && Math.hypot(ev.clientX - start.x, ev.clientY - start.y) < 5) return;
         if (!ghost) {
           ghost = document.createElement('div');
           ghost.className = 'hm-ghost';
-          ghost.append(picture(k));
+          ghost.append(picture(k, '', f));
           document.body.append(ghost);
         }
         ghost.style.left = `${ev.clientX}px`;
@@ -243,7 +262,7 @@
         ghost.remove();
         ghost = null;
         const area = ev.type === 'pointerup' && dropAt(ev, zone);
-        if (area) drop(area, k, ev.clientX, ev.clientY);
+        if (area) drop(area, k, ev.clientX, ev.clientY, f);
       };
       window.addEventListener('pointermove', move);
       window.addEventListener('pointerup', up);
@@ -261,7 +280,7 @@
   const list = area => (area === house ? state.h : state.r);
   const sizeOf = (area, k) => (area === house ? BY_KEY[k].w : ROOM[k]);
 
-  function drop(area, k, cx, cy) {
+  function drop(area, k, cx, cy, f) {
     const r = area.getBoundingClientRect();
     const items = list(area);
     // in the room every object is there once: dropping it again moves it
@@ -269,6 +288,7 @@
     const z = Math.max(0, ...items.map(i => i.z)) + 1;
     if (!item) {
       item = { k, w: sizeOf(area, k), z };
+      if (f && f !== models(k)[0]) item.f = f; // the second drawing of the word
       items.push(item);
     } else item.z = z;
     // centre of the object under the pointer (the height is known once the image is drawn)
@@ -313,7 +333,7 @@
       el.style.top = `${item.y}%`;
       el.style.width = `${item.w}%`;
       el.style.zIndex = 10 + item.z;
-      el.append(picture(item.k));
+      el.append(picture(item.k, '', item.f));
       el.title = item.k;
       movable(area, el, item);
       area.append(el);
@@ -429,13 +449,15 @@
     on: (a, b, H) => a.cx >= b.left && a.cx <= b.right && a.top < b.top &&
       a.bottom >= b.top - 0.04 * H && a.bottom <= b.top + Math.max(0.45 * b.h, 0.04 * H),
     under: (a, b) => hOv(a, b) >= 0.4 && a.top >= b.top + 0.6 * b.h,
-    above: (a, b) => hOv(a, b) >= 0.3 && a.bottom <= b.top + 0.15 * b.h,
+    // higher up with some space in between: touching is ON
+    above: (a, b, H) => hOv(a, b) >= 0.3 && a.bottom < b.top - 0.05 * H,
     'next to': (a, b, H, W) => vOv(a, b) >= 0.3 && hOv(a, b) <= 0.3 &&
       Math.max(a.left - b.right, b.left - a.right) <= Math.max(0.1 * W, 0.6 * Math.min(a.w, b.w)),
     'in front of': (a, b) => hOv(a, b) >= 0.3 && vOv(a, b) >= 0.3 && a.z > b.z,
     behind: (a, b) => hOv(a, b) >= 0.3 && vOv(a, b) >= 0.3 && a.z < b.z,
     between: (a, b, H, W, c) => a.cx > Math.min(b.cx, c.cx) && a.cx < Math.max(b.cx, c.cx) &&
       vOv(a, b) >= 0.2 && vOv(a, c) >= 0.2 && hOv(a, b) <= 0.5 && hOv(a, c) <= 0.5,
+    beside: (...args) => RELATIONS['next to'](...args),
   };
 
   function missions() {
@@ -447,7 +469,13 @@
       const ok = !!(a && b && (!m.c || c) && RELATIONS[m.rel](a, b, R.height, R.width, c));
       if (ok) done++;
       const rest = m.c ? `the ${m.b} and the ${m.c}` : `the ${m.b}`;
-      return `<li class="${ok ? 'ok' : ''}"><i>${ok ? '✓' : ''}</i>The ${m.a} is <b>${m.rel.toUpperCase()}</b> ${rest}.</li>`;
+      // the most common mistakes: touching (ON, not ABOVE), or the right place on the wrong layer
+      let tip = '';
+      if (!ok && a && b && m.rel === 'above' && RELATIONS.on(a, b, R.height)) tip = 'It\'s touching: that\'s ON! Move it higher up.';
+      if (!ok && a && b && m.rel === 'behind' && RELATIONS['in front of'](a, b)) tip = `It's in front! Click the ${m.a} and press ⬇.`;
+      if (!ok && a && b && m.rel === 'in front of' && RELATIONS.behind(a, b)) tip = `It's behind! Click the ${m.b} and press ⬇.`; // the one on top can be clicked
+      if (tip) tip = `<small>${tip}</small>`;
+      return `<li class="${ok ? 'ok' : tip ? 'tip' : ''}"><i>${ok ? '✓' : ''}</i><span>The ${m.a} is <b>${m.rel.toUpperCase()}</b> ${rest}.${tip}</span></li>`;
     }).join('') + `<li class="hm-done">${done === MISSIONS.length ? '🎉 All missions done! Great job!' : `Missions done: ${done} / ${MISSIONS.length}`}</li>`;
     palette.querySelectorAll('.hm-chip').forEach(ch => ch.classList.toggle('used', state.r.some(i => i.k === ch.dataset.k)));
   }

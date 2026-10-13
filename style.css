@@ -719,6 +719,18 @@ input.fill.nb-num.no { background: #e53935; color: #fff; }
 .two-col input.fill.blank { width: 6.6cqw; height: 2.3cqw; border-bottom: .14cqw solid #888; }
 .two-col input.fill.neg { flex: 1; height: 2.8cqw; border-bottom: .14cqw solid #c9c4d6; font-size: 1.8cqw; }
 
+/* Test (pronouns & to be): number, sentence and line share one baseline, and the lines start in the same column */
+[data-folder="tests-pronouns"] .it-rows li { align-items: flex-end; }
+[data-folder="tests-pronouns"] .it-rows li span { top: auto; bottom: -.4cqw; font-size: 1.15cqw; }
+[data-folder="tests-pronouns"] .num-lines li { display: grid; align-items: end; column-gap: .8cqw; }
+[data-folder="tests-pronouns"] .num-lines li > span { padding-bottom: .5cqw; line-height: 1.2; }
+[data-folder="tests-pronouns"] .num-lines:not(.ul-lines) li { grid-template-columns: 2.6cqw 21cqw 1fr; }
+[data-folder="tests-pronouns"] .num-lines.ul-lines li { grid-template-columns: 2.6cqw 55cqw 1fr; }
+[data-folder="tests-pronouns"] .num-lines input.fill { min-width: 0; }
+[data-folder="tests-pronouns"] .two-col li { align-items: end; }
+[data-folder="tests-pronouns"] .two-col .n, [data-folder="tests-pronouns"] .two-col .q { line-height: 1.2; padding-bottom: .5cqw; }
+[data-folder="tests-pronouns"] .two-col input.fill.blank { vertical-align: bottom; margin-bottom: -.5cqw; }
+
 .vs-box h3 { margin: 0 0 .6cqw; font: 800 1.9cqw/1.2 'Nunito', sans-serif; color: #8e2de2; }
 .vs-box p { margin: 0; font: 400 1.55cqw/2.15 'Nunito', sans-serif; color: #333; }
 .vs-box p b { font-weight: 800; }
@@ -2278,38 +2290,41 @@ textarea.fill.mt-lines { padding: 0 1cqw; font-size: 2cqw; line-height: 4.2cqw; 
 .hm-score { font: 800 1.4cqw/1 'Nunito', sans-serif; color: #3d9a3d; text-align: right; }
 
 /* p. 50: the cards */
-.hm-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2cqw; }
+.hm-cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1cqw; }
 .hm-card {
-  position: relative; display: flex; flex-direction: column; gap: .6cqw;
-  padding: .8cqw; height: 16cqw; border-radius: 1.4cqw;
+  position: relative; display: flex; flex-direction: column; gap: .5cqw;
+  padding: .7cqw; height: 14.7cqw; border-radius: 1.4cqw;
   background: #f6f9dc; border: .25cqw solid #dfee6a;
 }
 .hm-card.unlocked { background: #4b924d; border-color: #3d7a3f; }
 .hm-card.pop { animation: hm-pop .35s cubic-bezier(.175,.885,.32,1.275); }
 @keyframes hm-pop { from { transform: scale(.86); } to { transform: scale(1); } }
 .hm-pic {
-  position: relative; flex: 0 0 8cqw; display: flex; align-items: center; justify-content: center;
+  position: relative; flex: 0 0 7cqw; display: flex; align-items: center; justify-content: center;
   background: #fff; border-radius: 1cqw; overflow: hidden;
 }
-.hm-pic img { max-width: 92%; max-height: 92%; object-fit: contain; }
+.hm-pic { gap: .3cqw; }
+.hm-model { flex: 1 1 0; min-width: 0; height: 100%; display: flex; align-items: center; justify-content: center; border-radius: .8cqw; }
+.hm-model + .hm-model { border-left: .15cqw dashed #e4e9b8; }
+.hm-model img { max-width: 92%; max-height: 92%; object-fit: contain; }
 .hm-card:not(.unlocked) .hm-pic img, .hm-card:not(.unlocked) .hm-pic .hm-emoji { filter: grayscale(1); opacity: .55; }
 .hm-lock { position: absolute; right: .4cqw; bottom: .3cqw; font-size: 1.4cqw; }
 .hm-emoji { font-size: 5cqw; line-height: 1; }
 .hm-grab { cursor: grab; touch-action: none; user-select: none; }
-.hm-card.unlocked .hm-pic:hover { outline: .3cqw solid #dfee6a; outline-offset: -.3cqw; }
-.hm-tiles { display: flex; flex-wrap: nowrap; justify-content: center; gap: .12cqw; height: 2.4cqw; align-items: flex-end; }
+.hm-card.unlocked .hm-model:hover { outline: .3cqw solid #dfee6a; outline-offset: -.3cqw; }
+.hm-tiles { display: flex; flex-wrap: nowrap; justify-content: center; gap: .1cqw; height: 2.2cqw; align-items: flex-end; }
 .hm-tiles span {
-  min-width: 1.2cqw; text-align: center; border-bottom: .18cqw solid #c9d93a;
-  font: 700 1.45cqw/1 'Fredoka', 'Nunito', sans-serif; color: #b6b6b6;
+  min-width: .95cqw; text-align: center; border-bottom: .18cqw solid #c9d93a;
+  font: 700 1.25cqw/1 'Fredoka', 'Nunito', sans-serif; color: #b6b6b6;
 }
 .hm-tiles span.given { color: #9aa42a; }
 .hm-tiles span.typed { color: #3d9a3d; border-color: #3d9a3d; }
 .hm-tiles span.done { color: #fff; border-color: #dfee6a; }
-.hm-tiles i.gap { width: .7cqw; }
-.hm-row { display: flex; gap: .5cqw; height: 2.8cqw; }
+.hm-tiles i.gap { width: .5cqw; }
+.hm-row { display: flex; gap: .5cqw; height: 2.6cqw; }
 .hm-in {
-  flex: 1; min-width: 0; text-align: center; letter-spacing: .2em; text-transform: uppercase;
-  font: 700 1.4cqw/1 'Fredoka', 'Nunito', sans-serif; color: #3d9a3d;
+  flex: 1; min-width: 0; text-align: center; letter-spacing: .12em; text-transform: uppercase;
+  font: 700 1.25cqw/1 'Fredoka', 'Nunito', sans-serif; color: #3d9a3d;
   border: .18cqw solid #c9d93a; border-radius: .7cqw; background: #fff; outline: none;
 }
 .hm-in:focus { border-color: #3d9a3d; }
@@ -2377,7 +2392,7 @@ textarea.fill.mt-lines { padding: 0 1cqw; font-size: 2cqw; line-height: 4.2cqw; 
 /* p. 53: room missions */
 .hm-reset { background: #8bbd3f; }
 .hm-reset:hover { background: #6f9e2c; }
-.hm-palette { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: .6cqw; }
+.hm-palette { display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: .6cqw; }
 .hm-chip {
   display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: .3cqw;
   height: 10cqw; padding: .5cqw; background: #f6f9dc; border: .2cqw solid #dfee6a; border-radius: 1cqw;
@@ -2397,6 +2412,8 @@ textarea.fill.mt-lines { padding: 0 1cqw; font-size: 2cqw; line-height: 4.2cqw; 
 .hm-missions li b { color: #3d9a3d; }
 .hm-missions li.ok { background: #dff3d6; }
 .hm-missions li.ok > i { background: #43a047; border-color: #43a047; }
+.hm-missions li.tip { background: #fff1d6; }
+.hm-missions li small { display: block; margin-top: .2cqw; font: 700 1.2cqw/1.1 'Nunito', sans-serif; color: #e07a1f; }
 .hm-missions li.hm-done { grid-column: 1 / -1; justify-content: center; background: none; font-weight: 800; color: #3d9a3d; }
 textarea.fill.hm-lines { padding: 0 1cqw; font-size: 2.1cqw; line-height: 4.5cqw; background: repeating-linear-gradient(transparent 0 calc(4.5cqw - 1px), #b9b6d3 calc(4.5cqw - 1px) 4.5cqw); }
 
@@ -3209,3 +3226,4 @@ body.zoomed .toolbar { position: sticky; left: 0; width: 100vw; }
   #accountBtn { max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .spread { margin-top: 10px; }
 }
+[data-folder="tests-pronouns"] .two-col .q { flex-basis: 48cqw; }
