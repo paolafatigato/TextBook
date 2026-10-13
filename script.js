@@ -941,6 +941,25 @@ document.querySelectorAll('.check[data-dd]').forEach(btn => btn.addEventListener
 
 /* ================= toolbar ================= */
 
+/* zoom: scales the spread width (the page content scales with it) */
+{
+  const ZOOM_MIN = 0.5, ZOOM_MAX = 3, ZOOM_STEP = 0.25;
+  const level = document.getElementById('zoomLevel');
+  let zoom = 1;
+  try { zoom = parseFloat(localStorage.getItem('zoom')) || 1; } catch (e) {}
+  const setZoom = z => {
+    zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, Math.round(z * 100) / 100));
+    document.documentElement.style.setProperty('--zoom', zoom);
+    document.body.classList.toggle('zoomed', zoom > 1);
+    level.textContent = Math.round(zoom * 100) + '%';
+    try { localStorage.setItem('zoom', zoom); } catch (e) {}
+  };
+  document.getElementById('zoomIn').addEventListener('click', () => setZoom(zoom + ZOOM_STEP));
+  document.getElementById('zoomOut').addEventListener('click', () => setZoom(zoom - ZOOM_STEP));
+  level.addEventListener('click', () => setZoom(1));
+  setZoom(zoom);
+}
+
 document.getElementById('printBtn').addEventListener('click', () => window.print());
 
 document.getElementById('clearBtn').addEventListener('click', () => {

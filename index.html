@@ -25,9 +25,14 @@
       <span>of <span id="pageTotal">–</span></span>
       <button type="submit">Go</button>
     </form>
-    <button id="printBtn" type="button">🖨️ Print</button>
-    <button id="clearBtn" type="button">🧹 Clear answers</button>
-    <button id="teacherBtn" type="button" hidden>🎓 Teacher</button>
+    <div class="zoom" role="group" aria-label="Zoom">
+      <button id="zoomOut" type="button" aria-label="Zoom out" title="Zoom out">−</button>
+      <button id="zoomLevel" type="button" aria-label="Reset zoom" title="Reset zoom">100%</button>
+      <button id="zoomIn" type="button" aria-label="Zoom in" title="Zoom in">+</button>
+    </div>
+    <button id="printBtn" type="button" title="Print">🖨️<span class="lbl"> Print</span></button>
+    <button id="clearBtn" type="button" title="Clear answers">🧹<span class="lbl"> Clear answers</span></button>
+    <button id="teacherBtn" type="button" title="Teacher" hidden>🎓<span class="lbl"> Teacher</span></button>
     <button id="accountBtn" type="button">👤 Sign in</button>
   </nav>
 

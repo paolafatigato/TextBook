@@ -65,7 +65,8 @@ body {
 /* ---------- spread & pages ---------- */
 .spread {
   display: none;
-  width: min(100% - 140px, 1500px);
+  --w: calc(min(100% - 140px, 1500px) * var(--zoom, 1));
+  width: var(--w);
   margin: 24px auto 48px;
   break-after: page;
   box-shadow: 0 10px 40px rgba(60,40,20,.18);
@@ -1763,6 +1764,7 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
 @media print {
   body { background: #fff; }
   .toolbar, .check, .side { display: none !important; }
+  body.zoomed .spread { margin: 0; }
   .spread { width: 210mm; margin: 0; box-shadow: none; flex-direction: column; gap: 0; break-after: auto; }
   .page { flex: none; width: 210mm; height: 297mm; aspect-ratio: auto; box-shadow: none; break-after: page; break-inside: avoid; }
   .page:last-child { break-after: auto; }
@@ -3183,4 +3185,27 @@ textarea.fill.vl-lines { padding: 0 .8cqw; font-size: 2cqw; line-height: 3.9cqw;
 .tp-page { display: block; padding: 3px 0 3px 22px; font-weight: 400; cursor: pointer; }
 .tp-page b { color: var(--c); margin-right: 4px; }
 .tp-chapter input { width: 17px; height: 17px; vertical-align: -3px; margin-right: 6px; accent-color: var(--c); }
-@media (max-width: 640px) { .toolbar button { padding: 6px 10px; } }
+/* zoom */
+.zoom { display: flex; gap: 4px; }
+.zoom button { min-width: 32px; }
+body.zoomed .spread { margin-left: 70px; margin-right: 70px; }
+body.zoomed .toolbar { position: sticky; left: 0; width: 100vw; }
+@media (max-width: 760px) {
+  body.zoomed .spread { margin-left: 12px; margin-right: 12px; }
+}
+
+/* compact toolbar on phones */
+@media (max-width: 640px) {
+  .toolbar { gap: 4px; padding: 4px 8px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .toolbar::-webkit-scrollbar { display: none; }
+  .toolbar > * { flex: 0 0 auto; }
+  .toolbar button, .home-btn { font-size: 12px; padding: 3px 8px; }
+  .toolbar .lbl, .toolbar-title, .goto label, .goto > span { display: none; }
+  .toolbar-title { margin-right: 0; }
+  .goto { gap: 3px; font-size: 12px; }
+  .goto input { width: 3.2em; font-size: 12px; padding: 2px; }
+  .zoom { gap: 2px; }
+  .zoom button { min-width: 26px; }
+  #accountBtn { max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .spread { margin-top: 10px; }
+}

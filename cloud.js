@@ -34,10 +34,15 @@ const isDrawing = v => typeof v === 'string' && v.startsWith('data:');
 
 onSnapshot(doc(db, 'config', 'visibility'), snap => {
   book.setVisible(snap.exists() ? snap.data().spreads || [] : []);
-}, () => { /* offline or no permission: keep what we had */ });
+}, err => console.error('Cannot read the visible pages:', err.code, err.message));
 
 book.onSaveVisible = async spreads => {
-  await setDoc(doc(db, 'config', 'visibility'), { spreads, updated: Date.now() });
+  try {
+    await setDoc(doc(db, 'config', 'visibility'), { spreads, updated: Date.now() });
+  } catch (err) {
+    console.error('Cannot save the visible pages:', err.code, err.message);
+    throw new Error(`${err.code} — check the Firestore rules and that the database exists`);
+  }
 };
 
 /* ---------- login ---------- */
