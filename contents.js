@@ -121,7 +121,7 @@ const CONTENTS = {
     // keep them hidden from students, they are for the teacher
     {
       title: 'Job cards (forehead game)',
-      pages: [250, 253],
+      pages: [250, 255],
       color: '#1f2a6b',
       folder: 'job-cards',
     },
@@ -205,7 +205,7 @@ const CONTENTS = {
     { title: 'Past simple for your CV', color: '#e8820c', pages: [[148, 148]] },
     { title: 'Describing jobs: the job cards', color: '#e8820c', pages: [[141, 142]] },
     { title: 'Questions with do I / am I', color: '#e8820c', pages: [[142, 143]] },
-    { title: 'Who am I? The forehead game', color: '#e8820c', pages: [[143, 143], [250, 253]] },
+    { title: 'Who am I? The forehead game', color: '#e8820c', pages: [[143, 143], [250, 255]] },
     { title: 'Jobs games', color: '#e8820c', pages: [[138, 138], [140, 140], [147, 147], [149, 149]] },
     { title: 'Future: will, be going to, present continuous', color: '#8e2de2', pages: [[150, 171]] },
     { title: 'Talk about your plans & predictions', color: '#8e2de2', pages: [[151, 151]] },

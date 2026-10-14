@@ -3354,10 +3354,7 @@ body.zoomed .toolbar { position: sticky; left: 0; width: 100vw; }
 .jb-guess { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
 .jb-guess .gq-choice { padding: 7px 12px; font-size: 13px; }
 
-/* ---------- pp. 250–253: job cards to print for the forehead game (teacher only) ---------- */
-.jc-page .page-bg { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-.jc-h { font: 700 4cqw/1 'Fredoka', 'Nunito', sans-serif; color: #fff; white-space: nowrap; }
-.jc-hint { font: 800 1.9cqw/1 'Nunito', sans-serif; color: #f9b11a; text-align: right; white-space: nowrap; }
+/* ---------- pp. 250–255: job cards to print for the forehead game (teacher only) ---------- */
 .jc {
   --cc: #f9b11a; --cc-bg: #fde7b8;
   display: flex; align-items: center; gap: 2cqw; width: 42.4cqw; height: 28cqw; padding: 2cqw 2.4cqw;
@@ -3376,4 +3373,5 @@ body.zoomed .toolbar { position: sticky; left: 0; width: 100vw; }
 .jc i { font: italic 600 2.2cqw/1 'Nunito', sans-serif; color: #9a9aa6; }
 .jc b { font: 700 4.4cqw/1 'Fredoka', 'Nunito', sans-serif; text-transform: uppercase; color: #1f2a6b; }
 .jc b.long { font-size: 3cqw; }
+.jc b.xlong { font-size: 2.4cqw; }
 .jc small { margin-top: 1cqw; font: 600 1.45cqw/1.2 'Nunito', sans-serif; color: #666; }
