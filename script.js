@@ -492,14 +492,14 @@ egScores.forEach(inp => inp.addEventListener('input', () => {
 }));
 egTotal();
 
-/* ================= half-page flap (pp. 82-83) ================= */
+/* ================= half-page flap (pp. 84-85) ================= */
 // the flap hides the English words on one page or the other
 
 document.querySelectorAll('.flap').forEach(flap => flap.addEventListener('click', () => {
   flap.closest('.spread').classList.toggle('flap-left');
 }));
 
-/* ================= detective games (pp. 56-61) ================= */
+/* ================= detective games (pp. 58-63) ================= */
 
 // Text without spaces: click a letter to put a slash after it (click again to take it away).
 // data-words holds the real words; the correct slashes are the ends of the words.
@@ -716,7 +716,7 @@ marks.forEach(m => {
   });
 });
 
-/* ================= Shakespeare (pp. 118–121) ================= */
+/* ================= Shakespeare (pp. 120–123) ================= */
 
 // Rhymes: click the last word of a line to give it a letter: A → B → … → G → nothing.
 const RHYMES = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G'];
@@ -832,7 +832,7 @@ const sonnetCounts = [...document.querySelectorAll('.sh-sonnet input.fill')].map
   return paint;
 });
 
-/* ================= Villain Lab: "My flaws" circles (p. 88) ================= */
+/* ================= Villain Lab: "My flaws" circles (p. 90) ================= */
 // click the 4th circle = 4 out of 10; click the same one again to start over
 const flawRows = [...document.querySelectorAll('.vl-flaw')].map(row => {
   const dots = [...row.querySelectorAll('button')];

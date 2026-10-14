@@ -32,13 +32,20 @@ const isDrawing = v => typeof v === 'string' && v.startsWith('data:');
 
 /* ---------- which pages students can see ---------- */
 
+// pp. 142–169 moved forward by 2 when "Who am I?" (pp. 142–143) was added: a list saved
+// before that (no pagesVersion) still uses the old numbers
+const PAGES_VERSION = 2;
+const renumber = k => { const [a, b] = k.split('-').map(Number); return a >= 142 && b <= 169 ? `${a + 2}-${b + 2}` : k; };
+
 onSnapshot(doc(db, 'config', 'visibility'), snap => {
-  book.setVisible(snap.exists() ? snap.data().spreads || [] : []);
+  const data = snap.exists() ? snap.data() : {};
+  const spreads = data.spreads || [];
+  book.setVisible(data.pagesVersion >= PAGES_VERSION ? spreads : spreads.map(renumber));
 }, err => console.error('Cannot read the visible pages:', err.code, err.message));
 
 book.onSaveVisible = async spreads => {
   try {
-    await setDoc(doc(db, 'config', 'visibility'), { spreads, updated: Date.now() });
+    await setDoc(doc(db, 'config', 'visibility'), { spreads, updated: Date.now(), pagesVersion: PAGES_VERSION });
   } catch (err) {
     console.error('Cannot save the visible pages:', err.code, err.message);
     throw new Error(`${err.code} — check the Firestore rules and that the database exists`);

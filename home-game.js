@@ -1,7 +1,7 @@
-// Home (pp. 50-53): the logic of "Home Sweet Vocab".
+// Home (pp. 50-55): the logic of "Home Sweet Vocab".
 // p. 50: spell the word → the object is unlocked.
 // p. 51: drag the unlocked objects into the house (as many as you like).
-// p. 53: room missions, every object once: the missions check the prepositions of place.
+// pp. 53-55: room missions (bedroom, living room, kitchen), every object once: the missions check the prepositions of place.
 // What students do is kept in `saved` (script.js), so "Clear answers" empties it too.
 
 (() => {
@@ -43,25 +43,73 @@
   const BY_KEY = Object.fromEntries(WORDS.map(o => [o.k, o]));
   const models = k => BY_KEY[k]?.m || [k.replace(/ /g, '-')];
 
-  // p. 53: the objects of the room (w = % of the room width) and the missions
-  const ROOM = { window: 18, table: 22, computer: 10, chair: 9, plant: 8, sofa: 28, pouf: 12, clock: 7, shelf: 18, lamp: 6, bin: 7 };
-  const EXTRA = { bin: { k: 'bin', emoji: '🗑️' } };
-  const MISSIONS = [
-    { a: 'table', rel: 'under', b: 'window' },
-    // ON (touching) and ABOVE (higher up, not touching) on the same table
-    { a: 'computer', rel: 'on', b: 'table' },
-    { a: 'shelf', rel: 'above', b: 'table' },
-    { a: 'lamp', rel: 'on', b: 'shelf' },
-    // BEHIND and IN FRONT OF: the objects overlap, the layer (⬆ ⬇) decides
-    { a: 'chair', rel: 'behind', b: 'table' },
-    { a: 'pouf', rel: 'in front of', b: 'sofa' },
-    { a: 'plant', rel: 'between', b: 'table', c: 'sofa' },
-    { a: 'clock', rel: 'next to', b: 'window' },
-    { a: 'bin', rel: 'beside', b: 'table' },
+  // objects that are only in the room missions, not in the cards of p. 50
+  const EXTRA = {
+    bin: { k: 'bin', emoji: '🗑️' },
+    pot: { k: 'pot', emoji: '🍲' },
+    'fruit bowl': { k: 'fruit bowl', emoji: '🍎' },
+    mugs: { k: 'mugs', emoji: '☕' },
+  };
+  const PLURAL = new Set(['curtains', 'books', 'mugs']);
+
+  // Room missions (pp. 53-55): every object is in the room once.
+  // objects: width in % of the room width, f = which drawing of the word.
+  const ROOMS = [
+    {
+      id: 'r', // p. 53: bedroom / study
+      objects: { window: 18, table: 22, computer: 10, chair: 9, plant: 8, sofa: 28, pouf: 12, clock: 7, shelf: 18, lamp: 6, bin: 7 },
+      missions: [
+        { a: 'table', rel: 'under', b: 'window' },
+        // ON (touching) and ABOVE (higher up, not touching) on the same table
+        { a: 'computer', rel: 'on', b: 'table' },
+        { a: 'shelf', rel: 'above', b: 'table' },
+        { a: 'lamp', rel: 'on', b: 'shelf' },
+        // BEHIND and IN FRONT OF: the objects overlap, the layer (⬆ ⬇) decides
+        { a: 'chair', rel: 'behind', b: 'table' },
+        { a: 'pouf', rel: 'in front of', b: 'sofa' },
+        { a: 'plant', rel: 'between', b: 'table', c: 'sofa' },
+        { a: 'clock', rel: 'next to', b: 'window' },
+        { a: 'bin', rel: 'beside', b: 'table' },
+      ],
+    },
+    {
+      id: 'l', // p. 54: living room
+      objects: { window: 18, curtains: 26, sofa: 28, 'floor lamp': 12, 'side table': 8, lamp: 6, bookcase: 11, books: 6, clock: 7, plant: 8, armchair: 13, pouf: 10 },
+      missions: [
+        { a: 'curtains', rel: 'in front of', b: 'window' },
+        { a: 'sofa', rel: 'under', b: 'window' },
+        { a: 'floor lamp', rel: 'behind', b: 'sofa' },
+        { a: 'side table', rel: 'next to', b: 'sofa' },
+        { a: 'lamp', rel: 'on', b: 'side table' },
+        { a: 'books', rel: 'in', b: 'bookcase' },
+        { a: 'clock', rel: 'above', b: 'bookcase' },
+        { a: 'plant', rel: 'between', b: 'side table', c: 'armchair' },
+        { a: 'pouf', rel: 'in front of', b: 'armchair' },
+      ],
+    },
+    {
+      id: 'k', // p. 55: kitchen
+      objects: { window: 18, fridge: 11, sink: 17, cooker: 15, cupboard: 16, pot: 8, kettle: 6, table: { w: 24, f: 'table-2' }, 'fruit bowl': 8, mugs: 7, chair: { w: 9, f: 'chair-2' }, stool: 7 },
+      missions: [
+        { a: 'sink', rel: 'under', b: 'window' },
+        { a: 'sink', rel: 'between', b: 'fridge', c: 'cooker' },
+        { a: 'cupboard', rel: 'above', b: 'cooker' },
+        { a: 'pot', rel: 'on', b: 'cooker' },
+        { a: 'kettle', rel: 'next to', b: 'pot' },
+        { a: 'fruit bowl', rel: 'on', b: 'table' },
+        { a: 'mugs', rel: 'beside', b: 'fruit bowl' },
+        { a: 'chair', rel: 'in front of', b: 'table' },
+        { a: 'stool', rel: 'behind', b: 'table' },
+      ],
+    },
   ];
+  // { w, f } for every object of a room
+  ROOMS.forEach(room => {
+    Object.entries(room.objects).forEach(([k, o]) => { room.objects[k] = typeof o === 'number' ? { w: o } : o; });
+  });
 
   const KEY = 'home-game';
-  const blank = () => ({ u: [], h: [], r: [] }); // unlocked words, house objects, room objects
+  const blank = () => ({ u: [], h: [], r: [], l: [], k: [] }); // unlocked words, house objects, objects of each room
   let state;
   function load() {
     try { state = { ...blank(), ...JSON.parse(saved[KEY] || '{}') }; } catch { state = blank(); }
@@ -78,8 +126,16 @@
   const $ = id => document.getElementById(id);
   const cardsBox = $('hm-cards');
   const house = $('hm-house');
-  const room = $('hm-room');
-  if (!cardsBox || !house || !room) return;
+  if (!cardsBox || !house) return;
+  // the page elements of each room: #hm-room, #hm-palette, #hm-missions… (+ "-l", "-k")
+  ROOMS.forEach(room => {
+    const end = room.id === 'r' ? '' : `-${room.id}`;
+    room.area = $(`hm-room${end}`);
+    room.palette = $(`hm-palette${end}`);
+    room.list = $(`hm-missions${end}`);
+    room.reset = $(`hm-room${end}-reset`);
+  });
+  const roomOf = area => ROOMS.find(room => room.area === area);
 
   // a picture, or its emoji when the drawing is missing
   function picture(k, cls, f = models(k)[0]) {
@@ -270,24 +326,25 @@
     });
   }
 
-  // the drop area under the pointer, if it is the right one
+  // the drop area under the pointer, if it is the right one ('h' = the house, or the id of a room)
   function dropAt(ev, zone) {
-    const r = (zone === 'h' ? house : room).getBoundingClientRect();
+    const area = zone === 'h' ? house : ROOMS.find(room => room.id === zone).area;
+    const r = area.getBoundingClientRect();
     const inside = ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom;
-    return inside ? (zone === 'h' ? house : room) : null;
+    return inside ? area : null;
   }
 
-  const list = area => (area === house ? state.h : state.r);
-  const sizeOf = (area, k) => (area === house ? BY_KEY[k].w : ROOM[k]);
+  const list = area => (area === house ? state.h : state[roomOf(area).id]);
 
   function drop(area, k, cx, cy, f) {
     const r = area.getBoundingClientRect();
     const items = list(area);
-    // in the room every object is there once: dropping it again moves it
-    let item = area === room ? items.find(i => i.k === k) : null;
+    const room = roomOf(area);
+    // in a room every object is there once: dropping it again moves it
+    let item = room ? items.find(i => i.k === k) : null;
     const z = Math.max(0, ...items.map(i => i.z)) + 1;
     if (!item) {
-      item = { k, w: sizeOf(area, k), z };
+      item = { k, w: room ? room.objects[k].w : BY_KEY[k].w, z };
       if (f && f !== models(k)[0]) item.f = f; // the second drawing of the word
       items.push(item);
     } else item.z = z;
@@ -304,7 +361,7 @@
       item.y = (cy - r.top) / r.height * 100 - h / 2;
       el.style.top = `${item.y}%`;
       store();
-      if (area === room) missions();
+      if (room) missions(room);
     };
     const pic = el.querySelector('img');
     if (pic && !pic.complete) pic.addEventListener('load', fix, { once: true }); else fix();
@@ -369,7 +426,7 @@
         el.removeEventListener('pointercancel', up);
         if (moved) {
           store();
-          if (area === room) missions();
+          if (roomOf(area)) missions(roomOf(area));
         }
         select(area, item);
       };
@@ -413,30 +470,26 @@
     if (t === 'remove') { items.splice(items.indexOf(item), 1); selected = null; tools.remove(); }
     store();
     drawArea(area);
-    if (area === room) missions();
+    if (roomOf(area)) missions(roomOf(area));
   });
 
-  /* ================= p. 53: room missions ================= */
+  /* ================= pp. 53-55: room missions ================= */
 
-  const palette = $('hm-palette');
-  const missionList = $('hm-missions');
-
-  function drawPalette() {
-    palette.replaceChildren(...Object.keys(ROOM).map(k => {
+  function drawPalette(room) {
+    room.palette.replaceChildren(...Object.entries(room.objects).map(([k, { f }]) => {
       const b = document.createElement('div');
       b.className = 'hm-chip';
       b.dataset.k = k;
-      b.append(picture(k));
+      b.append(picture(k, '', f));
       b.insertAdjacentHTML('beforeend', `<span>${k}</span>`);
-      b.classList.toggle('used', state.r.some(i => i.k === k));
-      dragSource(b, () => ({ k, zone: 'r' }));
+      dragSource(b, () => ({ k, f, zone: room.id }));
       return b;
     }));
   }
 
   // where the object really is: the box of its picture
-  function boxOf(k) {
-    const el = room.querySelector(`.hm-item[data-k="${k}"]`);
+  function boxOf(room, k) {
+    const el = room.area.querySelector(`.hm-item[data-k="${k}"]`);
     if (!el) return null;
     const r = el.getBoundingClientRect();
     return { left: r.left, right: r.right, top: r.top, bottom: r.bottom, w: r.width, h: r.height, cx: r.left + r.width / 2, cy: r.top + r.height / 2, z: +el.style.zIndex };
@@ -458,14 +511,17 @@
     between: (a, b, H, W, c) => a.cx > Math.min(b.cx, c.cx) && a.cx < Math.max(b.cx, c.cx) &&
       vOv(a, b) >= 0.2 && vOv(a, c) >= 0.2 && hOv(a, b) <= 0.5 && hOv(a, c) <= 0.5,
     beside: (...args) => RELATIONS['next to'](...args),
+    // inside it, and drawn over it
+    in: (a, b) => overlap(a.left, a.right, b.left, b.right) * overlap(a.top, a.bottom, b.top, b.bottom) >= 0.8 * a.w * a.h && a.z > b.z,
   };
 
-  function missions() {
-    const R = room.getBoundingClientRect();
+  function missions(room) {
+    const R = room.area.getBoundingClientRect();
     if (!R.width) return; // spread not visible
     let done = 0;
-    missionList.innerHTML = MISSIONS.map(m => {
-      const a = boxOf(m.a), b = boxOf(m.b), c = m.c ? boxOf(m.c) : null;
+    const list = room.missions;
+    room.list.innerHTML = list.map(m => {
+      const a = boxOf(room, m.a), b = boxOf(room, m.b), c = m.c ? boxOf(room, m.c) : null;
       const ok = !!(a && b && (!m.c || c) && RELATIONS[m.rel](a, b, R.height, R.width, c));
       if (ok) done++;
       const rest = m.c ? `the ${m.b} and the ${m.c}` : `the ${m.b}`;
@@ -475,18 +531,22 @@
       if (!ok && a && b && m.rel === 'behind' && RELATIONS['in front of'](a, b)) tip = `It's in front! Click the ${m.a} and press ⬇.`;
       if (!ok && a && b && m.rel === 'in front of' && RELATIONS.behind(a, b)) tip = `It's behind! Click the ${m.b} and press ⬇.`; // the one on top can be clicked
       if (tip) tip = `<small>${tip}</small>`;
-      return `<li class="${ok ? 'ok' : tip ? 'tip' : ''}"><i>${ok ? '✓' : ''}</i><span>The ${m.a} is <b>${m.rel.toUpperCase()}</b> ${rest}.${tip}</span></li>`;
-    }).join('') + `<li class="hm-done">${done === MISSIONS.length ? '🎉 All missions done! Great job!' : `Missions done: ${done} / ${MISSIONS.length}`}</li>`;
-    palette.querySelectorAll('.hm-chip').forEach(ch => ch.classList.toggle('used', state.r.some(i => i.k === ch.dataset.k)));
+      if (!ok && a && b && m.rel === 'in' && RELATIONS.behind(a, b)) tip = `It's hidden! Click the ${m.b} and press ⬇.`;
+      if (tip) tip = `<small>${tip}</small>`;
+      const is = PLURAL.has(m.a) ? 'are' : 'is';
+      return `<li class="${ok ? 'ok' : tip ? 'tip' : ''}"><i>${ok ? '✓' : ''}</i><span>The ${m.a} ${is} <b>${m.rel.toUpperCase()}</b> ${rest}.${tip}</span></li>`;
+    }).join('') + `<li class="hm-done">${done === list.length ? '🎉 All missions done! Great job!' : `Missions done: ${done} / ${list.length}`}</li>`;
+    room.palette.querySelectorAll('.hm-chip').forEach(ch => ch.classList.toggle('used', state[room.id].some(i => i.k === ch.dataset.k)));
   }
+  const allMissions = () => ROOMS.forEach(missions);
 
-  $('hm-room-reset').addEventListener('click', () => {
-    state.r = [];
+  ROOMS.forEach(room => room.reset.addEventListener('click', () => {
+    state[room.id] = [];
     store();
     unselect();
-    drawArea(room);
-    missions();
-  });
+    drawArea(room.area);
+    missions(room);
+  }));
 
   /* ================= p. 52: drawings still to be added ================= */
 
@@ -507,13 +567,15 @@
     unselect();
     drawCards();
     drawArea(house);
-    drawArea(room);
-    drawPalette();
-    missions();
+    ROOMS.forEach(room => {
+      drawArea(room.area);
+      drawPalette(room);
+    });
+    allMissions();
   }
   drawAll();
-  document.addEventListener('spreadchange', missions);
-  window.addEventListener('resize', missions);
+  document.addEventListener('spreadchange', allMissions);
+  window.addEventListener('resize', allMissions);
 
   // "Clear answers" (script.js) empties `saved`: start again
   $('clearBtn').addEventListener('click', () => {
