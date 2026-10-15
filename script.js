@@ -939,6 +939,19 @@ document.querySelectorAll('.check[data-dd]').forEach(btn => btn.addEventListener
   dragSets.find(d => d.id === btn.dataset.dd)?.paint(true);
 }));
 
+/* ================= pictures still to come ================= */
+// <img data-pic="img/shakespeare/rose">: tries rose.png, .jpg, .jpeg, .webp.
+// While no file exists, the placeholder next to it stays visible.
+
+document.querySelectorAll('img[data-pic]').forEach(img => {
+  const exts = ['png', 'jpg', 'jpeg', 'webp'];
+  let i = 0;
+  const next = () => { if (i < exts.length) img.src = `${img.dataset.pic}.${exts[i++]}`; else img.remove(); };
+  img.addEventListener('error', next);
+  img.addEventListener('load', () => img.parentElement.classList.add('has-pic'));
+  next();
+});
+
 /* ================= toolbar ================= */
 
 /* zoom: scales the spread width (the page content scales with it) */

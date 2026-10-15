@@ -3394,3 +3394,281 @@ body.zoomed .toolbar { position: sticky; left: 0; width: 100vw; }
 .jc b.long { font-size: 3cqw; }
 .jc b.xlong { font-size: 2.4cqw; }
 .jc small { margin-top: 1cqw; font: 600 1.45cqw/1.2 'Nunito', sans-serif; color: #666; }
+
+/* ======================================================================
+   SHAKESPEARE · "Folio": the editorial look of pp. 116–125
+   cream paper, serif titles with an italic word, letter-spaced labels,
+   hairlines, outlined pills, black-and-white pictures with a red accent
+   ====================================================================== */
+.page.shx {
+  --paper: #f6f1ea; --ink: #2a2426; --hair: rgba(42,36,38,.16); --hair-red: rgba(178,58,72,.45);
+  --serif: 'Playfair Display', Georgia, serif;
+  background: var(--paper);
+}
+.shx .pd-intro { color: #4a4446; }
+.shx .pd-intro b { color: var(--sh); }
+
+/* labels, titles, rules */
+.shx-kicker { font: 800 1.05cqw/1 'Nunito', sans-serif; letter-spacing: .32em; text-transform: uppercase; color: var(--sh); }
+.shx-kicker::before { content: ""; display: inline-block; width: 3.2cqw; height: .14cqw; margin-right: 1cqw; vertical-align: middle; background: var(--sh); }
+.shx-title { margin: 0; font: 900 8.4cqw/.92 var(--serif); color: var(--sh); letter-spacing: -.01em; }
+.shx-title em { font-weight: 400; font-style: italic; color: var(--ink); font-size: .46em; letter-spacing: 0; }
+.shx-title.num { font-size: 12.5cqw; }
+.shx-title.num em { font-size: .42em; margin-right: .1em; }
+.shx-title.small { font: 900 5.6cqw/1 var(--serif); color: var(--ink); }
+.shx-title.small em { font-size: 1em; color: var(--sh); }
+.shx-h2 { margin: 0; font: 900 4.2cqw/1 var(--serif); color: var(--ink); }
+.shx-h2 em { font-weight: 400; font-style: italic; color: var(--sh); }
+.shx-spaced { margin: 0; font: 800 1.45cqw/1 'Nunito', sans-serif; letter-spacing: .55em; color: var(--ink); }
+.shx-script { margin: 0; font: 500 3.4cqw/1 'Caveat', cursive; color: var(--sh); transform: rotate(-5deg); }
+.shx-rule { height: .14cqw; background: var(--hair-red); }
+
+/* decoration: outlined circles and a thin thread (as in the references) */
+.shx-ring { z-index: 0; aspect-ratio: 1; border: .16cqw solid #f05f4b; border-radius: 50%; opacity: .55; pointer-events: none; }
+.shx-thread { z-index: 1; height: auto; overflow: visible; pointer-events: none; }
+.shx-thread path { fill: none; stroke: var(--ink); stroke-width: .25; opacity: .5; }
+
+/* pictures: black and white; the placeholder shows the file name to save in img/shakespeare/ */
+.shx img[data-pic] { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); }
+.shx-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6cqw; }
+.shx-ph i { font-style: normal; font-size: 2.2em; line-height: 1; filter: grayscale(1); opacity: .45; }
+.shx-ph small { font: 700 .95cqw/1 'Nunito', sans-serif; letter-spacing: .12em; color: #9b9294; text-transform: uppercase; }
+.has-pic > .shx-ph { display: none; }
+
+.shx-photo { margin: 0; overflow: hidden; background: #ddd6cf; font-size: 6cqw; }
+.shx-photo.censor .bar { position: absolute; z-index: 2; left: 22%; top: 30%; width: 46%; height: 11%; background: var(--sh); }
+.shx-orbit { margin: 0; aspect-ratio: 1; font-size: 3.4cqw; }
+.shx-orbit::before { content: ""; position: absolute; inset: -7%; border: .14cqw solid var(--hair-red); border-radius: 50%; }
+.shx-orbit-pic { position: absolute; inset: 0; overflow: hidden; border-radius: 50%; background: #e7e0d8; }
+.shx-orbit > i { position: absolute; font-style: normal; font-size: 1.5cqw; line-height: 1; color: var(--sh); transform: translate(-50%, -50%); }
+.shx-orbit > .n { left: 50%; top: -7%; } .shx-orbit > .s { left: 50%; top: 107%; }
+.shx-orbit > .e { left: 107%; top: 50%; } .shx-orbit > .w { left: -7%; top: 50%; }
+
+/* exercise headings: number in italic serif, letter-spaced title, a short thick bar */
+.shx .lt-pill {
+  padding: 0 0 .7cqw; border-radius: 0; color: var(--ink);
+  font: 800 1.2cqw/1.1 'Nunito', sans-serif; letter-spacing: .1em; text-transform: uppercase;
+  background: linear-gradient(var(--sh), var(--sh)) left bottom / 9cqw .35cqw no-repeat;
+}
+.shx .lt-pill b { margin-right: 1.1cqw; font: italic 700 2cqw/1 var(--serif); letter-spacing: 0; color: var(--sh); }
+.shx .check { padding: .5cqw 1.4cqw; background: transparent; color: var(--sh); box-shadow: inset 0 0 0 .15cqw var(--sh); font-weight: 800; letter-spacing: .04em; }
+.shx .check:hover { background: var(--sh); color: #fff; }
+.shx .hint-line { font-style: italic; color: #8f8689; }
+.shx .footer { font: 800 1.05cqw/1 'Nunito', sans-serif; letter-spacing: .3em; text-transform: uppercase; color: var(--sh); }
+.shx .pageno { font: italic 400 2.6cqw/1 var(--serif); color: var(--ink); }
+
+/* lists with hairlines */
+.shx .al-fill li, .shx .sh-qa li, .shx .sh-frame li { border-bottom: .12cqw solid var(--hair); }
+.shx .al-fill li > i, .shx .sh-qa p i, .shx .sh-pairs p i, .shx .sh-odd p > i, .shx .sh-couplets li > i, .shx .sh-syl-list li > i { font: italic 700 1.4cqw/1 var(--serif); color: var(--sh); }
+.shx .sh-frame li > span b { font: italic 700 1.5cqw/1 var(--serif); }
+.shx .sh-tag { background: transparent; color: var(--sh); box-shadow: inset 0 0 0 .15cqw var(--sh); }
+
+/* p. 116: the questions */
+.shx .sh-gram { background: transparent; border-radius: 0; padding: .4cqw 0; border-top: .14cqw solid var(--hair-red); border-bottom: .14cqw solid var(--hair-red); }
+.shx .sh-gram h3 { font: 800 1.05cqw/2.6 'Nunito', sans-serif; letter-spacing: .3em; text-transform: uppercase; color: var(--ink); }
+.shx .sh-gram p { border-top: .12cqw solid var(--hair); }
+.shx .sh-gram b { border-color: var(--sh); }
+.shx .sh-qs .ink, .shx .sh-qs input.fill { border-bottom-color: var(--hair); }
+
+/* pp. 117–118: the exhibits */
+.shx .sh-slot { border: 0; border-radius: 0; background: #e4ddd5; font-size: 5.6cqw; }
+.shx .sh-slot b { z-index: 2; left: 0; top: 0; width: 3.2cqw; height: 3.2cqw; border-radius: 0; background: var(--sh); font: italic 700 1.5cqw/1 var(--serif); }
+.shx .sh-ev-lines label { border-bottom-color: var(--hair); }
+.shx .sh-ev-lines label i { font-family: var(--serif); color: var(--sh); opacity: .7; }
+
+/* p. 118: the profile (ID card) */
+.shx-id { display: grid; grid-template-columns: 15cqw 1fr; column-gap: 3cqw; row-gap: 3.4cqw; align-items: center; }
+.shx-id-pic { position: relative; margin: 0; width: 15cqw; aspect-ratio: 1; overflow: hidden; border-radius: 50%; background: #e4ddd5; font-size: 5cqw; }
+.shx-id::before { content: ""; position: absolute; left: 13.4cqw; top: .6cqw; z-index: 3; width: 1.8cqw; height: 1.8cqw; border-radius: 50%; background: #f05f4b; }
+.shx-id-name { position: relative; margin: 0; }
+.shx-id-name small { display: block; margin-bottom: .8cqw; font: 800 1.05cqw/1 'Nunito', sans-serif; letter-spacing: .32em; text-transform: uppercase; color: var(--ink); }
+.shx-id-name b { display: block; font: 900 4.6cqw/.95 var(--serif); color: var(--sh); }
+.shx-id-name .shx-script { position: absolute; right: 2cqw; bottom: -1cqw; font-size: 2.8cqw; }
+.shx-id-grid { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3cqw 2.4cqw; padding-top: 2.8cqw; border-top: .16cqw solid var(--sh); }
+.shx-id-grid .wide { grid-column: span 2; }
+.shx-id-grid label { display: block; font: 800 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--ink); }
+.shx-id-grid input.fill { height: 4.6cqw; border-bottom: .12cqw solid var(--hair); font-size: 1.8cqw; }
+.shx-id-grid input.fill::placeholder { color: #b8afb1; font: italic 1.2cqw var(--serif); }
+
+/* p. 119: what I remember, as a timeline with ✕ marks */
+.shx-timeline { display: grid; grid-auto-flow: column; grid-template-rows: repeat(6, auto); column-gap: 5cqw; }
+.shx-timeline li { position: relative; height: 6.4cqw; margin-left: 2.4cqw; padding-left: 1.6cqw; border-bottom: 0; border-left: .14cqw solid var(--sh); }
+.shx-timeline li::before { content: "✕"; position: absolute; left: -2.6cqw; bottom: 1.1cqw; font: 700 1.4cqw/1 'Nunito', sans-serif; color: var(--sh); }
+.shx-timeline li > i { flex: 0 0 2.6cqw; font: italic 700 1.5cqw/1.8 var(--serif); color: var(--ink); }
+.shx-timeline input.fill { border-bottom: .12cqw solid var(--hair); }
+.shx-timeline .pd-mark { flex: 0 0 3.6cqw; height: 3.6cqw; background: transparent; border-color: var(--hair-red); }
+
+/* p. 120: the sonnet on a white card */
+.shx .sh-poem { background: #fffdf9; border-radius: 1.4cqw; box-shadow: 0 0 0 .12cqw var(--hair); font: 400 1.7cqw/1 var(--serif); color: var(--ink); }
+.shx .sh-poem li > i { font: italic 400 1.2cqw/1 var(--serif); color: var(--sh); }
+.shx .sh-rhyme { font-family: var(--serif); }
+.shx .sh-gloss dt { font-family: var(--serif); font-style: italic; }
+.shx .sh-gloss div { border-bottom: .12cqw solid var(--hair); }
+
+/* p. 121: the rules in a grid of hairlines, with glyphs */
+.shx-rules { display: grid; grid-template-columns: 1fr 1fr; column-gap: 3cqw; padding: 0; background: none; border-radius: 0; color: var(--ink); }
+.shx-rules li { height: 5cqw; border-bottom: .12cqw solid var(--hair); font-size: 1.35cqw; }
+.shx-rules li:nth-child(3) { grid-column: 1 / -1; }
+.shx-rules li > span:first-child { flex: 0 0 2.4cqw; color: var(--sh); font-size: 1.7cqw; }
+.shx-rules b { color: var(--sh); }
+.shx .sh-syl-list li { border-bottom-color: var(--hair); }
+.shx .sh-syl { font-family: var(--serif); }
+.shx .dd-bank { background: transparent; border-color: var(--hair-red); }
+.shx .sh-dd-head { color: var(--ink); letter-spacing: .2em; }
+.shx .sh-dd-row > b { font: italic 700 1.6cqw/1 var(--serif); }
+.shx .dd-slot { border-bottom-color: var(--hair); }
+
+/* p. 123: the rhyme machine in ink and red */
+.shx .sh-ex span { background: transparent; box-shadow: inset 0 0 0 .14cqw currentColor; }
+.shx .sh-machine { background: var(--ink); border-radius: 1.6cqw; box-shadow: none; }
+.shx .sh-rm-top { font: 900 2.2cqw/1 var(--serif); letter-spacing: .3em; color: var(--paper); background: none; border-bottom: .14cqw solid rgba(246,241,234,.2); margin-bottom: 1.6cqw; }
+.shx .sh-rm-top::before, .shx .sh-rm-top::after { content: " ✦ "; color: var(--sh); }
+.shx .sh-rm-find button, .shx .sh-lever { background: var(--sh); color: #fff; box-shadow: none; }
+.shx .sh-rm-find button:hover, .shx .sh-lever:hover { background: #c94a59; }
+.shx .sh-rm-out { background: var(--paper); }
+.shx .sh-reel { background: var(--paper); box-shadow: inset 0 0 0 .14cqw rgba(178,58,72,.35); font-family: var(--serif); }
+.shx .sh-rlist li > b { font: italic 700 1.7cqw/1 var(--serif); }
+.shx .sh-rlist input.fill { border-bottom-color: var(--hair); }
+
+/* pp. 124–125: practice and the student's sonnet */
+.shx .sh-pairs p, .shx .sh-couplets li { border-bottom: .12cqw solid var(--hair); }
+.shx .sh-odd .chip { background: transparent; box-shadow: inset 0 0 0 .14cqw var(--hair-red); }
+.shx .sh-couplets { font-family: var(--serif); }
+.shx .mt-line { border-bottom-color: var(--hair); }
+.shx .mt-line > span { font: italic 700 1.6cqw/1 var(--serif); }
+.shx .sh-sonnet li { border-bottom-color: var(--hair); }
+.shx .sh-sonnet li > b { font-family: var(--serif); font-style: italic; }
+.shx .sh-chk .chip { background: transparent; box-shadow: inset 0 0 0 .14cqw var(--sh); }
+.shx .sh-chk .chip.form { box-shadow: inset 0 0 0 .14cqw var(--ink); color: var(--ink); background: transparent; }
+.shx .sh-chk .chip.on { background: var(--sh); color: #fff; box-shadow: none; }
+
+/* ======================================================================
+   ROMEO & JULIET · "Verona": the light look of pp. 126–137
+   stone paper, thin elegant serif with an italic word, arches,
+   moon phases, scattered stars, outlined pills
+   ====================================================================== */
+.page.rjx {
+  --stone: #f1ece5; --ink: #2b2326; --hair: rgba(43,35,38,.15); --hair-red: rgba(214,51,79,.4); --blush: #f6d6dc;
+  --serif2: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  background: var(--stone);
+}
+.rjx .pd-intro { color: #4d4447; }
+
+/* titles and labels */
+.rjx-kicker { font: 800 1.05cqw/1 'Nunito', sans-serif; letter-spacing: .34em; text-transform: uppercase; color: var(--sh); }
+.rjx-title { z-index: 2; margin: 0; font: 300 7.6cqw/.95 var(--serif2); color: var(--ink); letter-spacing: .01em; }
+.rjx-title em, .rjx-h2 em { font-weight: 400; font-style: italic; color: var(--sh); }
+.rjx-sub { z-index: 2; margin: 0; font: 700 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .38em; color: var(--ink); }
+.rjx-h2 { margin: 0; font: 500 4.2cqw/1 var(--serif2); color: var(--ink); }
+.rjx-side { z-index: 2; writing-mode: vertical-rl; font: 800 .95cqw/1 'Nunito', sans-serif; letter-spacing: .5em; color: var(--ink); opacity: .6; }
+.rjx-line { z-index: 1; height: .14cqw; background: var(--hair-red); }
+.rjx-line::after { content: "✦"; position: absolute; right: -.7cqw; top: 50%; transform: translateY(-52%); font-size: 1.5cqw; line-height: 1; color: var(--sh); }
+.rjx-star { z-index: 1; font-size: 1.5cqw; line-height: 1; color: var(--ink); opacity: .55; pointer-events: none; }
+
+/* the soft glow behind the cover titles (as in "Atelier") */
+.rjx-glow {
+  z-index: 0; left: -14cqw; top: -16cqw; width: 78cqw; height: 46cqw; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(214,51,79,.32), rgba(240,95,75,.16) 55%, transparent);
+  filter: blur(2.4cqw);
+}
+
+/* pictures: black-and-white placeholders, the file name to save in img/romeo/ */
+.rjx img[data-pic] { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.rjx .shx-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5cqw; }
+.rjx .shx-ph i { font-style: normal; font-size: 2.2em; line-height: 1; filter: grayscale(1); opacity: .45; }
+.rjx .shx-ph small { font: 700 .9cqw/1 'Nunito', sans-serif; letter-spacing: .12em; color: #9d9294; text-transform: uppercase; }
+.rjx .has-pic > .shx-ph { display: none; }
+
+/* arches (as in "Sphæra Mundi" and "Elyse") */
+.rjx-arch {
+  z-index: 2; margin: 0; overflow: hidden; font-size: 6cqw; background: #e4dcd2;
+  border-radius: 999px 999px 0 0;
+  box-shadow: 0 0 0 .7cqw var(--stone), 0 0 0 .84cqw var(--hair-red);
+}
+
+/* the moon phases around the balcony picture (as in the "Масленица" poster) */
+.rjx-moon { z-index: 2; margin: 0; aspect-ratio: 1; font-size: 4cqw; }
+.rjx-moon::before { content: ""; position: absolute; left: -22%; right: -22%; top: 50%; height: .14cqw; background: var(--hair-red); }
+.rjx-moon::after { content: ""; position: absolute; inset: -12%; border: .14cqw solid var(--hair-red); border-radius: 50%; }
+.rjx-moon-pic { position: absolute; inset: 0; z-index: 1; overflow: hidden; border-radius: 50%; background: #e4dcd2; }
+.rjx-moon > i {
+  position: absolute; z-index: 2; left: 50%; top: 50%; font-style: normal; font-size: 1.5cqw; line-height: 1; color: var(--sh);
+  transform: translate(-50%, -50%) rotate(var(--a)) translateY(-12.2cqw) rotate(calc(-1 * var(--a)));
+}
+
+/* exercise headings: italic number, spaced title, a sparkle */
+.rjx .lt-pill { padding: 0; background: none; border-radius: 0; color: var(--ink); font: 800 1.15cqw/1.2 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.rjx .lt-pill b { margin-right: 1.1cqw; font: italic 500 2.3cqw/1 var(--serif2); letter-spacing: 0; color: var(--sh); }
+.rjx .lt-pill::after { content: " ✦"; color: var(--sh); }
+.rjx .check { padding: .5cqw 1.4cqw; background: transparent; color: var(--sh); box-shadow: inset 0 0 0 .14cqw var(--sh); font-weight: 800; letter-spacing: .06em; }
+.rjx .check:hover { background: var(--sh); color: #fff; }
+.rjx .hint-line { font-style: italic; color: #8f8689; }
+.rjx .footer { font: 800 1cqw/1 'Nunito', sans-serif; letter-spacing: .32em; text-transform: uppercase; color: var(--sh); }
+.rjx .pageno { font: italic 500 2.8cqw/1 var(--serif2); color: var(--ink); }
+
+/* hairlines everywhere */
+.rjx .al-fill li, .rjx .sh-qa li, .rjx .rj-tf p, .rjx .rj-fp p, .rjx .sh-gloss div { border-bottom: .12cqw solid var(--hair); }
+.rjx .sh-qa input.fill, .rjx .sh-facts li, .rjx .al-lines input.fill, .rjx .mt-line, .rjx .rj-opinion input.fill { border-bottom-color: var(--hair); }
+.rjx .sh-qa p i, .rjx .rj-tf p i, .rjx .al-lines li > i, .rjx .al-fill li > i, .rjx .sh-facts li > i { font: italic 600 1.5cqw/1 var(--serif2); color: var(--sh); }
+.rjx .mt-line > span { font: italic 600 1.7cqw/1 var(--serif2); }
+
+/* p. 126: the mind map and the game corners */
+.rjx input.fill.mind-pill { background: transparent; box-shadow: inset 0 0 0 .14cqw var(--hair-red); }
+.rjx .adv-center { background: transparent; color: var(--sh); box-shadow: inset 0 0 0 .16cqw var(--sh); font: italic 500 2.8cqw/1 var(--serif2); letter-spacing: .02em; }
+.rjx .rj-games { background: transparent; border-radius: 999px; box-shadow: inset 0 0 0 .14cqw var(--hair-red); padding: 1.2cqw 1.6cqw 1.2cqw 2.6cqw; }
+.rjx .rj-games b { font-size: 1.15cqw; letter-spacing: .3em; }
+.rjx .rj-games button { background: var(--sh); box-shadow: none; border-radius: 999px; }
+.rjx .rj-games button:hover { background: var(--ink); }
+
+/* p. 127: the characters in arches */
+.rjx .rj-card-who { background: transparent; border-radius: 0; border-bottom: .12cqw solid var(--hair); grid-template-columns: 8cqw 1fr; padding: 1cqw 0 1cqw .4cqw; }
+.rjx .rj-face {
+  position: relative; overflow: hidden; width: 8cqw; height: 9.6cqw; font-size: 4cqw; background: #e4dcd2;
+  border-radius: 999px 999px 0 0; box-shadow: 0 0 0 .4cqw var(--stone), 0 0 0 .52cqw var(--hair-red);
+}
+.rjx .rj-card-who b { font: 600 2.1cqw/1 var(--serif2); }
+.rjx .rj-card-who small { font-style: italic; }
+
+/* scripts: speakers in spaced capitals, my lines in blush */
+.rjx .rj-roles span { letter-spacing: .2em; text-transform: uppercase; font-size: 1.1cqw; }
+.rjx .rj-roles button { border-width: .13cqw; font-weight: 700; }
+.rjx .rj-script p b { font: 800 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .14em; text-transform: uppercase; margin-right: .4cqw; }
+.rjx .rj-script p.sd { font: italic 400 1.9cqw/1.3 var(--serif2); }
+.rjx .rj-script p.mine { background: var(--blush); border-left-color: var(--sh); }
+.rjx .rj-box { background: transparent; border-radius: 999px; box-shadow: inset 0 0 0 .14cqw var(--hair-red); padding: 1.4cqw 3cqw; }
+
+/* original texts: in the elegant serif, on a soft card */
+.rjx .rj-read { font: 400 2.05cqw/1.42 var(--serif2); color: var(--ink); }
+.rjx .rj-read b { font: 800 1.1cqw/1 'Nunito', sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+.rjx .sh-gloss dt { font: italic 600 1.6cqw/1 var(--serif2); }
+.rjx .sh-poem.rj-kiss { background: #faf7f3; box-shadow: 0 0 0 .12cqw var(--hair); border-radius: 1.6cqw; font: 400 1.8cqw/1 var(--serif2); color: var(--ink); }
+.rjx .rj-kiss .rj-sp { font-size: 1.05cqw; letter-spacing: .14em; text-transform: uppercase; }
+.rjx .sh-rhyme { font-family: var(--serif2); }
+
+/* matches, tables, chips */
+.rjx .rj-match .match-defs button, .rjx .rj-voc .match-defs button { background: transparent; box-shadow: inset 0 0 0 .13cqw var(--hair-red); }
+.rjx .rj-voc .match-words b { font: italic 600 1.9cqw/1 var(--serif2); }
+.rjx .rj-tr-head, .rjx .sh-cmp-head { background: transparent; color: var(--ink); border-radius: 0; border-top: .14cqw solid var(--sh); border-bottom: .14cqw solid var(--sh); letter-spacing: .14em; text-transform: uppercase; font-size: 1.1cqw; }
+.rjx .rj-tr p, .rjx .sh-cmp p { border-bottom-color: var(--hair); }
+.rjx .sh-chk .chip { background: transparent; color: var(--sh); box-shadow: inset 0 0 0 .14cqw var(--hair-red); }
+.rjx .sh-chk .chip.on { background: var(--sh); color: #fff; box-shadow: none; }
+.rjx .rj-ex-meme { background: #faf7f3; box-shadow: 0 0 0 .12cqw var(--hair); }
+.rjx .pd-draw.rj-meme canvas { border-color: var(--hair-red); }
+
+/* the moon phases are drawn, not typed: full, half, new, half */
+.rjx-moon > i { width: 1.9cqw; height: 1.9cqw; border-radius: 50%; color: transparent; background: var(--stone); box-shadow: inset 0 0 0 .14cqw var(--sh); }
+.rjx-moon > i:nth-of-type(4n+1) { background: var(--sh); }
+.rjx-moon > i:nth-of-type(4n+2) { background: linear-gradient(90deg, var(--sh) 50%, var(--stone) 50%); }
+.rjx-moon > i:nth-of-type(4n+4) { background: linear-gradient(90deg, var(--stone) 50%, var(--sh) 50%); }
+.rjx .rj-face .shx-ph small { display: none; }
+
+/* Romeo & Juliet: white paper, bigger and clearer long texts */
+.page.rjx { --stone: #fff; background: #fff; }
+.rjx .pd-intro { font-size: 1.75cqw; color: #3a3235; }
+.rjx .rj-read { font: 500 2.3cqw/1.34 var(--serif2); color: #1f191b; }
+.rjx .rj-read .w.ul { background: #fdf27a; }
+.rjx .rj-script.big { font-size: 1.95cqw; line-height: 1.42; color: #2b2326; }
+.rjx .rj-script p.sd { font: italic 500 2.05cqw/1.3 var(--serif2); color: #8a8083; }
+.rjx .rj-box { font-size: 1.65cqw; color: #3a3235; }
+.rjx .sh-poem.rj-kiss { font: 500 1.95cqw/1 var(--serif2); color: #1f191b; background: #fff; }
+.rjx .sh-qa p, .rjx .rj-tf p, .rjx .al-fill, .rjx .al-lines { color: #2b2326; }
