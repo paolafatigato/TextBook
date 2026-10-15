@@ -960,7 +960,17 @@ document.querySelectorAll('.check[data-dd]').forEach(btn => btn.addEventListener
   setZoom(zoom);
 }
 
-document.getElementById('printBtn').addEventListener('click', () => window.print());
+{
+  const pp = document.getElementById('printPanel');
+  document.getElementById('printBtn').addEventListener('click', () => pp.showModal());
+  pp.querySelector('.pp-cancel').addEventListener('click', () => pp.close());
+  pp.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
+    pp.close();
+    document.body.classList.toggle('eco-print', b.dataset.mode === 'eco');
+    setTimeout(() => window.print(), 50);
+  }));
+  window.addEventListener('afterprint', () => document.body.classList.remove('eco-print'));
+}
 
 document.getElementById('clearBtn').addEventListener('click', () => {
   if (!confirm('Clear all the answers in the book?')) return;
