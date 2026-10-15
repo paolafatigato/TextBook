@@ -88,7 +88,7 @@ const CONTENTS = {
       title: 'Jobs & CVs',
       pages: [138, 149],
       color: '#e8820c',
-      image: 'img/jobs-p110.svg',
+      image: 'img/jobs/doctor.png',
     },
     {
       title: 'Future',
