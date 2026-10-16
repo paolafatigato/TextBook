@@ -1,6 +1,12 @@
 /* All page measurements are in cqw (1cqw = 1% of the page width),
    so the page scales as one piece and keeps the printed layout. */
 
+@font-face {
+  font-family: 'Stampatellopaola';
+  src: url('fonts/Stampatellopaola-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
 :root {
   --coral: #f05f4b;
   --coral-soft: #f7836d;
@@ -1020,7 +1026,7 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .voc.it-en input.fill, .voc.it-en .voc-ex { padding-left: 6.5cqw; }
 .voc.en-it input.fill:first-child { padding-left: 5.2cqw; }
 .voc.en-it input.fill:last-child, .voc.en-it .voc-ex { padding-left: 5.6cqw; }
-.voc-ex { display: flex; align-items: center; font: 400 2cqw/1 'Patrick Hand', cursive; text-transform: uppercase; letter-spacing: .14em; color: #444; }
+.voc-ex { display: flex; align-items: center; font: 400 2.8cqw/1 'Stampatellopaola', 'Patrick Hand', cursive; text-transform: uppercase; letter-spacing: .14em; color: #444; }
 
 /* the half page: front (pink) on page 77, back (light pink) on page 76 */
 .flap { top: 0; bottom: 0; z-index: 4; border: 0; padding: 0; cursor: pointer; }
@@ -1799,6 +1805,25 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
   body.eco-print .page-bg, body.eco-print .art:not(.art-top) { display: none !important; }
   body.eco-print .page *:not(img):not(svg):not(svg *) {
     background: none !important; color: #000 !important; text-shadow: none !important; box-shadow: none !important;
+  }
+  /* writing lines stay: grey lines on white instead of coloured paper */
+  body.eco-print .page input.fill, body.eco-print .page textarea.fill, body.eco-print .page input.line-input,
+  body.eco-print .page .rows li { border-color: #8a8a8a !important; }
+  body.eco-print .page .paper-lined { background: repeating-linear-gradient(transparent 0 1.3cqw, #8a8a8a 1.3cqw 1.42cqw) !important; }
+  body.eco-print .page .lined-box textarea.fill { background: repeating-linear-gradient(transparent 0 5.25cqw, #8a8a8a 5.25cqw 5.4cqw) !important; }
+  body.eco-print .page textarea.fill.b5-lines { background: repeating-linear-gradient(transparent 0 calc(5cqw - 1px), #8a8a8a calc(5cqw - 1px) 5cqw) !important; }
+  body.eco-print .page .pd-bonus textarea { background: repeating-linear-gradient(transparent 0 calc(5cqw - 1px), #8a8a8a calc(5cqw - 1px) 5cqw) !important; }
+  body.eco-print .page textarea.fill.mt-lines { background: repeating-linear-gradient(transparent 0 4cqw, #8a8a8a 4cqw 4.2cqw) !important; }
+  body.eco-print .page textarea.fill.hm-lines { background: repeating-linear-gradient(transparent 0 calc(4.5cqw - 1px), #8a8a8a calc(4.5cqw - 1px) 4.5cqw) !important; }
+  body.eco-print .page textarea.fill.cl-lines { background: repeating-linear-gradient(transparent 0 calc(2.9cqw - .14cqw), #8a8a8a calc(2.9cqw - .14cqw) 2.9cqw) !important; }
+  body.eco-print .page textarea.fill.vl-lines { background: repeating-linear-gradient(transparent 0 calc(3.9cqw - 1px), #8a8a8a calc(3.9cqw - 1px) 3.9cqw) !important; }
+  body.eco-print .page .grid-box { --grid: 1.95cqw; }
+  body.eco-print .page .bs-box { --grid: 2.4cqw; }
+  body.eco-print .page .paper-grid { --grid: 1.4cqw; }
+  body.eco-print .page .jb-paper-box { --grid: 3cqw; }
+  body.eco-print .page .grid-box, body.eco-print .page .bs-box, body.eco-print .page .paper-grid, body.eco-print .page .jb-paper-box {
+    background: linear-gradient(#c4c4c4 .1cqw, transparent .1cqw) 0 0 / var(--grid, 2cqw) var(--grid, 2cqw),
+                linear-gradient(90deg, #c4c4c4 .1cqw, transparent .1cqw) 0 0 / var(--grid, 2cqw) var(--grid, 2cqw) !important;
   }
 }
 
@@ -3672,3 +3697,27 @@ body.zoomed .toolbar { position: sticky; left: 0; width: 100vw; }
 .rjx .rj-box { font-size: 1.65cqw; color: #3a3235; }
 .rjx .sh-poem.rj-kiss { font: 500 1.95cqw/1 var(--serif2); color: #1f191b; background: #fff; }
 .rjx .sh-qa p, .rjx .rj-tf p, .rjx .al-fill, .rjx .al-lines { color: #2b2326; }
+
+/* ---------- pp. 137.1–137.4: "The Boy Who Harnessed the Wind" (reading before the Jobs unit) ---------- */
+.page.bw { background: #fffaf3; --bw: #e8820c; --bw-soft: #fdebd3; }
+.bw .bw-hr { background: #f3c48a; height: .2cqw; }
+.bw .first-page { color: #b9a58a; }
+.bw-title { text-align: right; font: 800 2.5cqw/1.1 'Nunito', sans-serif; color: #222; }
+.bw-title small { display: block; margin-top: .8cqw; font: 600 1.3cqw/1 'Nunito', sans-serif; color: var(--bw); }
+.bw-text { font: 400 1.57cqw/1.55 'Nunito', sans-serif; color: #333; text-align: justify; }
+.bw-text p { margin: 0 0 .6cqw; }
+.bw-caps { font-weight: 800; letter-spacing: .04em; color: var(--bw); }
+.bw .lt-pill.bw-pill { background: var(--bw-soft); color: #b9650a; }
+.bw .lt-pill.bw-pill b { color: var(--bw); }
+.bw .pd-q li > i { color: var(--bw); }
+.bw .vl-opts .opt button.on { background: var(--bw); }
+.bw .vl-opts.three li > span:first-child b { color: var(--bw); }
+.bw-note { font: 600 1.45cqw/1.4 'Nunito', sans-serif; color: #7a5a2c; background: var(--bw-soft); border-radius: 1.2cqw; padding: 1cqw 1.6cqw; }
+.bw-kicker { font: 800 1.4cqw/1 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--bw); }
+.bw-h { font: 800 4.6cqw/1.02 'Nunito', sans-serif; color: #2b2326; }
+.bw-side { font-size: 11cqw; line-height: 1; }
+.bw-card { font: 400 1.55cqw/1.5 'Nunito', sans-serif; color: #4a3a22; background: var(--bw-soft); border-left: .6cqw solid var(--bw); border-radius: 0 1.4cqw 1.4cqw 0; padding: 1.4cqw 2cqw; }
+.bw-card b { color: var(--bw); }
+.bw .big-quote { color: #f7d3a1; }
+/* first pages: click a word to highlight it */
+.cor-text .w.ul, .cc-text .w.ul, .bw-text .w.ul { text-decoration: none; background: #fdf27a; }

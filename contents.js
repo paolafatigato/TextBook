@@ -89,7 +89,7 @@ const CONTENTS = {
     },
     {
       title: 'Jobs & CVs',
-      pages: [138, 149],
+      pages: [137.1, 149], // starts with the unnumbered reading pages before p. 138
       color: '#e8820c',
       image: 'img/jobs/doctor.png',
     },
@@ -196,6 +196,7 @@ const CONTENTS = {
     { title: 'Romeo & Juliet games', color: '#d6334f', pages: [[126, 126], [131, 131], [133, 133], [135, 135], [137, 137]] },
     { title: 'Rehearsal & summary', color: '#d6334f', pages: [[136, 137]] },
     { title: 'Writing a book review', color: '#3d8f3d', pages: [[16, 17]] },
+    { title: 'Reading: The Boy Who Harnessed the Wind (work in the story)', color: '#e8820c', pages: [[137.1, 137.4]] },
     { title: 'Jobs vocabulary & word search', color: '#e8820c', pages: [[138, 139]] },
     { title: 'Would like to / want to / dream of', color: '#e8820c', pages: [[139, 139]] },
     { title: 'A / an with jobs', color: '#e8820c', pages: [[139, 139], [144, 144]] },

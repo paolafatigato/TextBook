@@ -107,8 +107,8 @@ function showHome() {
 
 // #home → home page, #p6 → page 6, nothing → home page
 function route() {
-  const m = location.hash.match(/^#p(\d+)/);
-  if (m) goToPage(parseInt(m[1], 10));
+  const m = location.hash.match(/^#p(\d+(?:\.\d+)?)/);
+  if (m) goToPage(parseFloat(m[1]));
   else showHome();
 }
 window.addEventListener('hashchange', route);
@@ -118,7 +118,7 @@ prevBtn.addEventListener('click', () => step(-1));
 nextBtn.addEventListener('click', () => step(1));
 document.getElementById('gotoForm').addEventListener('submit', e => {
   e.preventDefault();
-  goToPage(parseInt(pageInput.value, 10));
+  goToPage(parseFloat(pageInput.value));
   pageInput.blur();
 });
 document.addEventListener('keydown', e => {
@@ -1013,7 +1013,12 @@ document.getElementById('clearBtn').addEventListener('click', () => {
 /* ================= home page ================= */
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const range = (a, b) => (a === b ? `p. ${a}` : `p. ${a}–${b}`);
+// unnumbered pages (like 137.1) show as "Intro"; a range that starts on one begins at the next printed number
+const range = (a, b) => {
+  if (!Number.isInteger(a) && !Number.isInteger(b)) return 'Intro';
+  a = Math.ceil(a);
+  return a === b ? `p. ${a}` : `p. ${a}–${b}`;
+};
 
 // a link to a page range, or a grey "coming soon" label when the pages are not online yet
 function pageLink(a, b, label = '') {
@@ -1088,7 +1093,7 @@ document.getElementById('topicSearch').addEventListener('input', renderTopics);
 function updateContinueLink() {
   const link = document.getElementById('continueLink');
   let last = NaN;
-  try { last = parseInt(localStorage.getItem(KEY + ':page'), 10); } catch { /* ignore */ }
+  try { last = parseFloat(localStorage.getItem(KEY + ':page')); } catch { /* ignore */ }
   const spread = spreads.find(s => { const [a, b] = pagesOf(s); return last >= a && last <= b; });
   link.hidden = !Number.isFinite(last) || !spread || !canSee(spread);
   if (!link.hidden) {
@@ -1136,7 +1141,7 @@ function hideClosedGames() {
   document.querySelectorAll('#gameList .game-topic').forEach(d => {
     const links = [...d.querySelectorAll('a[href^="#p"]')];
     const open = links.some(a => {
-      const n = parseInt(a.getAttribute('href').slice(2), 10);
+      const n = parseFloat(a.getAttribute('href').slice(2));
       const s = spreads.find(x => { const [p, q] = pagesOf(x); return n >= p && n <= q; });
       return !s || canSee(s);
     });

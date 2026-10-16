@@ -208,6 +208,9 @@
   background: repeating-linear-gradient(transparent 0 calc(3.9cqw - 1px), #b7aed6 calc(3.9cqw - 1px) 3.9cqw);
 }
 
+/* p. 87: the example file is printed text, so black instead of the students' blue handwriting */
+.spread[data-title="Personality"] .vl-sheet[aria-label="Page 87"] :is(.vl-name span, .vl-field .line, .vl-text, .vl-hex p, .vl-box p, .vl-small) { color: #000; }
+
 /* Laila: the hand leaves the frame on the left; Eli: the ears leave it at the top */
 .spread[data-title="Personality"] .b5c-face img[alt="laila"] { align-self: flex-end; width: 36cqw; max-width: none; max-height: none; }
 .spread[data-title="Personality"] .b5c-face img[alt="eli"] { align-self: center; width: auto; height: 43cqw; max-height: none; margin-top: -9cqw; }
