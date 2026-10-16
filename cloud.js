@@ -32,11 +32,13 @@ const isDrawing = v => typeof v === 'string' && v.startsWith('data:');
 
 /* ---------- which pages students can see ---------- */
 
-// A saved list is a list of spreads like "142-143". The numbers changed twice:
+// A saved list is a list of spreads like "142-143". The numbers changed three times:
 //  - version 2: pp. 142–169 moved forward by 2 when "Who am I?" (pp. 142–143) was added
 //  - version 3: all the pages were renumbered 2, 3, 4… without gaps (the spreads below, in order, are now 2-3, 4-5, 6-7…)
+//  - version 4: pp. 34–39 are the new section "Animals & have" at the end of Owners, so every spread from 34-35 on moved forward by 6
+//  - version 5: pp. 56–61 are the new "Daily routine" pages at the end of Present Simple, so every spread from 56-57 on moved forward by 6
 // A list saved before a change still uses the old numbers: convert it, and drop the spreads that no longer exist.
-const PAGES_VERSION = 3;
+const PAGES_VERSION = 5;
 const V2_SPREADS = [
   '2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15', '16-17', '18-19', '20-21', '22-23', '24-25',
   '26-27', '28-29', '29.1-29.2', '30-31', '32-33', '34-35', '36-37', '38-39', '40-41', '42-43', '44-45',
@@ -52,12 +54,16 @@ const V2_SPREADS = [
 ];
 const toV2 = k => { const [a, b] = k.split('-').map(Number); return a >= 142 && b <= 169 ? `${a + 2}-${b + 2}` : k; };
 const toV3 = k => { const i = V2_SPREADS.indexOf(k); return i < 0 ? null : `${2 + 2 * i}-${3 + 2 * i}`; };
+const toV4 = k => { const [a, b] = k.split('-').map(Number); return a >= 34 ? `${a + 6}-${b + 6}` : k; };
+const toV5 = k => { const [a, b] = k.split('-').map(Number); return a >= 56 ? `${a + 6}-${b + 6}` : k; };
 
 onSnapshot(doc(db, 'config', 'visibility'), snap => {
   const data = snap.exists() ? snap.data() : {};
   const spreads = data.spreads || [];
   const v = data.pagesVersion || 1;
-  book.setVisible(v >= 3 ? spreads : (v >= 2 ? spreads : spreads.map(toV2)).map(toV3).filter(Boolean));
+  const v3 = v >= 3 ? spreads : (v >= 2 ? spreads : spreads.map(toV2)).map(toV3).filter(Boolean);
+  const v4 = v >= 4 ? v3 : v3.map(toV4);
+  book.setVisible(v >= 5 ? v4 : v4.map(toV5));
 }, err => console.error('Cannot read the visible pages:', err.code, err.message));
 
 book.onSaveVisible = async spreads => {

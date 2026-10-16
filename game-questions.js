@@ -1,4 +1,4 @@
-// Questions for the Conversation Game (pp. 46-47), taken from GooseGame · Getting to Know Each Other.
+// Questions for the Conversation Game (pp. 52-53), taken from GooseGame · Getting to Know Each Other.
 // A string is an open question; an object has options and the right answer.
 const GAME_QUESTIONS = [
   "JOIN THESE PAIRS WITH THE POSSESSIVE 'S OR ': THE BOYS / BIKES",

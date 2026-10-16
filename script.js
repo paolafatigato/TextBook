@@ -14,7 +14,7 @@ function persist() {
 // cloud.js (Firebase) fills this in. Students see only the spreads the teacher ticked;
 // the teacher sees everything and can tick them in the panel.
 
-const VISIBLE_KEY = 'libro-visible-v3'; // v3: pages renumbered 2, 3, 4…
+const VISIBLE_KEY = 'libro-visible-v5'; // v5: pp. 56–61 added (Daily routine), later pages moved by 6
 let visibleSpreads = new Set();
 try { visibleSpreads = new Set(JSON.parse(localStorage.getItem(VISIBLE_KEY)) || []); } catch { /* none yet */ }
 let account = null; // { name, email, teacher }
@@ -178,7 +178,7 @@ document.querySelectorAll('.check[data-list]').forEach(btn => {
 /* ================= connect the words ================= */
 // Click a word, then its meaning (or the other way round) to draw a line,
 // or drag the line from one to the other. Click a connected item again to remove its line.
-// Three columns (p. 34): a .match-set holds the lists and two .match layers,
+// Three columns (p. 40): a .match-set holds the lists and two .match layers,
 // each one says which buttons it connects (data-words / data-defs).
 
 const matches = [...document.querySelectorAll('.match')].map(box => {
@@ -199,7 +199,7 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
     persist();
   }
 
-  const curved = box.classList.contains('gm-layer'); // p. 34: curved coloured lines
+  const curved = box.classList.contains('gm-layer'); // p. 40: curved coloured lines
   function draw() {
     const base = box.getBoundingClientRect();
     if (!base.width) return; // spread not visible
@@ -333,7 +333,7 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
   };
 });
 
-// p. 34: the meanings are rotated text; the line starts just after its right-most letter
+// p. 40: the meanings are rotated text; the line starts just after its right-most letter
 function rotatedEnd(el, base, dot) {
   const o = el.offsetParent.getBoundingClientRect();
   const ang = 38 * Math.PI / 180; // same angle as .gm-defs button in style.css
@@ -597,7 +597,7 @@ document.querySelectorAll('.check[data-toggles]').forEach(btn => {
   });
 });
 
-/* the dice of the conversation game (pp. 46-47) lives in game.js */
+/* the dice of the conversation game (pp. 52-53) lives in game.js */
 
 /* ================= Big 5 scores ================= */
 // each sentence gets 0, 1 or 2: the total of the trait is added up by itself
@@ -617,7 +617,7 @@ document.querySelectorAll('.b5-score').forEach(inp => inp.addEventListener('inpu
 }));
 b5Totals();
 
-/* ================= evaluation grid (p. 41) ================= */
+/* ================= evaluation grid (p. 47) ================= */
 // performance + pronunciation + creativity = total
 
 const egScores = [...document.querySelectorAll('.eg-n')];
@@ -635,14 +635,14 @@ egScores.forEach(inp => inp.addEventListener('input', () => {
 }));
 egTotal();
 
-/* ================= half-page flap (pp. 86-87) ================= */
+/* ================= half-page flap (pp. 98-99) ================= */
 // the flap hides the English words on one page or the other
 
 document.querySelectorAll('.flap').forEach(flap => flap.addEventListener('click', () => {
   flap.closest('.spread').classList.toggle('flap-left');
 }));
 
-/* ================= detective games (pp. 60-65) ================= */
+/* ================= detective games (pp. 72-77) ================= */
 
 // Text without spaces: click a letter to put a slash after it (click again to take it away).
 // data-words holds the real words; the correct slashes are the ends of the words.
@@ -859,7 +859,7 @@ marks.forEach(m => {
   });
 });
 
-/* ================= Shakespeare (pp. 122–125) ================= */
+/* ================= Shakespeare (pp. 134–137) ================= */
 
 // Rhymes: click the last word of a line to give it a letter: A → B → … → G → nothing.
 const RHYMES = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G'];
@@ -975,7 +975,7 @@ const sonnetCounts = [...document.querySelectorAll('.sh-sonnet input.fill')].map
   return paint;
 });
 
-/* ================= Villain Lab: "My flaws" circles (p. 92) ================= */
+/* ================= Villain Lab: "My flaws" circles (p. 104) ================= */
 // click the 4th circle = 4 out of 10; click the same one again to start over
 const flawRows = [...document.querySelectorAll('.vl-flaw')].map(row => {
   const dots = [...row.querySelectorAll('button')];

@@ -1,0 +1,218 @@
+@charset "UTF-8";
+/* ======================================================================
+   Animals & have (pp. 34-39, the end of the Owners chapter).
+   Same palette as the book (navy, coral, lilac, purple, lime, pink, blue);
+   modern look: Fredoka titles (as the rest of the chapter), round emoji
+   stickers, white cards with soft shadows, pill labels, wavy bands.
+   Loaded after style.css, scoped to the "Animals" spreads.
+   ====================================================================== */
+.spread[data-title="Animals"] {
+  --an-navy: #1f2a6b;
+  --an-ink: #2a2a30;
+  --an-coral: #f05f4b;
+  --an-pink: #fdeeec;
+  --an-lilac: #f6edfd;
+  --an-lilac-mid: #c08be8;
+  --an-purple: #8e2de2;
+  --an-lime: #dfee6a;
+  --an-lime-d: #c9de3c;
+  --an-line: #b9b6d3;
+  --an-emoji: 'Nunito', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  --an-shadow: 0 .4cqw 1.3cqw rgba(31, 42, 107, .13);
+}
+
+/* ---------- type ---------- */
+.an-kick {
+  z-index: 3; padding: .55cqw 1.5cqw; border-radius: 999px; white-space: nowrap;
+  background: var(--an-navy); color: #fff;
+  font: 800 1.15cqw/1 var(--an-emoji); letter-spacing: .14em; text-transform: uppercase;
+}
+.an-hero {
+  z-index: 3; font: 700 11.6cqw/.95 'Fredoka', 'Nunito', sans-serif; letter-spacing: -.01em; color: var(--an-navy);
+}
+.an-hero em { display: block; font-style: normal; color: var(--an-purple); }
+.an-hero.small { font-size: 8.4cqw; line-height: 1; }
+.an-hero.small em { display: inline; }
+.an-hero.small.two { font-size: 7.6cqw; }
+.an-hero.small.two em { display: block; color: var(--an-blue, #4aa8ec); }
+.an-script { z-index: 3; font: 400 3.2cqw/1 'Patrick Hand', cursive; color: var(--an-coral); transform: rotate(-3deg); transform-origin: left center; }
+
+/* round emoji stickers */
+.an-sticker {
+  z-index: 3; display: grid; place-items: center;
+  width: calc(var(--s) * 1cqw); height: calc(var(--s) * 1cqw); border-radius: 50%;
+  background: var(--bg, #fff); transform: rotate(var(--r, 0deg));
+  box-shadow: 0 .4cqw 1.2cqw rgba(31, 42, 107, .18), 0 0 0 .5cqw rgba(255, 255, 255, .7);
+  font: 400 calc(var(--s) * .56cqw)/1 'Nunito', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+}
+
+/* exercise header: a round number and a title in a lilac pill */
+.an-task {
+  display: inline-flex; align-items: center; gap: 1cqw; white-space: nowrap; z-index: 3;
+  padding: .5cqw 1.8cqw .5cqw .5cqw; border-radius: 999px; background: var(--an-lilac);
+  font: 800 1.45cqw/1 var(--an-emoji); color: var(--an-navy);
+}
+.an-task b {
+  display: grid; place-items: center; min-width: 3cqw; height: 3cqw; padding: 0 .6cqw; border-radius: 999px;
+  background: var(--an-coral); color: #fff; font: 800 1.3cqw/1 'Nunito', sans-serif;
+}
+.an-task small { font: 600 1.15cqw/1 'Nunito', sans-serif; color: #8a85a0; }
+.an-task u { text-decoration-color: var(--an-lime-d); text-decoration-thickness: .35cqw; text-underline-offset: .3cqw; }
+
+/* ---------- page 26: groups, chips ---------- */
+.an-groups { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1cqw; }
+.an-groups span {
+  padding: .8cqw .4cqw .9cqw; border-radius: 1.5cqw; background: #fff; box-shadow: var(--an-shadow);
+  text-align: center; font: 700 1.3cqw/1.2 'Nunito', sans-serif; color: var(--an-navy);
+}
+.an-groups i { display: block; margin-bottom: .2cqw; font: normal 3.2cqw/1.2 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif; }
+.an-chips p { display: flex; flex-wrap: wrap; align-items: center; gap: .7cqw; margin: 0 0 .9cqw; }
+.an-chips em { width: 7.6cqw; font: normal 800 1.05cqw/1 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #a39fb5; }
+.an-chips span { padding: .4cqw 1.2cqw; border-radius: 999px; font: 700 1.45cqw/1.2 'Nunito', sans-serif; }
+.an-chips .cov span { background: var(--an-pink); color: #d9483a; }
+.an-chips .par span { background: #f1e3fc; color: #7a3fa3; }
+
+/* ---------- page 26: the two ways of using have ---------- */
+.an-cards { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center; }
+.an-card { padding: 1.7cqw 2cqw 1.5cqw; border-radius: 1.8cqw; box-shadow: var(--an-shadow); }
+.an-card.do { padding-right: 3.2cqw; background: #fff; border: .25cqw solid var(--an-lilac-mid); }
+.an-card.got { padding-left: 3.2cqw; background: #f6fad2; border: .25cqw solid var(--an-lime-d); }
+.an-card h3 { margin: 0 0 .9cqw; font: 600 1.15cqw/1.2 'Nunito', sans-serif; color: #7b7790; }
+.an-card h3 span { display: inline-block; margin-right: .7cqw; padding: .4cqw 1.1cqw; border-radius: 999px; font: 800 1.45cqw/1 'Nunito', sans-serif; color: #fff; background: var(--an-purple); }
+.an-card.got h3 span { background: var(--an-navy); }
+.an-card p { margin: 0; font: 400 1.5cqw/1.64 'Nunito', sans-serif; color: var(--an-ink); }
+.an-card p.ans { padding-left: 1.4cqw; color: #6b6780; font-style: italic; }
+.an-card b { font-weight: 800; color: var(--an-purple); }
+.an-card.got b { color: var(--an-navy); background: linear-gradient(transparent 62%, var(--an-lime) 62% 92%, transparent 92%); }
+.an-card small { color: #8a85a0; font-size: 1.15cqw; }
+.an-eq {
+  z-index: 2; display: grid; place-items: center; width: 4.2cqw; height: 4.2cqw; margin: 0 -2.1cqw; border-radius: 50%;
+  background: var(--an-navy); color: #fff; font: 900 2.6cqw/1 'Nunito', sans-serif; box-shadow: 0 0 0 .6cqw #fff;
+}
+.an-notes { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6cqw; }
+.an-notes p { margin: 0; padding: 1.2cqw 1.6cqw; border-radius: 1.4cqw; font: 400 1.34cqw/1.45 'Nunito', sans-serif; color: var(--an-ink); }
+.an-notes .ok { background: #f6fad2; border-left: .6cqw solid var(--an-lime-d); }
+.an-notes .no { background: var(--an-pink); border-left: .6cqw solid var(--an-coral); }
+.an-notes s { color: var(--an-coral); text-decoration-thickness: .15cqw; }
+
+/* ---------- page 27: exercises ---------- */
+.an-gaps, .an-swap, .an-find, .an-riddles, .an-steps { list-style: none; padding: 0; margin: 0; }
+.an-gaps li, .an-swap li {
+  display: flex; align-items: baseline; gap: 1.4cqw; border-bottom: .12cqw solid #ece8f4;
+  font: 400 1.7cqw/1.3 'Nunito', sans-serif; color: var(--an-ink);
+}
+.an-gaps li { padding: .75cqw 0 .55cqw; min-height: 4.6cqw; }
+.an-gaps li > span, .an-swap li > span:not(.ink) { display: block; }
+.an-gaps i, .an-swap i {
+  flex: none; display: grid; place-items: center; width: 2.5cqw; height: 2.5cqw; border-radius: 50%; align-self: center;
+  background: var(--an-pink); color: var(--an-coral); font: normal 800 1.2cqw/1 'Nunito', sans-serif;
+}
+.an-gaps li.ok i, .an-swap li.ok i { background: #43a047; color: #fff; }
+.an-gaps li.no i, .an-swap li.no i { background: #e53935; color: #fff; }
+.an-gaps input.fill.blank { width: 8.6cqw; height: 2.6cqw; border-bottom: .15cqw solid #8a8a8a; }
+.an-swap li { align-items: flex-end; min-height: 6.4cqw; padding-bottom: .5cqw; }
+.an-swap li > span:not(.ink) { flex: 0 0 31cqw; padding-bottom: .25cqw; }
+.an-swap li i { align-self: flex-end; margin-bottom: .3cqw; }
+.an-swap input.fill.blank { flex: 1; width: auto; height: 3cqw; border-bottom: .15cqw solid #8a8a8a; font-size: 2cqw; }
+.an-swap .ink.line { flex: 1; height: 3cqw; border-bottom: .15cqw solid #8a8a8a; padding-left: .6cqw; }
+.an-find li { display: flex; align-items: flex-end; gap: 1.2cqw; height: 4.9cqw; font: 600 1.6cqw/1.2 'Nunito', sans-serif; color: var(--an-navy); }
+.an-find li::before { content: "🔍"; align-self: flex-end; padding-bottom: .2cqw; font-size: 1.7cqw; }
+.an-find li span { flex: 0 0 29cqw; padding-bottom: .25cqw; }
+.an-find input.fill { flex: 1; height: 3cqw; border-bottom: .14cqw dashed #cfc8dc; font-size: 2cqw; }
+
+/* ---------- page 28: the riddles ---------- */
+.an-riddles { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5cqw; }
+.an-riddles li {
+  position: relative; padding: 1.3cqw 1.6cqw 1.2cqw 5.2cqw; border-radius: 1.6cqw; background: #fff;
+  box-shadow: var(--an-shadow); border-top: .5cqw solid var(--c);
+}
+.an-riddles li > i {
+  position: absolute; left: 1.4cqw; top: 1.3cqw; display: grid; place-items: center; width: 2.8cqw; height: 2.8cqw; border-radius: 50%;
+  background: var(--c); color: #fff; font: normal 800 1.4cqw/1 'Nunito', sans-serif;
+}
+.an-riddles li:nth-child(4) > i, .an-riddles li:nth-child(8) > i { color: var(--an-navy); }
+.an-riddles p { margin: 0 0 .8cqw; font: 400 1.5cqw/1.42 'Nunito', sans-serif; color: var(--an-ink); }
+.an-riddles input.fill.blank { width: 100%; height: 2.7cqw; border-bottom: .15cqw solid var(--c); font-size: 1.9cqw; }
+.an-riddles li.ok { box-shadow: 0 0 0 .3cqw #43a047, var(--an-shadow); }
+.an-riddles li.no { box-shadow: 0 0 0 .3cqw #e53935, var(--an-shadow); }
+
+.an-bank { padding: 1.3cqw 2cqw 1.2cqw; border-radius: 1.8cqw; background: var(--an-lilac); }
+.an-bank h3 { margin: 0 0 .7cqw; font: 800 1.6cqw/1.2 var(--an-emoji); color: var(--an-navy); }
+.an-bank h3 small { font: 600 1.2cqw/1 'Nunito', sans-serif; color: #8a85a0; }
+.an-bank > div { display: grid; grid-template-columns: 1.15fr 1fr; gap: 2.4cqw; }
+.an-bank p { margin: 0; font: 400 1.3cqw/1.75 'Nunito', sans-serif; color: var(--an-ink); }
+.an-bank p.r { color: #6a4fa0; }
+.an-bank b { font-weight: 800; color: var(--an-purple); }
+.an-bank p.r b { color: #6a4fa0; }
+
+.an-paper { border-radius: 1.2cqw; background-color: #f9f3fe; }
+.an-paper textarea.fill {
+  padding: 0 1.2cqw; font: 400 1.9cqw/3.1cqw 'Patrick Hand', cursive; border-radius: 1.2cqw;
+  background: repeating-linear-gradient(transparent 0 calc(3.1cqw - .13cqw), #d8c3ef calc(3.1cqw - .13cqw) 3.1cqw);
+}
+
+/* ---------- page 29: draw from memory ---------- */
+.an-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4cqw; }
+.an-steps li {
+  padding: 1.2cqw 1.5cqw 1.3cqw; border-radius: 1.6cqw; background: #fff; box-shadow: var(--an-shadow); border-top: .6cqw solid var(--c);
+}
+.an-steps b { display: block; margin-bottom: .5cqw; font: 800 1.5cqw/1.2 'Nunito', sans-serif; color: var(--c); }
+.an-steps span { font: 400 1.4cqw/1.42 'Nunito', sans-serif; color: #444; }
+.an-steps u { text-decoration-color: var(--an-lime-d); text-decoration-thickness: .3cqw; }
+.an-draw canvas { aspect-ratio: 4 / 3; border: .25cqw solid var(--an-lilac-mid); border-radius: 1.4cqw; }
+.an-draw .pd-tools { margin-top: .7cqw; }
+.an-draw .pd-sw { width: 2.2cqw; height: 2.2cqw; }
+.an-draw .pd-clear { padding: .4cqw 1cqw; }
+.an-row { display: flex; align-items: flex-end; gap: 1cqw; }
+.an-row span { flex: none; padding-bottom: .5cqw; font: 800 1.45cqw/1 'Nunito', sans-serif; color: var(--an-navy); }
+.an-row span.y { color: #3aa04a; }
+.an-row span.n { color: var(--an-coral); }
+.an-row input.fill { flex: 1; height: 2.9cqw; border-bottom: .14cqw solid var(--an-line); font-size: 1.9cqw; }
+.an-frame { font: 600 1.5cqw/2.4cqw 'Nunito', sans-serif; color: var(--an-navy); }
+.an-frame input.fill { display: inline-block; width: 11cqw; height: 2.4cqw; vertical-align: baseline; border-bottom: .14cqw solid #8a8a8a; font-size: 1.9cqw; }
+
+@media print { .an-draw .pd-tools { display: none !important; } }
+
+/* ---------- pp. 38-39: the three ’s ---------- */
+.spread[data-title="Animals"] { --is: #4aa8ec; --has: #f05f4b; --gen: #8e2de2; }
+.an-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5cqw; }
+.an-three > div {
+  padding: 1.5cqw 1.6cqw 1.4cqw; border-radius: 1.6cqw; background: #fff; box-shadow: var(--an-shadow); border-top: .7cqw solid var(--c);
+}
+.an-three h3 { margin: 0 0 .8cqw; font: 800 1.9cqw/1.2 'Nunito', sans-serif; color: var(--c); }
+.an-three h3 b { font-family: 'Fredoka', 'Nunito', sans-serif; font-weight: 700; font-size: 2.4cqw; }
+.an-three h3 small { font: 600 1.1cqw/1 'Nunito', sans-serif; color: #8a85a0; }
+.an-three p { margin: 0 0 .5cqw; font: 400 1.5cqw/1.4 'Nunito', sans-serif; color: var(--an-ink); }
+.an-three p b { color: var(--c); font-weight: 800; }
+.an-three p small { font: 400 1.2cqw/1.35 'Nunito', sans-serif; color: #6b6780; }
+.an-test { padding: 1.4cqw 2cqw 1.3cqw; border-radius: 1.8cqw; background: var(--an-lilac); }
+.an-test h3 { margin: 0 0 .7cqw; font: 800 1.6cqw/1.2 var(--an-emoji); color: var(--an-navy); }
+.an-test ol { margin: 0; padding: 0; list-style: none; counter-reset: t; }
+.an-test li { counter-increment: t; display: flex; gap: 1cqw; align-items: baseline; padding: .35cqw 0; font: 400 1.45cqw/1.4 'Nunito', sans-serif; color: var(--an-ink); }
+.an-test li::before { content: counter(t); flex: none; align-self: center; display: grid; place-items: center; width: 2.3cqw; height: 2.3cqw; border-radius: 50%; background: var(--an-navy); color: #fff; font: 800 1.2cqw/1 'Nunito', sans-serif; }
+.an-test li span { margin-left: auto; white-space: nowrap; }
+.an-test p { margin: .8cqw 0 0; padding-top: .8cqw; border-top: .15cqw dashed #cdbbe6; font: 400 1.3cqw/1.5 'Nunito', sans-serif; color: #55516a; }
+.an-test .b1, .an-own .b1, .an-game .b1 { background: var(--is); }
+.an-test .b2, .an-own .b2, .an-game .b2 { background: var(--has); }
+.an-test .b3, .an-own .b3, .an-game .b3 { background: var(--gen); }
+.an-test li b.b1, .an-test li b.b2, .an-test li b.b3 { padding: .25cqw 1cqw; border-radius: 999px; color: #fff; font-size: 1.25cqw; }
+.an-kind { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 3cqw; }
+.an-kind li { display: flex; align-items: flex-end; gap: 1cqw; min-height: 4.7cqw; padding-bottom: .5cqw; border-bottom: .12cqw solid #ece8f4; font: 400 1.5cqw/1.25 'Nunito', sans-serif; color: var(--an-ink); }
+.an-kind li i { flex: none; align-self: flex-end; display: grid; place-items: center; width: 2.4cqw; height: 2.4cqw; border-radius: 50%; background: var(--an-pink); color: var(--an-coral); font: normal 800 1.1cqw/1 'Nunito', sans-serif; }
+.an-kind li.ok i { background: #43a047; color: #fff; }
+.an-kind li.no i { background: #e53935; color: #fff; }
+.an-kind li span { flex: 1; padding-bottom: .15cqw; }
+.an-kind li span b { color: var(--an-purple); font-size: 1.8cqw; }
+.an-kind input.fill.blank { flex: 0 0 8.4cqw; width: 8.4cqw; height: 2.6cqw; border-bottom: .15cqw solid #8a8a8a; text-align: center; }
+.an-hint { font: italic 400 1.35cqw/1.45 'Nunito', sans-serif; color: #6b6780; }
+.an-hint b { font-style: normal; color: var(--an-coral); }
+.an-own { list-style: none; padding: 0; margin: 0; }
+.an-own li { display: flex; align-items: flex-end; gap: 1.4cqw; height: 6.6cqw; }
+.an-own em { flex: 0 0 13cqw; padding: .55cqw 0; margin-bottom: .5cqw; border-radius: 999px; text-align: center; color: #fff; font: normal 800 1.3cqw/1 'Nunito', sans-serif; }
+.an-own input.fill { flex: 1; height: 3.2cqw; border-bottom: .14cqw solid #8a8a8a; font-size: 2cqw; }
+.an-game { display: flex; gap: 2cqw; align-items: center; padding: 1.4cqw 2cqw; border-radius: 1.8cqw; background: #f6fad2; border: .25cqw solid var(--an-lime-d); }
+.an-game .cards { display: flex; gap: .9cqw; flex: none; }
+.an-game .cards span { display: grid; place-items: center; width: 6cqw; height: 8.4cqw; border-radius: 1.1cqw; color: #fff; font: 800 1.6cqw/1 'Nunito', sans-serif; box-shadow: var(--an-shadow); transform: rotate(-4deg); }
+.an-game .cards span:nth-child(2) { transform: rotate(1deg); }
+.an-game .cards span:nth-child(3) { transform: rotate(5deg); font-size: 1.05cqw; text-align: center; padding: 0 .3cqw; }
+.an-game p { margin: 0; font: 400 1.4cqw/1.5 'Nunito', sans-serif; color: var(--an-ink); }

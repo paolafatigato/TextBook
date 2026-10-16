@@ -3,16 +3,17 @@
 // Questions and sentences are in grammar-games-data.js.
 
 (() => {
-  const { SG_ORDER, SG_APOS, SG_TF, SG_FINAL, SUBJECTS, SF_EASY, SF_MED, SF_HARD, QF_DATA, SCATCH_DATA } = GQ_DATA;
+  const { AP_DATA, SG_ORDER, SG_APOS, SG_TF, SG_FINAL, SUBJECTS, SF_EASY, SF_MED, SF_HARD, QF_DATA, SCATCH_DATA } = GQ_DATA;
 
   // spread (data-pages) → the games offered there
   const SETS = {
     '20-21': { title: 'Subject pronouns', intro: 'pp. 18–21 · Scegli un gioco!', games: ['speed', 'subject'] },
     '22-23': { title: 'The verb TO BE', intro: 'pp. 22–23 · Scegli un gioco!', games: ['tobe-rule', 'tobe-fire'] },
     '28-29': { title: 'The Saxon genitive', intro: 'pp. 28–29 · Scegli un gioco!', games: ['sg-order', 'sg-apos', 'sg-tf', 'sg-final'] },
-    '42-43': { title: 'Present simple: the -s', intro: 'pp. 42–43 · Scegli un gioco!', games: ['s-rule', 's-catch'] },
+    '38-39': { title: 'The three ’s', intro: 'pp. 38–39 · Scegli un gioco!', games: ['ap-cards', 'ap-fire'] },
+    '48-49': { title: 'Present simple: the -s', intro: 'pp. 48–49 · Scegli un gioco!', games: ['s-rule', 's-catch'] },
   };
-  const COLORS = { '20-21': '#4aa8ec', '22-23': '#7b3fc4', '28-29': '#4aa8ec', '42-43': '#c97df6' }; // as the topics on the home page
+  const COLORS = { '20-21': '#4aa8ec', '22-23': '#7b3fc4', '28-29': '#4aa8ec', '38-39': '#c9de3c', '48-49': '#c97df6' }; // as the topics on the home page
   const INFO = {
     speed: { icon: '⚡', name: 'Speed Clicker', text: 'Clicca il pronome giusto prima che scompaia. 5 vite!' },
     subject: { icon: '🎯', name: 'Subject Hunter', text: 'Trova il soggetto della frase e scegli il pronome.' },
@@ -23,6 +24,8 @@
     'sg-apos': { icon: '✍️', name: 'The apostrophe', text: "Tocca il punto giusto per l'apostrofo: cousin's o cousins'?" },
     'sg-tf': { icon: '🤔', name: 'Correct or wrong?', text: "'s per persone e animali, OF per le cose." },
     'sg-final': { icon: '🏁', name: 'Final challenge', text: 'Riscrivi 8 frasi con il Saxon genitive (o con of).' },
+    'ap-cards': { icon: '🃏', name: 'The three cards', text: 'IS, HAS o possessivo? Scegli la carta giusta, come in classe.' },
+    'ap-fire': { icon: '🔥', name: 'Quick Fire', text: 'Stessa sfida, ma hai solo 7 secondi per frase.' },
     's-catch': { icon: '🧲', name: 'Acchiappa il Finale!', text: 'Clicca il finale giusto prima che tocchi terra.' },
   };
 
@@ -1032,6 +1035,100 @@
     }
     round();
   };
+
+  /* ---------- the three 's: is, has or possessive ---------- */
+  const AP_KINDS = [
+    { id: 'is', label: 'IS', bg: '#4aa8ec', fg: '#10244f' },
+    { id: 'has', label: 'HAS', bg: '#f05f4b', fg: '#fff' },
+    { id: 'poss', label: 'possessive ’s', bg: '#8e2de2', fg: '#fff' },
+  ];
+  const AP_NAME = { is: 'IS', has: 'HAS', poss: 'POSSESSIVE ’s' };
+  const apSentence = s => s.replace("'s", '<b class="gq-hl">’s</b>');
+
+  // the same sentences for both games: the three cards (with the explanation) and the timed round
+  function apGame(id, title, { timed }) {
+    setTitle(title);
+    const rounds = shuffle(AP_DATA).slice(0, timed ? 15 : 12);
+    const SECONDS = 7;
+    let idx = 0, score = 0, answered = false, t = SECONDS, timer = null;
+    setScore(0, rounds.length);
+
+    function round() {
+      if (idx >= rounds.length) { showResult(score, rounds.length, id); return; }
+      const r = rounds[idx];
+      answered = false;
+      t = SECONDS;
+      area.innerHTML = `<div class="gq-card">
+        <p class="gq-instr">Che cos'è <span>’s</span> in questa frase? <span>${idx + 1}/${rounds.length}</span></p>
+        ${timed ? '<div class="gq-timer"><i id="gqBar"></i></div>' : `<div class="gq-prog">${dots(rounds.length, idx)}</div>`}
+        <div class="gq-sentence">${apSentence(r.s)}</div>
+        <div class="gq-choices" id="gqChoices"></div><div id="gqNoteBox"></div></div>`;
+      AP_KINDS.forEach(k => {
+        const b = document.createElement('button');
+        b.className = 'gq-choice';
+        b.style.background = k.bg;
+        b.style.color = k.fg;
+        b.textContent = k.label;
+        b.dataset.kind = k.id;
+        b.addEventListener('click', () => answer(k.id, b));
+        $('gqChoices').append(b);
+      });
+      clearInterval(timer);
+      if (timed) timer = setInterval(() => {
+        t--;
+        const bar = $('gqBar');
+        if (bar) {
+          bar.style.width = (t / SECONDS * 100) + '%';
+          bar.style.background = t > 3 ? 'var(--gq-purple)' : t > 1 ? 'var(--gq-coral)' : 'var(--gq-fail)';
+        }
+        if (t <= 0 && !answered) {
+          answered = true;
+          clearInterval(timer);
+          lock(r);
+          $('gqNoteBox').innerHTML = note('bad', `⏱ Tempo scaduto! Era <strong>${AP_NAME[r.a]}</strong>`, r.why);
+          bad();
+          wait(() => { idx++; round(); }, 2200);
+        }
+      }, 1000);
+    }
+
+    // show the right card, grey out the others
+    function lock(r) {
+      area.querySelectorAll('[data-kind]').forEach(b => {
+        b.disabled = true;
+        if (b.dataset.kind === r.a) b.classList.add('c-ok');
+        else b.style.opacity = '.45';
+      });
+    }
+
+    function answer(kind, btn) {
+      if (answered) return;
+      answered = true;
+      clearInterval(timer);
+      const r = rounds[idx];
+      const ok = kind === r.a;
+      lock(r);
+      if (ok) {
+        score++;
+        setScore(score, rounds.length);
+        good();
+        burstAt(btn, btn.style.background);
+      } else {
+        btn.classList.add('c-fail');
+        btn.style.opacity = '1';
+        bad();
+      }
+      $('gqNoteBox').innerHTML = note(ok ? 'good' : 'bad', ok ? '✅ Correct!' : `❌ Era <strong>${AP_NAME[r.a]}</strong>`, r.why)
+        + (timed ? '' : nextBtn(idx + 1 >= rounds.length));
+      if (timed) wait(() => { idx++; round(); }, ok ? 1400 : 2200);
+      else $('gqNext').onclick = () => { idx++; round(); };
+    }
+
+    round();
+    cleanup = () => clearInterval(timer);
+  }
+  GAMES['ap-cards'] = () => apGame('ap-cards', '🃏 The three ’s – the cards', { timed: false });
+  GAMES['ap-fire'] = () => apGame('ap-fire', '🔥 The three ’s – Quick Fire', { timed: true });
 
   /* ================= index of the games on the home page ================= */
 

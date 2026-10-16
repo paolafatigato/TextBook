@@ -231,3 +231,5 @@ html.gq-open { overflow: hidden; scrollbar-gutter: stable; }
   .gq-sentence { font-size: 18px; }
   .gq-letter { font-size: 26px; }
 }
+
+.gq-hl { color: var(--gq-purple); font-size: 1.25em; }

@@ -241,5 +241,29 @@ const SCATCH_DATA=[
     {"prompt":"Domani vado dal dentista per un controllo.","tokens":["Tomorrow","I","am","going","to","the","dentist","'s","for","a","check-up"],"note":"Implied place: the dentist's."},
   ];
 
-  return { SG_ORDER, SG_APOS, SG_TF, SG_FINAL, SUBJECTS, SF_EASY, SF_MED, SF_HARD, QF_DATA, SCATCH_DATA };
+  /* the three 's: is, has or possessive (Animals & have, p. 38) */
+  const AP_DATA = [
+    {s:"My dog's name is Luna.",a:'poss',why:"The name belongs to the dog → possessive. You can't say \"My dog is name\"."},
+    {s:"My dog's very friendly.",a:'is',why:"My dog <b>is</b> very friendly ✓ → IS."},
+    {s:"My dog's got a long tail.",a:'has',why:"My dog <b>has</b> got a long tail ✓ → HAS (it is followed by <i>got</i>)."},
+    {s:"The cat's sleeping on the sofa.",a:'is',why:"The cat <b>is</b> sleeping ✓ → IS + -ing verb."},
+    {s:"The cat's toy is under the table.",a:'poss',why:"The toy belongs to the cat. Then comes another verb (<i>is</i>) → possessive."},
+    {s:"Anna's got three goldfish.",a:'has',why:"Anna <b>has</b> got three goldfish ✓ → HAS."},
+    {s:"Anna's goldfish are orange.",a:'poss',why:"The goldfish belong to Anna → possessive."},
+    {s:"It's a big elephant!",a:'is',why:"It <b>is</b> a big elephant ✓ → IS."},
+    {s:"The elephant's trunk is long.",a:'poss',why:"The trunk belongs to the elephant → possessive."},
+    {s:"My brother's got a pet snake.",a:'has',why:"My brother <b>has</b> got a pet snake ✓ → HAS."},
+    {s:"My sister's very kind.",a:'is',why:"My sister <b>is</b> very kind ✓ → IS."},
+    {s:"My sister's hamster is white.",a:'poss',why:"The hamster belongs to my sister → possessive."},
+    {s:"He's got two rabbits.",a:'has',why:"He <b>has</b> got two rabbits ✓ → HAS. (Pronouns are never possessive with 's!)"},
+    {s:"She's from Italy.",a:'is',why:"She <b>is</b> from Italy ✓ → IS."},
+    {s:"Tom's rabbit is called Bunny.",a:'poss',why:"The rabbit belongs to Tom → possessive."},
+    {s:"The parrot's got green feathers.",a:'has',why:"The parrot <b>has</b> got green feathers ✓ → HAS."},
+    {s:"The parrot's feathers are green.",a:'poss',why:"The feathers belong to the parrot → possessive."},
+    {s:"Max's my best friend.",a:'is',why:"Max <b>is</b> my best friend ✓ → IS."},
+    {s:"Max's got a new bike.",a:'has',why:"Max <b>has</b> got a new bike ✓ → HAS."},
+    {s:"Today's Monday.",a:'is',why:"Today <b>is</b> Monday ✓ → IS."},
+  ];
+
+  return { AP_DATA, SG_ORDER, SG_APOS, SG_TF, SG_FINAL, SUBJECTS, SF_EASY, SF_MED, SF_HARD, QF_DATA, SCATCH_DATA };
 })();
