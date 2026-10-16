@@ -2,6 +2,7 @@
 // Page numbers are the ones printed in the book.
 // A page that is not in the website yet is shown as "coming soon".
 // zoom (optional) enlarges the drawing inside its circle, e.g. 1.5.
+// dy (optional) moves the drawing down by that % of the circle (negative = up).
 
 const CONTENTS = {
   chapters: [
@@ -27,7 +28,7 @@ const CONTENTS = {
       title: 'Greek mythology',
       pages: [30, 39],
       color: '#fe7366',
-      image: 'img/greekstatue-p49.jpg',
+      image: 'img/hades-p34.png',
     },
     {
       title: 'Present Simple',
@@ -71,6 +72,8 @@ const CONTENTS = {
       pages: [106, 115],
       color: '#c97df6',
       image: 'img/alice.png',
+      zoom: 2.7,
+      dy: 12,
       // pages listed with their own colour (first page of the spread → colour)
       linkColors: { 98: '#c9de3c', 100: '#d0144b' },
     },

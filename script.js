@@ -1047,7 +1047,7 @@ function renderHome() {
     return `
       <article class="chapter${off ? ' off' : ''}" style="--c:${esc(ch.color || '#f05f4b')}">
         <a class="chapter-cover" href="#p${firstOpen}">
-          ${ch.image ? `<span class="chapter-pic"><img src="${esc(ch.image)}" alt=""${ch.zoom ? ` style="--zoom:${+ch.zoom}"` : ''}></span>` : ''}
+          ${ch.image ? `<span class="chapter-pic"><img src="${esc(ch.image)}" alt=""${ch.zoom ? ` style="--zoom:${+ch.zoom}${ch.dy ? `;--dy:${+ch.dy}%` : ""}"` : ''}></span>` : ''}
           <span class="chapter-pages">${range(start, end)}</span>
           <h3>${esc(ch.title)}</h3>
         </a>

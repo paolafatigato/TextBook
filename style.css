@@ -1703,7 +1703,7 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
   position: absolute; right: -14px; bottom: -18px; height: 170px; width: 170px; overflow: hidden;
   background: #fff; border-radius: 50%; transition: transform .2s;
 }
-.chapter-pic img { width: 100%; height: 100%; padding: 4px; object-fit: contain; transform: scale(var(--zoom, 1)); }
+.chapter-pic img { width: 100%; height: 100%; padding: 4px; object-fit: contain; transform: translateY(var(--dy, 0%)) scale(var(--zoom, 1)); }
 .chapter-cover:hover .chapter-pic { transform: scale(1.05) rotate(-3deg); }
 .chapter-pages {
   display: inline-block; font: 800 13px 'Nunito', sans-serif; letter-spacing: .05em;
