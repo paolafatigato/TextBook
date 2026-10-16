@@ -1056,15 +1056,16 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .gm button { position: relative; border: 0; margin: 0; padding: .2cqw .4cqw; background: none; cursor: pointer; border-radius: .6cqw; font-family: 'Nunito', sans-serif; }
 .gm button.selected { outline: .25cqw solid #fff; outline-offset: .2cqw; }
 .gm-defs li { height: 11.4cqw; }
-.gm-defs button { width: 17cqw; text-align: left; font-size: 1.75cqw; line-height: 1.15; color: rgba(255,255,255,.85); transform: rotate(38deg); transform-origin: 0 0; }
+.gm-defs button { width: max-content; max-width: 17cqw; text-align: left; font-size: 1.75cqw; line-height: 1.15; color: rgba(255,255,255,.85); transform: rotate(38deg); transform-origin: 0 0; }
 .gm-gods li { height: 9.45cqw; display: flex; align-items: center; justify-content: center; }
 .gm-gods button { font-size: 3.2cqw; font-weight: 800; color: #fdf27a; }
 .gm-adj li { height: 11.5cqw; display: flex; align-items: center; }
 .gm-adj button { font-size: 2.5cqw; font-weight: 800; color: #fff; white-space: nowrap; }
 .match.gm-layer { position: absolute; inset: 0; pointer-events: none; }
-.gm .match-lines line { stroke: rgba(255,255,255,.75); stroke-width: 1.4; }
-.gm .match-lines line.ok { stroke: #c6f5a0; stroke-width: 2.2; }
-.gm .match-lines line.no { stroke: #6b1d16; stroke-width: 2; }
+.gm .match-lines path { fill: none; stroke: rgba(255,255,255,.85); stroke-width: 2; stroke-linecap: round; }
+.gm .match-lines path.ok { stroke: #c6f5a0; stroke-width: 2.6; }
+.gm .match-lines path.no { stroke: #6b1d16; stroke-width: 2.4; stroke-dasharray: 5 4; }
+.gm .match-lines path.drag { stroke: #fff; stroke-dasharray: 6 4; opacity: .8; }
 .page.gm-photo { background: url(img/greekstatue-p49.jpg) center / cover no-repeat; }
 .gm-white { background: #fff; }
 .unit-pill.lit { background: #fe6f61; border: .15cqw solid #ffb3a9; }
@@ -1159,8 +1160,8 @@ input.fill.eg-n { width: 5.4cqw; height: 5.4cqw; padding: 0; border: .14cqw soli
 .eg-total { width: 5.4cqw; height: 5.4cqw; display: grid; place-items: center; font: 3cqw/1 'Patrick Hand', cursive; color: #fd7366; }
 
 /* ---------- p. 30-31: Circe ---------- */
-.circe-quote { font: 700 330px/1 'Fredoka', 'Nunito', sans-serif; fill: #fe7366; }
-.ft-box { z-index: 0; background: #fbeee0; border: .2cqw solid #fbe2d2; border-radius: 6.5cqw; }
+.circe-quote { font: 800 330px/1 'Nunito', sans-serif; fill: #fe7366; }
+.circe-tree-box { z-index: 0; background: #fbeee0; border: .2cqw solid #fbe2d2; border-radius: 6.5cqw; }
 .ft-names text { font-family: 'Quicksand', 'Nunito', sans-serif; font-weight: 600; fill: #333; }
 .fam-bank { margin: 0; z-index: 1; font: 700 1.75cqw/1.55 'Fredoka', 'Nunito', sans-serif; color: #fd7366; word-spacing: 2.6cqw; }
 .fam-list { list-style: none; margin: 0; padding: 0; columns: 2; column-gap: 3.5cqw; counter-reset: fam; font: 500 1.9cqw/1 'Quicksand', 'Nunito', sans-serif; color: #333; }

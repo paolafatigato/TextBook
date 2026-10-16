@@ -199,6 +199,7 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
     persist();
   }
 
+  const curved = box.classList.contains('gm-layer'); // p. 34: curved coloured lines
   function draw() {
     const base = box.getBoundingClientRect();
     if (!base.width) return; // spread not visible
@@ -208,10 +209,15 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
       const a = words[w].getBoundingClientRect();
       const b = defs[d].getBoundingClientRect();
       const dot = a.height * 0.3; // dot sits just outside each button
-      const x1 = a.right - base.left + dot, y1 = a.top + a.height / 2 - base.top;
+      let [x1, y1] = [a.right - base.left + dot, a.top + a.height / 2 - base.top];
+      if (curved && words[w].closest('.gm-defs')) [x1, y1] = rotatedEnd(words[w], base, dot);
       const x2 = b.left - base.left - dot, y2 = b.top + b.height / 2 - base.top;
       const cls = checked ? (words[w].dataset.key === defs[d].dataset.key ? 'ok' : 'no') : '';
-      return `<line class="${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+      if (!curved) return `<line class="${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+      // one colour per god, so the line from its meaning and the line to its adjective match
+      const god = [words[w], defs[d]].find(el => el.closest('[data-shared]'));
+      const hue = GOD_LINES[[...god.closest('ul').querySelectorAll('button')].indexOf(god) % GOD_LINES.length];
+      return `<path class="${cls}" d="${curve(x1, y1, x2, y2)}"${cls ? '' : ` style="stroke:${hue}"`}/>`;
     }).join('');
   }
 
@@ -260,6 +266,7 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
     const base = box.getBoundingClientRect();
     const r = el.getBoundingClientRect();
     const dot = r.height * 0.3;
+    if (side === 'w' && el.closest('.gm-defs')) return rotatedEnd(el, base, dot);
     return [side === 'w' ? r.right - base.left + dot : r.left - base.left - dot, r.top + r.height / 2 - base.top];
   };
 
@@ -278,7 +285,9 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
     const [x1, y1] = dotOf((drag.side === 'w' ? words : defs)[drag.index], drag.side);
     const base = box.getBoundingClientRect();
     draw();
-    svg.insertAdjacentHTML('beforeend', `<line class="drag" x1="${x1}" y1="${y1}" x2="${e.clientX - base.left}" y2="${e.clientY - base.top}"/>`);
+    svg.insertAdjacentHTML('beforeend', curved
+      ? `<path class="drag" d="${curve(x1, y1, e.clientX - base.left, e.clientY - base.top)}"/>`
+      : `<line class="drag" x1="${x1}" y1="${y1}" x2="${e.clientX - base.left}" y2="${e.clientY - base.top}"/>`);
   });
 
   document.addEventListener('pointercancel', () => { if (drag) { drag = null; draw(); } });
@@ -324,6 +333,28 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
   };
 });
 
+// p. 34: the meanings are rotated text; the line starts just after its right-most letter
+function rotatedEnd(el, base, dot) {
+  const o = el.offsetParent.getBoundingClientRect();
+  const ang = 38 * Math.PI / 180; // same angle as .gm-defs button in style.css
+  const [cos, sin] = [Math.cos(ang), Math.sin(ang)];
+  // measure the text unrotated, relative to the top-left corner the rotation turns around
+  const saved = el.style.transform;
+  el.style.transform = 'none';
+  const r = document.createRange();
+  r.selectNodeContents(el);
+  const b = el.getBoundingClientRect();
+  const ends = [...r.getClientRects()].map(l => {
+    const [lx, ly] = [l.right - b.left + l.height * 0.6, l.top + l.height / 2 - b.top];
+    return [lx * cos - ly * sin, lx * sin + ly * cos];
+  });
+  el.style.transform = saved;
+  const [x, y] = ends.reduce((m, p) => (p[0] > m[0] ? p : m));
+  return [o.left + el.offsetLeft + x - base.left, o.top + el.offsetTop + y - base.top];
+}
+// S-shaped line between two points (horizontal at both ends)
+const curve = (x1, y1, x2, y2) => { const k = Math.max(Math.abs(x2 - x1) / 2, 60); return `M${x1},${y1} C${x1 + k},${y1} ${x2 - k},${y2} ${x2},${y2}`; };
+const GOD_LINES = ['#ffffff', '#fdf27a', '#c6f5a0', '#bfe6ff', '#e9ccff', '#ffd9a0', '#a8f0e0'];
 function redrawAllMatches() { matches.forEach(m => m.draw()); }
 window.addEventListener('resize', redrawAllMatches);
 document.fonts?.ready.then(redrawAllMatches);
