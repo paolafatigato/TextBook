@@ -1140,7 +1140,7 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .tips li > div { align-self: start; }
 .tips b { font-weight: 800; color: #222; }
 .tips input.fill, .tips .tips-ex { height: 3.4cqw; border-bottom: .14cqw solid #b9b6d3; margin-bottom: 2.2cqw; }
-.tips .tips-ex { display: flex; align-items: flex-end; padding-left: 1.4cqw; font: 500 2.6cqw/1 'Caveat', cursive; color: #555; }
+.tips .tips-ex { display: flex; align-items: flex-end; padding-left: 1.4cqw; font: 400 2.4cqw/1 'Scritturapaola', 'Caveat', cursive; color: #555; }
 .tips.costumes li { min-height: 8.7cqw; }
 .eg-title { margin: 0; font: 700 6cqw/1 'Quicksand', 'Nunito', sans-serif; color: #f9a191; letter-spacing: .01em; }
 .eg-box { background: #fef0ee; }
@@ -3745,3 +3745,8 @@ body.zoomed .toolbar { position: sticky; left: 0; width: 100vw; }
 .mz-cell.ok { color: #2e7d32; font-weight: 800; }
 .mz-cell.no { color: #c62828; font-weight: 800; text-decoration: line-through; }
 .mz-label { font: 800 1.4cqw/1 'Fredoka', 'Nunito', sans-serif; color: #e5533d; letter-spacing: .05em; white-space: nowrap; }
+
+/* pp. 42-45: the examples already filled in are in Paola's handwriting / print letters */
+.letter-list.ps41 .ink.line { font: 400 2.2cqw/1 'Scritturapaola', 'Caveat', cursive; }
+.adv-lines li .ink { font-family: 'Stampatellopaola', 'Caveat', cursive; font-weight: 400; }
+.num-lines.ps-num .ink.line, .num-lines.ps-num .ink.line.caps { font: 400 1.5cqw/1 'Stampatellopaola', 'Caveat', cursive; text-transform: uppercase; letter-spacing: .1em; white-space: nowrap; }
