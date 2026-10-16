@@ -2,6 +2,11 @@
    so the page scales as one piece and keeps the printed layout. */
 
 @font-face {
+  font-family: 'Scritturapaola';
+  src: url('fonts/Scritturapaola-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
   font-family: 'Stampatellopaola';
   src: url('fonts/Stampatellopaola-Regular.ttf') format('truetype');
   font-display: swap;
@@ -749,7 +754,7 @@ input.fill.nb-num.no { background: #e53935; color: #fff; }
 .pa-list { margin: 0; padding-left: 3.4cqw; font: 400 1.6cqw/1 'Nunito', sans-serif; color: #333; }
 .pa-list li { height: 4.2cqw; display: list-item; line-height: 4.2cqw; padding-left: .8cqw; }
 .pa-list input.fill.blank { width: 7.5cqw; height: 2.6cqw; border-bottom: .14cqw solid #888; vertical-align: baseline; }
-.ink-para { font: 500 1.9cqw/1.25 'Caveat', cursive; color: #333; text-align: justify; }
+.ink-para { font: 400 1.9cqw/1.25 'Scritturapaola', 'Caveat', cursive; color: #333; text-align: justify; }
 .ink-para u { text-decoration-thickness: .12cqw; text-underline-offset: .3cqw; }
 .lined-box { background: #f5ecfd; }
 .lined-box textarea.fill {
@@ -773,7 +778,7 @@ input.fill.nb-num.no { background: #e53935; color: #fff; }
 .stack-list li > i { font: 700 1.15cqw/1.6 'Nunito', sans-serif; font-style: normal; color: #4aa8ec; }
 .stack-list li > :nth-child(3) { grid-column: 2; }
 .stack-list input.fill, .stack-list .ink.line { height: 3.2cqw; border-bottom: .14cqw solid #b9b6d3; font-size: 1.9cqw; }
-.stack-list .ink.line { font: 2.2cqw/1 'Caveat', cursive; text-transform: uppercase; letter-spacing: .3em; }
+.stack-list .ink.line { font: 400 2.2cqw/1 'Stampatellopaola', 'Caveat', cursive; text-transform: uppercase; letter-spacing: .14em; }
 .stack-list.right li { margin-bottom: 2.4cqw; }
 .stack-list.right li > i, .letter-list.small li > i { color: #c08be8; }
 
@@ -1041,7 +1046,7 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .flap-left .flap.back { transform: none; visibility: visible; transition: transform .3s ease-out .3s, visibility 0s .3s; }
 @media print { .flap { display: none; } }
 
-/* ---------- p. 30-31: Greek mythology ---------- */
+/* ---------- p. 32-33: Greek mythology ---------- */
 .page.gm-page { background: #fe7366; }
 .gm-title { margin: 0; font: 300 16.4cqw/.93 'Quicksand', 'Nunito', sans-serif; color: #fff; letter-spacing: -.01em; }
 .gm-title span { color: #fdf27a; }
@@ -1072,7 +1077,7 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .gm-q i { align-self: center; text-align: right; font-style: normal; color: #9ccdf3; }
 .gm-q input.fill { grid-column: 1; justify-self: end; width: 26cqw; height: 3.1cqw; border-bottom: .14cqw solid #b6d8f3; font-size: 1.9cqw; text-align: right; }
 
-/* ---------- p. 32-33: Persephone ---------- */
+/* ---------- p. 34-35: Persephone ---------- */
 .ps-title { margin: 0; font: 400 7cqw/1 'Quicksand', 'Nunito', sans-serif; color: #fd7366; letter-spacing: .01em; }
 .ps-sub { margin: 0; font: 400 2.2cqw/1 'Nunito', sans-serif; color: #8cc8f2; }
 .ps-box { z-index: 1; padding: 3.4cqw 2cqw 2.4cqw 2cqw; background: linear-gradient(90deg, #fbebd9, #fffaf4 85%, #fff); font: 400 1.75cqw/1.45 'Nunito', sans-serif; color: #555; }
@@ -1096,7 +1101,7 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .ps-list.tight li { height: 3.37cqw; line-height: 3.37cqw; }
 .ps-list input.fill.blank { width: 8.5cqw; height: 2.4cqw; font-size: 1.9cqw; }
 
-/* ---------- p. 34-35: Persephone, the play ---------- */
+/* ---------- p. 36-37: Persephone, the play ---------- */
 .play { z-index: 1; padding: 1.4cqw 2cqw 1.4cqw 1.8cqw; background: linear-gradient(90deg, #fbebd9, #fffaf4 80%, rgba(255,255,255,0)); font: 400 1.75cqw/1.45 'Nunito', sans-serif; color: #444; }
 .play p { position: relative; margin: 0 0 2.2cqw; }
 .play p:last-child { margin-bottom: 0; }
@@ -1122,7 +1127,7 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .play b.hl::before { content: ""; position: absolute; top: 0; bottom: 0; right: 100%; width: 3.3cqw; background: #fdf57a; }
 .play-art { position: absolute; left: 24.2%; top: 2.55%; width: 53%; height: 106.1%; } /* img/persephone.png is a whole page: this puts the figure in the gap at the fold */
 
-/* ---------- p. 36-37: acting tips, evaluation grid ---------- */
+/* ---------- p. 38-39: acting tips, evaluation grid ---------- */
 .page.at-page { background: #fef1ef; }
 .at-title { font: 500 34px/1 'Quicksand', 'Nunito', sans-serif; fill: #f9a191; letter-spacing: 8px; }
 .pk-num { font: 700 1.2cqw/1 'Nunito', sans-serif; color: #fff; background: #fdd9d3; border-radius: 999px; padding: .6cqw 1.4cqw; }
@@ -1152,7 +1157,7 @@ input.fill.eg-n { width: 5.4cqw; height: 5.4cqw; padding: 0; border: .14cqw soli
 .eg-score > span { padding-bottom: 1.6cqw; font: 700 2.2cqw/1 'Nunito', sans-serif; color: #fd7366; }
 .eg-total { width: 5.4cqw; height: 5.4cqw; display: grid; place-items: center; font: 3cqw/1 'Patrick Hand', cursive; color: #fd7366; }
 
-/* ---------- p. 38-39: Circe ---------- */
+/* ---------- p. 30-31: Circe ---------- */
 .circe-quote { font: 700 330px/1 'Fredoka', 'Nunito', sans-serif; fill: #fe7366; }
 .ft-box { z-index: 0; background: #fbeee0; border: .2cqw solid #fbe2d2; border-radius: 6.5cqw; }
 .ft-names text { font-family: 'Quicksand', 'Nunito', sans-serif; font-weight: 600; fill: #333; }
@@ -2035,21 +2040,7 @@ textarea.fill.pd-lines { padding: 0 1cqw; font-size: 2.2cqw; line-height: 5cqw; 
 .mt-vs p + p b { color: #8e2de2; }
 .mt-vs i { display: block; margin-top: .4cqw; font-size: 1.6cqw; color: #333; }
 
-/* the 4 rules on the first page: each one is a link to its page */
-.mt-map { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2.2cqw; }
-.mt-map a { display: flex; align-items: center; gap: 1.6cqw; padding: 1.7cqw 2cqw; border-radius: 999px; background: var(--rbg); border: .2cqw solid var(--rc); text-decoration: none; font: 700 1.95cqw/1.2 'Nunito', sans-serif; color: #333; }
-.mt-map a:hover { filter: brightness(.97); }
-.mt-map b { flex: 0 0 4cqw; height: 4cqw; border-radius: 50%; background: var(--rc); color: #fff; text-align: center; font: 700 2.2cqw/4cqw 'Fredoka', sans-serif; }
-.mt-map span { flex: 1; }
-.mt-map small { font: 700 1.25cqw/1 'Nunito', sans-serif; color: var(--rc); }
 
-/* rule pages: a coloured band and the title of the rule */
-.mt-band { position: absolute; left: 0; top: 0; width: 100%; height: 13cqw; background: var(--rbg); border-bottom: .4cqw solid var(--rc); z-index: 0; }
-.mt-rulehead span { display: inline-block; padding: .5cqw 1.6cqw; border-radius: 999px; background: var(--rc); color: #fff; font: 800 1.3cqw/1 'Nunito', sans-serif; letter-spacing: .14em; }
-.mt-rulehead h1 { margin: .8cqw 0 0; font: 700 3.6cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--rc); }
-.mt-rulehead.small h1 { font-size: 3.2cqw; }
-.mt-rain { height: auto; pointer-events: none; }
-.mt-rain image { width: 200px; }
 
 /* rule pages use the rule colour for pills and numbers */
 .mt-r1 .lt-pill, .mt-r2 .lt-pill, .mt-r3 .lt-pill, .mt-r4 .lt-pill { background: var(--rbg); color: #777; }
@@ -2151,11 +2142,6 @@ textarea.fill.pd-lines { padding: 0 1cqw; font-size: 2.2cqw; line-height: 5cqw; 
 .mt-sent span + span b { color: #f6a978; }
 
 /* p. 71: simile vs metaphor */
-.mt-circle { aspect-ratio: 1; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 4cqw; overflow: hidden; }
-.mt-circle span { font-size: 9cqw; line-height: 1; }
-.mt-circle b { margin-top: .8cqw; font: 800 1.9cqw/1 'Nunito', sans-serif; letter-spacing: .14em; color: #fff; }
-.mt-circle.coral { background: var(--coral-soft); }
-.mt-circle.lilac { background: #c08be8; }
 .mt-cap { margin: 0; font: 800 2.3cqw/1.2 'Nunito', sans-serif; color: #333; }
 .mt-cap small { display: block; margin-top: .5cqw; font: 400 1.25cqw/1.2 'Nunito', sans-serif; color: #888; }
 .mt-sm p { display: flex; align-items: flex-end; gap: 1.2cqw; margin: 0; height: 5.2cqw; border-bottom: .14cqw solid #e6e2ef; }
@@ -3721,3 +3707,39 @@ body.zoomed .toolbar { position: sticky; left: 0; width: 100vw; }
 .bw .big-quote { color: #f7d3a1; }
 /* first pages: click a word to highlight it */
 .cor-text .w.ul, .cc-text .w.ul, .bw-text .w.ul { text-decoration: none; background: #fdf27a; }
+
+/* ---------- p. 29.1-29.2: common mistakes (owners) ---------- */
+.mk-title { font: 700 4.6cqw/1 'Fredoka', 'Nunito', sans-serif; color: #fff; }
+.mk-sub { font: italic 600 1.8cqw/1.2 'Nunito', sans-serif; color: rgba(255,255,255,.9); }
+.mk-card { background: #fff; border-radius: 1.4cqw; padding: 1.2cqw 1.6cqw 1.3cqw; box-shadow: 0 .3cqw 1cqw rgba(40,60,120,.14); }
+.mk-card p { margin: 0; font: 600 1.7cqw/1.3 'Nunito', sans-serif; color: #333; }
+.mk-card p::before { display: inline-block; width: 1.9cqw; font-weight: 800; }
+.mk-card .no { color: #999; text-decoration: line-through #e5533d .18cqw; }
+.mk-card .no::before { content: "✗"; color: #e5533d; text-decoration: none; }
+.mk-card .yes::before { content: "✓"; color: #43a047; }
+.mk-card .yes b { color: #2e7d32; }
+.mk-card .why { margin-top: .5cqw; font: italic 400 1.3cqw/1.25 'Nunito', sans-serif; color: #6b6880; }
+.mk-card .why::before { content: ""; width: 0; }
+.pick-list { list-style: none; margin: 0; padding: 0; font: 400 1.6cqw/1.3 'Nunito', sans-serif; color: #333; }
+.pick-list li { display: flex; align-items: center; flex-wrap: wrap; gap: 1cqw; height: 5.4cqw; }
+.pick-list li > i { flex: 0 0 2cqw; font: 700 1.15cqw/1 'Nunito', sans-serif; font-style: normal; color: #4aa8ec; }
+.opt.pick { display: inline-flex; gap: .6cqw; padding: .4cqw; border-radius: 999px; background: #f1e3fc; }
+.opt.pick button { height: 3cqw; padding: 0 1.4cqw; border: 0; border-radius: 999px; cursor: pointer; background: transparent; color: #7b3fc4; font: 700 1.6cqw/1 'Nunito', sans-serif; }
+.opt.pick button.on { background: #8e2de2; color: #fff; }
+.opt.pick.ok { box-shadow: 0 0 0 .25cqw #43a047; }
+.opt.pick.no { box-shadow: 0 0 0 .25cqw #e53935; }
+.row-list { list-style: none; margin: 0; padding: 0; font: 400 1.6cqw/1.3 'Nunito', sans-serif; color: #333; }
+.row-list li { display: flex; align-items: flex-end; gap: 1cqw; height: 5cqw; }
+.row-list li > i { flex: 0 0 2cqw; font: 700 1.15cqw/1.8 'Nunito', sans-serif; font-style: normal; color: #4aa8ec; }
+.row-list li > span { flex: 0 0 auto; white-space: nowrap; padding-bottom: .3cqw; }
+.row-list input.fill { flex: 1; min-width: 10cqw; height: 3.2cqw; border-bottom: .14cqw solid #b9b6d3; font-size: 1.9cqw; }
+.mz { position: relative; width: calc(var(--w) * 1cqw); height: calc(var(--h) * 1cqw); touch-action: none; user-select: none; -webkit-user-select: none; }
+.mz-thread { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.mz-thread polyline { fill: none; stroke: #b5e88a; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
+.mz-grid { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(8, 1fr); grid-template-rows: repeat(9, 1fr); }
+.mz svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.mz-cell { display: flex; align-items: center; justify-content: center; margin: .35cqw; padding: 0 .3cqw; border-radius: .6cqw; cursor: pointer; font: 600 1.15cqw/1.1 'Nunito', sans-serif; color: #444; text-align: center; }
+.mz-cell { position: relative; }
+.mz-cell.ok { color: #2e7d32; font-weight: 800; }
+.mz-cell.no { color: #c62828; font-weight: 800; text-decoration: line-through; }
+.mz-label { font: 800 1.4cqw/1 'Fredoka', 'Nunito', sans-serif; color: #e5533d; letter-spacing: .05em; white-space: nowrap; }

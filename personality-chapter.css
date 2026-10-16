@@ -1,5 +1,5 @@
 /* ======================================================================
-   Personality chapter (pp. 76-91): Big 5, Villain Lab, villain files.
+   Personality chapter (pp. 78-93): Big 5, Villain Lab, villain files.
    Same palette as the book (coral, lilac, purple, lime, pink, navy);
    added: wavy ribbons, flower and sparkle shapes, arch frames, offset
    shadows, pill labels and tinted rows. Text stays dark on light.
@@ -36,8 +36,8 @@
   background-position: 0 100%;
 }
 /* sparkles only where the top corner is free */
-.spread[data-pages="76-77"] .pd-page.page-left::before,
-.spread[data-pages="86-87"] .pd-page.page-left::before {
+.spread[data-pages="78-79"] .pd-page.page-left::before,
+.spread[data-pages="88-89"] .pd-page.page-left::before {
   background-image: var(--p-wave), var(--p-spark-l), var(--p-spark);
   background-size: 100% 10cqw, 4.5cqw 4.5cqw, 3cqw 3cqw;
   background-position: 0 100%, 91cqw 3cqw, 87cqw 9.5cqw;
@@ -62,7 +62,7 @@
 .spread[data-title="Personality"] .check { background: var(--p-purple); box-shadow: .3cqw .3cqw 0 var(--p-lilac-mid); padding: .75cqw 1.5cqw; }
 .spread[data-title="Personality"] .check:hover { background: #7a1fcc; }
 
-/* --- p. 76: OCEAN list and spectrum box --- */
+/* --- p. 78: OCEAN list and spectrum box --- */
 .spread[data-title="Personality"] .b5-ocean li > b { color: var(--p-ink); box-shadow: .4cqw .4cqw 0 var(--p-ink); }
 .spread[data-title="Personality"] .b5-ocean .tr { border: .22cqw solid var(--p-ink); background: color-mix(in srgb, var(--tc) 38%, #fff); }
 .spread[data-title="Personality"] .b5-ocean .mn { font-size: 2cqw; color: var(--p-ink); }
@@ -72,7 +72,7 @@
 .spread[data-title="Personality"] .b5-line h3 { color: var(--p-purple); font-size: 2cqw; }
 .spread[data-title="Personality"] .b5-line ul { color: var(--p-ink); font-size: 1.55cqw; }
 
-/* --- pp. 77-81: one card per trait --- */
+/* --- pp. 79-83: one card per trait --- */
 .spread[data-title="Personality"] .page.b5c::before {
   background: color-mix(in srgb, var(--tc) 50%, #fff);
   -webkit-mask: var(--p-flower) no-repeat right -9cqw top 40cqw / 24cqw 24cqw, var(--p-flower) no-repeat left -11cqw bottom 6cqw / 18cqw 18cqw;
@@ -127,7 +127,7 @@
 .spread[data-title="Personality"] .vl-pick { align-items: center; }
 .spread[data-title="Personality"] .vl-pick > span { padding: .7cqw 1.6cqw; border-radius: 999px; background: var(--p-purple); color: #fff; }
 
-/* --- pp. 82-83: scoring grid and tables --- */
+/* --- pp. 84-85: scoring grid and tables --- */
 .spread[data-title="Personality"] .b5-sec h3 { display: flex; align-items: center; color: var(--p-coral-deep); }
 .spread[data-title="Personality"] .b5-sec h3::after { content: ""; flex: 1; height: .5cqw; margin-left: 1.4cqw; border-radius: 99px; background: var(--p-lilac); }
 .spread[data-title="Personality"] .b5-sec li { color: var(--p-ink); font-size: 1.7cqw; }
@@ -144,7 +144,7 @@
 .spread[data-title="Personality"] .match.b5m .match-defs button,
 .spread[data-title="Personality"] .match.vl-gl .match-defs button { color: var(--p-ink); }
 
-/* --- p. 90: my flaws --- */
+/* --- p. 92: my flaws --- */
 .spread[data-title="Personality"] .vl-title {
   background: var(--p-purple); color: var(--p-lime); border: .3cqw solid var(--p-ink);
   box-shadow: .7cqw .7cqw 0 var(--p-coral); border-radius: 2.4cqw;
@@ -161,7 +161,7 @@
 .spread[data-title="Personality"] .vl-flaw button.on { background: var(--c); box-shadow: inset 0 0 0 .35cqw #fff; }
 .spread[data-title="Personality"] .vl-pick input.fill { border-bottom-color: var(--p-ink); }
 
-/* --- pp. 87 and 91: the villain file --- */
+/* --- pp. 89 and 91: the villain file --- */
 .spread[data-title="Personality"] .page.vl-sheet { background: var(--p-cream); }
 .spread[data-title="Personality"] .vl-sheet::before {
   background-image: var(--p-wave-l);
@@ -208,8 +208,8 @@
   background: repeating-linear-gradient(transparent 0 calc(3.9cqw - 1px), #b7aed6 calc(3.9cqw - 1px) 3.9cqw);
 }
 
-/* p. 87: the example file is printed text, so black instead of the students' blue handwriting */
-.spread[data-title="Personality"] .vl-sheet[aria-label="Page 87"] :is(.vl-name span, .vl-field .line, .vl-text, .vl-hex p, .vl-box p, .vl-small) { color: #000; }
+/* p. 89: the example file is printed text, so black instead of the students' blue handwriting */
+.spread[data-title="Personality"] .vl-sheet[aria-label="Page 89"] :is(.vl-name span, .vl-field .line, .vl-text, .vl-hex p, .vl-box p, .vl-small) { color: #000; }
 
 /* Laila: the hand leaves the frame on the left; Eli: the ears leave it at the top */
 .spread[data-title="Personality"] .b5c-face img[alt="laila"] { align-self: flex-end; width: 36cqw; max-width: none; max-height: none; }

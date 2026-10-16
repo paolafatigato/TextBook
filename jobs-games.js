@@ -1,4 +1,4 @@
-// Jobs & CVs (pp. 138-149): the word search on p. 139 and the jobs games.
+// Jobs & CVs (pp. 144-155): the word search on p. 145 and the jobs games.
 // The games open in a pop-up that looks like the Romeo & Juliet ones:
 // a button with data-jb="who" opens that game, data-jb="" opens the menu with all the games.
 
@@ -11,7 +11,7 @@
   };
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-  /* ---------- p. 139: word search ---------- */
+  /* ---------- p. 145: word search ---------- */
   // Click the first letter of a word, then the last one (or drag from the first to the last).
   // Words can go across, down or backwards; each found word gets a coloured capsule.
   const COLOURS = ['#f9b11a', '#6cc4b8', '#eab3d4', '#ee3a37', '#7a6bb5'];
@@ -156,7 +156,7 @@
       ['CHEF', 'Cooks in a restaurant'], ['AUTHOR', 'Writes books'], ['MUSICIAN', 'Plays music'], ['CHILDMINDER', 'Looks after children'],
       ['SOLDIER', 'Is part of the army'], ['RESUME', 'The American word for CV'], ['SKILLS', 'What you are good at'],
     ],
-    // "Who am I?" (p. 143): the yes/no questions and, for each secret job, the questions with
+    // "Who am I?" (p. 149): the yes/no questions and, for each secret job, the questions with
     // the answer "yes" (y) and "sometimes" (s); every other answer is "no"
     questions: {
       money: 'Do I make a lot of money?', university: 'Do I need to go to university?', famous: 'Am I famous?',

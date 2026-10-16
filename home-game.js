@@ -1,7 +1,7 @@
-// Home (pp. 50-55): the logic of "Home Sweet Vocab".
-// p. 50: spell the word → the object is unlocked.
-// p. 51: drag the unlocked objects into the house (as many as you like).
-// pp. 53-55: room missions (bedroom, living room, kitchen), every object once: the missions check the prepositions of place.
+// Home (pp. 52-57): the logic of "Home Sweet Vocab".
+// p. 52: spell the word → the object is unlocked.
+// p. 53: drag the unlocked objects into the house (as many as you like).
+// pp. 55-57: room missions (bedroom, living room, kitchen), every object once: the missions check the prepositions of place.
 // What students do is kept in `saved` (script.js), so "Clear answers" empties it too.
 
 (() => {
@@ -43,7 +43,7 @@
   const BY_KEY = Object.fromEntries(WORDS.map(o => [o.k, o]));
   const models = k => BY_KEY[k]?.m || [k.replace(/ /g, '-')];
 
-  // objects that are only in the room missions, not in the cards of p. 50
+  // objects that are only in the room missions, not in the cards of p. 52
   const EXTRA = {
     bin: { k: 'bin', emoji: '🗑️' },
     pot: { k: 'pot', emoji: '🍲' },
@@ -52,11 +52,11 @@
   };
   const PLURAL = new Set(['curtains', 'books', 'mugs']);
 
-  // Room missions (pp. 53-55): every object is in the room once.
+  // Room missions (pp. 55-57): every object is in the room once.
   // objects: width in % of the room width, f = which drawing of the word.
   const ROOMS = [
     {
-      id: 'r', // p. 53: bedroom / study
+      id: 'r', // p. 55: bedroom / study
       objects: { window: 18, table: 22, computer: 10, chair: 9, plant: 8, sofa: 28, pouf: 12, clock: 7, shelf: 18, lamp: 6, bin: 7 },
       missions: [
         { a: 'table', rel: 'under', b: 'window' },
@@ -73,7 +73,7 @@
       ],
     },
     {
-      id: 'l', // p. 54: living room
+      id: 'l', // p. 56: living room
       objects: { window: 18, curtains: 26, sofa: 28, 'floor lamp': 12, 'side table': 8, lamp: 6, bookcase: 11, books: 6, clock: 7, plant: 8, armchair: 13, pouf: 10 },
       missions: [
         { a: 'curtains', rel: 'in front of', b: 'window' },
@@ -88,7 +88,7 @@
       ],
     },
     {
-      id: 'k', // p. 55: kitchen
+      id: 'k', // p. 57: kitchen
       objects: { window: 18, fridge: 11, sink: 17, cooker: 15, cupboard: 16, pot: 8, kettle: 6, table: { w: 24, f: 'table-2' }, 'fruit bowl': 8, mugs: 7, chair: { w: 9, f: 'chair-2' }, stool: 7 },
       missions: [
         { a: 'sink', rel: 'under', b: 'window' },
@@ -155,7 +155,7 @@
     return img;
   }
 
-  /* ================= p. 50: spell → unlock ================= */
+  /* ================= p. 52: spell → unlock ================= */
 
   const shuffle = word => {
     const letters = word.replace(/ /g, '').toUpperCase().split('');
@@ -197,7 +197,7 @@
       tile.append(picture(o.k, '', f));
       pic.append(tile);
       if (unlocked) {
-        tile.title = 'Drag me into the house (p. 51)';
+        tile.title = 'Drag me into the house (p. 53)';
         dragSource(tile, () => ({ k: o.k, f, zone: 'h' }));
       }
     });
@@ -208,7 +208,7 @@
     el.append(pic, tl);
 
     if (unlocked) {
-      el.insertAdjacentHTML('beforeend', '<span class="hm-status">✔ drag it to p. 51 →</span>');
+      el.insertAdjacentHTML('beforeend', '<span class="hm-status">✔ drag it to p. 53 →</span>');
       return el;
     }
     const row = document.createElement('div');
@@ -285,7 +285,7 @@
   }
 
   /* ================= dragging ================= */
-  // From a card (p. 50) or the palette (p. 53) into a .hm-drop area.
+  // From a card (p. 52) or the palette (p. 55) into a .hm-drop area.
   // Works with mouse, pen and fingers (pointer events).
 
   let ghost = null;
@@ -473,7 +473,7 @@
     if (roomOf(area)) missions(roomOf(area));
   });
 
-  /* ================= pp. 53-55: room missions ================= */
+  /* ================= pp. 55-57: room missions ================= */
 
   function drawPalette(room) {
     room.palette.replaceChildren(...Object.entries(room.objects).map(([k, { f }]) => {
@@ -548,7 +548,7 @@
     missions(room);
   }));
 
-  /* ================= p. 52: drawings still to be added ================= */
+  /* ================= p. 54: drawings still to be added ================= */
 
   document.querySelectorAll('img[data-missing]').forEach(img => {
     const empty = () => {

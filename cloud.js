@@ -32,15 +32,32 @@ const isDrawing = v => typeof v === 'string' && v.startsWith('data:');
 
 /* ---------- which pages students can see ---------- */
 
-// pp. 142–169 moved forward by 2 when "Who am I?" (pp. 142–143) was added: a list saved
-// before that (no pagesVersion) still uses the old numbers
-const PAGES_VERSION = 2;
-const renumber = k => { const [a, b] = k.split('-').map(Number); return a >= 142 && b <= 169 ? `${a + 2}-${b + 2}` : k; };
+// A saved list is a list of spreads like "142-143". The numbers changed twice:
+//  - version 2: pp. 142–169 moved forward by 2 when "Who am I?" (pp. 142–143) was added
+//  - version 3: all the pages were renumbered 2, 3, 4… without gaps (the spreads below, in order, are now 2-3, 4-5, 6-7…)
+// A list saved before a change still uses the old numbers: convert it, and drop the spreads that no longer exist.
+const PAGES_VERSION = 3;
+const V2_SPREADS = [
+  '2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15', '16-17', '18-19', '20-21', '22-23', '24-25',
+  '26-27', '28-29', '29.1-29.2', '30-31', '32-33', '34-35', '36-37', '38-39', '40-41', '42-43', '44-45',
+  '46-47', '48-49', '50-51', '52-53', '54-55', '56-57', '58-59', '60-61', '62-63', '64-65', '66-67', '68-69',
+  '70-71', '72-73', '74-75', '76-77', '78-79', '80-81', '82-83', '84-85', '86-87', '88-89', '90-91', '92-93',
+  '94-95', '96-97', '98-99', '100-101', '102-103', '104-105', '106-107', '108-109', '110-111', '112-113',
+  '114-115', '116-117', '118-119', '120-121', '122-123', '124-125', '126-127', '128-129', '130-131',
+  '132-133', '134-135', '136-137', '137.1-137.2', '137.3-137.4', '138-139', '140-141', '142-143', '144-145',
+  '146-147', '148-149', '150-151', '152-153', '154-155', '156-157', '158-159', '160-161', '162-163',
+  '164-165', '166-167', '168-169', '170-171', '202-203', '204-205', '206-207', '222-223', '224-225',
+  '226-227', '228-229', '230-231', '232-233', '242-243', '244-245', '246-247', '248-249', '250-251',
+  '252-253', '254-255',
+];
+const toV2 = k => { const [a, b] = k.split('-').map(Number); return a >= 142 && b <= 169 ? `${a + 2}-${b + 2}` : k; };
+const toV3 = k => { const i = V2_SPREADS.indexOf(k); return i < 0 ? null : `${2 + 2 * i}-${3 + 2 * i}`; };
 
 onSnapshot(doc(db, 'config', 'visibility'), snap => {
   const data = snap.exists() ? snap.data() : {};
   const spreads = data.spreads || [];
-  book.setVisible(data.pagesVersion >= PAGES_VERSION ? spreads : spreads.map(renumber));
+  const v = data.pagesVersion || 1;
+  book.setVisible(v >= 3 ? spreads : (v >= 2 ? spreads : spreads.map(toV2)).map(toV3).filter(Boolean));
 }, err => console.error('Cannot read the visible pages:', err.code, err.message));
 
 book.onSaveVisible = async spreads => {

@@ -14,7 +14,7 @@ function persist() {
 // cloud.js (Firebase) fills this in. Students see only the spreads the teacher ticked;
 // the teacher sees everything and can tick them in the panel.
 
-const VISIBLE_KEY = 'libro-visible';
+const VISIBLE_KEY = 'libro-visible-v3'; // v3: pages renumbered 2, 3, 4…
 let visibleSpreads = new Set();
 try { visibleSpreads = new Set(JSON.parse(localStorage.getItem(VISIBLE_KEY)) || []); } catch { /* none yet */ }
 let account = null; // { name, email, teacher }
@@ -88,10 +88,16 @@ function show(index) {
 
 function goToPage(n) {
   if (!Number.isFinite(n)) return;
-  n = Math.max(firstPage, Math.min(lastPage, n));
-  const i = spreads.findIndex(s => { const [a, b] = pagesOf(s); return n >= a && n <= b; });
-  // a page that is not in the book yet: go to the closest spread before it
-  show(i >= 0 ? i : spreads.findLastIndex(s => pagesOf(s)[0] <= n));
+  // the spread holding page n if the reader can open it, otherwise the closest one they can open
+  let best = -1, bestDist = Infinity;
+  spreads.forEach((s, i) => {
+    if (!canSee(s)) return;
+    const [a, b] = pagesOf(s);
+    const dist = n < a ? a - n : n > b ? n - b : 0;
+    if (dist < bestDist) { best = i; bestDist = dist; }
+  });
+  if (best < 0) { showHome(); return; }
+  show(best);
 }
 
 function showHome() {
@@ -172,7 +178,7 @@ document.querySelectorAll('.check[data-list]').forEach(btn => {
 /* ================= connect the words ================= */
 // Click a word, then its meaning (or the other way round) to draw a line,
 // or drag the line from one to the other. Click a connected item again to remove its line.
-// Three columns (p. 30): a .match-set holds the lists and two .match layers,
+// Three columns (p. 34): a .match-set holds the lists and two .match layers,
 // each one says which buttons it connects (data-words / data-defs).
 
 const matches = [...document.querySelectorAll('.match')].map(box => {
@@ -444,6 +450,112 @@ toggles.forEach(el => {
   });
 });
 
+/* ================= maze: drag a thread from START (p. 31) ================= */
+// Press on the first cell (or on the end of the thread) and drag: the thread goes into the next
+// cell only when no wall is in between; dragging back onto the cell before rolls it up again.
+// A click on the next cell lengthens the thread by one step.
+
+const mazes = [...document.querySelectorAll('.mz')].map(box => {
+  const cols = +box.dataset.cols, rows = +box.dataset.rows;
+  const cells = [...box.querySelectorAll('.mz-cell')];
+  const walls = box.querySelector('svg');
+  const [, , W, H] = walls.getAttribute('viewBox').split(' ').map(Number);
+  const cw = W / cols, ch = H / rows;
+  const segs = [...walls.querySelectorAll('path')].map(p => p.getAttribute('d').match(/[\d.]+/g).map(Number));
+  const near = (a, b) => Math.abs(a - b) < .01;
+  // is there a wall on the line x (vertical) or y (horizontal) between from and to?
+  const wallV = (x, y1, y2) => segs.some(([a, b, c, d]) => near(a, x) && near(c, x) && Math.min(b, d) <= y1 + .01 && Math.max(b, d) >= y2 - .01);
+  const wallH = (y, x1, x2) => segs.some(([a, b, c, d]) => near(b, y) && near(d, y) && Math.min(a, c) <= x1 + .01 && Math.max(a, c) >= x2 - .01);
+  const open = (i, j) => {
+    const [r, c] = [Math.floor(i / cols), i % cols], [s, t] = [Math.floor(j / cols), j % cols];
+    if (r === s && Math.abs(c - t) === 1) return !wallV(Math.max(c, t) * cw, r * ch, (r + 1) * ch);
+    if (c === t && Math.abs(r - s) === 1) return !wallH(Math.max(r, s) * ch, c * cw, (c + 1) * cw);
+    // diagonal: only across a corner where the four walls around it are all missing
+    if (Math.abs(r - s) === 1 && Math.abs(c - t) === 1) {
+      const x = Math.max(c, t) * cw, y = Math.max(r, s) * ch;
+      return !wallV(x, y - ch, y) && !wallV(x, y, y + ch) && !wallH(y, x - cw, x) && !wallH(y, x, x + cw);
+    }
+    return false;
+  };
+  // the way out is the gap in the bottom wall
+  let last = -1;
+  for (let c = 0; c < cols; c++) if (!wallH(H, c * cw, (c + 1) * cw)) last = (rows - 1) * cols + c;
+
+  const thread = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  thread.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  thread.setAttribute('class', 'mz-thread');
+  thread.setAttribute('aria-hidden', 'true');
+  thread.style.overflow = 'visible';
+  const line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+  thread.append(line);
+  box.prepend(thread);
+
+  const trail = () => JSON.parse(saved[box.id] || '[]');
+  const centre = i => [(i % cols + .5) * cw, (Math.floor(i / cols) + .5) * ch];
+  const paint = () => {
+    const t = trail();
+    const pts = t.map(centre);
+    if (t.length) pts.unshift([centre(t[0])[0], -.4]); // in from START
+    if (t.at(-1) === last) pts.push([centre(last)[0], H + .4]); // out to FINISH
+    line.setAttribute('points', pts.map(p => p.join(',')).join(' '));
+    cells.forEach((el, i) => el.classList.toggle('on', t.includes(i)));
+  };
+  const store = t => {
+    saved[box.id] = t.length ? JSON.stringify(t) : '';
+    cells.forEach(el => el.classList.remove('ok', 'no'));
+    persist();
+    paint();
+  };
+
+  let drawing = false;
+  const cellAt = e => {
+    const el = document.elementFromPoint(e.clientX, e.clientY)?.closest('.mz-cell');
+    return el && el.parentNode.parentNode === box ? cells.indexOf(el) : -1;
+  };
+  box.addEventListener('pointerdown', e => {
+    const i = cellAt(e);
+    if (i < 0) return;
+    let t = trail();
+    if (t.includes(i)) t = t.slice(0, t.indexOf(i) + 1); // go on from any point of the thread
+    else if (!t.length && i === 0) t = [0];
+    else if (t.length && open(t.at(-1), i)) t = [...t, i]; // click the next step to lengthen the thread
+    else return;
+    drawing = true;
+    box.setPointerCapture(e.pointerId);
+    e.preventDefault();
+    store(t);
+  });
+  box.addEventListener('pointermove', e => {
+    if (!drawing) return;
+    const i = cellAt(e);
+    const t = trail();
+    if (i < 0 || i === t.at(-1)) return;
+    if (i === t.at(-2)) { t.pop(); store(t); return; }
+    if (!t.includes(i) && open(t.at(-1), i)) { t.push(i); store(t); }
+  });
+  const stop = () => { drawing = false; };
+  box.addEventListener('pointerup', stop);
+  box.addEventListener('pointercancel', stop);
+
+  paint();
+  return {
+    id: box.id,
+    paint,
+    check() {
+      const t = trail();
+      cells.forEach((el, i) => {
+        el.classList.remove('ok', 'no');
+        if (t.includes(i)) el.classList.add(el.dataset.should === '1' ? 'ok' : 'no');
+      });
+    },
+    reset() { cells.forEach(el => el.classList.remove('ok', 'no')); paint(); },
+  };
+});
+
+document.querySelectorAll('.check[data-maze]').forEach(btn => {
+  btn.addEventListener('click', () => mazes.find(m => m.id === btn.dataset.maze)?.check());
+});
+
 document.querySelectorAll('.check[data-toggles]').forEach(btn => {
   btn.addEventListener('click', () => {
     document.getElementById(btn.dataset.toggles).querySelectorAll('.toggle[data-should]').forEach(el => {
@@ -454,7 +566,7 @@ document.querySelectorAll('.check[data-toggles]').forEach(btn => {
   });
 });
 
-/* the dice of the conversation game (pp. 44-45) lives in game.js */
+/* the dice of the conversation game (pp. 46-47) lives in game.js */
 
 /* ================= Big 5 scores ================= */
 // each sentence gets 0, 1 or 2: the total of the trait is added up by itself
@@ -474,7 +586,7 @@ document.querySelectorAll('.b5-score').forEach(inp => inp.addEventListener('inpu
 }));
 b5Totals();
 
-/* ================= evaluation grid (p. 37) ================= */
+/* ================= evaluation grid (p. 41) ================= */
 // performance + pronunciation + creativity = total
 
 const egScores = [...document.querySelectorAll('.eg-n')];
@@ -492,14 +604,14 @@ egScores.forEach(inp => inp.addEventListener('input', () => {
 }));
 egTotal();
 
-/* ================= half-page flap (pp. 84-85) ================= */
+/* ================= half-page flap (pp. 86-87) ================= */
 // the flap hides the English words on one page or the other
 
 document.querySelectorAll('.flap').forEach(flap => flap.addEventListener('click', () => {
   flap.closest('.spread').classList.toggle('flap-left');
 }));
 
-/* ================= detective games (pp. 58-63) ================= */
+/* ================= detective games (pp. 60-65) ================= */
 
 // Text without spaces: click a letter to put a slash after it (click again to take it away).
 // data-words holds the real words; the correct slashes are the ends of the words.
@@ -716,7 +828,7 @@ marks.forEach(m => {
   });
 });
 
-/* ================= Shakespeare (pp. 120–123) ================= */
+/* ================= Shakespeare (pp. 122–125) ================= */
 
 // Rhymes: click the last word of a line to give it a letter: A → B → … → G → nothing.
 const RHYMES = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G'];
@@ -832,7 +944,7 @@ const sonnetCounts = [...document.querySelectorAll('.sh-sonnet input.fill')].map
   return paint;
 });
 
-/* ================= Villain Lab: "My flaws" circles (p. 90) ================= */
+/* ================= Villain Lab: "My flaws" circles (p. 92) ================= */
 // click the 4th circle = 4 out of 10; click the same one again to start over
 const flawRows = [...document.querySelectorAll('.vl-flaw')].map(row => {
   const dots = [...row.querySelectorAll('button')];
@@ -997,6 +1109,7 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   document.querySelectorAll('.apos-list li').forEach(li => li.classList.remove('ok', 'no'));
   ticks.forEach(t => t.classList.remove('on'));
   toggles.forEach(t => t.classList.remove('on', 'ok', 'no'));
+  mazes.forEach(m => m.reset());
   b5Totals();
   egTotal();
   slashables.forEach(sl => sl.reset());

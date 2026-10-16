@@ -204,7 +204,7 @@ const SCATCH_DATA=[
     {"tokens":["Our","teacher","'s","car","is","blue"],"display":"Our teacher's car is blue."},
     {"tokens":["Every","morning","I","feed","my","cat","'s","kittens"],"display":"Every morning I feed my cat's kittens."},
     {"tokens":["On","Sundays","we","visit","my","grandmother","'s","garden"],"display":"On Sundays we visit my grandmother's garden."},
-    {"tokens":["After","school","I","do","my","sister","'s","homework"],"display":"After school I do my sister's homework."},
+    {"tokens":["After","school","I","help","with","my","sister","'s","homework"],"display":"After school I help with my sister's homework."},
   ];
   const SG_APOS = [
     {"words":["my","cousins","dog","is","very","friendly"],"targetWord":1,"correctGap":6,"context":"I have only ONE cousin: his dog is very friendly.","explanation":"Only one owner → apostrophe BEFORE the final s: cousin's.","duration":22},

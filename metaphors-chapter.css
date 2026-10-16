@@ -1,0 +1,243 @@
+@charset "UTF-8";
+/* ======================================================================
+   Literature · Metaphors (pp. 68-77).
+   Same palette as the book: navy, coral, lilac, purple, blue, green, lime,
+   pink and cream. Each rule keeps its colour (1 coral · 2 purple · 3 blue
+   · 4 green); the opener, simile/metaphor and workshop pages use coral,
+   lilac and peach.
+   Added: editorial serif titles (Playfair) with one word in italic colour,
+   handwritten notes (Caveat), wavy bands, a ribbon with curved text,
+   navy-edged cards with an offset shadow, flowers and sparkles, and
+   dashed slots for the drawings (.mt-art).
+   Loaded after style.css, scoped to the "Literature · Metaphors" spreads.
+   ====================================================================== */
+.spread[data-title="Literature · Metaphors"] {
+  --m-navy: #1f2a6b;
+  --m-ink: #2a2a30;
+  --m-coral: #f05f4b;
+  --m-coral-soft: #f7836d;
+  --m-pink: #fdeeec;
+  --m-lilac: #ebdcfb;
+  --m-lilac-mid: #c08be8;
+  --m-purple: #8e2de2;
+  --m-lime: #dfee6a;
+  --m-cream: #fff8ee;
+  --m-line: #e6e2ef;
+  --m-flower: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='22' r='20'/%3E%3Ccircle cx='77' cy='42' r='20'/%3E%3Ccircle cx='67' cy='74' r='20'/%3E%3Ccircle cx='33' cy='74' r='20'/%3E%3Ccircle cx='23' cy='42' r='20'/%3E%3Ccircle cx='50' cy='50' r='22'/%3E%3C/svg%3E");
+  --m-spark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 0C54 36 64 46 100 50 64 54 54 64 50 100 46 64 36 54 0 50 36 46 46 36 50 0Z'/%3E%3C/svg%3E");
+}
+.spread[data-title="Literature · Metaphors"] .mt-r5 { --rc: #a96fd8; --rbg: #f5f0fd; }
+.spread[data-title="Literature · Metaphors"] .mt-r6 { --rc: #f08a5d; --rbg: #fff1e8; }
+.spread[data-title="Literature · Metaphors"] .mt-open { --rc: #f05f4b; --rbg: #fdeeec; background: var(--m-cream); }
+
+/* ---------- type ---------- */
+.spread[data-title="Literature · Metaphors"] .mt-kick {
+  display: inline-block; padding: .55cqw 1.4cqw; border-radius: 999px;
+  background: var(--m-navy); color: #fff;
+  font: 800 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .18em; text-transform: uppercase;
+}
+.spread[data-title="Literature · Metaphors"] .mt-kick.plain { padding: 0; background: none; color: var(--m-navy); font-size: 1.3cqw; }
+.spread[data-title="Literature · Metaphors"] .mt-script {
+  margin: 0; font: 500 3.4cqw/.95 'Caveat', cursive; color: var(--m-coral);
+  transform: rotate(-4deg); transform-origin: left center;
+}
+.spread[data-title="Literature · Metaphors"] .mt-script.small { font-size: 2.3cqw; color: var(--rc); }
+.spread[data-title="Literature · Metaphors"] .mt-note { margin: 0; font: italic 400 1.35cqw/1.4 'Nunito', sans-serif; color: #6a6676; }
+.spread[data-title="Literature · Metaphors"] .mt-hero {
+  margin: 0; z-index: 3;
+  font: 900 12.6cqw/1 'Playfair Display', Georgia, serif; letter-spacing: -.02em; color: var(--m-navy);
+}
+.spread[data-title="Literature · Metaphors"] .mt-hero em { font-style: italic; font-weight: 700; color: var(--m-coral); }
+.spread[data-title="Literature · Metaphors"] .mt-def { margin: 0; font: 400 2.2cqw/1.35 'Quicksand', 'Nunito', sans-serif; color: var(--m-navy); }
+.spread[data-title="Literature · Metaphors"] .mt-def b { font-weight: 700; color: var(--m-coral); background: linear-gradient(transparent 62%, var(--m-lime) 62% 92%, transparent 92%); }
+.spread[data-title="Literature · Metaphors"] .mt-h { margin: 0; font: 900 3.5cqw/1.1 'Playfair Display', Georgia, serif; color: var(--m-navy); }
+.spread[data-title="Literature · Metaphors"] .mt-h.big { font-size: 5.2cqw; }
+.spread[data-title="Literature · Metaphors"] .mt-h em { font-style: italic; font-weight: 700; color: var(--rc); }
+.spread[data-title="Literature · Metaphors"] .mt-text { font-size: 1.6cqw; color: #444; }
+
+/* ---------- decorations ---------- */
+.spread[data-title="Literature · Metaphors"] .mt-bflies { height: auto; z-index: 4; pointer-events: none; }
+.spread[data-title="Literature · Metaphors"] .mt-flower,
+.spread[data-title="Literature · Metaphors"] .mt-spark { display: block; aspect-ratio: 1; z-index: 1; pointer-events: none; }
+.spread[data-title="Literature · Metaphors"] .mt-flower {
+  background: var(--m-coral-soft);
+  -webkit-mask: var(--m-flower) center / contain no-repeat; mask: var(--m-flower) center / contain no-repeat;
+}
+.spread[data-title="Literature · Metaphors"] .mt-flower.lilac { background: var(--m-lilac-mid); }
+.spread[data-title="Literature · Metaphors"] .mt-spark {
+  background: var(--m-lime);
+  -webkit-mask: var(--m-spark) center / contain no-repeat; mask: var(--m-spark) center / contain no-repeat;
+}
+
+/* the ribbon of the opener, with the words written along the wave */
+.spread[data-title="Literature · Metaphors"] .mt-ribbon { height: auto; overflow: visible; z-index: 1; }
+.spread[data-title="Literature · Metaphors"] .mt-ribbon text { font: 800 1.35px 'Nunito', sans-serif; letter-spacing: .28px; fill: var(--m-navy); }
+
+/* rule pages: a wavy band in the colour of the rule, a big italic number */
+.spread[data-title="Literature · Metaphors"] .mt-wave { position: absolute; left: 0; top: 0; width: 100%; height: 26cqw; z-index: 0; pointer-events: none; }
+.spread[data-title="Literature · Metaphors"] .mt-wave.small { height: 20cqw; }
+.spread[data-title="Literature · Metaphors"] .mt-wave .bg { fill: var(--rbg); }
+.spread[data-title="Literature · Metaphors"] .mt-wave .ln { fill: none; stroke: var(--rc); stroke-width: .35cqw; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.spread[data-title="Literature · Metaphors"] .mt-num {
+  font: italic 900 17cqw/1 'Playfair Display', Georgia, serif; color: var(--rc);
+  text-shadow: .5cqw .5cqw 0 #fff;
+}
+.spread[data-title="Literature · Metaphors"] .mt-head h1 { margin: 1cqw 0 0; font: 900 3.4cqw/1.12 'Playfair Display', Georgia, serif; color: var(--m-navy); }
+.spread[data-title="Literature · Metaphors"] .mt-head h1 em { font-style: italic; font-weight: 700; color: var(--rc); }
+.spread[data-title="Literature · Metaphors"] .mt-head .mt-kick { background: var(--rc); }
+.spread[data-title="Literature · Metaphors"] .mt-cont { display: inline-flex; align-items: center; gap: 1cqw; font: 800 1.2cqw/1 'Nunito', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--rc); }
+.spread[data-title="Literature · Metaphors"] .mt-cont b {
+  display: inline-block; width: 3.4cqw; height: 3.4cqw; border-radius: 50%; background: var(--rc); color: #fff;
+  font: italic 900 2.4cqw/3.4cqw 'Playfair Display', Georgia, serif; text-align: center; letter-spacing: 0;
+}
+
+/* ---------- drawing slots ----------
+   <div class="mt-art arch">…</div> shows a dashed box with what to draw.
+   Put an <img> inside it and the box becomes the frame of the drawing. */
+.spread[data-title="Literature · Metaphors"] .mt-art {
+  display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 1;
+  height: calc(var(--h) * 1cqw); padding: 1.6cqw;
+  border: .3cqw dashed var(--rc); border-radius: 2cqw;
+  background: repeating-linear-gradient(-45deg, var(--rbg) 0 1.2cqw, #fff 1.2cqw 2.4cqw);
+  text-align: center;
+}
+.spread[data-title="Literature · Metaphors"] .mt-art span { font: 500 2.3cqw/1.1 'Caveat', cursive; color: var(--rc); }
+.spread[data-title="Literature · Metaphors"] .mt-art.arch { border-radius: 50% 50% 2cqw 2cqw / 38% 38% 2cqw 2cqw; padding-top: 4cqw; }
+.spread[data-title="Literature · Metaphors"] .mt-art.round { border-radius: 50%; }
+.spread[data-title="Literature · Metaphors"] .mt-art.blob { border-radius: 58% 42% 52% 48% / 48% 58% 42% 52%; }
+.spread[data-title="Literature · Metaphors"] .mt-art.frame { border-radius: 999px 999px 999px 999px / 60% 60% 40% 40%; }
+.spread[data-title="Literature · Metaphors"] .mt-art.lilac { --rc: #a96fd8; --rbg: #f5f0fd; }
+.spread[data-title="Literature · Metaphors"] .mt-art.coral { --rc: #f05f4b; --rbg: #fdeeec; }
+.spread[data-title="Literature · Metaphors"] .mt-open .mt-art { background: repeating-linear-gradient(-45deg, var(--m-lilac) 0 1.2cqw, #f8f1ff 1.2cqw 2.4cqw); --rc: #a96fd8; }
+.spread[data-title="Literature · Metaphors"] .mt-art:has(img) { padding: 0; border: 0; background: none; }
+.spread[data-title="Literature · Metaphors"] .mt-art img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- exercise titles: number in a pill, title in navy ---------- */
+.spread[data-title="Literature · Metaphors"] .lt-pill {
+  display: inline-flex; align-items: center; gap: 1cqw; padding: 0; background: none;
+  font: 800 1.6cqw/1 'Nunito', sans-serif; color: var(--m-navy);
+}
+.spread[data-title="Literature · Metaphors"] .lt-pill b {
+  margin: 0; padding: .55cqw 1.1cqw; border-radius: 999px; background: var(--rc); color: #fff;
+  font: 800 1.2cqw/1 'Nunito', sans-serif;
+}
+.spread[data-title="Literature · Metaphors"] .check { background: #fff; color: var(--m-navy); box-shadow: inset 0 0 0 .18cqw var(--m-navy), .3cqw .3cqw 0 var(--rc); }
+.spread[data-title="Literature · Metaphors"] .check:hover { background: var(--rbg); }
+.spread[data-title="Literature · Metaphors"] .pd-intro b { color: var(--rc); }
+
+/* ---------- cards: navy edge + offset shadow in the rule colour ---------- */
+.spread[data-title="Literature · Metaphors"] .mt-formula,
+.spread[data-title="Literature · Metaphors"] .mt-remember,
+.spread[data-title="Literature · Metaphors"] .mt-exp,
+.spread[data-title="Literature · Metaphors"] .mt-recipe,
+.spread[data-title="Literature · Metaphors"] .mt-why,
+.spread[data-title="Literature · Metaphors"] .mt-why-small,
+.spread[data-title="Literature · Metaphors"] .mt-stroop {
+  border: .2cqw solid var(--m-navy); border-radius: 1.6cqw;
+  box-shadow: .7cqw .7cqw 0 var(--rc);
+}
+.spread[data-title="Literature · Metaphors"] .mt-remember { background: #fff; color: #444; }
+.spread[data-title="Literature · Metaphors"] .mt-remember b { color: var(--rc); }
+.spread[data-title="Literature · Metaphors"] .mt-exp { background: var(--rbg); }
+.spread[data-title="Literature · Metaphors"] .mt-exp h3 { font: 900 2.1cqw/1 'Playfair Display', Georgia, serif; color: var(--m-navy); }
+.spread[data-title="Literature · Metaphors"] .mt-why { background: var(--rbg); }
+
+/* opener: A IS B on one line */
+.spread[data-title="Literature · Metaphors"] .mt-formula { padding: 1.4cqw 2cqw; background: #fff; box-shadow: .7cqw .7cqw 0 var(--m-lilac-mid); }
+.spread[data-title="Literature · Metaphors"] .mt-formula p { gap: 1.6cqw; }
+.spread[data-title="Literature · Metaphors"] .mt-formula p > b { font: italic 900 3.4cqw/1 'Playfair Display', Georgia, serif; color: var(--m-navy); }
+.spread[data-title="Literature · Metaphors"] .mt-box { border-radius: 999px; padding: .8cqw 2cqw; font-size: 2.2cqw; }
+.spread[data-title="Literature · Metaphors"] .mt-box.a { background: #4aa8ec; }
+.spread[data-title="Literature · Metaphors"] .mt-box.b { background: var(--m-coral); }
+.spread[data-title="Literature · Metaphors"] .mt-formula .mt-common { display: flex; flex-direction: column; gap: .4cqw; margin: 0 0 0 1cqw; padding-left: 1.6cqw; border-left: .2cqw dashed var(--m-line); font-size: 1.3cqw; }
+.spread[data-title="Literature · Metaphors"] .mt-formula .mt-common i { font-size: 1.5cqw; color: var(--m-purple); }
+
+.spread[data-title="Literature · Metaphors"] .mt-vs p { border-radius: 1.4cqw; font-size: 1.3cqw; }
+.spread[data-title="Literature · Metaphors"] .mt-vs b { font: 900 1.8cqw/1.1 'Playfair Display', Georgia, serif; letter-spacing: .04em; }
+
+/* opener: the four rules as cards */
+.spread[data-title="Literature · Metaphors"] .mt-rules { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6cqw; }
+.spread[data-title="Literature · Metaphors"] .mt-rules a {
+  position: relative; display: flex; flex-direction: column; height: 23cqw; overflow: hidden;
+  background: #fff; border: .2cqw solid var(--m-navy); border-radius: 1.6cqw; box-shadow: .6cqw .6cqw 0 var(--rc);
+  text-decoration: none; color: var(--m-navy);
+}
+.spread[data-title="Literature · Metaphors"] .mt-rules a:hover { transform: translate(-.2cqw, -.2cqw); box-shadow: .8cqw .8cqw 0 var(--rc); }
+.spread[data-title="Literature · Metaphors"] .mt-rules b {
+  display: block; padding: .6cqw 1.2cqw 0; background: var(--rbg); border-bottom: .2cqw solid var(--m-navy);
+  font: italic 900 6.4cqw/1 'Playfair Display', Georgia, serif; color: var(--rc);
+}
+.spread[data-title="Literature · Metaphors"] .mt-rules span { flex: 1; padding: 1.1cqw 1.2cqw 0; font: 800 1.7cqw/1.2 'Nunito', sans-serif; }
+.spread[data-title="Literature · Metaphors"] .mt-rules i {
+  align-self: flex-end; margin: 0 1cqw 1cqw; padding: .45cqw 1cqw; border: .18cqw solid var(--m-navy); border-radius: 999px;
+  font: 800 1.1cqw/1 'Nunito', sans-serif; font-style: normal; color: var(--m-navy);
+}
+
+/* ---------- lists, tables, lines ---------- */
+.spread[data-title="Literature · Metaphors"] .mt-opts li,
+.spread[data-title="Literature · Metaphors"] .mt-enr li,
+.spread[data-title="Literature · Metaphors"] .mt-q li,
+.spread[data-title="Literature · Metaphors"] .mt-line,
+.spread[data-title="Literature · Metaphors"] .mt-sm p,
+.spread[data-title="Literature · Metaphors"] .mt-poem li,
+.spread[data-title="Literature · Metaphors"] .mt-ladder li,
+.spread[data-title="Literature · Metaphors"] .mt-rounds p,
+.spread[data-title="Literature · Metaphors"] .mt-table p { border-bottom: .16cqw dotted #c9c3da; }
+.spread[data-title="Literature · Metaphors"] .opt button {
+  background: #fff; color: #6a6676; box-shadow: inset 0 0 0 .15cqw #d8d2e6;
+}
+.spread[data-title="Literature · Metaphors"] .opt button:hover { background: var(--rbg); }
+.spread[data-title="Literature · Metaphors"] .opt button.on { background: var(--rc); color: #fff; box-shadow: none; }
+.spread[data-title="Literature · Metaphors"] .mt-table p.mt-head {
+  height: 3cqw; padding: 0 .6cqw .5cqw; align-items: end; background: var(--rbg); border-radius: .8cqw .8cqw 0 0;
+  border-bottom: .2cqw solid var(--m-navy); color: var(--m-navy);
+}
+.spread[data-title="Literature · Metaphors"] .mt-label { color: var(--rc); }
+.spread[data-title="Literature · Metaphors"] .mt-q mark,
+.spread[data-title="Literature · Metaphors"] .mt-enr mark { background: var(--m-lime); }
+
+/* rule 2 */
+.spread[data-title="Literature · Metaphors"] .mt-rev p:not(.mt-why-small) { font-size: 1.7cqw; }
+.spread[data-title="Literature · Metaphors"] .mt-why-small { background: var(--rbg); margin-top: 1.4cqw !important; }
+
+/* rule 3: the Stroop board */
+.spread[data-title="Literature · Metaphors"] .mt-stroop { background: var(--m-cream); padding: 1.2cqw 0; }
+.spread[data-title="Literature · Metaphors"] .mt-stroop span { font-size: 4.1cqw; line-height: 1.5; }
+.spread[data-title="Literature · Metaphors"] .mt-play { background: var(--m-navy); box-shadow: .5cqw .5cqw 0 var(--rc); }
+.spread[data-title="Literature · Metaphors"] .mt-timer { background: var(--m-navy); }
+.spread[data-title="Literature · Metaphors"] .mt-timer.on { background: var(--m-coral); }
+
+/* simile vs metaphor */
+.spread[data-title="Literature · Metaphors"] .mt-vs-badge {
+  display: block; width: 7cqw; height: 7cqw; border-radius: 50%; z-index: 2;
+  background: var(--m-navy); color: #fff; text-align: center;
+  font: italic 900 3cqw/6.6cqw 'Playfair Display', Georgia, serif;
+}
+.spread[data-title="Literature · Metaphors"] .mt-cap { font: 900 2.4cqw/1.15 'Playfair Display', Georgia, serif; color: var(--m-navy); }
+.spread[data-title="Literature · Metaphors"] .mt-cap span {
+  display: inline-block; margin: 0 0 .6cqw; padding: .45cqw 1.2cqw; border-radius: 999px;
+  font: 800 1.1cqw/1 'Nunito', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #fff;
+}
+.spread[data-title="Literature · Metaphors"] .mt-cap.sim span { background: #a96fd8; }
+.spread[data-title="Literature · Metaphors"] .mt-cap.met span { background: var(--m-coral); }
+.spread[data-title="Literature · Metaphors"] .mt-cap span { display: table; }
+.spread[data-title="Literature · Metaphors"] .mt-cap small { font-family: 'Nunito', sans-serif; }
+.spread[data-title="Literature · Metaphors"] .mt-sm.sim b { color: #a96fd8; }
+.spread[data-title="Literature · Metaphors"] .mt-sm.met b { color: var(--m-coral); }
+
+/* workshop */
+.spread[data-title="Literature · Metaphors"] .mt-recipe { background: var(--m-cream); }
+.spread[data-title="Literature · Metaphors"] .mt-formula-txt b { background: var(--m-navy); }
+.spread[data-title="Literature · Metaphors"] .mt-chips span { border-color: var(--m-navy); color: var(--m-navy); }
+.spread[data-title="Literature · Metaphors"] .mt-ladder li > b { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 900; }
+.spread[data-title="Literature · Metaphors"] .mt-poem li > b { background: var(--rc); }
+.spread[data-title="Literature · Metaphors"] .mt-find { background: var(--rbg); border: .2cqw solid var(--m-navy); border-radius: 2cqw; box-shadow: .7cqw .7cqw 0 var(--rc); z-index: 1; }
+
+/* the colour of the green rule is a bit light for white text */
+.spread[data-title="Literature · Metaphors"] .mt-r4 .lt-pill b,
+.spread[data-title="Literature · Metaphors"] .mt-r4 .mt-kick { background: #2f8a3e; }
+
+@media print {
+  .spread[data-title="Literature · Metaphors"] .mt-art:not(:has(img)) { background: none; }
+  .spread[data-title="Literature · Metaphors"] .check { display: none; }
+}

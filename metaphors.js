@@ -1,4 +1,4 @@
-// Literature · Metaphors (pp. 66-75): the stopwatches and the two games
+// Literature · Metaphors (pp. 68-77): the stopwatches and the two games
 // (rule 3: the Stroop test, rule 4: "literally true?"), and the checks of the metaphors.
 
 (() => {
@@ -18,7 +18,7 @@
   };
   const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
 
-  /* ================= stopwatches (p. 70) ================= */
+  /* ================= stopwatches (p. 72) ================= */
   // ⏱ Start → the button counts the seconds; ⏹ Stop → the time goes into the box next to it
 
   document.querySelectorAll('.mt-timer').forEach(btn => {
@@ -92,7 +92,7 @@
 
   /* ---------- rule 3: the Stroop game ---------- */
   // Level 1: the word and the ink are the same colour. Level 2: they are different.
-  // Click the colour of the INK. The average time of each level is written on p. 70.
+  // Click the colour of the INK. The average time of each level is written on p. 72.
 
   const COLOURS = [
     { name: 'red', c: '#e53935' },
@@ -193,7 +193,7 @@
   })();
 
   /* ---------- rule 4: literally true? ---------- */
-  // The experiment of p. 71: say if a sentence is LITERALLY true or false, as fast as you can.
+  // The experiment of p. 73: say if a sentence is LITERALLY true or false, as fast as you can.
   // Metaphors are literally false, but the brain understands them anyway: saying "false" takes longer.
 
   const SENTENCES = [
@@ -297,7 +297,7 @@
   const GAMES = { stroop, truth };
   document.querySelectorAll('.mt-play[data-game]').forEach(btn => btn.addEventListener('click', () => open(GAMES[btn.dataset.game])));
 
-  /* ================= check the metaphors (p. 74) ================= */
+  /* ================= check the metaphors (p. 76) ================= */
   // data-rule on each box: plain · simile (with like/as) · metaphor (without like/as)
   // · extended (a metaphor with an explanation, at least 7 words)
 

@@ -1,5 +1,5 @@
 // Grammar games (from Grammar Base) in a pop-up. It opens by itself when you scroll to the end of
-// pp. 20-21 (subject pronouns), 22-23 (to be) and 30-31 (present simple), and a button reopens it.
+// pp. 20-21 (subject pronouns), 22-23 (to be) and 42-43 (present simple), and a button reopens it.
 // Questions and sentences are in grammar-games-data.js.
 
 (() => {
@@ -10,9 +10,9 @@
     '20-21': { title: 'Subject pronouns', intro: 'pp. 18–21 · Scegli un gioco!', games: ['speed', 'subject'] },
     '22-23': { title: 'The verb TO BE', intro: 'pp. 22–23 · Scegli un gioco!', games: ['tobe-rule', 'tobe-fire'] },
     '28-29': { title: 'The Saxon genitive', intro: 'pp. 28–29 · Scegli un gioco!', games: ['sg-order', 'sg-apos', 'sg-tf', 'sg-final'] },
-    '40-41': { title: 'Present simple: the -s', intro: 'pp. 40–41 · Scegli un gioco!', games: ['s-rule', 's-catch'] },
+    '42-43': { title: 'Present simple: the -s', intro: 'pp. 42–43 · Scegli un gioco!', games: ['s-rule', 's-catch'] },
   };
-  const COLORS = { '20-21': '#4aa8ec', '22-23': '#7b3fc4', '28-29': '#4aa8ec', '40-41': '#c97df6' }; // as the topics on the home page
+  const COLORS = { '20-21': '#4aa8ec', '22-23': '#7b3fc4', '28-29': '#4aa8ec', '42-43': '#c97df6' }; // as the topics on the home page
   const INFO = {
     speed: { icon: '⚡', name: 'Speed Clicker', text: 'Clicca il pronome giusto prima che scompaia. 5 vite!' },
     subject: { icon: '🎯', name: 'Subject Hunter', text: 'Trova il soggetto della frase e scegli il pronome.' },

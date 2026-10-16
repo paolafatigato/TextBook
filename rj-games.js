@@ -1,4 +1,4 @@
-// Romeo & Juliet (pp. 126-137): the games of the Romeo Quiz, made for one player, in a pop-up
+// Romeo & Juliet (pp. 128-139): the games of the Romeo Quiz, made for one player, in a pop-up
 // that looks like the grammar games. A button with data-rj="speed" opens that game,
 // data-rj="" opens the menu with all the games.
 // Also here: the role buttons of the scripts (click your character and your lines light up).
