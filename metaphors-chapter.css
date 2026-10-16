@@ -111,6 +111,9 @@
 .spread[data-title="Literature · Metaphors"] .mt-open .mt-art { background: repeating-linear-gradient(-45deg, var(--m-lilac) 0 1.2cqw, #f8f1ff 1.2cqw 2.4cqw); --rc: #a96fd8; }
 .spread[data-title="Literature · Metaphors"] .mt-art:has(img) { padding: 0; border: 0; background: none; }
 .spread[data-title="Literature · Metaphors"] .mt-art img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* drawings as PNG with a transparent background: the arch colour shows around them, their white fills stay white */
+.spread[data-title="Literature · Metaphors"] .mt-art.line:has(img) { padding: 2.6cqw 2cqw 1cqw; background: var(--rbg); border: .2cqw solid var(--m-navy); box-shadow: .7cqw .7cqw 0 var(--rc); }
+.spread[data-title="Literature · Metaphors"] .mt-art.line img { object-fit: contain; }
 
 /* ---------- exercise titles: number in a pill, title in navy ---------- */
 .spread[data-title="Literature · Metaphors"] .lt-pill {
