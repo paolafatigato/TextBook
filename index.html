@@ -4149,7 +4149,7 @@
       <p class="pd-intro abs" style="--x:8;--y:22;--w:84">Scientists studied thousands of people and discovered something interesting: we can describe <b>ALL</b> personalities using just <b>5 big categories</b>. We call them <b>THE BIG 5</b>, or <b>OCEAN</b>.</p>
       <ol class="b5-ocean abs" style="--x:8;--y:35;--w:84">
         <li style="--tc:#8fc4ab"><b>O</b><span class="tr">OPENNESS</span><span class="mn">open to new things</span></li>
-        <li style="--tc:#f2b73d"><b>C</b><span class="tr">CONSCIENTIOUSNESS</span><span class="mn">responsible and organized</span></li>
+        <li style="--tc:#dfee6a"><b>C</b><span class="tr">CONSCIENTIOUSNESS</span><span class="mn">responsible and organized</span></li>
         <li style="--tc:#ee6a68"><b>E</b><span class="tr">EXTRAVERSION</span><span class="mn">loves hanging out with people</span></li>
         <li style="--tc:#b99ad6"><b>A</b><span class="tr">AGREEABLENESS</span><span class="mn">generous and avoids fights</span></li>
         <li style="--tc:#6a93a8"><b>N</b><span class="tr">NEUROTICISM</span><span class="mn">anxious</span></li>
@@ -4198,7 +4198,7 @@
   <div class="spread" data-id="pers-conscientiousness" data-title="Personality" data-name="Conscientiousness · Extraversion">
 
     <!-- ============ LEFT PAGE ============ -->
-    <section class="page page-left pd-page b5c" style="--tc:#f2b73d;--tb:#fff3da">
+    <section class="page page-left pd-page b5c" style="--tc:#dfee6a;--tb:#f6fad8">
       <div class="b5c-head abs" style="--x:6;--y:5;--w:88"><b>C</b><h2>CONSCIENTIOUSNESS</h2><span>responsible and organized</span></div>
       <ul class="b5c-quotes abs" style="--x:6;--y:25;--w:52">
         <li>“My room is tidy”</li>
@@ -4424,15 +4424,15 @@
         <svg class="match-lines" aria-hidden="true"></svg>
       </div>
 
-      <div class="b5-table abs" style="--x:0;--y:80;--w:100">
-        <p class="b5-head"><span>Trait</span><span>Question</span><span>Answer</span></p>
-        <p><span>OPENNESS</span><input class="fill" id="b5t-ope-q" autocomplete="off" aria-label="Openness: question"><input class="fill" id="b5t-ope-a" autocomplete="off" aria-label="Openness: answer"></p>
-        <p><span>CONSCIENTIOUSNESS</span><input class="fill" id="b5t-con-q" autocomplete="off" aria-label="Conscientiousness: question"><input class="fill" id="b5t-con-a" autocomplete="off" aria-label="Conscientiousness: answer"></p>
-        <p><span>EXTRAVERSION</span><input class="fill" id="b5t-ext-q" autocomplete="off" aria-label="Extraversion: question"><input class="fill" id="b5t-ext-a" autocomplete="off" aria-label="Extraversion: answer"></p>
-        <p><span>AGREEABLENESS</span><input class="fill" id="b5t-agr-q" autocomplete="off" aria-label="Agreeableness: question"><input class="fill" id="b5t-agr-a" autocomplete="off" aria-label="Agreeableness: answer"></p>
-        <p><span>NEUROTICISM</span><input class="fill" id="b5t-neu-q" autocomplete="off" aria-label="Neuroticism: question"><input class="fill" id="b5t-neu-a" autocomplete="off" aria-label="Neuroticism: answer"></p>
-      </div>
-      <textarea class="fill b5-lines abs" id="b5-notes" style="--x:0;--y:108.9;--w:100;--h:20" aria-label="Notes"></textarea>
+      <div class="lt-pill pink abs" style="--x:40;--y:76"><b>11.7</b> Big 5 wheel: what do you do?</div>
+      <ol class="b5-steps abs" style="--x:40;--y:82.4;--w:56">
+        <li><b>1</b><span>Spin the wheel online, or roll a <b class="d20">d20</b> on paper.</span></li>
+        <li><b>2</b><span>Read the situation.</span></li>
+        <li><b>3</b><span>Friends ask: <q>What do you do?</q> You say: <i>“I …”</i></span></li>
+      </ol>
+      <div class="b5-wheel abs" id="b5-wheel" style="--x:5;--y:76;--w:31"></div>
+      <div class="b5-result abs" id="b5-result" style="--x:40;--y:94.6;--w:56" aria-live="polite"><b class="b5-rn">?</b><p>Press <b>SPIN</b>, or roll the d20 and tap the number below.</p></div>
+      <ol class="b5-sit abs" id="b5-sit" style="--x:5;--y:109;--w:90"></ol>
 
       <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Describing people</span>
     </section>
@@ -6273,78 +6273,16 @@
         <p class="bw-note">💭 <b>Think about it.</b> For William, magic explained the world. What explains the world for you?</p>
 
         <div class="bw-stop">
-          <div class="bw-stop-h"><span class="lt-pill bw-pill"><b>✍️</b> My new words from the story (English → Italian)</span></div>
-          <textarea class="fill mt-lines" id="bw-words" style="height:33.6cqw" placeholder="e.g. herd = mandria" aria-label="My new words"></textarea>
+          <div class="bw-stop-h"><span class="lt-pill bw-pill"><b>D</b> Find the word in the text</span><button class="check" type="button" data-list="bw-hunt">✓ Check</button></div>
+          <ol class="pd-q bw-q" id="bw-hunt">
+            <li><i>1.</i><span>A boy who looks after cows:</span><input class="fill" id="bw-hunt-1" data-given="" data-answer="herd boy|herd boys|herdboy|herdboys" autocomplete="off" aria-label="Word 1"></li>
+            <li><i>2.</i><span>A person who buys and sells things:</span><input class="fill" id="bw-hunt-2" data-given="" data-answer="trader|traders" autocomplete="off" aria-label="Word 2"></li>
+            <li><i>3.</i><span>The money you get for your work:</span><input class="fill" id="bw-hunt-3" data-given="" data-answer="pay" autocomplete="off" aria-label="Word 3"></li>
+            <li><i>4.</i><span>The Chichewa word for the witch doctor:</span><input class="fill" id="bw-hunt-4" data-given="" data-answer="sing'anga|singanga" autocomplete="off" aria-label="Word 4"></li>
+            <li><i>5.</i><span>A place where people grow food and keep animals:</span><input class="fill" id="bw-hunt-5" data-given="" data-answer="farm" autocomplete="off" aria-label="Word 5"></li>
+          </ol>
         </div>
       </div>
-      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Jobs &amp; CVs</span>
-      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
-    </section>
-  </div>
-
-  <div class="spread" data-id="jobs-story" data-title="Jobs &amp; CVs" data-name="Work in the story · Spark your curiosity">
-
-    <!-- ============ work in the story ============ -->
-    <section class="page page-left bw" aria-label="Work in the story">
-      <p class="bw-kicker abs" style="--x:8;--y:4.6">Before the Jobs unit</p>
-
-      <div class="lt-pill bw-pill abs" style="--x:8;--y:17"><b>D</b> Find the word in the text</div>
-      <button class="check abs" type="button" style="--x:80;--y:16.8" data-list="bw-hunt">✓ Check</button>
-      <ol class="pd-q bw-q abs" id="bw-hunt" style="--x:8;--y:23;--w:84">
-        <li><i>1.</i><span>A boy who looks after cows:</span><input class="fill" id="bw-hunt-1" data-given="" data-answer="herd boy|herd boys|herdboy|herdboys" autocomplete="off" aria-label="Word 1"></li>
-        <li><i>2.</i><span>A person who buys and sells things:</span><input class="fill" id="bw-hunt-2" data-given="" data-answer="trader|traders" autocomplete="off" aria-label="Word 2"></li>
-        <li><i>3.</i><span>The money you get for your work:</span><input class="fill" id="bw-hunt-3" data-given="" data-answer="pay" autocomplete="off" aria-label="Word 3"></li>
-        <li><i>4.</i><span>The Chichewa word for the witch doctor:</span><input class="fill" id="bw-hunt-4" data-given="" data-answer="sing'anga|singanga" autocomplete="off" aria-label="Word 4"></li>
-        <li><i>5.</i><span>A place where people grow food and keep animals:</span><input class="fill" id="bw-hunt-5" data-given="" data-answer="farm" autocomplete="off" aria-label="Word 5"></li>
-      </ol>
-
-      <div class="lt-pill bw-pill abs" style="--x:8;--y:53"><b>E</b> What does each person do?</div>
-      <ol class="pd-q bw-q abs" style="--x:8;--y:59;--w:84">
-        <li><i>1.</i><span><b>The herd boys</b> work for a farmer. They…</span><input class="fill" id="bw-job-1" autocomplete="off" aria-label="The herd boys"></li>
-        <li><i>2.</i><span><b>The farmer</b> has many cows. He…</span><input class="fill" id="bw-job-2" autocomplete="off" aria-label="The farmer"></li>
-        <li><i>3.</i><span><b>The trader</b> rides a bicycle to the market. He…</span><input class="fill" id="bw-job-3" autocomplete="off" aria-label="The trader"></li>
-        <li><i>4.</i><span><b>The sing’anga</b> is the witch doctor. He/she…</span><input class="fill" id="bw-job-4" autocomplete="off" aria-label="The sing’anga"></li>
-        <li><i>5.</i><span><b>William’s father</b> sits plucking maize. He is a…</span><input class="fill" id="bw-job-5" autocomplete="off" aria-label="William’s father"></li>
-      </ol>
-
-      <div class="lt-pill bw-pill abs" style="--x:8;--y:90"><b>F</b> Money &amp; work: what do you think?</div>
-      <ol class="pd-q bw-q abs" style="--x:8;--y:96;--w:84">
-        <li><i>1.</i><span>The father paid “a full week’s pay” for one bag of gum. Was it fair? Why?</span><input class="fill" id="bw-money-1" autocomplete="off" aria-label="Money question 1"></li>
-        <li><i>2.</i><span>How do we know that the family does not have a lot of money?</span><input class="fill" id="bw-money-2" autocomplete="off" aria-label="Money question 2"></li>
-        <li><i>3.</i><span>Which job in the story would you like to do? Which would you hate?</span><input class="fill" id="bw-money-3" autocomplete="off" aria-label="Money question 3"></li>
-      </ol>
-      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
-    </section>
-
-    <!-- ============ spark your curiosity ============ -->
-    <section class="page page-right bw" aria-label="Spark your curiosity">
-      <p class="bw-kicker abs" style="--x:8;--y:4.6">Spark your curiosity</p>
-
-      <p class="bw-card abs" style="--x:8;--y:15.4;--w:84"><b>A TRUE STORY.</b> Malawi, Africa. A boy from a farming family has no electricity at home, no money for school, and a hungry village around him. But he has a library book, a pile of scrap metal and a very big idea…</p>
-
-      <div class="lt-pill bw-pill abs" style="--x:8;--y:32"><b>G</b> Read the title: what do you think?</div>
-      <button class="check abs" type="button" style="--x:80;--y:31.8" data-tf="bw-title">✓ Check</button>
-      <ol class="vl-opts three bw-opts abs" id="bw-title" style="--x:8;--y:38;--w:84">
-        <li><span><b>To harness</b> the wind means…</span><span class="opt" id="bw-ti-1" data-answer="to use its power"><button type="button">to run away from it</button><button type="button">to use its power</button><button type="button">to paint it</button></span></li>
-      </ol>
-      <ol class="pd-q bw-q abs" style="--x:8;--y:45;--w:84">
-        <li><i>1.</i><span>What can you do with the wind? Write three ideas.</span><input class="fill" id="bw-sp-1" autocomplete="off" aria-label="Three ideas"></li>
-        <li><i>2.</i><span>Why do you think the book starts with magic and ends with science?</span><input class="fill" id="bw-sp-2" autocomplete="off" aria-label="Magic and science"></li>
-      </ol>
-
-      <div class="lt-pill bw-pill abs" style="--x:8;--y:60"><b>H</b> I wonder…</div>
-      <ol class="pd-q bw-q abs" style="--x:8;--y:66;--w:84">
-        <li><i>•</i><span>I wonder why…</span><input class="fill" id="bw-wonder-1" autocomplete="off" aria-label="I wonder why"></li>
-        <li><i>•</i><span>I wonder how…</span><input class="fill" id="bw-wonder-2" autocomplete="off" aria-label="I wonder how"></li>
-        <li><i>•</i><span>I wonder if William…</span><input class="fill" id="bw-wonder-3" autocomplete="off" aria-label="I wonder if William"></li>
-      </ol>
-
-      <div class="lt-pill bw-pill abs" style="--x:8;--y:85"><b>I</b> Work spark 💼 Ask a grown-up</div>
-      <p class="pd-intro abs" style="--x:8;--y:89.6;--w:84">What was your first job? How old were you? What did you learn?</p>
-      <textarea class="fill mt-lines abs" id="bw-ask" style="--x:8;--y:94.6;--w:84;--h:10.4" aria-label="A grown-up’s first job"></textarea>
-
-      <div class="lt-pill bw-pill abs" style="--x:8;--y:108"><b>J</b> If I could build one machine from scrap…</div>
-      <textarea class="fill mt-lines abs" id="bw-build" style="--x:8;--y:113.4;--w:84;--h:8" placeholder="…to help my family, it would be…" aria-label="A machine I would build"></textarea>
       <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Jobs &amp; CVs</span>
       <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
     </section>
@@ -9250,6 +9188,7 @@
   <script src="grammar-games-data.js"></script>
   <script src="grammar-games.js"></script>
   <script src="personality-game.js"></script>
+  <script src="big5-wheel.js"></script>
   <script src="home-game.js"></script>
   <script src="future-games.js"></script>
   <script src="clothes.js"></script>

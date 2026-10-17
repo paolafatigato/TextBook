@@ -44,8 +44,8 @@ const CONTENTS = {
       chapters: [
         { title: 'Describing people', start: 'people-body', color: '#f96d5a', image: 'img/face-p40.png', zoom: 1.6 },
         { title: 'Literature: Metaphors', start: 'meta-intro', color: '#7b3fc4', image: 'img/metaphors-p50.svg' },
-        { title: 'Personality', start: 'pers-big5', color: '#c08be8' },
-        { title: 'Literature: Shakespeare · Romeo & Juliet', start: 'shk-meet', color: '#b23a48' },
+        { title: 'Personality', start: 'pers-big5', color: '#c08be8', image: 'img/big5-laila.png', zoom: 1.2 },
+        { title: 'Literature: Shakespeare', start: 'shk-meet', color: '#b23a48' },
         { title: 'Clothes & Fashion show', start: 'clothes-vocab', color: '#dc3394', image: 'img/clothes/cover-hamster.png' },
         { title: 'Describing photos', color: '#46d9c0' },
         { title: 'Past simple', color: '#e8820c' },
