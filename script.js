@@ -837,6 +837,25 @@ const drawings = [...document.querySelectorAll('.pd-draw')].map(wrap => {
     };
     img.src = url;
   });
+  // "Choose an avatar": a panel of faces opens over the box; the chosen face is drawn in the same box,
+  // so it can be drawn over or rubbed out like a photo
+  const avBtn = wrap.querySelector('.pd-avatar-btn');
+  const avPanel = wrap.querySelector('.pd-avatars');
+  if (avBtn && avPanel) {
+    avPanel.innerHTML = Array.from({ length: 38 }, (_, i) =>
+      `<button type="button" aria-label="Avatar ${i + 1}"><img src="img/personality/people/${i + 1}.png" alt="" loading="lazy"></button>`).join('');
+    avBtn.addEventListener('click', () => { avPanel.hidden = !avPanel.hidden; });
+    avPanel.addEventListener('click', e => {
+      const pic = e.target.closest('button')?.querySelector('img');
+      if (!pic) return;
+      const k = Math.min(canvas.width * .94 / pic.naturalWidth, canvas.height * .6 / pic.naturalHeight);
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(pic, (canvas.width - pic.naturalWidth * k) / 2, canvas.height * .1, pic.naturalWidth * k, pic.naturalHeight * k);
+      avPanel.hidden = true;
+      try { saved[wrap.id] = canvas.toDataURL('image/webp', .85); persist(); } catch { /* opened from a file: the avatar is not saved */ }
+    });
+  }
   const reset = () => { ctx.globalCompositeOperation = 'source-over'; ctx.clearRect(0, 0, canvas.width, canvas.height); };
   wrap.querySelector('.pd-clear').addEventListener('click', () => {
     if (!confirm('Clear this drawing?')) return;
@@ -1055,7 +1074,7 @@ const sonnetCounts = [...document.querySelectorAll('.sh-sonnet input.fill')].map
 
 /* ================= Villain Lab: "My flaws" circles ([pers-villain-mine]) ================= */
 // click the 4th circle = 4 out of 10; click the same one again to start over
-const flawRows = [...document.querySelectorAll('.vl-flaw')].map(row => {
+const flawRows = [...document.querySelectorAll('.vl-flaw, .vl-pwr')].map(row => {
   const dots = [...row.querySelectorAll('button')];
   const paint = () => dots.forEach((d, i) => d.classList.toggle('on', i < (Number(saved[row.id]) || 0)));
   dots.forEach((d, i) => d.addEventListener('click', () => {

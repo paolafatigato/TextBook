@@ -14,6 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Caveat:wght@500&family=Cormorant+Garamond:ital,wght@0,300;0,500;0,600;1,400;1,500&family=Fredoka:wght@600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Patrick+Hand&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Quicksand:wght@300;400&family=Space+Mono:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="personality-chapter.css">
+  <link rel="stylesheet" href="villain-battle.css">
   <link rel="stylesheet" href="metaphors-chapter.css">
   <link rel="stylesheet" href="animals-chapter.css">
   <link rel="stylesheet" href="routine-chapter.css">
@@ -4695,6 +4696,85 @@
       <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
     </section>
 
+    <!-- ============ NEW RIGHT PAGE: how strong is a power? who wins? ============ -->
+    <section class="page page-right pd-page">
+      <div class="vl-title abs" style="--x:6;--y:4;--w:88">POWER LAB</div>
+      <div class="lt-pill pink abs" style="--x:6;--y:13.6"><b>10.11</b> Connect each power to its flaw</div>
+      <button class="check abs" type="button" style="--x:83;--y:13.4" data-match="vl-pm">✓ Check</button>
+      <div class="match vl-pm abs" id="vl-pm" style="--x:6;--y:21;--w:88">
+        <ul class="match-words">
+          <li><button type="button" data-key="slowfield"><b>Slow Field</b> Anyone who comes near you starts moving in slow motion.</button></li>
+          <li><button type="button" data-key="ironroot"><b>Iron Root</b> Once you plant your feet, nothing can move you.</button></li>
+          <li><button type="button" data-key="mirrorshine"><b>Mirror Shine</b> Light bounces off you, blinding attackers.</button></li>
+          <li><button type="button" data-key="stretchgrip"><b>Stretch Grip</b> Your arms stretch to grab anything, from anywhere.</button></li>
+          <li><button type="button" data-key="delayfield"><b>Delay Field</b> Enemy attacks always arrive one second too late.</button></li>
+          <li><button type="button" data-key="shortfuse"><b>Short Fuse</b> The angrier you get, the stronger you get.</button></li>
+        </ul>
+        <ul class="match-defs">
+          <li><button type="button" data-key="ironroot"><i>1.</i> Stubborn</button></li>
+          <li><button type="button" data-key="shortfuse"><i>2.</i> Hot-tempered</button></li>
+          <li><button type="button" data-key="slowfield"><i>3.</i> Lazy</button></li>
+          <li><button type="button" data-key="mirrorshine"><i>4.</i> Superficial</button></li>
+          <li><button type="button" data-key="delayfield"><i>5.</i> Always late</button></li>
+          <li><button type="button" data-key="stretchgrip"><i>6.</i> Clingy</button></li>
+        </ul>
+        <svg class="match-lines" aria-hidden="true"></svg>
+      </div>
+
+      <div class="lt-pill pink abs" style="--x:6;--y:58"><b>10.12</b> Who wins? Click the stronger power and say why</div>
+      <ol class="vl-duels abs" style="--x:6;--y:64.6;--w:88">
+        <li><span class="opt duel" id="vl-du-1"><button type="button"><b>Instant Armor</b><em>Insults turn your skin hard as steel.</em></button><i>VS</i><button type="button"><b>Echo Sting</b><em>Insults bounce back, twice as hard.</em></button></span><input class="fill" id="vl-du-why-1" autocomplete="off" aria-label="Duel 1: because…" placeholder="I think … wins because…"></li>
+        <li><span class="opt duel" id="vl-du-2"><button type="button"><b>Word Web</b><em>Your sentences trap enemies in sticky threads.</em></button><i>VS</i><button type="button"><b>Flash Rush</b><em>The more annoyed you get, the faster you move.</em></button></span><input class="fill" id="vl-du-why-2" autocomplete="off" aria-label="Duel 2: because…" placeholder="I think … wins because…"></li>
+        <li><span class="opt duel" id="vl-du-3"><button type="button"><b>Clutter Storm</b><em>A whirlwind of random junk confuses enemies.</em></button><i>VS</i><button type="button"><b>Wave Force</b><em>You send a blast of force in a straight line.</em></button></span><input class="fill" id="vl-du-why-3" autocomplete="off" aria-label="Duel 3: because…" placeholder="I think … wins because…"></li>
+        <li><span class="opt duel" id="vl-du-4"><button type="button"><b>Time Skip</b><em>You jump five minutes into the future.</em></button><i>VS</i><button type="button"><b>Split Focus</b><em>You watch five things at once and never miss a trick.</em></button></span><input class="fill" id="vl-du-why-4" autocomplete="off" aria-label="Duel 4: because…" placeholder="I think … wins because…"></li>
+        <li><span class="opt duel" id="vl-du-5"><button type="button"><b>Power Feast</b><em>You absorb a little of any power you touch.</em></button><i>VS</i><button type="button"><b>Wild Card</b><em>You can swap one rule of the fight, just once.</em></button></span><input class="fill" id="vl-du-why-5" autocomplete="off" aria-label="Duel 5: because…" placeholder="I think … wins because…"></li>
+      </ol>
+
+      <div class="lt-pill pink abs" style="--x:6;--y:114"><b>10.13</b> Which power would you like to have?</div>
+      <p class="pd-row abs" style="--x:6;--y:121;--w:88"><span>I WOULD CHOOSE</span><input class="fill" id="vl-pw-choose" autocomplete="off" aria-label="I would choose"></p>
+      <p class="pd-row abs" style="--x:6;--y:127.4;--w:88"><span>BECAUSE</span><input class="fill" id="vl-pw-because" autocomplete="off" aria-label="Because"></p>
+      <span class="footer abs" style="--x:69;--y:134.6;--w:19.1">Personality</span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="pers-villain-powers" data-title="Personality" data-name="Villain Lab: your power · your villain">
+
+    <!-- ============ NEW LEFT PAGE: build your own power ============ -->
+    <section class="page page-left pd-page">
+      <div class="vl-title abs" style="--x:6;--y:4;--w:88">YOUR POWER</div>
+      <div class="lt-pill pink abs" style="--x:8;--y:13.6"><b>10.14</b> From me to a power. Write about you, then invent!</div>
+      <div class="pw-table abs" style="--x:6;--y:20;--w:88">
+        <p class="pw-head"><span></span><span>ME</span><span>SO MY VILLAIN CAN…</span></p>
+        <p class="pw-ex"><span class="pw-q">My top flaw</span><span class="ink">I am chatty.</span><span class="ink">make enemies dizzy with endless talk.</span></p>
+        <ol>
+        <li><span class="pw-q">Another flaw</span><input class="fill" id="vl-me-1-a" autocomplete="off" aria-label="Another flaw"><input class="fill" id="vl-me-1-b" autocomplete="off" aria-label="My villain can… (Another flaw)"></li>
+        <li><span class="pw-q">Something I do all day</span><input class="fill" id="vl-me-2-a" autocomplete="off" aria-label="Something I do all day"><input class="fill" id="vl-me-2-b" autocomplete="off" aria-label="My villain can… (Something I do all day)"></li>
+        <li><span class="pw-q">Something that annoys people</span><input class="fill" id="vl-me-3-a" autocomplete="off" aria-label="Something that annoys people"><input class="fill" id="vl-me-3-b" autocomplete="off" aria-label="My villain can… (Something that annoys people)"></li>
+        <li><span class="pw-q">Something I love</span><input class="fill" id="vl-me-4-a" autocomplete="off" aria-label="Something I love"><input class="fill" id="vl-me-4-b" autocomplete="off" aria-label="My villain can… (Something I love)"></li>
+        <li><span class="pw-q">My body or my look</span><input class="fill" id="vl-me-5-a" autocomplete="off" aria-label="My body or my look"><input class="fill" id="vl-me-5-b" autocomplete="off" aria-label="My villain can… (My body or my look)"></li>
+        </ol>
+      </div>
+
+      <div class="lt-pill pink abs" style="--x:8;--y:63"><b>10.15</b> Your power recipe</div>
+      <div class="pw-recipe abs" style="--x:6;--y:69.6;--w:88">
+        <p class="pd-row"><span>MY FLAW</span><input class="fill" id="vl-rc-flaw" autocomplete="off" aria-label="My flaw"></p>
+        <p class="pd-row"><span>NAME OF THE POWER</span><input class="fill" id="vl-rc-name" autocomplete="off" aria-label="Name of the power"></p>
+        <p class="pd-row pw-frame"><span>WHAT IT DOES</span><em>When</em><input class="fill" id="vl-rc-when" autocomplete="off" aria-label="When…"><em>, my villain can</em><input class="fill" id="vl-rc-can" autocomplete="off" aria-label="my villain can…"></p>
+        <div class="vl-pwr own" id="vl-rc-strong" style="--c:#8e2de2"><span><b>HOW STRONG IS IT?</b></span><button type="button" aria-label="My power: 1 out of 10"></button><button type="button" aria-label="My power: 2 out of 10"></button><button type="button" aria-label="My power: 3 out of 10"></button><button type="button" aria-label="My power: 4 out of 10"></button><button type="button" aria-label="My power: 5 out of 10"></button><button type="button" aria-label="My power: 6 out of 10"></button><button type="button" aria-label="My power: 7 out of 10"></button><button type="button" aria-label="My power: 8 out of 10"></button><button type="button" aria-label="My power: 9 out of 10"></button><button type="button" aria-label="My power: 10 out of 10"></button></div>
+        <p class="pd-row pw-frame"><span>ITS WEAKNESS</span><em>It stops working when</em><input class="fill" id="vl-rc-weak" autocomplete="off" aria-label="It stops working when…"></p>
+      </div>
+
+      <div class="lt-pill pink abs" style="--x:8;--y:104"><b>10.16</b> Duel with a friend!</div>
+      <div class="pw-recipe abs" style="--x:6;--y:110.6;--w:88">
+        <p class="pd-row"><span>MY POWER</span><input class="fill" id="vl-fd-mine" autocomplete="off" aria-label="My power"></p>
+        <p class="pd-row"><span>MY FRIEND’S POWER</span><input class="fill" id="vl-fd-theirs" autocomplete="off" aria-label="My friend's power"></p>
+        <p class="pd-row pw-win"><span>WHO WINS?</span><span class="opt duel small" id="vl-fd-win"><button type="button">My power</button><button type="button">My friend’s power</button></span><em>because</em><input class="fill" id="vl-fd-why" autocomplete="off" aria-label="Because"></p>
+      </div>
+      <button type="button" class="vb-play abs" style="--x:46;--y:127.4;--w:48">⚔ Play Villain Battle! ▶</button>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+
+
     <!-- ============ RIGHT PAGE ============ -->
     <section class="page page-right pd-page vl-sheet">
       <img class="vl-img abs" src="img/villain-potion.png" style="--x:1;--y:1.5;--w:15.5" alt="" onerror="this.remove()">
@@ -4702,9 +4782,10 @@
       <p class="vl-name abs" style="--x:15.6;--y:6.6;--w:76"><b>NAME</b><input class="fill" id="vl-s-name" autocomplete="off" aria-label="Villain name"></p>
 
       <div class="pd-draw vl-canvas abs" id="vl-draw" data-photo="1" style="--x:6.3;--y:15;--w:33.6">
-        <canvas width="600" height="860" aria-label="Photo or drawing of your villain"></canvas>
+        <canvas width="600" height="860" aria-label="Avatar and drawing of your villain"></canvas>
+        <div class="pd-avatars" hidden></div>
         <div class="pd-tools">
-          <button type="button" class="pd-photo-btn">📷 Add a photo</button>
+          <button type="button" class="pd-photo-btn pd-avatar-btn">🧑 Choose an avatar</button>
           <button type="button" class="pd-clear">Clear</button>
           <button type="button" class="pd-sw on" data-c="#222" style="--c:#222" aria-label="Black"></button>
           <button type="button" class="pd-sw" data-c="#e53935" style="--c:#e53935" aria-label="Red"></button>
@@ -4713,7 +4794,6 @@
           <button type="button" class="pd-sw" data-c="#43a047" style="--c:#43a047" aria-label="Green"></button>
           <button type="button" class="pd-sw" data-c="#fdd835" style="--c:#fdd835" aria-label="Yellow"></button>
           <button type="button" class="pd-sw rub" data-c="erase" aria-label="Rubber">⌫</button>
-          <input type="file" accept="image/*" hidden>
         </div>
       </div>
 
@@ -9188,6 +9268,7 @@
   <script src="grammar-games-data.js"></script>
   <script src="grammar-games.js"></script>
   <script src="personality-game.js"></script>
+  <script src="villain-battle.js"></script>
   <script src="big5-wheel.js"></script>
   <script src="home-game.js"></script>
   <script src="future-games.js"></script>
