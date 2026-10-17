@@ -11,6 +11,7 @@
 //   <a data-page="own-saxon">…</a>          → a link to that page
 //   <span class="pageno …"></span>          → the number of the page it is on
 // In the other scripts: PAGES.of('own-saxon:R') → 29 · PAGES.ofEl(el) → the page el is on
+// From outside the book (AgendaProf): index.html#s=own-saxon:R opens that page (script.js, route)
 //
 // It runs before every other script, and writes data-pages="28-29" on each spread for them.
 

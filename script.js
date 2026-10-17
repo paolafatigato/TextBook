@@ -144,7 +144,21 @@ function showHome() {
 }
 
 // #home → home page, #p6 → page 6, nothing → home page
-function route() {
+// #s=own-saxon / #s=own-saxon:R → that page by the name of its spread: links from outside the book
+// (AgendaProf) use this, so they still work when pages are added
+async function route() {
+  const s = location.hash.match(/^#s=([\w-]+(?::[LR])?)$/);
+  if (s) {
+    const hash = location.hash;
+    const spread = PAGES.spread(s[1].split(':')[0]);
+    if (spread && !canSee(spread)) {
+      // a teacher's page: wait until cloud.js has said who is signed in (at most a few seconds)
+      await Promise.race([userReady, new Promise(r => setTimeout(r, 6000))]);
+      if (location.hash !== hash) return;
+    }
+    goToPage(PAGES.of(s[1]));
+    return;
+  }
   const m = location.hash.match(/^#p(\d+(?:\.\d+)?)/);
   if (m) goToPage(parseFloat(m[1]));
   else showHome();
