@@ -4,10 +4,10 @@
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
 import {
-  getAuth, onAuthStateChanged, signInWithPopup, signOut, GoogleAuthProvider,
+  getAuth, onAuthStateChanged, signInWithPopup, signOut, GoogleAuthProvider, signInAnonymously,
 } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
 import {
-  getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs, onSnapshot,
+  getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, getDocs, onSnapshot,
 } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 
 const firebaseConfig = {
@@ -181,7 +181,9 @@ book.flush = async () => { if (timer) { clearTimeout(timer); await push(); } };
 // leaving the page: send what is left
 window.addEventListener('pagehide', () => { if (timer) push(); });
 
-onAuthStateChanged(auth, async u => {
+onAuthStateChanged(auth, async signed => {
+  // an anonymous user is only here to play online (Villain Battle): the book treats it as nobody signed in
+  const u = signed && !signed.isAnonymous ? signed : null;
   user = u;
   ready = false;
   book.setUser(u && {
@@ -216,3 +218,55 @@ onAuthStateChanged(auth, async u => {
   push(); // answers written before signing in
   book.setSyncState('ok');
 });
+
+/* ---------- rooms for Villain Battle: two devices, one 4-letter code ---------- */
+// A room is the document duels/<CODE> (rules in firestore.rules). Whoever plays writes only on their own turn,
+// the other device just draws what is in the document. Players are told apart by an id that each device keeps,
+// so the same Google account can play on two devices.
+const ROOM_LETTERS = 'ABCDEFGHJKLMNPQRSTUVWXYZ'; // no I and O: they look like 1 and 0
+const ROOM_TTL = 12 * 3600 * 1000;               // a room older than this is free again
+const roomRef = code => doc(db, 'duels', code);
+const roomError = code => Object.assign(new Error(code), { code });
+
+book.rooms = {
+  // the player must be signed in (anonymously, if nobody is)
+  async ready() {
+    if (!auth.currentUser) await signInAnonymously(auth);
+  },
+  async create(client) {
+    await this.ready();
+    for (let tries = 0; tries < 8; tries++) {
+      const code = Array.from({ length: 4 }, () => ROOM_LETTERS[Math.floor(Math.random() * ROOM_LETTERS.length)]).join('');
+      const old = await getDoc(roomRef(code));
+      if (old.exists() && Date.now() - (old.data().updated || 0) < ROOM_TTL) continue;
+      const now = Date.now();
+      await setDoc(roomRef(code), {
+        code, host: client, guest: null, created: now, updated: now,
+        p0: null, p1: null, st: null, turnOf: 0, turn: 1, seq: 0, logN: 0, log: [], over: false, winner: null, left: null,
+      });
+      return code;
+    }
+    throw roomError('busy');
+  },
+  // → 0 (the one who made the room) or 1 (the one who joined)
+  async join(code, client) {
+    await this.ready();
+    const snap = await getDoc(roomRef(code));
+    if (!snap.exists()) throw roomError('notfound');
+    const d = snap.data();
+    if (Date.now() - (d.updated || 0) > ROOM_TTL) throw roomError('expired');
+    if (d.host === client) return 0;
+    if (d.guest === client) return 1;
+    if (d.guest) throw roomError('full');
+    await updateDoc(roomRef(code), { guest: client, updated: Date.now() });
+    const check = await getDoc(roomRef(code));
+    if (check.data().guest !== client) throw roomError('full'); // somebody else was faster
+    return 1;
+  },
+  watch(code, onRoom, onError) {
+    return onSnapshot(roomRef(code), s => onRoom(s.exists() ? s.data() : null), onError);
+  },
+  update(code, patch) {
+    return updateDoc(roomRef(code), { ...patch, updated: Date.now() });
+  },
+};

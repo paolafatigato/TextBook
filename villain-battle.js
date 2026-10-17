@@ -1,6 +1,7 @@
 // Villain Battle ([pers-villain-powers:L]): the pupil's tiny villain fights a random hero.
 //
-// Two ways to play: villain vs a random hero (1 player), or villain vs villain (2 players, passing the computer).
+// Three ways to play: villain vs a random hero (1 player), villain vs villain on one computer (passing it),
+// or villain vs villain online, each on their own device with a 4-letter room code (rooms live in cloud.js).
 // The pupil picks 3 flaws, reads the 6 powers of each flaw and chooses 3 of them as the villain's special attacks.
 // The hero only has attacks that come from virtues.
 // The pupil can read what an attack does, but never how many points it is worth:
@@ -388,6 +389,9 @@
   let mode = '1p';            // '1p' villain vs hero · '2p' villain vs villain
   let player = 1;             // 2 players: which one is making a villain
   let players = [null, null]; // 2 players: { name, icon, drawn, picked, chosen } of each
+  let netState = null;        // online: { code, me: 0|1, unsub, room, mine, begun }
+  const clientId = Math.random().toString(36).slice(2) + Date.now().toString(36); // tells the two players apart (new on every page load)
+  const rooms = () => window.book && window.book.rooms;
 
   function open() {
     lastFocus = document.activeElement;
@@ -396,6 +400,7 @@
     overlay.querySelector('.vb-close').focus();
   }
   function close() {
+    netLeave();
     if (game) game.token = null;
     overlay.hidden = true;
     lastFocus?.focus();
@@ -423,37 +428,43 @@
 
   /* ---- 0. one player or two ---- */
   function modes() {
+    netLeave();
     game = null; players = [null, null]; player = 1;
     screen.innerHTML = `
       <h2 class="vb-title">Villain Battle</h2>
       <p class="vb-sub">Make a tiny villain and fight!</p>
       <div class="vb-modes">
         <button type="button" class="vb-mode" data-act="mode" data-m="1p"><i>🦹 ⚔ 🦸</i><b>Villain vs Hero</b><span>1 player. Your villain fights a hero chosen by the computer.</span></button>
-        <button type="button" class="vb-mode" data-act="mode" data-m="2p"><i>🦹 ⚔ 🦹</i><b>Villain vs Villain</b><span>2 players. Each player makes a villain, then you pass the computer from one to the other.</span></button>
+        <button type="button" class="vb-mode" data-act="mode" data-m="2p"><i>🦹 ⚔ 🦹</i><b>Villain vs Villain</b><span>2 players, 1 computer. Each player makes a villain, then you pass the computer from one to the other.</span></button>
+        <button type="button" class="vb-mode" data-act="mode" data-m="net"><i>📱 ⚔ 💻</i><b>Online with a code</b><span>2 players, 2 devices. Make a room, tell the 4-letter code to a friend and fight from your own device.</span></button>
       </div>`;
   }
   function chooseMode(m) {
     mode = m; player = 1; players = [null, null];
     picked = []; chosen = []; icon = ''; villainName = '';
-    intro();
+    if (m === 'net') onlineMenu(); else intro();
   }
 
   /* ---- 1. make the villain: name, picture, 3 flaws ---- */
   function intro() {
-    const two = mode === '2p';
-    drawn = player === 1 ? readDrawing() : '';
+    const two = mode === '2p', netm = mode === 'net';
+    drawn = player === 1 && !netm ? readDrawing() : ''; // a drawing is too big to send online
     villainName = (player === 1 && document.getElementById('vl-s-name')?.value.trim()) || villainName || '';
     if (!icon || (icon === 'drawn' && !drawn)) icon = drawn ? 'drawn' : FACES[Math.floor(Math.random() * FACES.length)];
     const ids = [...(drawn ? ['drawn'] : []), ...EMOJIS.map(e => 'e:' + e), ...FACES];
     screen.innerHTML = `
-      <h2 class="vb-title">${two ? `Player ${player}` : 'Villain Battle'}</h2>
-      <p class="vb-sub">${two ? `Player ${player}: make your villain! ${player === 1 ? 'Player 2, look away 🙈' : 'Player 1, look away 🙈'}` : 'Make a tiny villain and fight a hero!'}</p>
+      <h2 class="vb-title">${netm ? 'Your villain' : two ? `Player ${player}` : 'Villain Battle'}</h2>
+      <p class="vb-sub">${netm ? `Room code: <b class="vb-roomcode">${netState ? netState.code : ''}</b>` : two ? `Player ${player}: make your villain! ${player === 1 ? 'Player 2, look away 🙈' : 'Player 1, look away 🙈'}` : 'Make a tiny villain and fight a hero!'}</p>
       <div class="vb-how">
         <b>How to play</b>
         <ol>
           <li>Choose a <b>name</b>, a <b>picture</b> and <b>3 flaws</b>.</li>
           <li>Each flaw has 6 <b>superpowers</b>. Read them and choose <b>3</b> for your villain.</li>
-          ${two
+          ${netm
+            ? `<li>Press <b>Ready</b> when your villain is done. The fight starts when <b>both</b> players are ready.</li>
+          <li>You fight <b>one turn each</b>. The <b>points are secret</b>: read what each attack does, and choose which to use and when.</li>
+          <li>Take away all your friend’s villain’s <b>HP</b> to win!</li>`
+            : two
             ? `<li>Then you <b>pass the computer</b> and the other player makes a villain too.</li>
           <li>The villains fight, <b>one turn each</b>. The <b>points are secret</b>: read what each attack does, and choose which to use and when.</li>
           <li>Take away all the other villain’s <b>HP</b> to win!</li>`
@@ -517,7 +528,7 @@
       <p class="vb-count" aria-live="polite"></p>
       <div class="vb-nav">
         <button type="button" class="vb-btn" data-act="back">◀ Back</button>
-        <button type="button" class="vb-btn start inline" data-act="start">${mode === '1p' ? 'Meet the hero ▶' : player === 1 ? 'Done! Pass the computer ▶' : 'Fight! ⚔'}</button>
+        <button type="button" class="vb-btn start inline" data-act="start">${mode === 'net' ? 'Ready! ▶' : mode === '1p' ? 'Meet the hero ▶' : player === 1 ? 'Done! Pass the computer ▶' : 'Fight! ⚔'}</button>
       </div>`;
     paintPowers();
   }
@@ -539,6 +550,7 @@
   // the villain is ready: against the hero, or (2 players) on to the next player / the duel
   function finishCreation() {
     villainName = villainName || (mode === '2p' ? `Player ${player}` : 'My villain');
+    if (mode === 'net') { netReady(); return; }
     if (mode === '1p') { startBattle(); return; }
     players[player - 1] = { name: villainName, icon, drawn, picked: [...picked], chosen: chosen.map(c => ({ ...c })) };
     if (player === 2) { duelStart(); return; }
@@ -614,9 +626,13 @@
       side.querySelector('.vb-hpbar em').textContent = `${f.hp} HP`;
       side.querySelector('.vb-status').innerHTML = statusIcons(f);
     });
-    const who = game.duel && game.turnOf === 1 ? hero : villain;
+    const who = game.net ? (game.turnOf === game.me ? villain : hero) : game.duel && game.turnOf === 1 ? hero : villain;
     $('.vb-turn').textContent = game.over ? '' : game.duel ? `Turn ${game.turn} · ${who.name}’s turn` : `Turn ${game.turn}`;
-    if (game.duel && !game.ready && !game.over) {
+    if (game.net && !game.over && game.turnOf !== game.me) {
+      $('.vb-attacks').innerHTML = `<div class="vb-pass inline"><p>⏳ Waiting for <b>${esc(hero.name)}</b> to choose an attack…</p></div>`;
+      return;
+    }
+    if (game.duel && !game.net && !game.ready && !game.over) {
       $('.vb-attacks').innerHTML = `<div class="vb-pass inline"><p>🔄 Pass the computer to <b>${esc(who.name)}</b>!</p><button type="button" class="vb-btn start" data-act="ready">I am ${esc(who.name)} ▶</button></div>`;
       return;
     }
@@ -627,7 +643,7 @@
       </button>`).join('');
   }
 
-  const float = (sel, text, cls) => {
+  const floatUp = (sel, text, cls) => {
     const side = $(`.vb-side${sel}`);
     if (!side) return;
     const f = document.createElement('span');
@@ -638,11 +654,12 @@
   };
 
   // log + floating numbers for what one attack did
-  function report(att, who, out) {
+  function report(att, who, out, collect = false) {
     const mine = who === game.villain;
     const meSel = mine ? '.villain' : '.hero', foeSel = mine ? '.hero' : '.villain';
     const foe = mine ? game.hero : game.villain;
     const parts = [];
+    const float = collect ? () => {} : floatUp; // online: the numbers come from the change of HP, on both devices
     if (out.reflected) { parts.push(`the attack bounces back: ${who.name} loses ${out.reflected} HP`); float(meSel, `-${out.reflected}`, 'dmg'); }
     else if (out.dealt) { parts.push(`${foe.name} loses ${out.dealt} HP`); float(foeSel, `-${out.dealt}`, 'dmg'); }
     else if (out.blocked) parts.push('the attack is blocked completely');
@@ -654,9 +671,11 @@
     if (out.notes.includes('weak')) parts.push(`${foe.name}’s next attack will be weaker`);
     if (out.notes.includes('boost')) parts.push(`${who.name}’s next attack will be stronger`);
     if (out.notes.includes('skip')) parts.push(`${foe.name} cannot act next turn`);
-    say(`<b>${esc(who.name)}</b> uses <b>${esc(att.name)}</b>! ${parts.length ? parts.join('. ') + '.' : ''}`, mine ? 'me' : 'foe');
+    const lines = [{ text: `<b>${esc(who.name)}</b> uses <b>${esc(att.name)}</b>! ${parts.length ? parts.join('. ') + '.' : ''}`, cls: mine ? 'me' : 'foe' }];
     // the hero's attacks are written so that they read after its name: "Professor Brain trains again and again…"
-    if (!mine && /^[a-z]/.test(att.desc)) say(`${esc(who.name)} ${esc(att.desc)}`, 'foe note');
+    if (!mine && /^[a-z]/.test(att.desc)) lines.push({ text: `${esc(who.name)} ${esc(att.desc)}`, cls: 'foe note' });
+    if (!collect) lines.forEach(l => say(l.text, l.cls));
+    return lines;
   }
 
   const wait = ms => new Promise(r => setTimeout(r, ms));
@@ -745,6 +764,209 @@
     paintBattle();
   }
 
+  /* ---- 2c. online: two devices, a room with a 4-letter code ---- */
+  const netText = e => {
+    const c = (e && (e.code || e.message)) || '';
+    if (/operation-not-allowed|admin-restricted/.test(c)) return 'Online play is not switched on yet. Ask your teacher!';
+    if (/permission-denied/.test(c)) return 'Online play is not set up yet. Ask your teacher!';
+    if (c === 'notfound') return 'There is no room with this code. Check the letters!';
+    if (c === 'full') return 'This room already has two players.';
+    if (c === 'expired') return 'This room is too old. Ask your friend to make a new one.';
+    if (c === 'busy') return 'Could not make a room. Try again.';
+    return 'Could not connect. Check the internet and try again.';
+  };
+
+  function onlineMenu(msg = '') {
+    netLeave();
+    mode = 'net'; game = null;
+    screen.innerHTML = `
+      <h2 class="vb-title">Online with a code</h2>
+      <p class="vb-sub">Each player uses their own device.</p>
+      <div class="vb-modes">
+        <button type="button" class="vb-mode" data-act="net-create"><i>🆕</i><b>Make a room</b><span>You get a 4-letter code. Tell it to your friend.</span></button>
+        <div class="vb-mode join">
+          <i>🔑</i><b>Join a room</b><span>Write the code of your friend.</span>
+          <input class="vb-code" type="text" maxlength="4" autocomplete="off" autocapitalize="characters" placeholder="ABCD" aria-label="Room code">
+          <button type="button" class="vb-btn start" data-act="net-join">Join ▶</button>
+        </div>
+      </div>
+      <p class="vb-neterr" aria-live="polite">${esc(msg)}</p>
+      <div class="vb-nav"><button type="button" class="vb-btn" data-act="modes">◀ Back</button></div>`;
+  }
+  const netMsg = t => { const el = $('.vb-neterr'); if (el) el.textContent = t; };
+
+  async function netEnter(make) {
+    const R = rooms();
+    if (!R) { netMsg('Online play needs the internet. Try again in a moment.'); return; }
+    let code;
+    if (!make) {
+      code = ($('.vb-code').value || '').toUpperCase().replace(/[^A-Z]/g, '');
+      if (code.length !== 4) { netMsg('The code has 4 letters.'); return; }
+    }
+    netMsg(make ? 'Making the room…' : 'Joining…');
+    try {
+      let me = 0;
+      if (make) code = await R.create(clientId); else me = await R.join(code, clientId);
+      netState = { code, me, unsub: null, room: null, mine: null, begun: false };
+      netState.unsub = R.watch(code, onRoom, e => { netMsg(netText(e)); });
+      picked = []; chosen = []; icon = ''; villainName = ''; player = 1;
+      intro();
+    } catch (e) { netState = null; netMsg(netText(e)); }
+  }
+
+  function netLeave() {
+    if (!netState) return;
+    const st = netState;
+    netState = null;
+    st.unsub?.();
+    if (game?.net && !game.over) { try { rooms()?.update(st.code, { left: st.me }); } catch { /* nobody to tell */ } }
+  }
+
+  // my villain is ready: put it in the room and wait for the other one
+  async function netReady() {
+    const data = { name: villainName, icon: icon === 'drawn' ? 'f:1' : icon, picked: [...picked], chosen: chosen.map(c => ({ k: c.k, i: c.i })), ready: true };
+    netState.mine = data;
+    screen.innerHTML = '<div class="vb-pass"><div class="vb-big">⏳</div><h2 class="vb-title">Sending your villain…</h2></div>';
+    try { await rooms().update(netState.code, { ['p' + netState.me]: data }); }
+    catch (e) { onlineMenu(netText(e)); return; }
+    netWait(netState.room);
+  }
+
+  function netWait(room) {
+    if (!netState || game) return;
+    const joined = room && room.guest;
+    screen.innerHTML = `
+      <div class="vb-pass">
+        <div class="vb-big">⏳</div>
+        <h2 class="vb-title">Your villain is ready!</h2>
+        <p>Room code: <b class="vb-roomcode">${netState.code}</b></p>
+        <p class="vb-waitmsg">${joined ? 'Waiting for your friend to finish their villain…' : 'Waiting for your friend to join with this code…'}</p>
+        <button type="button" class="vb-btn" data-act="modes">Leave</button>
+      </div>`;
+  }
+
+  const netFighter = (p, nameFix) => fighter(nameFix || p.name, p.chosen.map(c => ATTACKS[c.k][c.i]), BASIC_VILLAIN);
+  const ser = f => ({ hp: f.hp, guard: f.guard, reflect: f.reflect, weak: f.weak, boost: f.boost, skip: f.skip, left: f.attacks.map(a => a.left) });
+  const applyF = (f, st) => {
+    f.hp = st.hp; f.guard = st.guard || null; f.reflect = st.reflect || null; f.weak = st.weak || null; f.boost = st.boost || null; f.skip = st.skip || 0;
+    (st.left || []).forEach((n, i) => { if (f.attacks[i]) f.attacks[i].left = n; });
+  };
+
+  // every change of the room comes here
+  function onRoom(room) {
+    if (!netState) return;
+    netState.room = room;
+    if (!room) { netMsg('This room is gone.'); return; }
+    if (game && game.net) { netRender(room); return; }
+    if (netState.mine && room.p0 && room.p1) { netBegin(room); return; }
+    if (netState.mine) netWait(room);
+  }
+
+  function netBegin(room) {
+    const me = netState.me, mine = room['p' + me], other = room['p' + (1 - me)];
+    const otherName = other.name.toLowerCase() === mine.name.toLowerCase() ? `${other.name} 2` : other.name;
+    game = { duel: true, net: true, me, villain: netFighter(mine), hero: netFighter(other, otherName), turnOf: room.turnOf || 0, turn: room.turn || 1, ready: true, busy: false, over: false, token: {}, log: [], logSeen: room.logN || 0, shown: null };
+    const side = (cls, name, p) => `
+        <div class="vb-side ${cls}">
+          <div class="vb-pic">${pictureHtml(p.icon)}</div>
+          <b class="vb-fname">${esc(name)}</b>
+          <div class="vb-hpbar"><span></span><em></em></div>
+          <div class="vb-virtues flaws">${p.picked.map(k => `<i>${flawName(k)}</i>`).join('')}</div>
+          <div class="vb-status"></div>
+        </div>`;
+    screen.innerHTML = `
+      <div class="vb-arena">${side('villain', mine.name, mine)}<div class="vb-vs">VS</div>${side('hero duel', otherName, other)}</div>
+      <div class="vb-log" aria-live="polite"></div>
+      <p class="vb-turn"></p>
+      <div class="vb-attacks"></div>
+      <div class="vb-nav"><button type="button" class="vb-btn" data-act="quit">Leave the fight</button></div>`;
+    say(`${esc(mine.name)} and ${esc(otherName)} are ready to fight! ${esc(room.p0.name)} goes first.`);
+    if (room.st) { applyF(game.me === 0 ? game.villain : game.hero, room.st.f0); applyF(game.me === 1 ? game.villain : game.hero, room.st.f1); }
+    game.shown = { v: game.villain.hp, h: game.hero.hp };
+    paintBattle();
+    netRender(room);
+  }
+
+  // draw what the room says: HP, whose turn it is, the new lines of the log, the end
+  function netRender(room) {
+    const g = game;
+    if (room.st) {
+      applyF(g.me === 0 ? g.villain : g.hero, room.st.f0);
+      applyF(g.me === 1 ? g.villain : g.hero, room.st.f1);
+    }
+    if (g.shown) {
+      const dv = g.villain.hp - g.shown.v, dh = g.hero.hp - g.shown.h;
+      if (dv) floatUp('.villain', dv > 0 ? `+${dv}` : String(dv), dv > 0 ? 'heal' : 'dmg');
+      if (dh) floatUp('.hero', dh > 0 ? `+${dh}` : String(dh), dh > 0 ? 'heal' : 'dmg');
+    }
+    g.shown = { v: g.villain.hp, h: g.hero.hp };
+    g.turnOf = room.turnOf;
+    g.turn = room.turn || g.turn;
+    (room.log || []).filter(l => l.i >= g.logSeen).forEach(l => say(l.t, (l.a === g.me ? 'me' : 'foe') + (l.n ? ' note' : '')));
+    g.logSeen = room.logN || 0;
+    g.busy = false;
+    if (room.left !== null && room.left !== undefined && room.left !== g.me && !room.over && !g.over) {
+      g.over = true;
+      $('.vb-attacks').innerHTML = '<div class="vb-pass inline"><p>👋 Your friend left the fight.</p><button type="button" class="vb-btn start" data-act="modes">Back to the menu</button></div>';
+      return;
+    }
+    if (room.over && !g.over) {
+      g.over = true;
+      paintBattle();
+      const tok = g.token;
+      setTimeout(() => { if (game === g && g.token === tok) endNet(room.winner); }, 1500);
+      return;
+    }
+    if (!g.over) paintBattle();
+  }
+
+  // my turn: I work out the result, write it in the room, both devices draw it
+  async function netAttack(i) {
+    const g = game;
+    if (!g || !g.net || g.busy || g.over || g.turnOf !== g.me || !netState) return;
+    const me = g.villain, foe = g.hero;
+    const att = [...me.attacks, me.basic][i];
+    if (!att || (att.uses !== Infinity && att.left <= 0)) return;
+    g.busy = true;
+    paintBattle();
+    const room = netState.room;
+    spend(att);
+    const lines = report(att, me, use(att, me, foe), true);
+    const over = me.hp <= 0 || foe.hp <= 0;
+    let turnOf = g.me, turn = g.turn;
+    if (!over) {
+      if (foe.skip > 0) { // the other villain is dizzy: I act again
+        foe.skip--;
+        lines.push({ text: `<b>${esc(foe.name)}</b> is dizzy and cannot act! ${esc(me.name)} goes again.`, cls: 'me' });
+      } else { turnOf = 1 - g.me; if (turnOf === 0) turn++; }
+    }
+    const logN = (room.logN || 0) + lines.length;
+    const old = (room.log || []).slice(-10);
+    const log = [...old, ...lines.map((l, k) => ({ i: (room.logN || 0) + k, t: l.text, a: g.me, n: /note/.test(l.cls) }))];
+    const patch = {
+      st: { ['f' + g.me]: ser(me), ['f' + (1 - g.me)]: ser(foe) },
+      turnOf, turn, logN, log, seq: (room.seq || 0) + 1,
+      over, winner: over ? (me.hp > 0 ? g.me : foe.hp > 0 ? 1 - g.me : -1) : null,
+    };
+    try { await rooms().update(netState.code, patch); }
+    catch (e) { // not sent: draw the room again as it was
+      g.busy = false;
+      if (netState?.room) { netBegin(netState.room); say('Your move was not sent. Try again!', 'foe'); }
+    }
+  }
+
+  function endNet(winner) {
+    const g = game, me = g.me;
+    const text = winner === -1 ? 'It’s a draw!' : winner === me ? 'You win!' : `${esc(g.hero.name)} wins!`;
+    screen.innerHTML = `
+      <div class="vb-end ${winner === me ? 'won' : 'lost'}">
+        <div class="vb-big">${winner === -1 ? '🤝' : winner === me ? '🏆' : '💥'}</div>
+        <h2 class="vb-title">${text}</h2>
+        <p>${winner === me ? 'Great choices!' : winner === -1 ? 'Both villains fell at the same time.' : 'Think about which attack to use, and when. Try again!'}</p>
+        <button type="button" class="vb-btn start" data-act="modes">New game</button>
+      </div>`;
+  }
+
   async function finished() {
     const g = game;
     if (g.villain.hp > 0 && g.hero.hp > 0) return false;
@@ -797,14 +1019,20 @@
     else if (act === 'power') togglePower(btn.dataset.k, +btn.dataset.i);
     else if (act === 'back') intro();
     else if (act === 'mode') chooseMode(btn.dataset.m);
+    else if (act === 'net-create') netEnter(true);
+    else if (act === 'net-join') netEnter(false);
     else if (act === 'modes') modes();
     else if (act === 'pass2') intro();
     else if (act === 'ready') { game.ready = true; paintBattle(); }
     else if (act === 'start') finishCreation();
     else if (act === 'again') { if (game?.duel) duelStart(); else startBattle(); }
-    else if (act === 'attack') { if (game?.duel) duelAttack(+btn.dataset.i); else playerAttack(+btn.dataset.i); }
+    else if (act === 'attack') { if (game?.net) netAttack(+btn.dataset.i); else if (game?.duel) duelAttack(+btn.dataset.i); else playerAttack(+btn.dataset.i); }
     else if (act === 'change') { if (mode === '2p') modes(); else { game = null; chosen = []; intro(); } }
-    else if (act === 'quit') { if (game) game.token = null; if (mode === '2p') modes(); else { game = null; intro(); } }
+    else if (act === 'quit') { if (game) game.token = null; if (mode === '2p' || mode === 'net') modes(); else { game = null; intro(); } }
+  });
+
+  overlay.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.classList.contains('vb-code')) { e.preventDefault(); netEnter(false); }
   });
 
   // while the pop-up is open the keys do not turn the pages

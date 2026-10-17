@@ -22,5 +22,14 @@ service cloud.firestore {
         allow read, write: if request.auth != null && request.auth.uid == uid;
       }
     }
+
+    // Villain Battle online: a room is a document named with a 4-letter code.
+    // Anybody signed in (even anonymously) who knows the code can read and play; nobody can list the rooms.
+    match /duels/{code} {
+      allow get: if request.auth != null;
+      allow create: if request.auth != null && code.matches('[A-Z]{4}');
+      allow update: if request.auth != null && request.resource.data.host == resource.data.host;
+      allow delete: if request.auth != null;
+    }
   }
 }
