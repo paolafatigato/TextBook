@@ -166,7 +166,7 @@ const CONTENTS = {
     { title: 'Romeo & Juliet games', color: '#d6334f', pages: ['rj-verona:L', 'rj-party:R', 'rj-kiss:R', 'rj-balcony:R', 'rj-rehearsal:R'] },
     { title: 'Rehearsal & summary', color: '#d6334f', pages: ['rj-rehearsal'] },
     { title: 'Writing a book review', color: '#3d8f3d', pages: ['bank-review'] },
-    { title: 'Reading: The Boy Who Harnessed the Wind (work in the story)', color: '#e8820c', pages: [['jobs-reading', 'jobs-story']] },
+    { title: 'Reading: The Boy Who Harnessed the Wind (work in the story)', color: '#e8820c', pages: [['jobs-reading', 'jobs-reading-2']] },
     { title: 'Jobs vocabulary & word search', color: '#e8820c', pages: ['jobs-vocab'] },
     { title: 'Would like to / want to / dream of', color: '#e8820c', pages: ['jobs-vocab:R'] },
     { title: 'A / an with jobs', color: '#e8820c', pages: ['jobs-vocab:R', 'jobs-career:L'] },

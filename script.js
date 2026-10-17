@@ -2,10 +2,16 @@
 // checking exercises and the "connect the words" activities.
 
 const KEY = 'libro-u1l1';
+// a copy of the book opened by the print panel (index.html?print&from=…): it only prints.
+// Nothing written in it is saved, and with &blank it starts with no answers.
+const PRINT_JOB = new URLSearchParams(location.search);
+const isPrintCopy = PRINT_JOB.has('print');
 let saved = {};
 try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch { saved = {}; }
+if (isPrintCopy && PRINT_JOB.has('blank')) saved = {};
 
 function persist() {
+  if (isPrintCopy) return;
   try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch { /* storage unavailable */ }
   window.book.onSaved?.(); // cloud.js sends it to Firebase when a student is signed in
 }
@@ -21,14 +27,20 @@ try { visibleSpreads = new Set(JSON.parse(localStorage.getItem(VISIBLE_KEY)) || 
 let account = null; // { name, email, teacher }
 const isTeacher = () => !!account?.teacher;
 
+let userKnown;
+const userReady = new Promise(r => { userKnown = r; }); // cloud.js has said who is signed in
+
 window.book = {
   storageKey: KEY,
+  printCopy: isPrintCopy, // cloud.js does not sync a print copy
   getSaved: () => saved,
   replaceSaved(data) {
+    if (isPrintCopy) return;
     saved = data;
     try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch { /* storage unavailable */ }
   },
   forgetLocal() {
+    if (isPrintCopy) return;
     try { localStorage.removeItem(KEY); localStorage.removeItem(KEY + ':spread'); } catch { /* ignore */ }
   },
   setVisible(list) {
@@ -36,7 +48,7 @@ window.book = {
     try { localStorage.setItem(VISIBLE_KEY, JSON.stringify(list)); } catch { /* ignore */ }
     refreshAccess();
   },
-  setUser(u) { account = u; refreshAccess(); },
+  setUser(u) { account = u; refreshAccess(); userKnown(); },
   setSyncState(s) { syncState = s; paintAccount(); },
 };
 let syncState = '';
@@ -1194,20 +1206,143 @@ document.querySelectorAll('img[data-pic]').forEach(img => {
   setZoom(zoom);
 }
 
-{
+/* "Print": the two pages open now, or (for the teacher) a range of pages, a chapter or the whole book.
+   Many pages are printed by a copy of the book in a new window (index.html?print&from=…&to=…),
+   so the book open here is left as it is. */
+// (if index.html lost the panel, only printing is missing: the rest of the book still works)
+if (!document.getElementById('ppWhat')) console.error('Print panel: #ppWhat is missing in index.html');
+else {
   const pp = document.getElementById('printPanel');
-  document.getElementById('printBtn').addEventListener('click', () => pp.showModal());
+  const what = document.getElementById('ppWhat');
+  const from = document.getElementById('ppFrom');
+  const to = document.getElementById('ppTo');
+  const chapter = document.getElementById('ppChapter');
+  const radio = v => pp.querySelector(`[name="ppRange"][value="${v}"]`);
+  const range = () => pp.querySelector('[name="ppRange"]:checked').value;
+  const atSpread = () => spreads[current].classList.contains('current');
+  [from, to].forEach(inp => { inp.min = firstPage; inp.max = lastPage; inp.addEventListener('input', () => { radio('range').checked = true; }); });
+
+  document.getElementById('printBtn').addEventListener('click', () => {
+    what.hidden = !isTeacher();
+    if (isTeacher()) {
+      // the chapters with their pages: choosing one writes its pages in "from … to"
+      chapter.innerHTML = '<option value="">… or choose a chapter</option>' + CHAPTERS
+        .map(ch => ch.items.filter(canSee))
+        .map((items, i) => items.length ? `<option value="${pagesOf(items[0])[0]}-${pagesOf(items.at(-1)).at(-1)}">${esc(CHAPTERS[i].title)} (p. ${pagesOf(items[0])[0]}–${pagesOf(items.at(-1)).at(-1)})</option>` : '')
+        .join('');
+      // every time: the two pages open now are chosen (or "Pages … to …" on the contents page)
+      radio('spread').disabled = !atSpread();
+      radio(atSpread() ? 'spread' : 'range').checked = true;
+      chapter.value = '';
+      if (atSpread()) [from.value, to.value] = [pagesOf(spreads[current])[0], pagesOf(spreads[current]).at(-1)];
+    }
+    pp.showModal();
+  });
+  chapter.addEventListener('change', () => {
+    if (!chapter.value) return;
+    [from.value, to.value] = chapter.value.split('-');
+    radio('range').checked = true;
+  });
   pp.querySelector('.pp-cancel').addEventListener('click', () => pp.close());
   pp.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
+    const eco = b.dataset.mode === 'eco';
+    const blank = document.getElementById('ppBlank').checked;
+    // the two pages open now, with the answers: printed right here
+    if (!isTeacher() || (range() === 'spread' && !blank)) {
+      pp.close();
+      document.body.classList.toggle('eco-print', eco);
+      setTimeout(() => window.print(), 50);
+      return;
+    }
+    let [a, z] = range() === 'all' ? [firstPage, lastPage]
+      : range() === 'spread' ? [pagesOf(spreads[current])[0], pagesOf(spreads[current]).at(-1)]
+      : [parseInt(from.value, 10), parseInt(to.value, 10)];
+    if (!Number.isFinite(a) || !Number.isFinite(z)) { from.focus(); return; }
+    if (a > z) [a, z] = [z, a];
+    const q = new URLSearchParams({ print: '', from: a, to: z });
+    if (eco) q.set('eco', '');
+    if (blank) q.set('blank', '');
+    if (document.getElementById('ppDuplex').checked) q.set('duplex', '');
+    if (document.getElementById('ppFour').checked) q.set('four', '');
     pp.close();
-    document.body.classList.toggle('eco-print', b.dataset.mode === 'eco');
-    setTimeout(() => window.print(), 50);
+    window.open(`${location.pathname}?${q}`, '_blank');
   }));
   window.addEventListener('afterprint', () => document.body.classList.remove('eco-print'));
 }
 
+/* the print copy: show only the pages asked for, add the blank pages, wait for pictures and fonts, print */
+if (isPrintCopy) (async () => {
+  document.body.classList.add('print-job');
+  document.body.classList.toggle('eco-print', PRINT_JOB.has('eco'));
+  const note = document.createElement('p');
+  note.className = 'print-job-note';
+  note.textContent = '🖨️ Preparing the pages to print…';
+  document.body.prepend(note);
+
+  // who is signed in decides which pages can be printed (cloud.js; at most a few seconds)
+  await Promise.race([userReady, new Promise(r => setTimeout(r, 6000))]);
+  const a = Number(PRINT_JOB.get('from')), z = Number(PRINT_JOB.get('to'));
+  const pages = spreads.filter(canSee)
+    .flatMap(s => [...s.querySelectorAll(':scope > .page')])
+    .filter(p => +p.dataset.page >= a && +p.dataset.page <= z);
+  if (!pages.length) { note.textContent = 'There are no pages to print here.'; return; }
+
+  const blankSheet = () => Object.assign(document.createElement('div'), { className: 'print-pad' });
+  let sheets = 0;
+  const startSide = +pages[0].dataset.page % 2; // the first page is always on the front of the first sheet
+  pages.forEach(p => {
+    // double-sided: the pages keep their sides as in the book (a blank one only where a page is missing)
+    if (PRINT_JOB.has('duplex') && sheets % 2 !== (+p.dataset.page - startSide) % 2) { p.before(blankSheet()); sheets++; }
+    p.classList.add('print-on');
+    p.closest('.spread').classList.add('print-on');
+    sheets++;
+  });
+  if (PRINT_JOB.has('four')) while (sheets % 4) { pages.at(-1).after(blankSheet()); sheets++; }
+  [...document.querySelectorAll('.page.print-on, .print-pad')].at(-1).classList.add('print-last'); // no empty sheet after it
+  note.textContent = `🖨️ Preparing ${sheets} pages to print…`;
+
+  // pictures far down the book are loaded only now that their pages are shown
+  const imgs = pages.flatMap(p => [...p.querySelectorAll('img')]);
+  imgs.forEach(img => { img.loading = 'eager'; });
+  await Promise.all(imgs.map(img => (img.complete ? null : new Promise(r => { img.onload = img.onerror = r; }))));
+  await document.fonts?.ready;
+  redrawAllMatches();
+  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+  window.addEventListener('afterprint', () => window.close());
+  window.print();
+})();
+
+/* "Clear answers": these pages or the whole book.
+   #clearBtn is the "Whole book" button of the panel: the other scripts listen to its click. */
+{
+  const cp = document.getElementById('clearPanel');
+  const pageBtn = document.getElementById('clearPageBtn');
+  document.getElementById('clearMenuBtn').addEventListener('click', () => {
+    pageBtn.disabled = !spreads.some(s => s.classList.contains('current'));
+    cp.showModal();
+  });
+  cp.querySelector('.pp-cancel').addEventListener('click', () => cp.close());
+  document.getElementById('clearBtn').addEventListener('click', () => cp.close());
+
+  // the answers of the open spread: their key is the id of a box on it
+  // (two keys are not ids: 'rj-role-<script id>' and 'home-game', shared by the home-… spreads)
+  const onSpread = (k, spread) => {
+    if (k === 'home-game') return spread.dataset.id.startsWith('home-');
+    const el = document.getElementById(k) || document.getElementById(k.replace(/^rj-role-/, ''));
+    return !!el && spread.contains(el);
+  };
+  pageBtn.addEventListener('click', async () => {
+    const spread = spreads.find(s => s.classList.contains('current'));
+    if (!spread) return;
+    pageBtn.disabled = true;
+    Object.keys(saved).forEach(k => { if (onSpread(k, spread)) delete saved[k]; });
+    persist();
+    await window.book.flush?.(); // cloud.js: send it before reloading
+    location.reload(); // every box of the book is drawn again from what is saved
+  });
+}
+
 document.getElementById('clearBtn').addEventListener('click', () => {
-  if (!confirm('Clear all the answers in the book?')) return;
   saved = {};
   persist();
   inputs.forEach(inp => { inp.value = ''; inp.classList.remove('ok', 'no'); inp.closest('li')?.classList.remove('ok', 'no'); });

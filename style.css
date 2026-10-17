@@ -1812,13 +1812,42 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
 .pp-actions { display: flex; gap: 10px; margin: 14px 0 10px; }
 .pp-actions button { flex: 1; display: flex; flex-direction: column; gap: 4px; padding: 12px 8px; font: 800 16px 'Nunito', sans-serif; border: 2px solid #8e2de2; border-radius: 12px; background: #fff; cursor: pointer; }
 .pp-actions button:hover { background: #efdcfb; }
+.pp-actions button:disabled { opacity: .4; cursor: default; background: #fff; }
 .pp-actions small { font-weight: 400; font-size: 12px; color: #666; }
 .pp-cancel { border: 0; background: none; color: #666; cursor: pointer; font: inherit; }
+/* the teacher's part: a range of pages, a chapter, the whole book */
+.print-panel:has(.pp-what:not([hidden])) { max-width: 500px; }
+.pp-what { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 4px; text-align: left; }
+.pp-what[hidden] { display: none; }
+.pp-what label { cursor: pointer; }
+.pp-what input[type="number"] { width: 5em; font: inherit; padding: 2px 4px; }
+.pp-what select { margin-left: 24px; font: inherit; padding: 3px; max-width: calc(100% - 24px); }
+.pp-opts { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; padding: 10px 12px; background: #f6eefc; border-radius: 10px; }
+.pp-opts small, .pp-tip { color: #666; font-size: 13px; }
+.pp-tip { margin: 0; }
+
+/* the print copy (index.html?print…): only the pages asked for, and blank sheets where needed */
+.print-pad { display: none; }
+body.print-job .toolbar, body.print-job #home, body.print-job .toc, body.print-job #tocBtn { display: none !important; }
+body.print-job .spread, body.print-job .spread.current { display: none; }
+body.print-job .spread.print-on { display: flex; flex-direction: column; }
+body.print-job .spread.print-on > .page:not(.print-on) { display: none; }
+body.print-job .print-pad { display: block; width: 100%; aspect-ratio: var(--page-ratio); background: #fff; }
+.print-job-note { margin: 16px; font: 700 18px 'Nunito', sans-serif; color: #8e2de2; text-align: center; }
 @media print {
+  .print-job-note { display: none; }
+  body.print-job .print-pad { width: 210mm; height: 297mm; aspect-ratio: auto; }
+  body.print-job .page.print-on, body.print-job .print-pad { break-after: page; }
+  body.print-job .print-last { break-after: auto; }
   .print-panel { display: none !important; }
   body.eco-print .page-bg, body.eco-print .art:not(.art-top) { display: none !important; }
   body.eco-print .page *:not(img):not(svg):not(svg *) {
     background: none !important; color: #000 !important; text-shadow: none !important; box-shadow: none !important;
+  }
+  /* giant decorative letters behind the text (the big “ on the reading pages, the big S…):
+     only a thin light-grey outline, so the text on top can still be read */
+  body.eco-print .page .big-quote, body.eco-print .page .ps-s {
+    color: transparent !important; -webkit-text-stroke: .15cqw #c4c4c4;
   }
   /* writing lines stay: grey lines on white instead of coloured paper */
   body.eco-print .page input.fill, body.eco-print .page textarea.fill, body.eco-print .page input.line-input,
@@ -3959,3 +3988,12 @@ body.toc-open .toc { display: block; }
 .shx-tiles b.used { background: var(--sh); color: #fff; box-shadow: none; }
 .shx-tiles b { cursor: pointer; user-select: none; }
 .shx-tiles b:hover { box-shadow: inset 0 0 0 .2cqw var(--sh); }
+
+/* 7.7: false? correct it — the line comes alive when F is chosen */
+.shx-tf p { display: grid; grid-template-columns: 1fr auto 31cqw; column-gap: 1.6cqw; height: 5.2cqw; }
+.shx-tf p > span:first-child { line-height: 1.2; }
+.shx-tf input.shx-fix { height: 3cqw; font-size: 1.6cqw; border-bottom: .12cqw solid var(--hair); opacity: .35; transition: opacity .2s; }
+.shx-tf input.shx-fix::placeholder { color: #b8afb1; font: italic 1.15cqw var(--serif); }
+.shx-tf p:has(.tf button:nth-child(2).on) input.shx-fix, .shx-tf input.shx-fix:focus, .shx-tf input.shx-fix:not(:placeholder-shown) { opacity: 1; border-bottom-color: var(--sh); }
+.al-fill.tight li { min-height: 4.4cqw; }
+.shx-timeline.five { grid-template-rows: repeat(5, auto); }

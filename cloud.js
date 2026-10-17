@@ -175,6 +175,9 @@ book.onSaved = () => {
   timer = setTimeout(push, 1000);
 };
 
+// "Clear answers" on these pages: send it now, the page reloads right after
+book.flush = async () => { if (timer) { clearTimeout(timer); await push(); } };
+
 // leaving the page: send what is left
 window.addEventListener('pagehide', () => { if (timer) push(); });
 
@@ -186,7 +189,8 @@ onAuthStateChanged(auth, async u => {
     email: u.email,
     teacher: TEACHER_EMAILS.includes(u.email) && u.emailVerified,
   });
-  if (!u) return;
+  // a print copy only needs to know who is signed in: it never pulls or sends answers
+  if (!u || book.printCopy) return;
 
   book.setSyncState('saving');
   let cloud;

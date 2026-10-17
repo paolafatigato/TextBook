@@ -551,7 +551,7 @@
 /* ---------- print ---------- */
 @media print {
   body.eco-print .page.ow, body.eco-print .page.ow.ow84 { background: #fff !important; }
-  body.eco-print .ow .n84 { -webkit-text-stroke-color: #000 !important; }
+  body.eco-print .ow .n84 { color: transparent !important; -webkit-text-stroke-color: #000 !important; }
   body.eco-print .ow .af-wall input.fill, body.eco-print .ow .ow84 input.fill { border-bottom: .13cqw solid #8a8a8a !important; }
   body.eco-print .ow .ow-torn::after, body.eco-print .ow .ow-tape { display: none; }
   .ow84-eye .scan, .ow-seal .ring, .af-mill .sails { animation: none !important; }
