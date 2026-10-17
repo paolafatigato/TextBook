@@ -59,8 +59,7 @@ const CONTENTS = {
       chapters: [
         { title: 'Summer holidays', color: '#f5a53b' },
         { title: 'Jobs & CVs', start: 'jobs-reading', color: '#e8820c', image: 'img/jobs/doctor.png' },
-        // no author name before the detectives' game (author-meet … author-case): the students have to find out who he was
-        { title: 'Literature: Who was he? · Animal Farm · 1984', start: 'author-meet', color: '#262626' },
+        { title: 'Literature: Orwell', start: 'author-meet', color: '#262626' },
         { title: 'Future', start: 'fut-intro', color: '#8e2de2', image: 'img/future-p120.svg' },
         { title: 'Literature: Macbeth', color: '#7a1f2b' },
         { title: 'Experiences', color: '#4aa8ec' },
@@ -152,6 +151,8 @@ const CONTENTS = {
     { title: 'Ideal society: discuss & design', color: '#d0144b', pages: ['alice-society'] },
     { title: 'Meet the author: Shakespeare (evidence game)', color: '#b23a48', pages: [['shk-meet', 'shk-id-card']] },
     { title: 'Questions with do / does / am / is / are', color: '#b23a48', pages: ['shk-meet:L', 'shk-id-card:L'] },
+    { title: 'Shakespeare words: unscramble & meanings', color: '#b23a48', pages: ['shk-id-card:L'] },
+    { title: 'True or false: Shakespeare\'s life', color: '#b23a48', pages: ['shk-id-card:R'] },
     { title: 'Reading: Sonnet 130', color: '#b23a48', pages: [['shk-sonnet', 'shk-rhyme-machine']] },
     { title: 'Rhyme scheme & syllables', color: '#b23a48', pages: ['shk-sonnet'] },
     { title: 'The rhyme machine & rhyme gym', color: '#b23a48', pages: [['shk-rhyme-machine:R', 'shk-rhyme-gym']] },

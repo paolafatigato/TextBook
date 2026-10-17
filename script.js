@@ -195,7 +195,33 @@ document.querySelectorAll('.check[data-list]').forEach(btn => {
   });
 });
 
+// Gaps in a text: one or more boxes ("data-gaps" lists their ids), each blank is checked on its own
+document.querySelectorAll('.check[data-gaps]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.dataset.gaps.split(' ').forEach(id => document.getElementById(id).querySelectorAll('input[data-answer]').forEach(inp => {
+      inp.classList.remove('ok', 'no');
+      if (!inp.value.trim()) return;
+      inp.classList.add(inp.dataset.answer.split('|').map(norm).includes(norm(inp.value)) ? 'ok' : 'no');
+    }));
+  });
+});
+
 /* ================= connect the words ================= */
+
+// The x of the centre of the dot that CSS draws next to a button (::after for words, ::before for meanings),
+// or null when there is no dot. The CSS values are scaled like the page (zoom).
+function dotCentreX(el, pseudo) {
+  const cs = getComputedStyle(el, pseudo);
+  if (cs.content === 'none' || cs.display === 'none') return null;
+  const left = parseFloat(cs.left), width = parseFloat(cs.width);
+  if (!Number.isFinite(left) || !Number.isFinite(width)) return null;
+  const m = cs.transform.match(/^matrix\(([^)]+)\)$/);
+  const tx = m ? parseFloat(m[1].split(',')[4]) : 0;
+  const r = el.getBoundingClientRect();
+  const k = el.offsetWidth ? r.width / el.offsetWidth : 1;
+  return r.left + (left + tx + width / 2) * k;
+}
+
 // Click a word, then its meaning (or the other way round) to draw a line,
 // or drag the line from one to the other. Click a connected item again to remove its line.
 // Three columns ([greek-gods]): a .match-set holds the lists and two .match layers,
@@ -229,9 +255,10 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
       const a = words[w].getBoundingClientRect();
       const b = defs[d].getBoundingClientRect();
       const dot = a.height * 0.3; // dot sits just outside each button
-      let [x1, y1] = [a.right - base.left + dot, a.top + a.height / 2 - base.top];
+      // from the centre of one dot to the centre of the other
+      let [x1, y1] = [(dotCentreX(words[w], '::after') ?? a.right + dot) - base.left, a.top + a.height / 2 - base.top];
       if (curved && words[w].closest('.gm-defs')) [x1, y1] = rotatedEnd(words[w], base, dot);
-      const x2 = b.left - base.left - dot, y2 = b.top + b.height / 2 - base.top;
+      const x2 = (dotCentreX(defs[d], '::before') ?? b.left - dot) - base.left, y2 = b.top + b.height / 2 - base.top;
       const cls = checked ? (words[w].dataset.key === defs[d].dataset.key ? 'ok' : 'no') : '';
       if (!curved) return `<line class="${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
       // one colour per god, so the line from its meaning and the line to its adjective match
@@ -287,7 +314,8 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
     const r = el.getBoundingClientRect();
     const dot = r.height * 0.3;
     if (side === 'w' && el.closest('.gm-defs')) return rotatedEnd(el, base, dot);
-    return [side === 'w' ? r.right - base.left + dot : r.left - base.left - dot, r.top + r.height / 2 - base.top];
+    const x = side === 'w' ? (dotCentreX(el, '::after') ?? r.right + dot) : (dotCentreX(el, '::before') ?? r.left - dot);
+    return [x - base.left, r.top + r.height / 2 - base.top];
   };
 
   function startDrag(side, index, e) {
@@ -1101,6 +1129,36 @@ const dragSets = [...document.querySelectorAll('.dd-set')].map(set => {
 document.querySelectorAll('.check[data-dd]').forEach(btn => btn.addEventListener('click', () => {
   dragSets.find(d => d.id === btn.dataset.dd)?.paint(true);
 }));
+
+/* ================= unscramble: the letters already used turn red ================= */
+// [shk-id-card] 7.4: each letter typed in the box uses one tile with that letter;
+// clicking a tile writes its letter (or takes it away when it is already used)
+
+const tileRows = [...document.querySelectorAll('.shx-tiles')].map(tiles => {
+  const inp = tiles.parentElement.querySelector('input.fill');
+  const paint = () => {
+    const left = [...inp.value.toUpperCase().replace(/[^A-Z]/g, '')];
+    tiles.querySelectorAll('b').forEach(t => {
+      const i = left.indexOf(t.textContent);
+      t.classList.toggle('used', i >= 0);
+      if (i >= 0) left.splice(i, 1);
+    });
+  };
+  inp.addEventListener('input', paint);
+  // click a white tile: its letter is written; click a red tile: the letter is taken away
+  tiles.querySelectorAll('b').forEach(t => t.addEventListener('click', () => {
+    const letter = t.textContent.toLowerCase();
+    if (!t.classList.contains('used')) inp.value += letter;
+    else {
+      const i = inp.value.toLowerCase().lastIndexOf(letter);
+      if (i >= 0) inp.value = inp.value.slice(0, i) + inp.value.slice(i + 1);
+    }
+    inp.dispatchEvent(new Event('input')); // saved like a typed answer
+  }));
+  paint();
+  return paint;
+});
+document.getElementById('clearBtn').addEventListener('click', () => setTimeout(() => tileRows.forEach(paint => paint())));
 
 /* ================= pictures still to come ================= */
 // <img data-pic="img/shakespeare/rose">: tries rose.png, .jpg, .jpeg, .webp.

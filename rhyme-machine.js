@@ -100,7 +100,7 @@ function rhymeVerdict(target, word) {
 /* ---------- the machine ---------- */
 
 const rmOut = document.getElementById('shr-out');
-let rmTarget = null; // the box (7.13) where a clicked word goes
+let rmTarget = null; // the box (7.15) where a clicked word goes
 
 document.addEventListener('focusin', e => {
   if (!e.target.matches('.sh-rm-target')) return;
@@ -175,7 +175,7 @@ document.getElementById('shr-spin')?.addEventListener('click', e => {
   });
 });
 
-/* ---------- checking the rhymes students write (7.13, 7.16) ---------- */
+/* ---------- checking the rhymes students write (7.15, 7.18) ---------- */
 
 document.querySelectorAll('.check[data-rhymecheck]').forEach(btn => btn.addEventListener('click', () => {
   document.getElementById(btn.dataset.rhymecheck).querySelectorAll('input[data-rhyme], input[data-rhyme-from]').forEach(inp => {

@@ -556,3 +556,6 @@
   body.eco-print .ow .ow-torn::after, body.eco-print .ow .ow-tape { display: none; }
   .ow84-eye .scan, .ow-seal .ring, .af-mill .sails { animation: none !important; }
 }
+
+/* the portraits are the teacher's drawings: shown whole, without filters */
+.ow-photo img[data-pic].drawing { filter: none; object-fit: contain; object-position: 50% 100%; }
