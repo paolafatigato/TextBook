@@ -241,7 +241,7 @@ const SCATCH_DATA=[
     {"prompt":"Domani vado dal dentista per un controllo.","tokens":["Tomorrow","I","am","going","to","the","dentist","'s","for","a","check-up"],"note":"Implied place: the dentist's."},
   ];
 
-  /* the three 's: is, has or possessive (Animals & have, p. 38) */
+  /* the three 's: is, has or possessive (Animals & have, [own-three-s]) */
   const AP_DATA = [
     {s:"My dog's name is Luna.",a:'poss',why:"The name belongs to the dog → possessive. You can't say \"My dog is name\"."},
     {s:"My dog's very friendly.",a:'is',why:"My dog <b>is</b> very friendly ✓ → IS."},

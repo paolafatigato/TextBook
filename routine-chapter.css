@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* ======================================================================
-   Daily routine (pp. 56-61, Present Simple chapter, Unit 4 · Lesson 2).
+   Daily routine ([ps-routine-pictures … ps-routine-linking], Present Simple chapter, Unit 4 · Lesson 2).
    Same palette and fonts as the book, but a look of its own (not the
    Animals one): lilac is the main colour, lime is the accent, coral the
    third colour. Colour blocks with scalloped edges, soft lime glows,
@@ -79,7 +79,7 @@
 .rt-hint { font: 400 1.65cqw/1.3 'Patrick Hand', cursive; color: #6b6780; }
 .rt-hint b { font-weight: 400; color: var(--rt-purple); }
 
-/* ---------- p. 56: pictures and sentences ---------- */
+/* ---------- [ps-routine-pictures]: pictures and sentences ---------- */
 .rt-pics { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); row-gap: 2.6cqw; }
 .rt-pics li { position: relative; display: grid; justify-items: center; }
 .rt-pics .pic {
@@ -111,7 +111,7 @@
   background: var(--rt-purple-l); color: #fff; font: normal 800 1.2cqw/1 'Nunito', sans-serif;
 }
 
-/* ---------- p. 57: parts of the day ---------- */
+/* ---------- [ps-routine-pictures:R]: parts of the day ---------- */
 .rt-day { display: grid; grid-template-columns: 1fr repeat(3, 12.5cqw); column-gap: .8cqw; }
 .rt-day > * { display: flex; align-items: center; min-height: 4.15cqw; }
 .rt-day > .act { padding-left: 1.2cqw; border-bottom: .14cqw dashed var(--rt-lav); font: 600 1.55cqw/1 'Nunito', sans-serif; color: var(--rt-ink); }
@@ -143,7 +143,7 @@
 .rt-dot.ok { box-shadow: 0 0 0 .35cqw #43a047 !important; }
 .rt-dot.no { box-shadow: 0 0 0 .35cqw #e53935 !important; }
 
-/* ---------- p. 57: telling the time, a navy colour block ---------- */
+/* ---------- [ps-routine-pictures:R]: telling the time, a navy colour block ---------- */
 .rt-time { display: grid; grid-template-columns: 33cqw 1fr; gap: 2.4cqw; align-items: center; padding: 2cqw 2.4cqw; border-radius: 2.4cqw; background: var(--rt-navy); }
 .rt-time svg { width: 100%; height: auto; overflow: visible; }
 .rt-time svg text { font-family: 'Nunito', sans-serif; font-weight: 800; }
@@ -155,7 +155,7 @@
 .rt-time .rule { margin: 1.1cqw 0 0; padding: 1cqw 1.4cqw; border-radius: 1.4cqw; background: var(--rt-lilac); font: 400 1.35cqw/1.45 'Nunito', sans-serif; color: var(--rt-ink); }
 .rt-time .rule b { color: var(--rt-purple); }
 
-/* ---------- p. 58: the routine clock ---------- */
+/* ---------- [ps-routine-clock]: the routine clock ---------- */
 .rt-clock { aspect-ratio: 1; z-index: 3; }
 .rt-clock svg { width: 100%; height: 100%; overflow: visible; touch-action: none; user-select: none; }
 .rt-clock .plate { fill: var(--rt-purple-l); }
@@ -221,7 +221,7 @@
 .rt-table > .q::before { content: attr(data-e); margin-right: .9cqw; font: 400 1.9cqw/1 var(--rt-emoji); }
 .rt-table input.fill { height: 4cqw; padding: 0 1.4cqw; border-radius: 999px; background: #fff; font-size: 1.9cqw; }
 
-/* ---------- p. 59: Leo's day ---------- */
+/* ---------- [ps-routine-clock:R]: Leo's day ---------- */
 /* the story under a wide, low arch */
 .rt-story {
   padding: 3cqw 3cqw 2cqw; border-radius: 42cqw 42cqw 2.4cqw 2.4cqw / 9cqw 9cqw 2.4cqw 2.4cqw;
@@ -243,7 +243,7 @@
 .rt-page .pd-sort .pd-num:focus { border-color: var(--rt-purple); }
 .rt-page .pd-sort li.drag { background: var(--rt-lilac); box-shadow: none; border-radius: 999px; }
 
-/* ---------- p. 60: linking words ---------- */
+/* ---------- [ps-routine-linking]: linking words ---------- */
 /* five coloured arches in a row */
 .rt-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.3cqw; }
 .rt-steps li {
@@ -287,7 +287,7 @@
 .rt-often .opt button { padding: .4cqw .9cqw; border: 0; border-radius: 999px; background: var(--rt-lilac); font: 700 1.15cqw/1 'Nunito', sans-serif; color: #6b6780; }
 .rt-often .opt button.on { background: var(--rt-purple); color: #fff; font-weight: 800; }
 
-/* ---------- p. 61: missing vowels, write your day ---------- */
+/* ---------- [ps-routine-linking:R]: missing vowels, write your day ---------- */
 .rt-vowels {
   list-style: none; margin: 0; padding: .9cqw 1.6cqw; counter-reset: v;
   border: 2cqw solid transparent; border-radius: 2.4cqw;

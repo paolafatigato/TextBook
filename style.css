@@ -1707,6 +1707,13 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
 .home-h2 { margin: 36px 0 14px; font: 700 26px 'Fredoka', 'Nunito', sans-serif; color: #333; }
 
 .chapter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+/* one heading per school year, across the whole grid */
+.part-h { grid-column: 1 / -1; margin: 18px 0 0; padding-bottom: 6px; border-bottom: 2px solid #e8e0d6; font: 700 22px 'Fredoka', 'Nunito', sans-serif; color: #555; }
+.part-h:first-child { margin-top: 0; }
+.part-h.teacher::before { content: '🔒 '; }
+/* a chapter not written yet (only the teacher sees it) */
+.chapter-soon { align-self: start; opacity: .5; box-shadow: none; border: 2px dashed var(--c); }
+.chapter-soon .chapter-cover { height: auto; min-height: 110px; padding-bottom: 20px; }
 .chapter { background: #fff; border-radius: 22px; overflow: hidden; box-shadow: 0 6px 20px rgba(60,40,20,.12); }
 .chapter-cover {
   position: relative; display: block; height: 200px; padding: 18px 20px; overflow: hidden;
@@ -3750,3 +3757,111 @@ body.zoomed .toolbar { position: sticky; left: 0; width: 100vw; }
 .letter-list.ps41 .ink.line { font: 400 2.2cqw/1 'Scritturapaola', 'Caveat', cursive; }
 .adv-lines li .ink { font-family: 'Stampatellopaola', 'Caveat', cursive; font-weight: 400; }
 .num-lines.ps-num .ink.line, .num-lines.ps-num .ink.line.caps { font: 400 1.5cqw/1 'Stampatellopaola', 'Caveat', cursive; text-transform: uppercase; letter-spacing: .1em; white-space: nowrap; }
+
+/* ---------- the index on the left (script.js: renderToc) ----------
+   The look of the home page: Fredoka titles, Nunito text, the book colours on a warm white.
+   Each year is a drop-down with its colour (coral, purple, blue; navy for the teacher),
+   each chapter a drop-down with a dot of its own colour. */
+:root {
+  --toc-w: 300px;
+  --lilac: #c97df6;
+  --lilac-soft: #efdcfb;
+  --lilac-pale: #f8f1fe;
+}
+.toc {
+  display: none; position: fixed; z-index: 18; left: 0; top: var(--tb, 52px); bottom: 0; width: var(--toc-w);
+  overflow-y: auto; overscroll-behavior: contain; padding: 0 12px 28px;
+  background: #fffdfb; border-right: 1px solid #eadff3;
+  font: 600 14px/1.3 'Nunito', sans-serif; color: #444;
+  /* the scrollbar in lilac */
+  scrollbar-width: thin; scrollbar-color: var(--lilac) var(--lilac-pale);
+}
+.toc::-webkit-scrollbar { width: 10px; }
+.toc::-webkit-scrollbar-track { background: var(--lilac-pale); }
+.toc::-webkit-scrollbar-thumb { background: var(--lilac); border-radius: 999px; border: 2px solid var(--lilac-pale); }
+.toc::-webkit-scrollbar-thumb:hover { background: #a957e6; }
+body.toc-open .toc { display: block; }
+
+.toc-head {
+  position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between;
+  margin: 0 -12px 6px; padding: 14px 16px 12px;
+  background: linear-gradient(#fffdfb 80%, rgba(255,253,251,0));
+}
+.toc-title {
+  font: 700 22px 'Fredoka', 'Nunito', sans-serif; color: var(--navy);
+  background: linear-gradient(transparent 62%, var(--lilac-soft) 62% 92%, transparent 92%); padding: 0 4px;
+}
+.toc-close {
+  width: 30px; height: 30px; border: 0; border-radius: 50%; background: var(--lilac-pale); color: #8e2de2;
+  font-size: 13px; cursor: pointer; transition: background .15s;
+}
+.toc-close:hover { background: var(--lilac-soft); }
+
+/* the drop-down arrow, for years and chapters */
+.toc summary { list-style: none; cursor: pointer; user-select: none; }
+.toc summary::-webkit-details-marker { display: none; }
+.toc summary::after {
+  content: ''; flex: none; width: 7px; height: 7px; margin-left: auto;
+  border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg) translateY(-2px);
+  opacity: .45; transition: transform .2s;
+}
+.toc details[open] > summary::after { transform: rotate(-135deg) translate(-1px, 0); }
+
+/* a year */
+.toc-year { margin-bottom: 8px; border-radius: 16px; transition: background .2s; }
+.toc-year[open] { background: color-mix(in srgb, var(--y) 6%, #fff); }
+.toc-year > summary {
+  display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 16px;
+  font: 700 16px/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--y);
+}
+.toc-year > summary:hover { background: color-mix(in srgb, var(--y) 12%, #fff); }
+.toc-year > summary small { display: block; margin-top: 2px; font: 700 11px 'Nunito', sans-serif; letter-spacing: .06em; text-transform: uppercase; color: #9a93a3; }
+.toc-badge {
+  flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--y); color: #fff; font: 700 15px 'Fredoka', sans-serif;
+  box-shadow: 0 3px 8px color-mix(in srgb, var(--y) 35%, transparent);
+}
+.toc-year.teacher .toc-badge { font-size: 13px; }
+.toc-chs { padding: 0 6px 8px; }
+
+/* a chapter */
+.toc-ch > summary {
+  display: flex; align-items: center; gap: 9px; padding: 7px 8px; border-radius: 10px;
+  font: 700 14px/1.25 'Nunito', sans-serif; color: #3a3542; transition: background .15s;
+}
+.toc-ch > summary:hover { background: color-mix(in srgb, var(--c) 12%, #fff); }
+.toc-ch > summary small { flex: none; font: 700 11px 'Nunito', sans-serif; color: #a39cab; font-variant-numeric: tabular-nums; }
+.toc-dot { flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 22%, transparent); }
+.toc-ch.here > summary { background: color-mix(in srgb, var(--c) 14%, #fff); }
+
+/* its spreads, hanging from a thread of the chapter colour */
+.toc-ch ul { list-style: none; margin: 2px 0 8px 12px; padding: 0 0 0 10px; border-left: 2px solid color-mix(in srgb, var(--c) 35%, transparent); }
+.toc-ch a {
+  display: flex; gap: 8px; align-items: baseline; padding: 5px 8px; border-radius: 9px;
+  font: 600 13px/1.3 'Nunito', sans-serif; color: #5b5563; text-decoration: none; transition: background .15s, color .15s;
+}
+.toc-ch a b { flex: none; min-width: 48px; font: 800 11px 'Nunito', sans-serif; color: var(--c); font-variant-numeric: tabular-nums; }
+.toc-ch a:hover { background: color-mix(in srgb, var(--c) 10%, #fff); color: #2f2a36; }
+.toc-ch a.here { background: var(--c); color: #fff; box-shadow: 0 3px 10px color-mix(in srgb, var(--c) 35%, transparent); }
+.toc-ch a.here b { color: #fff; }
+.toc-ch a.off:not(.here) { opacity: .5; } /* hidden from students (the teacher sees it lighter) */
+
+/* wide screen: the index takes its place on the left and the book moves over */
+@media (min-width: 1100px) {
+  body.toc-open main { margin-left: var(--toc-w); }
+  body.toc-open .side.prev { left: calc(var(--toc-w) + 14px); }
+}
+/* small screen: it opens over the page */
+@media (max-width: 1099px) {
+  .toc { width: min(320px, 86vw); box-shadow: 8px 0 30px rgba(60,20,90,.25); z-index: 30; }
+}
+@media print { .toc, #tocBtn { display: none !important; } body main { margin-left: 0 !important; } }
+/* titles take the free space, so the page numbers and arrows line up on the right */
+.toc-year > summary > span, .toc-ch > summary > span { flex: 1; min-width: 0; }
+/* the card the index scrolled to: below the toolbar, with a short glow of its colour */
+.chapter { scroll-margin-top: calc(var(--tb, 52px) + 16px); }
+.chapter.flash { animation: chapter-flash 1.4s ease-out; }
+@keyframes chapter-flash {
+  0%, 30% { box-shadow: 0 0 0 5px var(--c), 0 6px 20px rgba(60,40,20,.12); }
+  100% { box-shadow: 0 0 0 0 transparent, 0 6px 20px rgba(60,40,20,.12); }
+}

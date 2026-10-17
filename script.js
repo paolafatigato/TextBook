@@ -14,7 +14,8 @@ function persist() {
 // cloud.js (Firebase) fills this in. Students see only the spreads the teacher ticked;
 // the teacher sees everything and can tick them in the panel.
 
-const VISIBLE_KEY = 'libro-visible-v5'; // v5: pp. 56–61 added (Daily routine), later pages moved by 6
+// the visible spreads are kept by name (data-id), so adding pages never changes them
+const VISIBLE_KEY = 'libro-visible-v6';
 let visibleSpreads = new Set();
 try { visibleSpreads = new Set(JSON.parse(localStorage.getItem(VISIBLE_KEY)) || []); } catch { /* none yet */ }
 let account = null; // { name, email, teacher }
@@ -28,7 +29,7 @@ window.book = {
     try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch { /* storage unavailable */ }
   },
   forgetLocal() {
-    try { localStorage.removeItem(KEY); localStorage.removeItem(KEY + ':page'); } catch { /* ignore */ }
+    try { localStorage.removeItem(KEY); localStorage.removeItem(KEY + ':spread'); } catch { /* ignore */ }
   },
   setVisible(list) {
     visibleSpreads = new Set(list);
@@ -59,8 +60,27 @@ let current = 0;
 
 const home = document.getElementById('home');
 
+/* chapters (contents.js): each one goes from its `start` spread to the start of the next one */
+const PARTS = (typeof CONTENTS === 'undefined' ? [] : CONTENTS.parts || []).map(part => ({
+  ...part,
+  chapters: part.chapters.map(ch => ({ ...ch, teacher: !!part.teacher, items: [] })),
+}));
+const CHAPTERS = PARTS.flatMap(p => p.chapters);
+{
+  const started = CHAPTERS
+    .filter(ch => ch.start)
+    .map(ch => ({ ch, at: spreads.indexOf(PAGES.spread(ch.start)) }))
+    .filter(({ ch, at }) => at >= 0 || console.error(`Chapter "${ch.title}": no spread called "${ch.start}"`))
+    .sort((x, y) => x.at - y.at);
+  started.forEach(({ ch, at }, k) => { ch.items = spreads.slice(at, started[k + 1]?.at ?? spreads.length); });
+}
+const chapterOf = new Map(CHAPTERS.flatMap(ch => ch.items.map(s => [s, ch])));
+// the materials for the teacher: students never see them, whatever is ticked
+const teacherOnly = s => !!chapterOf.get(s)?.teacher;
+
 // students only get the spreads the teacher made visible
-const canSee = s => isTeacher() || visibleSpreads.has(s.dataset.pages);
+const isVisible = s => visibleSpreads.has(s.dataset.id) && !teacherOnly(s);
+const canSee = s => isTeacher() || isVisible(s);
 // the closest spread we can open from i, going forward (+1) or back (-1); -1 if there is none
 const visibleFrom = (i, dir) => {
   for (let k = i; k >= 0 && k < spreads.length; k += dir) if (canSee(spreads[k])) return k;
@@ -80,7 +100,7 @@ function show(index) {
   prevBtn.disabled = visibleFrom(current - 1, -1) < 0;
   nextBtn.disabled = visibleFrom(current + 1, 1) < 0;
   history.replaceState(null, '', `#p${first}`);
-  try { localStorage.setItem(KEY + ':page', first); } catch { /* ignore */ }
+  try { localStorage.setItem(KEY + ':spread', spreads[current].dataset.id); } catch { /* ignore */ }
   window.scrollTo(0, 0);
   redrawAllMatches();
   document.dispatchEvent(new Event('spreadchange'));
@@ -178,7 +198,7 @@ document.querySelectorAll('.check[data-list]').forEach(btn => {
 /* ================= connect the words ================= */
 // Click a word, then its meaning (or the other way round) to draw a line,
 // or drag the line from one to the other. Click a connected item again to remove its line.
-// Three columns (p. 40): a .match-set holds the lists and two .match layers,
+// Three columns ([greek-gods]): a .match-set holds the lists and two .match layers,
 // each one says which buttons it connects (data-words / data-defs).
 
 const matches = [...document.querySelectorAll('.match')].map(box => {
@@ -199,7 +219,7 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
     persist();
   }
 
-  const curved = box.classList.contains('gm-layer'); // p. 40: curved coloured lines
+  const curved = box.classList.contains('gm-layer'); // [greek-gods]: curved coloured lines
   function draw() {
     const base = box.getBoundingClientRect();
     if (!base.width) return; // spread not visible
@@ -333,7 +353,7 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
   };
 });
 
-// p. 40: the meanings are rotated text; the line starts just after its right-most letter
+// [greek-gods]: the meanings are rotated text; the line starts just after its right-most letter
 function rotatedEnd(el, base, dot) {
   const o = el.offsetParent.getBoundingClientRect();
   const ang = 38 * Math.PI / 180; // same angle as .gm-defs button in style.css
@@ -481,7 +501,7 @@ toggles.forEach(el => {
   });
 });
 
-/* ================= maze: drag a thread from START (p. 31) ================= */
+/* ================= maze: drag a thread from START ([own-mistakes:R]) ================= */
 // Press on the first cell (or on the end of the thread) and drag: the thread goes into the next
 // cell only when no wall is in between; dragging back onto the cell before rolls it up again.
 // A click on the next cell lengthens the thread by one step.
@@ -597,7 +617,7 @@ document.querySelectorAll('.check[data-toggles]').forEach(btn => {
   });
 });
 
-/* the dice of the conversation game (pp. 52-53) lives in game.js */
+/* the dice of the conversation game ([ps-conversation-game]) lives in game.js */
 
 /* ================= Big 5 scores ================= */
 // each sentence gets 0, 1 or 2: the total of the trait is added up by itself
@@ -617,7 +637,7 @@ document.querySelectorAll('.b5-score').forEach(inp => inp.addEventListener('inpu
 }));
 b5Totals();
 
-/* ================= evaluation grid (p. 47) ================= */
+/* ================= evaluation grid ([greek-acting:R]) ================= */
 // performance + pronunciation + creativity = total
 
 const egScores = [...document.querySelectorAll('.eg-n')];
@@ -635,14 +655,14 @@ egScores.forEach(inp => inp.addEventListener('input', () => {
 }));
 egTotal();
 
-/* ================= half-page flap (pp. 98-99) ================= */
+/* ================= half-page flap ([pers-adjectives]) ================= */
 // the flap hides the English words on one page or the other
 
 document.querySelectorAll('.flap').forEach(flap => flap.addEventListener('click', () => {
   flap.closest('.spread').classList.toggle('flap-left');
 }));
 
-/* ================= detective games (pp. 72-77) ================= */
+/* ================= detective games ([people-slash-draw … people-ladder]) ================= */
 
 // Text without spaces: click a letter to put a slash after it (click again to take it away).
 // data-words holds the real words; the correct slashes are the ends of the words.
@@ -859,7 +879,7 @@ marks.forEach(m => {
   });
 });
 
-/* ================= Shakespeare (pp. 134–137) ================= */
+/* ================= Shakespeare ([shk-sonnet … shk-rhyme-machine]) ================= */
 
 // Rhymes: click the last word of a line to give it a letter: A → B → … → G → nothing.
 const RHYMES = ['', 'A', 'B', 'C', 'D', 'E', 'F', 'G'];
@@ -975,7 +995,7 @@ const sonnetCounts = [...document.querySelectorAll('.sh-sonnet input.fill')].map
   return paint;
 });
 
-/* ================= Villain Lab: "My flaws" circles (p. 104) ================= */
+/* ================= Villain Lab: "My flaws" circles ([pers-villain-mine]) ================= */
 // click the 4th circle = 4 out of 10; click the same one again to start over
 const flawRows = [...document.querySelectorAll('.vl-flaw')].map(row => {
   const dots = [...row.querySelectorAll('button')];
@@ -1157,60 +1177,190 @@ document.getElementById('clearBtn').addEventListener('click', () => {
 /* ================= home page ================= */
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-// unnumbered pages (like 137.1) show as "Intro"; a range that starts on one begins at the next printed number
-const range = (a, b) => {
-  if (!Number.isInteger(a) && !Number.isInteger(b)) return 'Intro';
-  a = Math.ceil(a);
-  return a === b ? `p. ${a}` : `p. ${a}–${b}`;
+const range = (a, b) => (a === b ? `p. ${a}` : `p. ${a}–${b}`);
+
+// a topic page in contents.js ('id', 'id:L', 'id:R' or [from, to]) → [first page, last page]
+const topicPages = item => {
+  if (Array.isArray(item)) return [PAGES.of(item[0]), PAGES.end(item[1] ?? item[0])];
+  return [PAGES.of(item), PAGES.end(item)];
 };
 
-// a link to a page range, or a grey "coming soon" label when the pages are not online yet
+// a link to a page range ('' when the reader cannot open it)
 function pageLink(a, b, label = '') {
   const text = label ? `<b>${range(a, b)}</b> ${esc(label)}` : range(a, b);
   const spread = spreads.find(s => { const [x, y] = pagesOf(s); return a >= x && a <= y; });
-  if (spread && !canSee(spread)) return ''; // the teacher has not opened it yet
-  const off = spread && !visibleSpreads.has(spread.dataset.pages) ? ' class="off" title="Hidden from students"' : '';
-  return a <= lastPage
-    ? `<a href="#p${a}"${off}>${text}</a>`
-    : `<span class="soon">${text} <i>coming soon</i></span>`;
+  if (!spread || !canSee(spread)) return ''; // the teacher has not opened it yet
+  const off = !isVisible(spread) && !teacherOnly(spread) ? ' class="off" title="Hidden from students"' : '';
+  return `<a href="#p${a}"${off}>${text}</a>`;
 }
 
 // topics shown under each chapter before the rest goes into a drop-down
 const MAX_LINKS = 3;
 
-function renderHome() {
-  const { chapters = [] } = typeof CONTENTS === 'undefined' ? {} : CONTENTS;
+function chapterCard(ch) {
+  const color = esc(ch.color || '#f05f4b');
+  const pic = ch.image ? `<span class="chapter-pic"><img src="${esc(ch.image)}" alt=""${ch.zoom ? ` style="--zoom:${+ch.zoom}${ch.dy ? `;--dy:${+ch.dy}%` : ""}"` : ''}></span>` : '';
+  // not written yet: only the teacher sees it, to have the plan of the year in view
+  if (!ch.items.length) {
+    return isTeacher() ? `
+      <article class="chapter chapter-soon" style="--c:${color}">
+        <div class="chapter-cover">${pic}<span class="chapter-pages">coming soon</span><h3>${esc(ch.title)}</h3></div>
+      </article>` : '';
+  }
+  const inside = ch.items.filter(canSee);
+  if (!inside.length) return ''; // nothing opened in this chapter yet
+  const links = inside.map(s => {
+    const [a, b] = pagesOf(s);
+    const c = ch.linkColors && ch.linkColors[s.dataset.id];
+    return `<li${c ? ` style="--c:${esc(c)}"` : ''}>${pageLink(a, b, s.dataset.name || '')}</li>`;
+  });
+  const off = !ch.teacher && !inside.some(isVisible);
+  return `
+    <article class="chapter${off ? ' off' : ''}" data-ch="${esc(ch.title)}" style="--c:${color}">
+      <a class="chapter-cover" href="#p${pagesOf(inside[0])[0]}">
+        ${pic}
+        <span class="chapter-pages">${range(pagesOf(ch.items[0])[0], pagesOf(ch.items.at(-1))[1])}</span>
+        <h3>${esc(ch.title)}</h3>
+      </a>
+      <ul class="chapter-links">${links.slice(0, MAX_LINKS).join('')}</ul>
+      ${links.length > MAX_LINKS ? `
+      <details class="chapter-more">
+        <summary>+ ${links.length - MAX_LINKS} more</summary>
+        <ul class="chapter-links">${links.slice(MAX_LINKS).join('')}</ul>
+      </details>` : ''}
+    </article>`;
+}
 
-  document.getElementById('chapterGrid').innerHTML = chapters.map(ch => {
-    const [start, end] = ch.pages;
-    const inside = spreads.filter(s => { const [a] = pagesOf(s); return a >= start && a <= end && canSee(s); });
-    if (!inside.length) return ''; // nothing opened in this chapter yet
-    const links = inside.map(s => {
-      const [a, b] = pagesOf(s);
-      const c = ch.linkColors && ch.linkColors[a];
-      return `<li${c ? ` style="--c:${esc(c)}"` : ''}>${pageLink(a, b, s.dataset.name || '')}</li>`;
-    });
-    if (lastPage < end) links.push(`<li>${pageLink(Math.max(start, lastPage + 1), end)}</li>`);
-    const firstOpen = pagesOf(inside[0])[0];
-    const off = inside.every(s => !visibleSpreads.has(s.dataset.pages));
-    return `
-      <article class="chapter${off ? ' off' : ''}" style="--c:${esc(ch.color || '#f05f4b')}">
-        <a class="chapter-cover" href="#p${firstOpen}">
-          ${ch.image ? `<span class="chapter-pic"><img src="${esc(ch.image)}" alt=""${ch.zoom ? ` style="--zoom:${+ch.zoom}${ch.dy ? `;--dy:${+ch.dy}%` : ""}"` : ''}></span>` : ''}
-          <span class="chapter-pages">${range(start, end)}</span>
-          <h3>${esc(ch.title)}</h3>
-        </a>
-        <ul class="chapter-links">${links.slice(0, MAX_LINKS).join('')}</ul>
-        ${links.length > MAX_LINKS ? `
-        <details class="chapter-more">
-          <summary>+ ${links.length - MAX_LINKS} more</summary>
-          <ul class="chapter-links">${links.slice(MAX_LINKS).join('')}</ul>
-        </details>` : ''}
-      </article>`;
+function renderHome() {
+  // one block per school year (and the teacher's materials): a heading, then its chapters
+  document.getElementById('chapterGrid').innerHTML = PARTS.map(part => {
+    const cards = part.chapters.map(chapterCard).join('');
+    return cards.trim() ? `<h3 class="part-h${part.teacher ? ' teacher' : ''}">${esc(part.title)}</h3>${cards}` : '';
   }).join('');
 
   renderTopics();
+  renderToc();
 }
+
+/* ================= the index on the left ================= */
+// On a wide screen it is open on the home page and closed on the pages (☰ Index or ✕ change that until the
+// reader goes back home or to the pages); on a small screen ☰ opens it over the page.
+
+const toc = document.getElementById('toc');
+const tocBtn = document.getElementById('tocBtn');
+const wide = matchMedia('(min-width: 1100px)');
+const tocWanted = { home: true, pages: false }; // wide screen: open or closed, on the home page / on the pages
+const tocPlace = () => (home.hidden ? 'pages' : 'home');
+
+// which years and chapters are open: kept when the index is built again (login, visible pages)
+let tocYearsClosed = new Set();
+try { tocYearsClosed = new Set(JSON.parse(localStorage.getItem('toc-years-closed')) || []); } catch { /* ignore */ }
+const tocChaptersOpen = new Set();
+
+// each year has a colour of the book: coral, green, blue; the teacher's materials are navy
+const YEAR_COLORS = ['#f05f4b', '#3aa04a', '#4aa8ec'];
+
+function renderToc() {
+  toc.innerHTML = `
+    <div class="toc-head">
+      <span class="toc-title">Index</span>
+      <button type="button" class="toc-close" aria-label="Close the index" title="Close">✕</button>
+    </div>`
+    + PARTS.map((part, pi) => {
+      const chapters = part.chapters.map(ch => {
+        const inside = ch.items.filter(canSee);
+        if (!inside.length) return '';
+        const [a] = pagesOf(inside[0]);
+        const [, b] = pagesOf(inside.at(-1));
+        return `
+        <details class="toc-ch" data-ch="${esc(ch.title)}" style="--c:${esc(ch.color || '#f05f4b')}"${tocChaptersOpen.has(ch.title) ? ' open' : ''}>
+          <summary><i class="toc-dot"></i><span>${esc(ch.title)}</span><small>${a}–${b}</small></summary>
+          <ul>${inside.map(s => {
+            const [x, y] = pagesOf(s);
+            const off = isVisible(s) || teacherOnly(s) ? '' : ' class="off" title="Hidden from students"';
+            return `<li><a href="#p${x}" data-id="${esc(s.dataset.id)}"${off}><b>${x}–${y}</b><span>${esc(s.dataset.name || s.dataset.title || '')}</span></a></li>`;
+          }).join('')}</ul>
+        </details>`;
+      }).join('');
+      if (!chapters.trim()) return '';
+      const color = part.teacher ? '#1f2a6b' : YEAR_COLORS[pi % YEAR_COLORS.length];
+      const badge = part.teacher ? '🔒' : pi + 1;
+      const [title, sub] = part.title.split(' · ');
+      return `
+      <details class="toc-year${part.teacher ? ' teacher' : ''}" data-year="${esc(part.title)}" style="--y:${color}"${tocYearsClosed.has(part.title) ? '' : ' open'}>
+        <summary><b class="toc-badge">${badge}</b><span>${esc(title)}${sub ? `<small>${esc(sub)}</small>` : ''}</span></summary>
+        <div class="toc-chs">${chapters}</div>
+      </details>`;
+    }).join('');
+  markToc();
+}
+
+// on the home page, a click on a chapter in the index also scrolls to its card
+toc.addEventListener('click', e => {
+  const sum = e.target.closest('.toc-ch > summary');
+  if (!sum || home.hidden) return; // only on the home page
+  const title = sum.parentElement.dataset.ch;
+  const card = [...document.querySelectorAll('#chapterGrid .chapter[data-ch]')].find(a => a.dataset.ch === title);
+  if (!card) return;
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  card.classList.remove('flash');
+  void card.offsetWidth; // start the animation again
+  card.classList.add('flash');
+});
+
+// remember what the reader opens and closes
+toc.addEventListener('toggle', e => {
+  const d = e.target;
+  if (d.dataset.year) {
+    if (d.open) tocYearsClosed.delete(d.dataset.year); else tocYearsClosed.add(d.dataset.year);
+    try { localStorage.setItem('toc-years-closed', JSON.stringify([...tocYearsClosed])); } catch { /* ignore */ }
+  } else if (d.dataset.ch) {
+    if (d.open) tocChaptersOpen.add(d.dataset.ch); else tocChaptersOpen.delete(d.dataset.ch);
+  }
+}, true);
+
+// the spread on screen is highlighted, and its chapter opened
+function markToc() {
+  const id = home.hidden ? spreads[current]?.dataset.id : null;
+  toc.querySelectorAll('.here').forEach(el => el.classList.remove('here'));
+  const a = id && toc.querySelector(`a[data-id="${CSS.escape(id)}"]`);
+  if (!a) return;
+  a.classList.add('here');
+  const ch = a.closest('.toc-ch');
+  const year = a.closest('.toc-year');
+  ch.classList.add('here');
+  year.classList.add('here');
+  if (!year.open) year.open = true;
+  if (!ch.open) ch.open = true;
+  // keep it in view inside the index, without moving the page
+  const r = a.getBoundingClientRect(), t = toc.getBoundingClientRect();
+  if (r.top < t.top + 40 || r.bottom > t.bottom - 10) toc.scrollTop += r.top - t.top - t.height / 3;
+}
+
+function paintToc() {
+  const open = wide.matches ? tocWanted[tocPlace()] : document.body.classList.contains('toc-over');
+  document.body.classList.toggle('toc-open', open);
+  tocBtn.setAttribute('aria-expanded', open);
+}
+
+tocBtn.addEventListener('click', () => {
+  if (wide.matches) tocWanted[tocPlace()] = !tocWanted[tocPlace()];
+  else document.body.classList.toggle('toc-over');
+  paintToc();
+  markToc();
+});
+toc.addEventListener('click', e => {
+  if (e.target.closest('.toc-close') && wide.matches) tocWanted[tocPlace()] = false;
+  else if (!e.target.closest('.toc-close, a')) return;
+  document.body.classList.remove('toc-over'); // small screen: it closes after choosing a page
+  paintToc();
+});
+wide.addEventListener('change', paintToc);
+// the index starts just below the toolbar (which can take two lines)
+const toolbar = document.querySelector('.toolbar');
+new ResizeObserver(() => document.documentElement.style.setProperty('--tb', `${toolbar.offsetHeight}px`)).observe(toolbar);
+document.addEventListener('spreadchange', () => { paintToc(); markToc(); });
+paintToc();
 
 // topics are listed only while something is typed in the search bar
 function renderTopics() {
@@ -1219,11 +1369,11 @@ function renderTopics() {
   if (!words.length) { list.innerHTML = ''; return; }
   const topics = (typeof CONTENTS === 'undefined' ? [] : CONTENTS.topics || []).filter(t => {
     // a word matches the title, or a number falls inside one of the pages
-    const pages = t.pages.map(([a, b]) => [a, b ?? a]);
+    const pages = t.pages.map(topicPages);
     return words.every(w => norm(t.title).includes(w) || (/^\d+$/.test(w) && pages.some(([a, b]) => +w >= a && +w <= b)));
   });
   const cards = topics.map(t => {
-    const links = t.pages.map(([a, b]) => pageLink(a, b ?? a)).join('');
+    const links = t.pages.map(topicPages).map(([a, b]) => pageLink(a, b)).join('');
     return links && `
     <article class="topic" style="--c:${esc(t.color || '#7b3fc4')}">
       <h3>${esc(t.title)}</h3>
@@ -1236,11 +1386,11 @@ document.getElementById('topicSearch').addEventListener('input', renderTopics);
 
 function updateContinueLink() {
   const link = document.getElementById('continueLink');
-  let last = NaN;
-  try { last = parseFloat(localStorage.getItem(KEY + ':page')); } catch { /* ignore */ }
-  const spread = spreads.find(s => { const [a, b] = pagesOf(s); return last >= a && last <= b; });
-  link.hidden = !Number.isFinite(last) || !spread || !canSee(spread);
+  let spread = null;
+  try { spread = PAGES.spread(localStorage.getItem(KEY + ':spread')); } catch { /* ignore */ }
+  link.hidden = !spread || !canSee(spread);
   if (!link.hidden) {
+    const [last] = pagesOf(spread);
     link.href = `#p${last}`;
     link.textContent = `Continue from page ${last} →`;
   }
@@ -1295,17 +1445,13 @@ function hideClosedGames() {
 
 /* the teacher's panel: tick the chapters and pages students can see */
 
+// the chapters students can be given (the teacher's materials are not in the list)
 function groups() {
-  const chapters = (typeof CONTENTS === 'undefined' ? [] : CONTENTS.chapters || []);
-  const used = new Set();
-  const list = chapters.map(ch => {
-    const items = spreads.filter(s => { const [a] = pagesOf(s); return a >= ch.pages[0] && a <= ch.pages[1]; });
-    items.forEach(s => used.add(s));
-    return { title: ch.title, color: ch.color, items };
-  });
-  const rest = spreads.filter(s => !used.has(s));
+  const list = CHAPTERS.filter(ch => !ch.teacher && ch.items.length)
+    .map(ch => ({ title: ch.title, color: ch.color, items: ch.items }));
+  const rest = spreads.filter(s => !chapterOf.has(s));
   if (rest.length) list.push({ title: 'Other pages', color: '#999', items: rest });
-  return list.filter(g => g.items.length);
+  return list;
 }
 
 function buildPanel() {
@@ -1314,9 +1460,9 @@ function buildPanel() {
     <fieldset class="tp-chapter" style="--c:${esc(g.color || '#f05f4b')}">
       <legend><label><input type="checkbox" class="tp-all" data-g="${gi}"> <b>${esc(g.title)}</b></label></legend>
       ${g.items.map(s => `
-        <label class="tp-page"><input type="checkbox" class="tp-one" data-g="${gi}" value="${esc(s.dataset.pages)}">
+        <label class="tp-page"><input type="checkbox" class="tp-one" data-g="${gi}" value="${esc(s.dataset.id)}">
           <b>${range(...pagesOf(s))}</b> ${esc(s.dataset.name || s.dataset.title || '')}</label>`).join('')}
-    </fieldset>`).join('');
+    </fieldset>`).join('') + '<p class="tp-help">🔒 The materials for the teacher (tests, exit tickets, cards to print) are never shown to students.</p>';
   syncPanel();
 }
 

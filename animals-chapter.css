@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* ======================================================================
-   Animals & have (pp. 34-39, the end of the Owners chapter).
+   Animals & have ([own-animals-have … own-three-s], the end of the Owners chapter).
    Same palette as the book (navy, coral, lilac, purple, lime, pink, blue);
    modern look: Fredoka titles (as the rest of the chapter), round emoji
    stickers, white cards with soft shadows, pill labels, wavy bands.
@@ -59,7 +59,7 @@
 .an-task small { font: 600 1.15cqw/1 'Nunito', sans-serif; color: #8a85a0; }
 .an-task u { text-decoration-color: var(--an-lime-d); text-decoration-thickness: .35cqw; text-underline-offset: .3cqw; }
 
-/* ---------- page 26: groups, chips ---------- */
+/* ---------- [own-animals-have]: groups, chips ---------- */
 .an-groups { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1cqw; }
 .an-groups span {
   padding: .8cqw .4cqw .9cqw; border-radius: 1.5cqw; background: #fff; box-shadow: var(--an-shadow);
@@ -72,7 +72,7 @@
 .an-chips .cov span { background: var(--an-pink); color: #d9483a; }
 .an-chips .par span { background: #f1e3fc; color: #7a3fa3; }
 
-/* ---------- page 26: the two ways of using have ---------- */
+/* ---------- [own-animals-have]: the two ways of using have ---------- */
 .an-cards { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center; }
 .an-card { padding: 1.7cqw 2cqw 1.5cqw; border-radius: 1.8cqw; box-shadow: var(--an-shadow); }
 .an-card.do { padding-right: 3.2cqw; background: #fff; border: .25cqw solid var(--an-lilac-mid); }
@@ -95,7 +95,7 @@
 .an-notes .no { background: var(--an-pink); border-left: .6cqw solid var(--an-coral); }
 .an-notes s { color: var(--an-coral); text-decoration-thickness: .15cqw; }
 
-/* ---------- page 27: exercises ---------- */
+/* ---------- [own-animals-have:R]: exercises ---------- */
 .an-gaps, .an-swap, .an-find, .an-riddles, .an-steps { list-style: none; padding: 0; margin: 0; }
 .an-gaps li, .an-swap li {
   display: flex; align-items: baseline; gap: 1.4cqw; border-bottom: .12cqw solid #ece8f4;
@@ -120,7 +120,7 @@
 .an-find li span { flex: 0 0 29cqw; padding-bottom: .25cqw; }
 .an-find input.fill { flex: 1; height: 3cqw; border-bottom: .14cqw dashed #cfc8dc; font-size: 2cqw; }
 
-/* ---------- page 28: the riddles ---------- */
+/* ---------- [own-animals-guess]: the riddles ---------- */
 .an-riddles { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5cqw; }
 .an-riddles li {
   position: relative; padding: 1.3cqw 1.6cqw 1.2cqw 5.2cqw; border-radius: 1.6cqw; background: #fff;
@@ -151,7 +151,7 @@
   background: repeating-linear-gradient(transparent 0 calc(3.1cqw - .13cqw), #d8c3ef calc(3.1cqw - .13cqw) 3.1cqw);
 }
 
-/* ---------- page 29: draw from memory ---------- */
+/* ---------- [own-animals-guess:R]: draw from memory ---------- */
 .an-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4cqw; }
 .an-steps li {
   padding: 1.2cqw 1.5cqw 1.3cqw; border-radius: 1.6cqw; background: #fff; box-shadow: var(--an-shadow); border-top: .6cqw solid var(--c);
@@ -173,7 +173,7 @@
 
 @media print { .an-draw .pd-tools { display: none !important; } }
 
-/* ---------- pp. 38-39: the three ’s ---------- */
+/* ---------- [own-three-s]: the three ’s ---------- */
 .spread[data-title="Animals"] { --is: #4aa8ec; --has: #f05f4b; --gen: #8e2de2; }
 .an-three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5cqw; }
 .an-three > div {

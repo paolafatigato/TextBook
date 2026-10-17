@@ -1,4 +1,4 @@
-// Conversation Game (pp. 52-53): choose tokens, roll the dice, move on the board,
+// Conversation Game ([ps-conversation-game]): choose tokens, roll the dice, move on the board,
 // answer a card when you land on a "?". Questions are in game-questions.js.
 
 const TOKEN_EMOJI = ['🦆', '🤡', '👻', '🐞', '👽', '🤓', '🦑', '🦝', '💃', '🧜‍♀️', '🧚', '🦋', '🐥', '🤖', '😸', '🐷', '🐸', '🦊', '🐙', '🦄'];

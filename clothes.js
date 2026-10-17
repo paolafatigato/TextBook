@@ -1,17 +1,17 @@
-// Clothes & Fashion show (pp. 106-119): the A-Z counter on p. 108 and the judges' totals on p. 115.
+// Clothes & Fashion show ([clothes-vocab … clothes-practice2]): the A-Z counter on [clothes-accessories] and the judges' totals on [clothes-auction:R].
 // The answers themselves are saved by script.js.
 
 (() => {
   const $ = id => document.getElementById(id);
   const num = v => { const n = parseFloat(String(v).replace(',', '.')); return Number.isFinite(n) ? n : null; };
 
-  // p. 108: how many letters of the alphabet game are filled in
+  // [clothes-accessories]: how many letters of the alphabet game are filled in
   const abc = [...document.querySelectorAll('.cl-abc')];
   const count = $('cl-abc-count');
   const paintAbc = () => { if (count) count.textContent = `${abc.filter(i => i.value.trim()).length} / 26`; };
   abc.forEach(i => i.addEventListener('input', paintAbc));
 
-  // p. 115: total of the three scores of each model
+  // [clothes-auction:R]: total of the three scores of each model
   const rows = [...document.querySelectorAll('tr[data-sum]')];
   const paintRows = () => rows.forEach(tr => {
     const scores = [...tr.querySelectorAll('.cl-n')].map(i => num(i.value));

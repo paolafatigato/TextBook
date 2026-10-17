@@ -1,6 +1,6 @@
-// Daily routine (pp. 56-61): the routine clock of p. 58 and the missing vowels of p. 61.
+// Daily routine ([ps-routine-pictures … ps-routine-linking]): the routine clock of [ps-routine-clock] and the missing vowels of [ps-routine-linking:R].
 // The clock: drag the hands (or use the buttons) and read the time in words.
-// Two games with Leo's day (the reading of p. 59): "Read it" (choose the right time)
+// Two games with Leo's day (the reading of [ps-routine-clock:R]): "Read it" (choose the right time)
 // and "Set it" (move the hands to the time in the sentence).
 
 (() => {
@@ -15,7 +15,7 @@
   const digital = (h, m) => `${h}:${String(m).padStart(2, '0')}`;
   const cap = s => s[0].toUpperCase() + s.slice(1);
 
-  // Leo's day (p. 59)
+  // Leo's day ([ps-routine-clock:R])
   const LEO = [
     { e: '🥱', s: 'Leo wakes up', h: 7, m: 0 },
     { e: '🐕', s: 'Leo takes Pepper for a walk', h: 7, m: 10 },
@@ -223,7 +223,7 @@
   paint();
   setMode('free');
 
-  /* ================= p. 61: missing vowels ================= */
+  /* ================= [ps-routine-linking:R]: missing vowels ================= */
   // type a vowel and the cursor jumps to the next gap
   const gaps = [...document.querySelectorAll('.rt-vowels input.v')];
   gaps.forEach((inp, i) => inp.addEventListener('input', () => {

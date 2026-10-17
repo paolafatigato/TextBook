@@ -1,8 +1,8 @@
-// Orwell (pp. 222-235): the games for one player, in a pop-up like the Romeo & Juliet games.
+// Orwell ([author-meet … n1984]): the games for one player, in a pop-up like the Romeo & Juliet games.
 // A button with data-ow="life" opens that game, data-ow="" opens the menu with all the games.
-// Before the detectives' game (pp. 222-225) no game may tell facts about Orwell's life:
-// only "life" does, and it is not in the menu (its button is on p. 227, after the game).
-// Also here: "Put in order" of the facts (p. 225) and the quiz "Which animal are you?" (p. 229).
+// Before the detectives' game ([author-meet … author-clues]) no game may tell facts about Orwell's life:
+// only "life" does, and it is not in the menu (its button is on [author-case:R], after the game).
+// Also here: "Put in order" of the facts ([author-clues:R]) and the quiz "Which animal are you?" ([af-quiz:R]).
 
 (() => {
   const DATA = {
@@ -107,7 +107,7 @@
     scramble: { icon: '🔤', name: 'Word scramble', text: 'Put the letters in the right order.' },
     hangman: { icon: '🎡', name: 'Hangman', text: 'Find the word before you lose your hearts.' },
   };
-  const ORDER = Object.keys(INFO).filter(id => id !== 'life'); // "life" tells the answers of the game: only from p. 227
+  const ORDER = Object.keys(INFO).filter(id => id !== 'life'); // "life" tells the answers of the game: only from [author-case:R]
 
   const $ = id => document.getElementById(id);
   const shuffle = a => {
@@ -470,7 +470,7 @@
     e.stopPropagation();
   }, true);
 
-  /* ---------- p. 225: our facts, then in order ---------- */
+  /* ---------- [author-clues:R]: our facts, then in order ---------- */
   // "Put in order" sorts the facts by the year written next to them; facts without a year go after,
   // empty lines go to the end. The values move from line to line, so they stay saved.
   document.querySelectorAll('.check[data-tl]').forEach(btn => btn.addEventListener('click', () => {
@@ -487,7 +487,7 @@
     list.classList.add('sorted');
   }));
 
-  /* ---------- p. 229: Which animal are you? ---------- */
+  /* ---------- [af-quiz:R]: Which animal are you? ---------- */
   // each question is an .opt (script.js saves the chosen sentence); the 1st answer is A, the 5th is E.
   // The letter chosen most often lights up its animal (a tie lights up all of them).
   const quiz = $('af99');
@@ -514,7 +514,7 @@
     paint();
   }
 
-  // the topic chips of p. 232 can also be pressed with the keyboard
+  // the topic chips of [af-rules] can also be pressed with the keyboard
   document.querySelectorAll('.ow-topic').forEach(t => t.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.click(); }
   }));

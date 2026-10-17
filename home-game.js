@@ -1,7 +1,7 @@
-// Home (pp. 64-69): the logic of "Home Sweet Vocab".
-// p. 64: spell the word → the object is unlocked.
-// p. 65: drag the unlocked objects into the house (as many as you like).
-// pp. 67-69: room missions (bedroom, living room, kitchen), every object once: the missions check the prepositions of place.
+// Home ([home-vocab … home-missions]): the logic of "Home Sweet Vocab".
+// [home-vocab]: spell the word → the object is unlocked.
+// [home-vocab:R]: drag the unlocked objects into the house (as many as you like).
+// [home-prepositions:R … home-missions]: room missions (bedroom, living room, kitchen), every object once: the missions check the prepositions of place.
 // What students do is kept in `saved` (script.js), so "Clear answers" empties it too.
 
 (() => {
@@ -43,7 +43,7 @@
   const BY_KEY = Object.fromEntries(WORDS.map(o => [o.k, o]));
   const models = k => BY_KEY[k]?.m || [k.replace(/ /g, '-')];
 
-  // objects that are only in the room missions, not in the cards of p. 64
+  // objects that are only in the room missions, not in the cards of [home-vocab]
   const EXTRA = {
     bin: { k: 'bin', emoji: '🗑️' },
     pot: { k: 'pot', emoji: '🍲' },
@@ -52,11 +52,11 @@
   };
   const PLURAL = new Set(['curtains', 'books', 'mugs']);
 
-  // Room missions (pp. 67-69): every object is in the room once.
+  // Room missions ([home-prepositions:R … home-missions]): every object is in the room once.
   // objects: width in % of the room width, f = which drawing of the word.
   const ROOMS = [
     {
-      id: 'r', // p. 67: bedroom / study
+      id: 'r', // [home-prepositions:R]: bedroom / study
       objects: { window: 18, table: 22, computer: 10, chair: 9, plant: 8, sofa: 28, pouf: 12, clock: 7, shelf: 18, lamp: 6, bin: 7 },
       missions: [
         { a: 'table', rel: 'under', b: 'window' },
@@ -73,7 +73,7 @@
       ],
     },
     {
-      id: 'l', // p. 68: living room
+      id: 'l', // [home-missions]: living room
       objects: { window: 18, curtains: 26, sofa: 28, 'floor lamp': 12, 'side table': 8, lamp: 6, bookcase: 11, books: 6, clock: 7, plant: 8, armchair: 13, pouf: 10 },
       missions: [
         { a: 'curtains', rel: 'in front of', b: 'window' },
@@ -88,7 +88,7 @@
       ],
     },
     {
-      id: 'k', // p. 69: kitchen
+      id: 'k', // [home-missions:R]: kitchen
       objects: { window: 18, fridge: 11, sink: 17, cooker: 15, cupboard: 16, pot: 8, kettle: 6, table: { w: 24, f: 'table-2' }, 'fruit bowl': 8, mugs: 7, chair: { w: 9, f: 'chair-2' }, stool: 7 },
       missions: [
         { a: 'sink', rel: 'under', b: 'window' },
@@ -155,7 +155,7 @@
     return img;
   }
 
-  /* ================= p. 64: spell → unlock ================= */
+  /* ================= [home-vocab]: spell → unlock ================= */
 
   const shuffle = word => {
     const letters = word.replace(/ /g, '').toUpperCase().split('');
@@ -197,7 +197,7 @@
       tile.append(picture(o.k, '', f));
       pic.append(tile);
       if (unlocked) {
-        tile.title = 'Drag me into the house (p. 65)';
+        tile.title = `Drag me into the house (p. ${PAGES.of('home-vocab:R')})`;
         dragSource(tile, () => ({ k: o.k, f, zone: 'h' }));
       }
     });
@@ -208,7 +208,7 @@
     el.append(pic, tl);
 
     if (unlocked) {
-      el.insertAdjacentHTML('beforeend', '<span class="hm-status">✔ drag it to p. 65 →</span>');
+      el.insertAdjacentHTML('beforeend', `<span class="hm-status">✔ drag it to p. ${PAGES.of('home-vocab:R')} →</span>`);
       return el;
     }
     const row = document.createElement('div');
@@ -285,7 +285,7 @@
   }
 
   /* ================= dragging ================= */
-  // From a card (p. 64) or the palette (p. 67) into a .hm-drop area.
+  // From a card ([home-vocab]) or the palette ([home-prepositions:R]) into a .hm-drop area.
   // Works with mouse, pen and fingers (pointer events).
 
   let ghost = null;
@@ -473,7 +473,7 @@
     if (roomOf(area)) missions(roomOf(area));
   });
 
-  /* ================= pp. 67-69: room missions ================= */
+  /* ================= [home-prepositions:R … home-missions]: room missions ================= */
 
   function drawPalette(room) {
     room.palette.replaceChildren(...Object.entries(room.objects).map(([k, { f }]) => {
@@ -548,7 +548,7 @@
     missions(room);
   }));
 
-  /* ================= p. 66: drawings still to be added ================= */
+  /* ================= [home-prepositions]: drawings still to be added ================= */
 
   document.querySelectorAll('img[data-missing]').forEach(img => {
     const empty = () => {

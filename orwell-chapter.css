@@ -1,14 +1,14 @@
 /* ======================================================================
-   ORWELL · "The archive": pp. 222–235
+   ORWELL · "The archive": [author-meet … n1984]
    Vintage ephemera on warm paper: postage-stamp photos with washi tape,
    pinned notes with a torn edge and a red string (the detectives' board),
    circular rubber stamps, typewriter clues and handwritten notes.
    One title font for the three parts (Gloock serif) and the book's coral / salmon.
-   Meet the author pp. 222–227 (a detectives' game: no facts printed),
-   Animal Farm pp. 228–233 (+ the earth colours of the quiz),
-   1984 pp. 234–235 (.ow84: the same type and details, black with green and azure).
-   The first page of each part has a detail that moves: the rotating seal (p. 222),
-   the windmill (p. 228), the eye (p. 234).
+   Meet the author [author-meet … author-case] (a detectives' game: no facts printed),
+   Animal Farm [af-quiz … af-rules] (+ the earth colours of the quiz),
+   1984 [n1984] (.ow84: the same type and details, black with green and azure).
+   The first page of each part has a detail that moves: the rotating seal ([author-meet]),
+   the windmill ([af-quiz]), the eye ([n1984]).
    ====================================================================== */
 
 .page.ow {
@@ -123,7 +123,7 @@
 .ow-string { z-index: 5; height: auto; overflow: visible; pointer-events: none; }
 .ow-string path { fill: none; stroke: #d8473a; stroke-width: .28; stroke-linecap: round; }
 
-/* the circular rubber stamp: its text turns slowly (the moving detail of p. 222) */
+/* the circular rubber stamp: its text turns slowly (the moving detail of [author-meet]) */
 .ow-seal { z-index: 6; margin: 0; aspect-ratio: 1; }
 .ow-seal svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .ow-seal circle { fill: rgba(251,247,239,.85); stroke: var(--ow-red); stroke-width: .8; }
@@ -140,7 +140,7 @@
 @keyframes owSpin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .ow-seal .ring { animation: none; } }
 
-/* ---------- p. 222: how to play, team roles, yes / no questions ---------- */
+/* ---------- [author-meet]: how to play, team roles, yes / no questions ---------- */
 .ow-rules { z-index: 2; list-style: none; margin: 0; padding: 0; counter-reset: rule; font: 400 1.45cqw/1.25 'Nunito', sans-serif; color: #3d3731; }
 .ow-rules li { counter-increment: rule; display: flex; align-items: center; gap: 1.2cqw; min-height: 4.6cqw; border-bottom: .12cqw solid var(--ow-line); }
 .ow-rules li::before { content: counter(rule); flex: 0 0 2.8cqw; height: 2.8cqw; display: grid; place-items: center; border-radius: 50%; background: var(--ow-o); color: #fff; font: 400 1.4cqw/1 var(--ow-head); }
@@ -169,7 +169,7 @@
 .ow-topics small { margin-right: .6cqw; font: var(--ow-label); letter-spacing: .22em; text-transform: uppercase; color: var(--ow-steel); }
 .ow-topics span { padding: .5cqw 1.1cqw; border-radius: 999px; font: 400 1.25cqw/1 var(--ow-type); color: var(--ow-ink); box-shadow: inset 0 0 0 .12cqw var(--ow-ink); }
 
-/* ---------- p. 223: guess yes or no, write your questions ---------- */
+/* ---------- [author-meet:R]: guess yes or no, write your questions ---------- */
 .ow-yn-head { z-index: 2; display: grid; grid-template-columns: 1fr 12.6cqw 7.6cqw; margin: 0; font: var(--ow-label); letter-spacing: .16em; text-transform: uppercase; color: var(--ow-steel); text-align: center; }
 .ow-yn-head span:first-child { text-align: left; padding-left: 3cqw; }
 .ow .ow-guess li { align-items: center; min-height: 4.8cqw; }
@@ -179,7 +179,7 @@
 .ow-guess .tf button.on { background: var(--ow-o); color: #fff; box-shadow: none; }
 .ow-guess .pd-mark, .ow-clues .pd-mark { flex: 0 0 3.6cqw; width: 3.6cqw; height: 3.6cqw; margin-left: 2cqw; border: .13cqw dashed var(--ow-steel); border-radius: 50%; background: transparent; }
 
-/* ---------- p. 224: clue → inference ---------- */
+/* ---------- [author-clues]: clue → inference ---------- */
 .ow-steps { z-index: 2; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4cqw; }
 .ow-steps div { position: relative; padding: 1.8cqw 1.3cqw 1.1cqw 4.6cqw; background: var(--ow-card); box-shadow: 0 .5cqw 1.2cqw rgba(80,55,30,.14); }
 .ow-steps div:nth-child(1) { transform: rotate(-1.4deg); }
@@ -220,7 +220,7 @@
 .ow-clues li.area small { position: relative; margin-left: 3cqw; font: 400 1.05cqw/1 var(--ow-type); color: #7b7166; }
 .ow-model-note { z-index: 2; font: 400 1.05cqw/1.3 var(--ow-type); color: #8a7f72; }
 
-/* p. 225: two letters, only one is his */
+/* [author-clues:R]: two letters, only one is his */
 .ow-letter { z-index: 2; height: 33cqw; padding: 2.4cqw 2.2cqw 1.6cqw; background: #fffdf8 repeating-linear-gradient(transparent 0 2.04cqw, rgba(74,168,236,.12) 2.04cqw 2.14cqw); background-position: 0 6.6cqw; box-shadow: 0 .8cqw 1.6cqw rgba(80,55,30,.14); transform: rotate(-.8deg); }
 .ow-letter + .ow-letter { transform: rotate(.7deg); }
 .ow-letter-tag { position: absolute; z-index: 6; left: -1.2cqw; top: -1.4cqw; display: grid; place-items: center; width: 4.2cqw; height: 4.2cqw; border-radius: 50%; background: var(--ow-o); color: #fff; font: 400 2.2cqw/1 var(--ow-head); outline: .22cqw dotted var(--ow-paper); outline-offset: -.4cqw; }
@@ -240,7 +240,7 @@
 .ow-verdict .tf button.on { background: var(--ow-o); color: #fff; box-shadow: none; }
 .ow-verdict input.fill { flex: 1; height: 3.4cqw; border-bottom: .13cqw solid var(--ow-line); font-size: 1.8cqw; }
 
-/* p. 225: our facts, then in order */
+/* [author-clues:R]: our facts, then in order */
 .ow-tl { z-index: 2; list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, auto); column-gap: 3cqw; }
 .ow-tl li { display: flex; align-items: flex-end; gap: .8cqw; height: 4.8cqw; border-bottom: .12cqw solid var(--ow-line); }
 .ow-tl li > i { flex: 0 0 2cqw; padding-bottom: .7cqw; font: 400 1.4cqw/1 var(--ow-head); font-style: normal; color: var(--ow-o); }
@@ -258,7 +258,7 @@
 .ow-score input.fill { width: 6cqw; height: 3.4cqw; text-align: center; color: #fff; font-size: 2.2cqw; border-bottom: .14cqw solid var(--ow-o2); }
 .ow-score b { color: var(--ow-o2); font-size: 2cqw; }
 
-/* p. 227: when or while? */
+/* [author-case:R]: when or while? */
 .ow-pcont { z-index: 2; padding: 1.8cqw 1.8cqw 1.4cqw; background: var(--ow-card); box-shadow: 0 .5cqw 1.2cqw rgba(80,55,30,.12); }
 .ow-pcont .bar { position: relative; display: flex; align-items: center; height: 4.4cqw; margin-bottom: 1cqw; }
 .ow-pcont .bar span { flex: 0 0 55%; padding: 1cqw 1.4cqw; border-radius: 999px; background: var(--ow-ink); color: var(--ow-paper); font: 400 1.4cqw/1 var(--ow-type); }
@@ -269,7 +269,7 @@
 .ow-frames { z-index: 2; display: flex; flex-wrap: wrap; gap: .6cqw; margin: 0; }
 .ow-frames span { padding: .5cqw .9cqw; font: 400 1.15cqw/1 var(--ow-type); background: var(--ow-card); box-shadow: inset .3cqw 0 0 var(--ow-o); }
 
-/* p. 223: your questions · p. 226: the secret file */
+/* [author-meet:R]: your questions · [author-case]: the secret file */
 .ow-tag { display: inline-block; padding: .55cqw 1.2cqw; border-radius: 999px; font: var(--ow-label); letter-spacing: .14em; color: #fff; background: var(--ow-o); }
 .ow-qs { z-index: 2; display: grid; grid-template-columns: 15cqw 1fr; align-items: start; }
 .ow-qs .ow-tag { justify-self: start; margin-top: 1.4cqw; }
@@ -312,7 +312,7 @@
 .ow .rj-games button:hover { background: var(--ow-o2); color: var(--ow-ink); }
 
 /* ======================================================================
-   ANIMAL FARM (pp. 228–233)
+   ANIMAL FARM ([af-quiz … af-rules])
    ====================================================================== */
 .af-title { margin: 0; font: 400 9.6cqw/1 var(--ow-head); text-transform: uppercase; letter-spacing: .01em; text-align: center; color: var(--ow-ink); }
 .af-row { z-index: 2; display: flex; align-items: center; justify-content: center; gap: 2.4cqw; margin: 0; font: var(--ow-label); letter-spacing: .3em; text-transform: uppercase; }
@@ -324,7 +324,7 @@
 .af-oval small { font: 800 .8cqw/1 'Nunito', sans-serif; letter-spacing: .26em; }
 .af-oval b { font: 400 1.8cqw/1 var(--ow-head); }
 
-/* the windmill (Snowball's project): the sails turn — the moving detail of p. 228 */
+/* the windmill (Snowball's project): the sails turn — the moving detail of [af-quiz] */
 .af-mill { z-index: 2; height: auto; overflow: visible; }
 .af-mill .body { fill: var(--ow-card); stroke: var(--ow-ink); stroke-width: 1.2; stroke-linejoin: round; }
 .af-mill .line { fill: none; stroke: var(--ow-ink); stroke-width: .8; }
@@ -420,7 +420,7 @@
 .ow-lines { z-index: 2; background: repeating-linear-gradient(transparent 0 calc(4.4cqw - .13cqw), var(--ow-line) calc(4.4cqw - .13cqw) 4.4cqw); }
 .ow-lines textarea.fill { line-height: 4.4cqw; padding: 0 .4cqw; font-size: 1.9cqw; }
 
-/* p. 232: your rules */
+/* [af-rules]: your rules */
 .ow-vbar { z-index: 0; background: var(--ow-o); }
 .ow .toggle.ow-topic { display: inline-block; cursor: pointer; margin: 0 .6cqw .6cqw 0; padding: .6cqw 1.3cqw; border-radius: 999px; font: 400 1.35cqw/1 var(--ow-type); color: var(--ow-ink); box-shadow: inset 0 0 0 .13cqw var(--ow-ink); background: var(--ow-card); user-select: none; }
 .ow .toggle.ow-topic.on { background: var(--ow-o); color: #fff; box-shadow: none; }
@@ -434,7 +434,7 @@
 .ow-reflect li > span::before { content: "✦ "; color: var(--ow-o); }
 .ow-reflect input.fill { height: 4cqw; border-bottom: .13cqw solid var(--ow-line); font-size: 1.9cqw; }
 
-/* p. 233: main themes, pinned notes */
+/* [af-rules:R]: main themes, pinned notes */
 .af-theme { z-index: 2; padding: 1.8cqw 1.8cqw 1cqw; background: var(--ow-card); box-shadow: 0 .5cqw 1.2cqw rgba(80,55,30,.13); }
 .af-theme:nth-of-type(odd) { transform: rotate(-.7deg); }
 .af-theme:nth-of-type(even) { transform: rotate(.6deg); }
@@ -445,7 +445,7 @@
 .af-theme input.fill { height: 3.2cqw; font-size: 1.75cqw; }
 
 /* ======================================================================
-   1984 (pp. 234–235): the same type and details, black with green and azure
+   1984 ([n1984]): the same type and details, black with green and azure
    ====================================================================== */
 .page.ow.ow84 {
   --ow-ink: #f2f4f5; --ow-paper: #0d0f10; --ow-card: #15181a; --ow-line: rgba(255,255,255,.13);
@@ -488,7 +488,7 @@
 .ow84-sub { margin: 0; font: italic 400 1.6cqw/1 var(--ow-head); color: var(--ow-steel); }
 .ow84-rule { height: .6cqw; border-top: .12cqw solid var(--ow-line); border-bottom: .12cqw solid var(--ow-line); }
 
-/* the eye: rings drawn with CSS (a picture in img/orwell/eye takes its place) — the moving detail of p. 234 */
+/* the eye: rings drawn with CSS (a picture in img/orwell/eye takes its place) — the moving detail of [n1984] */
 .ow84-eye { z-index: 2; margin: 0; aspect-ratio: 1; border-radius: 50%; box-shadow: inset 0 0 0 .14cqw rgba(74,168,236,.5); }
 .ow84-eye::before { content: ""; position: absolute; inset: 18%; border-radius: 50%; box-shadow: inset 0 0 0 .14cqw var(--ow-b), 0 0 4cqw rgba(74,168,236,.25); }
 .ow84-eye::after { content: ""; position: absolute; inset: 38%; border-radius: 50%; background: radial-gradient(circle at 40% 40%, #fff 0 8%, var(--ow-g) 9% 55%, #0d0f10 56%); }

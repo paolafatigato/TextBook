@@ -32,13 +32,16 @@ const isDrawing = v => typeof v === 'string' && v.startsWith('data:');
 
 /* ---------- which pages students can see ---------- */
 
-// A saved list is a list of spreads like "142-143". The numbers changed three times:
+// A saved list is a list of spreads. Up to version 5 a spread was written with its pages, like "142-143",
+// and the numbers changed a few times:
 //  - version 2: pp. 142–169 moved forward by 2 when "Who am I?" (pp. 142–143) was added
 //  - version 3: all the pages were renumbered 2, 3, 4… without gaps (the spreads below, in order, are now 2-3, 4-5, 6-7…)
 //  - version 4: pp. 34–39 are the new section "Animals & have" at the end of Owners, so every spread from 34-35 on moved forward by 6
 //  - version 5: pp. 56–61 are the new "Daily routine" pages at the end of Present Simple, so every spread from 56-57 on moved forward by 6
+//  - version 6: a spread is written with its name (data-id in index.html), so the list no longer changes when pages
+//    are added or moved: this is the last conversion. (The chapters were also put in the order of the three school years.)
 // A list saved before a change still uses the old numbers: convert it, and drop the spreads that no longer exist.
-const PAGES_VERSION = 5;
+const PAGES_VERSION = 6;
 const V2_SPREADS = [
   '2-3', '4-5', '6-7', '8-9', '10-11', '12-13', '14-15', '16-17', '18-19', '20-21', '22-23', '24-25',
   '26-27', '28-29', '29.1-29.2', '30-31', '32-33', '34-35', '36-37', '38-39', '40-41', '42-43', '44-45',
@@ -56,6 +59,30 @@ const toV2 = k => { const [a, b] = k.split('-').map(Number); return a >= 142 && 
 const toV3 = k => { const i = V2_SPREADS.indexOf(k); return i < 0 ? null : `${2 + 2 * i}-${3 + 2 * i}`; };
 const toV4 = k => { const [a, b] = k.split('-').map(Number); return a >= 34 ? `${a + 6}-${b + 6}` : k; };
 const toV5 = k => { const [a, b] = k.split('-').map(Number); return a >= 56 ? `${a + 6}-${b + 6}` : k; };
+// the spreads of version 5 in order (2-3, 4-5, 6-7…) → their names
+const V5_IDS = [
+  'gk-guess', 'gk-star', 'bank-intro', 'bank-catalogue', 'bank-problems', 'bank-email', 'bank-notebook',
+  'bank-review', 'tobe-intro', 'tobe-pronouns', 'tobe-rules', 'tobe-test', 'own-adjectives', 'own-saxon',
+  'own-mistakes', 'own-circe', 'own-animals-have', 'own-animals-guess', 'own-three-s', 'greek-gods',
+  'greek-persephone', 'greek-play', 'greek-acting', 'ps-affirmative', 'ps-negative', 'ps-conversation-game',
+  'ps-practice', 'ps-routine-pictures', 'ps-routine-clock', 'ps-routine-linking', 'home-coraline',
+  'home-vocab', 'home-prepositions', 'home-missions', 'people-body', 'people-slash-draw', 'people-identikit',
+  'people-ladder', 'people-characters', 'meta-intro', 'meta-rule2', 'meta-stroop', 'meta-simile',
+  'meta-workshop', 'pers-big5', 'pers-conscientiousness', 'pers-agreeableness', 'pers-test', 'pers-adjectives',
+  'pers-villain-words', 'pers-villain-reading', 'pers-villain-mine', 'clothes-vocab', 'clothes-accessories',
+  'clothes-wearing', 'clothes-roles', 'clothes-auction', 'clothes-practice1', 'clothes-practice2',
+  'alice-reading', 'alice-there-is', 'alice-comparisons', 'alice-yoga', 'alice-society', 'shk-meet',
+  'shk-id-card', 'shk-sonnet', 'shk-rhyme-machine', 'shk-rhyme-gym', 'rj-verona', 'rj-fight', 'rj-party',
+  'rj-kiss', 'rj-balcony', 'rj-rehearsal', 'jobs-reading', 'jobs-story', 'jobs-vocab', 'jobs-stereotypes',
+  'jobs-forehead', 'jobs-career', 'jobs-cv-model', 'jobs-my-cv', 'fut-intro', 'fut-will-teller',
+  'fut-will-analysis', 'fut-will-sentences', 'fut-will-dice', 'fut-going-to', 'fut-going-to-questions',
+  'fut-present-cont', 'fut-which-rules', 'fut-which-practice', 'fut-which-sort', 'test-pron-a', 'test-pron-b',
+  'test-pron-c', 'test-clothes-a1', 'test-clothes-a2', 'test-clothes-b1', 'test-clothes-b2', 'test-clothes-c1',
+  'test-clothes-c2', 'exit-persephone1', 'exit-persephone2', 'exit-sonnet1', 'exit-sonnet2', 'jobcards-1',
+  'jobcards-2', 'jobcards-3', 'author-meet', 'author-clues', 'author-case', 'af-quiz', 'af-symbolism',
+  'af-rules', 'n1984',
+];
+const toV6 = k => V5_IDS[(Number(k.split('-')[0]) - 2) / 2] || null;
 
 onSnapshot(doc(db, 'config', 'visibility'), snap => {
   const data = snap.exists() ? snap.data() : {};
@@ -63,7 +90,8 @@ onSnapshot(doc(db, 'config', 'visibility'), snap => {
   const v = data.pagesVersion || 1;
   const v3 = v >= 3 ? spreads : (v >= 2 ? spreads : spreads.map(toV2)).map(toV3).filter(Boolean);
   const v4 = v >= 4 ? v3 : v3.map(toV4);
-  book.setVisible(v >= 5 ? v4 : v4.map(toV5));
+  const v5 = v >= 5 ? v4 : v4.map(toV5);
+  book.setVisible(v >= 6 ? v5 : v5.map(toV6).filter(Boolean));
 }, err => console.error('Cannot read the visible pages:', err.code, err.message));
 
 book.onSaveVisible = async spreads => {

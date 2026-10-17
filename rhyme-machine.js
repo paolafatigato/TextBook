@@ -1,4 +1,4 @@
-// The rhyme machine (p. 137) and the rhyme exercises (pp. 137-138).
+// The rhyme machine ([shk-rhyme-machine:R]) and the rhyme exercises ([shk-rhyme-machine:R … shk-rhyme-gym]).
 // Words rhyme when they are in the same family: the families go by SOUND,
 // so "blue" and "through" are together, "love" and "move" are not.
 // To add a word, put it in the right family (a word can be in one family only).

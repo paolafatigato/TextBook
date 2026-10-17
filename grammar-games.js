@@ -1,19 +1,22 @@
 // Grammar games (from Grammar Base) in a pop-up. It opens by itself when you scroll to the end of
-// pp. 20-21 (subject pronouns), 22-23 (to be) and 42-43 (present simple), and a button reopens it.
+// one of the spreads in SETS, and a button reopens it.
 // Questions and sentences are in grammar-games-data.js.
 
 (() => {
   const { AP_DATA, SG_ORDER, SG_APOS, SG_TF, SG_FINAL, SUBJECTS, SF_EASY, SF_MED, SF_HARD, QF_DATA, SCATCH_DATA } = GQ_DATA;
 
-  // spread (data-pages) → the games offered there
+  // spread (data-id) → the games offered there; from = the first spread the games are about
   const SETS = {
-    '20-21': { title: 'Subject pronouns', intro: 'pp. 18–21 · Scegli un gioco!', games: ['speed', 'subject'] },
-    '22-23': { title: 'The verb TO BE', intro: 'pp. 22–23 · Scegli un gioco!', games: ['tobe-rule', 'tobe-fire'] },
-    '28-29': { title: 'The Saxon genitive', intro: 'pp. 28–29 · Scegli un gioco!', games: ['sg-order', 'sg-apos', 'sg-tf', 'sg-final'] },
-    '38-39': { title: 'The three ’s', intro: 'pp. 38–39 · Scegli un gioco!', games: ['ap-cards', 'ap-fire'] },
-    '48-49': { title: 'Present simple: the -s', intro: 'pp. 48–49 · Scegli un gioco!', games: ['s-rule', 's-catch'] },
+    'tobe-pronouns': { title: 'Subject pronouns', from: 'tobe-intro', games: ['speed', 'subject'] },
+    'tobe-rules': { title: 'The verb TO BE', games: ['tobe-rule', 'tobe-fire'] },
+    'own-saxon': { title: 'The Saxon genitive', games: ['sg-order', 'sg-apos', 'sg-tf', 'sg-final'] },
+    'own-three-s': { title: 'The three ’s', games: ['ap-cards', 'ap-fire'] },
+    'ps-affirmative': { title: 'Present simple: the -s', games: ['s-rule', 's-catch'] },
   };
-  const COLORS = { '20-21': '#4aa8ec', '22-23': '#7b3fc4', '28-29': '#4aa8ec', '38-39': '#c9de3c', '48-49': '#c97df6' }; // as the topics on the home page
+  const COLORS = { 'tobe-pronouns': '#4aa8ec', 'tobe-rules': '#7b3fc4', 'own-saxon': '#4aa8ec', 'own-three-s': '#c9de3c', 'ps-affirmative': '#c97df6' }; // as the topics on the home page
+  for (const [key, set] of Object.entries(SETS)) {
+    set.intro = `pp. ${PAGES.of(set.from || key)}–${PAGES.end(key)} · Scegli un gioco!`;
+  }
   const INFO = {
     speed: { icon: '⚡', name: 'Speed Clicker', text: 'Clicca il pronome giusto prima che scompaia. 5 vite!' },
     subject: { icon: '🎯', name: 'Subject Hunter', text: 'Trova il soggetto della frase e scegli il pronome.' },
@@ -194,7 +197,7 @@
 
   function currentSet() {
     const s = document.querySelector('.spread.current');
-    return s && SETS[s.dataset.pages] ? { spread: s, key: s.dataset.pages } : null;
+    return s && SETS[s.dataset.id] ? { spread: s, key: s.dataset.id } : null;
   }
 
   const seen = new Set(); // sets that already popped up by themselves
@@ -1136,7 +1139,7 @@
   $('gameList').innerHTML = Object.entries(SETS).map(([key, set]) => `
     <details class="game-topic" style="--c:${COLORS[key]}">
       <summary>${set.title} <small>${set.games.length}</small></summary>
-      <div class="topic-pages">${set.games.map(id => `<a href="#p${key.split('-')[0]}" data-set="${key}" data-game="${id}">${INFO[id].icon} ${INFO[id].name}</a>`).join('')}</div>
+      <div class="topic-pages">${set.games.map(id => `<a href="#p${PAGES.of(key)}" data-set="${key}" data-game="${id}">${INFO[id].icon} ${INFO[id].name}</a>`).join('')}</div>
     </details>`).join('');
 
   // only one dropdown open at a time; a click outside closes it
