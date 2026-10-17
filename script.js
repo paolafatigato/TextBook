@@ -157,6 +157,10 @@ async function route() {
       if (location.hash !== hash) return;
     }
     goToPage(PAGES.of(s[1]));
+    // on a narrow screen the right page is under the left one: scroll down to it
+    const [left, right] = spread?.querySelectorAll(':scope > .page') || [];
+    if (s[1].endsWith(':R') && right && spread.classList.contains('current')
+        && right.getBoundingClientRect().top >= left.getBoundingClientRect().bottom - 1) right.scrollIntoView();
     return;
   }
   const m = location.hash.match(/^#p(\d+(?:\.\d+)?)/);
