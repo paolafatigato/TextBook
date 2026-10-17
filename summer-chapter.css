@@ -1,0 +1,155 @@
+/* ---------- Summer holidays: [summer-homework … summer-share] and the summer tests [test-summer-a/b/c] ---------- */
+/* colours of the chapter: sun orange (its colour in contents.js), sea teal, coral, sand */
+.su { --su-sun: #f5a53b; --su-yel: #ffd84d; --su-sea: #1fa9a4; --su-sky: #7fd3cf; --su-coral: #f05f4b; --su-sand: #fdf1dc; --su-line: #ecd3ad; --su-ink: #3b2a1a; --su-soft: #8a7560; color: var(--su-ink); }
+.su .page-bg { z-index: 0; }
+
+.su-kicker { font: 800 1.3cqw/1 'Nunito', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #fff; }
+.su-h { font: 700 5.6cqw/1 'Fredoka', 'Nunito', sans-serif; color: #fff; white-space: nowrap; text-shadow: 0 .3cqw 0 rgba(0,0,0,.12); }
+.su-flow { display: flex; flex-direction: column; gap: var(--g, 1.8cqw); }
+.su-row { display: flex; align-items: center; justify-content: space-between; gap: 1.5cqw; }
+.su-pill { align-self: flex-start; font: 800 1.7cqw/1 'Nunito', sans-serif; color: #fff; background: var(--su-sea); border-radius: 999px; padding: .6cqw 1.6cqw; white-space: nowrap; }
+.su-pill b { margin-right: .9cqw; color: var(--su-yel); }
+.su-pill.coral { background: var(--su-coral); }
+.su-pill.sun { background: var(--su-sun); }
+.su-p { margin: 0; font: 400 1.85cqw/1.45 'Nunito', sans-serif; }
+.su-p.small { font-size: 1.55cqw; color: var(--su-soft); }
+.su-p b, .su-p strong { color: var(--su-coral); }
+.su .tick { border-color: var(--su-sea); color: var(--su-sea); }
+.su .tick.on { background: var(--su-sea); border-color: var(--su-sea); color: #fff; }
+
+/* the four tasks ([summer-homework:L]) */
+.su-tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.5cqw; }
+.su-tasks li { display: grid; grid-template-columns: 7.6cqw 1fr 3cqw; gap: 1.8cqw; align-items: center; background: #fff; border: .18cqw solid var(--c); border-radius: 2cqw; padding: 1.5cqw 1.8cqw; box-shadow: .5cqw .5cqw 0 var(--c); }
+.su-ico { width: 7.6cqw; height: 7.6cqw; border-radius: 50%; background: color-mix(in srgb, var(--c) 22%, #fff); display: grid; place-items: center; font-size: 4cqw; line-height: 1; }
+.su-tasks h3 { margin: 0 0 .5cqw; font: 700 2.4cqw/1.1 'Fredoka', 'Nunito', sans-serif; }
+.su-tasks h3 small { font: 800 1.3cqw/1 'Nunito', sans-serif; color: var(--c); letter-spacing: .06em; margin-left: .6cqw; }
+.su-tasks p { margin: 0; font: 400 1.7cqw/1.4 'Nunito', sans-serif; }
+
+/* boxes */
+.su-box { background: var(--su-sand); border-radius: 2cqw; padding: 1.5cqw 2.2cqw; font: 400 1.75cqw/1.45 'Nunito', sans-serif; }
+.su-box p { margin: 0 0 .5cqw; }
+.su-box p:last-child { margin: 0; }
+.su-box b { color: var(--su-coral); }
+.su-box.sea { background: #def4f2; }
+.su-box.sea b { color: #12726e; }
+
+/* one-line answers */
+.su-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6cqw 3cqw; }
+.su-field { display: flex; align-items: flex-end; gap: 1cqw; font: 800 1.7cqw/1 'Nunito', sans-serif; white-space: nowrap; }
+.su-field.wide { grid-column: 1 / -1; }
+.su-field input.fill { flex: 1; height: 3.8cqw; border-bottom: .15cqw solid #e2c9a6; font-size: 2.1cqw; }
+.su input.fill::placeholder, .su textarea.fill::placeholder { color: #cdbca6; font: italic 1.3cqw 'Nunito', sans-serif; }
+
+/* lined writing space */
+textarea.fill.su-lines { background: repeating-linear-gradient(to bottom, transparent 0, transparent calc(3.2cqw - .14cqw), var(--su-line) calc(3.2cqw - .14cqw), var(--su-line) 3.2cqw); font: 2.1cqw/3.2cqw 'Patrick Hand', cursive; padding: 0 .6cqw; border: 0; resize: none; outline: none; color: var(--ink); }
+
+/* the book review script ([summer-homework:R]) */
+.su-parts { display: flex; flex-direction: column; gap: 2cqw; }
+.su-part { background: #fff; border-left: 1.1cqw solid var(--c); border-radius: 0 1.6cqw 1.6cqw 0; padding: 1.4cqw 2cqw 1.5cqw; box-shadow: 0 .3cqw 1cqw rgba(90,60,20,.10); }
+.su-part h3 { margin: 0 0 .7cqw; display: flex; align-items: baseline; gap: 1cqw; font: 700 2.5cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--c); }
+.su-part h3 small { font: 700 1.4cqw/1 'Nunito', sans-serif; color: var(--su-soft); }
+.su-part ul { margin: 0; padding-left: 2.4cqw; font: 400 1.7cqw/1.45 'Nunito', sans-serif; }
+.su-phr { display: flex; flex-wrap: wrap; gap: .6cqw; margin-top: .8cqw; }
+.su-phr span { font: 600 1.5cqw/1 'Nunito', sans-serif; background: color-mix(in srgb, var(--c, #1fa9a4) 15%, #fff); border-radius: 999px; padding: .55cqw 1.1cqw; }
+
+/* letters ([summer-letters]) */
+.su-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1cqw; counter-reset: su; }
+.su-steps li { display: grid; grid-template-columns: 3.4cqw 1fr; gap: 1.2cqw; align-items: start; font: 400 1.7cqw/1.45 'Nunito', sans-serif; counter-increment: su; }
+.su-steps li::before { content: counter(su); width: 3.4cqw; height: 3.4cqw; border-radius: 50%; background: var(--c); color: #fff; display: grid; place-items: center; font: 700 1.6cqw/1 'Fredoka', sans-serif; }
+.su-steps b { color: var(--c); }
+.su-letter { position: relative; background: #fffdf7; border: .15cqw solid #eedcbf; border-radius: 1cqw; padding: 1.6cqw 2.4cqw; font: 500 2.4cqw/1.3 'Caveat', cursive; color: #4a3a2a; transform: rotate(-.6deg); box-shadow: .4cqw .5cqw 0 rgba(90,60,20,.10); }
+.su-letter p { margin: 0 0 .4cqw; }
+.su-letter p:last-child { margin: 0; text-align: right; }
+.su-letter .su-stamp { position: absolute; top: -1.4cqw; right: 1.6cqw; font: 800 1.1cqw/1 'Nunito', sans-serif; letter-spacing: .1em; color: #fff; background: var(--c); padding: .5cqw 1cqw; border-radius: .4cqw; transform: rotate(4deg); }
+.su-brain { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4cqw 2.4cqw; }
+.su-brain label { display: flex; align-items: flex-end; gap: .8cqw; font: 700 1.7cqw/1 'Nunito', sans-serif; white-space: nowrap; }
+.su-brain label.wide { grid-column: 1 / -1; }
+.su-brain input.fill { flex: 1; height: 3.8cqw; border-bottom: .14cqw solid #e2c9a6; font-size: 1.9cqw; }
+
+/* gratitude journal ([summer-gratitude:L]) */
+.su-weeks { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2cqw 1.6cqw; }
+.su-week { background: #fff; border-radius: 1.6cqw; border: .15cqw solid #f3d9b4; padding: .8cqw 1.2cqw .3cqw; }
+.su-week header { display: flex; align-items: center; gap: .8cqw; font: 700 1.8cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--su-sun); white-space: nowrap; }
+.su-week header input.fill { flex: 1; height: 2.4cqw; font-size: 1.6cqw; border-bottom: .12cqw dashed var(--su-line); }
+.su-week textarea.fill.su-lines { height: 9.6cqw; font-size: 2cqw; }
+
+/* verbs ([summer-gratitude:R]) */
+.su-verbs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1cqw 3cqw; }
+.su-verbs li { display: grid; grid-template-columns: 8.4cqw 1fr 11cqw; align-items: end; gap: .8cqw; font: 700 1.8cqw/1.2 'Nunito', sans-serif; }
+.su-verbs li i { font: italic 400 1.5cqw/1.2 'Nunito', sans-serif; color: var(--su-soft); }
+.su-verbs input.fill, .su-ed input.fill { height: 3.4cqw; border-bottom: .14cqw solid #e2c9a6; font-size: 1.9cqw; }
+.su-verbs-head { display: grid; grid-template-columns: 1fr 1fr; gap: 3cqw; }
+.su-verbs-head span { display: grid; grid-template-columns: 8.4cqw 1fr 11cqw; gap: .8cqw; font: 800 1.25cqw/1 'Nunito', sans-serif; letter-spacing: .08em; color: var(--su-sea); }
+.su-rules { display: grid; grid-template-columns: 1fr 1fr; gap: 1cqw; }
+.su-rule { margin: 0; background: var(--su-sand); border-radius: 1.4cqw; padding: 1.1cqw 1.6cqw; font: 400 1.6cqw/1.4 'Nunito', sans-serif; }
+.su-rule b { display: block; font: 700 1.85cqw/1.2 'Fredoka', 'Nunito', sans-serif; color: var(--su-coral); margin-bottom: .2cqw; }
+.su-ed { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4cqw 2cqw; }
+.su-ed li { display: flex; align-items: flex-end; gap: .8cqw; font: 700 1.8cqw/1.2 'Nunito', sans-serif; white-space: nowrap; }
+.su-ed li span::after { content: " →"; color: var(--su-soft); font-weight: 400; }
+
+/* Holiday Bingo ([summer-bingo:L]): the cards are written by summer.js */
+.su-bingo-title { display: flex; align-items: baseline; gap: 1.6cqw; }
+.su-bingo-title i { font: italic 400 5cqw/1 'Playfair Display', serif; color: #fff; }
+.su-bingo-title b { font: 700 7.4cqw/1 'Playfair Display', serif; color: #fff; letter-spacing: .02em; }
+.su-find { font: 400 2.3cqw/1 'Nunito', sans-serif; color: #7a4a30; letter-spacing: .02em; }
+.su-pick { display: flex; align-items: center; gap: 1cqw; font: 800 1.5cqw/1 'Nunito', sans-serif; white-space: nowrap; }
+.su-cards { display: flex; flex-wrap: wrap; gap: .45cqw; }
+.su-cards button { width: 3.2cqw; height: 3.2cqw; padding: 0; border-radius: 50%; border: .15cqw solid #d4a07f; background: #fff; color: #9a6a4c; font: 800 1.35cqw/1 'Nunito', sans-serif; cursor: pointer; }
+.su-cards button.on { background: #d4a07f; color: #fff; }
+.su-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4cqw; padding: .4cqw; background: #d4a07f; }
+.su-cell { display: flex; flex-direction: column; height: 18cqw; background: #fff8f4; }
+.su-sq { position: relative; flex: 1; display: grid; place-items: center; padding: .6cqw .7cqw; border: 0; background: none; cursor: pointer; font: 400 1.9cqw/1.25 'Nunito', sans-serif; color: #3b2a1a; text-align: center; }
+.su-sq.on { background: #ffe7a3; }
+.su-sq.on::after { content: "✓"; position: absolute; top: .4cqw; right: .7cqw; font: 800 1.9cqw/1 'Nunito', sans-serif; color: #c0762b; }
+.su-cell input.fill { height: 3.6cqw; border-top: .14cqw dotted #b9876a; text-align: center; font-size: 1.9cqw; }
+.su-cell.win .su-sq { background: #bdeee9; }
+.su-cell.win .su-sq.on::after { color: #12726e; }
+.su-win { align-self: center; font: 700 3.4cqw/1 'Playfair Display', serif; color: #fff; background: var(--su-coral); padding: .8cqw 3cqw; border-radius: 999px; transform: rotate(-2deg); visibility: hidden; }
+.su-win.show { visibility: visible; }
+
+/* questions ([summer-bingo:R]) */
+.su-qa { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .9cqw; }
+.su-qa li { display: grid; grid-template-columns: 3.2cqw 31cqw auto 1fr; align-items: end; gap: .9cqw; font: 400 1.75cqw/1.2 'Nunito', sans-serif; }
+.su-qa li > i { font-style: normal; font-weight: 800; color: var(--su-sea); }
+.su-qa li > span { color: var(--su-soft); font-style: italic; }
+.su-qa li > b { font-weight: 800; }
+.su-qa input.fill { height: 3.4cqw; border-bottom: .14cqw solid #e2c9a6; font-size: 1.9cqw; }
+
+/* tables: book speed dating, class survey ([summer-share]) */
+.su-table { width: 100%; border-collapse: separate; border-spacing: 0; font: 400 1.75cqw/1.2 'Nunito', sans-serif; }
+.su-table th { background: var(--su-sea); color: #fff; font: 800 1.4cqw/1 'Nunito', sans-serif; letter-spacing: .05em; padding: .9cqw; text-align: left; }
+.su-table th:first-child { border-radius: 1cqw 0 0 1cqw; }
+.su-table th:last-child { border-radius: 0 1cqw 1cqw 0; }
+.su-table td { height: 5.2cqw; border-bottom: .12cqw solid var(--su-line); padding: 0 .5cqw; vertical-align: bottom; }
+.su-table td.n { width: 3cqw; font-weight: 800; color: var(--su-sea); text-align: center; vertical-align: middle; }
+.su-table td.q { vertical-align: middle; }
+.su-table input.fill { height: 3.6cqw; font-size: 1.9cqw; }
+.su-table input.fill.num { text-align: center; }
+.su-yn { display: flex; gap: .4cqw; padding-bottom: .4cqw; }
+.su-yn button { font: 700 1.4cqw/1 'Nunito', sans-serif; border: 0; border-radius: 999px; background: var(--su-sand); color: var(--su-soft); padding: .7cqw 1.1cqw; cursor: pointer; }
+.su .su-yn button:hover:not(.on), .su .su-cards button:hover:not(.on) { background: #fde9de; }
+.su-yn button.on { background: var(--su-coral); color: #fff; }
+
+/* the summer tests: like the printed check, a sheet with a green frame */
+.su-test-id { display: grid; grid-template-columns: 2fr 1fr 1fr; border: .15cqw solid #3a8a3a; }
+.su-test-id label { display: flex; flex-direction: column; gap: .3cqw; padding: .5cqw .8cqw; height: 5.4cqw; font: 800 1.35cqw/1 'Nunito', sans-serif; }
+.su-test-id label + label { border-left: .15cqw solid #3a8a3a; }
+.su-test-id input.fill { flex: 1; font-size: 2cqw; }
+.su-test-h { margin: 0; font: 800 2.7cqw/1 'Nunito', sans-serif; color: #3a8a3a; }
+.su-test-sub { margin: 0; font: 800 1.7cqw/1 'Nunito', sans-serif; color: #3a8a3a; }
+.su-test-sub.big { font-size: 2.2cqw; color: var(--su-ink); }
+.su-test-sub.big small { font-size: 1.6cqw; color: #3a8a3a; }
+.su-test-title { display: flex; align-items: flex-end; gap: 1cqw; font: 800 2.1cqw/1 'Nunito', sans-serif; }
+.su-test-title input.fill { flex: 1; height: 3.4cqw; border-bottom: .15cqw solid #c9a77a; font-size: 2.2cqw; }
+.su-vt { width: 72cqw; border-collapse: separate; border-spacing: .5cqw; font: 400 1.6cqw/1 'Nunito', sans-serif; margin-left: -.5cqw; }
+.su-vt th { background: #fdd59b; font: 800 1.5cqw/1 'Nunito', sans-serif; height: 4.4cqw; width: 33%; }
+.su-vt td { background: #fff1df; height: 4.4cqw; text-align: center; padding: 0 .4cqw; }
+.su-vt input.fill { height: 3.2cqw; text-align: center; font-size: 1.9cqw; }
+
+@media print {
+  body.eco-print .page textarea.fill.su-lines { background: repeating-linear-gradient(transparent 0 calc(3.2cqw - .14cqw), #8a8a8a calc(3.2cqw - .14cqw) 3.2cqw) !important; }
+  body.eco-print .page .su-grid { background: #8a8a8a !important; }
+  body.eco-print .page .su-tasks li, body.eco-print .page .su-week, body.eco-print .page .su-test-id, body.eco-print .page .su-test-id label + label { border-color: #8a8a8a !important; }
+  body.eco-print .page .su-vt td, body.eco-print .page .su-vt th { border: .12cqw solid #8a8a8a !important; }
+  .su-cards, .su-win { display: none !important; }
+}

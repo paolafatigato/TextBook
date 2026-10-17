@@ -57,7 +57,7 @@ const CONTENTS = {
     {
       title: '3rd year · Terza media',
       chapters: [
-        { title: 'Summer holidays', color: '#f5a53b' },
+        { title: 'Summer holidays', start: 'summer-homework', color: '#f5a53b' },
         { title: 'Jobs & CVs', start: 'jobs-reading', color: '#e8820c', image: 'img/jobs/doctor.png' },
         { title: 'Literature: Orwell', start: 'author-meet', color: '#262626' },
         { title: 'Future', start: 'fut-intro', color: '#8e2de2', image: 'img/future-p120.svg' },
@@ -78,6 +78,7 @@ const CONTENTS = {
       chapters: [
         { title: 'Tests: pronouns & to be', start: 'test-pron-a', color: '#e3b505', folder: 'tests-pronouns' },
         { title: 'Tests: clothes & present continuous', start: 'test-clothes-a1', color: '#dc3394', folder: 'tests-clothes' },
+        { title: 'Tests: summer homework', start: 'test-summer-a', color: '#f5a53b', folder: 'tests-summer' },
         // printable exit tickets: 24 different slips per topic
         { title: 'Exit tickets', start: 'exit-persephone1', color: '#fd7366', folder: 'exit-tickets' },
         // job cards to print for the forehead game (jobs-forehead:R)
@@ -167,7 +168,7 @@ const CONTENTS = {
     { title: 'From future to past', color: '#d6334f', pages: ['rj-balcony:L'] },
     { title: 'Romeo & Juliet games', color: '#d6334f', pages: ['rj-verona:L', 'rj-party:R', 'rj-kiss:R', 'rj-balcony:R', 'rj-rehearsal:R'] },
     { title: 'Rehearsal & summary', color: '#d6334f', pages: ['rj-rehearsal'] },
-    { title: 'Writing a book review', color: '#3d8f3d', pages: ['bank-review'] },
+    { title: 'Writing a book review', color: '#3d8f3d', pages: ['bank-review', 'summer-homework:R'] },
     { title: 'Reading: The Boy Who Harnessed the Wind (work in the story)', color: '#e8820c', pages: [['jobs-reading', 'jobs-reading-2']] },
     { title: 'Jobs vocabulary & word search', color: '#e8820c', pages: ['jobs-vocab'] },
     { title: 'Would like to / want to / dream of', color: '#e8820c', pages: ['jobs-vocab:R'] },
@@ -178,6 +179,10 @@ const CONTENTS = {
     { title: 'Writing about my dream job', color: '#e8820c', pages: ['jobs-career:R'] },
     { title: 'Interview a worker', color: '#e8820c', pages: ['jobs-career:R'] },
     { title: 'Writing a CV', color: '#e8820c', pages: [['jobs-cv-model', 'jobs-my-cv']] },
+    { title: 'Writing a letter to yourself', color: '#f5a53b', pages: ['summer-letters'] },
+    { title: 'Past simple: irregular verbs & -ed spelling', color: '#f5a53b', pages: ['summer-gratitude:R'] },
+    { title: 'Past simple questions: Did you…?', color: '#f5a53b', pages: ['summer-bingo'] },
+    { title: 'All of us, most of us, nobody…', color: '#f5a53b', pages: ['summer-share:R'] },
     { title: 'Past simple for your CV', color: '#e8820c', pages: ['jobs-my-cv:L'] },
     { title: 'Describing jobs: the job cards', color: '#e8820c', pages: [['jobs-stereotypes:R', 'jobs-forehead']] },
     { title: 'Questions with do I / am I', color: '#e8820c', pages: ['jobs-forehead'] },

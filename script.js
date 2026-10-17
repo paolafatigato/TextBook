@@ -842,8 +842,8 @@ const drawings = [...document.querySelectorAll('.pd-draw')].map(wrap => {
   const avBtn = wrap.querySelector('.pd-avatar-btn');
   const avPanel = wrap.querySelector('.pd-avatars');
   if (avBtn && avPanel) {
-    avPanel.innerHTML = Array.from({ length: 38 }, (_, i) =>
-      `<button type="button" aria-label="Avatar ${i + 1}"><img src="img/personality/people/${i + 1}.png" alt="" loading="lazy"></button>`).join('');
+    avPanel.innerHTML = ['raccoon', 'ram', 'panda', 'sloth', 'crow', 'rabbit', 'scorpion', 'crocodile', 'cat', 'bull', 'owl'].map(n =>
+      `<button type="button" aria-label="Avatar: ${n}"><img src="img/personality/villains/bw/${n}.png" alt="" loading="lazy"></button>`).join('');
     avBtn.addEventListener('click', () => { avPanel.hidden = !avPanel.hidden; });
     avPanel.addEventListener('click', e => {
       const pic = e.target.closest('button')?.querySelector('img');

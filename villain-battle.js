@@ -359,7 +359,6 @@
     return a;
   };
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const AVATARS = Array.from({ length: 38 }, (_, i) => `img/personality/people/${i + 1}.png`);
   const ICONS = {
     guard: ['🛡️', 'Shield: the next attack will hurt less.'],
     reflect: ['🪞', 'Mirror: the next attack goes back.'],
@@ -383,7 +382,7 @@
   let picked = [];            // the flaw keys chosen by the pupil (3)
   let chosen = [];            // the powers chosen: { k: flaw key, i: index in ATTACKS[k] } (3)
   let villainName = '';
-  let icon = '';              // 'drawn', 'e:🦹' (an icon) or 'f:12' (a face of Personality)
+  let icon = '';              // 'drawn' (the drawing of the villain file) or 'v:raccoon' (an animal villain, img/personality/villains)
   let drawn = '';             // the pupil's drawing of the villain file, if there is one
   let game = null;            // { villain, hero, busy, over, token } (+ duel: true, turnOf, ready in a 2 player fight)
   let mode = '1p';            // '1p' villain vs hero · '2p' villain vs villain
@@ -406,8 +405,8 @@
     lastFocus?.focus();
   }
 
-  const EMOJIS = ['🦹', '🧙', '👹', '🐉', '🦇', '🕷️', '🐍', '🔥', '🌪️', '🌑', '⚡', '🐺'];
-  const FACES = Array.from({ length: 38 }, (_, i) => 'f:' + (i + 1));
+  // the animal villains drawn for the book: img/personality/villains/<name>.png (colour, for the game; the black and white ones for printing are in villains/bw/)
+  const VILLAINS = ['raccoon', 'ram', 'panda', 'sloth', 'crow', 'rabbit', 'scorpion', 'crocodile', 'cat', 'bull', 'owl'].map(n => 'v:' + n);
 
   // the drawing of the villain file, if the pupil has drawn one
   function readDrawing() {
@@ -422,7 +421,7 @@
   }
   const pictureHtml = (id, d = drawn) => id === 'drawn' ? `<img class="drawn" src="${d}" alt="">`
     : id.startsWith('e:') ? `<span class="vb-emo">${id.slice(2)}</span>`
-    : `<img src="img/personality/people/${id.slice(2)}.png" alt="">`;
+    : `<img src="img/personality/villains/${id.slice(2)}.png" alt="">`;
   const groupColor = k => FLAW_GROUPS.find(g => g.flaws.some(f => f[0] === k)).color;
   const flawName = k => FLAW_GROUPS.flatMap(g => g.flaws).find(f => f[0] === k)[1];
 
@@ -450,8 +449,8 @@
     const two = mode === '2p', netm = mode === 'net';
     drawn = player === 1 && !netm ? readDrawing() : ''; // a drawing is too big to send online
     villainName = (player === 1 && document.getElementById('vl-s-name')?.value.trim()) || villainName || '';
-    if (!icon || (icon === 'drawn' && !drawn)) icon = drawn ? 'drawn' : FACES[Math.floor(Math.random() * FACES.length)];
-    const ids = [...(drawn ? ['drawn'] : []), ...EMOJIS.map(e => 'e:' + e), ...FACES];
+    if (!icon || (icon === 'drawn' && !drawn)) icon = drawn ? 'drawn' : VILLAINS[Math.floor(Math.random() * VILLAINS.length)];
+    const ids = [...(drawn ? ['drawn'] : []), ...VILLAINS];
     screen.innerHTML = `
       <h2 class="vb-title">${netm ? 'Your villain' : two ? `Player ${player}` : 'Villain Battle'}</h2>
       <p class="vb-sub">${netm ? `Room code: <b class="vb-roomcode">${netState ? netState.code : ''}</b>` : two ? `Player ${player}: make your villain! ${player === 1 ? 'Player 2, look away 🙈' : 'Player 1, look away 🙈'}` : 'Make a tiny villain and fight a hero!'}</p>
@@ -824,7 +823,7 @@
 
   // my villain is ready: put it in the room and wait for the other one
   async function netReady() {
-    const data = { name: villainName, icon: icon === 'drawn' ? 'f:1' : icon, picked: [...picked], chosen: chosen.map(c => ({ k: c.k, i: c.i })), ready: true };
+    const data = { name: villainName, icon: icon === 'drawn' ? VILLAINS[0] : icon, picked: [...picked], chosen: chosen.map(c => ({ k: c.k, i: c.i })), ready: true };
     netState.mine = data;
     screen.innerHTML = '<div class="vb-pass"><div class="vb-big">⏳</div><h2 class="vb-title">Sending your villain…</h2></div>';
     try { await rooms().update(netState.code, { ['p' + netState.me]: data }); }

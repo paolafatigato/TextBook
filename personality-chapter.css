@@ -291,7 +291,7 @@
 .pw-recipe .pd-row.pw-win input.fill { flex: 1; }
 
 /* --- p. villain file: the avatar picker opens over the drawing box --- */
-.pd-avatars { position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 7 / 10; z-index: 6; box-sizing: border-box; padding: 2.2cqw; overflow-y: auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: .6cqw; align-content: start; background: #fff; border: .35cqw solid #2a2a30; border-radius: 50cqw 50cqw 4cqw 4cqw; }
+.pd-avatars { position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 7 / 10; z-index: 6; box-sizing: border-box; padding: 2.4cqw 2cqw 1cqw; overflow-y: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: .3cqw; align-content: start; background: #fff; border: .35cqw solid #2a2a30; border-radius: 50cqw 50cqw 4cqw 4cqw; }
 .pd-avatars[hidden] { display: none; }
 .pd-avatars button { padding: .3cqw; border: .2cqw solid transparent; border-radius: 1.2cqw; background: none; cursor: pointer; }
 .pd-avatars button:hover { background: #f6f0fd; border-color: #8e2de2; }
