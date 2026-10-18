@@ -4042,3 +4042,33 @@ body.toc-open .toc { display: block; }
 .shx-tf p:has(.tf button:nth-child(2).on) input.shx-fix, .shx-tf input.shx-fix:focus, .shx-tf input.shx-fix:not(:placeholder-shown) { opacity: 1; border-bottom-color: var(--sh); }
 .al-fill.tight li { min-height: 4.4cqw; }
 .shx-timeline.five { grid-template-rows: repeat(5, auto); }
+
+/* [jobs-story]: the reading (a story from Make Them Happy!), numbered paragraphs on a white card */
+.jb-read { z-index: 2; font: 400 1.66cqw/1.58 'Nunito', sans-serif; color: #3a3a46; }
+.jb-read p { margin: 0 0 1cqw; padding-left: 3.4cqw; text-indent: 0; position: relative; }
+.jb-read .jb-pn { position: absolute; left: 0; top: .15cqw; display: grid; place-items: center; width: 2.3cqw; height: 2.3cqw; border-radius: 50%; background: var(--jb-sun); font: 800 1.1cqw/1 'Nunito', sans-serif; font-style: normal; color: var(--navy); }
+.jb-read p:nth-child(even) .jb-pn { border-radius: .5cqw; background: var(--jb-teal); }
+.jb-read p:first-child::first-letter { float: left; margin: .2cqw .6cqw 0 0; font: 700 4.2cqw/.8 'Fredoka', 'Nunito', sans-serif; color: var(--jb-red); }
+.jb-tf p { height: 4.6cqw; }
+.jb-tf p > span:first-child { font: 400 1.45cqw/1.2 'Nunito', sans-serif; color: #444; }
+.jb-mc { z-index: 2; margin: 0; padding: 0; list-style: none; }
+.jb-mc li { display: flex; flex-direction: column; justify-content: center; gap: .5cqw; height: 7.6cqw; border-bottom: .14cqw dashed #e2d8c4; }
+.jb-mc p { margin: 0; font: 600 1.45cqw/1.2 'Nunito', sans-serif; color: var(--navy); }
+.jb-mc p i { margin-right: .8cqw; font-style: normal; font-weight: 800; color: var(--jb-red); }
+.jb-mc .opt { display: flex; gap: 1cqw; font: 600 1.3cqw/1.5 'Nunito', sans-serif; color: #555; }
+.jb-mc .opt button { padding: 0 1.1cqw; border: .14cqw solid #e2d8c4; border-radius: 999px; }
+.jb-verbs { z-index: 2; display: grid; grid-template-columns: repeat(4, 1fr); gap: .6cqw 2cqw; margin: 0; padding: 0; list-style: none; }
+.jb-verbs li { display: flex; align-items: flex-end; gap: .6cqw; height: 4cqw; font: 600 1.4cqw/1 'Nunito', sans-serif; color: var(--navy); }
+.jb-verbs li span { flex: 0 0 auto; padding-bottom: .6cqw; }
+.jb-verbs input.fill { flex: 1; min-width: 0; height: 3cqw; font-size: 1.7cqw; border-bottom: .14cqw solid #b9b6d3; }
+.jb-verbs li.ok input.fill { color: #2e7d32; }
+.jb-verbs li.no input.fill { color: #c62828; }
+.jb-sec2 .match-words { width: 34cqw; }
+.jb-sec2 .match-defs button { font-size: 1.25cqw; }
+.jb-read { overflow: hidden; }
+.jbs-face { z-index: 3; display: grid; place-items: center; aspect-ratio: 1; font-size: 10cqw; line-height: 1; }
+.jbs-sum { z-index: 2; display: grid; gap: 1cqw; }
+.jbs-sum .mt-line > span { color: var(--navy); font-weight: 600; }
+.jbs-sum .mt-line input.fill { flex: 1; }
+.jbs-sum .mt-line > span:last-child { flex: 0 1 auto; }
+#jbs-mc .opt button.on, #jbs-tf .opt button.on { background: var(--navy); color: #fff; font-weight: 700; }

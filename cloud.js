@@ -219,7 +219,7 @@ onAuthStateChanged(auth, async signed => {
   book.setSyncState('ok');
 });
 
-/* ---------- rooms for Villain Battle: two devices, one 4-letter code ---------- */
+/* ---------- rooms for Villain Battle and Make Them Happy! (job-race.js): two devices, one 4-letter code ---------- */
 // A room is the document duels/<CODE> (rules in firestore.rules). Whoever plays writes only on their own turn,
 // the other device just draws what is in the document. Players are told apart by an id that each device keeps,
 // so the same Google account can play on two devices.

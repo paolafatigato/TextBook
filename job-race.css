@@ -140,3 +140,80 @@
 }
 @media (prefers-reduced-motion: reduce) { .jr-fill, .jr-runner, .jr-float, .jr-roll span, .jr-box.jr-flash { transition: none; animation: none; } }
 .jr-dream.odd { background: #7a6bb5; }
+
+/* the second game on the bar of the page */
+.jr-bar .jr-start.alt { background: #eab3d4; border-color: #eab3d4; box-shadow: .4cqw .4cqw 0 #b0367a; }
+.jr-bar .jr-start.alt:hover { background: #f3c9e1; }
+
+/* links between the two games */
+.jr-other { margin: 14px 0 0; text-align: center; font-weight: 700; color: #555; }
+.jr-link { padding: 4px 12px; border: 2px solid #1f2a6b; border-radius: 999px; background: #fff; color: #1f2a6b; font: 800 15px/1.2 'Nunito', sans-serif; cursor: pointer; }
+.jr-link:hover { background: #fff6dc; }
+
+/* Make Them Happy!: names, the character, the draw, the jobs already taken */
+.jr-names { display: grid; gap: 8px; max-width: 520px; margin: 0 auto; }
+.jr-names .jr-name { margin: 0; }
+.jr-names .jr-name i { font-style: normal; font-size: 26px; }
+.jr-client { display: flex; align-items: center; gap: 18px; max-width: 640px; margin: 0 auto 12px; padding: 14px 18px; border: 3px solid #1f2a6b; border-radius: 18px; background: #fff; box-shadow: 5px 5px 0 #eab3d4; }
+.jr-cface { flex: 0 0 auto; display: grid; place-items: center; width: 96px; height: 96px; border-radius: 50%; background: #f8e1ee; font-size: 60px; line-height: 1; }
+.jr-client b { font: 700 24px/1.1 'Fredoka', 'Nunito', sans-serif; }
+.jr-client p { margin: 6px 0 0; font-size: 17px; line-height: 1.45; }
+.jr-mine.big span { font-size: 15px; padding: 6px 12px; }
+.jr-mine .jr-cname { background: #f8e1ee; font-weight: 800; }
+.jr-order { display: grid; gap: 8px; max-width: 360px; margin: 6px auto 0; padding: 0; list-style: none; counter-reset: ord; }
+.jr-order li { counter-increment: ord; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 2px solid #1f2a6b; border-radius: 14px; background: #fff; font-size: 22px; opacity: 0; transform: translateY(10px) scale(.95); transition: opacity .35s, transform .35s; }
+.jr-order li::before { content: counter(ord) "."; font: 800 22px/1 'Fredoka', sans-serif; color: #ee3a37; }
+.jr-order li:first-child { background: #fff1c2; box-shadow: 4px 4px 0 #f9b11a; }
+.jr-order li.on { opacity: 1; transform: none; }
+.jr-order b { font: 700 20px/1 'Fredoka', 'Nunito', sans-serif; }
+.jr-job.taken { cursor: not-allowed; opacity: .45; background: #eee; }
+.jr-job.taken:hover { box-shadow: none; transform: none; background: #eee; }
+.jr-dream.taken { background: #1f2a6b; }
+.jr-round { grid-column: 1 / -1; margin: 0 0 4px; text-align: center; font-size: 16px; }
+@media (prefers-reduced-motion: reduce) { .jr-order li { transition: none; } }
+
+/* the wheel of fortune of a dream: the yellow slice is the chance, the arrow at the top says where it stopped */
+.jr-wheelbox { display: flex; align-items: center; justify-content: center; gap: 22px; padding: 8px 0; flex-wrap: wrap; }
+.jr-wheel-wrap { position: relative; width: 190px; height: 190px; }
+.jr-wheel { position: absolute; inset: 0; border: 4px solid #1f2a6b; border-radius: 50%;
+  background: conic-gradient(#f9b11a 0 var(--win), transparent var(--win)), repeating-conic-gradient(#efe6d2 0 15deg, #fffaf0 15deg 30deg);
+  box-shadow: 0 0 0 5px #eab3d4; transition: transform 3s cubic-bezier(.12, .7, .2, 1); }
+.jr-wlabel { position: absolute; top: 50%; left: 50%; transform: rotate(var(--a)) translateY(-62px) translate(-50%, -50%); transform-origin: 0 0; font: 800 15px/1 'Fredoka', 'Nunito', sans-serif; color: #1f2a6b; }
+.jr-pointer { position: absolute; top: -14px; left: 50%; z-index: 2; width: 0; height: 0; transform: translateX(-50%); border: 13px solid transparent; border-top: 24px solid #ee3a37; border-bottom: 0; filter: drop-shadow(0 2px 0 #1f2a6b); }
+.jr-hub { position: absolute; top: 50%; left: 50%; z-index: 2; display: grid; place-items: center; width: 46px; height: 46px; transform: translate(-50%, -50%); border: 3px solid #1f2a6b; border-radius: 50%; background: #fff; font-size: 24px; }
+.jr-wheelbox .jr-roll { flex: 0 1 300px; margin: 0; padding: 0; text-align: left; }
+.jr-wheelbox .jr-roll small { display: block; margin-top: 6px; font-size: 15px; font-weight: 800; color: #b0367a; }
+.jr-wheelbox.win .jr-wheel { box-shadow: 0 0 0 8px #f9b11a, 0 0 0 11px #1f2a6b; }
+.jr-wheelbox.win .jr-roll small { color: #2e8b57; }
+.jr-wheelbox.miss .jr-roll small { color: #ee3a37; }
+@media (prefers-reduced-motion: reduce) { .jr-wheel { transition: none; } }
+
+/* online */
+.jr-roomcode { padding: 2px 12px; border: 2px solid #1f2a6b; border-radius: 10px; background: #f9b11a; font: 800 1.2em/1.4 'Fredoka', 'Nunito', sans-serif; letter-spacing: .25em; color: #1f2a6b; }
+.jr-code { width: 9em; padding: 8px 10px; border: 2px solid #1f2a6b; border-radius: 10px; background: #fff; text-align: center; text-transform: uppercase; letter-spacing: .3em; font: 800 22px/1 'Fredoka', 'Nunito', sans-serif; color: #1f2a6b; }
+.jr-neterr { min-height: 1.4em; margin: 10px 0 0; text-align: center; font-weight: 800; color: #ee3a37; }
+.jr-order.lobby li:first-child { background: #fff; box-shadow: none; }
+.jr-order.lobby small { color: #777; font-size: 14px; }
+.jr-pass .jr-mine { margin-top: 10px; }
+
+/* the story of the character (Make Them Happy!): on the screen, and printed alone on an A4 sheet */
+.jr-story { max-width: 680px; margin: 0 auto; padding: 18px 26px; background: #fff; border: 3px solid #1f2a6b; border-radius: 18px; box-shadow: 5px 5px 0 #eab3d4; font: 400 17px/1.6 'Nunito', sans-serif; color: #1f2a6b; text-align: left; }
+.jr-stitle { margin: 0 0 12px; text-align: center; font: 700 28px/1.15 'Fredoka', 'Nunito', sans-serif; color: #1f2a6b; }
+.jr-shead { display: flex; align-items: center; gap: 16px; }
+.jr-shead .jr-cface { width: 82px; height: 82px; font-size: 50px; }
+.jr-story p { margin: 10px 0; }
+.jr-sicon { float: left; margin: 2px 8px 0 0; font-size: 26px; line-height: 1; }
+.jr-sfinal { padding: 10px 14px; border-radius: 12px; background: #fff1c2; font-weight: 700; }
+.jr-send { text-align: center; font: 700 18px/1 'Fredoka', 'Nunito', sans-serif; color: #b0367a; }
+#jr-print { display: none; }
+@media print {
+  html.jr-printing body > *:not(#jr-print) { display: none !important; }
+  html.jr-printing body { background: #fff; }
+  html.jr-printing #jr-print { display: block !important; }
+  .jr-story.print { max-width: none; padding: 12mm 14mm; border: 0; box-shadow: none; font-size: 12.5pt; line-height: 1.5; }
+  .jr-story.print .jr-stitle { font-size: 22pt; }
+  .jr-sdraw { height: 62mm; margin: 12px 0; padding: 8px 12px; border: 2px dashed #1f2a6b; border-radius: 14px; font-weight: 700; color: #777; break-inside: avoid; }
+  .jr-sopinion { break-inside: avoid; }
+  .jr-sopinion i { display: block; height: 9mm; border-bottom: 1px solid #999; }
+  .jr-sby { margin-top: 10px; text-align: right; font-size: 9pt; color: #777; }
+}
