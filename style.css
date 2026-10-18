@@ -3391,6 +3391,9 @@ textarea.fill.vl-lines { padding: 0 .8cqw; font-size: 2cqw; line-height: 3.9cqw;
 .asg-title.small { font-size: 4.4cqw; margin-bottom: 1.5cqw; }
 .asg-sub, .asg-who, .asg-date { margin: 1cqw 0 2.5cqw; color: #777; }
 .asg-date { margin: 0 0 1cqw; font-weight: 700; color: var(--coral); }
+.asg-note { margin: 0 0 2.5cqw; padding: 1.2cqw 1.8cqw; border-radius: 1.5cqw; background: #f6eefc; font-size: 2cqw; }
+.asg-col { margin: 2.5cqw 0 1.2cqw; font: 700 3cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--coral); }
+.asg-col small { font: 600 1.9cqw 'Nunito', sans-serif; color: #aaa; margin-left: .6cqw; }
 .asg-items { list-style: none; margin: 0 0 3cqw; padding: 0; display: flex; flex-wrap: wrap; gap: .9cqw; }
 .asg-items li { display: inline-flex; align-items: center; gap: .6cqw; padding: .35cqw .6cqw .35cqw 1.3cqw; border-radius: 999px; background: #f4f1ec; font-weight: 600; font-size: 1.95cqw; }
 .asg-items li.mine { background: #e3f1fc; }
@@ -3419,6 +3422,11 @@ textarea.fill.vl-lines { padding: 0 .8cqw; font-size: 2cqw; line-height: 3.9cqw;
 .asg-table input { width: 100%; min-width: 0; border-color: transparent; background: transparent; padding: .4cqw .6cqw; }
 .asg-table input:hover, .asg-table input:focus { border-color: #ddd6cc; background: #fff; }
 .asg-n { color: #aaa; text-align: right; width: 3cqw; }
+/* many boxes in a row (an animal and 3 flaws): smaller, so that the words fit */
+.asg-table.many td { padding: .3cqw .2cqw; }
+.asg-table.many input { font-size: 1.7cqw; padding: .4cqw .3cqw; }
+.asg-table.many th { font-size: 1.7cqw; }
+.asg-table.many .asg-row-tools button { padding: .1cqw .4cqw; font-size: 1.6cqw; margin-left: .2cqw; }
 .asg-row-tools { white-space: nowrap; width: 1%; }
 .asg-row-tools button { padding: .2cqw .8cqw; margin-left: .4cqw; }
 .asg-list-title { width: 100%; font: inherit !important; color: inherit !important; border-color: transparent !important; padding: 0 !important; }

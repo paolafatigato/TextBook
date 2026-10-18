@@ -406,7 +406,7 @@
   }
 
   // the animal villains drawn for the book: img/personality/villains/<name>.png (color, for the game; the black and white ones for printing are in villains/bw/)
-  const VILLAINS = ['raccoon', 'ram', 'panda', 'sloth', 'crow', 'rabbit', 'scorpion', 'crocodile', 'cat', 'bull', 'owl'].map(n => 'v:' + n);
+  const VILLAINS = ['raccoon', 'ram', 'panda', 'sloth', 'crow', 'rabbit', 'scorpion', 'crocodile', 'redpanda', 'cat', 'bull', 'owl'].map(n => 'v:' + n);
 
   // the drawing of the villain file, if the pupil has drawn one
   function readDrawing() {

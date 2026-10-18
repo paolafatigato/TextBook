@@ -1,14 +1,17 @@
 // "Assign work" (For the teacher): the pages of the topics in assign-data.js, made here at the end of the book.
 // It runs before pages.js, so the pages are counted with the others.
-//   asg-<key>          left: everything in the list (add / remove) · right: give it to a class, change it, save it
+//   asg-<key>          left: everything in the lists (add / remove) · right: give it to a class, change it, save it
 //   asg-<key>-<n>      the saved lists, one per page with its date, the newest last
+// A topic gives each student things from one list (`items`) or from several (`columns`: an animal and 3 flaws…).
 // What the teacher changes (things added or removed, saved lists) is kept on this device and, through assign.js,
 // in Classroom Manager, where the classes come from. When the saved lists change, the pages are made again
 // and the book counts its pages again (book.spreadsChanged in script.js).
 
 const ASSIGN = (() => {
-  const KEY = 'libro-assign';         // { updated, topics: { <key>: { added, removed, per, lists } } }
-  const DRAFT_KEY = 'libro-assign-draft'; // the list being made, per topic: { cls, names, rows } (this device only)
+  // { updated, topics: { <key>: { added, removed, per, lists, cols: { <column>: { added, removed, per } } } } }
+  // (a topic with one list keeps added / removed / per on the topic itself)
+  const KEY = 'libro-assign';
+  const DRAFT_KEY = 'libro-assign-draft'; // the list being made, per topic: { cls, names, rows, heads } (this device only)
   const TOPICS = typeof ASSIGN_TOPICS === 'undefined' ? [] : ASSIGN_TOPICS;
   const main = document.querySelector('main');
   if (!main || !TOPICS.length) return null;
@@ -32,55 +35,76 @@ const ASSIGN = (() => {
   const topicData = key => (state.topics[key] ||= {});
   const draft = key => (drafts[key] ||= { cls: '', names: '', rows: [] });
   const topic = key => TOPICS.find(t => t.key === key);
-  const per = t => Number(topicData(t.key).per) || t.per || 1;
+
+  /* ---------- the lists of a topic ---------- */
+
+  // the columns of a topic: a topic with one list has one, called 'main'
+  const cols = t => t.columns || [{ key: 'main', unit: t.unit, per: t.per, items: t.items }];
+  const col = (t, key) => cols(t).find(c => c.key === key) || cols(t)[0];
+  const colData = (t, c) => (c.key === 'main' ? topicData(t.key) : ((topicData(t.key).cols ||= {})[c.key] ||= {}));
+  const per = (t, c) => Number(colData(t, c).per) || c.per || 1;
 
   // "🩺 doctor" or "adventurous"
   const label = it => (Array.isArray(it) ? it.filter(Boolean).join(' ') : String(it));
   const word = it => (Array.isArray(it) ? it[1] : String(it));
-  // the list of a topic: the one in the code, without what was removed, with what was added
-  function items(t) {
-    const d = topicData(t.key);
+  // a list: the one in the code, without what was removed, with what was added
+  function items(t, c) {
+    const d = colData(t, c);
     const removed = new Set(d.removed || []);
-    return [...t.items.filter(it => !removed.has(word(it))), ...(d.added || [])];
+    return [...c.items.filter(it => !removed.has(word(it))), ...(d.added || [])];
+  }
+
+  // the headings of the boxes of a row, each with its column: [{ h: 'Flaw 2', col: 'flaw' }…]
+  const headsNow = t => cols(t).flatMap(c => Array.from({ length: per(t, c) }, (_, k) => ({ h: per(t, c) > 1 ? `${c.unit} ${k + 1}` : c.unit, col: c.key })));
+  // the headings kept with a list (lists saved before there were columns have none: one list, as many boxes as needed)
+  function headsOf(t, rows, kept) {
+    const heads = (kept || headsNow(t)).slice();
+    const n = Math.max(0, ...rows.map(r => r.items.length));
+    const last = heads.at(-1) || { col: cols(t)[0].key };
+    for (let k = heads.length; k < n; k++) heads.push({ h: `${col(t, last.col).unit} ${k + 1}`, col: last.col });
+    return heads;
   }
 
   /* ---------- the pages ---------- */
 
-  const head = (t, k, n) => `${esc(t.unit)}${n > 1 ? ' ' + (k + 1) : ''}`;
-
-  function table(t, rows, editable) {
-    const n = Math.max(per(t), ...rows.map(r => r.items.length));
-    const cell = (v, cls, extra) => (editable ? `<input class="${cls}" value="${esc(v)}" list="asg-opt-${t.key}"${extra}>` : esc(v));
+  function table(t, rows, heads) {
     return `
-      <table class="asg-table">
-        <thead><tr><th>#</th><th>Student</th>${Array.from({ length: n }, (_, k) => `<th>${head(t, k, n)}</th>`).join('')}${editable ? '<th></th>' : ''}</tr></thead>
+      <table class="asg-table${heads.length > 2 ? ' many' : ''}">
+        <thead><tr><th>#</th><th>Student</th>${heads.map(x => `<th>${esc(x.h)}</th>`).join('')}<th></th></tr></thead>
         <tbody>${rows.map((r, i) => `
           <tr data-i="${i}"><td class="asg-n">${i + 1}</td>
-            <td>${editable ? `<input class="asg-name" value="${esc(r.name)}" aria-label="Student ${i + 1}">` : esc(r.name)}</td>
-            ${Array.from({ length: n }, (_, k) => `<td>${cell(r.items[k] || '', 'asg-item', ` data-k="${k}" aria-label="${esc(r.name)} ${k + 1}"`)}</td>`).join('')}
-            ${editable ? '<td class="asg-row-tools"><button type="button" data-act="reroll" title="Draw again for this student">🎲</button><button type="button" data-act="row-del" title="Remove this row">✕</button></td>' : ''}
+            <td><input class="asg-name" value="${esc(r.name)}" aria-label="Student ${i + 1}"></td>
+            ${heads.map((x, k) => `<td><input class="asg-item" data-k="${k}" list="asg-opt-${t.key}-${x.col}" value="${esc(r.items[k] || '')}" aria-label="${esc(r.name)}: ${esc(x.h)}"></td>`).join('')}
+            <td class="asg-row-tools"><button type="button" data-act="reroll" title="Draw again for this student">🎲</button><button type="button" data-act="row-del" title="Remove this row">✕</button></td>
           </tr>`).join('')}
         </tbody>
       </table>`;
   }
 
   function listPage(t, side) {
-    const d = topicData(t.key);
-    const all = items(t);
-    const added = new Set((d.added || []).map(word));
+    const many = cols(t).length > 1;
+    const block = c => {
+      const d = colData(t, c);
+      const all = items(t, c);
+      const added = new Set((d.added || []).map(word));
+      return `
+      ${many ? `<h3 class="asg-col">${esc(c.title || c.unit + 's')} <small>${all.length}</small></h3>` : ''}
+      <ul class="asg-items">${all.map(it => `
+        <li${added.has(word(it)) ? ' class="mine"' : ''}>${Array.isArray(it) && it[0] ? `<span class="asg-emoji">${esc(it[0])}</span>` : ''}${esc(word(it))}<button type="button" data-act="item-del" data-col="${c.key}" data-w="${esc(word(it))}" aria-label="Remove ${esc(word(it))}">✕</button></li>`).join('')}
+      </ul>
+      <form class="asg-add asg-tools" data-col="${c.key}">
+        <input name="e" placeholder="🙂" maxlength="8" aria-label="Emoji (optional)">
+        <input name="w" placeholder="Add a new ${esc(c.unit.toLowerCase())}…" aria-label="New ${esc(c.unit.toLowerCase())}" required>
+        <button type="submit">+ Add</button>
+        ${(d.removed || []).length ? `<button type="button" data-act="item-restore" data-col="${c.key}">↺ Put back ${d.removed.length} removed</button>` : ''}
+      </form>`;
+    };
     return `
     <section class="page page-${side} asg-page asg-list-page"><div class="asg-in">
       <h1 class="asg-title">${esc(t.title)}</h1>
-      <p class="asg-sub">${all.length} in the list · ✕ removes one · add your own at the bottom</p>
-      <ul class="asg-items">${all.map(it => `
-        <li${added.has(word(it)) ? ' class="mine"' : ''}>${Array.isArray(it) && it[0] ? `<span class="asg-emoji">${esc(it[0])}</span>` : ''}${esc(word(it))}<button type="button" data-act="item-del" data-w="${esc(word(it))}" aria-label="Remove ${esc(word(it))}">✕</button></li>`).join('')}
-      </ul>
-      <form class="asg-add asg-tools">
-        <input name="e" placeholder="🙂" maxlength="8" aria-label="Emoji (optional)">
-        <input name="w" placeholder="Add a new one…" aria-label="New item" required>
-        <button type="submit">+ Add</button>
-        ${(d.removed || []).length ? `<button type="button" data-act="item-restore">↺ Put back ${d.removed.length} removed</button>` : ''}
-      </form>
+      <p class="asg-sub">${many ? '' : `${items(t, cols(t)[0]).length} in the list · `}✕ removes one · add your own under the list</p>
+      ${t.note ? `<p class="asg-note">${esc(t.note)}</p>` : ''}
+      ${cols(t).map(block).join('')}
       </div>
       <span class="pageno"></span>
     </section>`;
@@ -88,7 +112,6 @@ const ASSIGN = (() => {
 
   function assignPage(t, side) {
     const dr = draft(t.key);
-    const many = t.per > 1;
     const options = classes
       ? `<option value="">— choose a class —</option>${classes.map(c => `<option value="${esc(c.id)}">${esc(c.name)} (${c.students.length})</option>`).join('')}`
       : '<option value="">— connect Classroom Manager —</option>';
@@ -100,30 +123,30 @@ const ASSIGN = (() => {
         : '<button type="button" data-act="connect">🔗 Connect Classroom Manager</button>'}</p>
       <div class="asg-controls asg-tools">
         <select class="asg-class" aria-label="Class">${options}<option value="__names">✍️ Type the names…</option></select>
-        ${many ? `<label>each <input class="asg-per" type="number" min="1" max="8" value="${per(t)}"></label>` : ''}
+        ${cols(t).filter(c => c.per > 1).map(c => `<label>${esc(c.unit.toLowerCase())}s each <input class="asg-per" data-col="${c.key}" type="number" min="1" max="8" value="${per(t, c)}"></label>`).join('')}
         <button type="button" class="asg-go" data-act="draw">🎲 Draw</button>
       </div>
       <textarea class="asg-names asg-tools" rows="3" placeholder="One student per line"${dr.cls === '__names' ? '' : ' hidden'}>${esc(dr.names)}</textarea>
-      <div class="asg-draft">${dr.rows.length ? table(t, dr.rows, true) + '<button type="button" class="asg-addrow asg-tools" data-act="row-add">+ Add a row</button>'
+      <div class="asg-draft">${dr.rows.length ? table(t, dr.rows, headsOf(t, dr.rows, dr.heads)) + '<button type="button" class="asg-addrow asg-tools" data-act="row-add">+ Add a row</button>'
         : '<p class="asg-empty">Choose a class and press 🎲 Draw. You can change every name and every box, then save the list: it becomes the next page, with today’s date.</p>'}</div>
       <div class="asg-actions asg-tools">
         <button type="button" data-act="save"${dr.rows.length ? '' : ' disabled'}>💾 Save as a page</button>
         <button type="button" data-act="print"${dr.rows.length ? '' : ' disabled'}>🖨️ Print</button>
         <span class="asg-status" role="status"></span>
       </div>
-      <datalist id="asg-opt-${t.key}">${items(t).map(it => `<option value="${esc(label(it))}">`).join('')}</datalist>
+      ${cols(t).map(c => `<datalist id="asg-opt-${t.key}-${c.key}">${items(t, c).map(it => `<option value="${esc(label(it))}">`).join('')}</datalist>`).join('')}
       </div>
       <span class="pageno"></span>
     </section>`;
   }
 
   function savedPage(t, list, side) {
-    if (!list) return `<section class="page page-${side} asg-page asg-saved-page asg-blank"><div class="asg-in"><p class="asg-empty">The next list you save will be here.</p><span class="pageno"></span></section>`;
+    if (!list) return `<section class="page page-${side} asg-page asg-saved-page asg-blank"><div class="asg-in"><p class="asg-empty">The next list you save will be here.</p></div><span class="pageno"></span></section>`;
     return `
     <section class="page page-${side} asg-page asg-saved-page" data-list="${esc(list.id)}"><div class="asg-in">
       <p class="asg-date">📅 ${dateOf(list.date)}</p>
       <h2 class="asg-title small"><input class="asg-list-title" value="${esc(list.title)}" aria-label="Title"></h2>
-      ${table(t, list.rows, true)}
+      ${table(t, list.rows, headsOf(t, list.rows, list.heads))}
       <div class="asg-actions asg-tools">
         <button type="button" data-act="print">🖨️ Print</button>
         <button type="button" data-act="list-del">🗑️ Delete this list</button>
@@ -137,7 +160,7 @@ const ASSIGN = (() => {
   function spreadsOf(t) {
     const attrs = (id, name) => `class="spread" data-asg="${t.key}" data-id="${id}" data-title="Assign: ${esc(t.title)}" data-name="${esc(name)}"`;
     const lists = (topicData(t.key).lists || []).slice().sort((a, b) => (a.date < b.date ? -1 : 1));
-    let html = `<div ${attrs(`asg-${t.key}`, 'The list · give it to a class')}>${listPage(t, 'left')}${assignPage(t, 'right')}</div>`;
+    let html = `<div ${attrs(`asg-${t.key}`, `${t.title}: the list · give it to a class`)}>${listPage(t, 'left')}${assignPage(t, 'right')}</div>`;
     for (let i = 0; i < lists.length; i += 2) {
       const [a, b] = [lists[i], lists[i + 1]];
       const name = [a, b].filter(Boolean).map(l => `${dateOf(l.date)} ${l.title}`).join(' · ');
@@ -172,8 +195,8 @@ const ASSIGN = (() => {
 
   // deal like cards: nobody gets the same thing twice while the pack lasts;
   // things that other rows already have are dealt last
-  function dealer(t, avoid = []) {
-    const pool = items(t).map(label);
+  function dealer(t, c, avoid = []) {
+    const pool = items(t, c).map(label);
     let pack = [];
     return () => {
       if (!pack.length) {
@@ -183,9 +206,14 @@ const ASSIGN = (() => {
       return pack.pop();
     };
   }
-  function hand(t, next) {
+  const decksFor = (t, avoid) => Object.fromEntries(cols(t).map(c => [c.key, dealer(t, c, avoid)]));
+  // one row: for each heading, something from the deck of its column (never twice the same thing in a row)
+  function hand(heads, decks) {
     const out = [];
-    for (let k = 0; out.length < per(t) && k < per(t) * 20; k++) { const x = next(); if (x && !out.includes(x)) out.push(x); }
+    heads.forEach(x => {
+      for (let k = 0; k < 40; k++) { const v = decks[x.col](); if (v && !out.includes(v)) { out.push(v); return; } }
+      out.push(''); // the list is shorter than the boxes to fill
+    });
     return out;
   }
 
@@ -198,8 +226,7 @@ const ASSIGN = (() => {
 
   /* ---------- print one list ---------- */
 
-  function print(t, title, rows) {
-    const n = Math.max(1, ...rows.map(r => r.items.length));
+  function print(t, title, rows, heads) {
     const w = window.open('', '_blank');
     if (!w) { alert('Allow pop-ups for this site to print the list.'); return; }
     w.document.write(`<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(title)}</title>
@@ -214,8 +241,8 @@ const ASSIGN = (() => {
         tr { break-inside: avoid; }
       </style></head><body>
       <h1>${esc(title)}</h1>
-      <table><thead><tr><th>#</th><th>Student</th>${Array.from({ length: n }, (_, k) => `<th>${head(t, k, n)}</th>`).join('')}</tr></thead>
-      <tbody>${rows.map((r, i) => `<tr><td>${i + 1}</td><td>${esc(r.name)}</td>${Array.from({ length: n }, (_, k) => `<td>${esc(r.items[k] || '')}</td>`).join('')}</tr>`).join('')}</tbody></table>
+      <table><thead><tr><th>#</th><th>Student</th>${heads.map(x => `<th>${esc(x.h)}</th>`).join('')}</tr></thead>
+      <tbody>${rows.map((r, i) => `<tr><td>${i + 1}</td><td>${esc(r.name)}</td>${heads.map((_, k) => `<td>${esc(r.items[k] || '')}</td>`).join('')}</tr>`).join('')}</tbody></table>
       </body></html>`);
     w.document.close();
     w.focus();
@@ -232,14 +259,15 @@ const ASSIGN = (() => {
     const listId = page?.dataset.list;
     const list = listId ? topicData(t.key).lists.find(l => l.id === listId) : null;
     const rows = list ? list.rows : draft(t.key).rows;
-    return { t, page, list, rows, i: Number(el.closest('tr')?.dataset.i) };
+    const heads = headsOf(t, rows, list ? list.heads : draft(t.key).heads);
+    return { t, page, list, rows, heads, i: Number(el.closest('tr')?.dataset.i) };
   };
   const status = (page, text) => { const s = page.querySelector('.asg-status'); if (s) s.textContent = text; };
   // a change to the draft or to a saved list: draw only that table again
   function repaint(w) {
     const box = w.list ? w.page : w.page.querySelector('.asg-draft');
     const old = box.querySelector('.asg-table');
-    if (old) old.outerHTML = table(w.t, w.rows, true);
+    if (old) old.outerHTML = table(w.t, w.rows, w.heads);
     else rebuild(); // the first rows of a draft
   }
   const changed = w => { if (w.list) save(); else saveDraft(); };
@@ -257,14 +285,16 @@ const ASSIGN = (() => {
         const names = students(t);
         if (!names.length) { status(page, dr.cls ? 'There are no students.' : 'Choose a class first.'); return; }
         if (dr.rows.length && !confirm('Draw a new list? The one on this page will be replaced.')) return;
-        const next = dealer(t);
-        dr.rows = names.map(name => ({ name, items: hand(t, next) }));
+        dr.heads = headsNow(t);
+        // the same decks for the whole class, so that nobody gets the same thing while the lists last
+        const decks = decksFor(t);
+        dr.rows = names.map(name => ({ name, items: hand(dr.heads, decks) }));
         saveDraft();
         rebuild();
         break;
       }
       case 'reroll':
-        w.rows[w.i].items = hand(t, dealer(t, w.rows.flatMap((r, j) => (j === w.i ? [] : r.items))));
+        w.rows[w.i].items = hand(w.heads, decksFor(t, w.rows.flatMap((r, j) => (j === w.i ? [] : r.items))));
         repaint(w); changed(w); break;
       case 'row-del': w.rows.splice(w.i, 1); repaint(w); changed(w); break;
       case 'row-add':
@@ -277,7 +307,8 @@ const ASSIGN = (() => {
           date: new Date().toISOString(),
           title: `${t.title}${cls ? ' · ' + cls : ''}`,
           cls,
-          rows: dr.rows.map(r => ({ name: r.name, items: r.items.filter(Boolean) })),
+          heads: w.heads,
+          rows: dr.rows.map(r => ({ name: r.name, items: w.heads.map((_, k) => r.items[k] || '') })),
         };
         (d.lists ||= []).push(list);
         dr.rows = [];
@@ -290,7 +321,7 @@ const ASSIGN = (() => {
         break;
       }
       case 'print':
-        print(t, w.list ? w.list.title : `${t.title}${className(t) ? ' · ' + className(t) : ''} · ${dateOf(new Date())}`, w.rows);
+        print(t, w.list ? w.list.title : `${t.title}${className(t) ? ' · ' + className(t) : ''} · ${dateOf(new Date())}`, w.rows, w.heads);
         break;
       case 'list-del':
         if (!confirm(`Delete "${w.list.title}" (${dateOf(w.list.date)})?`)) return;
@@ -299,14 +330,15 @@ const ASSIGN = (() => {
         rebuild();
         break;
       case 'item-del': {
+        const cd = colData(t, col(t, b.dataset.col));
         const x = b.dataset.w;
-        if ((d.added || []).some(it => word(it) === x)) d.added = d.added.filter(it => word(it) !== x);
-        else (d.removed ||= []).push(x);
+        if ((cd.added || []).some(it => word(it) === x)) cd.added = cd.added.filter(it => word(it) !== x);
+        else (cd.removed ||= []).push(x);
         save();
         rebuild();
         break;
       }
-      case 'item-restore': d.removed = []; save(); rebuild(); break;
+      case 'item-restore': colData(t, col(t, b.dataset.col)).removed = []; save(); rebuild(); break;
     }
   });
 
@@ -315,15 +347,16 @@ const ASSIGN = (() => {
     if (!form) return;
     e.preventDefault();
     const { t } = where(form);
-    const d = topicData(t.key);
+    const c = col(t, form.dataset.col);
+    const cd = colData(t, c);
     const x = form.w.value.trim();
     if (!x) return;
-    if (items(t).some(it => word(it).toLowerCase() === x.toLowerCase())) { form.w.select(); return; }
+    if (items(t, c).some(it => word(it).toLowerCase() === x.toLowerCase())) { form.w.select(); return; }
     // something from the code that was removed comes back; anything else is added
-    if ((d.removed || []).includes(x)) d.removed = d.removed.filter(r => r !== x);
-    else (d.added ||= []).push(form.e.value.trim() ? [form.e.value.trim(), x] : x);
+    if ((cd.removed || []).includes(x)) cd.removed = cd.removed.filter(r => r !== x);
+    else (cd.added ||= []).push(form.e.value.trim() ? [form.e.value.trim(), x] : x);
     save();
-    rebuild(`[data-id="asg-${t.key}"] .asg-add [name="w"]`);
+    rebuild(`[data-id="asg-${t.key}"] .asg-add[data-col="${c.key}"] [name="w"]`);
   });
 
   let typingTimer = null;
@@ -351,7 +384,7 @@ const ASSIGN = (() => {
       saveDraft();
       w.page.querySelector('.asg-names').hidden = el.value !== '__names';
     } else if (el.classList.contains('asg-per')) {
-      topicData(w.t.key).per = Math.max(1, Number(el.value) || 1);
+      colData(w.t, col(w.t, el.dataset.col)).per = Math.max(1, Number(el.value) || 1);
       save();
     } else if (el.classList.contains('asg-list-title')) rebuild(); // the name of the page in the contents
   });

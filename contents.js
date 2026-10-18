@@ -89,8 +89,10 @@ const CONTENTS = {
       // give each student of a class something to work on (assign-data.js, assign-pages.js): teacher only
       title: 'Assign work',
       teacher: true,
+      // one chapter per chapter of the book: the topics that go with the same one share it (Personality: adjectives + villains)
       chapters: (typeof ASSIGN_TOPICS === 'undefined' ? [] : ASSIGN_TOPICS)
-        .map(t => ({ title: `Assign: ${t.title}`, start: `asg-${t.key}`, color: t.color })),
+        .filter((t, i, all) => !t.chapter || all.findIndex(x => x.chapter === t.chapter) === i)
+        .map(t => ({ title: `Assign: ${t.chapter || t.title}`, start: `asg-${t.key}`, color: t.color })),
     },
   ],
 

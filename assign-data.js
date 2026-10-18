@@ -38,6 +38,44 @@ const ASSIGN_TOPICS = [
     ],
   },
   {
+    // Villain Lab (pers-villain-words … ): each student draws and describes a new avatar,
+    // and the best ones can become new villains of Villain Battle (img/personality/villains/)
+    key: 'villains',
+    chapter: 'Personality', // the chapter of the book it goes with
+    title: 'Villain avatars',
+    color: '#c08be8',
+    note: 'An animal and 3 flaws each: the student draws the villain and describes it. The animals already drawn for Villain Battle (raccoon, ram, panda, sloth, crow, rabbit, scorpion, crocodile, cat, bull, owl) are not in the list.',
+    // a topic with more lists: `columns` instead of `items` (each column: key, unit, per, items)
+    columns: [
+      {
+        key: 'animal',
+        unit: 'Animal',
+        per: 1,
+        items: [
+          ['🦊', 'fox'], ['🐺', 'wolf'], ['🐻', 'bear'], ['🦁', 'lion'], ['🐯', 'tiger'], ['🐒', 'monkey'],
+          ['🦍', 'gorilla'], ['🐘', 'elephant'], ['🦒', 'giraffe'], ['🦓', 'zebra'], ['🦛', 'hippo'], ['🦏', 'rhino'],
+          ['🦘', 'kangaroo'], ['🐨', 'koala'], ['🐧', 'penguin'], ['🦅', 'eagle'], ['🦜', 'parrot'], ['🦩', 'flamingo'],
+          ['🦚', 'peacock'], ['🦆', 'duck'], ['🐸', 'frog'], ['🐍', 'snake'], ['🐢', 'turtle'], ['🦎', 'lizard'],
+          ['🦈', 'shark'], ['🐙', 'octopus'], ['🐬', 'dolphin'], ['🐳', 'whale'], ['🦀', 'crab'], ['🐝', 'bee'],
+          ['🕷️', 'spider'], ['🐌', 'snail'], ['🦋', 'butterfly'], ['🐜', 'ant'], ['🐭', 'mouse'], ['🦔', 'hedgehog'],
+          ['🦇', 'bat'], ['🦨', 'skunk'], ['🦫', 'beaver'], ['🐐', 'goat'], ['🐷', 'pig'], ['🐴', 'horse'],
+        ],
+      },
+      {
+        // the flaws of Villain Battle (FLAW_GROUPS in villain-battle.js): only these have powers in the game
+        key: 'flaw',
+        unit: 'Flaw',
+        per: 3,
+        items: [
+          'messy', 'chaotic', 'forgetful', 'always late', 'distracted',
+          'shy', 'anxious', 'touchy', 'pessimistic', 'hot-tempered',
+          'bossy', 'pushy', 'arrogant', 'greedy', 'superficial', 'clingy', 'chatty',
+          'lazy', 'impatient', 'stubborn', 'indecisive',
+        ],
+      },
+    ],
+  },
+  {
     key: 'jobs',
     chapter: 'Jobs & CVs', // the chapter of the book it goes with
     title: 'Jobs',
