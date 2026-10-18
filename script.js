@@ -848,10 +848,11 @@ const drawings = [...document.querySelectorAll('.pd-draw')].map(wrap => {
     avPanel.addEventListener('click', e => {
       const pic = e.target.closest('button')?.querySelector('img');
       if (!pic) return;
-      const k = Math.min(canvas.width * .94 / pic.naturalWidth, canvas.height * .6 / pic.naturalHeight);
+      // big, centred, sitting low in the arch (the top of the arch is narrow)
+      const k = Math.min(canvas.width * .94 / pic.naturalWidth, canvas.height * .74 / pic.naturalHeight);
       ctx.globalCompositeOperation = 'source-over';
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(pic, (canvas.width - pic.naturalWidth * k) / 2, canvas.height * .1, pic.naturalWidth * k, pic.naturalHeight * k);
+      ctx.drawImage(pic, (canvas.width - pic.naturalWidth * k) / 2, canvas.height - pic.naturalHeight * k - canvas.height * .04, pic.naturalWidth * k, pic.naturalHeight * k);
       avPanel.hidden = true;
       try { saved[wrap.id] = canvas.toDataURL('image/webp', .85); persist(); } catch { /* opened from a file: the avatar is not saved */ }
     });
