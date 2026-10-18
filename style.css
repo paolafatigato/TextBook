@@ -3566,7 +3566,6 @@ body.not-visible .goto { color: #fff; }
 [data-id="scaf-ps-truth"] .scf-list { font-size: 1.65cqw; }
 /* jobs test [scaf-jobs-test-a/b/c]: sheets to photocopy, the name line is .scv-name (personality-chapter.css) */
 .sct { display: flex; flex-direction: column; gap: 2.6cqw; }
-.sct .scf-tape { margin-bottom: 0; align-self: flex-start; }
 .sct .scv-name { display: flex; align-items: flex-end; gap: 1.4cqw; margin: 0; font-weight: 700; color: #555; }
 .sct .scv-name span { flex: 1; border-bottom: .25cqw solid #999; }
 .sct .scv-name span.short { flex: .45; }
@@ -3574,7 +3573,6 @@ body.not-visible .goto { color: #fff; }
 .sct-title span { color: #e8820c; }
 .sct-ex h2 { display: flex; align-items: center; gap: 1.2cqw; margin: 0 0 1.4cqw; font: 700 2.7cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
 .sct-ex h2 b { flex: none; display: grid; place-items: center; width: 4cqw; height: 4cqw; border-radius: 50%; background: #ffc93c; font-size: 2.4cqw; }
-.sct-ex h2 em { margin-left: auto; font: 800 2cqw 'Nunito', sans-serif; font-style: normal; color: #888; white-space: nowrap; }
 .sct ol, .sct ul { margin: 0; padding: 0; list-style: none; }
 .sct-tr { display: grid; grid-template-columns: 1fr 1fr; gap: 0 4cqw; }
 .sct-tr li { display: flex; align-items: flex-end; gap: 1.2cqw; height: 4.8cqw; counter-increment: sct; }
@@ -3586,16 +3584,17 @@ body.not-visible .goto { color: #fff; }
 .sct-pick span { flex: 1; border-bottom: .2cqw solid #999; }
 .sct-hint { margin: 0 0 1cqw; font-size: 1.9cqw; color: #555; }
 .sct-lines { height: calc(var(--n) * 4.6cqw); background: repeating-linear-gradient(transparent 0 calc(4.6cqw - .18cqw), #a9adb8 0 4.6cqw); }
-.sct-total { margin: auto 0 0; align-self: flex-end; padding: 1cqw 2.4cqw; border: .3cqw solid var(--navy); border-radius: 1.4cqw; font: 700 2.6cqw 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
-.sct-total span { margin-left: 1.4cqw; }
 .sct-box { margin: 0 0 1.4cqw; padding: 1cqw 2cqw; border-radius: 1.4cqw; background: #fdecd6; font-weight: 800; text-align: center; word-spacing: .2em; }
 /* the guide boxes of version b: what to say, the words to circle (<u>), the line to write on */
 .sct-guide { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4cqw; }
 .sct-guide > div { display: flex; flex-direction: column; padding: 1cqw 1.6cqw 1cqw; border: .25cqw solid #c9d2e0; border-radius: 1.6cqw; background: #fff; }
 .sct-guide h3 { margin: 0 0 .5cqw; font: 700 2.1cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
 .sct-guide p { margin: 0; font-size: 1.75cqw; line-height: 1.6; color: #555; }
-.sct-guide i { margin-top: auto; height: 9.6cqw; flex: none; background: repeating-linear-gradient(transparent 0 calc(4.8cqw - .18cqw), #a9adb8 0 4.8cqw); }
-.sct-guide.big i { height: 14.4cqw; }
+.sct-guide i { --lh: 4.8cqw; margin-top: auto; height: calc(2 * var(--lh)); flex: none; background: repeating-linear-gradient(transparent 0 calc(var(--lh) - .18cqw), #a9adb8 0 var(--lh)); }
+.sct-guide.big i { height: calc(3 * var(--lh)); }
+/* the in-between version [scaf-jobs-test-boxes]: only the headings, so more lines */
+.sct-guide.bare i { --lh: 4cqw; height: calc(3 * var(--lh)); }
+.sct-guide.bare.big i { --lh: 4.4cqw; height: calc(5 * var(--lh)); }
 .sct u, .sct-tf u { display: inline-block; margin: 0 .5cqw .3cqw 0; padding: 0 1.1cqw; border: .2cqw dashed #b9b9c4; border-radius: 999px; text-decoration: none; font-weight: 700; color: #333; line-height: 1.4; }
 /* version c: big letters, no italics */
 .sct-easy { font-size: 2.5cqw; line-height: 1.45; gap: 3cqw; }
@@ -3619,8 +3618,21 @@ body.not-visible .goto { color: #fff; }
 .sct-tf li::before { content: counter(sct) "."; width: 3.4cqw; font-weight: 800; color: #e8820c; }
 .sct-tf span { flex: 1; }
 .sct-tf u { padding: .2cqw 1.6cqw; font-weight: 800; letter-spacing: .05em; }
+/* [scaf-jobs-test-model]: the answers written by hand on the lines */
+/* Caveat, not Scritturapaola: that font has no periods or apostrophes */
+.sct-ink { font: 500 2.9cqw/1 'Caveat', 'Patrick Hand', cursive; color: #1d4fb8; }
+.sct .scv-name .sct-ink { padding: 0 1cqw .3cqw; }
+.sct-tr li i.sct-ink { padding-left: 1cqw; white-space: nowrap; }
+.sct-pick .sct-ink { padding-left: 1cqw; font-size: 3.2cqw; }
+.sct-written p.sct-ink { margin: 0; position: relative; top: .7cqw; line-height: 4.6cqw; }
+/* the parts of the text: one color each, the same in the legend (.sct-key) and in the marked text */
+.k-what { --k: #1f2a6b; } .k-where { --k: #3aa04a; } .k-when { --k: #e8820c; } .k-money { --k: #e0a800; } .k-who { --k: #dc3394; }
+.k-tools { --k: #8d5524; } .k-skills { --k: #46a9a0; } .k-good { --k: #4aa8ec; } .k-bad { --k: #e53935; } .k-why { --k: #8e2de2; }
+.sct-written mark { background: color-mix(in srgb, var(--k) 16%, transparent); color: inherit; text-decoration: underline .35cqw var(--k); text-underline-offset: .45cqw; text-decoration-skip-ink: none; box-decoration-break: clone; -webkit-box-decoration-break: clone; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.sct-key { display: flex; flex-wrap: wrap; gap: .8cqw 1cqw; padding: 1.2cqw 1.6cqw !important; border: .25cqw solid #c9d2e0 !important; border-radius: 1.6cqw; background: #fff; }
+.sct-key li { display: flex; align-items: center; gap: .7cqw; padding: .2cqw 1.2cqw; border-radius: 999px; background: color-mix(in srgb, var(--k) 16%, transparent); font-weight: 800; font-size: 1.8cqw; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.sct-key li::before { content: ""; width: 3cqw; height: .45cqw; border-radius: 1cqw; background: var(--k); }
 @media print {
-  .sct .scf-tape { display: none; }
   .scf-tools button, .scf-tools label { display: none !important; }
   .scf-in { overflow: hidden; }
 }

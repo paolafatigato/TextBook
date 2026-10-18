@@ -8526,6 +8526,328 @@
     </div></section>
   </div>
 
+  <!-- ============ SCAFFOLDING (teacher only, no page numbers: pages.js) ============ -->
+  <!-- the end-of-unit test on jobs, in three versions that all look like "Jobs test" (no labels on the sheets):
+       [scaf-jobs-test-a] the standard test: translate 16 words, a text on a job card picked at random
+         (the forehead cards of [jobcards-1]…[jobcards-3]), a text on the dream job;
+       [scaf-jobs-test-boxes] in between: the same, but the two texts in boxes with only the headings (no hints);
+       [scaf-jobs-test-b] the same test for DSA pupils: 8 words with a word bank, the two texts in guide boxes
+         (money, inside / outside, who with, when, tools, skills, good / bad side);
+       [scaf-jobs-test-c] for pupils with 104: jobs with pictures, job + place, a cloze and true or false.
+       Style: style.css "jobs test" -->
+  <!-- key A, ex. 1: infermiere/a · muratore · commesso/a · vigile del fuoco · guadagnare · divisa · fuori, all'aperto · competenze, abilità
+       · a chef / a cook · a hairdresser · a car mechanic · a police officer · a farmer · a vet · to work at night · a customer -->
+  <div class="spread scaffold test" data-folder="tests-jobs" data-id="scaf-jobs-test-a" data-title="Jobs &amp; CVs" data-name="Jobs test · Translate · A job card · My dream job">
+
+    <section class="page page-left scf-page"><div class="scf-in sct">
+      <p class="scv-name">Name <span></span> Class <span class="short"></span> Date <span class="short"></span></p>
+      <h1 class="sct-title">Jobs <span>test</span></h1>
+
+      <div class="sct-ex">
+        <h2><b>1</b> Translate</h2>
+        <div class="sct-tr">
+          <ol>
+            <li><span>a nurse</span><i></i></li>
+            <li><span>a builder</span><i></i></li>
+            <li><span>a shop assistant</span><i></i></li>
+            <li><span>a fire officer</span><i></i></li>
+            <li><span>to make money</span><i></i></li>
+            <li><span>a uniform</span><i></i></li>
+            <li><span>outside</span><i></i></li>
+            <li><span>skills</span><i></i></li>
+          </ol>
+          <ol style="counter-reset: sct 8">
+            <li><span>un cuoco</span><i></i></li>
+            <li><span>un parrucchiere</span><i></i></li>
+            <li><span>un meccanico</span><i></i></li>
+            <li><span>un poliziotto</span><i></i></li>
+            <li><span>un contadino</span><i></i></li>
+            <li><span>un veterinario</span><i></i></li>
+            <li><span>lavorare di notte</span><i></i></li>
+            <li><span>un cliente</span><i></i></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="sct-ex">
+        <h2><b>2</b> Pick a job card and describe the job</h2>
+        <p class="sct-pick">🎲 My job card: <span></span></p>
+        <p class="sct-hint">Write 8–10 sentences.</p>
+        <div class="sct-lines" style="--n:11"></div>
+      </div>
+    </div></section>
+
+    <section class="page page-right scf-page"><div class="scf-in sct">
+      <p class="scv-name">Name <span></span> Class <span class="short"></span></p>
+
+      <div class="sct-ex">
+        <h2><b>3</b> The job of my dreams</h2>
+        <p class="sct-hint">Write a text of at least 100 words. Use <b>would like to</b>, <b>want to</b>, <b>dream of</b> and <b>can</b> / <b>have to</b>.</p>
+        <div class="sct-lines" style="--n:22"></div>
+      </div>
+
+    </div></section>
+  </div>
+
+  <!-- in-between version (no label on the sheet): the 16 words of version a, the two texts in the boxes of version b
+       but with only the headings, no words to circle and no sentence starters. Key ex. 1: as version a -->
+  <div class="spread scaffold test" data-folder="tests-jobs" data-id="scaf-jobs-test-boxes" data-title="Jobs &amp; CVs" data-name="Jobs test with boxes · A job card · My dream job">
+
+    <section class="page page-left scf-page"><div class="scf-in sct">
+      <p class="scv-name">Name <span></span> Class <span class="short"></span> Date <span class="short"></span></p>
+      <h1 class="sct-title">Jobs <span>test</span></h1>
+
+      <div class="sct-ex">
+        <h2><b>1</b> Translate</h2>
+        <div class="sct-tr">
+          <ol>
+            <li><span>a nurse</span><i></i></li>
+            <li><span>a builder</span><i></i></li>
+            <li><span>a shop assistant</span><i></i></li>
+            <li><span>a fire officer</span><i></i></li>
+            <li><span>to make money</span><i></i></li>
+            <li><span>a uniform</span><i></i></li>
+            <li><span>outside</span><i></i></li>
+            <li><span>skills</span><i></i></li>
+          </ol>
+          <ol style="counter-reset: sct 8">
+            <li><span>un cuoco</span><i></i></li>
+            <li><span>un parrucchiere</span><i></i></li>
+            <li><span>un meccanico</span><i></i></li>
+            <li><span>un poliziotto</span><i></i></li>
+            <li><span>un contadino</span><i></i></li>
+            <li><span>un veterinario</span><i></i></li>
+            <li><span>lavorare di notte</span><i></i></li>
+            <li><span>un cliente</span><i></i></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="sct-ex">
+        <h2><b>2</b> Pick a job card and describe the job</h2>
+        <p class="sct-pick">🎲 My job card: <span></span></p>
+        <div class="sct-guide bare">
+          <div><h3>🧑‍💼 What do they do?</h3><i></i></div>
+          <div><h3>📍 Where and when?</h3><i></i></div>
+          <div><h3>💰 Money</h3><i></i></div>
+          <div><h3>👥 Who with?</h3><i></i></div>
+          <div><h3>🧰 Tools, clothes and skills</h3><i></i></div>
+          <div><h3>👍 👎 Good side, bad side</h3><i></i></div>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="page page-right scf-page"><div class="scf-in sct">
+      <p class="scv-name">Name <span></span> Class <span class="short"></span></p>
+
+      <div class="sct-ex">
+        <h2><b>3</b> The job of my dreams</h2>
+        <p class="sct-hint">Write about all the points. Use <b>would like to</b>, <b>want to</b>, <b>dream of</b> and <b>can</b> / <b>have to</b>.</p>
+        <div class="sct-guide bare big">
+          <div><h3>🌟 My dream job</h3><i></i></div>
+          <div><h3>📍 Where?</h3><i></i></div>
+          <div><h3>💰 Money</h3><i></i></div>
+          <div><h3>👥 Who with?</h3><i></i></div>
+          <div><h3>⏰ When?</h3><i></i></div>
+          <div><h3>💪 Skills</h3><i></i></div>
+          <div><h3>👍 👎 Good side, bad side</h3><i></i></div>
+          <div><h3>❤️ Why?</h3><i></i></div>
+        </div>
+      </div>
+    </div></section>
+  </div>
+
+  <!-- version for DSA pupils (no label on the sheet). Key ex. 1: 1 infermiere · 2 muratore · 3 cuoco · 4 vigile del fuoco
+       · 5 contadino · 6 parrucchiere · 7 guadagnare · 8 all'aperto -->
+  <div class="spread scaffold test" data-folder="tests-jobs" data-id="scaf-jobs-test-b" data-title="Jobs &amp; CVs" data-name="Jobs test with guide boxes · A job card · My dream job">
+
+    <section class="page page-left scf-page"><div class="scf-in sct">
+      <p class="scv-name">Name <span></span> Class <span class="short"></span> Date <span class="short"></span></p>
+      <h1 class="sct-title">Jobs <span>test</span></h1>
+
+      <div class="sct-ex">
+        <h2><b>1</b> Translate: choose from the box</h2>
+        <p class="sct-box">guadagnare · cuoco · infermiere · all'aperto · parrucchiere · vigile del fuoco · contadino · muratore</p>
+        <div class="sct-tr">
+          <ol>
+            <li><span>a nurse</span><i></i></li>
+            <li><span>a builder</span><i></i></li>
+            <li><span>a chef</span><i></i></li>
+            <li><span>a fire officer</span><i></i></li>
+          </ol>
+          <ol style="counter-reset: sct 4">
+            <li><span>a farmer</span><i></i></li>
+            <li><span>a hairdresser</span><i></i></li>
+            <li><span>to make money</span><i></i></li>
+            <li><span>outside</span><i></i></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="sct-ex">
+        <h2><b>2</b> Pick a job card and describe the job</h2>
+        <p class="sct-pick">🎲 My job card: <span></span></p>
+        <div class="sct-guide">
+          <div><h3>🧑‍💼 What do they do?</h3><p>A … is someone who …</p><i></i></div>
+          <div><h3>📍 Where and when?</h3><p><u>inside</u><u>outside</u> They work in / at … <u>in the day</u><u>at night</u><u>at weekends</u></p><i></i></div>
+          <div><h3>💰 Money</h3><p>They make <u>a lot of</u><u>quite a lot of</u><u>not much</u> money.</p><i></i></div>
+          <div><h3>👥 Who with?</h3><p><u>customers</u><u>patients</u><u>children</u><u>animals</u><u>a team</u><u>alone</u></p><i></i></div>
+          <div><h3>🧰 Tools, clothes and skills</h3><p>They use … · They <u>wear</u><u>don't wear</u> a uniform. · They have to be good at …</p><i></i></div>
+          <div><h3>👍 👎 Good side, bad side</h3><p>You can … · You have to …</p><i></i></div>
+        </div>
+      </div>
+    </div></section>
+
+    <section class="page page-right scf-page"><div class="scf-in sct">
+      <p class="scv-name">Name <span></span> Class <span class="short"></span></p>
+
+      <div class="sct-ex">
+        <h2><b>3</b> The job of my dreams</h2>
+        <p class="sct-hint">Circle the words, then complete the sentences.</p>
+        <div class="sct-guide big">
+          <div><h3>🌟 My dream job</h3><p>I would like to be a / an …</p><i></i></div>
+          <div><h3>📍 Where?</h3><p><u>inside</u><u>outside</u> I would work in / at …</p><i></i></div>
+          <div><h3>💰 Money</h3><p>I would make <u>a lot of</u><u>quite a lot of</u><u>not much</u> money.</p><i></i></div>
+          <div><h3>👥 Who with?</h3><p><u>customers</u><u>patients</u><u>children</u><u>animals</u><u>a team</u><u>alone</u></p><i></i></div>
+          <div><h3>⏰ When?</h3><p><u>in the day</u><u>at night</u><u>at weekends</u> I would work …</p><i></i></div>
+          <div><h3>💪 Skills</h3><p>I am already … · I have to learn to …</p><i></i></div>
+          <div><h3>👍 👎 Good side, bad side</h3><p>You can … · You have to …</p><i></i></div>
+          <div><h3>❤️ Why?</h3><p>It's the perfect job for me because …</p><i></i></div>
+        </div>
+      </div>
+
+    </div></section>
+  </div>
+
+  <!-- version for pupils with 104 (no label on the sheet): big font, no italics, Italian help, the pictures of the job cards.
+       Key ex. 1: 1 doctor · 2 chef · 3 fire officer · 4 teacher · 5 police officer · 6 farmer · 7 pilot · 8 hairdresser
+       ex. 2: doctor-hospital · teacher-school · chef-restaurant · pilot-plane · farmer-farm
+       ex. 3: vet · inside · animals · team · coat · money   ex. 4: F T F T F T -->
+  <div class="spread scaffold test" data-folder="tests-jobs" data-id="scaf-jobs-test-c" data-title="Jobs &amp; CVs" data-name="Jobs test with pictures · Cloze · True or false">
+
+    <section class="page page-left scf-page"><div class="scf-in sct sct-easy">
+      <p class="scv-name">Name <span></span> Class <span class="short"></span> Date <span class="short"></span></p>
+      <h1 class="sct-title">Jobs <span>test</span></h1>
+
+      <div class="sct-ex">
+        <h2><b>1</b> Look and write the job</h2>
+        <p class="sct-box">DOCTOR · TEACHER · CHEF · PILOT · FIRE OFFICER · POLICE OFFICER · FARMER · HAIRDRESSER</p>
+        <ol class="sct-pics">
+          <li><span>🩺</span><i></i></li>
+          <li><span>🍳</span><i></i></li>
+          <li><span>🚒</span><i></i></li>
+          <li><span>📚</span><i></i></li>
+          <li><span>🚓</span><i></i></li>
+          <li><span>🚜</span><i></i></li>
+          <li><span>✈️</span><i></i></li>
+          <li><span>✂️</span><i></i></li>
+        </ol>
+      </div>
+
+      <div class="sct-ex">
+        <h2><b>2</b> Where do they work? Join ✏️</h2>
+        <ul class="scv-match sct-join">
+          <li><span>🧑‍⚕️ DOCTOR</span><i></i><i></i><span>🏫 SCHOOL</span></li>
+          <li><span>🧑‍🏫 TEACHER</span><i></i><i></i><span>🚜 FARM</span></li>
+          <li><span>🧑‍🍳 CHEF</span><i></i><i></i><span>🏥 HOSPITAL</span></li>
+          <li><span>🧑‍✈️ PILOT</span><i></i><i></i><span>✈️ PLANE</span></li>
+          <li><span>🧑‍🌾 FARMER</span><i></i><i></i><span>🍽️ RESTAURANT</span></li>
+        </ul>
+      </div>
+    </div></section>
+
+    <section class="page page-right scf-page"><div class="scf-in sct sct-easy">
+      <p class="scv-name">Name <span></span> Class <span class="short"></span></p>
+
+      <div class="sct-ex">
+        <h2><b>3</b> Read and complete</h2>
+        <p class="sct-box">VET · INSIDE · ANIMALS · TEAM · COAT · MONEY</p>
+        <p class="sct-glos">inside = dentro · team = squadra · coat = camice · money = soldi</p>
+        <div class="sct-cloze">
+          <p>🐶 Hi! My name is Anna. I am a <i></i> .</p>
+          <p>I work in an animal hospital. I work <i></i> .</p>
+          <p>I help sick <i></i> : dogs, cats and rabbits.</p>
+          <p>I am not alone: I work with a <i></i> .</p>
+          <p>I wear a white <i></i> .</p>
+          <p>I don't make a lot of <i></i> , but I love my job! ❤️</p>
+        </div>
+      </div>
+
+      <div class="sct-ex">
+        <h2><b>4</b> True or false? Circle</h2>
+        <ol class="sct-tf">
+          <li><span>Anna is a doctor.</span><u>TRUE</u><u>FALSE</u></li>
+          <li><span>She works in an animal hospital.</span><u>TRUE</u><u>FALSE</u></li>
+          <li><span>She works outside.</span><u>TRUE</u><u>FALSE</u></li>
+          <li><span>She helps sick animals.</span><u>TRUE</u><u>FALSE</u></li>
+          <li><span>She works alone.</span><u>TRUE</u><u>FALSE</u></li>
+          <li><span>She loves her job.</span><u>TRUE</u><u>FALSE</u></li>
+        </ol>
+      </div>
+
+    </div></section>
+  </div>
+
+  <!-- ============ SCAFFOLDING (teacher only, no page numbers: pages.js) ============ -->
+  <!-- the standard jobs test [scaf-jobs-test-a] filled in by an imaginary pupil, as an answer that gets 10:
+       picked job card: car mechanic · dream job: soccer player. The answers look handwritten (Caveat) -->
+  <div class="spread scaffold" data-id="scaf-jobs-test-model" data-title="Jobs &amp; CVs" data-name="Jobs test: a model answer for 10">
+
+    <section class="page page-left scf-page"><div class="scf-in sct">
+      <p class="scv-name">Name <span class="sct-ink">Marco Rossi</span> Class <span class="short sct-ink">3B</span> Date <span class="short sct-ink">10/20/2026</span></p>
+      <h1 class="sct-title">Jobs <span>test</span></h1>
+
+      <div class="sct-ex">
+        <h2><b>1</b> Translate</h2>
+        <div class="sct-tr">
+          <ol>
+            <li><span>a nurse</span><i class="sct-ink">un infermiere</i></li>
+            <li><span>a builder</span><i class="sct-ink">un muratore</i></li>
+            <li><span>a shop assistant</span><i class="sct-ink">un commesso</i></li>
+            <li><span>a fire officer</span><i class="sct-ink">un vigile del fuoco</i></li>
+            <li><span>to make money</span><i class="sct-ink">guadagnare</i></li>
+            <li><span>a uniform</span><i class="sct-ink">una divisa</i></li>
+            <li><span>outside</span><i class="sct-ink">fuori, all'aperto</i></li>
+            <li><span>skills</span><i class="sct-ink">abilità, competenze</i></li>
+          </ol>
+          <ol style="counter-reset: sct 8">
+            <li><span>un cuoco</span><i class="sct-ink">a chef</i></li>
+            <li><span>un parrucchiere</span><i class="sct-ink">a hairdresser</i></li>
+            <li><span>un meccanico</span><i class="sct-ink">a car mechanic</i></li>
+            <li><span>un poliziotto</span><i class="sct-ink">a police officer</i></li>
+            <li><span>un contadino</span><i class="sct-ink">a farmer</i></li>
+            <li><span>un veterinario</span><i class="sct-ink">a vet</i></li>
+            <li><span>lavorare di notte</span><i class="sct-ink">to work at night</i></li>
+            <li><span>un cliente</span><i class="sct-ink">a customer</i></li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="sct-ex">
+        <h2><b>2</b> Pick a job card and describe the job</h2>
+        <p class="sct-pick">🎲 My job card: <span class="sct-ink">a car mechanic</span></p>
+        <p class="sct-hint">Write 8–10 sentences.</p>
+        <div class="sct-lines sct-written" style="--n:9"><p class="sct-ink"><mark class="k-what">A car mechanic is someone who repairs cars.</mark> They work <mark class="k-where">inside, in a garage</mark>, but sometimes they have to go <mark class="k-where">outside</mark> to help people when their car breaks down on the road. They usually work <mark class="k-when">in the day, from Monday to Friday, and sometimes on Saturday morning</mark>. They make <mark class="k-money">quite a lot of money, but they aren't rich</mark>. They work <mark class="k-who">with customers and with a small team</mark>. They use <mark class="k-tools">a lot of tools, for example a wrench and a screwdriver</mark>, and they wear <mark class="k-tools">a blue uniform</mark>. A mechanic has to be <mark class="k-skills">strong, patient and good with their hands</mark>. They also have to be <mark class="k-skills">good with computers</mark>, because modern cars are very complicated. <mark class="k-good">The good side is that you can help people and you never get bored.</mark> <mark class="k-bad">The bad side is that you have to work in a dirty and noisy place.</mark></p></div>
+      </div>
+      <ul class="sct-key">
+        <li class="k-what">what the job is</li><li class="k-where">where</li><li class="k-when">when</li><li class="k-money">money</li><li class="k-who">who with</li><li class="k-tools">tools &amp; clothes</li><li class="k-skills">skills</li><li class="k-good">good side</li><li class="k-bad">bad side</li><li class="k-why">why</li>
+      </ul>
+    </div></section>
+
+    <section class="page page-right scf-page"><div class="scf-in sct">
+      <p class="scv-name">Name <span class="sct-ink">Marco Rossi</span> Class <span class="short sct-ink">3B</span></p>
+
+      <div class="sct-ex">
+        <h2><b>3</b> The job of my dreams</h2>
+        <p class="sct-hint">Write a text of at least 100 words. Use <b>would like to</b>, <b>want to</b>, <b>dream of</b> and <b>can</b> / <b>have to</b>.</p>
+        <div class="sct-lines sct-written" style="--n:16"><p class="sct-ink"><mark class="k-what">I dream of becoming a professional soccer player.</mark> I started playing soccer when I was six, and now I play for a team in my town. I would like to play for a big team, like Inter or Juventus, and one day for the national team.</p><p class="sct-ink"><mark class="k-why">I think it is the job of my dreams for many reasons.</mark> A soccer player works <mark class="k-where">outside, on the field, and inside, in the gym</mark>, <mark class="k-who">with a team and a coach</mark>, but <mark class="k-why">they rarely sit at a desk and study, and I don't enjoy studying very much</mark>. <mark class="k-good">You can travel all over the world, you can become famous</mark> and <mark class="k-money">you make a lot of money</mark>. <mark class="k-bad">But it isn't an easy job: you have to train every day, you have to eat healthy food and you have to go to bed early.</mark> You also have to play <mark class="k-when">on the weekend</mark>, so <mark class="k-bad">you don't have a lot of free time for your family</mark>. <mark class="k-why">I think I can accept these things because I love playing, and I already train three times a week.</mark> <mark class="k-bad">Maybe living far from my family could be a problem</mark>, but I can call them every day and they can come and watch my games. I think <mark class="k-skills">I am a good team player, I am physically fit and I am brave</mark>. I need to work on <mark class="k-skills">my patience</mark>, because sometimes I get angry when we lose. <mark class="k-why">It's the perfect job for me because I love sports, and friends and teamwork are very important to me.</mark> I want to work hard to make my dream come true!</p></div>
+      </div>
+      <ul class="sct-key">
+        <li class="k-what">what the job is</li><li class="k-where">where</li><li class="k-when">when</li><li class="k-money">money</li><li class="k-who">who with</li><li class="k-tools">tools &amp; clothes</li><li class="k-skills">skills</li><li class="k-good">good side</li><li class="k-bad">bad side</li><li class="k-why">why</li>
+      </ul>
+    </div></section>
+  </div>
+
   <div class="spread" data-id="jobs-cv-model" data-title="Jobs &amp; CVs" data-name="Writing a CV: a model">
 
     <!-- ============ LEFT PAGE ============ -->
@@ -8710,208 +9032,6 @@
       <div class="rj-games abs" style="--x:8;--y:121.4;--w:84"><b>🎮 BEFORE THE TEST</b><span>play on your own!</span><button type="button" data-jb="">🎮 Open all the games</button></div>
       <span class="footer abs" style="--x:69;--y:134.4;--w:19.1">Jobs &amp; CVs</span>
     </section>
-  </div>
-
-  <!-- ============ SCAFFOLDING (teacher only, no page numbers: pages.js) ============ -->
-  <!-- the end-of-unit test on jobs, in three versions that all look like "Jobs test" (no labels on the sheets):
-       [scaf-jobs-test-a] the standard test: translate 16 words, a text on a job card picked at random
-         (the forehead cards of [jobcards-1]…[jobcards-3]), a text on the dream job;
-       [scaf-jobs-test-b] the same test for DSA pupils: 8 words with a word bank, the two texts in guide boxes
-         (money, inside / outside, who with, when, tools, skills, good / bad side);
-       [scaf-jobs-test-c] for pupils with 104: jobs with pictures, job + place, a cloze and true or false.
-       Style: style.css "jobs test" -->
-  <!-- key A, ex. 1: infermiere/a · muratore · commesso/a · vigile del fuoco · guadagnare · divisa · fuori, all'aperto · competenze, abilità
-       · a chef / a cook · a hairdresser · a car mechanic · a police officer · a farmer · a vet · to work at night · a customer -->
-  <div class="spread scaffold test" data-folder="tests-jobs" data-id="scaf-jobs-test-a" data-title="Jobs &amp; CVs" data-name="Jobs test · Translate · A job card · My dream job">
-
-    <section class="page page-left scf-page"><div class="scf-in sct">
-      <p class="scf-tape">🧱 Scaffolding · test</p>
-      <p class="scv-name">Name <span></span> Class <span class="short"></span> Date <span class="short"></span></p>
-      <h1 class="sct-title">Jobs <span>test</span></h1>
-
-      <div class="sct-ex">
-        <h2><b>1</b> Translate <em>___ / 16</em></h2>
-        <div class="sct-tr">
-          <ol>
-            <li><span>a nurse</span><i></i></li>
-            <li><span>a builder</span><i></i></li>
-            <li><span>a shop assistant</span><i></i></li>
-            <li><span>a fire officer</span><i></i></li>
-            <li><span>to make money</span><i></i></li>
-            <li><span>a uniform</span><i></i></li>
-            <li><span>outside</span><i></i></li>
-            <li><span>skills</span><i></i></li>
-          </ol>
-          <ol style="counter-reset: sct 8">
-            <li><span>un cuoco</span><i></i></li>
-            <li><span>un parrucchiere</span><i></i></li>
-            <li><span>un meccanico</span><i></i></li>
-            <li><span>un poliziotto</span><i></i></li>
-            <li><span>un contadino</span><i></i></li>
-            <li><span>un veterinario</span><i></i></li>
-            <li><span>lavorare di notte</span><i></i></li>
-            <li><span>un cliente</span><i></i></li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="sct-ex">
-        <h2><b>2</b> Pick a job card and describe the job <em>___ / 10</em></h2>
-        <p class="sct-pick">🎲 My job card: <span></span></p>
-        <p class="sct-hint">Write 8–10 sentences. Don't write the name of the job in your text!</p>
-        <div class="sct-lines" style="--n:11"></div>
-      </div>
-    </div></section>
-
-    <section class="page page-right scf-page"><div class="scf-in sct">
-      <p class="scf-tape">🧱 Scaffolding · test</p>
-      <p class="scv-name">Name <span></span> Class <span class="short"></span></p>
-
-      <div class="sct-ex">
-        <h2><b>3</b> The job of my dreams <em>___ / 14</em></h2>
-        <p class="sct-hint">Write a text of about 100 words. Use <b>would like to</b>, <b>want to</b>, <b>dream of</b> and <b>can</b> / <b>have to</b>.</p>
-        <div class="sct-lines" style="--n:22"></div>
-      </div>
-
-      <p class="sct-total">Total <span>___ / 40</span></p>
-    </div></section>
-  </div>
-
-  <!-- version for DSA pupils (no label on the sheet). Key ex. 1: 1 infermiere · 2 muratore · 3 cuoco · 4 vigile del fuoco
-       · 5 contadino · 6 parrucchiere · 7 guadagnare · 8 all'aperto -->
-  <div class="spread scaffold test" data-folder="tests-jobs" data-id="scaf-jobs-test-b" data-title="Jobs &amp; CVs" data-name="Jobs test with guide boxes · A job card · My dream job">
-
-    <section class="page page-left scf-page"><div class="scf-in sct">
-      <p class="scf-tape">🧱 Scaffolding · test</p>
-      <p class="scv-name">Name <span></span> Class <span class="short"></span> Date <span class="short"></span></p>
-      <h1 class="sct-title">Jobs <span>test</span></h1>
-
-      <div class="sct-ex">
-        <h2><b>1</b> Translate: choose from the box <em>___ / 8</em></h2>
-        <p class="sct-box">guadagnare · cuoco · infermiere · all'aperto · parrucchiere · vigile del fuoco · contadino · muratore</p>
-        <div class="sct-tr">
-          <ol>
-            <li><span>a nurse</span><i></i></li>
-            <li><span>a builder</span><i></i></li>
-            <li><span>a chef</span><i></i></li>
-            <li><span>a fire officer</span><i></i></li>
-          </ol>
-          <ol style="counter-reset: sct 4">
-            <li><span>a farmer</span><i></i></li>
-            <li><span>a hairdresser</span><i></i></li>
-            <li><span>to make money</span><i></i></li>
-            <li><span>outside</span><i></i></li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="sct-ex">
-        <h2><b>2</b> Pick a job card and describe the job <em>___ / 16</em></h2>
-        <p class="sct-pick">🎲 My job card: <span></span></p>
-        <div class="sct-guide">
-          <div><h3>🧑‍💼 What do they do?</h3><p>A … is someone who …</p><i></i></div>
-          <div><h3>📍 Where and when?</h3><p><u>inside</u><u>outside</u> They work in / at … <u>in the day</u><u>at night</u><u>at weekends</u></p><i></i></div>
-          <div><h3>💰 Money</h3><p>They make <u>a lot of</u><u>quite a lot of</u><u>not much</u> money.</p><i></i></div>
-          <div><h3>👥 Who with?</h3><p><u>customers</u><u>patients</u><u>children</u><u>animals</u><u>a team</u><u>alone</u></p><i></i></div>
-          <div><h3>🧰 Tools, clothes and skills</h3><p>They use … · They <u>wear</u><u>don't wear</u> a uniform. · They have to be good at …</p><i></i></div>
-          <div><h3>👍 👎 Good side, bad side</h3><p>You can … · You have to …</p><i></i></div>
-        </div>
-      </div>
-    </div></section>
-
-    <section class="page page-right scf-page"><div class="scf-in sct">
-      <p class="scf-tape">🧱 Scaffolding · test</p>
-      <p class="scv-name">Name <span></span> Class <span class="short"></span></p>
-
-      <div class="sct-ex">
-        <h2><b>3</b> The job of my dreams <em>___ / 16</em></h2>
-        <p class="sct-hint">Circle the words, then complete the sentences.</p>
-        <div class="sct-guide big">
-          <div><h3>🌟 My dream job</h3><p>I would like to be a / an …</p><i></i></div>
-          <div><h3>📍 Where?</h3><p><u>inside</u><u>outside</u> I would work in / at …</p><i></i></div>
-          <div><h3>💰 Money</h3><p>I would make <u>a lot of</u><u>quite a lot of</u><u>not much</u> money.</p><i></i></div>
-          <div><h3>👥 Who with?</h3><p><u>customers</u><u>patients</u><u>children</u><u>animals</u><u>a team</u><u>alone</u></p><i></i></div>
-          <div><h3>⏰ When?</h3><p><u>in the day</u><u>at night</u><u>at weekends</u> I would work …</p><i></i></div>
-          <div><h3>💪 Skills</h3><p>I am already … · I have to learn to …</p><i></i></div>
-          <div><h3>👍 👎 Good side, bad side</h3><p>You can … · You have to …</p><i></i></div>
-          <div><h3>❤️ Why?</h3><p>It's the perfect job for me because …</p><i></i></div>
-        </div>
-      </div>
-
-      <p class="sct-total">Total <span>___ / 40</span></p>
-    </div></section>
-  </div>
-
-  <!-- version for pupils with 104 (no label on the sheet): big font, no italics, Italian help, the pictures of the job cards.
-       Key ex. 1: 1 doctor · 2 chef · 3 fire officer · 4 teacher · 5 police officer · 6 farmer · 7 pilot · 8 hairdresser
-       ex. 2: doctor-hospital · teacher-school · chef-restaurant · pilot-plane · farmer-farm
-       ex. 3: vet · inside · animals · team · coat · money   ex. 4: F T F T F T -->
-  <div class="spread scaffold test" data-folder="tests-jobs" data-id="scaf-jobs-test-c" data-title="Jobs &amp; CVs" data-name="Jobs test with pictures · Cloze · True or false">
-
-    <section class="page page-left scf-page"><div class="scf-in sct sct-easy">
-      <p class="scf-tape">🧱 Scaffolding · test</p>
-      <p class="scv-name">Name <span></span> Class <span class="short"></span> Date <span class="short"></span></p>
-      <h1 class="sct-title">Jobs <span>test</span></h1>
-
-      <div class="sct-ex">
-        <h2><b>1</b> Look and write the job <em>___ / 8</em></h2>
-        <p class="sct-box">DOCTOR · TEACHER · CHEF · PILOT · FIRE OFFICER · POLICE OFFICER · FARMER · HAIRDRESSER</p>
-        <ol class="sct-pics">
-          <li><span>🩺</span><i></i></li>
-          <li><span>🍳</span><i></i></li>
-          <li><span>🚒</span><i></i></li>
-          <li><span>📚</span><i></i></li>
-          <li><span>🚓</span><i></i></li>
-          <li><span>🚜</span><i></i></li>
-          <li><span>✈️</span><i></i></li>
-          <li><span>✂️</span><i></i></li>
-        </ol>
-      </div>
-
-      <div class="sct-ex">
-        <h2><b>2</b> Where do they work? Join ✏️ <em>___ / 5</em></h2>
-        <ul class="scv-match sct-join">
-          <li><span>🧑‍⚕️ DOCTOR</span><i></i><i></i><span>🏫 SCHOOL</span></li>
-          <li><span>🧑‍🏫 TEACHER</span><i></i><i></i><span>🚜 FARM</span></li>
-          <li><span>🧑‍🍳 CHEF</span><i></i><i></i><span>🏥 HOSPITAL</span></li>
-          <li><span>🧑‍✈️ PILOT</span><i></i><i></i><span>✈️ PLANE</span></li>
-          <li><span>🧑‍🌾 FARMER</span><i></i><i></i><span>🍽️ RESTAURANT</span></li>
-        </ul>
-      </div>
-    </div></section>
-
-    <section class="page page-right scf-page"><div class="scf-in sct sct-easy">
-      <p class="scf-tape">🧱 Scaffolding · test</p>
-      <p class="scv-name">Name <span></span> Class <span class="short"></span></p>
-
-      <div class="sct-ex">
-        <h2><b>3</b> Read and complete <em>___ / 6</em></h2>
-        <p class="sct-box">VET · INSIDE · ANIMALS · TEAM · COAT · MONEY</p>
-        <p class="sct-glos">inside = dentro · team = squadra · coat = camice · money = soldi</p>
-        <div class="sct-cloze">
-          <p>🐶 Hi! My name is Anna. I am a <i></i> .</p>
-          <p>I work in an animal hospital. I work <i></i> .</p>
-          <p>I help sick <i></i> : dogs, cats and rabbits.</p>
-          <p>I am not alone: I work with a <i></i> .</p>
-          <p>I wear a white <i></i> .</p>
-          <p>I don't make a lot of <i></i> , but I love my job! ❤️</p>
-        </div>
-      </div>
-
-      <div class="sct-ex">
-        <h2><b>4</b> True or false? Circle <em>___ / 6</em></h2>
-        <ol class="sct-tf">
-          <li><span>Anna is a doctor.</span><u>TRUE</u><u>FALSE</u></li>
-          <li><span>She works in an animal hospital.</span><u>TRUE</u><u>FALSE</u></li>
-          <li><span>She works outside.</span><u>TRUE</u><u>FALSE</u></li>
-          <li><span>She helps sick animals.</span><u>TRUE</u><u>FALSE</u></li>
-          <li><span>She works alone.</span><u>TRUE</u><u>FALSE</u></li>
-          <li><span>She loves her job.</span><u>TRUE</u><u>FALSE</u></li>
-        </ol>
-      </div>
-
-      <p class="sct-total">Total <span>___ / 25</span></p>
-    </div></section>
   </div>
 
   <div class="spread" data-id="author-meet" data-title="Literature: Orwell" data-name="Meet the author · Yes or no?">
