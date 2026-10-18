@@ -28,7 +28,7 @@
     { sentence: 'Rachel is very _______; she easily adapts to every situation.', word: 'EASY GOING', type: 'Adjective', hint: 'two words' },
     { sentence: 'Sara is very _______; she always shouts and jumps at football matches.', word: 'ENTHUSIASTIC', type: 'Adjective', hint: 'starts with E' },
     { sentence: 'Lucy is more _______ than Tom; she loves big parties.', word: 'EXTROVERTED', type: 'Adjective', hint: 'starts with E' },
-    { sentence: 'My neighbour is very _______; he talks to everyone kindly.', word: 'FRIENDLY', type: 'Adjective', hint: 'starts with F' },
+    { sentence: 'My neighbor is very _______; he talks to everyone kindly.', word: 'FRIENDLY', type: 'Adjective', hint: 'starts with F' },
     { sentence: 'He is the _______ boy in the class; he always shares his things.', word: 'KIND', type: 'Adjective', hint: 'starts with K' },
     { sentence: 'On Sundays I am _______ than on weekdays; I don’t want to do anything.', word: 'LAZIER', type: 'Comparative', hint: 'ends with -ier' },
     { sentence: 'She is very _______; she never shouts even when she is angry.', word: 'PATIENT', type: 'Adjective', hint: 'starts with P' },

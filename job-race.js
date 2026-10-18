@@ -3,7 +3,7 @@
 //   Make Them Happy!  everybody gets the same character: who finds the job that makes them happiest in 5 turns?
 //                     (the order is drawn and two players can’t choose the same job; each character also has
 //                     2 jobs made for them, mixed among the others; it can be played online, 2 devices)
-// Dreams (fame, a fortune…) spin a wheel of fortune: they win only if it stops on the coloured slice.
+// Dreams (fame, a fortune…) spin a wheel of fortune: they win only if it stops on the colored slice.
 //
 // Every player makes a "Me card": they share 12 hearts among the 10 things that can matter in a job
 // (money, free time, family time, fame…). Then they choose a job and 4 of its 6 reasons ("It makes a lot
@@ -78,7 +78,7 @@
       R('It is a safe, steady job.', 'safe', 'good'),
       R('You finish early and see your family in the afternoon.', 'family', 'good'),
       R('One of your students becomes famous and thanks you on TV.', 'fame', 'dream'),
-    ], bad: [B('It makes medium money, not a lot.', 'money'), B('You correct homework at the weekend.', 'time')] },
+    ], bad: [B('It makes medium money, not a lot.', 'money'), B('You correct homework on the weekend.', 'time')] },
     { k: 'youtuber', icon: '📹', name: 'YouTuber', reasons: [
       R('You can become really famous.', 'fame', 'dream'),
       R('You are creative every day.', 'create', 'daily'),
@@ -177,12 +177,12 @@
     ], bad: [B('You sit in front of a screen all day.', 'nature'), B('Deadlines! You work late at night.', 'time')] },
     // the unusual jobs of [jobs-career:R] (odd: they get an "unusual!" label)
     { k: 'taster', icon: '🍦', name: 'ice-cream taster', odd: true, reasons: [
-      R('You invent crazy new flavours.', 'create', 'daily'),
+      R('You invent crazy new flavors.', 'create', 'daily'),
       R('You eat ice cream at work!', 'time', 'good'),
       R('People smile when they taste your ice cream.', 'help', 'good'),
       R('Your tongue is insured for a million dollars!', 'money', 'big'),
       R('You work with a small, friendly team.', 'team', 'good'),
-      R('Your new flavour becomes famous all over the world.', 'fame', 'dream'),
+      R('Your new flavor becomes famous all over the world.', 'fame', 'dream'),
     ], bad: [B('No spicy food, no hot drinks: you must protect your tongue.', 'time'), B('It is a rare job: there are very few in the world.', 'safe')] },
     { k: 'storm', icon: '🌪️', name: 'storm chaser', odd: true, reasons: [
       R('You chase tornadoes across the country.', 'travel', 'daily'),
@@ -341,7 +341,7 @@
       R('You go for long walks in the park.', 'time', 'good'),
     ], bad: [B('It is not a safe job.', 'safe'), B('It doesn’t make much money.', 'money')] },
     { k: 'partyplanner', icon: '🎉', name: 'party planner', reasons: [
-      R('You organise parties every weekend.', 'team', 'daily'),
+      R('You organize parties every weekend.', 'team', 'daily'),
       R('You work with a big, fun team.', 'team', 'good'),
       R('You have long breaks between parties.', 'time', 'good'),
       R('You plan a party on a beach in Spain.', 'travel', 'good'),
@@ -378,8 +378,8 @@
       bio: 'Leo is 19. He sings in the shower, he dances in the street and he wants everybody in the world to know his name.' },
     { name: 'Captain Zoe', jobs: ['guide', 'marine'], icon: '🧗‍♀️', she: true, hearts: { travel: 4, nature: 4, team: 2, time: 2 },
       bio: 'Zoe is 28. She climbs mountains, swims with sharks and never stays at home for more than a week.' },
-    { name: 'Mr Grey', jobs: ['banker', 'accountant'], icon: '👨‍💼', hearts: { money: 4, safe: 4, time: 2, family: 2 },
-      bio: 'Mr Grey is 45. He likes numbers, a quiet office and a big salary at the end of every month. He hates surprises!' },
+    { name: 'Mr. Gray', jobs: ['banker', 'accountant'], icon: '👨‍💼', hearts: { money: 4, safe: 4, time: 2, family: 2 },
+      bio: 'Mr. Gray is 45. He likes numbers, a quiet office and a big salary at the end of every month. He hates surprises!' },
     { name: 'Kim', jobs: ['inventor', 'designer'], icon: '👩‍🔬', she: true, hearts: { create: 4, team: 2, fame: 2, time: 2, travel: 2 },
       bio: 'Kim is 23. She is always inventing something: robots, recipes, songs… She gets bored very easily.' },
     { name: 'Sam', jobs: ['schoolnurse', 'pharmacist'], icon: '👨‍👧‍👦', hearts: { family: 4, help: 3, safe: 3, time: 2 },
@@ -398,9 +398,9 @@
     'Grandma Rosa': 'Rosa was seventy. Every morning she watered her flowers and counted the days until her grandchildren’s next visit. Her house was clean, her garden was perfect… and her days were very, very quiet. “I’m not old,” she told her cat one evening. “I’m just bored!” So Rosa decided to find a job.',
     'Leo': 'Leo was nineteen, and he had a big voice and an even bigger dream. He sang in the shower, on the bus and in the supermarket queue. People looked at him strangely, but Leo didn’t care. “One day,” he said, “everybody will know my name.” So Leo started looking for a job.',
     'Captain Zoe': 'Captain Zoe was twenty-eight. Her suitcase was always open on the floor, because she was never at home for long. She climbed mountains in Peru, she swam with sharks in Australia, and she hated offices. “I need a job,” she said, “but I need the sky above my head!”',
-    'Mr Grey': 'Mr Grey was forty-five. Every morning he ate the same breakfast, wore the same grey suit and took the same bus at 7.42. He loved numbers, quiet rooms and the safe feeling of a big salary at the end of the month. He hated surprises. So when he decided to change his job, he did it very, very carefully.',
+    'Mr. Gray': 'Mr. Gray was forty-five. Every morning he ate the same breakfast, wore the same gray suit and took the same bus at 7:42. He loved numbers, quiet rooms and the safe feeling of a big salary at the end of the month. He hated surprises. So when he decided to change his job, he did it very, very carefully.',
     'Kim': 'Kim was twenty-three, and her flat was full of strange machines: a robot that made pancakes, a lamp that sang, a bicycle that charged her phone. Kim had a new idea every hour, but she got bored very easily. “I need a job that is never the same,” she said.',
-    'Sam': 'Sam was thirty-five. He had three small children, a very busy kitchen and not much free time. Every afternoon he wanted to be at the school gate when his kids came out. He also loved helping people: his neighbours called him “Super Sam”. Sam needed a new job, but not just any job.',
+    'Sam': 'Sam was thirty-five. He had three small children, a very busy kitchen and not much free time. Every afternoon he wanted to be at the school gate when his kids came out. He also loved helping people: his neighbors called him “Super Sam”. Sam needed a new job, but not just any job.',
     'Lily': 'Lily was twenty-five, and she lived with two dogs, a cat, a parrot and a snake called Bob. She understood animals better than people, and animals loved her too: when she walked in the park, every dog ran to say hello. “My job,” she said, “must have paws, wings or tails!”',
     'Max': 'Max was thirty, and he was the life of every party. He knew everybody’s name, he told the best jokes and he hated being alone. For Max, work was not important: holidays, friends and fun were important! But one day his bank account said: “Max, you need a job.”',
   };
@@ -413,23 +413,23 @@
     },
     'Leo': {
       popstar: 'So Leo became a pop star! His first song was on every radio, and one year later he sang in front of fifty thousand fans. They screamed his name, his name!, every night of his world tour. Leo was tired and he didn’t have much free time, but he finally had what he always wanted: everybody knew his name. Thank you, {friend}!',
-      presenter: 'So Leo became a TV presenter! Every morning millions of people had breakfast with him. He interviewed film stars, he travelled to different countries for his show, and he invented a game that everybody played at school the next day. Getting up at four was hard, but Leo loved the little red light of the camera. Thank you, {friend}!',
-      youtuber: 'So Leo became a YouTuber! He filmed his songs in the street, in the shower and on top of a mountain. For months only his mum watched them… and then one video went viral: ten million views! Leo still had bad days and some mean comments, but now people stopped him in the street to take a selfie. Thank you, {friend}!',
+      presenter: 'So Leo became a TV presenter! Every morning millions of people had breakfast with him. He interviewed film stars, he traveled to different countries for his show, and he invented a game that everybody played at school the next day. Getting up at four was hard, but Leo loved the little red light of the camera. Thank you, {friend}!',
+      youtuber: 'So Leo became a YouTuber! He filmed his songs in the street, in the shower and on top of a mountain. For months only his mom watched them… and then one video went viral: ten million views! Leo still had bad days and some mean comments, but now people stopped him in the street to take a selfie. Thank you, {friend}!',
     },
     'Captain Zoe': {
       guide: 'So Zoe became a mountain guide! Every week she took a new group up into the clouds, and she showed them eagles, wild goats and sunsets that nobody ever forgets. One day she reached the top of a famous mountain with her team, and they all cried with happiness. In winter, when the snow was too deep, Zoe rested… and planned her next adventure. Thank you, {friend}!',
       marine: 'So Zoe became a marine biologist! She lived on a ship, she dived with dolphins and she followed the whales across the ocean. Sometimes she missed her family, but every evening she watched the sun go down into the sea and thought: “This is my office!” Thank you, {friend}!',
       astronaut: 'So Zoe became an astronaut! After years of training, she flew into space with a small, amazing team. From the window she saw the whole Earth: the mountains she climbed, the seas she swam in, all of it, blue and white and beautiful. It was the biggest adventure of all. Thank you, {friend}!',
     },
-    'Mr Grey': {
-      banker: 'So Mr Grey became a bank manager! Now he had a quiet office, a team that worked well and a big salary at the end of every month. He still ate the same breakfast and took the same bus at 7.42, but at Christmas there was a surprise (a nice one, for once): a big bonus! Mr Grey smiled. Just a little. Thank you, {friend}!',
-      accountant: 'So Mr Grey became an accountant! Every number was in the right place, every bill was paid on time and every day was the same. Perfect! In August he took long, quiet holidays by the lake. Spring was busy, with long evenings at the office, but Mr Grey didn’t complain: he loved order, and now his whole life was in order. Thank you, {friend}!',
-      engineer: 'So Mr Grey became an engineer! He designed bridges with a ruler, a pencil and a lot of patience. His bridges were safe, strong and never, ever surprising, and the salary was very good. Thank you, {friend}!',
+    'Mr. Gray': {
+      banker: 'So Mr. Gray became a bank manager! Now he had a quiet office, a team that worked well and a big salary at the end of every month. He still ate the same breakfast and took the same bus at 7:42, but at Christmas there was a surprise (a nice one, for once): a big bonus! Mr. Gray smiled. Just a little. Thank you, {friend}!',
+      accountant: 'So Mr. Gray became an accountant! Every number was in the right place, every bill was paid on time and every day was the same. Perfect! In August he took long, quiet holidays by the lake. Spring was busy, with long evenings at the office, but Mr. Gray didn’t complain: he loved order, and now his whole life was in order. Thank you, {friend}!',
+      engineer: 'So Mr. Gray became an engineer! He designed bridges with a ruler, a pencil and a lot of patience. His bridges were safe, strong and never, ever surprising, and the salary was very good. Thank you, {friend}!',
     },
     'Kim': {
       inventor: 'So Kim became an inventor! Her flat turned into a real laboratory. Many inventions didn’t work (the flying umbrella was a disaster), but one day her new machine worked at last, and it was on TV the next morning. Kim never got bored again: every day brought a new problem and a new idea. Thank you, {friend}!',
       designer: 'So Kim became a game designer! She created new worlds with dragons, robots and pancake castles, and she worked with a team of crazy artists just like her. When millions of kids played her game, Kim laughed out loud. Deadlines were hard, but boring? Never. Thank you, {friend}!',
-      programmer: 'So Kim became a programmer! She created apps and games, she learnt new programming languages just for fun, and she worked from her flat, between the pancake robot and the singing lamp. Thank you, {friend}!',
+      programmer: 'So Kim became a programmer! She created apps and games, she learned new programming languages just for fun, and she worked from her flat, between the pancake robot and the singing lamp. Thank you, {friend}!',
     },
     'Sam': {
       schoolnurse: 'So Sam became a school nurse, at his own children’s school! He helped kids with headaches, scraped knees and broken hearts, and one day he helped a child in a real emergency. Everybody called him a hero. And at three o’clock he walked home with his three children. The money wasn’t great, but for Sam it was perfect. Thank you, {friend}!',
@@ -442,8 +442,8 @@
       vet: 'So Lily became a vet! She helped sick animals every day, from tiny hamsters to enormous horses. One night she saved a dog’s life, and the dog’s family cried and hugged her. Lily went home tired, and two dogs, a cat, a parrot and a snake were waiting for her at the door. Thank you, {friend}!',
     },
     'Max': {
-      partyplanner: 'So Max became a party planner! He organised birthday parties, weddings and a crazy party on a beach in Spain. He worked with a big, fun team, and between one party and the next he had long, lazy breaks. Saturday nights were always busy, but for Max a Saturday night at a party was never work. Thank you, {friend}!',
-      tourguide: 'So Max became a tour guide! Every day he met new people from all over the world, and he showed them beautiful cities with funny stories that made everybody laugh. His groups loved him and gave him good tips. In summer he walked twenty kilometres a day; in winter he did nothing at all. Perfect! Thank you, {friend}!',
+      partyplanner: 'So Max became a party planner! He organized birthday parties, weddings and a crazy party on a beach in Spain. He worked with a big, fun team, and between one party and the next he had long, lazy breaks. Saturday nights were always busy, but for Max a Saturday night at a party was never work. Thank you, {friend}!',
+      tourguide: 'So Max became a tour guide! Every day he met new people from all over the world, and he showed them beautiful cities with funny stories that made everybody laugh. His groups loved him and gave him good tips. In summer he walked twenty kilometers a day; in winter he did nothing at all. Perfect! Thank you, {friend}!',
       pilot: 'So Max became a pilot! He flew all over the world with a friendly crew, and between flights he had lots of days off. He sent a postcard from every city to all his friends, and he had a lot of friends. Thank you, {friend}!',
     },
   };
@@ -475,7 +475,7 @@
     'You can become world famous.': ['{s} became world famous!', 'to become world famous'],
     'If you play for a big team, you make millions.': ['{s} played for a big team and made millions!', 'to play for a big team and make millions'],
     'You play in a team every day.': '{s} played in a team every day.',
-    'You travel to play matches.': '{s} travelled to play matches.',
+    'You travel to play matches.': '{s} traveled to play matches.',
     'You train hard and get better and better.': '{s} trained hard and got better and better.',
     'You score the winning goal in the final!': '{s} scored the winning goal in the final!',
     // chef
@@ -495,8 +495,8 @@
     'It makes a lot of money.': 'it made a lot of money.',
     'It is a safe job: everybody needs engineers.': 'it was a safe job, because everybody needs engineers.',
     'You design bridges and machines.': '{s} designed bridges and machines.',
-    'You take a course and learn new skills.': '{s} took a course and learnt new skills.',
-    'You travel to building sites around the world.': '{s} travelled to building sites around the world.',
+    'You take a course and learn new skills.': '{s} took a course and learned new skills.',
+    'You travel to building sites around the world.': '{s} traveled to building sites around the world.',
     'Your invention changes the world and you become famous.': ['{p} invention changed the world and {s} became famous!', 'that {p} invention would change the world'],
     // astronaut
     'You go to space!': '{s} went to space!',
@@ -527,7 +527,7 @@
     'One painting can sell for a million.': ['one of {p} paintings sold for a million!', 'to sell a painting for a million'],
     'You can become a famous artist.': ['{s} became a famous artist!', 'to become a famous artist'],
     // pilot
-    'You travel all over the world.': '{s} travelled all over the world.',
+    'You travel all over the world.': '{s} traveled all over the world.',
     'It has many days off between flights.': 'there were many days off between flights.',
     'You fly over mountains and seas.': '{s} flew over mountains and seas.',
     'You follow a checklist, so nothing goes wrong.': '{s} followed a checklist, so nothing went wrong.',
@@ -543,14 +543,14 @@
     'You can work from home, near your family.': '{s} worked from home, near {p} family.',
     'It is a safe job: everybody needs programmers.': 'it was a safe job, because everybody needs programmers.',
     'You create apps and games.': '{s} created apps and games.',
-    'You learn a new programming language.': '{s} learnt a new programming language.',
+    'You learn a new programming language.': '{s} learned a new programming language.',
     'Your app becomes famous all over the world.': ['{p} app became famous all over the world!', 'that {p} app would become famous all over the world'],
     // ice-cream taster
-    'You invent crazy new flavours.': '{s} invented crazy new flavours.',
+    'You invent crazy new flavors.': '{s} invented crazy new flavors.',
     'You eat ice cream at work!': '{s} ate ice cream at work!',
     'People smile when they taste your ice cream.': 'people smiled when they tasted {p} ice cream.',
     'Your tongue is insured for a million dollars!': '{p} tongue was insured for a million dollars!',
-    'Your new flavour becomes famous all over the world.': ['{p} new flavour became famous all over the world!', 'that {p} new flavour would become famous all over the world'],
+    'Your new flavor becomes famous all over the world.': ['{p} new flavor became famous all over the world!', 'that {p} new flavor would become famous all over the world'],
     // storm chaser
     'You chase tornadoes across the country.': '{s} chased tornadoes across the country.',
     'You see the wildest nature on Earth.': '{s} saw the wildest nature on Earth.',
@@ -659,7 +659,7 @@
     'You help people every day.': '{s} helped people every day.',
     'Your pharmacy is near your home.': '{p} pharmacy was near {p} home.',
     'Your advice saves a life!': '{p} advice saved a life!',
-    'You learn about new medicines.': '{s} learnt about new medicines.',
+    'You learn about new medicines.': '{s} learned about new medicines.',
     // zookeeper
     'You feed lions, giraffes and penguins.': '{s} fed lions, giraffes and penguins.',
     'You help animals in danger.': '{s} helped animals in danger.',
@@ -674,15 +674,15 @@
     'Your dog wins a big competition!': '{p} dog won a big competition!',
     'You go for long walks in the park.': '{s} went for long walks in the park.',
     // party planner
-    'You organise parties every weekend.': '{s} organised parties every weekend.',
+    'You organize parties every weekend.': '{s} organized parties every weekend.',
     'You work with a big, fun team.': '{s} worked with a big, fun team.',
     'You have long breaks between parties.': '{s} had long breaks between parties.',
     'You plan a party on a beach in Spain.': '{s} planned a party on a beach in Spain.',
-    'A VIP party: a big tip!': '{s} organised a VIP party and got a big tip!',
-    'It’s the best party of the year!': '{s} organised the best party of the year!',
+    'A VIP party: a big tip!': '{s} organized a VIP party and got a big tip!',
+    'It’s the best party of the year!': '{s} organized the best party of the year!',
     // tour guide
     'You meet new people every day.': '{s} met new people every day.',
-    'You travel to beautiful cities.': '{s} travelled to beautiful cities.',
+    'You travel to beautiful cities.': '{s} traveled to beautiful cities.',
     'Winter is free: long holidays!': 'winter was free: long holidays!',
     'You tell funny stories.': '{s} told funny stories.',
     'Tourists give you good tips.': 'tourists gave {o} good tips.',
@@ -692,7 +692,7 @@
     'Night shifts: you miss dinner with your family.': 'because of the night shifts, {s} missed dinner with {p} family.',
     'Long hours: almost no free time.': 'the hours were long, and {s} had almost no free time.',
     'It makes medium money, not a lot.': 'it made medium money, not a lot.',
-    'You correct homework at the weekend.': '{s} corrected homework at the weekend.',
+    'You correct homework on the weekend.': '{s} corrected homework on the weekend.',
     'It is not a safe job: some months you make no money.': 'it wasn’t a safe job: some months {s} made no money.',
     'Mean comments online make you sad.': 'mean comments online made {o} sad.',
     'An injury: you can’t play for months.': 'after an injury, {s} couldn’t play for months.',
@@ -760,12 +760,12 @@
   const PAST_VERBS = {
     ate: 'eat', became: 'become', brought: 'bring', built: 'build', chose: 'choose', could: 'can', did: 'do', dived: 'dive',
     fed: 'feed', fell: 'fall', flew: 'fly', fought: 'fight', found: 'find', gave: 'give', got: 'get', grew: 'grow', had: 'have',
-    knew: 'know', learnt: 'learn', made: 'make', meant: 'mean', met: 'meet', paid: 'pay', ran: 'run', sang: 'sing', sat: 'sit',
+    knew: 'know', learned: 'learn', made: 'make', meant: 'mean', met: 'meet', paid: 'pay', ran: 'run', sang: 'sing', sat: 'sit',
     saw: 'see', said: 'say', slept: 'sleep', sold: 'sell', spent: 'spend', stood: 'stand', taught: 'teach', thought: 'think',
     told: 'tell', took: 'take', went: 'go', was: 'be', were: 'be', won: 'win', wrote: 'write', read: 'read',
     tried: 'try', decided: 'decide', studied: 'study', helped: 'help', worked: 'work', loved: 'love', liked: 'like', saved: 'save',
-    played: 'play', travelled: 'travel', invented: 'invent', created: 'create', finished: 'finish', hoped: 'hope', happened: 'happen',
-    visited: 'visit', designed: 'design', climbed: 'climb', organised: 'organise', reached: 'reach', missed: 'miss', walked: 'walk',
+    played: 'play', traveled: 'travel', invented: 'invent', created: 'create', finished: 'finish', hoped: 'hope', happened: 'happen',
+    visited: 'visit', designed: 'design', climbed: 'climb', organized: 'organize', reached: 'reach', missed: 'miss', walked: 'walk',
   };
 
 
@@ -783,7 +783,7 @@
   }
 
   // one turn: play a card, then maybe a bad day. Returns what happened, for the screen
-  // A dream spins the wheel of fortune: `spin` (0–1) is where it stops, the coloured slice is 0 → chance.
+  // A dream spins the wheel of fortune: `spin` (0–1) is where it stops, the colored slice is 0 → chance.
   // `mid` is the happiness after the reason and before a bad day (the screen shows the two steps)
   function play(p, card) {
     const out = { card, gain: 0, dream: null, doubled: false, bad: null, mid: 0 };
@@ -1121,7 +1121,7 @@
 
   function paintTrack() {
     const match = race.kind === 'match';
-    // Make Them Happy! has no finish line: the bars grow towards the best score so far
+    // Make Them Happy! has no finish line: the bars grow toward the best score so far
     const scale = match ? Math.max(60, ...race.players.map(p => p.joy)) * 1.1 : GOAL;
     $('.jr-track').innerHTML = (match ? `<p class="jr-round">${client.icon} <b>${esc(client.name)}</b> · turn <b>${Math.min(race.round, ROUNDS)}</b> of ${ROUNDS}</p>` : '') + race.players.map((p, i) => {
       const pct = Math.min(100, p.joy / scale * 100);
@@ -1182,7 +1182,7 @@
     await turn(botPick(p));
   }
 
-  // the wheel of fortune of a dream: the coloured slice is the chance; it wins only if it stops on the slice.
+  // the wheel of fortune of a dream: the colored slice is the chance; it wins only if it stops on the slice.
   // The wheel turns so that the point `spin` (0–1, clockwise from the top) ends under the arrow
   async function spinWheel(p, card, d) {
     const tok = race.token;
@@ -1579,28 +1579,28 @@
   }
 
   /* ================= the reading on [jobs-story]: the story of the last game ================= */
-  // Until somebody plays, it is the story of Mr Grey (GREY). After a game of Make Them Happy! the last story is
+  // Until somebody plays, it is the story of Mr. Gray (GRAY). After a game of Make Them Happy! the last story is
   // kept in this browser (STORY_KEY) and the two pages are made again from it: the text, and exercises made
   // from its facts (true/false, questions, the past simple verbs in the text, a summary).
   // The exercises are drawn with a random seed from the story id, so they stay the same until the next game;
   // the answers are kept per story (ANS_KEY).
   const STORY_KEY = 'jr-story-last', ANS_KEY = 'jr-story-answers';
-  const GREY = {
-    id: 'grey', name: 'Mr Grey', icon: '👨‍💼', she: false,
-    opening: 'Mr Grey was forty-five. Every morning he ate the same breakfast, wore the same grey suit and took the same bus at 7.42. He loved numbers, quiet rooms and the safe feeling of a big salary at the end of the month. He hated surprises. So when he decided to change his job, he did it very, very carefully: he asked three young friends for help, Rita, Maya and Tom.',
+  const GRAY = {
+    id: 'grey', name: 'Mr. Gray', icon: '👨‍💼', she: false,
+    opening: 'Mr. Gray was forty-five. Every morning he ate the same breakfast, wore the same gray suit and took the same bus at 7:42. He loved numbers, quiet rooms and the safe feeling of a big salary at the end of the month. He hated surprises. So when he decided to change his job, he did it very, very carefully: he asked three young friends for help, Rita, Maya and Tom.',
     paras: [
-      { icon: '🏦', text: 'First, Rita had an idea: “Why don’t you become a bank manager?” Mr Grey tried, and he liked it. The office was quiet, the salary was big and his team worked well. There were bad days too: the job wasn’t very creative, and sometimes the hours felt very long. But he was happy.' },
-      { icon: '🩺', text: 'Then Maya said: “I think you may like working as a doctor. You could discover a new cure and become famous!” Mr Grey put on a white coat and tried. He worked at night, he had almost no free time and he was always tired. He waited and waited for his great discovery… but it never happened. It wasn’t the right job for him.' },
-      { icon: '🧮', text: 'Finally, Tom said: “You should try being an accountant. It’s a safe, steady job.” Mr Grey counted money all day, and everything was in perfect order. But it was numbers, numbers… and nothing else. He was happy, but not as happy as at the bank.' },
+      { icon: '🏦', text: 'First, Rita had an idea: “Why don’t you become a bank manager?” Mr. Gray tried, and he liked it. The office was quiet, the salary was big and his team worked well. There were bad days too: the job wasn’t very creative, and sometimes the hours felt very long. But he was happy.' },
+      { icon: '🩺', text: 'Then Maya said: “I think you may like working as a doctor. You could discover a new cure and become famous!” Mr. Gray put on a white coat and tried. He worked at night, he had almost no free time and he was always tired. He waited and waited for his great discovery… but it never happened. It wasn’t the right job for him.' },
+      { icon: '🧮', text: 'Finally, Tom said: “You should try being an accountant. It’s a safe, steady job.” Mr. Gray counted money all day, and everything was in perfect order. But it was numbers, numbers… and nothing else. He was happy, but not as happy as at the bank.' },
     ],
-    final: 'So Mr Grey became a bank manager! Now he had a quiet office, a team that worked well and a big salary at the end of every month. He still ate the same breakfast and took the same bus at 7.42, but at Christmas there was a surprise (a nice one, for once): a big bonus! Mr Grey smiled. Just a little. “Thank you, Rita,” he said. “You found the perfect job for me.”',
+    final: 'So Mr. Gray became a bank manager! Now he had a quiet office, a team that worked well and a big salary at the end of every month. He still ate the same breakfast and took the same bus at 7:42, but at Christmas there was a surprise (a nice one, for once): a big bonus! Mr. Gray smiled. Just a little. “Thank you, Rita,” he said. “You found the perfect job for me.”',
     facts: {
       n: 3, cares: ['money', 'having a safe, steady job'], winner: 'bank manager',
       jobs: [{ job: 'bank manager', by: 'Rita', mood: 'happy' }, { job: 'doctor', by: 'Maya', mood: 'not very happy' }, { job: 'accountant', by: 'Tom', mood: 'quite happy' }],
     },
   };
 
-  const lastStory = () => { try { return JSON.parse(localStorage.getItem(STORY_KEY)) || GREY; } catch { return GREY; } };
+  const lastStory = () => { try { return JSON.parse(localStorage.getItem(STORY_KEY)) || GRAY; } catch { return GRAY; } };
   const NUM = ['zero', 'one', 'two', 'three', 'four', 'five'];
 
   // a random generator with a seed: the same story always gets the same exercises

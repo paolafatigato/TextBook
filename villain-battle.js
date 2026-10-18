@@ -29,7 +29,7 @@
   /* ================= data ================= */
 
   const FLAW_GROUPS = [
-    { name: 'Disorganised', color: '#c9de3c', flaws: [['messy', 'Messy'], ['chaotic', 'Chaotic'], ['forgetful', 'Forgetful'], ['alwayslate', 'Always late'], ['distracted', 'Distracted']] },
+    { name: 'Disorganized', color: '#c9de3c', flaws: [['messy', 'Messy'], ['chaotic', 'Chaotic'], ['forgetful', 'Forgetful'], ['alwayslate', 'Always late'], ['distracted', 'Distracted']] },
     { name: 'Feelings', color: '#4aa8ec', flaws: [['shy', 'Shy'], ['anxious', 'Anxious'], ['touchy', 'Touchy'], ['pessimistic', 'Pessimistic'], ['hottempered', 'Hot-tempered']] },
     { name: 'Attitude to others', color: '#f96d5a', flaws: [['bossy', 'Bossy'], ['pushy', 'Pushy'], ['arrogant', 'Arrogant'], ['greedy', 'Greedy'], ['superficial', 'Superficial'], ['clingy', 'Clingy'], ['chatty', 'Chatty']] },
     { name: 'Will & energy', color: '#c08be8', flaws: [['lazy', 'Lazy'], ['impatient', 'Impatient'], ['stubborn', 'Stubborn'], ['indecisive', 'Indecisive']] },
@@ -37,12 +37,12 @@
 
   // A power is written as its story + the archetype it belongs to. The archetype fixes the numbers
   // (damage, uses…) and adds a sentence that gives a hint about its strength, so that the pupil can judge
-  // from the description alone ("small, quick hit", "strong hit", "huge hit, but you get burnt too"…).
+  // from the description alone ("small, quick hit", "strong hit", "huge hit, but you get burned too"…).
   const ARCH = {
     small:     { uses: 4, fx: [{ k: 'dmg', v: 11 }], hint: 'A small, quick hit you can use again and again.' },
     medium:    { uses: 3, fx: [{ k: 'dmg', v: 15 }], hint: 'A solid hit you can use a few times.' },
     strong:    { uses: 2, fx: [{ k: 'dmg', v: 19 }], hint: 'A strong hit.' },
-    huge:      { uses: 2, fx: [{ k: 'dmg', v: 26 }, { k: 'recoil', v: 8 }], hint: 'A huge hit, but you get burnt too.' },
+    huge:      { uses: 2, fx: [{ k: 'dmg', v: 26 }, { k: 'recoil', v: 8 }], hint: 'A huge hit, but you get burned too.' },
     double:    { uses: 2, fx: [{ k: 'dmg', v: 20 }], hint: 'Two hits at once!' },
     chaos:     { uses: 3, fx: [{ k: 'chaos', a: 3, b: 29 }], hint: 'It could be a tickle or a huge blast. Who knows?' },
     hitWeak:   { uses: 2, fx: [{ k: 'dmg', v: 14 }, { k: 'weak', m: .6, hits: 1 }], hint: 'A medium hit, and the hero’s next attack comes out weaker.' },
@@ -70,7 +70,7 @@
     messy: [
       P('Clutter Storm', 'A whirlwind of junk hits the hero and confuses it.', 'hitWeak'),
       P('Chaos Trail', 'Small hazards appear behind you everywhere you walk.', 'medium'),
-      P('Junk Wall', 'You pile up rubbish into a messy wall.', 'guardMost'),
+      P('Junk Wall', 'You pile up trash into a messy wall.', 'guardMost'),
       P('Pocket Surprise', 'You throw everything that is in your pockets.', 'small'),
       P('Lost & Found', 'You find your lost snack in the mess.', 'healS'),
       P('Avalanche of Stuff', 'Everything on your desk falls on the hero.', 'strong'),
@@ -88,7 +88,7 @@
       P('Blank Slate', 'You forget pain and fear on command.', 'healS'),
       P('Where Was I?', 'The hero forgets what it was doing and just stands there.', 'skip'),
       P('Flying Homework', 'You throw all the homework you forgot to do.', 'medium'),
-      P('Fog of Forgetting', 'A grey fog makes the hero forget its next moves.', 'weakTwo'),
+      P('Fog of Forgetting', 'A gray fog makes the hero forget its next moves.', 'weakTwo'),
       P('Forgotten Fireball', 'You forgot you had it! A sudden blast.', 'strong'),
     ],
     alwayslate: [
@@ -133,7 +133,7 @@
     ],
     pessimistic: [
       P('Storm Caller', 'Your gloomy mood brings rain, fog and darkness.', 'strong'),
-      P('Grey Cloud', 'A personal raincloud follows you, ready to strike.', 'medium'),
+      P('Gray Cloud', 'A personal raincloud follows you, ready to strike.', 'medium'),
       P('Bad Omen', 'You announce bad news and the hero loses courage.', 'weakBig'),
       P('Umbrella of Doom', 'You open a big black umbrella.', 'guardMost'),
       P('It Will Fail', 'You say that nothing will work, and the hero starts to believe it.', 'weakTwo'),
@@ -199,7 +199,7 @@
       P('The Endless Talk', 'You talk so much that the hero gets dizzy.', 'skip'),
       P('Word Web', 'Your sentences turn into sticky threads.', 'weakTwo'),
       P('Noisy Chatter', 'Your non-stop words buzz around the hero’s head.', 'small'),
-      P('Gossip Storm', 'A storm of rumours hits the hero.', 'medium'),
+      P('Gossip Storm', 'A storm of rumors hits the hero.', 'medium'),
       P('Talking Shield', 'You talk so fast that nothing can reach you.', 'guardMost'),
       P('Story Time', 'You tell a long story and feel relaxed.', 'healS'),
     ],
@@ -405,7 +405,7 @@
     lastFocus?.focus();
   }
 
-  // the animal villains drawn for the book: img/personality/villains/<name>.png (colour, for the game; the black and white ones for printing are in villains/bw/)
+  // the animal villains drawn for the book: img/personality/villains/<name>.png (color, for the game; the black and white ones for printing are in villains/bw/)
   const VILLAINS = ['raccoon', 'ram', 'panda', 'sloth', 'crow', 'rabbit', 'scorpion', 'crocodile', 'cat', 'bull', 'owl'].map(n => 'v:' + n);
 
   // the drawing of the villain file, if the pupil has drawn one
@@ -664,7 +664,7 @@
     else if (out.blocked) parts.push('the attack is blocked completely');
     if (out.dealt && out.blocked) parts.push('(most of it was blocked)');
     if (out.healed) { parts.push(`${who.name} heals ${out.healed} HP`); float(meSel, `+${out.healed}`, 'heal'); }
-    if (out.hurtSelf) { parts.push(`${who.name} is burnt: -${out.hurtSelf} HP`); float(meSel, `-${out.hurtSelf}`, 'dmg'); }
+    if (out.hurtSelf) { parts.push(`${who.name} is burned: -${out.hurtSelf} HP`); float(meSel, `-${out.hurtSelf}`, 'dmg'); }
     if (out.notes.includes('shield')) parts.push('a shield protects the next hit');
     if (out.notes.includes('mirror')) parts.push('a mirror is ready');
     if (out.notes.includes('weak')) parts.push(`${foe.name}’s next attack will be weaker`);

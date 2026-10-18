@@ -62,7 +62,7 @@
   function open(g) {
     game = g;
     lastFocus = document.activeElement;
-    box.style.setProperty('--gc', g.colour);
+    box.style.setProperty('--gc', g.color);
     overlay.setAttribute('aria-label', g.name);
     overlay.hidden = false;
     g.start();
@@ -91,10 +91,10 @@
   }, true);
 
   /* ---------- rule 3: the Stroop game ---------- */
-  // Level 1: the word and the ink are the same colour. Level 2: they are different.
-  // Click the colour of the INK. The average time of each level is written on [meta-stroop].
+  // Level 1: the word and the ink are the same color. Level 2: they are different.
+  // Click the color of the INK. The average time of each level is written on [meta-stroop].
 
-  const COLOURS = [
+  const COLORS = [
     { name: 'red', c: '#e53935' },
     { name: 'blue', c: '#1e5bd8' },
     { name: 'green', c: '#2e9e3a' },
@@ -108,8 +108,8 @@
 
     function intro(n) {
       const text = n === 1
-        ? 'Click the colour of the <b>INK</b>. In level 1 the word and the ink are the same colour. Easy!'
-        : 'Now the word and the ink are <b>different</b>. Don’t read the word: click the colour of the <b>INK</b>!';
+        ? 'Click the color of the <b>INK</b>. In level 1 the word and the ink are the same color. Easy!'
+        : 'Now the word and the ink are <b>different</b>. Don’t read the word: click the color of the <b>INK</b>!';
       screen.innerHTML = `
         <h2>Level ${n} ${n === 1 ? '🙂' : '🤯'}</h2>
         <p>${text}</p>
@@ -122,13 +122,13 @@
         <h2>Level ${level}</h2>
         <div class="mt-gbar"><i></i></div>
         <p class="mt-gword" aria-live="polite"></p>
-        <div class="mt-gswatches">${COLOURS.map((col, i) =>
+        <div class="mt-gswatches">${COLORS.map((col, i) =>
           `<button type="button" data-act="ink" data-i="${i}" style="--c:${col.c}" aria-label="${col.name}">${i + 1}</button>`).join('')}</div>`;
       next();
     }
     function next() {
-      const word = pick(COLOURS);
-      const ink = level === 1 ? word : pick(COLOURS.filter(c => c !== word));
+      const word = pick(COLORS);
+      const ink = level === 1 ? word : pick(COLORS.filter(c => c !== word));
       current = { word, ink };
       const el = screen.querySelector('.mt-gword');
       el.textContent = word.name;
@@ -138,7 +138,7 @@
     }
     function answer(i) {
       if (!current) return;
-      if (COLOURS[i] !== current.ink) {
+      if (COLORS[i] !== current.ink) {
         errors[level]++;
         shake(screen.querySelector('.mt-gword'));
         return; // try again: the time keeps running
@@ -160,8 +160,8 @@
       screen.innerHTML = `
         <h2>Results 🏁</h2>
         <div class="mt-gres">
-          <div><small>Level 1 · same colour</small><b>${a1} ms</b><small>${plural(errors[1], 'mistake')}</small></div>
-          <div><small>Level 2 · different colour</small><b>${a2} ms</b><small>${plural(errors[2], 'mistake')}</small></div>
+          <div><small>Level 1 · same color</small><b>${a1} ms</b><small>${plural(errors[1], 'mistake')}</small></div>
+          <div><small>Level 2 · different color</small><b>${a2} ms</b><small>${plural(errors[2], 'mistake')}</small></div>
         </div>
         <p class="mt-gmsg">${msg}</p>
         <p><small>1000 ms = 1 second. Your results are written on page ${PAGES.ofEl(document.getElementById('mt-game-1'))}.</small></p>
@@ -178,7 +178,7 @@
     }
     return {
       name: 'The Stroop game',
-      colour: '#4aa8ec',
+      color: '#4aa8ec',
       start,
       stop() { current = null; },
       act(a, el) {
@@ -279,7 +279,7 @@
     }
     return {
       name: 'Literally true?',
-      colour: '#3aa04a',
+      color: '#3aa04a',
       start,
       stop() { waiting = false; },
       act(a, el) {
@@ -339,15 +339,15 @@
     return { clear };
   });
 
-  // Stroop page: "🔀 New words" gives four new random rows (the ink is never the colour of the word)
+  // Stroop page: "🔀 New words" gives four new random rows (the ink is never the color of the word)
   document.getElementById('mt-st-new')?.addEventListener('click', () => {
     const grid = document.querySelector('.mt-stroop');
     if (!grid) return;
     grid.innerHTML = '';
     for (let r = 0; r < 4; r++) {
-      const words = shuffle(COLOURS);
+      const words = shuffle(COLORS);
       let inks;
-      do { inks = shuffle(COLOURS); } while (inks.some((c, i) => c === words[i]));
+      do { inks = shuffle(COLORS); } while (inks.some((c, i) => c === words[i]));
       words.forEach((w, i) => {
         const s = document.createElement('span');
         s.style.setProperty('--c', inks[i].c);

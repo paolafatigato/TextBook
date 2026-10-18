@@ -13,8 +13,8 @@
 
   /* ---------- [jobs-vocab:R]: word search ---------- */
   // Click the first letter of a word, then the last one (or drag from the first to the last).
-  // Words can go across, down or backwards; each found word gets a coloured capsule.
-  const COLOURS = ['#f9b11a', '#6cc4b8', '#eab3d4', '#ee3a37', '#7a6bb5'];
+  // Words can go across, down or backwards; each found word gets a colored capsule.
+  const COLORS = ['#f9b11a', '#6cc4b8', '#eab3d4', '#ee3a37', '#7a6bb5'];
   const wordSearch = (() => {
     const box = $('jb93');
     if (!box) return null;
@@ -49,8 +49,8 @@
     function paint() {
       svg.innerHTML = found.filter(w => place[w]).map(w => {
         const [r1, c1, r2, c2] = place[w];
-        const colour = COLOURS[items.findIndex(li => key(li.textContent) === w) % COLOURS.length];
-        return `<line x1="${c1 + .5}" y1="${r1 + .5}" x2="${c2 + .5}" y2="${r2 + .5}" stroke="${colour}"/>`;
+        const color = COLORS[items.findIndex(li => key(li.textContent) === w) % COLORS.length];
+        return `<line x1="${c1 + .5}" y1="${r1 + .5}" x2="${c2 + .5}" y2="${r2 + .5}" stroke="${color}"/>`;
       }).join('');
       items.forEach(li => li.classList.toggle('found', found.includes(key(li.textContent))));
       score.textContent = `${found.length} / ${items.length} found` + (found.length === items.length ? ' 🎉' : '');
@@ -142,17 +142,17 @@
     grammar: [
       ['I would like ___ a vet.', 'to be', ['be', 'being']], ['She dreams of ___ a pilot.', 'becoming', ['become', 'to become']],
       ['They want ___ with animals.', 'to work', ['work', 'working']], ['My uncle is ___ engineer.', 'an', ['a', '—']],
-      ['My mum is ___ nurse.', 'a', ['an', '—']], ['He is ___ university teacher.', 'a', ['an', '—']],
+      ['My mom is ___ nurse.', 'a', ['an', '—']], ['He is ___ university teacher.', 'a', ['an', '—']],
       ['___ would you like to be?', 'What', ['Who', 'Where']], ['What ___ your dad do?', 'does', ['do', 'is']],
       ['A fire officer ___ brave.', 'must be', ['must to be', 'musts be']], ['Last summer I ___ at a dog shelter.', 'volunteered', ['volunteer', 'will volunteer']],
       ['In 2025 I ___ a photography contest.', 'won', ['winned', 'win']], ['Last year I ___ part in a school project.', 'took', ['taked', 'take']],
-      ['I am good ___ maths.', 'at', ['in', 'on']], ['I am interested ___ technology.', 'in', ['at', 'on']],
+      ['I am good ___ math.', 'at', ['in', 'on']], ['I am interested ___ technology.', 'in', ['at', 'on']],
     ],
     // [word, clue] for Word scramble and Hangman
     words: [
       ['DOCTOR', 'Helps sick people get better'], ['TEACHER', 'Works in a school'], ['PILOT', 'Flies planes'], ['DENTIST', 'Looks after your teeth'],
       ['GARDENER', 'Looks after plants'], ['NURSE', 'Works with doctors in a hospital'], ['BUILDER', 'Builds houses'], ['MANAGER', 'Leads a team at work'],
-      ['SECRETARY', 'Answers the phone and organises the office'], ['PARAMEDIC', 'Arrives with the ambulance'], ['WELDER', 'Joins pieces of metal'],
+      ['SECRETARY', 'Answers the phone and organizes the office'], ['PARAMEDIC', 'Arrives with the ambulance'], ['WELDER', 'Joins pieces of metal'],
       ['CHEF', 'Cooks in a restaurant'], ['AUTHOR', 'Writes books'], ['MUSICIAN', 'Plays music'], ['CHILDMINDER', 'Looks after children'],
       ['SOLDIER', 'Is part of the army'], ['RESUME', 'The American word for CV'], ['SKILLS', 'What you are good at'],
     ],

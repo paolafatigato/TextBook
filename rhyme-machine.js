@@ -5,7 +5,7 @@
 
 const RHYME_FAMILIES = [
   'night light bright white sight right write fight kite bite flight might tight quite polite delight tonight invite',
-  'day play say way stay grey away may today okay they pray weigh obey stray holiday',
+  'day play say way stay gray grey away may today okay they pray weigh obey stray holiday',
   'blue true you do new two too who shoe through view knew flew zoo glue few',
   'me see sea tree free be key three tea agree he she we knee degree',
   'love above glove dove shove',

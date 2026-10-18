@@ -4,6 +4,7 @@
 //
 // To add something from the code: add it to `items` ('word' or ['emoji', 'word']).
 // To add a topic: add an entry here (a new `key`, never used before): its chapter appears by itself.
+// The topics are in the order of the chapters of the book they go with (`chapter`): put a new one in its place.
 //   key    the name of the topic: never change it, the saved lists are kept under it
 //   per    how many things each student gets (the teacher can change it on the page)
 //   unit   the heading of the column on the lists
@@ -11,7 +12,34 @@
 
 const ASSIGN_TOPICS = [
   {
+    key: 'pictures',
+    chapter: 'Describing people', // the chapter of the book it goes with
+    title: 'Pictures',
+    color: '#f96d5a',
+    per: 1,
+    unit: 'Picture',
+    items: Array.from({ length: 20 }, (_, i) => `picture ${i + 1}`),
+  },
+  {
+    key: 'personality',
+    chapter: 'Personality', // the chapter of the book it goes with
+    title: 'Personality',
+    color: '#c08be8',
+    per: 3,
+    unit: 'Adjective',
+    items: [
+      'adventurous', 'ambitious', 'brave', 'calm', 'caring', 'cautious',
+      'cheerful', 'clumsy', 'confident', 'creative', 'easy-going', 'enthusiastic',
+      'extroverted', 'friendly', 'generous', 'hardworking', 'honest', 'jealous',
+      'kind', 'lazy', 'modest', 'optimistic', 'outgoing', 'patient',
+      'pessimistic', 'quiet', 'realistic', 'relaxed', 'reserved', 'responsible',
+      'sensitive', 'shy', 'sociable', 'sweet', 'taciturn', 'talkative',
+      'unconventional',
+    ],
+  },
+  {
     key: 'jobs',
+    chapter: 'Jobs & CVs', // the chapter of the book it goes with
     title: 'Jobs',
     color: '#e8820c',
     per: 1,
@@ -30,29 +58,5 @@ const ASSIGN_TOPICS = [
       ['📖', 'librarian'], ['🧳', 'flight attendant'], ['🛟', 'lifeguard'], ['📹', 'YouTuber'],
       ['🛎️', 'receptionist'], ['🧽', 'cleaner'], ['🗺️', 'tour guide'], ['🎻', 'musician'],
     ],
-  },
-  {
-    key: 'personality',
-    title: 'Personality',
-    color: '#c08be8',
-    per: 3,
-    unit: 'Adjective',
-    items: [
-      'adventurous', 'ambitious', 'brave', 'calm', 'caring', 'cautious',
-      'cheerful', 'clumsy', 'confident', 'creative', 'easy-going', 'enthusiastic',
-      'extroverted', 'friendly', 'generous', 'hardworking', 'honest', 'jealous',
-      'kind', 'lazy', 'modest', 'optimistic', 'outgoing', 'patient',
-      'pessimistic', 'quiet', 'realistic', 'relaxed', 'reserved', 'responsible',
-      'sensitive', 'shy', 'sociable', 'sweet', 'taciturn', 'talkative',
-      'unconventional',
-    ],
-  },
-  {
-    key: 'pictures',
-    title: 'Pictures',
-    color: '#4aa8ec',
-    per: 1,
-    unit: 'Picture',
-    items: Array.from({ length: 20 }, (_, i) => `picture ${i + 1}`),
   },
 ];

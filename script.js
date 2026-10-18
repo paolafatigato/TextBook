@@ -263,7 +263,7 @@ document.querySelectorAll('.check[data-gaps]').forEach(btn => {
 
 /* ================= connect the words ================= */
 
-// The x of the centre of the dot that CSS draws next to a button (::after for words, ::before for meanings),
+// The x of the center of the dot that CSS draws next to a button (::after for words, ::before for meanings),
 // or null when there is no dot. The CSS values are scaled like the page (zoom).
 function dotCentreX(el, pseudo) {
   const cs = getComputedStyle(el, pseudo);
@@ -300,7 +300,7 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
     persist();
   }
 
-  const curved = box.classList.contains('gm-layer'); // [greek-gods]: curved coloured lines
+  const curved = box.classList.contains('gm-layer'); // [greek-gods]: curved colored lines
   function draw() {
     const base = box.getBoundingClientRect();
     if (!base.width) return; // spread not visible
@@ -310,13 +310,13 @@ const matches = [...document.querySelectorAll('.match')].map(box => {
       const a = words[w].getBoundingClientRect();
       const b = defs[d].getBoundingClientRect();
       const dot = a.height * 0.3; // dot sits just outside each button
-      // from the centre of one dot to the centre of the other
+      // from the center of one dot to the center of the other
       let [x1, y1] = [(dotCentreX(words[w], '::after') ?? a.right + dot) - base.left, a.top + a.height / 2 - base.top];
       if (curved && words[w].closest('.gm-defs')) [x1, y1] = rotatedEnd(words[w], base, dot);
       const x2 = (dotCentreX(defs[d], '::before') ?? b.left - dot) - base.left, y2 = b.top + b.height / 2 - base.top;
       const cls = checked ? (words[w].dataset.key === defs[d].dataset.key ? 'ok' : 'no') : '';
       if (!curved) return `<line class="${cls}" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
-      // one colour per god, so the line from its meaning and the line to its adjective match
+      // one color per god, so the line from its meaning and the line to its adjective match
       const god = [words[w], defs[d]].find(el => el.closest('[data-shared]'));
       const hue = GOD_LINES[[...god.closest('ul').querySelectorAll('button')].indexOf(god) % GOD_LINES.length];
       return `<path class="${cls}" d="${curve(x1, y1, x2, y2)}"${cls ? '' : ` style="stroke:${hue}"`}/>`;
@@ -625,12 +625,12 @@ const mazes = [...document.querySelectorAll('.mz')].map(box => {
   box.prepend(thread);
 
   const trail = () => JSON.parse(saved[box.id] || '[]');
-  const centre = i => [(i % cols + .5) * cw, (Math.floor(i / cols) + .5) * ch];
+  const center = i => [(i % cols + .5) * cw, (Math.floor(i / cols) + .5) * ch];
   const paint = () => {
     const t = trail();
-    const pts = t.map(centre);
-    if (t.length) pts.unshift([centre(t[0])[0], -.4]); // in from START
-    if (t.at(-1) === last) pts.push([centre(last)[0], H + .4]); // out to FINISH
+    const pts = t.map(center);
+    if (t.length) pts.unshift([center(t[0])[0], -.4]); // in from START
+    if (t.at(-1) === last) pts.push([center(last)[0], H + .4]); // out to FINISH
     line.setAttribute('points', pts.map(p => p.join(',')).join(' '));
     cells.forEach((el, i) => el.classList.toggle('on', t.includes(i)));
   };
@@ -794,11 +794,11 @@ document.querySelectorAll('.check[data-slash]').forEach(btn => btn.addEventListe
   slashables.find(s => s.box.id === btn.dataset.slash)?.paint(true);
 }));
 
-// Drawing areas: pick a colour, draw with the mouse or a finger. The drawing is saved in this browser.
+// Drawing areas: pick a color, draw with the mouse or a finger. The drawing is saved in this browser.
 const drawings = [...document.querySelectorAll('.pd-draw')].map(wrap => {
   const canvas = wrap.querySelector('canvas');
   const ctx = canvas.getContext('2d');
-  let colour = '#222';
+  let color = '#222';
   let last = null;
   ctx.lineCap = ctx.lineJoin = 'round';
 
@@ -813,9 +813,9 @@ const drawings = [...document.querySelectorAll('.pd-draw')].map(wrap => {
     return [(e.clientX - r.left) * canvas.width / r.width, (e.clientY - r.top) * canvas.height / r.height];
   };
   const line = (a, b) => {
-    ctx.globalCompositeOperation = colour === 'erase' ? 'destination-out' : 'source-over';
-    ctx.strokeStyle = colour === 'erase' ? '#000' : colour;
-    ctx.lineWidth = colour === 'erase' ? 36 : 5;
+    ctx.globalCompositeOperation = color === 'erase' ? 'destination-out' : 'source-over';
+    ctx.strokeStyle = color === 'erase' ? '#000' : color;
+    ctx.lineWidth = color === 'erase' ? 36 : 5;
     ctx.beginPath(); ctx.moveTo(...a); ctx.lineTo(...b); ctx.stroke();
   };
   canvas.addEventListener('pointerdown', e => {
@@ -839,7 +839,7 @@ const drawings = [...document.querySelectorAll('.pd-draw')].map(wrap => {
   canvas.addEventListener('pointercancel', stop);
 
   wrap.querySelectorAll('.pd-sw').forEach(b => b.addEventListener('click', () => {
-    colour = b.dataset.c;
+    color = b.dataset.c;
     wrap.querySelectorAll('.pd-sw').forEach(o => o.classList.toggle('on', o === b));
   }));
   // "Add a photo": the picture is drawn in the same box, so it can be drawn over or rubbed out
@@ -873,7 +873,7 @@ const drawings = [...document.querySelectorAll('.pd-draw')].map(wrap => {
     avPanel.addEventListener('click', e => {
       const pic = e.target.closest('button')?.querySelector('img');
       if (!pic) return;
-      // big, centred, sitting low in the arch (the top of the arch is narrow)
+      // big, centered, sitting low in the arch (the top of the arch is narrow)
       const k = Math.min(canvas.width * .94 / pic.naturalWidth, canvas.height * .74 / pic.naturalHeight);
       ctx.globalCompositeOperation = 'source-over';
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -893,7 +893,7 @@ const drawings = [...document.querySelectorAll('.pd-draw')].map(wrap => {
 });
 
 // Sorting exercise: type a number and the sentence jumps there; drag a sentence and the numbers follow.
-// A number stays light grey until the student types it.
+// A number stays light gray until the student types it.
 const sorts = [...document.querySelectorAll('.pd-sort')].map(list => {
   const items = [...list.children];
   const byKey = k => items.find(li => li.dataset.k === k);
@@ -1516,7 +1516,7 @@ let tocYearsClosed = new Set();
 try { tocYearsClosed = new Set(JSON.parse(localStorage.getItem('toc-years-closed')) || []); } catch { /* ignore */ }
 const tocChaptersOpen = new Set();
 
-// each year has a colour of the book: coral, green, blue; the teacher's materials are navy
+// each year has a color of the book: coral, green, blue; the teacher's materials are navy
 const YEAR_COLORS = ['#f05f4b', '#3aa04a', '#4aa8ec'];
 
 function renderToc() {
@@ -1640,6 +1640,16 @@ function renderTopics() {
       <div class="topic-pages">${links}</div>
     </article>`;
   }).filter(Boolean);
+  // the teacher also finds the scaffolding: by its name, its chapter, any word written on it, or "scaffolding"
+  const scaffolds = !isTeacher() ? [] : spreads.filter(isScaffold).filter(s => {
+    const text = norm(`scaffolding ${s.dataset.name || ''} ${s.dataset.title || ''} ${s.textContent}`);
+    return words.every(w => text.includes(w));
+  }).map(s => `
+    <article class="topic scaffold-topic" style="--c:#e0a800">
+      <h3>🧱 Scaffolding · ${esc(s.dataset.title || '')}</h3>
+      <div class="topic-pages"><a href="${hrefOf(s)}">${esc(s.dataset.name || '')}</a></div>
+    </article>`);
+  cards.unshift(...scaffolds);
   list.innerHTML = cards.length ? cards.join('') : '<p class="topic-none">No topic found.</p>';
 }
 document.getElementById('topicSearch').addEventListener('input', renderTopics);

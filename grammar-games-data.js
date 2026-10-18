@@ -8,13 +8,13 @@ const SUBJECTS=[
   {word:'Sofia and Luca',emoji:'👫',pronoun:'they'},{word:'Luca and I',emoji:'🤝',pronoun:'we'},
   {word:'the therapy dog',emoji:'🐕',pronoun:'it'},{word:'my sister',emoji:'👩',pronoun:'she'},
   {word:'my friends',emoji:'👥',pronoun:'they'},{word:'the ball',emoji:'⚽',pronoun:'it'},
-  {word:'Ms Fatigato',emoji:'👩‍🏫',pronoun:'she'},{word:'a jockey',emoji:'🏇',pronoun:'he'},
+  {word:'Ms. Fatigato',emoji:'👩‍🏫',pronoun:'she'},{word:'a jockey',emoji:'🏇',pronoun:'he'},
   {word:'my brother',emoji:'🧒',pronoun:'he'},{word:'Taylor Swift',emoji:'🎵',pronoun:'she'},
   {word:'Cristiano Ronaldo',emoji:'⚽',pronoun:'he'},{word:'my parents',emoji:'👨‍👩‍👦',pronoun:'they'},
   {word:'the students',emoji:'🧑‍🎓',pronoun:'they'},{word:'my phone',emoji:'📱',pronoun:'it'},
   {word:'you and I',emoji:'🙋',pronoun:'we'},{word:'a rabbit',emoji:'🐰',pronoun:'it'},
   {word:'Harry Styles',emoji:'🎤',pronoun:'he'},{word:'Beyoncé',emoji:'🎶',pronoun:'she'},
-  {word:'the school',emoji:'🏫',pronoun:'it'},{word:'my mum and dad',emoji:'👨‍👩‍👦',pronoun:'they'},
+  {word:'the school',emoji:'🏫',pronoun:'it'},{word:'my mom and dad',emoji:'👨‍👩‍👦',pronoun:'they'},
   {word:'the pizza',emoji:'🍕',pronoun:'it'},{word:'the birds',emoji:'🐦',pronoun:'they'},
   {word:'a puppy',emoji:'🐶',pronoun:'it'},{word:'my teacher',emoji:'👩‍🏫',pronoun:'she'},
   {word:'Luca',emoji:'👦',pronoun:'he'},{word:'my best friend',emoji:'👫',pronouns:['he','she']},
@@ -55,7 +55,7 @@ const SF_EASY=[
 const SF_MED=[
   // Affermative positions varied
   {groups:[['Sophie'],['learns'],['Spanish','and','Italian','at school']],si:0,hint:'Chi studia? / Who studies?',pronoun:'she'},
-  {groups:[['Last summer,'],['my cousin'],['travelled'],['across Europe','with his family']],si:1,hint:'⚠️ Soggetto dopo virgola! / After comma!',pronoun:'he'},
+  {groups:[['Last summer,'],['my cousin'],['traveled'],['across Europe','with his family']],si:1,hint:'⚠️ Soggetto dopo virgola! / After comma!',pronoun:'he'},
   {groups:[['Every weekend,'],['during the afternoon,'],['teenage','volunteers'],['clean','the local park','together']],si:2,hint:'⚠️ Due introduzioni! / Two introducers!',pronoun:'they'},
   {groups:[['The swimming team'],['trains'],['five days a week','in the pool']],si:0,hint:'Chi si allena? / Who trains?',pronoun:'they'},
   {groups:[['Before','exams,'],['stressed','students'],['meet','in the library','to study']],si:1,hint:'⚠️ Soggetto non primo! / Subject not first!',pronoun:'they'},
@@ -86,19 +86,19 @@ const SF_MED=[
 ];
 const SF_HARD=[
   // Affermative
-  {words:['Throughout','the','semester,','dedicated','orchestra','students','practise','difficult','classical','pieces','every','single','day'],subject:[3,4,5],hint:'⚠️ Lungo! Chi si allena?',pronoun:'they'},
+  {words:['Throughout','the','semester,','dedicated','orchestra','students','practice','difficult','classical','pieces','every','single','day'],subject:[3,4,5],hint:'⚠️ Lungo! Chi si allena?',pronoun:'they'},
   {words:['In','the','busy','kitchen','after','school,','the','cooking','club','members','prepare','delicious','recipes','together'],subject:[6,7,8,9],hint:'⚠️ Frase lunga! Chi prepara?',pronoun:'they'},
   {words:['Sometimes','on','rainy','days,','the','teacher','at','primary','school','doesn\'t','arrive','on','time'],subject:[4,5],hint:'⚠️ Grammatica semplice ma frase lunga!',pronoun:'she'},
   {words:['During','competition','season,','particularly','talented','swimmers','from','our','club','win','many','medals','and','trophies'],subject:[4,5],hint:'⚠️ Chi vince?',pronoun:'they'},
   {words:['Before','major','tournaments,','our','experienced','volleyball','coach','always','gives','important','advice','to','the','players'],subject:[3,4,5,6],hint:'⚠️ Chi dà consigli?',pronoun:'he'},
   // Interrogative
-  {words:['Throughout','the','semester,','do','dedicated','orchestra','students','practise','difficult','classical','pieces','every','day?'],subject:[4,5,6],hint:'⚠️ Interrogativa! Chi pratica?',pronoun:'they'},
+  {words:['Throughout','the','semester,','do','dedicated','orchestra','students','practice','difficult','classical','pieces','every','day?'],subject:[4,5,6],hint:'⚠️ Interrogativa! Chi pratica?',pronoun:'they'},
   {words:['In','the','busy','kitchen','after','school,','do','the','cooking','club','members','prepare','delicious','recipes?'],subject:[7,8,9,10],hint:'⚠️ Interrogativa! Chi prepara?',pronoun:'they'},
   {words:['Sometimes','when','the','wind','blows','hard','can', 'you', 'hear', 'the','trees', 'cracking?'],subject:[2,3,7],hint:'⚠️ Interrogativa con can! Chi soffia, chi sente?',pronoun:'it'},
   {words:['During','competition','season,','do','particularly','talented','swimmers','from','our','club','win','many','medals?'],subject:[4,5,6],hint:'⚠️ Interrogativa! Chi vince?',pronoun:'they'},
   {words:['Before','major','tournaments,','does','our','experienced','volleyball','coach','give','important','advice','to','the','players?'],subject:[4,5,6],hint:'⚠️ Interrogativa! Chi dà consigli?',pronoun:'he'},
   // Negative
-  {words:['Throughout','the','semester,','dedicated','orchestra','students','don\'t','practise','difficult','classical','pieces','every','single','day'],subject:[3,4,5],hint:'⚠️ Negativa! Chi NON pratica?',pronoun:'they'},
+  {words:['Throughout','the','semester,','dedicated','orchestra','students','don\'t','practice','difficult','classical','pieces','every','single','day'],subject:[3,4,5],hint:'⚠️ Negativa! Chi NON pratica?',pronoun:'they'},
   {words:['In','the','busy','kitchen','after','school,','the','cooking','club','members','don\'t','prepare','delicious','recipes'],subject:[6,7,8,9],hint:'⚠️ Negativa! Chi NON prepara?',pronoun:'they'},
   {words:['Sometimes','on','rainy','days,','the','teacher','at','primary','school','doesn\'t','arrive','on','time'],subject:[4,5],hint:'⚠️ Negativa! Chi NON arriva?',pronoun:'she'},
   {words:['During','competition','season,','particularly','talented','swimmers','from','our','club','don\'t','win','many','medals'],subject:[4,5],hint:'⚠️ Negativa! Chi NON vince?',pronoun:'they'},
@@ -209,10 +209,10 @@ const SCATCH_DATA=[
   const SG_APOS = [
     {"words":["my","cousins","dog","is","very","friendly"],"targetWord":1,"correctGap":6,"context":"I have only ONE cousin: his dog is very friendly.","explanation":"Only one owner → apostrophe BEFORE the final s: cousin's.","duration":22},
     {"words":["my","cousins","dog","is","very","friendly"],"targetWord":1,"correctGap":7,"context":"I have TWO cousins: they share the same dog.","explanation":"More than one owner, the word already ends in -s → apostrophe AFTER the s: cousins'.","duration":20},
-    {"words":["my","friends","bike","has","a","flat","tyre"],"targetWord":1,"correctGap":6,"context":"I have only one friend, and his bike has a flat tyre.","explanation":"Only one owner → 's before the final s: friend's.","duration":18},
-    {"words":["my","friends","bike","has","a","flat","tyre"],"targetWord":1,"correctGap":7,"context":"I have three friends: the bike belongs to all of them together.","explanation":"More than one owner → apostrophe after the s: friends'.","duration":16},
-    {"words":["my","kids","favorite","toy","is","a","doll"],"targetWord":1,"correctGap":3,"context":"I have only ONE child: the favourite toy belongs to him.","explanation":"Only one owner → apostrophe before the final s: kid's.","duration":15},
-    {"words":["my","kids","favorite","toy","is","a","doll"],"targetWord":1,"correctGap":4,"context":"I have several children: the favourite toy belongs to all of them.","explanation":"More than one owner → apostrophe after the s: kids'.","duration":13},
+    {"words":["my","friends","bike","has","a","flat","tire"],"targetWord":1,"correctGap":6,"context":"I have only one friend, and his bike has a flat tire.","explanation":"Only one owner → 's before the final s: friend's.","duration":18},
+    {"words":["my","friends","bike","has","a","flat","tire"],"targetWord":1,"correctGap":7,"context":"I have three friends: the bike belongs to all of them together.","explanation":"More than one owner → apostrophe after the s: friends'.","duration":16},
+    {"words":["my","kids","favorite","toy","is","a","doll"],"targetWord":1,"correctGap":3,"context":"I have only ONE child: the favorite toy belongs to him.","explanation":"Only one owner → apostrophe before the final s: kid's.","duration":15},
+    {"words":["my","kids","favorite","toy","is","a","doll"],"targetWord":1,"correctGap":4,"context":"I have several children: the favorite toy belongs to all of them.","explanation":"More than one owner → apostrophe after the s: kids'.","duration":13},
   ];
   const SG_TF = [
     {"sentence":"The cover of my notebook is pink.","isTrue":true,"explanation":"Inanimate object (notebook) → use OF, not 's. Correct!"},
@@ -237,7 +237,7 @@ const SCATCH_DATA=[
     {"prompt":"Ogni sabato visitiamo l'azienda di mio zio.","tokens":["Every","Saturday","we","visit","my","uncle","'s","farm"],"note":"Only one owner → 's."},
     {"prompt":"Ogni venerdì vado dal panettiere.","tokens":["I","go","to","the","baker","'s","every","Friday"],"note":"Implied shop: the baker's (shop)."},
     {"prompt":"Il tetto della scuola è coperto da pannelli solari.","tokens":["The","roof","of","the","school","is","covered","by","solar","panels"],"note":"Inanimate object → OF."},
-    {"prompt":"I giochi preferiti dei bambini sono nella scatola.","tokens":["The","children","'s","favourite","toys","are","in","the","box"],"note":"Irregular plural (children) → still takes 's."},
+    {"prompt":"I giochi preferiti dei bambini sono nella scatola.","tokens":["The","children","'s","favorite","toys","are","in","the","box"],"note":"Irregular plural (children) → still takes 's."},
     {"prompt":"Domani vado dal dentista per un controllo.","tokens":["Tomorrow","I","am","going","to","the","dentist","'s","for","a","check-up"],"note":"Implied place: the dentist's."},
   ];
 

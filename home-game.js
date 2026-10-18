@@ -239,7 +239,7 @@
         setTimeout(() => unlock(o.k), 350);
       }
     }
-    // the letters typed (or clicked) are greyed out
+    // the letters typed (or clicked) are grayed out
     function scramble() {
       const used = mixed.map(() => false);
       inp.value.split('').forEach(ch => { const i = mixed.findIndex((m, j) => !used[j] && m === ch); if (i >= 0) used[i] = true; });
@@ -348,14 +348,14 @@
       if (f && f !== models(k)[0]) item.f = f; // the second drawing of the word
       items.push(item);
     } else item.z = z;
-    // centre of the object under the pointer (the height is known once the image is drawn)
+    // center of the object under the pointer (the height is known once the image is drawn)
     item.x = (cx - r.left) / r.width * 100 - item.w / 2;
     item.y = (cy - r.top) / r.height * 100 - 5;
     store();
     drawArea(area);
     select(area, item);
     const el = area.querySelector(`.hm-item[data-i="${items.indexOf(item)}"]`);
-    // put the centre under the pointer when the size is known
+    // put the center under the pointer when the size is known
     const fix = () => {
       const h = el.getBoundingClientRect().height / r.height * 100;
       item.y = (cy - r.top) / r.height * 100 - h / 2;

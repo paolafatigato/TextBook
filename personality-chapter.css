@@ -313,3 +313,39 @@
 @media screen { .vl-mascot img.bw { display: none; } }
 @media print { .vl-mascot img.color { display: none; } }
 .vl-mascot.flip img { transform: scaleX(-1); }
+
+/* ---------- colouring sheets for DSA / 104 (scaffolding [scaf-pers-colour-1/2]): a big villain, 3 easy exercises, then colour ---------- */
+.scv { display: flex; flex-direction: column; gap: 2.2cqw; font-size: 2.5cqw; line-height: 1.45; }
+.scv .scf-tape { margin-bottom: 0; align-self: flex-start; }
+.scv-name { display: flex; align-items: flex-end; gap: 1.4cqw; margin: 0; font-weight: 700; color: #555; }
+.scv-name span { flex: 1; border-bottom: .25cqw solid #999; }
+.scv-name span.short { flex: .45; }
+.scv-title { margin: 0; font: 700 6.4cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.scv-title span { color: #8e2de2; }
+.scv-top { display: grid; grid-template-columns: 55fr 33fr; gap: 3cqw; align-items: center; }
+.scv-pic img { display: block; width: 100%; height: auto; max-height: 60cqw; object-fit: contain; }
+.scv-side { display: flex; flex-direction: column; gap: 3.4cqw; }
+.scv-bubble { position: relative; margin: 0; padding: 1.4cqw 2cqw; border: .35cqw solid #2a2a30; border-radius: 2.4cqw; background: #fff; font: 600 3.4cqw/1.2 'Fredoka', 'Nunito', sans-serif; }
+.scv-bubble::before { content: ""; position: absolute; left: -2.2cqw; top: 2.4cqw; border: 1.1cqw solid transparent; border-right: 1.2cqw solid #2a2a30; }
+.scv-bubble b { color: #e5334b; }
+.scv-bubble small { display: block; margin-top: .6cqw; font: 700 2.1cqw 'Nunito', sans-serif; color: #666; }
+.scv-ex h2 { display: flex; align-items: center; gap: 1.2cqw; margin: 0 0 1.2cqw; font: 700 2.9cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.scv-ex h2 b { flex: none; display: grid; place-items: center; width: 4.2cqw; height: 4.2cqw; border-radius: 50%; background: #ffc93c; font-size: 2.6cqw; }
+.scv ul, .scv ol { margin: 0; padding: 0; list-style: none; }
+.scv-colour li { display: flex; align-items: center; gap: 1.2cqw; margin-bottom: 1.3cqw; }
+.scv-colour b { margin-left: auto; color: var(--c); letter-spacing: .04em; }
+.scv-dot { flex: none; width: 3.4cqw; height: 3.4cqw; border: .25cqw solid #2a2a30; border-radius: 50%; }
+.scv-circle li { margin-bottom: 1.3cqw; counter-increment: scv; }
+.scv-circle li::before { content: counter(scv) ". "; font-weight: 800; color: #8e2de2; }
+.scv-circle { counter-reset: scv; }
+.scv-circle em { display: inline-block; margin-left: 1.6cqw; padding: .1cqw 1.6cqw; border: .22cqw dashed #b9b9c4; border-radius: 999px; font-style: normal; font-weight: 800; letter-spacing: .04em; }
+.scv-bottom { display: grid; grid-template-columns: 58fr 30fr; gap: 3cqw; }
+.scv-match li { display: grid; grid-template-columns: 1fr 1.6cqw 5cqw 1.6cqw 16cqw; column-gap: .8cqw; align-items: center; margin-bottom: 1.6cqw; }
+.scv-match li span:first-child { font-weight: 800; letter-spacing: .03em; }
+.scv-match i { grid-column: 2; width: 1.6cqw; height: 1.6cqw; border-radius: 50%; background: #2a2a30; }
+.scv-match i + i { grid-column: 4; }
+.scv-match span + i + i + span { grid-column: 5; }
+.scv-bank { display: inline-block; margin: 0 0 1.4cqw; padding: .3cqw 1.8cqw; border-radius: 999px; background: #f2e6fd; font-weight: 800; font-size: 2.8cqw; letter-spacing: .1em; }
+.scv-letters li { margin-bottom: 2cqw; font: 700 3.5cqw/1 'Nunito', sans-serif; letter-spacing: .14em; white-space: nowrap; }
+.scv-letters i { display: inline-block; width: 3.8cqw; height: 4.4cqw; margin-right: .14em; vertical-align: -1cqw; border: .3cqw solid #2a2a30; border-radius: .8cqw; background: #fff; }
+@media print { .scv .scf-tape { display: none; } }

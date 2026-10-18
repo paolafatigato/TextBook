@@ -1,6 +1,6 @@
 // Big 5 wheel ([pers-test]): 20 situations, one per number of a d20.
 // Online the wheel spins; on paper the pupils roll a d20 and read the same number in the list.
-// Situation n belongs to trait (n - 1) % 5: O, C, E, A, N (same colours as the Big 5 cards).
+// Situation n belongs to trait (n - 1) % 5: O, C, E, A, N (same colors as the Big 5 cards).
 (() => {
   const wheel = document.getElementById('b5-wheel');
   const list = document.getElementById('b5-sit');
@@ -16,7 +16,7 @@
   ];
   const SITUATIONS = [
     'A new food from another country is on your plate.',
-    'It’s homework time, but your favourite show is on.',
+    'It’s homework time, but your favorite show is on.',
     'You arrive at a party where you know nobody.',
     'Two friends argue and both want you on their side.',
     'Tomorrow is a big test and you can’t sleep.',
@@ -33,7 +33,7 @@
     'You find an old box with a mysterious key.',
     'You are tired, but your task is not finished.',
     'You sit next to a stranger on a long train trip.',
-    'Someone breaks your favourite pen. They say sorry.',
+    'Someone breaks your favorite pen. They say sorry.',
     'Your friend doesn’t answer your message for days.',
   ];
   const N = SITUATIONS.length, STEP = 360 / N;

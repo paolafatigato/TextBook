@@ -49,8 +49,8 @@
     ['You\'ll be a zoo keeper.', 'You\'ll be a dancer.', 'You\'ll be an astronaut.', 'You\'ll be a singer.', 'You\'ll be a firefighter.', 'You\'ll be a pirate.'],
     ['You\'ll live in Spain.', 'You\'ll live in Australia.', 'You\'ll live in Japan.', 'You\'ll live in France.', 'You\'ll live in Egypt.', 'You\'ll live in Peru.'],
     ['You\'ll become the world champion table tennis player.', 'You\'ll sing opera.', 'You\'ll look after your 12 cats.', 'You\'ll learn juggling.', 'You\'ll write comics.', 'You\'ll take photographs of animals.'],
-    ['Your best friend will be your favourite singer.', 'Your best friend will be your favourite actor.', 'Your best friend will be a pirate.', 'Your best friend will be a spy.', 'Your best friend will be your favourite sports star.', 'Your best friend will be your favourite writer.'],
-    ['You\'ll have pancakes for breakfast every day.', 'You\'ll have orange juice and an orange every day.', 'You\'ll have pineapple pizza for breakfast every day.', 'You\'ll have banana ice cream for breakfast every day.', 'You\'ll have a cheese sandwich with no bread but extra cheese!', 'You\'ll have 100 biscuits for breakfast every day.'],
+    ['Your best friend will be your favorite singer.', 'Your best friend will be your favorite actor.', 'Your best friend will be a pirate.', 'Your best friend will be a spy.', 'Your best friend will be your favorite sports star.', 'Your best friend will be your favorite writer.'],
+    ['You\'ll have pancakes for breakfast every day.', 'You\'ll have orange juice and an orange every day.', 'You\'ll have pineapple pizza for breakfast every day.', 'You\'ll have banana ice cream for breakfast every day.', 'You\'ll have a cheese sandwich with no bread but extra cheese!', 'You\'ll have 100 cookies for breakfast every day.'],
     ['You\'ll get up at 4 a.m. every day.', 'You\'ll get up at 7:23 a.m. every day.', 'You\'ll get up at 11 a.m. every day.', 'You\'ll get up at midday every day.', 'You\'ll get up at 3 p.m. every day.', 'You\'ll get up at 6 a.m. on Saturday, and 11 a.m. every other day.'],
     ['You\'ll go to bed at 6 p.m. every day.', 'You\'ll go to bed at 8 p.m. every day.', 'You\'ll go to bed at 8:32 p.m. every day.', 'You\'ll go to bed at 11 p.m. every day.', 'You\'ll go to bed at 2 a.m. every day.', 'You\'ll go to bed at 3 a.m. every day.'],
     ['You\'ll have a dog named Bruno.', 'You\'ll have two cats called Bill and Bob.', 'You\'ll have a pet donkey called Billy.', 'You\'ll have 25 pet spiders.', 'You\'ll have a pet hamster called Bella.', 'You\'ll have 100 dogs and 100 cats!'],
@@ -100,7 +100,7 @@
       { s: 'I promise I ___ late again!', o: ['won\'t be', 'am not being', 'am not'], why: 'Promise → will / won\'t.' },
       { s: 'I think Italy ___ the next World Cup.', o: ['will win', 'is winning', 'wins'], why: 'Prediction without evidence (I think…) → will.' },
       { s: 'Careful! You ___ that glass!', o: ['\'re going to drop', '\'re dropping', 'drop'], why: 'You can see it is about to happen → be going to.' },
-      { s: 'My sister ___ married in June. Everything is organised!', o: ['is getting', 'will get', 'gets'], why: 'Programmed event (a wedding) → present continuous.' },
+      { s: 'My sister ___ married in June. Everything is organized!', o: ['is getting', 'will get', 'gets'], why: 'Programmed event (a wedding) → present continuous.' },
       { s: 'I hope you ___ better soon.', o: ['\'ll feel', '\'re feeling', 'feel'], why: 'Hope → will.' },
       { s: '“What ___ this weekend?” “Nothing special.”', o: ['are you doing', 'will you do', 'do you do'], why: 'Asking about arrangements → present continuous.' },
       { s: 'When I grow up, I ___ a vet.', o: ['\'m going to be', '\'m being', 'be'], why: 'Plan for the general future → be going to.' },
@@ -137,7 +137,7 @@
       { s: 'write → ___', o: ['writing', 'writeing', 'writting'], why: 'Final -e: drop it → writing.' },
       { s: 'lie → ___', o: ['lying', 'lieing', 'liing'], why: '-ie → -ying.' },
       { s: 'Shh! The baby ___ .', o: ['is sleeping', 'sleeps', 'will sleep'], why: 'Happening now → present continuous.' },
-      { s: 'The dentist ___ me at 4.30 tomorrow.', o: ['is seeing', 'sees', 'is see'], why: 'Appointment → present continuous.' },
+      { s: 'The dentist ___ me at 4:30 tomorrow.', o: ['is seeing', 'sees', 'is see'], why: 'Appointment → present continuous.' },
       { s: '“Are they coming?” “No, they ___ .”', o: ['aren\'t', 'don\'t', 'isn\'t'], why: 'Short answer: No, they aren\'t.' },
       { s: 'run → ___', o: ['running', 'runing', 'runeing'], why: 'Short vowel + consonant: double it.' },
     ],
@@ -147,7 +147,7 @@
       ['I\'ll hold the door for you.', 'i'], ['I\'m sure you\'ll enjoy it.', 'p'], ['It won\'t take long to get there.', 'p'],
       ['I\'ll wash, you dry.', 'i'], ['You\'ll feel better soon!', 'p'], ['He\'s playing baseball tonight.', 'a'],
       ['I\'m seeing Jean on Sunday.', 'a'], ['What are you doing next week?', 'a'], ['I\'m going to study more.', 'a'],
-      ['Oh no, the bus is late! I\'ll walk.', 'i'], ['I hope it\'ll be sunny on Saturday.', 'p'], ['We\'re flying to London on 3rd May.', 'a'],
+      ['Oh no, the bus is late! I\'ll walk.', 'i'], ['I hope it\'ll be sunny on Saturday.', 'p'], ['We\'re flying to London on May 3rd.', 'a'],
       ['The phone is ringing. I\'ll get it!', 'i'], ['In 2040 cars will fly.', 'p'], ['I\'m going to learn the guitar this summer.', 'a'],
     ],
     // the right sentence first, then the wrong one
@@ -329,7 +329,7 @@
           <div class="gq-choices" id="ftChoices"></div><div id="ftNote"></div></div>`;
         const labels = Object.values(KINDS).map(k => k[1]);
         const buttons = choiceButtons($('ftChoices'), labels, v => Object.values(KINDS).find(k => k[1] === v)[0]);
-        const why = { p: 'We imagine or hope what will happen → will.', i: 'We decide now, while we are speaking → will.', a: 'It is already decided or organised → be going to / present continuous.' }[kind];
+        const why = { p: 'We imagine or hope what will happen → will.', i: 'We decide now, while we are speaking → will.', a: 'It is already decided or organized → be going to / present continuous.' }[kind];
         buttons.forEach(b => b.addEventListener('click', () => {
           if (judge(buttons, b, KINDS[kind][1], why, () => { i++; next(); })) setScore(++score);
         }));

@@ -17,9 +17,9 @@
     ],
     // [sentence with ___, right answer, other answers]: Animal Farm, 1984 and the class game, never Orwell's life
     grammar: [
-      ['___ the animals like Mr Jones?', 'Did', ['Were', 'Was']], ['___ Boxer a strong horse?', 'Was', ['Did', 'Were']],
+      ['___ the animals like Mr. Jones?', 'Did', ['Were', 'Was']], ['___ Boxer a strong horse?', 'Was', ['Did', 'Were']],
       ['___ the pigs clever?', 'Were', ['Did', 'Was']], ['___ Snowball want to build a windmill?', 'Did', ['Was', 'Were']],
-      ['Old Major ___ the animals about his dream.', 'told', ['telled', 'tells']], ['The animals ___ Mr Jones off the farm.', 'drove', ['drived', 'were drive']],
+      ['Old Major ___ the animals about his dream.', 'told', ['telled', 'tells']], ['The animals ___ Mr. Jones off the farm.', 'drove', ['drived', 'were drive']],
       ['The pigs ___ into the farmhouse.', 'moved', ['moveed', 'were move']], ['Napoleon ___ nine puppies in secret.', 'raised', ['raise', 'was raise']],
       ['While the animals ___, the pigs changed the rules.', 'were sleeping', ['slept', 'was sleeping']],
       ['Squealer ___ the commandments when the animals found him.', 'was changing', ['changed', 'were changing']],
@@ -47,7 +47,7 @@
       { name: 'NAPOLEON', options: ['NAPOLEON', 'SNOWBALL', 'SQUEALER', 'OLD MAJOR'],
         clues: ['I am a big, fierce-looking pig.', 'I don\'t speak much, but I always get my way.', 'I take nine puppies and raise them in secret.', 'My dogs chase Snowball off the farm.', 'In the end I walk on two legs, like a man.'] },
       { name: 'SNOWBALL', options: ['SNOWBALL', 'NAPOLEON', 'SQUEALER', 'BOXER'],
-        clues: ['I am a pig with lots of ideas.', 'I give great speeches.', 'I organise committees and teach the animals to read.', 'I want to build a windmill.', 'Nine dogs chase me away from the farm.'] },
+        clues: ['I am a pig with lots of ideas.', 'I give great speeches.', 'I organize committees and teach the animals to read.', 'I want to build a windmill.', 'Nine dogs chase me away from the farm.'] },
       { name: 'SQUEALER', options: ['SQUEALER', 'NAPOLEON', 'BENJAMIN', 'MOSES'],
         clues: ['I am a small, fat pig.', 'I speak very well.', 'They say I can turn black into white.', 'I explain why the pigs need the milk and the apples.', 'One night they find me on a ladder near the commandments.'] },
       { name: 'BOXER', options: ['BOXER', 'CLOVER', 'BENJAMIN', 'MOLLIE'],
@@ -59,12 +59,12 @@
       { name: 'MOLLIE', options: ['MOLLIE', 'CLOVER', 'BOXER', 'MURIEL'],
         clues: ['I am a young and pretty white mare.', 'I love sugar.', 'I love the ribbons in my hair.', 'I don\'t like hard work.', 'I run away to work for another human.'] },
       { name: 'MOSES', options: ['MOSES', 'SQUEALER', 'BENJAMIN', 'OLD MAJOR'],
-        clues: ['I am a bird.', 'I am Mr Jones\'s pet.', 'I don\'t work at all.', 'I tell stories about a happy place in the sky.', 'I talk about Sugarcandy Mountain.'] },
+        clues: ['I am a bird.', 'I am Mr. Jones\'s pet.', 'I don\'t work at all.', 'I tell stories about a happy place in the sky.', 'I talk about Sugarcandy Mountain.'] },
       { name: 'MR JONES', options: ['MR JONES', 'MR PILKINGTON', 'MR FREDERICK', 'MR WHYMPER'],
         clues: ['I am a human.', 'I am the owner of Manor Farm.', 'I drink too much.', 'I forget to feed the animals.', 'The animals drive me off my farm.'] },
     ],
     memory: [
-      ['Old Major', 'Marx & Lenin'], ['Napoleon', 'Stalin'], ['Snowball', 'Trotsky'], ['Mr Jones', 'the Tsar'],
+      ['Old Major', 'Marx & Lenin'], ['Napoleon', 'Stalin'], ['Snowball', 'Trotsky'], ['Mr. Jones', 'the Tsar'],
       ['Boxer', 'the workers'], ['the dogs', 'the secret police'], ['Squealer', 'propaganda'], ['Moses', 'the Church'],
     ],
     // [text, is it one of the original Seven Commandments?]
@@ -87,7 +87,7 @@
     ],
     // [word, clue] for Word scramble and Hangman
     words: [
-      ['REBELLION', 'The animals fight against Mr Jones'], ['WINDMILL', 'Snowball\'s big project'], ['COMMANDMENT', 'A rule on the wall of the barn'],
+      ['REBELLION', 'The animals fight against Mr. Jones'], ['WINDMILL', 'Snowball\'s big project'], ['COMMANDMENT', 'A rule on the wall of the barn'],
       ['PROPAGANDA', 'Using words to control what people think'], ['COMRADE', 'What the animals call each other'], ['FARMHOUSE', 'The pigs move in here'],
       ['TELESCREEN', 'It watches you in 1984'], ['NEWSPEAK', 'The language of the Party'], ['DIARY', 'Winston writes in it in secret'],
       ['BARN', 'The animals meet here at night'], ['WINSTON', 'The hero of 1984'], ['MINISTRY', 'Winston works at the ___ of Truth'],

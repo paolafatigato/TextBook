@@ -5,7 +5,7 @@
 // When its first spread is in index.html, add `start: '<its data-id>'`.
 // zoom (optional) enlarges the drawing inside its circle, e.g. 1.5.
 // dy (optional) moves the drawing down by that % of the circle (negative = up).
-// linkColors (optional): spread name → the colour of its link.
+// linkColors (optional): spread name → the color of its link.
 //
 // Topics: each item of `pages` is
 //   'own-saxon'                 the whole spread

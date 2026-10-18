@@ -3435,6 +3435,9 @@ body.in-scaffold .toolbar { background: #ffc93c; border-bottom-color: #e0a800; }
 body.in-scaffold .toolbar-title { color: #1f2a6b; }
 body.in-scaffold .toolbar button, body.in-scaffold .home-btn { border-color: #e0a800; }
 .scaffold-link b { margin-right: 4px; }
+.scaffold-topic { background: #fff8dc; }
+.scaffold-topic h3 { color: #1f2a6b; }
+.scaffold-topic .topic-pages a { color: #1f2a6b; }
 .scf-page { background: #fffdf6; }
 .scf-in { position: absolute; inset: 0; padding: 4cqw 6cqw 5cqw; font: 400 2cqw/1.35 'Nunito', sans-serif; color: #2b2b38; overflow-y: auto; }
 .scf-tape { display: inline-block; margin: 0 0 2.5cqw; padding: .5cqw 1.6cqw; background: #ffc93c; color: #1f2a6b; font: 800 1.5cqw/1.2 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; transform: rotate(-1.5deg); }

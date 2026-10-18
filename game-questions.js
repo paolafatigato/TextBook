@@ -80,7 +80,7 @@ const GAME_QUESTIONS = [
     "answer": "WATCHES"
   },
   {
-    "text": "THE TEACHER TEACH / TEACHES MATHS.",
+    "text": "THE TEACHER TEACH / TEACHES MATH.",
     "options": [
       "TEACH",
       "TEACHES"
@@ -190,7 +190,7 @@ const GAME_QUESTIONS = [
     "answer": "NO, THEY DON'T."
   },
   {
-    "text": "DOES YOUR DAD WORK AT THE WEEKEND?",
+    "text": "DOES YOUR DAD WORK ON THE WEEKEND?",
     "options": [
       "YES, HE DOES.",
       "YES, THEY DO.",
@@ -253,7 +253,7 @@ const GAME_QUESTIONS = [
     "answer": "YES, THEY DO."
   },
   {
-    "text": "DOES YOUR MUM LIKE PIZZA?",
+    "text": "DOES YOUR MOM LIKE PIZZA?",
     "options": [
       "YES, SHE DOES.",
       "NO, THEY DON'T.",

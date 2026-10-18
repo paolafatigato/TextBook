@@ -10,16 +10,16 @@
   const CARDS = [
     { pic: '⭐', sq: [
       'spent the summer with a brother', 'visited the mountains', 'swam in a lake', 'swam at least 5 times',
-      'got sunburnt', 'played tennis', 'took the plane', 'had pizza by the sea',
+      'got sunburned', 'played tennis', 'took the plane', 'had pizza by the sea',
       'watched a whole TV series', 'saw fireworks', 'learned a new skill', 'made a new friend',
       'got a haircut', 'posted more than 10 photos on social media', 'walked barefoot in the sand', 'made a painting'] },
     { pic: '🩴', sq: [
       'spent one week with a grandma', "didn't go further than 2 hours from home", 'went hiking in nature', 'visited a new city',
       'ate ice cream', 'played beach volleyball', 'took the train', 'built a sand volcano',
-      'finished a video game', 'got sunburnt', 'kissed someone for the first time', 'read at least two books',
+      'finished a video game', 'got sunburned', 'kissed someone for the first time', 'read at least two books',
       'had a birthday', 'spent a whole day without using the phone', 'saw a teacher “in the wild”', 'got stung by a jellyfish'] },
     { pic: '🦩', sq: [
-      'visited their cousins', 'travelled for more than 3 hours', 'camped in a tent', 'played beach volleyball',
+      'visited their cousins', 'traveled for more than 3 hours', 'camped in a tent', 'played beach volleyball',
       'ate popsicles', 'went to a place they know very well', 'spent one night home alone', 'collected seashells',
       'watched a horror movie', 'went on a boat', 'tried paddle boarding', 'read at least two books',
       'had a birthday', 'held their breath underwater for 20 seconds', 'saw a teacher “in the wild”', 'got stung by a jellyfish'] },
@@ -27,7 +27,7 @@
       'spent one month with a sister', 'never left town', 'camped in a tent', 'played beach volleyball',
       'ate coconut', 'went to a new place', 'visited a different continent', 'collected seashells',
       'went to the hospital', 'finished the homework in the first week', 'tried surfing', 'did crossword puzzles',
-      'had a birthday', 'saw some snow', 'texted you', 'went snorkelling'] },
+      'had a birthday', 'saw some snow', 'texted you', 'went snorkeling'] },
     { pic: '📷', sq: [
       'took more than 10 pictures', 'tried a new food for the first time', 'stayed in a camper', 'played beach soccer',
       'ate coconut', 'found money on the ground', 'visited a different country', 'built sandcastles',
@@ -54,17 +54,17 @@
       'started a new relationship', 'read a book you love', 'ate ice cream twice in a day', 'learned a new TikTok dance',
       'played cards', 'opened their eyes underwater', 'hung out with a classmate', 'recommended a book to somebody'] },
     { pic: '🍨', sq: [
-      'ate food from the ground', 'got a tattoo', 'built a sandcastle', 'went snorkelling',
+      'ate food from the ground', 'got a tattoo', 'built a sandcastle', 'went snorkeling',
       'went to bed past 2 am', 'visited a place whose name starts with G', 'babysat for a day', 'fell asleep on the beach',
       'started a new relationship', 'read a book they would recommend', 'called you', 'spent a month without TikTok',
       'played cards', 'opened their eyes underwater', 'saw a weird animal', 'helped somebody with homework'] },
     { pic: '🧳', sq: [
-      'travelled with a bag without wheels', 'changed hairstyle', 'played in the street', 'went snorkelling',
+      'traveled with a bag without wheels', 'changed hairstyle', 'played in the street', 'went snorkeling',
       'watched a romantic movie', 'had a date', 'washed the dishes for a month', 'fell asleep at the pool',
-      'painted with watercolours', 'read a book they would recommend', 'called you', 'spent a month without Instagram',
+      'painted with watercolors', 'read a book they would recommend', 'called you', 'spent a month without Instagram',
       'played cards', 'spoke another language', 'touched an exotic animal', 'helped somebody with homework'] },
     { pic: '🏷️', sq: [
-      'brought too many things in their bag', 'changed hairstyle', 'played in the street', 'went snorkelling',
+      'brought too many things in their bag', 'changed hairstyle', 'played in the street', 'went snorkeling',
       "did something they weren't supposed to", 'had a date', 'washed the dishes for a month', 'swam in a pool',
       'hiked up a mountain', 'read a comic', 'spent the summer with a cousin', 'spent a month without Instagram',
       'played cards', 'spoke another language', 'touched an exotic animal', 'finished their homework in July'] },

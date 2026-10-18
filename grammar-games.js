@@ -32,7 +32,7 @@
     's-catch': { icon: '🧲', name: 'Acchiappa il Finale!', text: 'Clicca il finale giusto prima che tocchi terra.' },
   };
 
-  // one colour per pronoun, all from the book's palette
+  // one color per pronoun, all from the book's palette
   const PC = { I: '#4aa8ec', you: '#f7836d', he: '#c97df6', she: '#8e2de2', it: '#c9de3c', we: '#3aa04a', they: '#e3b505' };
   const PCT = { I: '#10244f', you: '#4a1308', he: '#2a0f45', she: '#fff', it: '#2a3000', we: '#fff', they: '#3a2b00' };
   const ALL_PRONOUNS = Object.keys(PC);
@@ -1095,7 +1095,7 @@
       }, 1000);
     }
 
-    // show the right card, grey out the others
+    // show the right card, gray out the others
     function lock(r) {
       area.querySelectorAll('[data-kind]').forEach(b => {
         b.disabled = true;
