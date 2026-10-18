@@ -178,6 +178,7 @@ const CONTENTS = {
     { title: 'My future career: skills & qualities', color: '#e8820c', pages: ['jobs-career'] },
     { title: 'Writing about my dream job', color: '#e8820c', pages: ['jobs-career:R'] },
     { title: 'Interview a worker', color: '#e8820c', pages: ['jobs-career:R'] },
+    { title: 'Happy Job Race: values & reasons', color: '#e8820c', pages: ['jobs-career:R'] },
     { title: 'Writing a CV', color: '#e8820c', pages: [['jobs-cv-model', 'jobs-my-cv']] },
     { title: 'Writing a letter to yourself', color: '#f5a53b', pages: ['summer-letters'] },
     { title: 'Past simple: irregular verbs & -ed spelling', color: '#f5a53b', pages: ['summer-gratitude:R'] },
