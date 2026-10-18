@@ -100,8 +100,11 @@ function placeChapters() {
     .filter(({ ch, at }) => at >= 0 || console.error(`Chapter "${ch.title}": no spread called "${ch.start}"`))
     .sort((x, y) => x.at - y.at);
   started.forEach(({ ch, at }, k) => { ch.items = spreads.slice(at, started[k + 1]?.at ?? spreads.length); });
+  // a folder that collects spreads from inside the chapters (e.g. all the scaffolding), in the order of the book
+  CHAPTERS.filter(ch => ch.collect).forEach(ch => { ch.items = spreads.filter(s => s.matches(ch.collect)); });
+  // a spread belongs to its chapter in the book, not to the folder that lists it too
   chapterOf.clear();
-  CHAPTERS.forEach(ch => ch.items.forEach(s => chapterOf.set(s, ch)));
+  CHAPTERS.forEach(ch => ch.items.forEach(s => { if (!chapterOf.has(s)) chapterOf.set(s, ch); }));
 }
 placeChapters();
 // the materials for the teacher: students never see them, whatever is ticked
@@ -110,6 +113,9 @@ const isScaffold = s => s.classList.contains('scaffold');
 const teacherOnly = s => isScaffold(s) || !!chapterOf.get(s)?.teacher;
 // a link to a spread: by its first page, or by its name for scaffolding (its pages have no number)
 const hrefOf = s => (isScaffold(s) ? `#s=${s.dataset.id}` : `#p${pagesOf(s)[0]}`);
+// the tests are scaffolding too (class "scaffold test"), with their own sign
+const isTest = s => s.classList.contains('test');
+const scaffoldSign = s => (isTest(s) ? '📝' : '🧱');
 
 // students only get the spreads the teacher made visible
 const isVisible = s => visibleSpreads.has(s.dataset.id) && !teacherOnly(s);
@@ -128,10 +134,8 @@ function show(index) {
   document.body.classList.remove('at-home');
   spreads.forEach((s, i) => s.classList.toggle('current', i === current));
   const [first] = pagesOf(spreads[current]);
-  const scaffold = isScaffold(spreads[current]);
-  document.body.classList.toggle('in-scaffold', scaffold);
-  pageInput.value = scaffold ? '' : first;
-  spreadTitle.textContent = scaffold ? `🧱 Scaffolding · ${spreads[current].dataset.title}` : spreads[current].dataset.title;
+  pageInput.value = isScaffold(spreads[current]) ? '' : first;
+  paintDesk();
   prevBtn.disabled = visibleFrom(current - 1, -1) < 0;
   nextBtn.disabled = visibleFrom(current + 1, 1) < 0;
   history.replaceState(null, '', hrefOf(spreads[current]));
@@ -139,6 +143,25 @@ function show(index) {
   window.scrollTo(0, 0);
   redrawAllMatches();
   document.dispatchEvent(new Event('spreadchange'));
+}
+
+// the desk and the toolbar say who can see the open spread:
+// teacher-only (scaffolding, tests, "For the teacher") → dark blue desk, yellow toolbar;
+// a page of the book not shown to students yet → grey striped desk, grey toolbar; students' pages → as usual
+function paintDesk() {
+  const s = home.hidden ? spreads[current] : null;
+  const mine = !!s && teacherOnly(s);
+  const closed = !!s && !mine && !isVisible(s);
+  document.body.classList.toggle('teacher-only', mine);
+  document.body.classList.toggle('not-visible', closed);
+  document.body.classList.toggle('in-test', !!s && isTest(s)); // tests: coral toolbar
+  if (!s) return;
+  const title = s.dataset.title;
+  spreadTitle.textContent = isTest(s) ? `📝 Test · ${s.dataset.name || title}`
+    : isScaffold(s) ? `🧱 Scaffolding · ${title}`
+    : mine ? `🔒 For the teacher · ${title}`
+    : closed ? `🙈 Not visible to students · ${title}`
+    : title;
 }
 
 function goToPage(n) {
@@ -159,7 +182,7 @@ function showHome() {
   spreads.forEach(s => s.classList.remove('current'));
   home.hidden = false;
   document.body.classList.add('at-home');
-  document.body.classList.remove('in-scaffold');
+  paintDesk();
   spreadTitle.textContent = 'Contents';
   pageInput.value = '';
   updateContinueLink();
@@ -1290,8 +1313,9 @@ else {
     [from, to].forEach(inp => { inp.min = firstPage; inp.max = lastPage; });
     if (isTeacher()) {
       // the chapters with their pages: choosing one writes its pages in "from … to"
+      // (scaffolding and tests have no page numbers: they are printed one spread at a time)
       chapter.innerHTML = '<option value="">… or choose a chapter</option>' + CHAPTERS
-        .map(ch => ch.items.filter(canSee))
+        .map(ch => ch.items.filter(s => canSee(s) && !isScaffold(s)))
         .map((items, i) => items.length ? `<option value="${pagesOf(items[0])[0]}-${pagesOf(items.at(-1)).at(-1)}">${esc(CHAPTERS[i].title)} (p. ${pagesOf(items[0])[0]}–${pagesOf(items.at(-1)).at(-1)})</option>` : '')
         .join('');
       // every time: the two pages open now are chosen (or "Pages … to …" on the contents page)
@@ -1455,6 +1479,13 @@ function pageLink(a, b, label = '') {
 // topics shown under each chapter before the rest goes into a drop-down
 const MAX_LINKS = 3;
 
+// the name of a scaffolding spread in a list; in a folder like "Scaffolding" (withChapter), with its chapter
+const scaffoldName = (s, ch) => {
+  const own = chapterOf.get(s);
+  const name = s.dataset.name || '';
+  return ch?.withChapter && own && own !== ch ? `${own.title} · ${name}` : name;
+};
+
 function chapterCard(ch) {
   const color = esc(ch.color || '#f05f4b');
   const pic = ch.image ? `<span class="chapter-pic"><img src="${esc(ch.image)}" alt=""${ch.zoom ? ` style="--zoom:${+ch.zoom}${ch.dy ? `;--dy:${+ch.dy}%` : ""}"` : ''}></span>` : '';
@@ -1468,7 +1499,7 @@ function chapterCard(ch) {
   const inside = ch.items.filter(canSee);
   if (!inside.length) return ''; // nothing opened in this chapter yet
   const links = inside.map(s => {
-    if (isScaffold(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}"><b>🧱</b> ${esc(s.dataset.name || '')}</a></li>`;
+    if (isScaffold(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}"><b>${scaffoldSign(s)}</b> ${esc(scaffoldName(s, ch))}</a></li>`;
     const [a, b] = pagesOf(s);
     const c = ch.linkColors && ch.linkColors[s.dataset.id];
     return `<li${c ? ` style="--c:${esc(c)}"` : ''}>${pageLink(a, b, s.dataset.name || '')}</li>`;
@@ -1476,9 +1507,9 @@ function chapterCard(ch) {
   const off = !ch.teacher && !inside.some(isVisible);
   return `
     <article class="chapter${off ? ' off' : ''}" data-ch="${esc(ch.title)}" style="--c:${color}">
-      <a class="chapter-cover" href="#p${pagesOf(inside[0])[0]}">
+      <a class="chapter-cover" href="${hrefOf(inside[0])}">
         ${pic}
-        <span class="chapter-pages">${range(pagesOf(ch.items[0])[0], pagesOf(ch.items.at(-1))[1])}</span>
+        <span class="chapter-pages">${ch.collect ? 'inside the chapters' : range(pagesOf(ch.items[0])[0], pagesOf(ch.items.at(-1))[1])}</span>
         <h3>${esc(ch.title)}</h3>
       </a>
       <ul class="chapter-links">${links.slice(0, MAX_LINKS).join('')}</ul>
@@ -1533,9 +1564,9 @@ function renderToc() {
         const [, b] = pagesOf(inside.at(-1));
         return `
         <details class="toc-ch" data-ch="${esc(ch.title)}" style="--c:${esc(ch.color || '#f05f4b')}"${tocChaptersOpen.has(ch.title) ? ' open' : ''}>
-          <summary><i class="toc-dot"></i><span>${esc(ch.title)}</span><small>${a}–${b}</small></summary>
+          <summary><i class="toc-dot"></i><span>${esc(ch.title)}</span><small>${ch.collect ? inside.length : `${a}–${b}`}</small></summary>
           <ul>${inside.map(s => {
-            if (isScaffold(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}"><b>🧱</b><span>${esc(s.dataset.name || '')}</span></a></li>`;
+            if (isScaffold(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}"><b>${scaffoldSign(s)}</b><span>${esc(scaffoldName(s, ch))}</span></a></li>`;
             const [x, y] = pagesOf(s);
             const off = isVisible(s) || teacherOnly(s) ? '' : ' class="off" title="Hidden from students"';
             return `<li><a href="#p${x}" data-id="${esc(s.dataset.id)}"${off}><b>${x}–${y}</b><span>${esc(s.dataset.name || s.dataset.title || '')}</span></a></li>`;
@@ -1646,7 +1677,7 @@ function renderTopics() {
     return words.every(w => text.includes(w));
   }).map(s => `
     <article class="topic scaffold-topic" style="--c:#e0a800">
-      <h3>🧱 Scaffolding · ${esc(s.dataset.title || '')}</h3>
+      <h3>${scaffoldSign(s)} ${isTest(s) ? 'Test' : 'Scaffolding'} · ${esc(chapterOf.get(s)?.title || s.dataset.title || '')}</h3>
       <div class="topic-pages"><a href="${hrefOf(s)}">${esc(s.dataset.name || '')}</a></div>
     </article>`);
   cards.unshift(...scaffolds);
@@ -1661,8 +1692,8 @@ function updateContinueLink() {
   link.hidden = !spread || !canSee(spread);
   if (!link.hidden) {
     const [last] = pagesOf(spread);
-    link.href = `#p${last}`;
-    link.textContent = `Continue from page ${last} →`;
+    link.href = hrefOf(spread);
+    link.textContent = isScaffold(spread) ? `Continue from ${spread.dataset.name || 'where you were'} →` : `Continue from page ${last} →`;
   }
 }
 
@@ -1696,6 +1727,7 @@ function refreshAccess() {
   renderHome();
   if (home.hidden && !canSee(spreads[current])) showHome();
   else updateContinueLink();
+  paintDesk(); // the teacher may have just shown or hidden the open spread
   hideClosedGames();
   syncPanel();
 }
@@ -1717,8 +1749,10 @@ function hideClosedGames() {
 
 // the chapters students can be given (the teacher's materials are not in the list)
 function groups() {
-  const list = CHAPTERS.filter(ch => !ch.teacher && ch.items.length)
-    .map(ch => ({ title: ch.title, color: ch.color, items: ch.items }));
+  // (scaffolding and tests are inside the chapters, but they are never shown to students)
+  const list = CHAPTERS.filter(ch => !ch.teacher)
+    .map(ch => ({ title: ch.title, color: ch.color, items: ch.items.filter(s => !isScaffold(s)) }))
+    .filter(g => g.items.length);
   const rest = spreads.filter(s => !chapterOf.has(s));
   if (rest.length) list.push({ title: 'Other pages', color: '#999', items: rest });
   return list;

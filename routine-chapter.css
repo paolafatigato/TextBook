@@ -323,3 +323,8 @@
 @media print {
   .rt-nudge, .rt-modes, .rt-actions, .rt-opts, .rt-score, .rt-say { display: none !important; }
 }
+
+/* print: the dark number boxes under the pictures (p. 56) become light, so children can write in them */
+@media print {
+  .rt-pics input.fill.blank { background: #fff; color: var(--rt-navy); border: .3cqw solid var(--rt-navy); }
+}

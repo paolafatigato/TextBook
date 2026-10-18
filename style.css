@@ -21,6 +21,41 @@
   --grey: #9a9aa6;
   --desk: #e7e3dd;
   --page-ratio: 2480.5 / 3508;  /* half of the A4 landscape spread */
+
+  /* ---------- the book palette ---------- */
+  /* row 1 */
+  --pal-white: #ffffff;
+  --pal-night: #0a0010;
+  --pal-brown: #7a5244;
+  --pal-wheat: #f3dfad;
+  --pal-cream: #f8eddc;
+  --pal-mustard: #e8c547;
+  --pal-charcoal: #232323;
+  --pal-slate: #5c5c66;
+  --pal-cool-grey: #a3a5b8;
+  --pal-steel-blue: #2e6890;
+  /* row 2 */
+  --pal-blue: #0b4e87;
+  --pal-sky: #49acf0;
+  --pal-aqua: #92e5ee;
+  --pal-forest: #073226;
+  --pal-green: #4e964c;
+  --pal-lime: #dfec72;
+  --pal-lemon: #fffa80;
+  --pal-pale-lime: #e2ebb2;
+  --pal-ivory: #eeefdf;
+  --pal-magenta: #de3796;
+  /* row 3 */
+  --pal-lilac-light: #d8b2f0;
+  --pal-lavender: #dda0ff;
+  --pal-lilac: #c97ff7;
+  --pal-coral: #f06054;
+  --pal-salmon: #ff9884;
+  --pal-pink: #ffa59d;
+  --pal-blush: #ffd7d3;
+  --pal-rose-white: #fff1ef;
+  --pal-purple: #8e3db5;
+  --pal-plum: #67288a;
 }
 
 * { box-sizing: border-box; }
@@ -1796,6 +1831,8 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
 @media print {
   body { background: #fff; }
   .toolbar, .check, .side { display: none !important; }
+  /* drawing boxes: no colour dots, eraser, "Clear" or "Add a photo" on paper */
+  .pd-tools, .pd-photo-btn { display: none !important; }
   body.zoomed .spread { margin: 0; }
   .spread { width: 210mm; margin: 0; box-shadow: none; flex-direction: column; gap: 0; break-after: auto; }
   .page { flex: none; width: 210mm; height: 297mm; aspect-ratio: auto; box-shadow: none; break-after: page; break-inside: avoid; }
@@ -3437,11 +3474,23 @@ textarea.fill.vl-lines { padding: 0 .8cqw; font-size: 2cqw; line-height: 3.9cqw;
 }
 
 /* ---------- scaffolding: teacher-only spreads with no page numbers (pages.js), e.g. [scaf-jobs-stories] ---------- */
-/* inside one, the desk and the toolbar change colour, so it is clear these pages are not in the students' book */
-body.in-scaffold { background: #2f3d55 repeating-linear-gradient(135deg, transparent 0 28px, rgba(255,255,255,.035) 28px 56px); }
-body.in-scaffold .toolbar { background: #ffc93c; border-bottom-color: #e0a800; }
-body.in-scaffold .toolbar-title { color: #1f2a6b; }
-body.in-scaffold .toolbar button, body.in-scaffold .home-btn { border-color: #e0a800; }
+/* the desk and the toolbar say who can see the open spread (script.js, paintDesk):
+   teacher only (scaffolding, tests, "For the teacher") → dark blue desk, yellow toolbar */
+body.teacher-only { background: #2f3d55 repeating-linear-gradient(135deg, transparent 0 28px, rgba(255,255,255,.035) 28px 56px); }
+body.teacher-only .toolbar { background: #ffc93c; border-bottom-color: #e0a800; }
+body.teacher-only .toolbar-title { color: #1f2a6b; }
+body.teacher-only .toolbar button, body.teacher-only .home-btn { border-color: #e0a800; }
+/* the tests (scaffold test) are teacher only too, with a coral toolbar */
+body.in-test .toolbar { background: var(--coral); border-bottom-color: #c94535; }
+body.in-test .toolbar button, body.in-test .home-btn { border-color: #c94535; }
+body.in-test .goto, body.in-test .toolbar-title { color: #fff; }
+/* a page of the book that students cannot see yet (not ticked in the panel) → grey striped desk, grey toolbar */
+body.not-visible { background: #b9b9c0 repeating-linear-gradient(135deg, transparent 0 22px, rgba(255,255,255,.28) 22px 44px); }
+body.not-visible .toolbar { background: #8d8d97; border-bottom-color: #6f6f79; }
+body.not-visible .toolbar-title { color: #fff; }
+body.not-visible .toolbar button, body.not-visible .home-btn { border-color: #6f6f79; }
+body.not-visible .goto { color: #fff; }
+@media print { body.teacher-only, body.not-visible { background: #fff; } }
 .scaffold-link b { margin-right: 4px; }
 .scaffold-topic { background: #fff8dc; }
 .scaffold-topic h3 { color: #1f2a6b; }
@@ -3484,7 +3533,94 @@ body.in-scaffold .toolbar button, body.in-scaffold .home-btn { border-color: #e0
 .scf-people ul { display: grid; grid-template-columns: 1fr 1fr; gap: .2cqw 1cqw; margin: .8cqw 0 0; padding: .8cqw 0 0; border-top: 1px dashed #ddd; list-style: none; font-size: 1.55cqw; }
 .scf-people s { text-decoration: none; color: #e5334b; letter-spacing: .05em; }
 .scf-note { margin: 1.4cqw 0 0; font-size: 1.6cqw; color: #888; text-align: center; }
+/* [scaf-tobe-bullshit]: the opposite forms of to be + the pupils' cards */
+.scf-opp { margin: 0 0 1.4cqw; border-collapse: collapse; font-size: 2cqw; }
+.scf-opp td { padding: .3cqw 1cqw .3cqw 0; }
+.scf-opp td:nth-child(2) { color: #e8820c; }
+.scf-opp b, .scf-frame b { color: #e5334b; }
+.scf-mini { font-size: 1.6cqw; color: #888; }
+.scf-h2 { margin: 0; font: 700 3.6cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.scf-cards { width: 100%; border-collapse: separate; border-spacing: 0 1.1cqw; table-layout: fixed; }
+.scf-cards th { font: 700 2.2cqw 'Fredoka', sans-serif; color: var(--navy); text-align: left; padding: 0 1cqw; }
+.scf-cards th:first-child, .scf-cards td:first-child { width: 5cqw; text-align: center; font-weight: 800; color: #e8820c; }
+.scf-cards td { padding: .6cqw 1cqw; border-bottom: .25cqw solid #c9d2e0; font-size: 1.9cqw; }
+.scf-cards td + td + td { border-left: .3cqw dashed #e8820c; }
+.scf-cards .ex td { color: #888; font-style: italic; border-bottom-style: dashed; }
+.scf-cards input.fill { width: 100%; border: 0; background: transparent; font: inherit; color: #1f2a6b; outline: none; }
+/* [scaf-tobe-truth]: cards you can lie about vs cards we can check, then ✓ / ✗ for each card */
+.scf-lie { margin-bottom: 2cqw; }
+.scf-see { border-color: #8a96ad; background: #f4f6fa; }
+.scf-list { display: grid; grid-template-columns: 1fr 1fr; gap: .4cqw 2cqw; margin: 0; padding-left: 2.6cqw; font-size: 1.85cqw; }
+.scf-see .scf-list { color: #666; text-decoration: line-through #8a96ad; }
+.scf-see .scf-mini { margin: 1cqw 0 0; }
+.scf-truth { border-spacing: 0 .7cqw; }
+.scf-truth td { font-size: 1.75cqw; }
+.scf-truth td:nth-child(2) { width: 38%; }
+.scf-truth .tf { width: 10cqw; text-align: center; white-space: nowrap; border-left: 0 !important; }
+.scf-truth .tf .tick { width: 3cqw; margin: 0 .3cqw; }
+.scf-truth .tick.f.on { background: #e5334b; border-color: #e5334b; }
+.scf-truth.compact { border-spacing: 0 .35cqw; }
+.scf-truth.compact td { padding: .35cqw 1cqw; font-size: 1.6cqw; }
+.scf-ps { margin-top: 2cqw; }
+.scf-ps .scf-opp { margin: 0; font-size: 1.8cqw; }
+[data-id="scaf-ps-truth"] .scf-list { font-size: 1.65cqw; }
+/* jobs test [scaf-jobs-test-a/b/c]: sheets to photocopy, the name line is .scv-name (personality-chapter.css) */
+.sct { display: flex; flex-direction: column; gap: 2.6cqw; }
+.sct .scf-tape { margin-bottom: 0; align-self: flex-start; }
+.sct .scv-name { display: flex; align-items: flex-end; gap: 1.4cqw; margin: 0; font-weight: 700; color: #555; }
+.sct .scv-name span { flex: 1; border-bottom: .25cqw solid #999; }
+.sct .scv-name span.short { flex: .45; }
+.sct-title { margin: 0; font: 700 6cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.sct-title span { color: #e8820c; }
+.sct-ex h2 { display: flex; align-items: center; gap: 1.2cqw; margin: 0 0 1.4cqw; font: 700 2.7cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.sct-ex h2 b { flex: none; display: grid; place-items: center; width: 4cqw; height: 4cqw; border-radius: 50%; background: #ffc93c; font-size: 2.4cqw; }
+.sct-ex h2 em { margin-left: auto; font: 800 2cqw 'Nunito', sans-serif; font-style: normal; color: #888; white-space: nowrap; }
+.sct ol, .sct ul { margin: 0; padding: 0; list-style: none; }
+.sct-tr { display: grid; grid-template-columns: 1fr 1fr; gap: 0 4cqw; }
+.sct-tr li { display: flex; align-items: flex-end; gap: 1.2cqw; height: 4.8cqw; counter-increment: sct; }
+.sct-tr ol { counter-reset: sct; }
+.sct-tr li::before { content: counter(sct) "."; flex: none; width: 3cqw; font-weight: 800; color: #e8820c; }
+.sct-tr li span { flex: none; font-weight: 700; }
+.sct-tr li i { flex: 1; border-bottom: .2cqw solid #999; margin-bottom: .4cqw; }
+.sct-pick { display: flex; align-items: flex-end; gap: 1.2cqw; margin: 0 0 1cqw; padding: 1.2cqw 2cqw; border: .3cqw dashed #e8820c; border-radius: 1.6cqw; font: 700 2.4cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.sct-pick span { flex: 1; border-bottom: .2cqw solid #999; }
+.sct-hint { margin: 0 0 1cqw; font-size: 1.9cqw; color: #555; }
+.sct-lines { height: calc(var(--n) * 4.6cqw); background: repeating-linear-gradient(transparent 0 calc(4.6cqw - .18cqw), #a9adb8 0 4.6cqw); }
+.sct-total { margin: auto 0 0; align-self: flex-end; padding: 1cqw 2.4cqw; border: .3cqw solid var(--navy); border-radius: 1.4cqw; font: 700 2.6cqw 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.sct-total span { margin-left: 1.4cqw; }
+.sct-box { margin: 0 0 1.4cqw; padding: 1cqw 2cqw; border-radius: 1.4cqw; background: #fdecd6; font-weight: 800; text-align: center; word-spacing: .2em; }
+/* the guide boxes of version b: what to say, the words to circle (<u>), the line to write on */
+.sct-guide { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4cqw; }
+.sct-guide > div { display: flex; flex-direction: column; padding: 1cqw 1.6cqw 1cqw; border: .25cqw solid #c9d2e0; border-radius: 1.6cqw; background: #fff; }
+.sct-guide h3 { margin: 0 0 .5cqw; font: 700 2.1cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.sct-guide p { margin: 0; font-size: 1.75cqw; line-height: 1.6; color: #555; }
+.sct-guide i { margin-top: auto; height: 9.6cqw; flex: none; background: repeating-linear-gradient(transparent 0 calc(4.8cqw - .18cqw), #a9adb8 0 4.8cqw); }
+.sct-guide.big i { height: 14.4cqw; }
+.sct u, .sct-tf u { display: inline-block; margin: 0 .5cqw .3cqw 0; padding: 0 1.1cqw; border: .2cqw dashed #b9b9c4; border-radius: 999px; text-decoration: none; font-weight: 700; color: #333; line-height: 1.4; }
+/* version c: big letters, no italics */
+.sct-easy { font-size: 2.5cqw; line-height: 1.45; gap: 3cqw; }
+.sct-easy .sct-ex h2 { font-size: 3cqw; }
+.sct-easy .sct-box { font-size: 2.3cqw; }
+.sct-pics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.4cqw 2cqw; counter-reset: sct; }
+.sct-pics li { display: flex; flex-direction: column; align-items: center; gap: 1.4cqw; counter-increment: sct; }
+.sct-pics span { position: relative; display: grid; place-items: center; width: 16cqw; height: 16cqw; border: .3cqw solid #2a2a30; border-radius: 2cqw; font-size: 9cqw; line-height: 1; }
+.sct-pics span::before { content: counter(sct); position: absolute; left: 1cqw; top: .6cqw; font: 800 2cqw 'Nunito', sans-serif; color: #e8820c; }
+.sct-pics i { width: 100%; height: 3.6cqw; border-bottom: .25cqw solid #999; }
+.sct .sct-join li { display: grid; grid-template-columns: 1fr 1.6cqw 8cqw 1.6cqw 1fr; column-gap: .8cqw; align-items: center; margin-bottom: 2.6cqw; }
+.sct-join span:first-child { font-weight: 800; }
+.sct-join i { grid-column: 2; width: 1.8cqw; height: 1.8cqw; border-radius: 50%; background: #2a2a30; }
+.sct-join i + i { grid-column: 4; }
+.sct-join span + i + i + span { grid-column: 5; font-weight: 800; }
+.sct-glos { margin: -.6cqw 0 1.6cqw; font-size: 2cqw; color: #666; text-align: center; }
+.sct-cloze p { margin: 0 0 2cqw; }
+.sct-cloze i { display: inline-block; width: 20cqw; border-bottom: .25cqw solid #2a2a30; }
+.sct-tf li { display: flex; align-items: center; gap: 1.4cqw; margin-bottom: 2cqw; counter-increment: sct; }
+.sct-tf { counter-reset: sct; }
+.sct-tf li::before { content: counter(sct) "."; width: 3.4cqw; font-weight: 800; color: #e8820c; }
+.sct-tf span { flex: 1; }
+.sct-tf u { padding: .2cqw 1.6cqw; font-weight: 800; letter-spacing: .05em; }
 @media print {
+  .sct .scf-tape { display: none; }
   .scf-tools button, .scf-tools label { display: none !important; }
   .scf-in { overflow: hidden; }
 }

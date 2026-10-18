@@ -1,6 +1,8 @@
 // Table of contents shown on the home page, in the order of the book.
 // No page numbers here: a chapter starts at the spread named in `start` (its data-id in index.html)
 // and goes on until the next chapter starts. The numbers are counted by pages.js.
+// Tests and scaffolding are inside the chapters (teacher only, no page numbers, see pages.js):
+// the `collect` folders of "For the teacher" list them all in one place.
 // A chapter without `start` is not written yet: only the teacher sees it, as "coming soon".
 // When its first spread is in index.html, add `start: '<its data-id>'`.
 // zoom (optional) enlarges the drawing inside its circle, e.g. 1.5.
@@ -47,6 +49,7 @@ const CONTENTS = {
         { title: 'Personality', start: 'pers-big5', color: '#c08be8', image: 'img/big5-laila.png', zoom: 1.2 },
         { title: 'Literature: Shakespeare', start: 'shk-meet', color: '#b23a48' },
         { title: 'Clothes & Fashion show', start: 'clothes-vocab', color: '#dc3394', image: 'img/clothes/cover-hamster.png' },
+        { title: 'Murdoku: prepositions of place', start: 'mk-intro', color: '#d6423b' },
         { title: 'Describing photos', color: '#46d9c0' },
         { title: 'Past simple', color: '#e8820c' },
         { title: 'Paradigms', color: '#8e2de2' },
@@ -76,13 +79,17 @@ const CONTENTS = {
       title: 'For the teacher',
       teacher: true,
       chapters: [
-        { title: 'Tests: pronouns & to be', start: 'test-pron-a', color: '#e3b505', folder: 'tests-pronouns' },
-        { title: 'Tests: clothes & present continuous', start: 'test-clothes-a1', color: '#dc3394', folder: 'tests-clothes' },
-        { title: 'Tests: summer homework', start: 'test-summer-a', color: '#f5a53b', folder: 'tests-summer' },
+        // folders that only list pages that are inside the chapters, in the order of the book
+        // (collect: which spreads, as a CSS selector; withChapter: the name of their chapter is shown too)
+        { title: 'Scaffolding', collect: '.scaffold:not(.test)', withChapter: true, color: '#e0a800' },
+        { title: 'Tests: pronouns & to be', collect: '[data-folder="tests-pronouns"]', color: '#e3b505' },
+        { title: 'Tests: clothes & present continuous', collect: '[data-folder="tests-clothes"]', color: '#dc3394' },
+        { title: 'Tests: summer homework', collect: '[data-folder="tests-summer"]', color: '#f5a53b' },
+        { title: 'Tests: jobs & CVs', collect: '[data-folder="tests-jobs"]', color: '#e8820c' },
         // printable exit tickets: 24 different slips per topic
-        { title: 'Exit tickets', start: 'exit-persephone1', color: '#fd7366', folder: 'exit-tickets' },
+        { title: 'Exit tickets', start: 'exit-persephone1', color: '#fd7366' },
         // job cards to print for the forehead game (jobs-forehead:R)
-        { title: 'Job cards (forehead game)', start: 'jobcards-1', color: '#1f2a6b', folder: 'job-cards' },
+        { title: 'Job cards (forehead game)', start: 'jobcards-1', color: '#1f2a6b' },
       ],
     },
     {
@@ -121,7 +128,9 @@ const CONTENTS = {
     { title: 'Linking words: first, then, after that, finally', color: '#8e2de2', pages: ['ps-routine-linking:L'] },
     { title: 'Spelling: missing vowels (daily routine)', color: '#fa6e5f', pages: ['ps-routine-linking:R'] },
     { title: 'Writing: my daily routine', color: '#c97df6', pages: ['ps-routine-clock:L', 'ps-routine-linking:R'] },
-    { title: 'Prepositions of place', color: '#3d9a3d', pages: ['home-coraline:L', ['home-prepositions', 'home-missions']] },
+    { title: 'Prepositions of place', color: '#3d9a3d', pages: ['home-coraline:L', ['home-prepositions', 'home-missions'], ['mk-intro', 'mk-create:L']] },
+    { title: 'Murdoku: logic puzzles with prepositions', color: '#d6423b', pages: [['mk-intro', 'mk-party']] },
+    { title: 'Create your own Murdoku', color: '#d6423b', pages: ['mk-create:R'] },
     { title: 'Home vocabulary: spell & unlock', color: '#c9de3c', pages: ['home-vocab:L'] },
     { title: 'Rooms of the house: decorate the house', color: '#4b924d', pages: ['home-vocab:R'] },
     { title: 'Room missions (prepositions game)', color: '#3d9a3d', pages: [['home-prepositions:R', 'home-missions']] },
@@ -233,12 +242,6 @@ const CONTENTS = {
     { title: 'Describe the outfit: 4 parts', color: '#dc3394', pages: ['clothes-practice1:L', 'clothes-practice2:R'] },
     { title: 'Test practice: clothes & present continuous', color: '#e3b505', pages: [['clothes-practice1', 'clothes-practice2']] },
     { title: 'Fashion show day: script & judges', color: '#dc3394', pages: ['clothes-auction:R'] },
-    { title: 'Test A: pronouns & to be', color: '#e3b505', pages: ['test-pron-a'] },
-    { title: 'Test B: pronouns & to be', color: '#e3b505', pages: ['test-pron-b'] },
-    { title: 'Test C: pronouns & to be', color: '#e3b505', pages: ['test-pron-c'] },
-    { title: 'Test A: clothes & present continuous', color: '#e3b505', pages: [['test-clothes-a1', 'test-clothes-a2']] },
-    { title: 'Test B: clothes & present continuous', color: '#e3b505', pages: [['test-clothes-b1', 'test-clothes-b2']] },
-    { title: 'Test C: clothes & present continuous', color: '#e3b505', pages: [['test-clothes-c1', 'test-clothes-c2']] },
     { title: 'Exit tickets: Persephone', color: '#fd7366', pages: [['exit-persephone1', 'exit-persephone2']] },
     { title: 'Exit tickets: Sonnet 130', color: '#b23a48', pages: [['exit-sonnet1', 'exit-sonnet2']] },
     { title: 'Meet the author: who was he? (detectives game: clues & inferences)', color: '#262626', pages: [['author-meet', 'author-clues']] },
