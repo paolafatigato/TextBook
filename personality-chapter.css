@@ -305,3 +305,11 @@
 .match.vl-pm .match-words b { display: block; font: 700 2.1cqw/1.05 'Patrick Hand', cursive; color: #8e2de2; }
 .match.vl-pm .match-defs button { background: #f6f0fd; padding: .6cqw 2cqw; border-radius: 999px; font: 800 1.7cqw/1 'Nunito', sans-serif; color: #2a2a30; }
 .match.vl-pm .match-defs button i { font-style: normal; font-weight: 700; font-size: 1.2cqw; color: #8e2de2; margin-right: 1cqw; }
+
+/* --- p. "My flaws": the sloth sits next to the title, in an arch like the avatar of the villain file --- */
+.vl-mascot { aspect-ratio: 16.6 / 19; z-index: 3; }
+.vl-mascot::before { content: ""; position: absolute; inset: 0; border: .3cqw solid var(--p-ink, #2a2a30); border-radius: 50cqw 50cqw 1.4cqw 1.4cqw; background: var(--p-lilac, #ebdcfb); box-shadow: .6cqw .6cqw 0 var(--p-coral, #f96d5a); }
+.vl-mascot img { position: absolute; left: 0; bottom: 0; width: 100%; height: auto; clip-path: inset(-40% -25% 0 -25% round 0 0 1.4cqw 1.4cqw); }
+@media screen { .vl-mascot img.bw { display: none; } }
+@media print { .vl-mascot img.color { display: none; } }
+.vl-mascot.flip img { transform: scaleX(-1); }
