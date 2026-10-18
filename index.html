@@ -7002,7 +7002,7 @@
     </section>
   </div>
 
-  <div class="spread" data-id="jobs-career" data-title="Jobs &amp; CVs" data-name="My future career">
+  <div class="spread" data-id="jobs-career" data-title="Jobs &amp; CVs" data-name="My future career · What matters to me · Unusual jobs">
 
     <!-- ============ LEFT PAGE ============ -->
     <!-- hero on graph paper: the drawing in a circle with a dashed ring, like a skill gauge -->
@@ -7017,50 +7017,169 @@
       <div class="jb-lab abs" style="--x:9.7;--y:42"><b>9.16</b> Skills and qualities: click the ones you already have</div>
       <p class="sh-chk jb-chk abs" style="--x:9.7;--y:46.4;--w:80.6"><span class="chip toggle" id="jb910-0">creative</span><span class="chip toggle" id="jb910-1">patient</span><span class="chip toggle" id="jb910-2">brave</span><span class="chip toggle" id="jb910-3">organised</span><span class="chip toggle" id="jb910-4">curious</span><span class="chip toggle" id="jb910-5">hard-working</span><span class="chip toggle" id="jb910-6">good with numbers</span><span class="chip toggle" id="jb910-7">good with people</span><span class="chip toggle" id="jb910-8">good with animals</span><span class="chip toggle" id="jb910-9">good with computers</span><span class="chip toggle" id="jb910-10">good at languages</span><span class="chip toggle" id="jb910-11">a team player</span><span class="chip toggle" id="jb910-12">a good leader</span><span class="chip toggle" id="jb910-13">a good listener</span><span class="chip toggle" id="jb910-14">calm under pressure</span><span class="chip toggle" id="jb910-15">physically fit</span></p>
 
-      <div class="jb-lab abs" style="--x:9.7;--y:60.4"><b>9.17</b> A or an? Listen to the first sound!</div>
-      <button class="check abs" type="button" style="--x:80;--y:60.4" data-tf="jb911">✓ Check</button>
-      <div class="jb-aan abs" id="jb911" style="--x:9.7;--y:64.6;--w:80.6">
-        <p><span><i>1.</i>___ engineer</span><span class="opt" id="jb911-0" data-answer="an"><button type="button">a</button><button type="button">an</button></span></p>
-        <p><span><i>5.</i>___ office worker</span><span class="opt" id="jb911-4" data-answer="an"><button type="button">a</button><button type="button">an</button></span></p>
-        <p><span><i>2.</i>___ nurse</span><span class="opt" id="jb911-1" data-answer="a"><button type="button">a</button><button type="button">an</button></span></p>
-        <p><span><i>6.</i>___ YouTuber</span><span class="opt" id="jb911-5" data-answer="a"><button type="button">a</button><button type="button">an</button></span></p>
-        <p><span><i>3.</i>___ astronaut</span><span class="opt" id="jb911-2" data-answer="an"><button type="button">a</button><button type="button">an</button></span></p>
-        <p><span><i>7.</i>___ electrician</span><span class="opt" id="jb911-6" data-answer="an"><button type="button">a</button><button type="button">an</button></span></p>
-        <p><span><i>4.</i>___ university teacher</span><span class="opt" id="jb911-3" data-answer="a"><button type="button">a</button><button type="button">an</button></span></p>
-        <p><span><i>8.</i>___ hairdresser</span><span class="opt" id="jb911-7" data-answer="a"><button type="button">a</button><button type="button">an</button></span></p>
+      <!-- 9.17: the Me card of the Happy Job Race (job-race.js reads it): 12 hearts, up to 4 on one thing -->
+      <div class="jb-lab abs" style="--x:9.7;--y:60.4"><b>9.17</b> What matters to you in a job? Share out 12 hearts</div>
+      <span class="jb-hcount abs" id="jb917-count" style="--x:70.3;--y:60.2;--w:20"></span>
+      <p class="jb-hlegend abs" style="--x:9.7;--y:64.6;--w:80.6"><span><i>♥</i>a bit</span><span><i>♥♥</i>quite</span><span><i>♥♥♥</i>very</span><span><i>♥♥♥♥</i>extremely important</span><span><i>♡</i>no hearts: not important</span></p>
+      <div class="jb-values abs" id="jb917" style="--x:9.7;--y:69;--w:80.6">
+        <p><i>💰</i><b>money</b><span class="opt jb-hearts" id="jb917-money"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></span></p>
+        <p><i>🏖️</i><b>free time</b><span class="opt jb-hearts" id="jb917-time"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></span></p>
+        <p><i>🏡</i><b>family time</b><span class="opt jb-hearts" id="jb917-family"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></span></p>
+        <p><i>🤝</i><b>helping people</b><span class="opt jb-hearts" id="jb917-help"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></span></p>
+        <p><i>⭐</i><b>being famous</b><span class="opt jb-hearts" id="jb917-fame"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></span></p>
+        <p><i>✈️</i><b>travel &amp; adventure</b><span class="opt jb-hearts" id="jb917-travel"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></span></p>
+        <p><i>🎨</i><b>being creative</b><span class="opt jb-hearts" id="jb917-create"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></span></p>
+        <p><i>🌳</i><b>nature &amp; animals</b><span class="opt jb-hearts" id="jb917-nature"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></span></p>
+        <p><i>👫</i><b>friends &amp; teamwork</b><span class="opt jb-hearts" id="jb917-team"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></span></p>
+        <p><i>🔒</i><b>a safe, steady job</b><span class="opt jb-hearts" id="jb917-safe"><button type="button">1</button><button type="button">2</button><button type="button">3</button><button type="button">4</button></span></p>
       </div>
-      <p class="hint-line abs" style="--x:9.7;--y:84">💡 university starts with the sound /ju/, like “you”: so it's <b>a</b> university teacher!</p>
 
-      <div class="jb-lab abs" style="--x:9.7;--y:88.6"><b>9.18</b> Future career: answer the questions</div>
-      <ol class="sh-qa abs" style="--x:9.7;--y:91.4;--w:80.6">
-        <li><p><i>1.</i>What job would you like when you are older?</p><input class="fill" id="jb912-0" autocomplete="off" aria-label="Question 1"></li>
-        <li><p><i>2.</i>What does this job involve?</p><input class="fill" id="jb912-1" autocomplete="off" aria-label="Question 2"></li>
-        <li><p><i>3.</i>What do you need to be good at to do that job well?</p><input class="fill" id="jb912-2" autocomplete="off" aria-label="Question 3"></li>
-        <li><p><i>4.</i>Do you have these qualities and skills yet?</p><input class="fill" id="jb912-3" autocomplete="off" aria-label="Question 4"></li>
-        <li><p><i>5.</i>What are the skills and qualities you need to work on?</p><input class="fill" id="jb912-4" autocomplete="off" aria-label="Question 5"></li>
-      </ol>
+      <div class="jb-lab abs" style="--x:9.7;--y:98.4"><b>9.18</b> Now write about you</div>
+      <p class="mt-line abs" style="--x:9.7;--y:101.6;--w:80.6"><span>The most important thing for me is</span><input class="fill" id="jb918-0" autocomplete="off" aria-label="The most important thing for me is"></p>
+      <p class="mt-line abs" style="--x:9.7;--y:106.6;--w:80.6"><span>because</span><input class="fill" id="jb918-1" autocomplete="off" aria-label="because"></p>
+      <p class="mt-line abs" style="--x:9.7;--y:111.6;--w:80.6"><span>I don't really care about</span><input class="fill" id="jb918-2" autocomplete="off" aria-label="I don't really care about"></p>
+      <p class="mt-line abs" style="--x:9.7;--y:116.6;--w:80.6"><span>A job that is perfect for my hearts:</span><input class="fill" id="jb918-3" autocomplete="off" aria-label="A job that is perfect for my hearts"></p>
+      <p class="hint-line abs" style="--x:9.7;--y:124.2">💡 Your hearts are your <b>Me card</b> for the Happy Job Race on p. <span data-page="jobs-pros"></span>!</p>
 
       <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
     </section>
 
     <!-- ============ RIGHT PAGE ============ -->
+    <!-- six real but strange jobs, like the job cards of jobs-stereotypes:R -->
     <section class="page page-right sh jb jb-paper">
-      <div class="jb-lab abs" style="--x:8;--y:5"><b>9.18</b> Future career (continued)</div>
-      <ol class="sh-qa abs" style="--x:8;--y:7.6;--w:84">
+      <p class="jb-note abs" style="--x:8;--y:3.4">strange but true!</p>
+      <h2 class="jb-h2 abs" style="--x:8;--y:6.8"><span>Unusual jobs</span> 🍦</h2>
+      <div class="jb-lab abs" style="--x:8;--y:14.4"><b>9.19</b> Read about these real jobs</div>
+      <ol class="jb-odd abs" style="--x:8;--y:18.4;--w:84">
+        <li class="c-pink"><i>🍦</i><h4>ice-cream taster</h4><p>They taste new ice-cream flavours and decide if they are good. They use a golden spoon, and one taster's tongue was insured for <b>one million dollars</b>!</p></li>
+        <li class="c-teal"><i>🌪️</i><h4>storm chaser</h4><p>They drive after tornadoes and big storms to film them and study them. They travel thousands of kilometres. It's exciting, but it can be <b>dangerous</b>!</p></li>
+        <li class="c-sun"><i>🎮</i><h4>video game tester</h4><p>They play new video games before they come out, look for <b>bugs</b> (mistakes) and write reports. Sometimes they play the same level a hundred times!</p></li>
+        <li class="c-red"><i>🐼</i><h4>panda keeper</h4><p>In China, panda keepers look after baby pandas. They feed them, wash them and play with them… and they clean a lot of <b>panda poo</b>!</p></li>
+        <li class="c-teal"><i>🎬</i><h4>stunt performer</h4><p>They do the dangerous scenes in films instead of the actors: they fall, fight, jump and crash cars. They <b>have to</b> train a lot and be very careful.</p></li>
+        <li class="c-pink"><i>🛏️</i><h4>bed tester</h4><p>They sleep in new beds and hotels, and tell the company if the beds are comfortable. Yes, they <b>get paid to sleep</b>! They write a report every morning.</p></li>
+      </ol>
+
+      <div class="jb-lab abs" style="--x:8;--y:71.4"><b>9.20</b> Good side 😊 or bad side 😬? Click</div>
+      <button class="check abs" type="button" style="--x:80;--y:71.4" data-tf="jb920">✓ Check</button>
+      <div class="jb-aan jb-gb abs" id="jb920" style="--x:8;--y:75.2;--w:84">
+        <p><span><i>1.</i>You eat ice cream at work.</span><span class="opt" id="jb920-0" data-answer="😊"><button type="button">😊</button><button type="button">😬</button></span></p>
+        <p><span><i>5.</i>You can get hurt.</span><span class="opt" id="jb920-4" data-answer="😬"><button type="button">😊</button><button type="button">😬</button></span></p>
+        <p><span><i>2.</i>You clean a lot of panda poo.</span><span class="opt" id="jb920-1" data-answer="😬"><button type="button">😊</button><button type="button">😬</button></span></p>
+        <p><span><i>6.</i>You see amazing storms.</span><span class="opt" id="jb920-5" data-answer="😊"><button type="button">😊</button><button type="button">😬</button></span></p>
+        <p><span><i>3.</i>You play the same level 100 times.</span><span class="opt" id="jb920-2" data-answer="😬"><button type="button">😊</button><button type="button">😬</button></span></p>
+        <p><span><i>7.</i>You can be in famous films.</span><span class="opt" id="jb920-6" data-answer="😊"><button type="button">😊</button><button type="button">😬</button></span></p>
+        <p><span><i>4.</i>You get paid to sleep.</span><span class="opt" id="jb920-3" data-answer="😊"><button type="button">😊</button><button type="button">😬</button></span></p>
+        <p><span><i>8.</i>Tornadoes can be dangerous.</span><span class="opt" id="jb920-7" data-answer="😬"><button type="button">😊</button><button type="button">😬</button></span></p>
+      </div>
+
+      <div class="jb-lab abs" style="--x:8;--y:95.4"><b>9.21</b> Which unusual job would you like to try? Why?</div>
+      <p class="mt-line abs" style="--x:8;--y:98.2;--w:84"><span>I'd like to be</span><input class="fill" id="jb921-0" autocomplete="off" aria-label="I'd like to be"><span>because</span><input class="fill" id="jb921-1" autocomplete="off" aria-label="because"></p>
+
+      <div class="jb-lab abs" style="--x:8;--y:106.4"><b>9.22</b> A or an? Listen to the first sound!</div>
+      <button class="check abs" type="button" style="--x:80;--y:106.4" data-tf="jb911">✓ Check</button>
+      <div class="jb-aan abs" id="jb911" style="--x:8;--y:109.8;--w:84">
+        <p><span><i>1.</i>___ engineer</span><span class="opt" id="jb911-0" data-answer="an"><button type="button">a</button><button type="button">an</button></span></p>
+        <p><span><i>5.</i>___ office worker</span><span class="opt" id="jb911-4" data-answer="an"><button type="button">a</button><button type="button">an</button></span></p>
+        <p><span><i>2.</i>___ nurse</span><span class="opt" id="jb911-1" data-answer="a"><button type="button">a</button><button type="button">an</button></span></p>
+        <p><span><i>6.</i>___ YouTuber</span><span class="opt" id="jb911-5" data-answer="a"><button type="button">a</button><button type="button">an</button></span></p>
+        <p><span><i>3.</i>___ ice-cream taster</span><span class="opt" id="jb911-2" data-answer="an"><button type="button">a</button><button type="button">an</button></span></p>
+        <p><span><i>7.</i>___ electrician</span><span class="opt" id="jb911-6" data-answer="an"><button type="button">a</button><button type="button">an</button></span></p>
+        <p><span><i>4.</i>___ university teacher</span><span class="opt" id="jb911-3" data-answer="a"><button type="button">a</button><button type="button">an</button></span></p>
+        <p><span><i>8.</i>___ hairdresser</span><span class="opt" id="jb911-7" data-answer="a"><button type="button">a</button><button type="button">an</button></span></p>
+      </div>
+      <p class="hint-line abs" style="--x:8;--y:128.6">💡 university starts with the sound /ju/, like “you”: so it's <b>a</b> university teacher!</p>
+
+      <span class="footer abs" style="--x:69;--y:134.4;--w:19.1">Jobs &amp; CVs</span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="jobs-pros" data-title="Jobs &amp; CVs" data-name="Good side, bad side · Happy Job Race · My dream job">
+
+    <!-- ============ LEFT PAGE ============ -->
+    <!-- the language of the Happy Job Race: it makes / it has / you can / you have to -->
+    <section class="page page-left sh jb">
+      <p class="jb-kicker red abs" style="--x:9.7;--y:5">// pros &amp; cons</p>
+      <h1 class="jb-title abs" style="--x:9.7;--y:8.4">Good side, <span>bad side</span></h1>
+      <p class="jb-script abs" style="--x:9.7;--y:16.4;--w:52">every job has both!</p>
+      <div class="jb-dots abs" style="--x:66;--y:2;--w:12;--h:12"></div>
+      <div class="jb-disc small abs" style="--x:72;--y:4;--w:19"></div>
+      <div class="jb-slot abs" data-drawing="drawing: a scale with money and hearts" style="--x:69;--y:3;--w:24;--h:21"></div>
+
+      <div class="jb-lab abs" style="--x:9.7;--y:26.4"><b>9.23</b> Grammar: talking about jobs</div>
+      <div class="sh-gram jb-gram jb-pgram abs" style="--x:9.7;--y:30.4;--w:80.6">
+        <h3>Why do you want this job?</h3>
+        <p><span>what it gives you</span><b>It makes… · It has…</b><i>It makes a lot of money. It has long holidays.</i></p>
+        <p><span>it is possible</span><b>You can + verb</b><i>You can travel. You can become famous.</i></p>
+        <p><span>it is necessary</span><b>You have to + verb</b><i>You have to work at night. 😬</i></p>
+        <p><span>he / she / a pilot</span><b>has to · can</b><i>A pilot has to wear a uniform. She can fly.</i></p>
+      </div>
+
+      <div class="jb-lab abs" style="--x:9.7;--y:55"><b>9.24</b> Can or has to? Click</div>
+      <button class="check abs" type="button" style="--x:80;--y:55" data-tf="jb924">✓ Check</button>
+      <div class="jb-aan jb-ch abs" id="jb924" style="--x:9.7;--y:58.6;--w:80.6">
+        <p><span><i>1.</i>An astronaut <span class="opt" id="jb924-0" data-answer="has to"><button type="button">can</button><button type="button">has to</button></span> train for years.</span></p>
+        <p><span><i>4.</i>A doctor <span class="opt" id="jb924-3" data-answer="has to"><button type="button">can</button><button type="button">has to</button></span> work at night.</span></p>
+        <p><span><i>2.</i>A YouTuber <span class="opt" id="jb924-1" data-answer="can"><button type="button">can</button><button type="button">has to</button></span> become famous.</span></p>
+        <p><span><i>5.</i>A programmer <span class="opt" id="jb924-4" data-answer="can"><button type="button">can</button><button type="button">has to</button></span> work from home.</span></p>
+        <p><span><i>3.</i>A pilot <span class="opt" id="jb924-2" data-answer="can"><button type="button">can</button><button type="button">has to</button></span> see the whole world.</span></p>
+        <p><span><i>6.</i>A stunt performer <span class="opt" id="jb924-5" data-answer="has to"><button type="button">can</button><button type="button">has to</button></span> be careful.</span></p>
+      </div>
+
+      <div class="jb-lab abs" style="--x:9.7;--y:74"><b>9.25</b> Which job is it? Connect</div>
+      <button class="check abs" type="button" style="--x:80;--y:74" data-match="jb925">✓ Check</button>
+      <div class="match jb-sec abs" id="jb925" style="--x:9.7;--y:77.4">
+        <ul class="match-words">
+          <li><button type="button" data-key="tea">It has long summer holidays.</button></li>
+          <li><button type="button" data-key="ice">You taste new flavours every day.</button></li>
+          <li><button type="button" data-key="sto">You have to drive after tornadoes.</button></li>
+          <li><button type="button" data-key="vet">You can save a dog's life.</button></li>
+          <li><button type="button" data-key="gam">You can play games before everybody else.</button></li>
+          <li><button type="button" data-key="ast">You can see the Earth from space.</button></li>
+          <li><button type="button" data-key="stu">You have to fall and crash cars in films.</button></li>
+          <li><button type="button" data-key="pro">You can create apps from home.</button></li>
+        </ul>
+        <ul class="match-defs">
+          <li><button type="button" data-key="stu">stunt performer</button></li>
+          <li><button type="button" data-key="vet">vet</button></li>
+          <li><button type="button" data-key="ast">astronaut</button></li>
+          <li><button type="button" data-key="ice">ice-cream taster</button></li>
+          <li><button type="button" data-key="pro">programmer</button></li>
+          <li><button type="button" data-key="tea">teacher</button></li>
+          <li><button type="button" data-key="gam">video game tester</button></li>
+          <li><button type="button" data-key="sto">storm chaser</button></li>
+        </ul>
+        <svg class="match-lines" aria-hidden="true"></svg>
+      </div>
+
+      <div class="rj-games jr-bar abs" style="--x:9.7;--y:119;--w:80.6"><b>🏁 RACE TIME</b><span>your hearts from 9.17 are your Me card!</span><button type="button" class="jr-start">🏁 Play the Happy Job Race! ▶</button></div>
+
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+
+    <!-- ============ RIGHT PAGE ============ -->
+    <!-- after the race: the questions about the future career, the dream job, the interview -->
+    <section class="page page-right sh jb jb-paper">
+      <div class="jb-lab abs" style="--x:8;--y:4.4"><b>9.26</b> Future career: answer the questions</div>
+      <ol class="sh-qa jb-qa abs" style="--x:8;--y:6.6;--w:84">
+        <li><p><i>1.</i>What job would you like when you are older?</p><input class="fill" id="jb912-0" autocomplete="off" aria-label="Question 1"></li>
+        <li><p><i>2.</i>What does this job involve?</p><input class="fill" id="jb912-1" autocomplete="off" aria-label="Question 2"></li>
+        <li><p><i>3.</i>What do you need to be good at to do that job well?</p><input class="fill" id="jb912-2" autocomplete="off" aria-label="Question 3"></li>
+        <li><p><i>4.</i>Do you have these qualities and skills yet? (look at 9.16)</p><input class="fill" id="jb912-3" autocomplete="off" aria-label="Question 4"></li>
+        <li><p><i>5.</i>What are the skills and qualities you need to work on?</p><input class="fill" id="jb912-4" autocomplete="off" aria-label="Question 5"></li>
         <li><p><i>6.</i>What can you do over the next few years to learn these skills and qualities?</p><input class="fill" id="jb912-5" autocomplete="off" aria-label="Question 6"></li>
         <li><p><i>7.</i>Who can help you to do this?</p><input class="fill" id="jb912-6" autocomplete="off" aria-label="Question 7"></li>
         <li><p><i>8.</i>What will be your number one goal to work on?</p><input class="fill" id="jb912-7" autocomplete="off" aria-label="Question 8"></li>
       </ol>
 
-      <div class="jb-card abs" style="--x:8;--y:32;--w:84;--h:50"></div>
-      <div class="jb-lab abs" style="--x:11;--y:35"><b>9.19</b> Write a short text about the job of your dreams</div>
-      <p class="pd-intro abs" style="--x:11;--y:39.4;--w:78"><b>What</b> is the job? · <b>What</b> do you do every day? · <b>Where</b> do you work and <b>who</b> do you work with? · <b>What</b> skills or studies do you need? · <b>Why</b> is this job perfect for you?</p>
-      <textarea class="fill mt-lines abs" id="jb913" style="--x:11;--y:45.6;--w:78;--h:33.6" placeholder="I dream of becoming… Every day I…" aria-label="The job of my dreams"></textarea>
+      <div class="jb-card abs" style="--x:8;--y:58.6;--w:84;--h:39"></div>
+      <div class="jb-lab abs" style="--x:11;--y:61.4"><b>9.27</b> Write a short text about the job of your dreams</div>
+      <p class="pd-intro abs" style="--x:11;--y:65.2;--w:78"><b>What</b> is the job? · <b>What</b> do you do every day? · <b>Where</b> and <b>who</b> with? · <b>What</b> skills do you need? · <b>Why</b> is it perfect for your hearts (9.17)? Is there a <b>bad side</b>?</p>
+      <textarea class="fill mt-lines abs" id="jb913" style="--x:11;--y:72;--w:78;--h:23.2" placeholder="I dream of becoming… It makes… You can… You have to…" aria-label="The job of my dreams"></textarea>
 
-      <div class="jb-lab abs" style="--x:8;--y:86.4"><b>9.20</b> ⭐ Optional: interview a person who works</div>
-      <p class="pd-intro abs" style="--x:8;--y:90.4;--w:84">Ask a relative or a friend, <b>record</b> the interview (ask permission first!), then write a summary in English.</p>
-      <div class="jb-slot circle abs" data-drawing="drawing: a microphone" style="--x:8;--y:95.6;--w:13;--h:13"></div>
-      <ol class="jb-iv abs" style="--x:24;--y:95.2;--w:68">
+      <div class="jb-lab abs" style="--x:8;--y:100.6"><b>9.28</b> ⭐ Optional: interview a person who works</div>
+      <p class="pd-intro abs" style="--x:8;--y:104.2;--w:84">Ask a relative or a friend, <b>record</b> the interview (ask permission first!), then write a summary in English.</p>
+      <div class="jb-slot circle abs" data-drawing="drawing: a microphone" style="--x:8;--y:108.2;--w:11;--h:11"></div>
+      <ol class="jb-iv abs" style="--x:22;--y:107.8;--w:70">
         <li>What is your job?</li>
         <li>What do you do on a typical day?</li>
         <li>What do you like about it?</li>
@@ -7068,8 +7187,7 @@
         <li>How did you get this job? Did you need titles or certificates?</li>
         <li>Would you recommend it?</li>
       </ol>
-      <textarea class="fill mt-lines abs" id="jb914" style="--x:8;--y:110.4;--w:84;--h:14.6" placeholder="My aunt is a… On a typical day she…" aria-label="Summary of my interview"></textarea>
-      <button type="button" class="jr-start abs" style="--x:40;--y:127.2;--w:52">🏁 Play the Happy Job Race! ▶</button>
+      <textarea class="fill mt-lines abs" id="jb914" style="--x:8;--y:121.4;--w:84;--h:8.4" placeholder="My aunt is a… On a typical day she…" aria-label="Summary of my interview"></textarea>
 
       <span class="footer abs" style="--x:69;--y:134.4;--w:19.1">Jobs &amp; CVs</span>
     </section>
@@ -7088,7 +7206,7 @@
 
       <div class="rj-box jb-box abs" style="--x:9.7;--y:34.4;--w:80.6"><b>What is a CV?</b> A <b>CV</b> (<i>curriculum vitae</i>, Latin for “the course of your life”) is a short document about you: your studies, your experience and your skills. You send it when you look for a job, an internship or a summer job. In the USA it is called a <b>résumé</b>.</div>
 
-      <div class="jb-lab abs" style="--x:9.7;--y:48"><b>9.21</b> Read Sofia's CV</div>
+      <div class="jb-lab abs" style="--x:9.7;--y:48"><b>9.29</b> Read Sofia's CV</div>
       <div class="jb-cv abs" style="--x:9.7;--y:52.2;--w:80.6">
         <aside>
           <svg class="jb-cv-pic" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" fill="#fff"/><circle cx="20" cy="16" r="7" fill="#7a6bb5"/><rect x="8" y="26" width="24" height="18" rx="9" fill="#7a6bb5"/><rect x="13" y="7" width="14" height="5" rx="2.5" fill="#e8820c"/></svg>
@@ -7119,7 +7237,7 @@
         </div>
       </div>
 
-      <div class="jb-lab abs" style="--x:9.7;--y:103.8"><b>9.22</b> Sofia's CV: true or false?</div>
+      <div class="jb-lab abs" style="--x:9.7;--y:103.8"><b>9.30</b> Sofia's CV: true or false?</div>
       <button class="check abs" type="button" style="--x:80;--y:103.8" data-tf="jb916">✓ Check</button>
       <div class="rj-tf abs" id="jb916" style="--x:9.7;--y:107.4;--w:80.6">
         <p><span><i>1.</i>Sofia goes to school in Verona.</span><span class="tf light" id="jb916-0" data-answer="T"><button type="button">T</button><button type="button">F</button></span></p>
@@ -7136,7 +7254,7 @@
     <section class="page page-right sh jb jb-paper">
       <p class="jb-note abs" style="--x:8;--y:3.4">connect &amp; choose</p>
       <h2 class="jb-h2 abs" style="--x:8;--y:6.8"><span>Inside a CV</span> 🧩</h2>
-      <div class="jb-lab abs" style="--x:8;--y:14.4"><b>9.23</b> Marco's CV: in which section does it go? Connect</div>
+      <div class="jb-lab abs" style="--x:8;--y:14.4"><b>9.31</b> Marco's CV: in which section does it go? Connect</div>
       <button class="check abs" type="button" style="--x:80;--y:14.4" data-match="jb917">✓ Check</button>
       <div class="match jb-sec abs" id="jb917" style="--x:8;--y:19">
         <ul class="match-words">
@@ -7160,7 +7278,7 @@
         <svg class="match-lines" aria-hidden="true"></svg>
       </div>
 
-      <div class="jb-lab abs" style="--x:8;--y:56.4"><b>9.24</b> CV tips: do or don't?</div>
+      <div class="jb-lab abs" style="--x:8;--y:56.4"><b>9.32</b> CV tips: do or don't?</div>
       <button class="check abs" type="button" style="--x:80;--y:56.4" data-tf="jb918">✓ Check</button>
       <div class="jb-rows jb-do abs" id="jb918" style="--x:8;--y:60.6;--w:84">
         <p><span><i>1.</i>Use a serious email: name.surname@…</span><span class="opt" id="jb918-0" data-answer="👍 do"><button type="button">👍 do</button><button type="button">👎 don't</button></span></p>
@@ -7193,7 +7311,7 @@
       <p class="jb-script abs" style="--x:47;--y:28.6;--w:44">create it on Canva 💻</p>
       <p class="jb-marquee alt abs" style="--x:-2;--y:41.6;--w:104" aria-hidden="true"><span>profile ✦ education ✦ experience ✦ skills ✦ languages ✦ hobbies ✦ profile ✦ education ✦</span></p>
 
-      <div class="jb-lab abs" style="--x:9.7;--y:50"><b>9.25</b> Experience: write the verbs in the past simple</div>
+      <div class="jb-lab abs" style="--x:9.7;--y:50"><b>9.33</b> Experience: write the verbs in the past simple</div>
       <button class="check abs" type="button" style="--x:80;--y:50" data-list="jb919">✓ Check</button>
       <ol class="al-fill abs" id="jb919" style="--x:11;--y:52.6;--w:78">
         <li><i>A.</i><span>Last summer I <input class="fill blank" id="jb919-0" data-given="" data-answer="helped" autocomplete="off" aria-label="A: help"> (help) at my uncle's restaurant.</span></li>
@@ -7203,11 +7321,11 @@
         <li><i>E.</i><span>I <input class="fill blank" id="jb919-4" data-given="" data-answer="looked" autocomplete="off" aria-label="E: look"> (look) after my neighbours' children.</span></li>
       </ol>
 
-      <div class="jb-lab abs" style="--x:9.7;--y:80"><b>9.26</b> Write your profile: 3 or 4 sentences about you</div>
+      <div class="jb-lab abs" style="--x:9.7;--y:80"><b>9.34</b> Write your profile: 3 or 4 sentences about you</div>
       <p class="jb-words abs" style="--x:9.7;--y:84;--w:80.6"><b>reliable</b> · <b>friendly</b> · <b>hard-working</b> · <b>creative</b> · <b>organised</b> · <b>patient</b> · I am good at… · I am interested in… · I would like to… · In my free time I…</p>
       <textarea class="fill mt-lines abs" id="jb920" style="--x:9.7;--y:89.4;--w:80.6;--h:16.8" placeholder="I am a … student who…" aria-label="My profile"></textarea>
 
-      <div class="jb-lab abs" style="--x:9.7;--y:109.6"><b>9.27</b> Canva lab checklist: click what is in your CV</div>
+      <div class="jb-lab abs" style="--x:9.7;--y:109.6"><b>9.35</b> Canva lab checklist: click what is in your CV</div>
       <p class="sh-chk jb-chk abs" style="--x:9.7;--y:113.8;--w:80.6"><span class="chip toggle" id="jb921-0">personal details</span><span class="chip toggle" id="jb921-1">a nice, serious photo</span><span class="chip toggle" id="jb921-2">profile</span><span class="chip toggle" id="jb921-3">education</span><span class="chip toggle" id="jb921-4">experience (volunteering and babysitting count!)</span><span class="chip toggle" id="jb921-5">skills</span><span class="chip toggle" id="jb921-6">languages</span><span class="chip toggle" id="jb921-7">hobbies &amp; interests</span><span class="chip toggle" id="jb921-8">one page only</span><span class="chip toggle" id="jb921-9">I checked the spelling</span><span class="chip toggle" id="jb921-10">saved as PDF 📄</span></p>
       <p class="hint-line abs" style="--x:9.7;--y:127.6">💡 on Canva search for “CV” or “resume” and choose a simple template</p>
 
@@ -7218,7 +7336,7 @@
     <section class="page page-right sh jb jb-paper">
       <p class="jb-note abs" style="--x:8;--y:3.4">your turn!</p>
       <h2 class="jb-h2 abs" style="--x:8;--y:6.8"><span>My CV draft</span> ✏️</h2>
-      <div class="jb-lab abs" style="--x:8;--y:14.4"><b>9.28</b> Write your CV here first, then copy it on Canva</div>
+      <div class="jb-lab abs" style="--x:8;--y:14.4"><b>9.36</b> Write your CV here first, then copy it on Canva</div>
       <div class="jb-cv jb-cv-form abs" style="--x:8;--y:19;--w:84">
         <aside>
           <div class="jb-cv-photo" aria-hidden="true">📷<small>your photo<br>on Canva</small></div>
@@ -7237,7 +7355,7 @@
         </aside>
         <div class="jb-cv-main">
           <h4>Profile</h4>
-          <textarea class="fill mt-lines" id="jb922-pro" placeholder="copy it from 9.26" aria-label="Profile"></textarea>
+          <textarea class="fill mt-lines" id="jb922-pro" placeholder="copy it from 9.34" aria-label="Profile"></textarea>
           <h4>Education</h4>
           <p class="jb-cv-row"><input class="fill" id="jb922-e0y" placeholder="when" autocomplete="off" aria-label="Education 1: when"><input class="fill" id="jb922-e0" placeholder="school" autocomplete="off" aria-label="Education 1: school"></p>
           <p class="jb-cv-row"><input class="fill" id="jb922-e1y" placeholder="when" autocomplete="off" aria-label="Education 2: when"><input class="fill" id="jb922-e1" placeholder="school" autocomplete="off" aria-label="Education 2: school"></p>
@@ -7251,7 +7369,7 @@
         </div>
       </div>
 
-      <div class="jb-lab abs" style="--x:8;--y:89"><b>9.29</b> What I can do now: click!</div>
+      <div class="jb-lab abs" style="--x:8;--y:89"><b>9.37</b> What I can do now: click!</div>
       <p class="sh-chk jb-chk abs" style="--x:8;--y:93.4;--w:84"><span class="chip toggle" id="jb923-0">I can name 20 jobs</span><span class="chip toggle" id="jb923-1">I can say what a job involves</span><span class="chip toggle" id="jb923-2">I can use would like to / want to / dream of</span><span class="chip toggle" id="jb923-3">I always use a / an with jobs</span><span class="chip toggle" id="jb923-4">I know the parts of a CV</span><span class="chip toggle" id="jb923-5">I can write my profile</span></p>
 
       <div class="jb-slot strip abs" data-drawing="drawing: a job interview (two people at a desk)" style="--x:8;--y:103;--w:84;--h:15"></div>

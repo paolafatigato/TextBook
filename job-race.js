@@ -1,9 +1,10 @@
-// Happy Job Race ([jobs-career:R]): who gets happy first with their job?
+// Happy Job Race ([jobs-pros:L]): who gets happy first with their job?
 //
 // Every player makes a "Me card": they share 12 hearts among the 10 things that can matter in a job
 // (money, free time, family time, fame…). Then they choose a job and 4 of its 6 reasons ("It makes a lot
 // of money", "You can become famous"…). In the race each player plays one reason per turn: it gives
 // happiness, and more happiness when the player cares about it (more hearts). First to 100 wins.
+// The first player starts from the hearts of 9.17 in the book ([jobs-career:L]), if they used 12 or fewer.
 //
 //   - a reason can be played only a few times (the pips); "An ordinary day" can always be played
 //   - dream reasons (fame, a fortune…) are a gamble: most times a little frustration, sometimes a HUGE joy.
@@ -169,6 +170,55 @@
       R('You learn a new programming language.', 'create', 'grow'),
       R('Your app becomes famous all over the world.', 'fame', 'dream'),
     ], bad: [B('You sit in front of a screen all day.', 'nature'), B('Deadlines! You work late at night.', 'time')] },
+    // the unusual jobs of [jobs-career:R] (odd: they get an "unusual!" label)
+    { k: 'taster', icon: '🍦', name: 'ice-cream taster', odd: true, reasons: [
+      R('You invent crazy new flavours.', 'create', 'daily'),
+      R('You eat ice cream at work!', 'time', 'good'),
+      R('People smile when they taste your ice cream.', 'help', 'good'),
+      R('Your tongue is insured for a million dollars!', 'money', 'big'),
+      R('You work with a small, friendly team.', 'team', 'good'),
+      R('Your new flavour becomes famous all over the world.', 'fame', 'dream'),
+    ], bad: [B('No spicy food, no hot drinks: you must protect your tongue.', 'time'), B('It is a rare job: there are very few in the world.', 'safe')] },
+    { k: 'storm', icon: '🌪️', name: 'storm chaser', odd: true, reasons: [
+      R('You chase tornadoes across the country.', 'travel', 'daily'),
+      R('You see the wildest nature on Earth.', 'nature', 'big'),
+      R('Your data helps to warn people about storms.', 'help', 'good'),
+      R('You work with a brave team.', 'team', 'good'),
+      R('You check the radar again and again, so you are ready.', 'safe', 'calm'),
+      R('You film the perfect tornado and your video goes viral.', 'fame', 'dream'),
+    ], bad: [B('It can be dangerous!', 'safe'), B('Weeks on the road, far from your family.', 'family')] },
+    { k: 'gametester', icon: '🎮', name: 'video game tester', odd: true, reasons: [
+      R('You play new games before everybody else.', 'time', 'daily'),
+      R('You find a big bug and save the game!', 'help', 'big'),
+      R('You give ideas to make the game better.', 'create', 'good'),
+      R('You work with other gamers.', 'team', 'good'),
+      R('You can work from home.', 'family', 'good'),
+      R('Your name is in the credits of a famous game.', 'fame', 'dream'),
+    ], bad: [B('You play the same level a hundred times.', 'time'), B('It makes medium money, not a lot.', 'money')] },
+    { k: 'panda', icon: '🐼', name: 'panda keeper', odd: true, reasons: [
+      R('You play with baby pandas every day.', 'nature', 'daily'),
+      R('You help to save an animal in danger.', 'help', 'big'),
+      R('A baby panda is born!', 'nature', 'wow'),
+      R('You live in the mountains of China.', 'travel', 'good'),
+      R('You work in a team of animal experts.', 'team', 'good'),
+      R('Your panda video is seen all over the world.', 'fame', 'dream'),
+    ], bad: [B('You clean a lot of panda poo, every day.', 'time'), B('You live far away from your family.', 'family')] },
+    { k: 'stunt', icon: '🎬', name: 'stunt performer', odd: true, reasons: [
+      R('You jump, fall and fight in films.', 'travel', 'daily'),
+      R('You crash a car in a big film!', 'travel', 'wow'),
+      R('You work with a great team.', 'team', 'good'),
+      R('You train hard and you are ready for anything.', 'safe', 'calm'),
+      R('You meet famous actors.', 'fame', 'good'),
+      R('It makes good money.', 'money', 'good'),
+    ], bad: [B('You can get hurt.', 'safe'), B('Nobody knows your name: the actor gets the glory.', 'fame')] },
+    { k: 'bed', icon: '🛏️', name: 'bed tester', odd: true, reasons: [
+      R('You get paid to sleep!', 'time', 'daily'),
+      R('You sleep a week in a palace hotel!', 'travel', 'big'),
+      R('You help people sleep better.', 'help', 'good'),
+      R('You can work near your family.', 'family', 'good'),
+      R('A long nap makes you ready for anything.', 'safe', 'calm'),
+      R('Your sleep blog becomes famous.', 'fame', 'dream'),
+    ], bad: [B('It makes little money.', 'money'), B('Some beds are hard and noisy: you can’t sleep!', 'time')] },
   ];
   const JOB = Object.fromEntries(JOBS.map(j => [j.k, j]));
 
@@ -300,7 +350,18 @@
   const heartsLeft = () => HEARTS - Object.values(draft.hearts).reduce((t, n) => t + n, 0);
   const heartRow = n => '❤️'.repeat(n) || '<i class="jr-zero">–</i>';
 
-  // the job written on [jobs-career:L], question 1 ("What job would you like…?"), if it is one of ours
+  // the hearts of 9.17 in the book ([jobs-career:L]): each value is an .opt with the buttons 1 2 3 4
+  function bookHearts() {
+    const hearts = {};
+    let total = 0;
+    VALUES.forEach(v => {
+      const n = +(document.querySelector(`#jb917-${v.k} button.on`)?.textContent || 0);
+      if (n) { hearts[v.k] = n; total += n; }
+    });
+    return { hearts, total };
+  }
+
+  // the job written on [jobs-pros:R], question 1 ("What job would you like…?"), if it is one of ours
   function dreamJob() {
     const t = (document.getElementById('jb912-0')?.value || '').toLowerCase();
     return JOBS.find(j => t.includes(j.name.toLowerCase()))?.k || '';
@@ -337,7 +398,7 @@
     const p = humans > 1 ? `Player ${maker + 1}` : 'Your';
     screen.innerHTML = `
       <h2 class="jr-title">${humans > 1 ? `${p}: your Me card` : 'Your Me card'}</h2>
-      <p class="jr-sub">What makes you happy in a job? Give your <b>${HEARTS} hearts</b> (up to ${MAX_H} for one thing).</p>
+      <p class="jr-sub">${draft.fromBook ? `These are your hearts from exercise 9.17! You can still change them.` : `What makes you happy in a job? Give your <b>${HEARTS} hearts</b> (up to ${MAX_H} for one thing).`}</p>
       <label class="jr-name">My name <input type="text" maxlength="18" autocomplete="off" value="${esc(draft.name)}" placeholder="e.g. Maya"></label>
       <div class="jr-avs">${AVATARS.map(a => `<button type="button" class="jr-av${a === draft.avatar ? ' on' : ''}" data-act="avatar" data-a="${a}" aria-label="Picture ${a}">${a}</button>`).join('')}</div>
       <div class="jr-values">${VALUES.map(v => `
@@ -388,7 +449,7 @@
       <div class="jr-mine">${myHearts(draft.hearts)}</div>
       <div class="jr-jobs">${JOBS.map(j => `
         <button type="button" class="jr-job${j.k === draft.job ? ' on' : ''}" data-act="job" data-k="${j.k}">
-          ${j.k === dream ? '<small class="jr-dream">your dream job!</small>' : ''}
+          ${j.k === dream ? '<small class="jr-dream">your dream job!</small>' : j.odd ? '<small class="jr-dream odd">unusual!</small>' : ''}
           <span class="jr-jicon">${j.icon}</span><b>${an(j.name)} ${j.name}</b><span class="jr-jvals">${valueIcons(j)}</span>
         </button>`).join('')}
       </div>
@@ -438,7 +499,9 @@
   function newDraft() {
     const used = made.map(m => m.avatar);
     const free = AVATARS.filter(a => !used.includes(a));
-    draft = { name: '', avatar: free[Math.floor(Math.random() * Math.min(free.length, 10))], hearts: {}, job: '', picks: [] };
+    // the first player starts from the hearts of 9.17 in the book (if they are not more than 12)
+    const book = maker === 0 ? bookHearts() : null;
+    draft = { name: '', avatar: free[Math.floor(Math.random() * Math.min(free.length, 10))], hearts: book && book.total <= HEARTS ? book.hearts : {}, job: '', picks: [], fromBook: !!book && book.total > 0 && book.total <= HEARTS };
   }
 
   function done() {
@@ -590,7 +653,7 @@
         <ol class="jr-rank">${rank.map(p => `<li>${p.avatar} <b>${esc(p.name)}</b> · ${JOB[p.job].icon} ${JOB[p.job].name} · ${Math.min(p.joy, GOAL)} 😊</li>`).join('')}</ol>
         <div class="jr-why"><b>✏️ Now say it in English!</b> Your best reasons in this race:
           ${human.map(p => `<p>${p.avatar} <i>${esc(sentence(p))}</i></p>`).join('')}
-          <small>Is it true for you too? Use it in exercise 9.19!</small>
+          <small>Is it true for you too? Use it in exercise 9.27!</small>
         </div>
         <button type="button" class="jr-btn go" data-act="again">Race again with the same jobs 🏁</button>
         <button type="button" class="jr-btn" data-act="modes">New game</button>
@@ -629,9 +692,23 @@
 
   document.querySelectorAll('.jr-start').forEach(b => b.addEventListener('click', open));
 
+  /* ================= 9.17 in the book: how many hearts are used ================= */
+  // script.js saves and paints the hearts (they are .opt); here we only count them
+  const sheet = document.getElementById('jb917'), counter = document.getElementById('jb917-count');
+  function countHearts() {
+    const { total } = bookHearts();
+    counter.innerHTML = total > HEARTS ? `Too many! <b>❤ ${total} / ${HEARTS}</b>` : `<b>❤ ${total} / ${HEARTS}</b>`;
+    counter.classList.toggle('over', total > HEARTS);
+  }
+  if (sheet && counter) {
+    sheet.addEventListener('click', () => setTimeout(countHearts));
+    document.addEventListener('spreadchange', countHearts); // the answers may arrive later from the cloud
+    countHearts();
+  }
+
   /* ================= opens by itself at the end of its page ================= */
   // like Villain Battle: when the pupil scrolls to the very end of the spread, the pop-up appears (once)
-  const SPREAD = 'jobs-career';
+  const SPREAD = 'jobs-pros';
   let shown = false;
   const atBottom = () => window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
   function check() {
@@ -651,7 +728,7 @@
   window.addEventListener('load', () => {
     const list = document.getElementById('gameList');
     if (!list || typeof PAGES === 'undefined') return;
-    const at = PAGES.of('jobs-career:R');
+    const at = PAGES.of('jobs-pros');
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', '#e8820c');

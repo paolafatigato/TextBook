@@ -2630,6 +2630,51 @@ textarea.fill.hm-lines { padding: 0 1cqw; font-size: 2.1cqw; line-height: 4.5cqw
 .jb-iv li::before { content: counter(iv); flex: 0 0 2.4cqw; height: 2.4cqw; display: grid; place-items: center; border-radius: 50%; background: var(--jb-sun); font: 800 1.15cqw/1 'Nunito', sans-serif; color: var(--navy); }
 .jb-iv li:nth-child(even)::before { border-radius: .4cqw; background: var(--jb-teal); }
 
+/* [jobs-career:L] 9.17: what matters to me, 12 hearts (the Me card of the Happy Job Race, job-race.js reads it).
+   Each row is an .opt with the buttons 1 2 3 4, drawn as hearts: the chosen one and the ones before it are full */
+.jb-hcount { z-index: 2; text-align: right; font: 800 1.35cqw/1.6 'Nunito', sans-serif; color: var(--navy); }
+.jb-hcount b { padding: .2cqw .9cqw; border-radius: 999px; background: var(--jb-sun); }
+.jb-hcount.over b { background: var(--jb-red); color: #fff; }
+.jb-hlegend { z-index: 2; display: flex; flex-wrap: wrap; gap: .4cqw 1.6cqw; margin: 0; font: 600 1.15cqw/1 'Nunito', sans-serif; color: #777; }
+.jb-hlegend i { margin-right: .4cqw; font-style: normal; letter-spacing: -.1em; color: var(--jb-red); }
+.jb-values { z-index: 2; display: grid; grid-template-columns: 1fr 1fr; column-gap: 2.4cqw; }
+.jb-values p { display: flex; align-items: center; gap: .8cqw; height: 5.2cqw; margin: 0; border-bottom: .14cqw dashed #e2d8c4; }
+.jb-values p > i { flex: 0 0 2.6cqw; font-style: normal; font-size: 1.9cqw; text-align: center; }
+.jb-values p > b { flex: 1; font: 700 1.45cqw/1.1 'Nunito', sans-serif; color: var(--navy); }
+.jb-hearts { display: flex; flex: 0 0 auto; }
+.jb .jb-hearts button { width: 2.9cqw; height: 3.2cqw; padding: 0; font-size: 0; border-radius: .6cqw; background: none; }
+.jb-hearts button::before { content: "♥"; font: 400 2.5cqw/1 'Nunito', sans-serif; color: #e8dfcd; transition: transform .12s; display: inline-block; }
+.jb .jb-hearts button:hover { background: none; }
+.jb-hearts button:hover::before { transform: scale(1.2); color: #f4a7b2; }
+.jb .jb-hearts button.on, .jb .jb-hearts button:has(~ button.on) { background: none; }
+.jb-hearts button.on::before, .jb-hearts button:has(~ button.on)::before { color: var(--jb-red); }
+
+/* [jobs-career:R] 9.19: unusual jobs, cards in the colours of the job cards */
+.jb-odd { z-index: 2; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4cqw; margin: 0; padding: 0; list-style: none; }
+.jb-odd li { --cc: var(--jb-sun); --cc-bg: #fde7b8; position: relative; display: flex; flex-direction: column; height: 24cqw; padding: 1cqw 1.1cqw; border: .35cqw solid var(--cc); border-radius: 1.6cqw; background: var(--cc-bg); }
+.jb-odd li.c-pink { --cc: var(--jb-pink); --cc-bg: #f8e1ee; }
+.jb-odd li.c-teal { --cc: var(--jb-teal); --cc-bg: #d9f1ed; }
+.jb-odd li.c-red { --cc: #f28a88; --cc-bg: #fde0df; }
+.jb-odd li > i { position: absolute; top: -1.4cqw; right: 1cqw; display: grid; place-items: center; width: 5cqw; height: 5cqw; border: .3cqw solid var(--cc); border-radius: 50%; background: #fff; font-style: normal; font-size: 2.7cqw; }
+.jb-odd h4 { margin: 0 6cqw .7cqw 0; font: 700 1.9cqw/1.05 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.jb-odd p { flex: 1; margin: 0; padding: .9cqw 1.1cqw; border-radius: 1cqw; background: #fff; font: 400 1.55cqw/1.4 'Nunito', sans-serif; color: #555; }
+.jb-odd p b { color: var(--navy); }
+.jb-gb .opt button { font-size: 1.8cqw; line-height: 1.3; }
+.jb-gb .opt button:not(.on) { filter: grayscale(.7); opacity: .65; }
+
+/* [jobs-pros:L] can or has to? · the grammar box · the race bar */
+.jb-pgram p { grid-template-columns: 16cqw 23cqw 1fr; }
+.jb-pgram i { font-size: 1.3cqw; }
+.jb-ch p { font-weight: 400; }
+.jb-ch p > span { display: flex; align-items: center; gap: .5cqw; }
+.jb-ch .opt { display: inline-flex; gap: .2cqw; padding: .1cqw; border: .14cqw solid #e2d8c4; border-radius: 999px; font: 700 1.35cqw/1.5 'Nunito', sans-serif; }
+.jb-ch .opt button { padding: 0 .9cqw; }
+.jr-bar { justify-content: space-between; }
+.jr-bar .jr-start { padding: 1cqw 2.2cqw; border: .3cqw solid var(--jb-sun); font-size: 1.6cqw; box-shadow: .4cqw .4cqw 0 #c98a0a; }
+
+/* [jobs-pros:R] the 8 questions, a bit closer together */
+.jb-qa li { height: 6.4cqw; }
+
 /* pp. 144, 147: the CV (a coloured side column, round photo, // headings, dates in pink bands) */
 .jb-cv { z-index: 2; display: grid; grid-template-columns: 25cqw 1fr; overflow: hidden; border: .25cqw solid #efe2c8; border-radius: 1.6cqw; background: #fff; box-shadow: 0 .6cqw 1.6cqw rgba(31,42,107,.08); }
 .jb-cv aside { padding: 1.6cqw 1.6cqw 2cqw; background: #e3f4f1; font: 400 1.3cqw/1.35 'Nunito', sans-serif; color: #355; }

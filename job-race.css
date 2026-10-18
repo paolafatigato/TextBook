@@ -139,3 +139,4 @@
   .jr-values { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) { .jr-fill, .jr-runner, .jr-float, .jr-roll span, .jr-box.jr-flash { transition: none; animation: none; } }
+.jr-dream.odd { background: #7a6bb5; }
