@@ -50,6 +50,16 @@ window.book = {
   },
   setUser(u) { account = u; refreshAccess(); userKnown(); },
   setSyncState(s) { syncState = s; paintAccount(); },
+  // spreads were added or removed after the start (assign-pages.js): count the pages and the chapters again
+  spreadsChanged() {
+    const id = spreads[current]?.dataset.id;
+    PAGES.recount();
+    spreads.splice(0, spreads.length, ...document.querySelectorAll('.spread'));
+    countPages();
+    placeChapters();
+    refreshAccess();
+    if (home.hidden) show(Math.max(0, spreads.findIndex(s => s.dataset.id === id)));
+  },
 };
 let syncState = '';
 
@@ -62,11 +72,15 @@ const nextBtn = document.getElementById('nextBtn');
 const spreadTitle = document.getElementById('spreadTitle');
 
 const pagesOf = s => s.dataset.pages.split('-').map(Number);
-const firstPage = pagesOf(spreads[0])[0];
-const lastPage = pagesOf(spreads[spreads.length - 1]).at(-1);
-document.getElementById('pageTotal').textContent = lastPage;
-pageInput.min = firstPage;
-pageInput.max = lastPage;
+let firstPage, lastPage;
+function countPages() {
+  firstPage = pagesOf(spreads[0])[0];
+  lastPage = pagesOf(spreads[spreads.length - 1]).at(-1);
+  document.getElementById('pageTotal').textContent = lastPage;
+  pageInput.min = firstPage;
+  pageInput.max = lastPage;
+}
+countPages();
 
 let current = 0;
 
@@ -78,17 +92,24 @@ const PARTS = (typeof CONTENTS === 'undefined' ? [] : CONTENTS.parts || []).map(
   chapters: part.chapters.map(ch => ({ ...ch, teacher: !!part.teacher, items: [] })),
 }));
 const CHAPTERS = PARTS.flatMap(p => p.chapters);
-{
+const chapterOf = new Map();
+function placeChapters() {
   const started = CHAPTERS
     .filter(ch => ch.start)
     .map(ch => ({ ch, at: spreads.indexOf(PAGES.spread(ch.start)) }))
     .filter(({ ch, at }) => at >= 0 || console.error(`Chapter "${ch.title}": no spread called "${ch.start}"`))
     .sort((x, y) => x.at - y.at);
   started.forEach(({ ch, at }, k) => { ch.items = spreads.slice(at, started[k + 1]?.at ?? spreads.length); });
+  chapterOf.clear();
+  CHAPTERS.forEach(ch => ch.items.forEach(s => chapterOf.set(s, ch)));
 }
-const chapterOf = new Map(CHAPTERS.flatMap(ch => ch.items.map(s => [s, ch])));
+placeChapters();
 // the materials for the teacher: students never see them, whatever is ticked
-const teacherOnly = s => !!chapterOf.get(s)?.teacher;
+// scaffolding (pages.js): teacher-only spreads inside the chapters, with no page numbers
+const isScaffold = s => s.classList.contains('scaffold');
+const teacherOnly = s => isScaffold(s) || !!chapterOf.get(s)?.teacher;
+// a link to a spread: by its first page, or by its name for scaffolding (its pages have no number)
+const hrefOf = s => (isScaffold(s) ? `#s=${s.dataset.id}` : `#p${pagesOf(s)[0]}`);
 
 // students only get the spreads the teacher made visible
 const isVisible = s => visibleSpreads.has(s.dataset.id) && !teacherOnly(s);
@@ -107,11 +128,13 @@ function show(index) {
   document.body.classList.remove('at-home');
   spreads.forEach((s, i) => s.classList.toggle('current', i === current));
   const [first] = pagesOf(spreads[current]);
-  pageInput.value = first;
-  spreadTitle.textContent = spreads[current].dataset.title;
+  const scaffold = isScaffold(spreads[current]);
+  document.body.classList.toggle('in-scaffold', scaffold);
+  pageInput.value = scaffold ? '' : first;
+  spreadTitle.textContent = scaffold ? `🧱 Scaffolding · ${spreads[current].dataset.title}` : spreads[current].dataset.title;
   prevBtn.disabled = visibleFrom(current - 1, -1) < 0;
   nextBtn.disabled = visibleFrom(current + 1, 1) < 0;
-  history.replaceState(null, '', `#p${first}`);
+  history.replaceState(null, '', hrefOf(spreads[current]));
   try { localStorage.setItem(KEY + ':spread', spreads[current].dataset.id); } catch { /* ignore */ }
   window.scrollTo(0, 0);
   redrawAllMatches();
@@ -123,7 +146,7 @@ function goToPage(n) {
   // the spread holding page n if the reader can open it, otherwise the closest one they can open
   let best = -1, bestDist = Infinity;
   spreads.forEach((s, i) => {
-    if (!canSee(s)) return;
+    if (!canSee(s) || isScaffold(s)) return;
     const [a, b] = pagesOf(s);
     const dist = n < a ? a - n : n > b ? n - b : 0;
     if (dist < bestDist) { best = i; bestDist = dist; }
@@ -136,6 +159,7 @@ function showHome() {
   spreads.forEach(s => s.classList.remove('current'));
   home.hidden = false;
   document.body.classList.add('at-home');
+  document.body.classList.remove('in-scaffold');
   spreadTitle.textContent = 'Contents';
   pageInput.value = '';
   updateContinueLink();
@@ -156,6 +180,7 @@ async function route() {
       await Promise.race([userReady, new Promise(r => setTimeout(r, 6000))]);
       if (location.hash !== hash) return;
     }
+    if (spread && isScaffold(spread)) { show(spreads.indexOf(spread)); return; }
     goToPage(PAGES.of(s[1]));
     // on a narrow screen the right page is under the left one: scroll down to it
     const [left, right] = spread?.querySelectorAll(':scope > .page') || [];
@@ -1258,10 +1283,11 @@ else {
   const radio = v => pp.querySelector(`[name="ppRange"][value="${v}"]`);
   const range = () => pp.querySelector('[name="ppRange"]:checked').value;
   const atSpread = () => spreads[current].classList.contains('current');
-  [from, to].forEach(inp => { inp.min = firstPage; inp.max = lastPage; inp.addEventListener('input', () => { radio('range').checked = true; }); });
+  [from, to].forEach(inp => { inp.addEventListener('input', () => { radio('range').checked = true; }); });
 
   document.getElementById('printBtn').addEventListener('click', () => {
     what.hidden = !isTeacher();
+    [from, to].forEach(inp => { inp.min = firstPage; inp.max = lastPage; });
     if (isTeacher()) {
       // the chapters with their pages: choosing one writes its pages in "from … to"
       chapter.innerHTML = '<option value="">… or choose a chapter</option>' + CHAPTERS
@@ -1286,7 +1312,8 @@ else {
     const eco = b.dataset.mode === 'eco';
     const blank = document.getElementById('ppBlank').checked;
     // the two pages open now, with the answers: printed right here
-    if (!isTeacher() || (range() === 'spread' && !blank)) {
+    // (scaffolding too: its pages have no number, so the print copy could not find them)
+    if (!isTeacher() || (range() === 'spread' && (!blank || isScaffold(spreads[current])))) {
       pp.close();
       document.body.classList.toggle('eco-print', eco);
       setTimeout(() => window.print(), 50);
@@ -1441,6 +1468,7 @@ function chapterCard(ch) {
   const inside = ch.items.filter(canSee);
   if (!inside.length) return ''; // nothing opened in this chapter yet
   const links = inside.map(s => {
+    if (isScaffold(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}"><b>🧱</b> ${esc(s.dataset.name || '')}</a></li>`;
     const [a, b] = pagesOf(s);
     const c = ch.linkColors && ch.linkColors[s.dataset.id];
     return `<li${c ? ` style="--c:${esc(c)}"` : ''}>${pageLink(a, b, s.dataset.name || '')}</li>`;
@@ -1507,6 +1535,7 @@ function renderToc() {
         <details class="toc-ch" data-ch="${esc(ch.title)}" style="--c:${esc(ch.color || '#f05f4b')}"${tocChaptersOpen.has(ch.title) ? ' open' : ''}>
           <summary><i class="toc-dot"></i><span>${esc(ch.title)}</span><small>${a}–${b}</small></summary>
           <ul>${inside.map(s => {
+            if (isScaffold(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}"><b>🧱</b><span>${esc(s.dataset.name || '')}</span></a></li>`;
             const [x, y] = pagesOf(s);
             const off = isVisible(s) || teacherOnly(s) ? '' : ' class="off" title="Hidden from students"';
             return `<li><a href="#p${x}" data-id="${esc(s.dataset.id)}"${off}><b>${x}–${y}</b><span>${esc(s.dataset.name || s.dataset.title || '')}</span></a></li>`;

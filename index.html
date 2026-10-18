@@ -59,6 +59,7 @@
     <div class="tp-body"></div>
   </dialog>
 
+
   <dialog class="print-panel" id="printPanel">
     <h2>🖨️ Print</h2>
     <!-- more pages at once: only the teacher sees this part (script.js) -->
@@ -7239,6 +7240,96 @@
     </section>
   </div>
 
+  <!-- ============ SCAFFOLDING (teacher only, no page numbers: pages.js) ============ -->
+  <!-- group work after Make Them Happy!: each group gets a person card (right page) and draws 5 jobs,
+       chooses one and writes the story. The hearts are the 10 values of 9.17 (jobs-career), 12 per person.
+       The draw is made by scaffold.js -->
+  <div class="spread scaffold" data-id="scaf-jobs-stories" data-title="Jobs &amp; CVs" data-name="Group work: a job for a person · Person cards">
+
+    <section class="page page-left scf-page"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · group work</p>
+      <h1 class="scf-title">A job for <span>a person</span></h1>
+      <p class="scf-sub">Work in groups of 4. Can you find the right job for somebody… and make them happy?</p>
+
+      <ol class="scf-steps">
+        <li><b>Get a person card.</b> Read it together: what is this person good at? What do they love? Where are their hearts?</li>
+        <li><b>Draw 5 jobs.</b> For each job, say one good side and one bad side <i>for this person</i>.</li>
+        <li><b>Choose one job.</b> Count the hearts it gives: how many of the 12 hearts does it make happy?</li>
+        <li><b>Write the story</b> (12–15 sentences, past simple). Is the person happy at the end?</li>
+        <li><b>Read it to the class.</b> The class votes: was it the right job?</li>
+      </ol>
+
+      <div class="scf-box">
+        <h2>✍️ Your story</h2>
+        <ol class="scf-frame">
+          <li><b>Who?</b> <i>Joe was 25. He was good at… but he was bad at… He loved…</i></li>
+          <li><b>The choice:</b> <i>He chose to become a… because… He didn't want to be a… because…</i></li>
+          <li><b>The first day:</b> <i>On his first day he had to… It was…</i></li>
+          <li><b>A problem:</b> <i>One day something went wrong…</i></li>
+          <li><b>One year later:</b> <i>Was he happy? Did he have money, free time, friends…?</i></li>
+          <li><b>The end:</b> 😊 a happy ending or 😬 a sad ending? Why?</li>
+        </ol>
+      </div>
+
+      <div class="scf-bank">
+        <p><b>Useful language</b></p>
+        <p><span>It makes him / her happy / tired / rich.</span><span>He / She can… · has to…</span><span>It's perfect for him / her because…</span><span>It's not a good job for him / her because…</span><span>He / She earned a lot of money, but…</span><span>In the end, he / she…</span></p>
+      </div>
+
+      <div class="scf-draw scf-tools">
+        <p><b>🎲 Draw</b> <label>groups <input type="number" class="scf-groups" min="1" max="10" value="6"></label>
+          <button type="button" class="scf-go">Give each group a person + 5 jobs</button></p>
+        <ol class="scf-result"></ol>
+      </div>
+    </div></section>
+
+    <section class="page page-right scf-page"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · person cards</p>
+      <div class="scf-people">
+        <article style="--c:#4aa8ec"><h3><i>🧑‍💻</i>Joe<small>25</small></h3>
+          <p><b>👍</b>computers, video games</p><p><b>👎</b>maths, getting up early</p><p><b>❤️</b>the mountains, his PC</p>
+          <ul><li>🏖️ free time <s>♥♥♥♥</s></li><li>🌳 nature <s>♥♥♥</s></li><li>✈️ travel <s>♥♥</s></li><li>👫 friends <s>♥♥</s></li><li>💰 money <s>♥</s></li></ul></article>
+
+        <article style="--c:#8fb82e"><h3><i>👩‍🔬</i>Amira<small>30</small></h3>
+          <p><b>👍</b>science, languages</p><p><b>👎</b>sport, noisy places</p><p><b>❤️</b>cats, reading</p>
+          <ul><li>🤝 helping <s>♥♥♥♥</s></li><li>🔒 a safe job <s>♥♥♥</s></li><li>🌳 nature <s>♥♥</s></li><li>🏡 family <s>♥♥</s></li><li>💰 money <s>♥</s></li></ul></article>
+
+        <article style="--c:#dc3394"><h3><i>🧑‍🎤</i>Luca<small>19</small></h3>
+          <p><b>👍</b>music, making people laugh</p><p><b>👎</b>being on time, rules</p><p><b>❤️</b>concerts, skateboarding</p>
+          <ul><li>⭐ being famous <s>♥♥♥♥</s></li><li>🎨 creative <s>♥♥♥♥</s></li><li>👫 friends <s>♥♥</s></li><li>🏖️ free time <s>♥♥</s></li></ul></article>
+
+        <article style="--c:#e8820c"><h3><i>👩‍🍳</i>Grace<small>45</small></h3>
+          <p><b>👍</b>cooking, organising</p><p><b>👎</b>computers, travelling</p><p><b>❤️</b>her three kids, gardening</p>
+          <ul><li>🏡 family <s>♥♥♥♥</s></li><li>🔒 a safe job <s>♥♥♥</s></li><li>🤝 helping <s>♥♥</s></li><li>💰 money <s>♥♥</s></li><li>🎨 creative <s>♥</s></li></ul></article>
+
+        <article style="--c:#3aa04a"><h3><i>🏃</i>Tom<small>22</small></h3>
+          <p><b>👍</b>sport, he is very strong</p><p><b>👎</b>sitting still, writing</p><p><b>❤️</b>football, the sea</p>
+          <ul><li>✈️ adventure <s>♥♥♥♥</s></li><li>👫 teamwork <s>♥♥♥</s></li><li>🌳 nature <s>♥♥</s></li><li>💰 money <s>♥♥</s></li><li>⭐ famous <s>♥</s></li></ul></article>
+
+        <article style="--c:#7b3fc4"><h3><i>👩‍💼</i>Sofia<small>35</small></h3>
+          <p><b>👍</b>maths, talking to people</p><p><b>👎</b>drawing, animals</p><p><b>❤️</b>shopping, fast cars</p>
+          <ul><li>💰 money <s>♥♥♥♥</s></li><li>⭐ famous <s>♥♥</s></li><li>✈️ travel <s>♥♥</s></li><li>🔒 a safe job <s>♥♥</s></li><li>👫 teamwork <s>♥♥</s></li></ul></article>
+
+        <article style="--c:#1f2a6b"><h3><i>👴</i>Ken<small>60</small></h3>
+          <p><b>👍</b>fixing things, he is patient</p><p><b>👎</b>English, smartphones</p><p><b>❤️</b>fishing, his grandchildren</p>
+          <ul><li>🏡 family <s>♥♥♥♥</s></li><li>🌳 nature <s>♥♥♥</s></li><li>🏖️ free time <s>♥♥♥</s></li><li>🔒 a safe job <s>♥♥</s></li></ul></article>
+
+        <article style="--c:#f05f4b"><h3><i>👩‍🎨</i>Maya<small>28</small></h3>
+          <p><b>👍</b>drawing, new ideas</p><p><b>👎</b>timetables, numbers</p><p><b>❤️</b>fashion, Instagram</p>
+          <ul><li>🎨 creative <s>♥♥♥♥</s></li><li>⭐ famous <s>♥♥♥</s></li><li>🏖️ free time <s>♥♥</s></li><li>👫 friends <s>♥♥</s></li><li>✈️ travel <s>♥</s></li></ul></article>
+
+        <article style="--c:#46a9a0"><h3><i>🧔</i>Omar<small>33</small></h3>
+          <p><b>👍</b>listening, he is very calm</p><p><b>👎</b>maths, the sight of blood</p><p><b>❤️</b>children, volunteering</p>
+          <ul><li>🤝 helping <s>♥♥♥♥</s></li><li>🏡 family <s>♥♥♥</s></li><li>👫 teamwork <s>♥♥</s></li><li>🔒 a safe job <s>♥♥</s></li><li>🏖️ free time <s>♥</s></li></ul></article>
+
+        <article style="--c:#c08be8"><h3><i>👱‍♀️</i>Lily<small>24</small></h3>
+          <p><b>👍</b>languages, animals</p><p><b>👎</b>staying in one place, offices</p><p><b>❤️</b>horses, camping</p>
+          <ul><li>✈️ travel <s>♥♥♥♥</s></li><li>🌳 nature <s>♥♥♥♥</s></li><li>🏖️ free time <s>♥♥</s></li><li>🎨 creative <s>♥</s></li><li>💰 money <s>♥</s></li></ul></article>
+      </div>
+      <p class="scf-note">👍 good at · 👎 bad at · ❤️ loves · ♥ = the hearts of 9.17 (12 for each person)</p>
+    </div></section>
+  </div>
+
   <div class="spread" data-id="jobs-cv-model" data-title="Jobs &amp; CVs" data-name="Writing a CV: a model">
 
     <!-- ============ LEFT PAGE ============ -->
@@ -9896,6 +9987,8 @@
     </div>
   </div>
 
+  <script src="assign-data.js"></script>
+  <script src="assign-pages.js"></script>
   <script src="pages.js"></script>
   <script src="contents.js"></script>
   <script src="script.js"></script>
@@ -9917,6 +10010,8 @@
   <script src="routine.js"></script>
   <script src="orwell-games.js"></script>
   <script src="summer.js"></script>
+  <script src="scaffold.js"></script>
   <script type="module" src="cloud.js"></script>
+  <script type="module" src="assign.js"></script>
 </body>
 </html>

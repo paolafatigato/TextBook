@@ -14,27 +14,43 @@
 // From outside the book (AgendaProf): index.html#s=own-saxon:R opens that page (script.js, route)
 //
 // It runs before every other script, and writes data-pages="28-29" on each spread for them.
+// Spreads made later (the saved lists of "Assign work", assign-pages.js): PAGES.recount() counts again.
+//
+// Scaffolding: <div class="spread scaffold" …> is a teacher-only spread that does not count. Its pages get
+// no number and its data-pages is the page just before it ("28-28"), so no page number leads to it:
+// it is opened by turning the page, or by its name (#s=its-data-id).
 
 const PAGES = (() => {
   const FIRST = 2; // the first spread starts on page 2 (page 1 is the cover)
 
-  const spreads = [...document.querySelectorAll('.spread')];
   const byId = new Map();
-  let n = FIRST;
-  for (const s of spreads) {
-    const id = s.dataset.id;
-    if (!id) console.error('A spread has no data-id:', s);
-    else if (byId.has(id)) console.error(`Two spreads are called "${id}"`);
-    const pages = [...s.querySelectorAll(':scope > .page')];
-    const first = n;
-    pages.forEach(p => {
-      p.dataset.page = n;
-      if (!p.hasAttribute('aria-label')) p.setAttribute('aria-label', `Page ${n}`);
-      p.querySelectorAll('.pageno').forEach(el => { el.textContent = n; });
-      n++;
+
+  function count() {
+    byId.clear();
+    let n = FIRST;
+    for (const s of document.querySelectorAll('.spread')) {
+      const id = s.dataset.id;
+      if (!id) console.error('A spread has no data-id:', s);
+      else if (byId.has(id)) console.error(`Two spreads are called "${id}"`);
+      if (s.classList.contains('scaffold')) { s.dataset.pages = `${n - 1}-${n - 1}`; byId.set(id, s); continue; }
+      const pages = [...s.querySelectorAll(':scope > .page')];
+      const first = n;
+      pages.forEach(p => {
+        p.dataset.page = n;
+        if (!p.hasAttribute('aria-label') || /^Page d+$/.test(p.getAttribute('aria-label'))) p.setAttribute('aria-label', `Page ${n}`);
+        p.querySelectorAll('.pageno').forEach(el => { el.textContent = n; });
+        n++;
+      });
+      s.dataset.pages = `${first}-${n - 1}`;
+      byId.set(id, s);
+    }
+
+    // fill in the references written in index.html
+    document.querySelectorAll('[data-page]:not(.page)').forEach(el => {
+      const p = of(el.dataset.page);
+      if (el.tagName === 'A') el.href = `#p${p}`;
+      else el.textContent = p;
     });
-    s.dataset.pages = `${first}-${n - 1}`;
-    byId.set(id, s);
   }
 
   const first = s => +s.dataset.pages.split('-')[0];
@@ -53,12 +69,7 @@ const PAGES = (() => {
 
   const ofEl = el => +el.closest('.page')?.dataset.page;
 
-  // fill in the references written in index.html
-  document.querySelectorAll('[data-page]:not(.page)').forEach(el => {
-    const p = of(el.dataset.page);
-    if (el.tagName === 'A') el.href = `#p${p}`;
-    else el.textContent = p;
-  });
+  count();
 
-  return { of, end, ofEl, spread: id => byId.get(id), first, last };
+  return { of, end, ofEl, spread: id => byId.get(id), first, last, recount: count };
 })();

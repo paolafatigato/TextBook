@@ -85,6 +85,13 @@ const CONTENTS = {
         { title: 'Job cards (forehead game)', start: 'jobcards-1', color: '#1f2a6b', folder: 'job-cards' },
       ],
     },
+    {
+      // give each student of a class something to work on (assign-data.js, assign-pages.js): teacher only
+      title: 'Assign work',
+      teacher: true,
+      chapters: (typeof ASSIGN_TOPICS === 'undefined' ? [] : ASSIGN_TOPICS)
+        .map(t => ({ title: `Assign: ${t.title}`, start: `asg-${t.key}`, color: t.color })),
+    },
   ],
 
   topics: [
