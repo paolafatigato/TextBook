@@ -241,19 +241,19 @@
   const BASIC_HERO = { name: 'Hero Punch', uses: Infinity, desc: 'A weak punch.', fx: [{ k: 'dmg', v: 7 }] };
 
   const HEROES = [
-    { name: 'Captain Courage', emoji: '🦸', virtues: ['brave', 'honest', 'responsible'], attacks: [
+    { name: 'Captain Courage', emoji: '🦸', img: 'courage', virtues: ['brave', 'honest', 'responsible'], attacks: [
       { name: 'Brave Charge', uses: 3, desc: 'runs straight at the villain without any fear.', fx: [{ k: 'dmg', v: 19 }] },
       { name: 'Honest Word', uses: 2, desc: 'tells the truth so clearly that the villain feels ashamed. The villain’s next attack is weaker.', fx: [{ k: 'dmg', v: 8 }, { k: 'weak', m: .6, hits: 1 }] },
       { name: 'Safe Guard', uses: 2, desc: 'lifts a big shield. Half of the next attack is blocked.', fx: [{ k: 'guard', p: .5, hits: 1 }] },
       { name: 'Never Give Up', uses: 1, desc: 'takes a deep breath and keeps going. Heals a lot.', fx: [{ k: 'heal', v: 18 }] },
     ] },
-    { name: 'Lady Kindness', emoji: '🦸‍♀️', virtues: ['kind', 'generous', 'friendly'], attacks: [
+    { name: 'Lady Kindness', emoji: '🦸‍♀️', img: 'kindness', flip: true, virtues: ['kind', 'generous', 'friendly'], attacks: [
       { name: 'Gift of Light', uses: 3, desc: 'shares a bright beam of light.', fx: [{ k: 'dmg', v: 17 }] },
-      { name: 'Warm Hug', uses: 3, desc: 'gives herself a warm, comforting hug. Heals a little.', fx: [{ k: 'heal', v: 15 }] },
+      { name: 'Warm Hug', uses: 3, desc: 'gives herself a warm, comforting hug. Heals a good amount.', fx: [{ k: 'heal', v: 18 }] },
       { name: 'Friendly Wave', uses: 2, desc: 'waves so nicely that the villain cannot stay angry. The villain’s next attack is weaker.', fx: [{ k: 'weak', m: .5, hits: 1 }] },
       { name: 'Shield of Friends', uses: 1, desc: 'her friends make a wall around her. The next attack almost cannot touch her.', fx: [{ k: 'guard', p: .8, hits: 1 }] },
     ] },
-    { name: 'Professor Brain', emoji: '🧑‍🔬', virtues: ['hardworking', 'creative', 'curious'], attacks: [
+    { name: 'Professor Brain', emoji: '🧑‍🔬', img: 'brain', virtues: ['hardworking', 'creative', 'curious'], attacks: [
       { name: 'Genius Idea', uses: 1, desc: 'has a brilliant idea that hits like a bomb.', fx: [{ k: 'dmg', v: 30 }] },
       { name: 'Endless Practice', uses: 4, desc: 'trains again and again. A small hit she can repeat.', fx: [{ k: 'dmg', v: 13 }] },
       { name: 'Curious Trap', uses: 1, desc: 'asks so many questions that the villain gets confused and cannot act next turn.', fx: [{ k: 'skip', n: 1 }] },
@@ -265,11 +265,17 @@
       { name: 'Still Water', uses: 1, desc: 'stays perfectly still. The next attack cannot touch the master.', fx: [{ k: 'guard', p: 1, hits: 1 }] },
       { name: 'Quiet Mind', uses: 1, desc: 'brings silence all around. The villain’s next attack is much weaker.', fx: [{ k: 'weak', m: .4, hits: 1 }] },
     ] },
-    { name: 'Sunny Spark', emoji: '🌞', virtues: ['cheerful', 'optimistic', 'confident'], attacks: [
+    { name: 'Sunny Spark', emoji: '🌞', img: 'sunny', virtues: ['cheerful', 'optimistic', 'confident'], attacks: [
       { name: 'Rainbow Beam', uses: 3, desc: 'shoots a happy rainbow. A good hit.', fx: [{ k: 'dmg', v: 18 }] },
       { name: 'Big Smile', uses: 2, desc: 'smiles so brightly that the villain cannot aim. The villain’s next attack is weaker.', fx: [{ k: 'weak', m: .5, hits: 1 }] },
       { name: 'Confidence Boost', uses: 1, desc: 'believes in herself. Her next two attacks are stronger.', fx: [{ k: 'boost', m: 1.5, hits: 2 }] },
       { name: 'Sunny Day', uses: 2, desc: 'the sun comes out and she feels better. Heals a little.', fx: [{ k: 'heal', v: 14 }] },
+    ] },
+    { name: 'Captain Teamwork', emoji: '🐧', img: 'teamwork', flip: true, virtues: ['responsible', 'loyal', 'supportive'], attacks: [
+      { name: 'Rescue Rush', uses: 3, desc: 'runs in with the rescue team at full speed. A solid hit.', fx: [{ k: 'dmg', v: 16 }] },
+      { name: 'Whistle Blast', uses: 1, desc: 'blows the whistle so loudly that the villain cannot move next turn.', fx: [{ k: 'skip', n: 1 }] },
+      { name: 'Team Huddle', uses: 1, desc: 'the whole team makes a circle around the captain. The next two attacks do less damage.', fx: [{ k: 'guard', p: .5, hits: 2 }] },
+      { name: 'Team Cheer', uses: 2, desc: 'everybody cheers and the captain feels strong again. Heals a little.', fx: [{ k: 'heal', v: 15 }] },
     ] },
   ];
 
@@ -583,7 +589,7 @@
         </div>
         <div class="vb-vs">VS</div>
         <div class="vb-side hero">
-          <div class="vb-pic emoji">${hero.emoji}</div>
+          ${hero.img ? `<div class="vb-pic heroic"><img src="img/personality/heroes/${hero.img}.png" alt=""${hero.flip ? ' style="transform:scaleX(-1)"' : ''} onerror="this.parentNode.classList.add('emoji');this.parentNode.textContent='${hero.emoji}'"></div>` : `<div class="vb-pic emoji">${hero.emoji}</div>`}
           <b class="vb-fname">${esc(hero.name)}</b>
           <div class="vb-hpbar"><span></span><em></em></div>
           <div class="vb-virtues">${hero.virtues.map(v => `<i>${v}</i>`).join('')}</div>

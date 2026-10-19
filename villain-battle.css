@@ -127,3 +127,6 @@
 
 /* villain vs villain: the one on the right looks to the left, towards the other */
 .vb-side.hero.duel .vb-pic img { transform: scaleX(-1); }
+
+/* the heroes drawn for the book */
+.vb-pic.heroic { background: #f4f9d0; }

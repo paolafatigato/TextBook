@@ -3571,6 +3571,7 @@ body.not-visible .goto { color: #fff; }
 .sct .scv-name span.short { flex: .45; }
 .sct-title { margin: 0; font: 700 6cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
 .sct-title span { color: #e8820c; }
+.sct-title .sct-ver { display: inline-grid; place-items: center; width: 4.6cqw; height: 4.6cqw; margin-left: 1cqw; vertical-align: middle; border: .3cqw solid var(--navy); border-radius: 50%; font: 700 2.6cqw/1 'Fredoka', sans-serif; color: var(--navy); }
 .sct-ex h2 { display: flex; align-items: center; gap: 1.2cqw; margin: 0 0 1.4cqw; font: 700 2.7cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
 .sct-ex h2 b { flex: none; display: grid; place-items: center; width: 4cqw; height: 4cqw; border-radius: 50%; background: #ffc93c; font-size: 2.4cqw; }
 .sct ol, .sct ul { margin: 0; padding: 0; list-style: none; }
@@ -4328,3 +4329,94 @@ body.toc-open .toc { display: block; }
 .jbs-sum .mt-line input.fill { flex: 1; }
 .jbs-sum .mt-line > span:last-child { flex: 0 1 auto; }
 #jbs-mc .opt button.on, #jbs-tf .opt button.on { background: var(--navy); color: #fff; font-weight: 700; }
+
+/* ---------- [jobs-describe]: describe a job (9.34) + the Job Flag Game (9.35), jobs-describe.js ----------
+   the colors of the parts come from the legend of the model test (.k-what, .k-where… in "jobs test") */
+.jbd-dice { z-index: 2; display: grid; place-items: center; aspect-ratio: 1; font-size: 8cqw; line-height: 1; transform: rotate(-12deg); }
+.jbd { z-index: 2; display: flex; flex-direction: column; gap: 1.2cqw; font: 400 1.5cqw/1.25 'Nunito', sans-serif; color: #333; }
+.jbd button { cursor: pointer; font-family: 'Nunito', sans-serif; }
+.jbd-go { align-self: start; border: .3cqw solid var(--navy); border-radius: 999px; padding: 1cqw 2.6cqw; background: var(--jb-sun); color: var(--navy); font: 800 2cqw/1 'Nunito', sans-serif; box-shadow: .5cqw .5cqw 0 var(--navy); }
+.jbd-go:hover { background: #fbc54e; }
+.jbd-head { display: flex; align-items: center; gap: 1.6cqw; padding: .8cqw 1.4cqw; border-radius: 2cqw; background: var(--navy); color: #fff; }
+.jbd-pic { display: grid; place-items: center; width: 6.4cqw; height: 6.4cqw; border-radius: 50%; background: #fff; font-size: 4cqw; line-height: 1; }
+.jbd-head p { flex: 1; margin: 0; display: flex; flex-direction: column; }
+.jbd-head small { font: 700 1.1cqw/1 'Nunito', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--jb-sun); }
+.jbd-head b { font: 700 3cqw/1.1 'Fredoka', 'Nunito', sans-serif; }
+.jbd-score { font: 800 1.8cqw/1 'Nunito', sans-serif; color: var(--jb-sun); }
+.jbd-head .jbd-go { align-self: center; padding: .7cqw 1.6cqw; font-size: 1.4cqw; box-shadow: none; border-color: var(--jb-sun); }
+.jbd-rows { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: .7cqw; }
+.jbd-rows li { display: grid; grid-template-columns: 11cqw 1fr; align-items: center; gap: .5cqw 1.2cqw; padding: .6cqw 1cqw; border-left: .6cqw solid var(--k); border-radius: 1cqw; background: color-mix(in srgb, var(--k) 9%, #fff); }
+.jbd-tag { grid-row: span 2; align-self: stretch; display: grid; place-items: center; border-radius: .8cqw; background: var(--k); color: #fff; font: 800 1.25cqw/1.1 'Nunito', sans-serif; text-transform: uppercase; letter-spacing: .05em; text-align: center; }
+.jbd-start { font-weight: 700; color: var(--navy); }
+.jbd-opts { display: flex; flex-wrap: wrap; gap: .5cqw; }
+.jbd-opts button { padding: .35cqw 1cqw; border: .2cqw solid #c9d2e0; border-radius: 999px; background: #fff; color: #333; font-size: 1.35cqw; line-height: 1.2; }
+.jbd-opts button:hover:not(:disabled) { border-color: var(--k); }
+.jbd-opts button.wrong { border-color: #e53935; color: #e53935; text-decoration: line-through; animation: jbdNo .35s; cursor: default; }
+.jbd-opts button.empty { width: 13cqw; height: 2.3cqw; border-style: dashed; background: transparent; cursor: default; }
+.jbd-opts button.right { border-color: var(--k); background: var(--k); color: #fff; font-weight: 800; cursor: default; }
+.jbd-rows li.ok .jbd-start::after { content: " ✓"; color: #2e9e4f; }
+@keyframes jbdNo { 25% { transform: translateX(-.5cqw); } 75% { transform: translateX(.5cqw); } }
+.jbd-text { padding: 1cqw 1.6cqw; border: .25cqw dashed var(--navy); border-radius: 1.6cqw; background: #fff; }
+.jbd-text p { margin: 0 0 .6cqw; color: var(--navy); }
+.jbd-text .jbd-para { margin: 0; font: 500 2.1cqw/1.45 'Caveat', cursive; color: #1d4fb8; }
+.jbd-para mark { background: color-mix(in srgb, var(--k) 16%, transparent); color: inherit; text-decoration: underline .25cqw var(--k); text-underline-offset: .35cqw; }
+.jbd-level { z-index: 2; padding: 1.4cqw 2cqw; border: .3cqw solid var(--navy); border-radius: 2cqw; background: #fff; box-shadow: .6cqw .6cqw 0 var(--jb-sun); font: 400 1.5cqw/1.3 'Nunito', sans-serif; color: #444; }
+.jbd-level h3 { margin: 0 0 .6cqw; font: 700 2.4cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.jbd-level p { margin: 0 0 .8cqw; }
+.jbd-level .jbd-chips { margin: 0; display: flex; flex-wrap: wrap; gap: .6cqw; }
+.jbd-chips span { padding: .3cqw 1.2cqw; border-radius: 999px; background: var(--k); color: #fff; font-weight: 800; font-size: 1.3cqw; text-transform: uppercase; letter-spacing: .05em; }
+.jbd-lang { z-index: 2; margin: 0; padding: 0; list-style: none; display: grid; gap: 1cqw; font: 400 1.65cqw/1.25 'Nunito', sans-serif; color: #333; }
+.jbd-lang li { display: block; }
+.jbd-lang b { display: inline-block; width: 11cqw; margin-right: 1.2cqw; padding: .45cqw 0; border-radius: .6cqw; background: var(--k); color: #fff; font-size: 1.15cqw; text-transform: uppercase; letter-spacing: .05em; text-align: center; }
+.jbd-lang .x { font-style: italic; color: #888; }
+.jf-btn { z-index: 5; cursor: pointer; border: .35cqw solid var(--navy); border-radius: 999px; padding: 1.1cqw 2.4cqw; background: var(--jb-sun); color: var(--navy); font: 800 2cqw/1 'Nunito', sans-serif; box-shadow: .6cqw .6cqw 0 var(--navy); }
+.jf-btn:hover { background: #fbc54e; transform: translateY(-.2cqw); }
+@media print { .jbd-go, .jf-btn { display: none; } }
+/* the Job Flag Game pop-up: big, to be seen from the back of the class */
+.jf-box { max-width: 980px; }
+.jf-score { display: flex; align-items: center; gap: 8px; font: 700 26px 'Fredoka', 'Nunito', sans-serif; }
+.jf-score .a, .jf-pt.a { color: #1d9e75; }
+.jf-score .b, .jf-pt.b { color: #d85a30; }
+.jf-score i { font-style: normal; color: #aaa; }
+.jf-setup .jf-line { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 0 0 14px; font-weight: 800; }
+.jf-setup .jf-line > span { margin-right: 6px; }
+.jf-setup #jfPl { min-width: 40px; text-align: center; font: 700 26px 'Fredoka', sans-serif; }
+.jf-round { text-align: center; }
+.jf-job { display: flex; align-items: center; justify-content: center; gap: 22px; margin: 6px 0 12px; }
+.jf-pic { font-size: 110px; line-height: 1; }
+.jf-job b { font: 700 64px/1 'Fredoka', 'Nunito', sans-serif; color: var(--gq-navy); }
+.jf-part { display: inline-flex; align-items: center; gap: 14px; margin: 0 0 12px; padding: 10px 22px 10px 10px; border-radius: 999px; background: color-mix(in srgb, var(--k) 14%, #fff); border: 3px solid var(--k); font: 700 30px 'Fredoka', 'Nunito', sans-serif; color: var(--gq-navy); }
+.jf-part span { padding: 6px 16px; border-radius: 999px; background: var(--k); color: #fff; font-size: 22px; text-transform: uppercase; letter-spacing: .05em; }
+.jf-num { display: flex; flex-direction: column; align-items: center; margin: 0 0 10px; }
+.jf-num small { font: 800 14px 'Nunito', sans-serif; letter-spacing: .25em; text-transform: uppercase; color: var(--gq-dim); }
+.jf-num b { display: grid; place-items: center; width: 120px; height: 120px; border-radius: 50%; background: #f9b11a; font: 700 72px/1 'Fredoka', sans-serif; color: var(--gq-navy); box-shadow: 0 6px 0 var(--gq-navy); }
+.jf-answer { min-height: 34px; margin: 6px auto 12px; max-width: 760px; font: 500 24px/1.3 'Caveat', cursive; color: #1d4fb8; }
+.jf-show { border: 0; background: none; font: 800 15px 'Nunito', sans-serif; color: var(--gq-dim); text-decoration: underline; cursor: pointer; }
+.jf-pts { display: flex; gap: 14px; justify-content: center; }
+.jf-pt { min-width: 200px; padding: 14px 20px; border: 3px solid currentColor; border-radius: 16px; background: #fff; font: 700 24px 'Fredoka', 'Nunito', sans-serif; cursor: pointer; }
+.jf-pt:disabled { opacity: .35; cursor: default; }
+.jf-foot { margin: 16px 0 0; font-size: 14px; color: var(--gq-dim); }
+.jf-foot button { margin: 0 3px; border: 2px solid var(--gq-line); border-radius: 999px; padding: 2px 12px; background: #fff; font: 800 14px 'Nunito', sans-serif; color: var(--gq-dim); cursor: pointer; }
+.jf-foot button.on { background: var(--gq-purple); border-color: var(--gq-purple); color: #fff; }
+@media (max-width: 640px) {
+  .jf-pic { font-size: 64px; }
+  .jf-job b { font-size: 34px; }
+  .jf-part { font-size: 18px; }
+  .jf-num b { width: 80px; height: 80px; font-size: 46px; }
+  .jf-pt { min-width: 0; font-size: 18px; }
+}
+/* [jobs-describe:R]: the model answer of the test, the parts in the colors of the legend */
+.jbm-key { z-index: 2; margin: 0; list-style: none; }
+.jbm-key li { font-size: 1.45cqw; }
+.jbm { z-index: 2; display: flex; flex-direction: column; gap: 1.6cqw; }
+.jbm article { padding: 1.2cqw 1.8cqw 1.4cqw; border: .25cqw solid #c9d2e0; border-radius: 1.8cqw; background: #fff; }
+.jbm h3 { margin: 0 0 .8cqw; font: 700 2.2cqw/1.2 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.jbm h3 b { color: var(--jb-coral); }
+.jbm-txt { margin: 0 0 .6cqw; font: 500 2.4cqw/1.5 'Caveat', cursive; color: #1d4fb8; }
+.jbm-txt:last-child { margin-bottom: 0; }
+.jbm mark { background: color-mix(in srgb, var(--k) 16%, transparent); color: inherit; text-decoration: underline .25cqw var(--k); text-underline-offset: .35cqw; text-decoration-skip-ink: none; box-decoration-break: clone; -webkit-box-decoration-break: clone; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+/* [scaf-jobs-flag]: the rules of the Job Flag Game */
+.scf-in .jbd-level { margin: 0 0 2.4cqw; }
+.scf-go-row { margin: 0; text-align: center; }
+.scf-in .scf-lang { margin-top: 2cqw; gap: 1.6cqw; font-size: 2cqw; }
+.scf-in .scf-lang b { width: 14cqw; font-size: 1.5cqw; }
