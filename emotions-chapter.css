@@ -634,6 +634,26 @@ textarea.fill.em-lines { height: calc(var(--rows, 4) * 4.2cqw); padding: 0 .6cqw
 .em-imag .em-f { width: 6.2cqw; height: 6.2cqw; } .em-imag li { grid-template-columns: 6.2cqw 1fr; } .em-imag { gap: .6cqw; }
 .em-reels li { padding: .45cqw 1cqw; }
 
+.em-2dice { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.4cqw; }
+.em-2dice > div { padding: 1cqw 1.2cqw; border-radius: 1.8cqw; background: var(--pal-white); border: .22cqw solid var(--em-c); }
+.em-2dice h4 { margin: 0 0 .6cqw; font: 700 1.6cqw/1 'Fredoka', sans-serif; color: var(--em-a-ink); }
+.em-2dice ol { list-style: none; margin: 0; padding: 0; display: grid; gap: .5cqw; }
+.em-2dice li { display: flex; align-items: center; gap: .8cqw; font: 600 1.45cqw/1.2 'Nunito', sans-serif; }
+.em-2dice .pips, .em-2dice .em-f { flex: none; width: 3.8cqw; height: 3.8cqw; }
+.em-2dice b { font: inherit; font-weight: 700; }
+.em-strange { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.1cqw; }
+.em-strange li { display: grid; grid-template-columns: auto 1fr; gap: .2cqw 1.2cqw; align-items: center; padding: 1cqw 1.4cqw; border-radius: 1.6cqw; background: var(--em-soft-b); }
+.em-strange .r { grid-row: span 2; padding: .5cqw 1.2cqw; border-radius: 999px; background: var(--em-c); color: var(--em-b); font: 700 1.6cqw/1 'Fredoka', sans-serif; }
+.em-strange .n { display: flex; align-items: flex-end; gap: .6cqw; font: 800 1.5cqw/1 'Nunito', sans-serif; }
+.em-strange input.fill.blank { width: 5cqw; height: 3cqw; font-size: 1.9cqw; text-align: center; border-bottom: .15cqw solid var(--em-a); }
+.em-strange input.fill.long { width: 100%; height: 3.2cqw; font-size: 1.8cqw; border-bottom: .15cqw solid var(--em-a); }
+
+/* the ribbons of words slide slowly */
+.em-marq span { animation: em-slide 90s linear infinite; }
+@keyframes em-slide { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .em-marq span { animation: none; } }
+@media print { .em-marq span { animation: none; } }
+
 /* ---- the pop-up of the computer games (pixels: it is not inside a page) ---- */
 
 .gq-overlay.emo-modal { --gq-purple: var(--pal-magenta); --gq-coral: var(--pal-forest); --gq-lilac: var(--pal-pink); --gq-card: var(--pal-rose-white); --gq-navy: var(--pal-forest); --gq-dim: var(--pal-slate); --gq-ok: var(--pal-green); --gq-fail: var(--pal-coral); background: color-mix(in srgb, var(--pal-forest) 66%, transparent); }
