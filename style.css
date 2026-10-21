@@ -1875,7 +1875,7 @@ body.print-job .print-pad { display: block; width: 100%; aspect-ratio: var(--pag
   .print-job-note { display: none; }
   body.print-job .print-pad { width: 210mm; height: 297mm; aspect-ratio: auto; }
   body.print-job .page.print-on, body.print-job .print-pad { break-after: page; }
-  body.print-job .print-last { break-after: auto; }
+  body.print-job .page.print-on.print-last, body.print-job .print-pad.print-last { break-after: auto; }
   .print-panel { display: none !important; }
   body.eco-print .page-bg, body.eco-print .art:not(.art-top) { display: none !important; }
   body.eco-print .page *:not(img):not(svg):not(svg *) {
@@ -4420,3 +4420,70 @@ body.toc-open .toc { display: block; }
 .scf-go-row { margin: 0; text-align: center; }
 .scf-in .scf-lang { margin-top: 2cqw; gap: 1.6cqw; font-size: 2cqw; }
 .scf-in .scf-lang b { width: 14cqw; font-size: 1.5cqw; }
+
+/* ================= Clothes: Dress to Impress (dress-up.js) ================= */
+.du-intro, .du-help { font: 400 1.45cqw/1.35 'Nunito', sans-serif; color: #555; }
+.du-help { font-size: 1.3cqw; color: #888; }
+.du-score { font: 800 1.4cqw/1 'Nunito', sans-serif; color: var(--cl-mag); text-align: right; }
+.du-theme { margin: 0; font: 700 3.4cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--cl-ink); background: var(--cl-yel); padding: .8cqw 2cqw; transform: rotate(-1.5deg); box-shadow: .4cqw .4cqw 0 rgba(0,0,0,.15); }
+.du-theme small { display: block; font: 800 1.1cqw/1 'Nunito', sans-serif; letter-spacing: .12em; color: var(--cl-mag); }
+.du-start { margin: 0; font: 400 1.45cqw/1.35 'Nunito', sans-serif; color: #8a7a88; }
+
+/* the cards: spell the word, unlock the piece of clothing */
+.du-cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1cqw; }
+.du-card {
+  position: relative; display: flex; flex-direction: column; gap: .5cqw;
+  padding: .7cqw; height: 15.4cqw; border-radius: 1.4cqw;
+  background: #fdf0f7; border: .25cqw solid #f3c6e0;
+}
+.du-card.unlocked { background: var(--cl-mag); border-color: #b81f78; }
+.du-card.pop { animation: hm-pop .35s cubic-bezier(.175,.885,.32,1.275); }
+.du-pic { position: relative; flex: 0 0 8cqw; display: flex; align-items: center; justify-content: center; background: #fff; border-radius: 1cqw; overflow: hidden; }
+.du-model { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border-radius: .8cqw; }
+.du-model img { max-width: 88%; max-height: 92%; object-fit: contain; }
+.du-card:not(.unlocked) .du-pic img { filter: grayscale(1); opacity: .55; }
+.du-lock { position: absolute; right: .4cqw; bottom: .3cqw; font-size: 1.4cqw; }
+.du-grab { cursor: grab; touch-action: none; user-select: none; }
+.du-card.unlocked .du-model:hover { outline: .3cqw solid var(--cl-lime); outline-offset: -.3cqw; }
+.du-tiles { display: flex; flex-wrap: nowrap; justify-content: center; gap: .1cqw; height: 2.2cqw; align-items: flex-end; }
+.du-tiles span { min-width: .95cqw; text-align: center; border-bottom: .18cqw solid #eec0dc; font: 700 1.25cqw/1 'Fredoka', 'Nunito', sans-serif; color: #b6b6b6; }
+.du-tiles span.given { color: #c2718f; }
+.du-tiles span.typed { color: var(--cl-mag); border-color: var(--cl-mag); }
+.du-tiles span.done { color: #fff; border-color: var(--cl-yel); }
+.du-tiles i.gap { width: .5cqw; }
+.du-row { display: flex; gap: .5cqw; height: 2.6cqw; }
+.du-in { flex: 1; min-width: 0; text-align: center; letter-spacing: .12em; text-transform: uppercase; font: 700 1.25cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--cl-mag); border: .18cqw solid #eec0dc; border-radius: .7cqw; background: #fff; outline: none; }
+.du-in:focus { border-color: var(--cl-mag); }
+.du-in.ok { border-color: #43a047; background: #e8f5e9; }
+.du-hint { flex: 0 0 3cqw; padding: 0; border: .18cqw solid #eec0dc; border-radius: .7cqw; background: var(--cl-yel); font-size: 1.4cqw; cursor: pointer; }
+.du-hint.on, .du-hint:hover { background: #ff9b85; border-color: #ee6054; }
+.du-scramble { position: absolute; z-index: 20; left: -.5cqw; right: -.5cqw; top: calc(100% - .4cqw); display: flex; flex-wrap: wrap; justify-content: center; gap: .4cqw; padding: .8cqw; background: #fff; border: .2cqw solid #f3c6e0; border-radius: 1cqw; box-shadow: 0 .6cqw 1.6cqw rgba(0,0,0,.18); }
+.du-scramble[hidden] { display: none; }
+.du-scramble button { min-width: 2.6cqw; height: 2.8cqw; padding: 0 .4cqw; cursor: pointer; font: 700 1.5cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--cl-mag); background: #fff6fb; border: .18cqw solid var(--cl-mag); border-radius: .6cqw; box-shadow: 0 .2cqw 0 var(--cl-mag); }
+.du-scramble button:hover:not(:disabled) { background: var(--cl-yel); }
+.du-scramble button:disabled { opacity: .3; cursor: default; box-shadow: none; }
+.du-scramble button.back { background: #ff9b85; color: #fff; border-color: #ee6054; box-shadow: 0 .2cqw 0 #ee6054; }
+.du-status { font: 800 1.1cqw/1 'Nunito', sans-serif; color: #fff; text-align: center; margin-top: auto; }
+
+/* dragging */
+.du-ghost { position: fixed; z-index: 200; width: 90px; height: 90px; transform: translate(-50%, -50%); pointer-events: none; opacity: .8; display: flex; align-items: center; justify-content: center; }
+.du-ghost img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+/* the model */
+.du-area {
+  aspect-ratio: 1; overflow: hidden; border: .35cqw solid var(--cl-mag); border-radius: 1.6cqw;
+  background: linear-gradient(#fff6fb 0 82%, #f8d3e8 82% calc(82% + .3cqw), #fbe6f1 calc(82% + .3cqw));
+}
+.du-area.over { outline: .4cqw dashed var(--cl-mag); outline-offset: .3cqw; }
+.du-doll { position: absolute; left: 50%; top: 3%; height: 94%; width: auto; transform: translateX(-50%); z-index: 0; pointer-events: none; user-select: none; }
+.du-item { position: absolute; cursor: grab; touch-action: none; user-select: none; filter: drop-shadow(.1cqw .4cqw .4cqw rgba(0,0,0,.18)); }
+.du-item:active { cursor: grabbing; }
+.du-item img { display: block; width: 100%; height: auto; pointer-events: none; }
+.du-item.selected { outline: .25cqw dashed #ee6054; outline-offset: .2cqw; }
+.du-tools { position: absolute; z-index: 400; transform: translate(-50%, -115%); display: flex; gap: .3cqw; padding: .4cqw; background: #8e2de2; border-radius: 1cqw; box-shadow: 0 .4cqw 1.2cqw rgba(0,0,0,.25); }
+.du-tools button { width: 3.2cqw; height: 3.2cqw; padding: 0; border: 0; border-radius: .7cqw; background: #e2b4ff; font-size: 1.5cqw; cursor: pointer; }
+.du-tools button:hover { background: var(--cl-lime); }
+.du-reset { background: var(--cl-teal); }
+.du-reset:hover { background: #2f8fd2; }
+
+@media print { .du-hint, .du-scramble, .du-tools, .du-reset, .du-help { display: none !important; } }

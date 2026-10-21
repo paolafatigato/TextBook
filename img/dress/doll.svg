@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 320">
+  <!-- temporary model: replace it with img/dress/doll.png -->
+  <g fill="#f6d2b0" stroke="#d9a982" stroke-width="1.5" stroke-linejoin="round">
+    <rect x="27" y="86" width="17" height="112" rx="8.5"/>
+    <rect x="116" y="86" width="17" height="112" rx="8.5"/>
+    <rect x="52" y="170" width="27" height="124" rx="12"/>
+    <rect x="81" y="170" width="27" height="124" rx="12"/>
+    <ellipse cx="63" cy="298" rx="17" ry="8"/>
+    <ellipse cx="97" cy="298" rx="17" ry="8"/>
+    <rect x="72" y="64" width="16" height="22" rx="5"/>
+  </g>
+  <path d="M46 92 Q46 80 62 80 H98 Q114 80 114 92 V150 Q114 186 98 186 H62 Q46 186 46 150 Z" fill="#ffe3ef" stroke="#e8b6cc" stroke-width="1.5"/>
+  <ellipse cx="80" cy="48" rx="32" ry="34" fill="#7a4a2a"/>
+  <circle cx="80" cy="44" r="27" fill="#f6d2b0" stroke="#d9a982" stroke-width="1.5"/>
+  <path d="M52 40 Q56 14 80 14 Q104 14 108 40 Q96 26 80 26 Q64 26 52 40 Z" fill="#7a4a2a"/>
+  <circle cx="70" cy="46" r="2.6" fill="#3b2a20"/>
+  <circle cx="90" cy="46" r="2.6" fill="#3b2a20"/>
+  <path d="M72 58 Q80 64 88 58" fill="none" stroke="#b5654a" stroke-width="2" stroke-linecap="round"/>
+</svg>
