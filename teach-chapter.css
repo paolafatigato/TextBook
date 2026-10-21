@@ -4,7 +4,7 @@
    Every lab follows the same steps (induction): try it → notice → say the rule → use it in my lesson. */
 .tch {
   --tc-ind: #2e6890; --tc-navy: #0b4e87; --tc-sky: #dfe6ff; --tc-paper: #f4f6ff; --tc-ink: #1c2247; --tc-soft: #6d74a3;
-  --tc-yellow: #e8c547; --tc-pink: #ffa59d; --tc-teal: #4e964c; --tc-orange: #f06054; --tc-coral: #de3796; --tc-violet: #0b4e87;
+  --tc-yellow: #e8c547; --tc-pink: #ffa59d; --tc-teal: #4e964c; --tc-orange: #f06054; --tc-coral: #fffa80; --tc-violet: #0b4e87;
   background-color: var(--tc-paper);
   background-image: linear-gradient(rgba(74,108,240,.09) 0.14cqw, transparent 0.14cqw), linear-gradient(90deg, rgba(74,108,240,.09) 0.14cqw, transparent 0.14cqw);
   background-size: 4.8cqw 4.8cqw;
@@ -382,8 +382,8 @@ textarea.fill.tc-lines { background: repeating-linear-gradient(to bottom, transp
 .tch button.tc-btn { border-radius: .7cqw; }
 .tc-rule { position: relative; background: #f3dfad; color: var(--tc-slate); font: 400 2.5cqw/1.3 'Gloock', serif; box-shadow: none; border-radius: 0; padding: 1.8cqw 2.6cqw;
   clip-path: polygon(0 5%, 3% 0, 12% 4%, 24% 0, 38% 5%, 52% 0, 66% 4%, 80% 0, 92% 5%, 100% 1%, 99% 50%, 100% 96%, 90% 100%, 76% 95%, 60% 100%, 44% 96%, 28% 100%, 14% 95%, 3% 100%, 0 90%, 1% 45%); }
-.tc-rule small { color: #de3796; }
-.tc-rule b { color: #de3796; }
+.tc-rule small { color: #fffa80; }
+.tc-rule b { color: #fffa80; }
 .tc-rule[hidden] { display: none; }
 /* "For my lesson": a folder with a tab */
 .tc-tip { background: #92e5ee; border: 0; border-radius: 0 .9cqw .9cqw .9cqw; margin-top: 2.4cqw; color: var(--tc-ink); padding: 1.5cqw 2cqw 1.4cqw 2cqw; }
@@ -432,7 +432,7 @@ mark { background: linear-gradient(transparent 52%, var(--tc-rose) 52%); color: 
 .tc-pick button:hover { background: #efe6d2; }
 .tc-pick button i, .tc-steps3 .ico { filter: grayscale(1); }
 .tc-pick button.ok { background: #e2ebb2; border-color: #4e964c; }
-.tc-pick button.no { background: #ffd7d3; border-color: #de3796; }
+.tc-pick button.no { background: #ffd7d3; border-color: #fffa80; }
 .tc-screen { font-family: 'Gloock', serif; font-weight: 400; background: var(--tc-navy); border-radius: .6cqw; }
 .tc-screen .t { color: var(--tc-mustard); }
 .tc-scores div { background: #eeefdf; border-radius: .7cqw; }
@@ -443,7 +443,7 @@ mark { background: linear-gradient(transparent 52%, var(--tc-rose) 52%); color: 
 .tc-part { border-radius: .8cqw; }
 .tc-hook i { background: var(--tc-slate); font-family: 'Gloock', serif; font-weight: 400; }
 .tc-brains button img { filter: none; }
-.tc-eb .res .bar i { background: var(--tc-coral, #de3796); }
+.tc-eb .res .bar i { background: var(--tc-coral, #fffa80); }
 .tc-steps3 .ico { background: var(--c); }
 .tc-steps3 li { border-radius: .8cqw; }
 .tc-wire[data-level="5"] .tc-axon { stroke: var(--tc-slate); }
@@ -498,10 +498,10 @@ mark { background: linear-gradient(transparent 52%, var(--tc-rose) 52%); color: 
    ===================================================================================================== */
 .th0, .th1 { --tc-ind: #2e6890; --tc-slate: #2e6890; --tc-navy: #0b4e87; --tc-olive: #0b4e87; --tc-cream: color-mix(in srgb, #49acf0 8%, #fff); }
 .th2 { --tc-ind: #0b4e87; --tc-slate: #0b4e87; --tc-navy: #0b4e87; --tc-olive: #0b4e87; --tc-cream: color-mix(in srgb, #fffa80 30%, #fff); }
-.th3 { --tc-ind: #4e964c; --tc-slate: #073226; --tc-navy: #073226; --tc-olive: #073226; --tc-cream: color-mix(in srgb, #dfec72 26%, #fff); }
-.th4 { --tc-ind: #f06054; --tc-slate: #7a5244; --tc-navy: #7a5244; --tc-olive: #7a5244; --tc-cream: color-mix(in srgb, #ffa59d 18%, #fff); }
-.th5 { --tc-ind: #de3796; --tc-slate: #0b4e87; --tc-navy: #0b4e87; --tc-olive: #0b4e87; --tc-cream: color-mix(in srgb, #de3796 7%, #fff); }
-.th6 { --tc-ind: #7a5244; --tc-slate: #7a5244; --tc-navy: #232323; --tc-olive: #232323; --tc-cream: color-mix(in srgb, #e8c547 20%, #fff); }
+.th3 { --tc-ind: #2e6890; --tc-slate: #0b4e87; --tc-navy: #0b4e87; --tc-olive: #0b4e87; --tc-cream: color-mix(in srgb, #92e5ee 22%, #fff); }
+.th4 { --tc-ind: #f06054; --tc-slate: #0b4e87; --tc-navy: #0b4e87; --tc-olive: #0b4e87; --tc-cream: color-mix(in srgb, #49acf0 8%, #fff); }
+.th5 { --tc-ind: #0b4e87; --tc-slate: #0b4e87; --tc-navy: #0b4e87; --tc-olive: #0b4e87; --tc-cream: color-mix(in srgb, #fffa80 30%, #fff); }
+.th6 { --tc-ind: #2e6890; --tc-slate: #0b4e87; --tc-navy: #0b4e87; --tc-olive: #0b4e87; --tc-cream: color-mix(in srgb, #e8c547 20%, #fff); }
 .tch { background-image: none; }
 .tch .tc-tip { background: color-mix(in srgb, var(--tc-ind) 22%, #fff); }
 .tch .tc-tip small { background: color-mix(in srgb, var(--tc-ind) 22%, #fff); color: var(--tc-slate); }
@@ -513,7 +513,7 @@ mark { background: linear-gradient(transparent 52%, var(--tc-rose) 52%); color: 
 .tch .tc-goal { border-left-color: var(--tc-mustard); }
 
 /* headers: eight variants. The steel blue (--B) is on every page, the accent of the lab (--A) changes; the grid paper and the network of circles and lines come back in different forms. */
-.th0, .th1 { --A: #49acf0; } .th2 { --A: #fffa80; } .th3 { --A: #4e964c; } .th4 { --A: #f06054; } .th5 { --A: #de3796; } .th6 { --A: #e8c547; }
+.th0, .th1 { --A: #49acf0; } .th2 { --A: #fffa80; } .th3 { --A: #92e5ee; } .th4 { --A: #f06054; } .th5 { --A: #fffa80; } .th6 { --A: #e8c547; }
 .tch { --B: #2e6890; --Bd: #0b4e87; }
 .tch.gbg { background-image: linear-gradient(rgba(46,104,144,.08) .12cqw, transparent .12cqw), linear-gradient(90deg, rgba(46,104,144,.08) .12cqw, transparent .12cqw); background-size: 4cqw 4cqw; }
 .tc-net2 { z-index: 1; pointer-events: none; overflow: visible; }
@@ -656,3 +656,33 @@ mark { background: linear-gradient(transparent 52%, var(--tc-rose) 52%); color: 
 .th2.v2 .tc-h, .th2.v2 .tc-kicker, .th2.v4 .tc-h, .th2.v4 .tc-kicker { color: #0b4e87; text-shadow: none; }
 .th2.v1 .tc-bn2 { -webkit-text-stroke-color: #49acf0; }
 .th2 .tc-bank span, .th2 .tc-gapbox { border-color: #49acf0; }
+
+/* lab 3: aqua with the blues, no green */
+.tch.th3 { --Ad: #49acf0; }
+.th3.v2 .tc-h, .th3.v2 .tc-kicker, .th3.v4 .tc-h, .th3.v4 .tc-kicker { color: #0b4e87; text-shadow: none; }
+.th3 .tc-reveal { background: #dff0fc; border-color: #49acf0; }
+.th3 .tc-bars .bar i { background: #49acf0; }
+.th3 .tc-gapbox { background: #fff; border-color: #49acf0; }
+.th3 .tc-tip, .th3 .tc-tip small { background: color-mix(in srgb, #92e5ee 45%, #fff); }
+/* paragraphs to put in order: drag or number */
+.tc-paras2 { gap: 1cqw; }
+.tc-paras2 > li { align-items: flex-start; gap: 1.2cqw; padding: 1cqw 1.4cqw; background: #fff; border: .2cqw solid #cdbf9e; border-radius: .9cqw; }
+.tc-paras2 > li.dragging { opacity: .35; }
+.tc-paras2 .lt { flex: 0 0 3.6cqw; width: 3.6cqw; height: 3.6cqw; cursor: grab; touch-action: none; }
+.tc-paras2 .grow { flex: 1; font: 400 1.95cqw/1.45 'Nunito', sans-serif; }
+.tc-paras2 .mv { display: flex; flex-direction: column; gap: .3cqw; }
+.tc-paras2 .mv button { width: 3cqw; height: 2.4cqw; padding: 0; border: .15cqw solid #cdbf9e; border-radius: .5cqw; background: #f4f1e6; color: var(--tc-ind); font: 800 1.2cqw/1 'Nunito', sans-serif; cursor: pointer; }
+.tc-paras2 .mv button:hover { background: #e7e2cf; }
+.tc-paras2 input.fill.blank { align-self: center; width: 6.4cqw; height: 5cqw; padding: 0; font: 700 3cqw/1 'Nunito', sans-serif; text-align: center; border: .25cqw solid var(--tc-ind) !important; border-radius: .8cqw; background: #fff; }
+.tc-paras2 > li.ok, .tc-paras2 > li.no { border-width: .35cqw; }
+.tc-paras2 > li.ok { border-color: #4e964c; }
+.tc-paras2 > li.no { border-color: #e53935; }
+.tc-paras2 > li.ok::after, .tc-paras2 > li.no::after { display: none; }
+@media print { .tc-paras2 .mv, .tc-paras2 .lt { visibility: hidden; } }
+
+/* lab 5 in lemon (like lab 2); lab 4 on the pale blue of the first pages */
+.tch.th5 { --Ad: #49acf0; }
+.th5.v2 .tc-h, .th5.v2 .tc-kicker, .th5.v4 .tc-h, .th5.v4 .tc-kicker, .th5.v3 .tc-h, .th5.v3 .tc-kicker { color: #0b4e87; text-shadow: none; }
+.th5 .tc-tip, .th5 .tc-tip small { background: color-mix(in srgb, #fffa80 55%, #fff); }
+.th4 .tc-kicker, .th4 .tc-h { text-shadow: .3cqw .3cqw 0 rgba(11,78,135,.4); }
+.th4.v1 .tc-kicker, .th4.v1 .tc-h, .th4.v5 .tc-h, .th4.v5 .tc-kicker, .th4.v6 .tc-h, .th4.v6 .tc-kicker, .th4.v7 .tc-h { color: #0b4e87; text-shadow: none; }

@@ -236,5 +236,31 @@
     const r = $('tc-brains-r'); if (r) r.hidden = !both;
   }));
 
+  /* ---------- lab 2 · paragraphs to put in order: drag them (by the letter) or press the arrows; the boxes get the numbers ---------- */
+  document.querySelectorAll('.tc-order[data-drag]').forEach(ol => {
+    const sync = () => [...ol.children].forEach((li, i) => {
+      const inp = li.querySelector('input');
+      li.classList.remove('ok', 'no');
+      if (!inp) return;
+      inp.value = String(i + 1); inp.classList.remove('ok', 'no');
+      inp.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    let drag = null;
+    ol.querySelectorAll(':scope > li').forEach(li => {
+      li.querySelector('.lt')?.addEventListener('pointerdown', () => { li.draggable = true; });
+      li.addEventListener('dragstart', e => { drag = li; li.classList.add('dragging'); e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', 'paragraph'); });
+      li.addEventListener('dragend', () => { li.draggable = false; li.classList.remove('dragging'); if (drag) { drag = null; sync(); } });
+      li.addEventListener('dragover', e => {
+        if (!drag || drag === li) return;
+        e.preventDefault();
+        const r = li.getBoundingClientRect();
+        ol.insertBefore(drag, e.clientY > r.top + r.height / 2 ? li.nextSibling : li);
+      });
+      li.addEventListener('drop', e => e.preventDefault());
+      li.querySelector('.up')?.addEventListener('click', () => { if (li.previousElementSibling) { ol.insertBefore(li, li.previousElementSibling); sync(); } });
+      li.querySelector('.dn')?.addEventListener('click', () => { if (li.nextElementSibling) { ol.insertBefore(li.nextElementSibling, li); sync(); } });
+    });
+  });
+
   window.addEventListener('hashchange', () => { timers.forEach(t => { clearTimeout(t); clearInterval(t); }); timers.clear(); });
 })();
