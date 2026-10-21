@@ -686,3 +686,9 @@ mark { background: linear-gradient(transparent 52%, var(--tc-rose) 52%); color: 
 .th5 .tc-tip, .th5 .tc-tip small { background: color-mix(in srgb, #fffa80 55%, #fff); }
 .th4 .tc-kicker, .th4 .tc-h { text-shadow: .3cqw .3cqw 0 rgba(11,78,135,.4); }
 .th4.v1 .tc-kicker, .th4.v1 .tc-h, .th4.v5 .tc-h, .th4.v5 .tc-kicker, .th4.v6 .tc-h, .th4.v6 .tc-kicker, .th4.v7 .tc-h { color: #0b4e87; text-shadow: none; }
+
+/* the wave of the header is a curved line of squares: the same line as the checkered edge of the neighbour page */
+.tc-wave .wv-a { stroke: var(--B); }
+.tc-wave .wv-b { stroke: var(--W2, var(--A)); }
+.th3 { --W2: #fffa80; }
+.tch.th3.v2 .tc-edge.end { left: 0; width: 100%; top: 138.42cqw; height: 3cqw; border: 0; background: conic-gradient(var(--B) 25%, #fffa80 0 50%, var(--B) 0 75%, #fffa80 0) 0 0 / 3cqw 3cqw; }
