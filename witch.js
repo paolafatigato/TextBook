@@ -31,3 +31,49 @@
   sprite.innerHTML = SPRITE;
   document.body.append(sprite);
 })();
+
+/* ================= 3 · words stuck together (texts of the class pages) ================= */
+// <span class="wh-glue" id="…" data-words="at seven to live in"></span> shows the words without spaces: a click on a letter puts a slash after it
+// (a second click takes it away). The right slashes are the ends of the words. The button data-glue="<id of the section>" checks all the chains of the section.
+(() => {
+  const chains = [...document.querySelectorAll('.wh-glue')].map(box => {
+    const words = box.dataset.words.split(' ');
+    const text = words.join('');
+    const right = new Set();
+    let end = -1;
+    words.slice(0, -1).forEach(x => { end += x.length; right.add(end); });
+    let cuts = new Set();
+    try { cuts = new Set(JSON.parse(saved[box.id] || '[]')); } catch { cuts = new Set(); }
+    const letters = [...text].map((c, i) => {
+      const s = document.createElement('span');
+      s.className = 'ch';
+      s.textContent = c;
+      if (i < text.length - 1) s.addEventListener('click', () => {
+        cuts.has(i) ? cuts.delete(i) : cuts.add(i);
+        saved[box.id] = JSON.stringify([...cuts]);
+        persist();
+        paint();
+      });
+      return s;
+    });
+    box.append(...letters);
+    function paint(checked) {
+      letters.forEach((s, i) => {
+        s.classList.toggle('cut', cuts.has(i));
+        s.classList.remove('ok', 'no');
+        if (checked && cuts.has(i)) s.classList.add(right.has(i) ? 'ok' : 'no');
+      });
+      box.classList.toggle('missed', !!checked && [...right].some(i => !cuts.has(i)));
+    }
+    paint();
+    return { box, right, cuts: () => cuts, paint };
+  });
+  document.querySelectorAll('.check[data-glue]').forEach(btn => btn.addEventListener('click', () => {
+    const id = btn.dataset.glue;
+    const mine = chains.filter(c => c.box.closest('#' + id));
+    let good = 0, all = 0, bad = 0;
+    mine.forEach(c => { c.paint(true); all += c.right.size; const g = [...c.cuts()].filter(i => c.right.has(i)).length; good += g; bad += c.cuts().size - g; });
+    const out = document.getElementById(id + '-score');
+    if (out) out.textContent = `${good} / ${all} slashes in the right place` + (bad ? ` · ${bad} in the wrong place` : '') + (good === all && !bad ? ' 🎉' : '');
+  }));
+})();

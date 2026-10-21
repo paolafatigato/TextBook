@@ -1,8 +1,10 @@
 // Witch hunt (CLIL, [wh-play]): the village game against the computer, in a pop-up (like the Sports and Emotions games).
-// One pupil plays against the computer: 22 villagers (the characters of the teacher's PDF, witch-data.js), each with a power, coins and a vote.
-// Three of them are secret ACCUSERS. Every night the accusers point at somebody ("Witch!") and rob a coin; every day the village votes:
-// is the accused guilty (burned at the stake)? and who goes into exile? The village wins when all the accusers are exiled.
-// Nobody is ever a witch: when a person is burned the card says so, and at the end the game shows who got the coins.
+// A "Lupus in tabula" with witches: 22 villagers (the characters of the teacher's PDF, witch-data.js), each with a power, coins and a vote.
+// Three of them are secret WITCHES. The computer is the narrator: every night it says who opens their eyes (the spies, then the witches).
+// A pupil whose character has the eyes closed skips that step; a pupil whose eyes are open sees what happens (who asks, who points at whom).
+// The witches curse a villager every night and take the coins; every day the village votes who goes into exile.
+// The witches win when no innocent is left (or when they are as many as the innocents: then they control every vote);
+// the village wins when all the witches are in exile. At the end the game says that in real history witches never existed.
 // Opened by a button with data-wh="play" ([wh-play]) and by the pill "Witch hunt" of the Games list on the home page.
 
 (() => {
@@ -13,8 +15,9 @@
   const KCOL = { church: 'plum', nobility: 'mustard', people: 'coral' };
   const LABEL = { lord1: 'Lord I', lord2: 'Lord II', farmerM1: 'Farmer I', farmerM2: 'Farmer II', farmerF: 'Farmer (f)', merchantM: 'Merchant (m)',
     merchantF: 'Merchant (f)', innkeeperM: 'Innkeeper (m)', innkeeperF: 'Innkeeper (f)' };
-  const SPIES = ['innkeeperM', 'innkeeperF', 'maid'];
+  const SPIES = ['innkeeperM', 'innkeeperF', 'maid'];   // the order in which the narrator calls them
   const TAXERS = ['bishop', 'lord1', 'lord2'];
+  const NWITCH = 4;
   const $ = id => document.getElementById(id);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const shuffle = a => { const r = a.slice(); for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; };
@@ -41,9 +44,11 @@
   let P = [];            // the 22 people: a person keeps the tile, the role can be swapped
   let me = null;         // the pupil's person
   let round = 0, season = 'normal';
-  let accused = null, annulled = null, healerUsed = false, watching = false;
-  let ledger = [];       // who got the coins of the burned people
-  let stats = { robbed: 0, inherited: 0, confiscated: 0 };
+  let annulled = null, healerUsed = false, watching = false, night = false;
+  let victim = null;     // who the witches cursed last night
+  let pointing = new Map(); // tile index → labels of the witches who point at that tile (shown while the witches have their eyes open)
+  let ledger = [];       // where the coins of the dead and of the exiled went
+  let stats = { looted: 0, confiscated: 0 };
   let runId = 0, resolver = null;
   const STOP = Symbol('stop');
   const stale = id => id !== runId;
@@ -55,11 +60,13 @@
   const isAlive = id => { const p = holder(id); return !!p && p.alive; };
   const sex = p => roleOf(p).sex;
   const cls = p => roleOf(p).cls;
-const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
-  const liveAccusers = () => P.filter(p => p.accuser && p.alive);
+  const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
+  const liveWitches = () => P.filter(p => p.witch && p.alive);
+  const innocents = () => P.filter(p => !p.witch && p.alive);
   const name = p => `<b>${esc(label(p))}</b>`;
   const weight = p => ({ bishop: 3, lord1: 2, lord2: 2 }[p.role] || 1);
   const voters = () => alive().filter(p => p !== annulled);
+  const narr = html => `<p class="narr"><b>🎙 Narrator</b> ${html}</p>`;
 
   /* ---------- log, board, panel ---------- */
   function say(html, kind = '') {
@@ -68,15 +75,18 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
     ul.insertAdjacentHTML('beforeend', `<li class="${kind}">${html}</li>`);
     ul.scrollTop = ul.scrollHeight;
   }
+  const ICON = { killed: '💀', exiled: '➜', starved: '☠' };
   function tileHtml(p, i) {
     const r = roleOf(p);
     const d = p.d ? `<em class="d ${p.d > 0 ? 'up' : 'down'}">${p.d > 0 ? '+' : '−'}${Math.abs(p.d)}</em>` : '';
-    const st = { burned: '🔥', exiled: '➜', starved: '☠' }[p.status] || (p.accused ? '⚑' : '');
-    return `<button type="button" class="wg-tile ${p.alive ? '' : 'out ' + p.status} ${p.accused ? 'accused' : ''} ${p === me ? 'me' : ''}" data-i="${i}" style="--k:var(--pal-${KCOL[r.cls]})" aria-label="${esc(label(p))}, ${p.coins} coins">
+    const ptr = pointing.get(i);
+    const awake = night && me.alive && me.witch && p.witch && p.alive && p !== me;
+    return `<button type="button" class="wg-tile ${p.alive ? '' : 'out ' + p.status} ${p === me ? 'me' : ''} ${ptr ? 'pointed' : ''} ${awake ? 'awake' : ''}" data-i="${i}" style="--k:var(--pal-${KCOL[r.cls]})" aria-label="${esc(label(p))}, ${p.coins} coins">
       <span class="pp"><img src="img/witch/${r.img}.png" alt="" loading="lazy"></span>
       <b>${esc(label(p))}</b>
       <span class="co"><i>●</i>${p.coins}${d}</span>
-      ${p === me ? '<span class="you">YOU</span>' : ''}${st ? `<span class="st">${st}</span>` : ''}
+      ${p === me ? '<span class="you">YOU</span>' : ''}${ICON[p.status] ? `<span class="st">${ICON[p.status]}</span>` : ''}${awake ? '<span class="st">🧹</span>' : ''}
+      ${ptr ? `<span class="ptr">☝ ${ptr.map(esc).join(', ')}</span>` : ''}
     </button>`;
   }
   function board() {
@@ -85,12 +95,12 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
     const c = $('wgMe');
     if (!c || !me) return;
     const r = roleOf(me);
-    const known = P.filter(p => me.known[p.i]).map(p => `${esc(label(p))}: <b>${me.known[p.i] === 'bad' ? 'BAD' : 'good'}</b>`);
-    const friends = liveAccusers().filter(x => x !== me).map(label).map(esc).join(', ');
+    const known = P.filter(p => me.known[p.i]).map(p => `${esc(label(p))}: <b>${me.known[p.i] === 'bad' ? 'WITCH' : 'good'}</b>`);
+    const friends = liveWitches().filter(x => x !== me).map(label).map(esc).join(', ');
     c.innerHTML = `<div class="wg-arch" style="--k:var(--pal-${KCOL[r.cls]})"><img src="img/witch/${r.img}.png" alt=""></div>
       <div class="tx"><small>${esc(DATA.CLASSES[r.cls].name)}</small><h3>${esc(label(me))} <em>${esc(r.it)}</em></h3>
       <p class="ab">${esc(r.ab)}</p>
-      <p class="team ${me.accuser ? 'bad' : 'good'}">${me.accuser ? '⚑ SECRET: you are an ACCUSER. Friends: ' + (friends || 'none left') : 'You are a villager. Find the three accusers!'}</p>
+      <p class="team ${me.witch ? 'bad' : 'good'}">${me.witch ? '🧹 SECRET: you are a WITCH. Friends: ' + (friends || 'none left') : 'You are innocent. Find the four witches!'}</p>
       ${known.length ? `<p class="kn">You know: ${known.join(' · ')}</p>` : ''}
       <p class="status">${me.alive ? `Coins: <b>${me.coins}</b>` : `<b>You are out (${me.status}).</b>`}</p></div>`;
     $('whScore').textContent = round ? `Round ${round} · ${{ abundance: '🌾 abundance', famine: '🥀 famine', normal: '☁ normal year' }[season]}` : '';
@@ -139,8 +149,8 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
     return n;
   }
   function died(p, how) {
-    p.alive = false; p.status = how; p.accused = false;
-    if (how === 'burned' || how === 'starved') {
+    p.alive = false; p.status = how;
+    if (how === 'killed' || how === 'starved') {
       const monk = holder('monk');
       if (monk && monk.alive && monk !== p) {
         // the four social groups of the book: Church, Nobility, working men, working women (the monk gets at most 3 coins)
@@ -165,11 +175,9 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
 
   /* ---------- the winner ---------- */
   function winner() {
-    const bad = liveAccusers().length, good = alive().length - bad;
-    if (!bad) return 'village';
-    if (good <= bad) return 'accusers';
-    const total = alive().reduce((s, p) => s + p.coins, 0);
-    if (round >= 3 && total && liveAccusers().reduce((s, p) => s + p.coins, 0) * 2 > total) return 'accusers';
+    const w = liveWitches().length, inn = innocents().length;
+    if (!w) return 'village';
+    if (!inn || w >= inn) return 'witches';   // with as many witches as innocents, the witches control every vote
     return null;
   }
 
@@ -177,11 +185,11 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
   function setup() {
     const roles = shuffle(CHARS.map(c => c.id));
     // the tiles keep the order of the book (men, then women); the roles are dealt at random
-    P = roles.map((role, i) => ({ i, role, coins: CHAR[role].coins, start: CHAR[role].coins, alive: true, status: 'alive', accuser: false, accused: false, d: 0, sus: {}, known: {}, claimed: false, human: false }));
+    P = roles.map((role, i) => ({ i, role, coins: CHAR[role].coins, start: CHAR[role].coins, alive: true, status: 'alive', witch: false, d: 0, sus: {}, known: {}, claimed: false, human: false }));
     me = pick(P); me.human = true;
-    shuffle(P).slice(0, 3).forEach(p => { p.accuser = true; });
-    round = 0; season = 'normal'; accused = null; annulled = null; healerUsed = false; watching = false;
-    ledger = []; stats = { robbed: 0, inherited: 0, confiscated: 0 };
+    shuffle(P).slice(0, NWITCH).forEach(p => { p.witch = true; });
+    round = 0; season = 'normal'; annulled = null; healerUsed = false; watching = false; night = false; victim = null;
+    pointing = new Map(); ledger = []; stats = { looted: 0, confiscated: 0 };
     area.innerHTML = `<div class="wg">
       <div class="wg-left"><div class="wg-board" id="wgBoard"></div></div>
       <div class="wg-right">
@@ -244,71 +252,130 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
     await next(`<h4>${names[season][0]}</h4><p>${names[season][1]}</p><p class="mute">Look at the coins on the board. Who is richer now?</p>`);
   }
 
-  /* ---------- 2 · the night ---------- */
-  async function playNight() {
-    say('🌙 <b>Night.</b> The village sleeps.', 'head');
-    // the spies listen
-    for (const p of alive().filter(x => SPIES.includes(x.role))) {
-      if (!p.alive || p.accuser) continue;
-      const want = p.role === 'maid' ? 'f' : 'm';
-      const targets = alive().filter(t => t !== p && sex(t) === want && !p.known[t.i]);
-      if (!targets.length) continue;
-      if (p === me) {
-        const t = await pickTile(`<h4>🌙 Night: you listen</h4><p>${p.role === 'maid' ? 'Choose a woman' : 'Choose a man'}. Is this person good or bad?</p>`, x => targets.includes(x));
-        p.known[t.i] = t.accuser ? 'bad' : 'good';
-        say(`👂 You listen to ${name(t)}: <b>${t.accuser ? 'BAD' : 'good'}</b>.`, 'me');
-        board();
-      } else {
-        const t = pick(targets);
-        p.known[t.i] = t.accuser ? 'bad' : 'good';
-      }
+  /* ---------- 2 · the night: the narrator calls the roles ---------- */
+  // a witch who is a spy opens the eyes twice; a person with closed eyes skips the step
+  async function spyStep(role) {
+    const p = holder(role);
+    if (!p || !p.alive) return false;
+    const want = role === 'maid' ? 'f' : 'm';
+    const targets = alive().filter(t => t !== p && sex(t) === want && !p.known[t.i]);
+    if (!targets.length) return false;
+    const who = `the ${esc(roleOf(p).name.toLowerCase())}`;
+    if (p === me) {
+      const t = await pickTile(`<h4>🌙 Your eyes are open</h4>${narr(`${role === 'maid' ? 'The maid' : 'The ' + roleOf(p).name.toLowerCase()} opens ${role === 'maid' ? 'her' : sex(p) === 'f' ? 'her' : 'his'} eyes and asks me: <em>“Is ${role === 'maid' ? 'a woman' : 'a man'} good or bad?”</em> Choose ${role === 'maid' ? 'a woman' : 'a man'}.`)}`, x => targets.includes(x));
+      p.known[t.i] = t.witch ? 'bad' : 'good';
+      say(`👂 You ask about ${name(t)}: <b>${t.witch ? 'a WITCH' : 'good'}</b>.`, 'me');
+      board();
+      await next(`<h4>🌙 The narrator answers</h4>${narr(`I nod ${t.witch ? '<b>(thumb down 👎)</b>' : '<b>(thumb up 👍)</b>'}: ${name(t)} is <b>${t.witch ? 'a WITCH' : 'good'}</b>. Close your eyes.`)}`, 'Close my eyes 😴');
+      return true;
     }
-    // the accusers point at somebody and rob a coin
-    const targets = alive().filter(t => !t.accuser);
-    let victim, thief;
-    if (me.alive && me.accuser) {
-      victim = await pickTile('<h4>🌙 Night: you are an accuser</h4><p>Point at somebody: <em>“Witch!”</em> You also take 1 coin. Be careful: the village must not find you.</p>', t => targets.includes(t));
-      thief = me;
+    // the computer's spy (a witch spy already knows everybody)
+    if (!p.witch) { const t = pick(targets); p.known[t.i] = t.witch ? 'bad' : 'good'; }
+    return false;
+  }
+
+  async function witchesStep() {
+    const ws = liveWitches();
+    const targets = alive().filter(t => !t.witch);
+    // the computer's witches point first
+    const wt = t => 1 + t.coins + (SPIES.includes(t.role) ? 3 : 0) + (sex(t) === 'f' && cls(t) === 'people' ? 1 : 0);
+    const choose = () => { let r = Math.random() * targets.reduce((s, t) => s + wt(t), 0); return targets.find(t => (r -= wt(t)) <= 0) || targets[0]; };
+    const picks = new Map();
+    ws.filter(w => !w.human).forEach(w => picks.set(w, choose()));
+    let final;
+    if (me.alive && me.witch) {
+      const mark = () => { pointing = new Map(); picks.forEach((t, w) => pointing.set(t.i, [...(pointing.get(t.i) || []), label(w)])); };
+      mark(); board();
+      const friends = [...picks.entries()].map(([w, t]) => `${name(w)} points at ${name(t)}`);
+      await next(`<h4>🌙 Your eyes are open</h4>${narr('The witches open their eyes and ask me: <em>“Whom do we curse tonight?”</em>')}
+        <p>${friends.length ? 'Your friends point:' : 'You are the only witch left.'}</p>${friends.length ? `<ul class="wg-talk">${friends.map(f => `<li>${f}</li>`).join('')}</ul>` : ''}`, 'Choose my victim ▶');
+      const mine = await pickTile(`<h4>🌙 Whom do you curse?</h4>${narr('Point at somebody. The witches agree by majority; if you disagree, your choice counts as a tie-breaker.')}<p class="mute">Be careful: look at the coins, and at who could be a spy.</p>`, t => targets.includes(t));
+      picks.set(me, mine);
+      const count = new Map();
+      picks.forEach(t => count.set(t, (count.get(t) || 0) + 1));
+      const top = Math.max(...count.values());
+      const best = [...count.entries()].filter(([, n]) => n === top).map(([t]) => t);
+      final = best.includes(mine) ? mine : pick(best);
+      pointing = new Map([[final.i, ['the witches']]]);
+      board();
+      say(`🧹 The witches curse ${name(final)}.`, 'me');
+      await next(`<h4>🌙 The witches agree</h4>${narr(`${name(final)} is the victim. Witches, close your eyes.`)}`, 'Close my eyes 😴');
+      pointing = new Map();
     } else {
-      const wt = t => 1 + t.coins + (SPIES.includes(t.role) ? 3 : 0) + (sex(t) === 'f' && cls(t) === 'people' ? 1 : 0);
-      let r = Math.random() * targets.reduce((s, t) => s + wt(t), 0);
-      victim = targets.find(t => (r -= wt(t)) <= 0) || targets[0];
-      thief = pick(liveAccusers());
-      await sleep(400);
+      final = picks.size ? [...picks.values()][0] : choose();
+      const count = new Map(); picks.forEach(t => count.set(t, (count.get(t) || 0) + 1));
+      final = [...count.entries()].sort((a, b) => b[1] - a[1])[0][0];
     }
-    accused = victim;
-    victim.accused = true;
-    if (victim.role !== 'blacksmith' && victim.coins > 0) {
-      move(victim, thief, 1);
-      stats.robbed++;
-      // some people notice who got richer
-      alive().filter(v => !v.accuser && !v.human).forEach(v => { if (Math.random() < .3) v.sus[thief.i] = (v.sus[thief.i] || 0) + 1; });
+    return final;
+  }
+
+  async function playNight() {
+    night = true;
+    say('🌙 <b>Night.</b> The village sleeps.', 'head');
+    board();
+    await next(`<h4>🌙 Night</h4>${narr('The night falls on the village. <b>Everybody, close your eyes.</b>')}`, 'Close my eyes 😴');
+    let awake = false;
+    for (const role of SPIES) if (await spyStep(role)) awake = true;
+    victim = await witchesStep();
+    if (me.alive && me.witch) awake = true;
+    if (!awake) {
+      setPanel(`<div class="wg-say"><h4>💤 Zzz…</h4>${narr('Night. Some people open their eyes, but not you. <b>You are asleep.</b>')}</div>`);
+      await sleep(1800);
     }
-    if (me.alive && me.accuser) say(`⚑ You accuse ${name(victim)}${victim.role === 'blacksmith' ? ' (nobody can rob a blacksmith)' : ' and take 1 coin'}.`, 'me');
+    // the curse
+    const nw = holder('noblewoman');
+    victim.cursed = true;
+    if (victim.role === 'maid' && nw && nw.alive && !nw.witch) {
+      say('🛡 The noblewoman protects her maid: the curse fails.', 'good');
+      victim = null;
+    } else {
+      const loot = victim.role === 'blacksmith' ? 0 : victim.coins;
+      const thief = pick(liveWitches());
+      if (loot) {
+        move(victim, thief, loot);
+        stats.looted += loot;
+        // some people notice who got richer
+        alive().filter(v => !v.witch && !v.human).forEach(v => { if (Math.random() < .3) v.sus[thief.i] = (v.sus[thief.i] || 0) + 1; });
+        ledger.push({ who: label(victim), coins: loot, dest: label(thief), how: 'cursed' });
+      }
+      died(victim, 'killed');
+      if (me.witch && me.alive) say(`🧹 ${name(victim)} dies${loot ? ` and ${loot} coin${loot > 1 ? 's go' : ' goes'} to ${name(thief)}` : ''}.`, 'me');
+    }
+    night = false;
     board();
   }
 
   /* ---------- 3 · the morning ---------- */
   async function playMorning() {
     say('☀ <b>Morning.</b> The bell rings.', 'head');
-    const v = accused;
-    say(`⚑ ${name(v)} is accused of witchcraft!`, 'bad');
     const lines = [];
-    lines.push(`<b>${esc(label(v))}</b>: “I am not a witch! I am just a ${esc(roleOf(v).name.toLowerCase())}.”`);
-    const liars = liveAccusers().filter(a => a !== v && !a.human);
-    if (liars.length) lines.push(`<b>${esc(label(pick(liars)))}</b>: “I saw ${esc(label(v))} near the forest at night. It’s a witch!”`);
-    for (const s of alive().filter(x => !x.human && !x.accuser && Object.values(x.known).includes('bad'))) {
+    let head;
+    if (victim) {
+      say(`💀 ${name(victim)} is found dead!`, 'bad');
+      head = `<h4>☀ The village wakes up</h4>${narr(`Everybody opens their eyes. ${name(victim)} is <b>dead</b>.`)}`;
+    } else {
+      head = `<h4>☀ The village wakes up</h4>${narr('Everybody opens their eyes. <b>Nobody died tonight.</b>')}`;
+    }
+    const talkers = alive().filter(x => !x.human);
+    // an honest spy tells what he or she knows
+    for (const s of talkers.filter(x => !x.witch && Object.values(x.known).includes('bad'))) {
       const id = +Object.keys(s.known).find(k => s.known[k] === 'bad');
-      if (P[id].alive) { lines.push(`<b>${esc(label(s))}</b>: “I listened in the night. ${esc(label(P[id]))} is <u>BAD</u>!”`); P[id].claimed = true; }
+      if (P[id].alive) { lines.push(`<b>${esc(label(s))}</b>: “I listened in the night. ${esc(label(P[id]))} is a <u>WITCH</u>!”`); P[id].claimed = true; }
     }
-    // an accuser who is a spy lies: he or she names an innocent person
-    const lie = liveAccusers().find(a => !a.human && SPIES.includes(a.role));
+    // a witch who is a spy lies: he or she names an innocent person; other witches push innocents too
+    const lie = liveWitches().find(a => !a.human && SPIES.includes(a.role));
     if (lie) {
-      const t = pick(alive().filter(x => !x.accuser && x !== v));
-      if (t) { lines.push(`<b>${esc(label(lie))}</b>: “I listened in the night. ${esc(label(t))} is <u>BAD</u>!”`); t.claimed = true; }
+      const t = pick(innocents().filter(x => x !== me || true));
+      if (t) { lines.push(`<b>${esc(label(lie))}</b>: “I listened in the night. ${esc(label(t))} is a <u>WITCH</u>!”`); t.claimed = true; }
     }
+    const other = liveWitches().filter(a => !a.human && a !== lie);
+    if (other.length) {
+      const t = pick(innocents());
+      if (t) lines.push(`<b>${esc(label(pick(other)))}</b>: “I saw ${esc(label(t))} near the forest at night. Strange…”`);
+    }
+    if (!lines.length) lines.push('Nobody says anything. Everybody looks at the others…');
     board();
-    await next(`<h4>⚑ ${esc(label(v))} is accused!</h4><ul class="wg-talk">${lines.map(l => `<li>${l}</li>`).join('')}</ul><p class="mute">Think: who gains from this accusation?</p>`, 'Use your powers ▶');
+    await next(`${head}<ul class="wg-talk">${lines.map(l => `<li>${l}</li>`).join('')}</ul><p class="mute">Think: who gets richer? Who says strange things?</p>`, 'Use your powers ▶');
   }
 
   /* ---------- 4 · the powers of the day ---------- */
@@ -329,9 +396,9 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
         const t = await pickTile(`<h4>Your power: SWAP ROLES</h4><p>You have more than 4 coins. Swap roles with another ${sex(me) === 'm' ? 'man' : 'woman'}?</p>`, x => x !== me && x.alive && sex(x) === sex(me), 'No, thanks');
         if (t) swap(me, t, true);
       } else if (r === 'healer' && !healerUsed && me.coins >= 2) {
-        const dead = P.filter(x => !x.alive && ['burned', 'starved'].includes(x.status));
+        const dead = P.filter(x => !x.alive && ['killed', 'starved'].includes(x.status));
         if (dead.length) {
-          const t = await pickTile('<h4>Your power: BRING BACK TO LIFE</h4><p>Pay 2 coins to bring back a person who was burned or died of hunger. You can do it only once.</p>', x => dead.includes(x), 'No, thanks');
+          const t = await pickTile('<h4>Your power: BRING BACK TO LIFE</h4><p>Pay 2 coins to bring back a person who was killed or died of hunger. You can do it only once.</p>', x => dead.includes(x), 'No, thanks');
           if (t) revive(t, me);
         }
       }
@@ -353,7 +420,7 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
         const t = pick(alive().filter(x => x !== p && sex(x) === sex(p) && ['bishop', 'lord1', 'lord2', 'noblewoman', 'healer'].includes(x.role)));
         if (t) swap(p, t, false);
       } else if (r === 'healer' && !healerUsed && p.coins >= 2 && Math.random() < .5) {
-        const t = pick(P.filter(x => !x.alive && ['burned', 'starved'].includes(x.status)));
+        const t = pick(P.filter(x => !x.alive && ['killed', 'starved'].includes(x.status)));
         if (t) revive(t, p);
       }
     }
@@ -369,7 +436,7 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
     gain(healer, -2);
     healerUsed = true;
     t.alive = true; t.status = 'alive';
-    gain(t, Math.max(1, t.coins) - t.coins + 0);
+    if (t.coins < 1) gain(t, 1);
     say(`✨ ${name(healer)} brings ${name(t)} back to life!`, 'good');
     board();
   }
@@ -382,80 +449,12 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
     return s;
   }
 
-  /* ---------- 5 · the trial ---------- */
-  async function playTrial() {
-    const v = accused;
-    if (!v || !v.alive) return;
-    let g = 0, n = 0;
-    const votes = [];
-    const mustFree = p => p.role === 'squire' && v.role === 'blacksmith';
-    let mine = null;
-    if (me.alive && me !== v && me !== annulled) {
-      mine = await ask(`<h4>⚖ The trial</h4><p>${name(v)} is accused of witchcraft. Is the accused guilty?</p><p class="mute">Your vote counts <b>${weight(me)}</b>.${mustFree(me) ? ' (You cannot vote against the blacksmith.)' : ''}</p>`,
-        [{ label: '🔥 Guilty: burn', value: 'g', cls: 'bad' }, { label: '🕊 Not guilty: free', value: 'n', cls: 'good' }]);
-      if (mustFree(me)) mine = 'n';
-    } else if (me.alive && me === annulled) say('✋ Your vote is cancelled today.', 'bad');
-    for (const p of voters()) {
-      if (p === v) continue;
-      let guilty;
-      if (p === me) guilty = mine === 'g';
-      else if (mustFree(p)) guilty = false;
-      else if (p.accuser) guilty = Math.random() < .95;
-      else {
-        let pr = .45 + (season === 'famine' ? .2 : season === 'abundance' ? -.1 : 0) + (sex(v) === 'f' && cls(v) === 'people' ? .08 : 0) + (cls(p) !== 'people' && cls(v) === 'people' ? .08 : 0);
-        if (p.known[v.i] === 'good') pr = .08;
-        guilty = Math.random() < pr;
-      }
-      if (guilty) g += weight(p); else n += weight(p);
-      votes.push({ p, guilty });
-    }
-    // the maid cannot be burned without the vote of the noblewoman
-    const nw = holder('noblewoman');
-    let protect = false;
-    if (v.role === 'maid' && nw && nw.alive && nw !== annulled) {
-      const nv = votes.find(x => x.p === nw);
-      if (!nv || !nv.guilty) protect = true;
-    }
-    const total = g + n || 1;
-    const bar = `<div class="wg-bar"><span class="g" style="width:${Math.round(g / total * 100)}%">🔥 ${g}</span><span class="n" style="width:${Math.round(n / total * 100)}%">🕊 ${n}</span></div>`;
-    if (g > n && !protect) {
-      await next(`<h4>⚖ The vote</h4>${bar}<p>The village says: <b>GUILTY</b>.</p>`, 'The stake 🔥');
-      burn(v);
-      board();
-      await next(`<div class="wg-flip"><div class="front">NOT A WITCH</div></div><h4>🔥 ${esc(label(v))} is burned.</h4><p><b>Witches do not exist.</b> ${esc(label(v))} was innocent. Look at the coins: who got them?</p>`);
-    } else {
-      v.accused = false;
-      say(`🕊 ${name(v)} is set free.`, 'good');
-      board();
-      await next(`<h4>⚖ The vote</h4>${bar}<p>${protect && g > n ? 'The noblewoman does not vote against her maid: <b>she is free</b>.' : 'The village says: <b>NOT GUILTY</b>. ' + esc(label(v)) + ' is free.'}</p>`);
-    }
-    accused = null;
-  }
-  function burn(v) {
-    const coins = v.coins;
-    died(v, 'burned');
-    const bad = liveAccusers();
-    const dest = [];
-    if (coins > 0) {
-      const toAcc = Math.ceil(coins / 2), rest = coins - toAcc;
-      const acc = bad.length ? pick(bad) : null;
-      if (acc) { gain(acc, toAcc); stats.inherited += toAcc; dest.push(`${toAcc} → ${label(acc)}`); }
-      const lord = [holder('lord1'), holder('lord2')].find(l => l && l.alive);
-      const bishop = holder('bishop');
-      const taker = (bishop && bishop.alive) ? bishop : lord || acc;
-      if (taker && rest) { gain(taker, rest); stats.confiscated += rest; dest.push(`${rest} → ${label(taker)}`); }
-      v.d -= coins; v.coins = 0;
-    }
-    ledger.push({ who: label(v), coins, dest: dest.join(' · ') || '–' });
-    say(`🔥 ${name(v)} is burned at the stake. <em>Not a witch.</em> ${coins ? `${coins} coin${coins > 1 ? 's' : ''} go to: ${dest.map(esc).join(', ')}.` : ''}`, 'bad');
-  }
-
-  /* ---------- 6 · the exile ---------- */
+  /* ---------- 5 · the village meeting: who goes into exile? ---------- */
   async function playExile() {
     if (winner()) return;
     let mine = null;
     if (me.alive && me !== annulled) {
-      mine = await pickTile(`<h4>🏚 The village meeting</h4><p>Does somebody go into exile? Choose a person, or nobody.</p><p class="mute">Your vote counts <b>${weight(me)}</b>. Who gets richer? Who says strange things?</p>`,
+      mine = await pickTile(`<h4>🏚 The village meeting</h4><p>Who goes into exile? Choose a person, or nobody.</p><p class="mute">Your vote counts <b>${weight(me)}</b>. Who gets richer? Who says strange things?</p>`,
         p => p.alive && p !== me && !(me.role === 'squire' && p.role === 'blacksmith'), 'Nobody');
     } else if (me.alive) say('✋ Your vote is cancelled today.', 'bad');
     const tally = new Map(); let nobody = 0;
@@ -463,15 +462,15 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
     for (const p of voters()) {
       let t;
       if (p === me) t = mine;
-      else if (p.accuser) {
-        const inn = alive().filter(x => !x.accuser);
+      else if (p.witch) {
+        const inn = innocents();
         const threat = inn.filter(x => x.claimed || SPIES.includes(x.role));
-        t = Math.random() < .2 ? null : pick(threat.length && Math.random() < .6 ? threat : inn);
-      } else if (Math.random() < .25) t = null;
+        t = Math.random() < .15 ? null : pick(threat.length && Math.random() < .6 ? threat : inn);
+      } else if (Math.random() < .2) t = null;
       else {
         const list = alive().filter(x => x !== p && !(p.role === 'squire' && x.role === 'blacksmith'));
         const best = list.map(x => [x, suspicion(p, x)]).sort((a, b) => b[1] - a[1])[0];
-        t = best && best[1] >= 1.1 ? best[0] : null;
+        t = best && best[1] >= 1.05 ? best[0] : null;
       }
       add(t, weight(p));
     }
@@ -487,15 +486,23 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
     const t = top[0];
     const nw = holder('noblewoman');
     if (t.role === 'maid' && nw && nw.alive && nw !== annulled) {
-      const nwVote = tally.size && nw === me ? mine === t : Math.random() < .2;
+      const nwVote = nw === me ? mine === t : Math.random() < .2;
       if (!nwVote) {
         say('🛡 The noblewoman protects her maid. Nobody goes into exile.');
         await next(`<h4>🏚 The vote</h4><div class="wg-tally">${list}</div><p>The noblewoman protects the maid. Nobody goes into exile.</p>`);
         return;
       }
     }
-    t.alive = false; t.status = 'exiled'; t.accused = false;
-    say(`➜ ${name(t)} goes into exile. ${t.accuser ? '<b>An ACCUSER! Well done.</b>' : '<em>Innocent.</em>'}`, t.accuser ? 'good' : 'bad');
+    t.alive = false; t.status = 'exiled';
+    // the Church and the lords take the goods of the exiled
+    let seized = '';
+    if (t.coins > 0) {
+      const lord = [holder('lord1'), holder('lord2')].find(l => l && l.alive);
+      const boss = holder('bishop');
+      const taker = (boss && boss.alive) ? boss : lord;
+      if (taker) { const n = t.coins; move(t, taker, n); stats.confiscated += n; ledger.push({ who: label(t), coins: n, dest: label(taker), how: 'exiled' }); seized = `<p>The goods of ${name(t)} (${n} coin${n > 1 ? 's' : ''}) go to ${name(taker)}.</p>`; }
+    }
+    say(`➜ ${name(t)} goes into exile. ${t.witch ? '<b>A WITCH! Well done.</b>' : '<em>Innocent.</em>'}`, t.witch ? 'good' : 'bad');
     let extra = '';
     if (t.role === 'squire') {
       const r = roll(20);
@@ -503,27 +510,27 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
       else extra = `<p>⚔ The squire goes on a crusade. D20: <b>${r}</b>. He does not come back.</p>`;
     }
     board();
-    await next(`<h4>🏚 The vote</h4><div class="wg-tally">${list}</div><p>${name(t)} goes into exile.</p><p class="${t.accuser ? 'goodtx' : 'badtx'}">${t.accuser ? '⚑ Yes! This person was an ACCUSER.' : 'Oh no. This person was innocent.'}</p>${extra}`);
+    await next(`<h4>🏚 The vote</h4><div class="wg-tally">${list}</div><p>${name(t)} goes into exile.</p><p class="${t.witch ? 'goodtx' : 'badtx'}">${t.witch ? '🧹 Yes! This person was a WITCH.' : 'Oh no. This person was innocent.'}</p>${seized}${extra}`);
   }
 
   /* ---------- the end ---------- */
   function finish(w) {
-    const youWin = (w === 'village') !== !!me.accuser;
+    const youWin = (w === 'village') !== !!me.witch;
     store('wh-plays', (+recall('wh-plays') || 0) + 1);
     if (youWin) store('wh-wins', (+recall('wh-wins') || 0) + 1);
-    const acc = P.filter(p => p.accuser);
+    const wit = P.filter(p => p.witch);
     const rich = P.slice().sort((a, b) => (b.coins - b.start) - (a.coins - a.start)).slice(0, 5);
-    const why = w === 'village' ? 'The village found all the accusers.' : (liveAccusers().length * 2 >= alive().length ? 'The accusers are now half of the village.' : 'The accusers have more than half of the coins.');
-    const out = { burned: '🔥 burned', exiled: '➜ exiled', starved: '☠ hunger' };
+    const why = w === 'village' ? 'All the witches are in exile.' : (innocents().length ? 'The witches are now as many as the innocents: they control every vote.' : 'No innocent is left in the village.');
+    const out = { killed: '💀 dead', exiled: '➜ exiled', starved: '☠ hunger' };
     area.innerHTML = `<div class="wg-end">
-      <div class="wg-endtop ${youWin ? 'win' : 'lose'}"><p class="k">${w === 'village' ? 'THE VILLAGE WINS' : 'THE ACCUSERS WIN'}</p><h2>${youWin ? '🏆 You win!' : 'You lose…'}</h2><p>${why}</p></div>
-      <div class="wg-reveal"><p class="k">THE TRUTH</p><h2>There were no witches.</h2><p>Every person who was burned was innocent. But somebody <b>always</b> gained from the accusation.</p></div>
+      <div class="wg-endtop ${youWin ? 'win' : 'lose'}"><p class="k">${w === 'village' ? 'THE VILLAGE WINS' : 'THE WITCHES WIN'}</p><h2>${youWin ? '🏆 You win!' : 'You lose…'}</h2><p>${why}</p></div>
       <div class="wg-cols">
-        <section><h3>⚑ The accusers were</h3><ul>${acc.map(p => `<li><img src="img/witch/${roleOf(p).img}.png" alt=""><b>${esc(label(p))}</b> <span>${p.start} → ${p.coins} coins</span> <em>${out[p.status] || 'free'}</em></li>`).join('')}</ul></section>
-        <section><h3>💰 Follow the money</h3>${ledger.length ? `<ul>${ledger.map(l => `<li><b>${esc(l.who)}</b> had ${l.coins} coin${l.coins === 1 ? '' : 's'} → <span>${esc(l.dest)}</span></li>`).join('')}</ul>` : '<p>Nobody was burned.</p>'}
-          <p class="sum">Robbed in the night: <b>${stats.robbed}</b> · Coins of burned people: accusers <b>${stats.inherited}</b>, bishop / lords <b>${stats.confiscated}</b>.</p></section>
-        <section><h3>📈 Who got richer?</h3><ul>${rich.map(p => `<li><img src="img/witch/${roleOf(p).img}.png" alt=""><b>${esc(label(p))}</b> <span>${p.coins - p.start >= 0 ? '+' : ''}${p.coins - p.start}</span>${p.accuser ? ' <em>accuser</em>' : ''}</li>`).join('')}</ul></section>
+        <section><h3>🧹 The witches were</h3><ul>${wit.map(p => `<li><img src="img/witch/${roleOf(p).img}.png" alt=""><b>${esc(label(p))}</b> <span>${p.start} → ${p.coins} coins</span> <em>${out[p.status] || 'free'}</em></li>`).join('')}</ul></section>
+        <section><h3>💰 Follow the money</h3>${ledger.length ? `<ul>${ledger.map(l => `<li><b>${esc(l.who)}</b> (${l.how === 'cursed' ? 'cursed' : 'exiled'}) had ${l.coins} coin${l.coins === 1 ? '' : 's'} → <span>${esc(l.dest)}</span></li>`).join('')}</ul>` : '<p>Nobody was cursed or exiled with coins.</p>'}
+          <p class="sum">Taken by the witches: <b>${stats.looted}</b> coins · taken from the exiled by the bishop / lords: <b>${stats.confiscated}</b>.</p></section>
+        <section><h3>📈 Who got richer?</h3><ul>${rich.map(p => `<li><img src="img/witch/${roleOf(p).img}.png" alt=""><b>${esc(label(p))}</b> <span>${p.coins - p.start >= 0 ? '+' : ''}${p.coins - p.start}</span>${p.witch ? ' <em>witch</em>' : ''}</li>`).join('')}</ul></section>
       </div>
+      <div class="wg-reveal"><p class="k">AND IN REAL HISTORY…</p><h2>There were no witches.</h2><p>In this game the witches were real. In history they were never real: the people who were accused were herbalists, midwives, widows… and somebody <b>always</b> gained from the accusation (a neighbour, a lord, the Church). Look at “Follow the money”.</p></div>
       <div class="wg-btns end"><button type="button" class="wg-btn" id="wgAgain">↻ Play again</button><button type="button" class="wg-btn ghost" id="wgDone">Close</button></div>
     </div>`;
     $('whScore').textContent = '';
@@ -537,24 +544,22 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
     try {
       setup();
       const r = roleOf(me);
-      const friends = liveAccusers().filter(x => x !== me).map(label).map(esc).join(', ');
-      await ask(`<h4>${me.accuser ? '⚑ You are an ACCUSER' : 'You are a villager'}</h4>
+      const friends = liveWitches().filter(x => x !== me).map(label).map(esc).join(', ');
+      await ask(`<h4>${me.witch ? '🧹 You are a WITCH' : 'You are innocent'}</h4>
         <p>Your card: <b>${esc(label(me))}</b> <em>(${esc(r.it)})</em></p>
-        <p>${me.accuser ? `Every night you point at somebody and say <em>“Witch!”</em>, and you take a coin. Your friends: <b>${friends}</b>. Do not let the village find you!` : 'Three villagers are secret <b>accusers</b>. Watch the coins and listen to what people say. Send all the accusers into exile!'}</p>
+        <p>${me.witch ? `Every night the witches open their eyes and curse a villager. Your friends: <b>${friends}</b>. You win when no innocent is left. Do not let the village find you!` : `Four villagers are secret <b>witches</b>. Every night the narrator calls the roles and the witches curse somebody. Find the witches and send them into exile!`}</p>
         <p class="mute">${esc(r.ab)}</p>`, [{ label: 'Start the game ▶', value: true }]);
       let w = null;
       while (!w) {
         await playSeason(); if ((w = winner())) break;
-        await playNight();
+        await playNight(); if ((w = winner())) break;
         await playMorning();
         await playPowers();
-        await playTrial(); if ((w = winner())) break;
         await playExile(); if ((w = winner())) break;
         if (!me.alive && !watching) {
           watching = true;
           await ask('<h4>You are out of the game</h4><p>You can watch how it ends.</p>', [{ label: 'Watch ▶', value: true }]);
         }
-        P.forEach(p => { p.accused = false; });
       }
       finish(w);
     } catch (e) { if (e !== STOP) throw e; }
@@ -579,7 +584,7 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
     if (e.key === 'Escape') close();
     e.stopPropagation();
   }, true);
-  document.querySelectorAll('[data-wh]').forEach(b => b.addEventListener('click', open));
+  document.querySelectorAll('[data-wh="play"]').forEach(b => b.addEventListener('click', open));
   window.WITCH_GAME = { open, close };
 
   /* ---------- the Games list on the home page ---------- */
@@ -589,20 +594,21 @@ const group = p => cls(p) === 'people' ? 'people-' + sex(p) : cls(p);
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', 'var(--pal-plum)');
-    const href = `#p${PAGES.of('wh-play')}`;
-    pill.innerHTML = `<summary>Witch hunt <small>1</small></summary><div class="topic-pages"><a href="${href}" data-wh-go>The Village Game</a></div>`;
+    const games = [['play', 'The Village Game', 'wh-play', () => open()], ['guess', 'Who am I? (Guess who)', 'wh-guess', () => window.WITCH_GUESS && window.WITCH_GUESS.open()]];
+    pill.innerHTML = `<summary>Witch hunt <small>${games.length}</small></summary><div class="topic-pages">${games.map(([id, t, where]) => `<a href="#p${PAGES.of(where)}" data-wh-go="${id}">${t}</a>`).join('')}</div>`;
     list.append(pill);
     document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });
     list.addEventListener('toggle', e => {
       if (e.target.open) list.querySelectorAll('.game-topic').forEach(o => { if (o !== e.target) o.open = false; });
     }, true);
-    pill.querySelector('[data-wh-go]').addEventListener('click', e => {
+    pill.querySelectorAll('[data-wh-go]').forEach(a => a.addEventListener('click', e => {
       e.preventDefault();
       pill.open = false;
-      if (location.hash === href) { open(); return; }
-      document.addEventListener('spreadchange', () => open(), { once: true });
-      location.hash = href;
-    });
+      const run = games.find(x => x[0] === a.dataset.whGo)[3];
+      if (location.hash === a.getAttribute('href')) { run(); return; }
+      document.addEventListener('spreadchange', () => run(), { once: true });
+      location.hash = a.getAttribute('href');
+    }));
     window.hideClosedGames?.();
   });
 })();

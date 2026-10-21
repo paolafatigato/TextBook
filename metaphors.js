@@ -384,6 +384,9 @@
     move.setAttribute('dur', `${length / 5}s`); // about 5 units a second
     move.setAttribute('repeatCount', 'indefinite');
     text.appendChild(move);
+    const svg = text.ownerSVGElement; // a click stops or restarts the ribbon
+    svg.style.cursor = 'pointer';
+    svg.addEventListener('click', () => svg.animationsPaused() ? svg.unpauseAnimations() : svg.pauseAnimations());
   }
   document.addEventListener('spreadchange', start);
   document.fonts?.ready.then(() => { done = false; start(); });

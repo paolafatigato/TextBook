@@ -4487,3 +4487,12 @@ body.toc-open .toc { display: block; }
 .du-reset:hover { background: #2f8fd2; }
 
 @media print { .du-hint, .du-scramble, .du-tools, .du-reset, .du-help { display: none !important; } }
+
+/* ---------- ribbons of words: slow slide, a click stops them [marquee.js] ---------- */
+.jb-marquee, .wh-marq, .em-marq, .sp-ribbon { cursor: pointer; }
+.jb-marquee > span { display: inline-block; animation: rb-slide 100s linear infinite; }
+.wh-marq > span { animation: rb-slide 90s linear infinite; }
+@keyframes rb-slide { to { transform: translateX(-50%); } }
+.paused > span { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) { .jb-marquee > span, .wh-marq > span { animation: none; } }
+@media print { .jb-marquee > span, .wh-marq > span { animation: none; } }

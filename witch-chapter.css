@@ -116,8 +116,15 @@ textarea.fill.wh-lines { display: block; width: 100%; height: calc(var(--rows, 3
 
 /* ---- arch frame with a glow behind the portrait ---- */
 .wh-arch { position: relative; display: flex; align-items: flex-end; justify-content: center; overflow: hidden; border-radius: 999px 999px 0 0; background: var(--pal-cream); box-shadow: 0 0 0 .3cqw var(--wh-night), 0 0 0 .75cqw var(--pal-cream), 0 0 0 1cqw var(--k, var(--wh-a)); print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-.wh-aura { position: absolute; left: 8%; right: 8%; bottom: 6%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, var(--k, var(--wh-a)) 0 48%, color-mix(in srgb, var(--k, var(--wh-a)) 35%, var(--pal-cream)) 62%, transparent 72%); }
-.wh-img { position: relative; display: block; width: 100%; height: auto; max-height: 100%; object-fit: contain; }
+.wh-aura { position: absolute; z-index: 0; left: var(--ax, 8%); bottom: var(--ay, 6%); width: var(--as, 84%); aspect-ratio: 1; pointer-events: none; border-radius: 50%; background: radial-gradient(circle, var(--k, var(--wh-a)) 0 48%, color-mix(in srgb, var(--k, var(--wh-a)) 35%, var(--pal-cream)) 62%, transparent 72%); }
+.wh-card > :not(.wh-arch), .wh-card .tx, .wh-doors figcaption { position: relative; z-index: 1; }
+/* p. 162 (The Nobility): the glow is behind the card, it shows outside the frame */
+.wh-nob1 .wh-arch { overflow: visible; }
+.wh-nob1 .wh-aura { z-index: -1; }
+.wh-nob1 { isolation: isolate; background: none; }
+.wh-nob1 .page-bg { z-index: -2; }
+.wh-nob1 .wh-card.hero { z-index: auto; }
+.wh-img { position: relative; z-index: 1; display: block; width: 100%; height: auto; max-height: 100%; object-fit: contain; }
 
 /* ---- character cards ---- */
 .wh-card { position: relative; background: var(--pal-white); border: .3cqw solid var(--wh-night); border-radius: 1.6cqw; box-shadow: .6cqw .6cqw 0 var(--k, var(--wh-a)); padding: 2cqw; }
@@ -285,6 +292,154 @@ textarea.fill.wh-lines { display: block; width: 100%; height: calc(var(--rows, 3
 .wh-ticket { padding: 2cqw 2.4cqw; border: .3cqw dashed var(--wh-a); border-radius: 1.4cqw; background: var(--pal-white); display: flex; flex-direction: column; gap: 1.4cqw; }
 .wh-ticket p { margin: 0; font: 600 1.9cqw/1.3 'Nunito', sans-serif; }
 
+.wh-opts.inline li { flex-wrap: nowrap; align-items: center; gap: 1.4cqw; }
+.wh-opts.inline li > span:nth-child(2) { flex: 1 1 auto; font-weight: 800; }
+.wh-opts.inline .opt { flex: none; margin: 0 0 0 auto; }
+.wh-try { display: flex; flex-wrap: wrap; gap: 1cqw; }
+.wh-try span { padding: .8cqw 1.6cqw; border-radius: 999px; background: var(--pal-white); border: .2cqw dashed var(--wh-a); font: italic 500 2.1cqw/1.1 'Cormorant Garamond', serif; color: var(--wh-night); }
+/* ---- who am I? (the questions of the guess-who game) ---- */
+.wh-qbank { display: grid; grid-template-columns: 1fr 1fr; gap: 2cqw; align-items: start; }
+.wh-qbank .col { display: flex; flex-direction: column; gap: 2cqw; }
+.wh-qbox { padding: 1.4cqw 1.6cqw 1.6cqw; border-radius: 1.4cqw; background: var(--k); color: var(--wh-tx); border: .25cqw solid var(--wh-night); box-shadow: .5cqw .5cqw 0 var(--wh-night); display: flex; flex-direction: column; gap: .8cqw; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.wh-qbox b { font: 400 2.3cqw/1 'Gloock', serif; margin-bottom: .4cqw; }
+.wh-qchip { padding: .65cqw 1.4cqw; border-radius: 999px; background: var(--pal-white); color: var(--wh-night); border: .18cqw solid var(--wh-night); font: 700 1.8cqw/1.15 'Nunito', sans-serif; }
+.wh-gbottom { display: grid; grid-template-columns: 1fr auto; gap: 2cqw; align-items: center; }
+.wh-ans { display: flex; flex-wrap: wrap; gap: .8cqw; align-items: center; }
+.wh-ans b { font: 400 2cqw 'Gloock', serif; margin-right: .6cqw; }
+.wh-ans span { padding: .6cqw 1.2cqw; border-radius: 999px; background: var(--wh-soft-b); border: .18cqw solid var(--wh-night); font: 700 1.6cqw/1 'Nunito', sans-serif; }
+.wh-cta.light { padding: 1.4cqw 2.2cqw; font-size: 2.2cqw; letter-spacing: .06em; border-color: var(--wh-a); color: var(--wh-a); background: var(--pal-white); box-shadow: .5cqw .5cqw 0 var(--wh-b); }
+.wh-cta.light:hover { background: var(--wh-a); color: var(--pal-white); }
+
+/* ---- the class sections, like a history book ---- */
+.wh-card { box-shadow: .6cqw .6cqw 0 var(--kc, var(--k, var(--wh-a))); }   /* the shadow of a card has the colour of its social class */
+.wh-card.full { display: grid; grid-template-columns: 19cqw 1fr; gap: 2.4cqw; align-items: start; padding: 1.8cqw 2.2cqw 2cqw; border-radius: 1.4cqw; }
+.wh-card.full .wh-arch { aspect-ratio: 19 / 22; margin-top: .4cqw; }
+.wh-card.full .wh-roman { margin-bottom: .2cqw; }
+.wh-card.full h3 { font-size: 2.5cqw; } .wh-card.full h3 em { font-size: 2cqw; }
+.wh-card.full .d { margin: .5cqw 0 0; font-size: 1.88cqw; line-height: 1.32; }
+.wh-card.full .fx { margin: .9cqw 0 0; padding: .8cqw 1.2cqw; border-radius: 1cqw; background: var(--wh-soft-b); border-left: .7cqw solid var(--k); font: 400 1.78cqw/1.3 'Nunito', sans-serif; }
+.wh-card.full .fx b { display: block; margin-bottom: .2cqw; font: 800 1.05cqw/1 'Nunito', sans-serif; letter-spacing: .16em; color: var(--wh-a); }
+.wh-hist { margin: 0; }
+.wh-hist h3 { margin: 0 0 .4cqw; font: 400 2.4cqw/1 'Gloock', serif; color: var(--wh-a); }
+.wh-hist p { margin: 0; font: 400 2.05cqw/1.44 'Nunito', sans-serif; }
+.wh-hist p b { color: var(--wh-a); }
+.wh-hist.box { padding: 1.6cqw 2.2cqw; border-radius: 1.4cqw; background: var(--pal-white); border: .22cqw solid var(--wh-night); box-shadow: .5cqw .5cqw 0 var(--wh-c); }
+.wh-hist.box p { font-size: 1.85cqw; }
+.wh-dyk { padding: 1.4cqw 2cqw 1.6cqw; border-radius: 1.2cqw; background: var(--pal-white); border: .22cqw solid var(--wh-night); border-left: 1.2cqw solid var(--kc, var(--wh-a)); }
+.wh-dyk > b { display: block; margin-bottom: .6cqw; font: 800 1.2cqw/1 'Nunito', sans-serif; letter-spacing: .2em; color: var(--wh-a); }
+.wh-dyk ol { margin: 0; padding-left: 2.6cqw; font: 400 1.72cqw/1.34 'Nunito', sans-serif; }
+.wh-dyk li { margin-bottom: .5cqw; } .wh-dyk li::marker { font: 400 1.8cqw 'Gloock', serif; color: var(--wh-a); }
+.wh-one { margin: 0; padding: .9cqw 2cqw; border-radius: 999px; background: var(--wh-soft-b); font: italic 500 2.4cqw/1.2 'Cormorant Garamond', serif; text-align: center; color: var(--wh-night); }
+.wh-one span { color: var(--wh-a); margin-right: .8cqw; }
+.wh-cloze p { margin: 0 0 1.7cqw; font: 400 2.05cqw/1.95 'Nunito', sans-serif; }
+.wh-ana { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.3cqw; counter-reset: n; }
+.wh-ana li { counter-increment: n; display: grid; grid-template-columns: 1fr auto auto; gap: 1.6cqw; align-items: center; font: 400 1.85cqw/1.25 'Nunito', sans-serif; }
+.wh-ana .scr { padding: .5cqw 1.4cqw; border-radius: 999px; background: var(--wh-b); border: .2cqw solid var(--wh-night); font: 400 2cqw/1 'Gloock', serif; letter-spacing: .12em; white-space: nowrap; }
+.wh-ana input.fill.blank { text-align: center; }
+.wh-mcq { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.4cqw; }
+.wh-mcq p { margin: 0 0 .6cqw; font: 700 1.85cqw/1.3 'Nunito', sans-serif; }
+.wh-mcq .opt { margin: 0; }
+.wh-opts.mf li { padding: 0; } .wh-opts.mf { gap: 1.1cqw; } .wh-opts.mf li > span:nth-child(2) { font-weight: 600; font-size: 1.85cqw; }
+.wh-match.tall li { height: 6.8cqw; }
+.wh-match.tall .match-words { width: 25cqw; }
+.wh-match.tall .match-words button { font-size: 1.9cqw; }
+.wh-match.tall .match-defs button { white-space: normal; text-align: left; border-radius: 1.6cqw; font: 600 1.6cqw/1.2 'Nunito', sans-serif; padding: .6cqw 1.6cqw; }
+.wh-flow.chars { gap: 1.9cqw; }
+
+/* ---- the exercises of the social classes: the chosen class has its colour, and so has the number when the answer is right ---- */
+.wh-opts.cls li > i { background: var(--pal-cool-grey); color: var(--wh-night); }
+.wh .wh-opts.cls .opt button.on { border-color: var(--wh-night); }
+.wh .wh-opts.cls .opt button.on[data-k="church"] { background: var(--wh-a); color: var(--pal-white); }
+.wh .wh-opts.cls .opt button.on[data-k="nobility"] { background: var(--wh-b); color: var(--wh-night); }
+.wh .wh-opts.cls .opt button.on[data-k="working-people"] { background: var(--wh-c); color: var(--wh-night); }
+.wh-opts.cls li:has(.opt.ok button.on[data-k="church"]) > i { background: var(--wh-a); color: var(--pal-white); }
+.wh-opts.cls li:has(.opt.ok button.on[data-k="nobility"]) > i { background: var(--wh-b); color: var(--wh-night); }
+.wh-opts.cls li:has(.opt.ok button.on[data-k="working-people"]) > i { background: var(--wh-c); color: var(--wh-night); }
+/* ---- interactive texts ---- */
+.wh-hist.task { padding: 1.2cqw 1.6cqw 1.4cqw; border-radius: 1.2cqw; background: var(--pal-white); border: .22cqw dashed var(--wh-a); }
+.wh-task { display: flex; flex-wrap: wrap; align-items: center; gap: 1cqw; margin: .2cqw 0 .9cqw; }
+.wh-task > span { flex: 1 1 auto; font: 800 1.5cqw/1.2 'Nunito', sans-serif; letter-spacing: .04em; color: var(--wh-a); }
+.wh-task .check { flex: none; }
+.wh-score { flex: 1 0 100%; font: 700 1.5cqw 'Nunito', sans-serif; color: var(--wh-night); }
+.wh-score:empty { display: none; }
+.nb { white-space: nowrap; }
+.wh .fill.vw { display: inline-block; height: 2.6cqw; padding: 0; margin: 0 .15cqw; text-align: center; border: 0; border-bottom: .2cqw solid var(--wh-c); background: var(--wh-soft-c); border-radius: .5cqw .5cqw 0 0; font-size: 2cqw; vertical-align: baseline; }
+.wh .fill.vw.ok { background: var(--pal-pale-lime); border-bottom-color: var(--pal-green) !important; } .wh .fill.vw.no { background: var(--pal-blush); }
+.wh-cross { cursor: pointer; border-radius: .6cqw; padding: .1cqw .3cqw; }
+.wh-cross:hover { background: var(--wh-soft-b); }
+.wh-cross.on { text-decoration: line-through; text-decoration-thickness: .25cqw; text-decoration-color: var(--wh-c); color: var(--wh-mute); }
+.wh-cross.no { background: var(--pal-blush); } .wh-cross.on.ok { background: var(--pal-pale-lime); }
+.wh-cross.ok:not(.on) { background: none; }
+.wh-glue { display: inline; padding: .1cqw .3cqw; border-radius: .6cqw; background: var(--wh-soft-b); border-bottom: .22cqw dotted var(--wh-c); font-weight: 700; }
+.wh-glue .ch { cursor: pointer; }
+.wh-glue .ch:hover { background: var(--wh-b); }
+.wh-glue .ch.cut::after { content: "/"; color: var(--wh-c); font-weight: 800; margin: 0 .35cqw; }
+.wh-glue .ch.ok { color: var(--pal-forest); } .wh-glue .ch.no { color: var(--wh-a); background: var(--pal-blush); }
+.wh-glue.missed { outline: .2cqw solid var(--wh-c); }
+.wh-inl { display: inline-flex; flex-wrap: nowrap; gap: .3cqw; padding: 0 .2cqw; vertical-align: baseline; margin: 0 .2cqw; }
+.wh .wh-inl button { padding: .25cqw .9cqw; font-size: 1.6cqw; line-height: 1.2; }
+
+/* ---- pins on the character cards (they look pinned to a board) ---- */
+.wh-card.full::before, .wh-card.full::after { content: ""; position: absolute; top: .9cqw; width: 1.5cqw; height: 1.5cqw; border-radius: 50%; background: var(--k); border: .22cqw solid var(--wh-night); box-shadow: .2cqw .25cqw 0 rgba(10, 0, 16, .35), inset -.25cqw -.25cqw 0 rgba(10, 0, 16, .2); z-index: 2; }
+.wh-card.full::before { left: 1.2cqw; } .wh-card.full::after { right: 1.2cqw; }
+/* ---- the small games of the class pages ---- */
+.wh-intr { cursor: pointer; border-radius: 999px; padding: 0 .3cqw; }
+.wh-intr:hover { background: var(--wh-soft-b); }
+.wh-intr.on { outline: .3cqw solid var(--wh-c); outline-offset: .15cqw; background: var(--pal-blush); }
+.wh-intr.on.ok { outline-color: var(--pal-green); background: var(--pal-pale-lime); }
+.wh-intr.no:not(.on) { background: var(--pal-lemon); text-decoration: underline wavy var(--wh-c); }
+.wh-hunt { display: flex; flex-wrap: wrap; align-items: center; gap: 1cqw 1.4cqw; padding: 1.2cqw 1.8cqw; border-radius: 1.2cqw; background: var(--wh-soft-b); border: .22cqw dashed var(--wh-night); }
+.wh-hunt .q { flex: 1 1 100%; font: 700 1.6cqw/1.3 'Nunito', sans-serif; }
+.wh-hunt .lt { display: inline-flex; gap: .8cqw; }
+.wh-hunt input.fill.blank, .wh-mys input.fill.blank { width: 4.2cqw; height: 4.2cqw; padding: 0; text-align: center; border: .2cqw solid var(--wh-night); border-radius: .8cqw; background: var(--pal-white); font-size: 2.2cqw; text-transform: lowercase; }
+.wh-hunt input.ok, .wh-mys input.ok { background: var(--pal-pale-lime); } .wh-hunt input.no, .wh-mys input.no { background: var(--pal-blush); }
+.wh-hunt .wh-score { flex: 1 0 100%; }
+.wh-mys { display: flex; flex-wrap: wrap; gap: 1cqw; align-items: center; justify-content: center; margin: 1cqw 0; }
+.wh-mys input.fill.blank { width: 5.6cqw; height: 5.6cqw; font-size: 3cqw; }
+.wh-ul .wh-task { margin-top: .8cqw; }
+.underlinable .w.ul.ok { background: var(--pal-pale-lime); text-decoration-color: var(--pal-green); }
+.underlinable .w.ul.no { background: var(--pal-blush); text-decoration-color: var(--wh-c); }
+.wh-pairs { padding: 1.2cqw 1.6cqw 1.4cqw; border-radius: 1.2cqw; background: var(--pal-white); border: .22cqw dashed var(--wh-a); }
+.wh-pairs ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .8cqw 2.4cqw; }
+.wh-pairs li { display: grid; grid-template-columns: 1fr auto 1fr; gap: .6cqw; align-items: center; }
+.wh-pairs i { font-style: normal; color: var(--wh-a); font-weight: 800; }
+.wh-pairs input.fill.blank { display: block; width: 100%; height: 3.4cqw; font-size: 1.9cqw; border-bottom: .16cqw solid var(--wh-night); }
+.wh-pairs input.ok { background: var(--pal-pale-lime); } .wh-pairs input.no { background: var(--pal-blush); }
+.fx.task .wh-task { margin: .3cqw 0 .6cqw; }
+.wh-epair { display: inline; }
+.wh-epair i { font-style: normal; font-weight: 800; color: var(--wh-a); margin: 0 .3cqw; }
+.wh-epair .wh-cross { display: inline; }
+/* word search */
+.wh-ws { display: grid; grid-template-columns: auto 1fr; gap: 2cqw; align-items: start; }
+.wh-ws .grid { display: grid; grid-template-columns: repeat(var(--n), 3.9cqw); grid-auto-rows: 3.9cqw; background: var(--pal-white); border: .25cqw solid var(--wh-night); border-radius: 1cqw; padding: .6cqw; touch-action: none; user-select: none; -webkit-user-select: none; }
+.wh-ws .c { display: grid; place-items: center; font: 800 2cqw/1 'Nunito', sans-serif; text-transform: uppercase; color: var(--wh-night); cursor: pointer; border-radius: 1cqw; }
+.wh-ws .c.sel { background: var(--wh-b); }
+.wh-ws .c.found { color: var(--wh-night); }
+.wh-ws .c.found.k0 { background: var(--pal-lilac-light); } .wh-ws .c.found.k1 { background: var(--pal-salmon); } .wh-ws .c.found.k2 { background: var(--pal-wheat); }
+.wh-ws .c.found.k3 { background: var(--pal-aqua); } .wh-ws .c.found.k4 { background: var(--pal-pale-lime); } .wh-ws .c.found.k5 { background: var(--pal-blush); }
+.wh-ws .wl { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .5cqw; font: 800 1.55cqw/1.15 'Nunito', sans-serif; text-transform: uppercase; letter-spacing: .04em; }
+.wh-ws .wl li::before { content: "○"; margin-right: .6cqw; color: var(--wh-a); }
+.wh-ws .wl li.done { text-decoration: line-through; color: var(--wh-mute); } .wh-ws .wl li.done::before { content: "●"; }
+.wh-score.on { margin: 0; font: 800 1.8cqw 'Nunito', sans-serif; color: var(--wh-a); }
+/* memory */
+.wh-mem .board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6cqw; }
+.wh-mem .mc { position: relative; aspect-ratio: 1 / 1.05; padding: 0; border: .25cqw solid var(--wh-night); border-radius: 1.4cqw; background: var(--wh-a); cursor: pointer; perspective: 60cqw; box-shadow: .5cqw .5cqw 0 var(--wh-c); }
+.wh-mem .mc .back, .wh-mem .mc .front { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .4cqw; border-radius: 1.2cqw; backface-visibility: hidden; transition: transform .35s; }
+.wh-mem .mc .back { background: var(--wh-a); color: var(--wh-b); font: 400 5cqw 'Gloock', serif; }
+.wh-mem .mc .front { background: var(--pal-white); transform: rotateY(180deg); color: var(--wh-night); }
+.wh-mem .mc .front i { font-style: normal; font-size: 5cqw; line-height: 1; }
+.wh-mem .mc .front b { font: 400 1.9cqw/1.1 'Gloock', serif; text-align: center; }
+.wh-mem .mc.up .back, .wh-mem .mc.done .back { transform: rotateY(180deg); } .wh-mem .mc.up .front, .wh-mem .mc.done .front { transform: rotateY(0); }
+.wh-mem .mc.done .front { background: var(--pal-pale-lime); }
+.wh-mem .info { margin: 1.4cqw 0 0; display: flex; align-items: center; gap: 2cqw; font: 800 1.8cqw 'Nunito', sans-serif; }
+/* the farmer's calendar */
+.wh-cal { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1cqw 1.6cqw; }
+.wh-cal .mo { padding: .9cqw 1.2cqw 1cqw; border-radius: 1cqw; background: var(--pal-white); border: .2cqw solid var(--wh-night); }
+.wh-cal .mo b { display: block; margin-bottom: .5cqw; font: 400 1.9cqw/1 'Gloock', serif; color: var(--wh-a); }
+.wh-cal .opt { display: flex; flex-direction: column; align-items: stretch; gap: .4cqw; padding: 0; }
+.wh .wh-cal .opt button { text-align: left; white-space: normal; border-radius: 1cqw; font-size: 1.45cqw; line-height: 1.15; padding: .45cqw 1cqw; }
+@media print { .wh-mem .mc .back { color: var(--wh-a); } }
+
 /* ---- teacher's pages (scaffolding) ---- */
 .wh-scf .scf-tape { background: var(--pal-mustard); color: var(--pal-night); }
 .wh-scf .scf-title { font: 400 5.6cqw/1 'Gloock', serif; color: var(--pal-plum); } .wh-scf .scf-title span { color: var(--pal-coral); }
@@ -300,7 +455,16 @@ textarea.fill.wh-lines { display: block; width: 100%; height: calc(var(--rows, 3
 .wh-inv td { padding: .55cqw 1cqw; border-bottom: .12cqw solid #e2e2e8; vertical-align: top; }
 .wh-inv td:first-child { font-weight: 800; width: 22%; }
 .wh-inv.small { font-size: 1.2cqw; line-height: 1.25; } .wh-inv.small td:first-child { width: 17%; } .wh-inv.small td { padding: .35cqw .7cqw; }
+.wh-inv.keys { font-size: 1.25cqw; line-height: 1.3; } .wh-inv.keys td:first-child { width: 28%; }
 .wh-inv em { font-weight: 400; color: var(--pal-plum); }
 .wh-notes { margin: 0; padding-left: 2.6cqw; font: 400 1.5cqw/1.4 'Nunito', sans-serif; } .wh-notes li { margin-bottom: .8cqw; }
 
 @media print { .wh-marq span { animation: none; } .wh-cta { box-shadow: none; } }
+
+/* ---- fit: pages with an extra exercise ---- */
+.wh-ch1 .wh-hist p { font-size: 1.88cqw; line-height: 1.38; } .wh-ch1 .wh-hist h3 { font-size: 2.1cqw; }
+.wh-ch1 .wh-dyk ol { font-size: 1.55cqw; line-height: 1.28; } .wh-ch1 .wh-flow { gap: 1.2cqw; }
+.fx.task p { font-size: 1.68cqw; line-height: 1.32; margin: 0; }
+.wh-wk3 .wh-card.full .fx.task { padding: .6cqw 1.1cqw; }
+
+.wh-ch1 .wh-pairs { padding: .8cqw 1.4cqw 1cqw; } .wh-ch1 .wh-pairs input.fill.blank { height: 2.7cqw; font-size: 1.75cqw; } .wh-ch1 .wh-pairs ol { gap: .3cqw 2.4cqw; }
