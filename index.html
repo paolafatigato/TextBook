@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="summer-chapter.css">
   <link rel="stylesheet" href="murdoku-chapter.css">
   <link rel="stylesheet" href="sports-chapter.css">
+  <link rel="stylesheet" href="emotions-chapter.css">
   <link rel="stylesheet" href="teach-chapter.css">
   <link rel="stylesheet" href="grammar-games.css">
 </head>
@@ -4575,6 +4576,978 @@
           <li>Checkpoint: <a data-page="sp-wrapup:R">“My checkpoint”</a>.</li>
         </ul>
       </article>
+    </div></section>
+  </div>
+
+  <!-- ################################ Emotions ################################ -->
+
+  <div class="spread" data-id="emo-intro" data-title="Emotions" data-name="Emotions · Faces & words">
+    <!-- Faces and words: the cover, the 15 feelings of the chapter, match and write -->
+    <section class="page page-left emo em-cover">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><path d="M0 0 H112 V53 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0Z" style="fill:var(--pal-magenta)"/><path d="M0 0 H112 V49.5 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0 q-3.5 2.2 -7 0 t-7 0Z" style="fill:var(--pal-forest)"/>
+      <use href="#em-spark" x="44" y="6" width="5" height="5" style="color:var(--pal-lime)"/><use href="#em-spark" x="52" y="34" width="3.4" height="3.4" style="color:var(--pal-aqua)"/><use href="#em-spark" x="93" y="44" width="3.6" height="3.6" style="color:var(--pal-lime)"/>
+      <use href="#em-flower" x="84" y="124" width="22" height="22" style="color:var(--pal-pale-lime)"/></svg>
+
+      <p class="em-kicker lime abs" style="--x:7;--y:4.4">1st year · a new unit</p>
+      <h1 class="em-h cover abs" style="--x:6.4;--y:8.4">Emotions</h1>
+      <p class="em-sub abs" style="--x:7;--y:25.6;--w:52">How do you feel today?</p>
+      <p class="em-lead abs" style="--x:7;--y:31.6;--w:46">Name your feelings, say <b>why</b> you feel them and learn how to feel <b>better</b>.</p>
+      <div class="em-sticker abs" style="--x:63;--y:3;--w:24;--h:24;z-index:3;transform:rotate(7deg)"><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg></div><div class="em-sticker abs" style="--x:83;--y:12;--w:15;--h:15;z-index:3;transform:rotate(-8deg)"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg></div><div class="em-sticker abs" style="--x:56;--y:22;--w:15;--h:15;z-index:3;transform:rotate(-6deg)"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg></div><div class="em-sticker abs" style="--x:76;--y:28;--w:15;--h:15;z-index:3;transform:rotate(9deg)"><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg></div><div class="em-sticker abs" style="--x:8;--y:37.6;--w:9;--h:9;z-index:3;transform:rotate(-10deg)"><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg></div>
+      <div class="em-marq abs" style="--x:-4;--y:47.6;--w:108"><span>★ happy ★ sad ★ angry ★ scared ★ surprised ★ bored ★ excited ★ proud ★ tired ★ nervous ★ happy ★ sad ★ angry ★ scared ★</span></div>
+      <div class="em-flow abs " style="--x:7;--y:61;--w:86;--g:2.2cqw">
+
+        <div class="em-bigpills">
+          <div class="em-bigpill" style="--bg:var(--pal-magenta);--fg:var(--pal-white)"><i>1</i><b>Name it</b><span>happy, sad, angry…</span></div>
+          <div class="em-bigpill" style="--bg:var(--pal-lime);--fg:var(--pal-forest)"><i>2</i><b>Say why</b><span>because…</span></div>
+          <div class="em-bigpill" style="--bg:var(--pal-forest);--fg:var(--pal-lime)"><i>3</i><b>Handle it</b><span>breathe, talk, move</span></div>
+        </div>
+        <h2 class="em-title-c">Which feelings do you know?</h2>
+        <p class="em-p small" style="text-align:center;margin-top:-1cqw">Click ✓ the ones you know. At the end of the unit, check again!</p>
+        <div class="em-chips">
+          <button class="em-chip toggle" type="button" id="em-know-happy"><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg><span>happy</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-sad"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><span>sad</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-angry"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><span>angry</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-scared"><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg><span>scared</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-surprised"><svg class="em-f surprised " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-surprised"/></svg><span>surprised</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-bored"><svg class="em-f bored " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-bored"/></svg><span>bored</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-excited"><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg><span>excited</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-proud"><svg class="em-f proud " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-proud"/></svg><span>proud</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-tired"><svg class="em-f tired " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-tired"/></svg><span>tired</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-nervous"><svg class="em-f nervous " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-nervous"/></svg><span>nervous</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-worried"><svg class="em-f worried " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-worried"/></svg><span>worried</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-embarrassed"><svg class="em-f embarrassed " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-embarrassed"/></svg><span>embarrassed</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-calm"><svg class="em-f calm " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-calm"/></svg><span>calm</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-confused"><svg class="em-f confused " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-confused"/></svg><span>confused</span></button>
+          <button class="em-chip toggle" type="button" id="em-know-disgusted"><svg class="em-f disgusted " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-disgusted"/></svg><span>disgusted</span></button>
+        </div>
+</div>
+      <div class="em-chk end abs" style="--x:0;--y:138.42;--w:100;--h:3"></div>
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer em-foot abs" style="--x:13.5;--y:134.4;--w:40">Emotions</span>
+    </section>
+    <section class="page page-right emo em-r1">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><rect x="0" y="0" width="100" height="2.5" style="fill:var(--pal-magenta)" /><rect x="0" y="2.5" width="100" height="2.5" style="fill:var(--pal-blush)" /><rect x="0" y="5" width="100" height="2.5" style="fill:var(--pal-magenta)" /><rect x="0" y="7.5" width="100" height="2.5" style="fill:var(--pal-blush)" /><rect x="0" y="10" width="100" height="2.5" style="fill:var(--pal-magenta)" /><rect x="0" y="12.5" width="100" height="2.5" style="fill:var(--pal-blush)" /><rect x="0" y="15" width="100" height="2.5" style="fill:var(--pal-magenta)" /><rect x="0" y="17.5" width="100" height="2.5" style="fill:var(--pal-blush)" /><use href="#em-flower" x="84" y="96" width="26" height="26" style="color:var(--pal-pale-lime)"/><use href="#em-spark" x="92" y="52" width="4" height="4" style="color:var(--pal-magenta)"/><use href="#em-spark" x="2" y="124" width="4" height="4" style="color:var(--pal-lime)"/></svg>
+
+      <div class="em-label abs" style="--x:7;--y:3.4;transform:rotate(-2.5deg)"><small>Vocabulary</small><h1>Faces &amp; words</h1></div>
+      <div class="em-chk mid abs" style="--x:0;--y:20;--w:100;--h:2.4"></div>
+      <div class="em-flow abs " style="--x:7;--y:26;--w:86;--g:2.2cqw">
+
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">1</i> Match the face to the word</div><button class="check" type="button" data-match="em-m1">✓ Check</button></div>
+        <div class="match em-match " id="em-m1" data-example="0-2">
+    <ul class="match-words"><li><button type="button" data-key="happy"><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg></button></li><li><button type="button" data-key="sad"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg></button></li><li><button type="button" data-key="angry"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg></button></li><li><button type="button" data-key="scared"><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg></button></li><li><button type="button" data-key="surprised"><svg class="em-f surprised " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-surprised"/></svg></button></li><li><button type="button" data-key="bored"><svg class="em-f bored " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-bored"/></svg></button></li><li><button type="button" data-key="tired"><svg class="em-f tired " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-tired"/></svg></button></li></ul>
+    <ul class="match-defs"><li><button type="button" data-key="scared">scared</button></li><li><button type="button" data-key="tired">tired</button></li><li><button type="button" data-key="happy">happy</button></li><li><button type="button" data-key="bored">bored</button></li><li><button type="button" data-key="angry">angry</button></li><li><button type="button" data-key="surprised">surprised</button></li><li><button type="button" data-key="sad">sad</button></li></ul>
+    <svg class="match-lines" aria-hidden="true"></svg>
+  </div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">2</i> What is the feeling? Write the word</div><button class="check" type="button" data-list="em-ex2">✓ Check</button></div>
+        <ol class="em-cards4" id="em-ex2">
+          <li><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg><input class="fill blank " id="em-ex2-1" data-given="" data-answer="excited" autocomplete="off" aria-label="Feeling 1"></li>
+          <li><svg class="em-f proud " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-proud"/></svg><input class="fill blank " id="em-ex2-2" data-given="" data-answer="proud" autocomplete="off" aria-label="Feeling 2"></li>
+          <li><svg class="em-f nervous " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-nervous"/></svg><input class="fill blank " id="em-ex2-3" data-given="" data-answer="nervous" autocomplete="off" aria-label="Feeling 3"></li>
+          <li><svg class="em-f worried " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-worried"/></svg><input class="fill blank " id="em-ex2-4" data-given="" data-answer="worried" autocomplete="off" aria-label="Feeling 4"></li>
+          <li><svg class="em-f embarrassed " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-embarrassed"/></svg><input class="fill blank " id="em-ex2-5" data-given="" data-answer="embarrassed" autocomplete="off" aria-label="Feeling 5"></li>
+          <li><svg class="em-f calm " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-calm"/></svg><input class="fill blank " id="em-ex2-6" data-given="" data-answer="calm" autocomplete="off" aria-label="Feeling 6"></li>
+          <li><svg class="em-f confused " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-confused"/></svg><input class="fill blank " id="em-ex2-7" data-given="" data-answer="confused" autocomplete="off" aria-label="Feeling 7"></li>
+          <li><svg class="em-f disgusted " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-disgusted"/></svg><input class="fill blank " id="em-ex2-8" data-given="" data-answer="disgusted" autocomplete="off" aria-label="Feeling 8"></li>
+        </ol>
+        <div class="em-note"><p>💡 <b>Tip:</b> the first letters help you: <i>exc… pro… ner… wor… emb… cal… con… dis…</i></p></div>
+        <div class="em-stage"><span class="em-stage-tag">Speaking</span><p>Make a face! Your partner guesses the feeling.</p><div class="em-phr"><span>Are you angry?</span><span>Yes, I am!</span><span>No, I’m not.</span><span>Try again!</span></div></div>
+</div>
+      
+      <span class="footer em-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Emotions</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="emo-vocab" data-title="Emotions" data-name="Meet the crew · Body clues">
+    <!-- The nine main feelings as poster tiles; body clues; how do they feel? -->
+    <section class="page page-left emo em-l2">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-ivory)" /><circle cx="100" cy="0" r="40" style="fill:var(--pal-lime)"/><circle cx="100" cy="0" r="33" style="fill:var(--pal-pale-lime)"/><use href="#em-flower" x="-8" y="112" width="28" height="28" style="color:var(--pal-blush)"/><use href="#em-spark" x="6" y="18" width="4" height="4" style="color:var(--pal-magenta)"/><use href="#em-spark" x="80" y="72" width="3" height="3" style="color:var(--pal-magenta)"/></svg>
+
+      <div class="em-ticket abs" style="--x:7;--y:4;transform:rotate(-1.6deg)"><small>Meet the crew</small><h1>Nine feelings</h1></div>
+      <p class="em-p abs" style="--x:7;--y:21;--w:70">Read the cards. Which feeling is <b>you</b> today? Put a ★ on it.</p>
+      <ul class="em-tiles abs" style="--x:7;--y:29;--w:86">
+          <li class="em-tile A" style="--c:var(--em-happy);--r:-1.2deg"><div class="ph"><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg></div><h3>happy</h3><p>I feel <b>happy</b> when I listen to music.</p><em>warm chest, big smile</em></li>
+          <li class="em-tile B" style="--c:var(--em-sad);--r:1deg"><div class="ph"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg></div><h3>sad</h3><p>I feel <b>sad</b> when I miss my friends.</p><em>heavy, tight throat</em></li>
+          <li class="em-tile A" style="--c:var(--em-angry);--r:-0.8deg"><div class="ph"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg></div><h3>angry</h3><p>I feel <b>angry</b> when someone is unfair.</p><em>hot, tense muscles</em></li>
+          <li class="em-tile B" style="--c:var(--em-scared);--r:0.9deg"><div class="ph"><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg></div><h3>scared</h3><p>I feel <b>scared</b> when I am alone in the dark.</p><em>cold hands, fast heart</em></li>
+          <li class="em-tile A" style="--c:var(--em-surprised);--r:-1deg"><div class="ph"><svg class="em-f surprised " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-surprised"/></svg></div><h3>surprised</h3><p>I feel <b>surprised</b> when I get a gift.</p><em>open mouth, fast breath</em></li>
+          <li class="em-tile B" style="--c:var(--em-bored);--r:1.2deg"><div class="ph"><svg class="em-f bored " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-bored"/></svg></div><h3>bored</h3><p>I feel <b>bored</b> when I wait too long.</p><em>flat, slow, yawn</em></li>
+          <li class="em-tile A" style="--c:var(--em-proud);--r:-0.9deg"><div class="ph"><svg class="em-f proud " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-proud"/></svg></div><h3>proud</h3><p>I feel <b>proud</b> when I help someone.</p><em>tall, strong, shiny</em></li>
+          <li class="em-tile B" style="--c:var(--em-excited);--r:0.8deg"><div class="ph"><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg></div><h3>excited</h3><p>I feel <b>excited</b> when the holidays start.</p><em>bouncy, big smile</em></li>
+          <li class="em-tile A" style="--c:var(--em-disgusted);--r:-1.1deg"><div class="ph"><svg class="em-f disgusted " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-disgusted"/></svg></div><h3>disgusted</h3><p>I feel <b>disgusted</b> when food smells bad.</p><em>wrinkled nose, sick feeling</em></li>
+      </ul>
+      <div class="em-note abs" style="--x:7;--y:125;--w:86"><p>🗣️ <b>Say it:</b> <i>“I feel … when …”</i> Use a card to tell your partner about <b>your</b> day.</p></div>
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer em-foot abs" style="--x:13.5;--y:134.4;--w:40">Emotions</span>
+    </section>
+    <section class="page page-right emo em-r2">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><path d="M0 0 H100 V16 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0Z" style="fill:var(--pal-lime)"/><use href="#em-flower" x="-10" y="118" width="26" height="26" style="color:var(--pal-pale-lime)"/><use href="#em-spark" x="94" y="30" width="3.6" height="3.6" style="color:var(--pal-magenta)"/></svg>
+
+      <p class="em-kicker abs dark" style="--x:7;--y:3.2">Vocabulary · practice</p><h1 class="em-h  abs dark" style="--x:7;--y:5.800000000000001">Clues from the body</h1>
+      <div class="em-flow abs " style="--x:7;--y:21;--w:86;--g:2.2cqw">
+
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">3</i> Body clues: match</div><button class="check" type="button" data-match="em-m3">✓ Check</button></div>
+        <div class="match em-match wide" id="em-m3">
+    <ul class="match-words"><li><button type="button" data-key="angry"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><b>angry</b></button></li><li><button type="button" data-key="scared"><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg><b>scared</b></button></li><li><button type="button" data-key="sad"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><b>sad</b></button></li><li><button type="button" data-key="bored"><svg class="em-f bored " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-bored"/></svg><b>bored</b></button></li><li><button type="button" data-key="surprised"><svg class="em-f surprised " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-surprised"/></svg><b>surprised</b></button></li><li><button type="button" data-key="happy"><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg><b>happy</b></button></li><li><button type="button" data-key="excited"><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg><b>excited</b></button></li></ul>
+    <ul class="match-defs"><li><button type="button" data-key="sad">heavy, tight throat</button></li><li><button type="button" data-key="angry">hot, tense muscles</button></li><li><button type="button" data-key="happy">warm chest, big smile</button></li><li><button type="button" data-key="surprised">open mouth, fast breath</button></li><li><button type="button" data-key="scared">cold hands, fast heart</button></li><li><button type="button" data-key="excited">bouncy, big smile, fast</button></li><li><button type="button" data-key="bored">flat, slow, yawn</button></li></ul>
+    <svg class="match-lines" aria-hidden="true"></svg>
+  </div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">4</i> How do they feel?</div><button class="check" type="button" data-tf="em-ex4">✓ Check</button></div>
+        <ol class="em-list" id="em-ex4">
+          <li><span class="grow">It’s my birthday and I get a new bike.</span><span class="opt" id="em-ex4-1" data-answer="happy"><button type="button">happy</button><button type="button">sad</button><button type="button">bored</button></span></li>
+          <li><span class="grow">I’m home alone and I hear a strange noise.</span><span class="opt" id="em-ex4-2" data-answer="scared"><button type="button">proud</button><button type="button">scared</button><button type="button">bored</button></span></li>
+          <li><span class="grow">My brother takes my phone without asking.</span><span class="opt" id="em-ex4-3" data-answer="angry"><button type="button">calm</button><button type="button">excited</button><button type="button">angry</button></span></li>
+          <li><span class="grow">It’s raining and there is nothing to do.</span><span class="opt" id="em-ex4-4" data-answer="bored"><button type="button">surprised</button><button type="button">proud</button><button type="button">bored</button></span></li>
+          <li><span class="grow">I see a big spider on my bed.</span><span class="opt" id="em-ex4-5" data-answer="scared"><button type="button">scared</button><button type="button">happy</button><button type="button">calm</button></span></li>
+          <li><span class="grow">My team wins the final!</span><span class="opt" id="em-ex4-6" data-answer="excited"><button type="button">bored</button><button type="button">excited</button><button type="button">sad</button></span></li>
+          <li><span class="grow">I help my grandma and she says: “Thank you!”</span><span class="opt" id="em-ex4-7" data-answer="proud"><button type="button">disgusted</button><button type="button">proud</button><button type="button">scared</button></span></li>
+          <li><span class="grow">My friends jump out and shout: “Surprise!”</span><span class="opt" id="em-ex4-8" data-answer="surprised"><button type="button">tired</button><button type="button">sad</button><button type="button">surprised</button></span></li>
+        </ol>
+</div>
+      <div class="em-games abs" style="--x:7;--y:122.5;--w:86"><b>🎮 GAME CORNER</b><span>play on your own!</span><button type="button" data-emo="wheel">Emotion Wheel</button></div>
+      
+      <span class="footer em-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Emotions</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="emo-be" data-title="Emotions" data-name="I am… I feel… · Build the sentence">
+    <!-- Grammar: be + feeling (+, −, ?) and feel + adjective; true / false, word order, a table to write, speaking -->
+    <section class="page page-left emo em-l3">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><rect x="0" y="0" width="12.5" height="141.42" style="fill:var(--pal-magenta)" /><use href="#em-flower" x="78" y="118" width="30" height="30" style="color:var(--pal-pale-lime)"/><use href="#em-spark" x="88" y="12" width="4" height="4" style="color:var(--pal-magenta)"/></svg>
+
+      <div class="em-vband abs" style="--x:0;--y:0;--w:12.5;--h:141.42"><p>Grammar</p><h1>I am… I feel…</h1></div>
+      <div class="em-chk v abs" style="--x:12.5;--y:0;--w:2.6;--h:141.42"></div>
+      <div class="em-vfaces abs" style="--x:1.9;--y:4;--w:8.7"><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg></div>
+      <div class="em-flow abs " style="--x:19;--y:5;--w:74;--g:2.1cqw">
+
+        <p class="em-p">Use <b>be</b> or <b>feel</b> + a feeling word. <i>I’m happy</i> = <i>I feel happy</i>. Both are OK!</p>
+        <div class="em-bubbles3">
+          <div style="--c:var(--pal-green)"><em>+</em><b>I’m happy.</b><span>She’s happy.<br>They’re happy.</span></div>
+          <div style="--c:var(--pal-magenta)"><em>−</em><b>I’m not sad.</b><span>He isn’t sad.<br>We aren’t sad.</span></div>
+          <div style="--c:var(--pal-forest)"><em>?</em><b>Are you tired?</b><span>Yes, I am.<br>No, I’m not.</span></div>
+        </div>
+        <div class="em-note pink"><p>⚠️ In English we say <b>I’m scared</b>, not <s>“I have fear”</s>. Feelings use <b>be</b>, never <b>have</b>!</p></div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">5</i> am, is or are?</div><button class="check" type="button" data-list="em-ex5">✓ Check</button></div>
+        <ol class="em-list two" id="em-ex5">
+          <li><span>I</span><input class="fill blank w3" id="em-ex5-1" data-given="" data-answer="am" autocomplete="off" aria-label="Item 1"><span>very happy today.</span></li>
+          <li><span>My sister</span><input class="fill blank w3" id="em-ex5-2" data-given="" data-answer="is" autocomplete="off" aria-label="Item 2"><span>angry.</span></li>
+          <li><span>You</span><input class="fill blank w3" id="em-ex5-3" data-given="" data-answer="are" autocomplete="off" aria-label="Item 3"><span>tired.</span></li>
+          <li><span>We</span><input class="fill blank w3" id="em-ex5-4" data-given="" data-answer="are" autocomplete="off" aria-label="Item 4"><span>excited about the trip.</span></li>
+          <li><span>My dog</span><input class="fill blank w3" id="em-ex5-5" data-given="" data-answer="is" autocomplete="off" aria-label="Item 5"><span>scared of thunder.</span></li>
+          <li><span>They</span><input class="fill blank w3" id="em-ex5-6" data-given="" data-answer="are" autocomplete="off" aria-label="Item 6"><span>proud of their team.</span></li>
+          <li><span></span><input class="fill blank w3" id="em-ex5-7" data-given="" data-answer="Are" autocomplete="off" aria-label="Item 7"><span>you nervous?</span></li>
+          <li><span>She</span><input class="fill blank w3" id="em-ex5-8" data-given="" data-answer="is" autocomplete="off" aria-label="Item 8"><span>not bored.</span></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-lime)"><i class="n">6</i> Say it with feel <small>same meaning</small></div><button class="check" type="button" data-list="em-exF">✓ Check</button></div>
+        <ol class="em-list" id="em-exF">
+          <li><span>I’m angry. →</span><input class="fill long" data-given="" data-answer="I feel angry.|I feel angry" id="em-exF-1" autocomplete="off" aria-label="Sentence 1"></li>
+          <li><span>She’s sad. →</span><input class="fill long" data-given="" data-answer="She feels sad.|She feels sad" id="em-exF-2" autocomplete="off" aria-label="Sentence 2"></li>
+          <li><span>We’re nervous. →</span><input class="fill long" data-given="" data-answer="We feel nervous.|We feel nervous" id="em-exF-3" autocomplete="off" aria-label="Sentence 3"></li>
+          <li><span>My dog is scared. →</span><input class="fill long" data-given="" data-answer="My dog feels scared.|My dog feels scared" id="em-exF-4" autocomplete="off" aria-label="Sentence 4"></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">7</i> True or false?</div><button class="check" type="button" data-tf="em-ex6">✓ Check</button></div>
+        <div class="em-chars"><div><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><b>Leo</b></div><div><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg><b>Mia</b></div><div><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg><b>Sam</b></div><div><svg class="em-f bored " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-bored"/></svg><b>Eva</b></div></div>
+        <ol class="em-list two" id="em-ex6">
+          <li><span class="grow">Leo is angry.</span><span class="tf" id="em-ex6-1" data-answer="T"><button type="button">T</button><button type="button">F</button></span></li>
+          <li><span class="grow">Mia is sad.</span><span class="tf" id="em-ex6-2" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
+          <li><span class="grow">Sam isn’t scared.</span><span class="tf" id="em-ex6-3" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
+          <li><span class="grow">Eva is bored.</span><span class="tf" id="em-ex6-4" data-answer="T"><button type="button">T</button><button type="button">F</button></span></li>
+          <li><span class="grow">Mia and Eva are happy.</span><span class="tf" id="em-ex6-5" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
+          <li><span class="grow">Leo and Sam aren’t happy.</span><span class="tf" id="em-ex6-6" data-answer="T"><button type="button">T</button><button type="button">F</button></span></li>
+        </ol>
+</div>
+      
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer em-foot abs" style="--x:13.5;--y:134.4;--w:40">Emotions</span>
+    </section>
+    <section class="page page-right emo em-r3">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><circle cx="100" cy="0" r="31" style="fill:var(--pal-magenta)"/><circle cx="100" cy="0" r="24" style="fill:var(--pal-lime)"/><circle cx="100" cy="0" r="16" style="fill:var(--pal-forest)"/><use href="#em-flower" x="-10" y="122" width="24" height="24" style="color:var(--pal-blush)"/><use href="#em-spark" x="93" y="128" width="3.6" height="3.6" style="color:var(--pal-magenta)"/></svg>
+
+      <p class="em-kicker abs dark" style="--x:7;--y:5">Grammar · practice</p><h1 class="em-h  abs dark" style="--x:7;--y:7.6">Build the sentence</h1>
+      <div class="em-flow abs " style="--x:7;--y:24;--w:86;--g:2.1cqw">
+
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">8</i> Put the words in order <small>then write the sentence</small></div><button class="check" type="button" data-list="em-ex7">✓ Check</button></div>
+        <ol class="em-list scr" id="em-ex7">
+          <li><div class="em-scr"><span>you</span><span>are</span><span>how</span><span>today</span><span>?</span></div><input class="fill long" data-given="" data-answer="How are you today?|How are you today" id="em-ex7-1" autocomplete="off" aria-label="Sentence 1"></li>
+          <li><div class="em-scr"><span>am</span><span>I</span><span>happy</span><span>very</span></div><input class="fill long" data-given="" data-answer="I am very happy|I’m very happy|I'm very happy" id="em-ex7-2" autocomplete="off" aria-label="Sentence 2"></li>
+          <li><div class="em-scr"><span>angry</span><span>isn’t</span><span>sister</span><span>my</span></div><input class="fill long" data-given="" data-answer="My sister isn’t angry|My sister is not angry" id="em-ex7-3" autocomplete="off" aria-label="Sentence 3"></li>
+          <li><div class="em-scr"><span>my</span><span>are</span><span>of</span><span>me</span><span>parents</span><span>proud</span></div><input class="fill long" data-given="" data-answer="My parents are proud of me" id="em-ex7-4" autocomplete="off" aria-label="Sentence 4"></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">9</i> How do you feel when…? <small>write one feeling</small></div></div>
+        <ol class="em-list" id="em-ex8" style="--lg:1.1cqw">
+          <li><span>When you get a good grade, <b class="fe">I feel</b></span><input class="fill long" id="em-ex8-1" autocomplete="off" aria-label="Feeling 1"></li>
+          <li><span>When you lose a game, <b class="fe">I feel</b></span><input class="fill long" id="em-ex8-2" autocomplete="off" aria-label="Feeling 2"></li>
+          <li><span>When your friend is late, <b class="fe">I feel</b></span><input class="fill long" id="em-ex8-3" autocomplete="off" aria-label="Feeling 3"></li>
+          <li><span>When you eat your favorite food, <b class="fe">I feel</b></span><input class="fill long" id="em-ex8-4" autocomplete="off" aria-label="Feeling 4"></li>
+          <li><span>When you hear thunder, <b class="fe">I feel</b></span><input class="fill long" id="em-ex8-5" autocomplete="off" aria-label="Feeling 5"></li>
+        </ol>
+        <div class="em-dlg">
+          <div class="em-say a"><small>A</small>How are you today?</div>
+          <div class="em-say b"><small>B</small>I’m … because …. And you?</div>
+          <div class="em-say a"><small>A</small>Are you …? — <i>Yes, I am. / No, I’m not.</i></div>
+        </div>
+        <p class="em-p small" style="margin-top:-.8cqw">🗣️ Speak with a partner. Then change roles. Use a different feeling each time!</p>
+</div>
+      
+      <span class="footer em-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Emotions</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="emo-because" data-title="Emotions" data-name="Mia’s week · because…">
+    <!-- Reading: Mia’s diary (present simple + because), true / false, why? questions; join the halves; the sentence machine -->
+    <section class="page page-left emo em-l4">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-pale-lime)" /><rect x="0" y="0" width="100" height="15" style="fill:var(--pal-magenta)" /><path d="M6.700000000000001 14.8 Q8.3 14.8 8.3 16.6 V18.3 a1.7 1.7 0 0 0 3.4 0 V16.6 Q11.7 14.8 13.299999999999999 14.8Z" style="fill:var(--pal-magenta)"/><path d="M23.099999999999998 14.8 Q24.7 14.8 24.7 16.6 V21.2 a2.3 2.3 0 0 0 4.6 0 V16.6 Q29.3 14.8 30.900000000000002 14.8Z" style="fill:var(--pal-magenta)"/><path d="M40.8 14.8 Q42.4 14.8 42.4 16.6 V17.4 a1.6 1.6 0 0 0 3.2 0 V16.6 Q45.6 14.8 47.2 14.8Z" style="fill:var(--pal-magenta)"/><path d="M59.199999999999996 14.8 Q60.8 14.8 60.8 16.6 V19.8 a2.2 2.2 0 0 0 4.4 0 V16.6 Q65.2 14.8 66.8 14.8Z" style="fill:var(--pal-magenta)"/><path d="M78.60000000000001 14.8 Q80.2 14.8 80.2 16.6 V18.7 a1.8 1.8 0 0 0 3.6 0 V16.6 Q83.8 14.8 85.39999999999999 14.8Z" style="fill:var(--pal-magenta)"/><path d="M90.9 14.8 Q92.5 14.8 92.5 16.6 V16.9 a1.5 1.5 0 0 0 3 0 V16.6 Q95.5 14.8 97.1 14.8Z" style="fill:var(--pal-magenta)"/><use href="#em-flower" x="82" y="108" width="28" height="28" style="color:var(--pal-lime)"/><use href="#em-spark" x="4" y="126" width="4.4" height="4.4" style="color:var(--pal-magenta)"/></svg>
+
+      <p class="em-kicker abs" style="--x:7;--y:3.2;color:var(--pal-white)">Reading</p>
+      <h1 class="em-h abs" style="--x:7;--y:5.8;color:var(--pal-white)">Mia’s week</h1>
+      <div class="em-sticker abs" style="--x:74;--y:1.6;--w:17;--h:17;z-index:3;transform:rotate(8deg)"><svg class="em-f calm " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-calm"/></svg></div><div class="em-sticker abs" style="--x:60;--y:3.2;--w:10;--h:10;z-index:3;transform:rotate(-10deg)"><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg></div>
+      <div class="em-flow abs " style="--x:7;--y:21.5;--w:86;--g:2.4cqw">
+
+        <div class="em-diary">
+          <div class="em-entry" style="--c:var(--em-tired)"><i><svg class="em-f tired " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-tired"/></svg></i><b>Monday</b><p>I’m <b>tired</b> because I wake up at six o’clock.</p></div>
+          <div class="em-entry" style="--c:var(--em-nervous)"><i><svg class="em-f nervous " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-nervous"/></svg></i><b>Tuesday</b><p>I’m <b>nervous</b> because I have a math test.</p></div>
+          <div class="em-entry" style="--c:var(--em-proud)"><i><svg class="em-f proud " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-proud"/></svg></i><b>Wednesday</b><p>I’m <b>proud</b> because I get an 8 on my test!</p></div>
+          <div class="em-entry" style="--c:var(--em-angry)"><i><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg></i><b>Thursday</b><p>I’m <b>angry</b> because my brother takes my headphones.</p></div>
+          <div class="em-entry" style="--c:var(--em-excited)"><i><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg></i><b>Friday</b><p>I’m <b>excited</b> because it’s my birthday party today!</p></div>
+          <div class="em-entry" style="--c:var(--em-calm)"><i><svg class="em-f calm " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-calm"/></svg></i><b>Saturday</b><p>I’m <b>calm</b> because I read my favorite book.</p></div>
+        </div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">10</i> True or false?</div><button class="check" type="button" data-tf="em-ex10">✓ Check</button></div>
+        <ol class="em-list two" id="em-ex10">
+          <li><span class="grow">Mia is tired on Monday.</span><span class="tf" id="em-ex10-1" data-answer="T"><button type="button">T</button><button type="button">F</button></span></li>
+          <li><span class="grow">She has a science test on Tuesday.</span><span class="tf" id="em-ex10-2" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
+          <li><span class="grow">She is sad on Wednesday.</span><span class="tf" id="em-ex10-3" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
+          <li><span class="grow">Her brother takes her headphones.</span><span class="tf" id="em-ex10-4" data-answer="T"><button type="button">T</button><button type="button">F</button></span></li>
+          <li><span class="grow">Her birthday party is on Saturday.</span><span class="tf" id="em-ex10-5" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">11</i> Find the reason <small>click the words after because</small></div></div>
+        <p class="em-p underlinable em-ul" id="em-ul-because">Leo is sad because his team loses. Eva is happy because it’s Friday. Sam is nervous because he has a speech. Lily is angry because her brother takes her book.</p>
+</div>
+      
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer em-foot abs" style="--x:13.5;--y:134.4;--w:40">Emotions</span>
+    </section>
+    <section class="page page-right emo em-r4">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-ivory)" /><use href="#em-flower" x="84" y="112" width="30" height="30" style="color:var(--pal-blush)"/><use href="#em-spark" x="3" y="98" width="4" height="4" style="color:var(--pal-lime)"/></svg>
+
+      <div class="em-marq pink abs" style="--x:-4;--y:5;--w:108;transform:rotate(1.6deg)"><span>★ because ★ because ★ because ★ because ★ because ★ because ★ because ★ because ★ because ★</span></div>
+      <h1 class="em-h abs dark" style="--x:7;--y:15.2">Why do you feel it?</h1>
+      <div class="em-flow abs " style="--x:7;--y:27;--w:86;--g:2cqw">
+
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">12</i> Why? Answer with because…</div><button class="check" type="button" data-list="em-ex11">✓ Check</button></div>
+        <ol class="em-list" id="em-ex11">
+          <li><span class="grow">Why is Mia nervous on Tuesday?</span><input class="fill long" data-given="" data-answer="Because she has a math test.|because she has a test|she has a math test|she has a test" id="em-ex11-1" autocomplete="off" aria-label="Answer 1"></li>
+          <li><span class="grow">Why is she proud on Wednesday?</span><input class="fill long" data-given="" data-answer="Because she gets an 8 on her test.|because she gets an 8|she gets an 8|she gets an 8 on her test|because she gets an 8 on the test" id="em-ex11-2" autocomplete="off" aria-label="Answer 2"></li>
+          <li><span class="grow">How does Mia feel on Friday?</span><input class="fill long" data-given="" data-answer="She is excited.|she’s excited|she feels excited|excited|she is excited" id="em-ex11-3" autocomplete="off" aria-label="Answer 3"></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">13</i> Join the halves</div><button class="check" type="button" data-match="em-m12">✓ Check</button></div>
+        <div class="match em-match halves" id="em-m12">
+    <ul class="match-words"><li><button type="button" data-key="a">I’m nervous</button></li><li><button type="button" data-key="b">She’s happy</button></li><li><button type="button" data-key="c">We’re bored</button></li><li><button type="button" data-key="d">He’s angry</button></li><li><button type="button" data-key="e">They’re scared</button></li><li><button type="button" data-key="f">I’m proud</button></li></ul>
+    <ul class="match-defs"><li><button type="button" data-key="c">because there is nothing to do.</button></li><li><button type="button" data-key="f">because I help my little brother.</button></li><li><button type="button" data-key="a">because I have a test.</button></li><li><button type="button" data-key="e">because they hear a strange noise.</button></li><li><button type="button" data-key="b">because it’s her birthday.</button></li><li><button type="button" data-key="d">because someone takes his bike.</button></li></ul>
+    <svg class="match-lines" aria-hidden="true"></svg>
+  </div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-lime)"><i class="n">14</i> The sentence machine <small>choose one from each reel, then write</small></div></div>
+        <div class="em-reels"><ul><li>I’m</li><li>She’s</li><li>We’re</li><li>My dad is</li><li>My friends are</li></ul><b>+</b><ul><li>happy</li><li>nervous</li><li>angry</li><li>tired</li><li>proud</li></ul><b>+</b><ul><li>because I have a test.</li><li>because it’s Friday.</li><li>because my team wins.</li><li>because I can’t sleep.</li><li>because it’s my birthday.</li></ul></div>
+        <ol class="em-list" style="--lg:1.1cqw">
+          <li><span class="grow"><input class="fill long" id="em-ex13-1" autocomplete="off" aria-label="Sentence 1"></span></li>
+          <li><span class="grow"><input class="fill long" id="em-ex13-2" autocomplete="off" aria-label="Sentence 2"></span></li>
+          <li><span class="grow"><input class="fill long" id="em-ex13-3" autocomplete="off" aria-label="Sentence 3"></span></li>
+        </ol>
+</div>
+      
+      <span class="footer em-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Emotions</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="emo-body" data-title="Emotions" data-name="Body talk · Talk about it">
+    <!-- Vocabulary: what the body does (smile, cry, shout…); where do you feel it? (body map); a dialogue to put in order; role cards -->
+    <section class="page page-left emo em-l5">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><circle cx="0" cy="0" r="49" style="fill:var(--pal-lime)"/><circle cx="0" cy="0" r="41" style="fill:var(--pal-pale-lime)"/><use href="#em-flower" x="80" y="116" width="30" height="30" style="color:var(--pal-blush)"/><use href="#em-spark" x="90" y="52" width="4" height="4" style="color:var(--pal-magenta)"/></svg>
+
+      <p class="em-kicker abs dark" style="--x:7;--y:4">Vocabulary</p><h1 class="em-h  abs dark" style="--x:7;--y:6.6">Body talk</h1>
+      <div class="em-flow abs " style="--x:7;--y:17.5;--w:86;--g:2cqw">
+
+        <p class="em-p">Your body shows how you feel. What do you <b>do</b>?</p>
+        <ul class="em-verbs">
+          <li style="--c:var(--em-happy);--r:-2deg"><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg><b>smile</b></li>
+          <li style="--c:var(--em-excited);--r:1.6deg"><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg><b>laugh</b></li>
+          <li style="--c:var(--em-sad);--r:-1.2deg"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><b>cry</b></li>
+          <li style="--c:var(--em-angry);--r:2deg"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><b>shout</b></li>
+          <li style="--c:var(--em-scared);--r:-1.8deg"><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg><b>shake</b></li>
+          <li style="--c:var(--em-embarrassed);--r:1.2deg"><svg class="em-f embarrassed " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-embarrassed"/></svg><b>blush</b></li>
+          <li style="--c:var(--em-tired);--r:-2deg"><svg class="em-f tired " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-tired"/></svg><b>yawn</b></li>
+          <li style="--c:var(--em-bored);--r:1.6deg"><svg class="em-f bored " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-bored"/></svg><b>sigh</b></li>
+          <li style="--c:var(--em-worried);--r:-1.2deg"><svg class="em-f worried " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-worried"/></svg><b>frown</b></li>
+          <li style="--c:var(--em-nervous);--r:2deg"><svg class="em-f nervous " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-nervous"/></svg><b>hide</b></li>
+          <li style="--c:var(--em-calm);--r:-1.8deg"><svg class="em-f calm " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-calm"/></svg><b>hug</b></li>
+          <li style="--c:var(--em-proud);--r:1.2deg"><svg class="em-f proud " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-proud"/></svg><b>jump</b></li>
+        </ul>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">15</i> When I’m… I…</div><button class="check" type="button" data-tf="em-ex14">✓ Check</button></div>
+        <ol class="em-list" id="em-ex14" style="--lg:1.2cqw">
+          <li><span class="grow">When I’m <b class="fe">happy</b>, I …</span><span class="opt" id="em-ex14-1" data-answer="smile"><button type="button">smile</button><button type="button">yawn</button><button type="button">hide</button></span></li>
+          <li><span class="grow">When I’m <b class="fe">sad</b>, I …</span><span class="opt" id="em-ex14-2" data-answer="cry"><button type="button">cry</button><button type="button">laugh</button><button type="button">jump</button></span></li>
+          <li><span class="grow">When I’m <b class="fe">angry</b>, I …</span><span class="opt" id="em-ex14-3" data-answer="shout"><button type="button">hug</button><button type="button">shout</button><button type="button">smile</button></span></li>
+          <li><span class="grow">When I’m <b class="fe">tired</b>, I …</span><span class="opt" id="em-ex14-4" data-answer="yawn"><button type="button">shake</button><button type="button">jump</button><button type="button">yawn</button></span></li>
+          <li><span class="grow">When I’m <b class="fe">scared</b>, I …</span><span class="opt" id="em-ex14-5" data-answer="shake"><button type="button">shake</button><button type="button">laugh</button><button type="button">smile</button></span></li>
+          <li><span class="grow">When I’m <b class="fe">embarrassed</b>, I …</span><span class="opt" id="em-ex14-6" data-answer="blush"><button type="button">sigh</button><button type="button">blush</button><button type="button">shout</button></span></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">16</i> Where do you feel it? <small>write a feeling</small></div></div>
+        <div class="em-bodymap">
+          <svg class="em-body" viewBox="0 0 60 100" aria-hidden="true">
+            <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+              <path d="M18 34L7 58M42 34L53 58M25 62L22 92M35 62L38 92" style="stroke:var(--pal-forest)" stroke-width="10.4"/>
+              <path d="M18 34L7 58M42 34L53 58M25 62L22 92M35 62L38 92" style="stroke:var(--pal-lime)" stroke-width="7.6"/>
+            </g>
+            <rect x="17" y="26" width="26" height="38" rx="9" style="fill:var(--pal-lime);stroke:var(--pal-forest)" stroke-width="1.4"/>
+            <circle cx="30" cy="14" r="12" style="fill:var(--pal-white);stroke:var(--pal-forest)" stroke-width="1.4"/>
+            <circle cx="26" cy="15" r="1.3" style="fill:var(--pal-forest)"/><circle cx="34" cy="15" r="1.3" style="fill:var(--pal-forest)"/><path d="M26 19.6Q30 22.6 34 19.6" fill="none" style="stroke:var(--pal-forest)" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="30" cy="2.4" r="4.3" style="fill:var(--pal-magenta);stroke:var(--pal-white)" stroke-width="1"/><text x="30" y="4.3" text-anchor="middle" style="font:700 5.4px Fredoka,sans-serif;fill:var(--pal-white)">1</text><circle cx="41.6" cy="17" r="4.3" style="fill:var(--pal-magenta);stroke:var(--pal-white)" stroke-width="1"/><text x="41.6" y="18.9" text-anchor="middle" style="font:700 5.4px Fredoka,sans-serif;fill:var(--pal-white)">2</text><circle cx="35" cy="36" r="4.3" style="fill:var(--pal-magenta);stroke:var(--pal-white)" stroke-width="1"/><text x="35" y="37.9" text-anchor="middle" style="font:700 5.4px Fredoka,sans-serif;fill:var(--pal-white)">3</text><circle cx="30" cy="52" r="4.3" style="fill:var(--pal-magenta);stroke:var(--pal-white)" stroke-width="1"/><text x="30" y="53.9" text-anchor="middle" style="font:700 5.4px Fredoka,sans-serif;fill:var(--pal-white)">4</text><circle cx="6.6" cy="59" r="4.3" style="fill:var(--pal-magenta);stroke:var(--pal-white)" stroke-width="1"/><text x="6.6" y="60.9" text-anchor="middle" style="font:700 5.4px Fredoka,sans-serif;fill:var(--pal-white)">5</text>
+          </svg>
+          <ol class="em-frames">
+            <li><i>1</i>My head hurts when I’m <input class="fill blank" id="em-ex15-1" autocomplete="off" aria-label="Head">.</li>
+            <li><i>2</i>My face is red when I’m <input class="fill blank" id="em-ex15-2" autocomplete="off" aria-label="Face">.</li>
+            <li><i>3</i>My heart beats fast when I’m <input class="fill blank" id="em-ex15-3" autocomplete="off" aria-label="Heart">.</li>
+            <li><i>4</i>My stomach hurts when I’m <input class="fill blank" id="em-ex15-4" autocomplete="off" aria-label="Stomach">.</li>
+            <li><i>5</i>My hands are cold when I’m <input class="fill blank" id="em-ex15-5" autocomplete="off" aria-label="Hands">.</li>
+            <li class="tip">💡 nervous · angry · scared · embarrassed · tired · excited</li>
+          </ol>
+        </div>
+</div>
+      
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer em-foot abs" style="--x:13.5;--y:134.4;--w:40">Emotions</span>
+    </section>
+    <section class="page page-right emo em-r5">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-ivory)" /><use href="#em-flower" x="86" y="-8" width="22" height="22" style="color:var(--pal-magenta)"/><use href="#em-spark" x="80" y="12" width="3.4" height="3.4" style="color:var(--pal-lime)"/><use href="#em-flower" x="-9" y="119" width="22" height="22" style="color:var(--pal-pale-lime)"/></svg>
+
+      <div class="em-tag abs" style="--x:7;--y:4.4;transform:rotate(-3deg)">Talk about it!</div>
+      <svg class="em-squig abs" style="--x:36;--y:9;--w:30;--h:7;color:var(--pal-magenta)" viewBox="0 0 100 24" aria-hidden="true"><use href="#em-squig"/></svg>
+      <div class="em-flow abs " style="--x:7;--y:19.5;--w:86;--g:2cqw">
+
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">17</i> Put the conversation in order <small>type a number or drag a line</small></div><button class="check" type="button" data-order="em-ord">✓ Check</button></div>
+        <ol class="pd-sort em-sort" id="em-ord">
+          <li data-k="A" data-answer="4"><i class="grip" aria-hidden="true">⋮⋮</i><input class="pd-num" maxlength="1" inputmode="numeric" autocomplete="off" aria-label="Position of line A"><b>A</b><span>Because I have a speech tomorrow.</span></li>
+          <li data-k="B" data-answer="7"><i class="grip" aria-hidden="true">⋮⋮</i><input class="pd-num" maxlength="1" inputmode="numeric" autocomplete="off" aria-label="Position of line B"><b>B</b><span>Let’s start now. First, take a deep breath.</span></li>
+          <li data-k="C" data-answer="1"><i class="grip" aria-hidden="true">⋮⋮</i><input class="pd-num" maxlength="1" inputmode="numeric" autocomplete="off" aria-label="Position of line C"><b>C</b><span>Hi Sam! How are you?</span></li>
+          <li data-k="D" data-answer="8"><i class="grip" aria-hidden="true">⋮⋮</i><input class="pd-num" maxlength="1" inputmode="numeric" autocomplete="off" aria-label="Position of line D"><b>D</b><span>OK… I feel better already!</span></li>
+          <li data-k="E" data-answer="3"><i class="grip" aria-hidden="true">⋮⋮</i><input class="pd-num" maxlength="1" inputmode="numeric" autocomplete="off" aria-label="Position of line E"><b>E</b><span>Why are you nervous?</span></li>
+          <li data-k="F" data-answer="6"><i class="grip" aria-hidden="true">⋮⋮</i><input class="pd-num" maxlength="1" inputmode="numeric" autocomplete="off" aria-label="Position of line F"><b>F</b><span>Really? Thanks, that’s a great idea!</span></li>
+          <li data-k="G" data-answer="2"><i class="grip" aria-hidden="true">⋮⋮</i><input class="pd-num" maxlength="1" inputmode="numeric" autocomplete="off" aria-label="Position of line G"><b>G</b><span>Not great. I’m nervous.</span></li>
+          <li data-k="H" data-answer="5"><i class="grip" aria-hidden="true">⋮⋮</i><input class="pd-num" maxlength="1" inputmode="numeric" autocomplete="off" aria-label="Position of line H"><b>H</b><span>Don’t worry! You can practice with me.</span></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">18</i> Act it out <small>in pairs</small></div></div>
+        <div class="em-roles">
+          <div><b>A</b><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><p>You feel <i>angry</i>.<br>Your friend breaks your pen.<br><em>B says sorry.</em></p></div><div><b>B</b><svg class="em-f nervous " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-nervous"/></svg><p>You feel <i>nervous</i>.<br>You have a test tomorrow.<br><em>A gives advice.</em></p></div><div><b>A</b><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><p>You feel <i>sad</i>.<br>Your friend moves to another city.<br><em>B is kind.</em></p></div>
+        </div>
+        <p class="em-p small" style="margin-top:-.4cqw">Write your own dialogue (4 lines) and act it out.</p>
+        <ol class="em-list" style="--lg:1cqw">
+          <li><span class="grow"><input class="fill " id="em-ex17-1" autocomplete="off" aria-label="Line 1"></span></li>
+          <li><span class="grow"><input class="fill " id="em-ex17-2" autocomplete="off" aria-label="Line 2"></span></li>
+          <li><span class="grow"><input class="fill " id="em-ex17-3" autocomplete="off" aria-label="Line 3"></span></li>
+          <li><span class="grow"><input class="fill " id="em-ex17-4" autocomplete="off" aria-label="Line 4"></span></li>
+        </ol>
+        <div class="em-stage"><span class="em-stage-tag">Helping phrases</span><div class="em-phr"><span>What’s wrong?</span><span>Don’t worry!</span><span>I’m here for you.</span><span>Take a deep breath.</span><span>Calm down.</span><span>You can do it!</span></div></div>
+</div>
+      
+      <span class="footer em-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Emotions</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="emo-ladder" data-title="Emotions" data-name="Small and BIG feelings · Stronger words">
+    <!-- Word ladders (drag the words to the steps), intensifiers a little / very / extremely, which word is stronger?, my feelings meter -->
+    <section class="page page-left emo em-l6">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><rect x="52" y="16.4" width="9.6" height="7.2" style="fill:var(--pal-pale-lime)" /><rect x="61.6" y="12.799999999999999" width="9.6" height="10.8" style="fill:var(--pal-lime)" /><rect x="71.2" y="9.200000000000001" width="9.6" height="14.4" style="fill:var(--pal-blush)" /><rect x="80.8" y="5.6" width="9.6" height="18" style="fill:var(--pal-magenta)" /><rect x="90.4" y="1.9999999999999996" width="9.6" height="21.6" style="fill:var(--pal-forest)" /><use href="#em-flower" x="-10" y="116" width="26" height="26" style="color:var(--pal-pale-lime)"/><use href="#em-spark" x="94" y="120" width="3.6" height="3.6" style="color:var(--pal-magenta)"/></svg>
+
+      <p class="em-kicker abs dark" style="--x:7;--y:4">Vocabulary</p><h1 class="em-h  abs dark" style="--x:7;--y:6.6">Small &amp; BIG feelings</h1>
+      <div class="em-flow abs " style="--x:7;--y:23;--w:86;--g:1.9cqw">
+
+        <p class="em-p">Some feelings are <b>small</b>, some are <b>BIG</b>. Put each word on the right step.</p>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">19</i> Put the words on the steps <small>drag a word, or click it and then the step</small></div><button class="check" type="button" data-dd="em-dd18">✓ Check</button></div>
+        <div class="dd-set em-dd" id="em-dd18">
+          <div class="dd-bank"><span class="dd-chip em" id="em-dd18-sad-b" data-key="sad-b">heartbroken</span><span class="dd-chip em" id="em-dd18-scared-s" data-key="scared-s">nervous</span><span class="dd-chip em" id="em-dd18-happy-s" data-key="happy-s">glad</span><span class="dd-chip em" id="em-dd18-angry-b" data-key="angry-b">furious</span><span class="dd-chip em" id="em-dd18-sad-s" data-key="sad-s">unhappy</span><span class="dd-chip em" id="em-dd18-scared-b" data-key="scared-b">terrified</span><span class="dd-chip em" id="em-dd18-angry-s" data-key="angry-s">annoyed</span><span class="dd-chip em" id="em-dd18-happy-b" data-key="happy-b">thrilled</span></div>
+          <div class="em-ladder"><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg><span class="dd-slot" id="em-dd18-s-happy-s" data-key="happy-s"></span><span class="em-mid">happy</span><span class="dd-slot" id="em-dd18-s-happy-b" data-key="happy-b"></span></div>
+          <div class="em-ladder"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><span class="dd-slot" id="em-dd18-s-sad-s" data-key="sad-s"></span><span class="em-mid">sad</span><span class="dd-slot" id="em-dd18-s-sad-b" data-key="sad-b"></span></div>
+          <div class="em-ladder"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><span class="dd-slot" id="em-dd18-s-angry-s" data-key="angry-s"></span><span class="em-mid">angry</span><span class="dd-slot" id="em-dd18-s-angry-b" data-key="angry-b"></span></div>
+          <div class="em-ladder"><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg><span class="dd-slot" id="em-dd18-s-scared-s" data-key="scared-s"></span><span class="em-mid">scared</span><span class="dd-slot" id="em-dd18-s-scared-b" data-key="scared-b"></span></div>
+          <div class="em-steps-lab"><span>small</span><span>medium</span><span>BIG</span></div>
+        </div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">20</i> How strong is it? <small>● a little · ●● very · ●●● extremely</small></div><button class="check" type="button" data-tf="em-ex19">✓ Check</button></div>
+        <ol class="em-list" id="em-ex19" style="--lg:1.1cqw">
+          <li><span class="dots">●</span><span class="grow">I’m <span class="opt inl" id="em-ex19-1" data-answer="a little"><button type="button">a little</button><button type="button">very</button><button type="button">extremely</button></span> tired. It’s only Monday morning.</span></li>
+          <li><span class="dots">●●●</span><span class="grow">I’m <span class="opt inl" id="em-ex19-2" data-answer="extremely"><button type="button">a little</button><button type="button">very</button><button type="button">extremely</button></span> scared! A huge dog runs at me!</span></li>
+          <li><span class="dots">●●</span><span class="grow">I’m <span class="opt inl" id="em-ex19-3" data-answer="very"><button type="button">a little</button><button type="button">very</button><button type="button">extremely</button></span> proud of my grade.</span></li>
+          <li><span class="dots">●</span><span class="grow">I’m <span class="opt inl" id="em-ex19-4" data-answer="a little"><button type="button">a little</button><button type="button">very</button><button type="button">extremely</button></span> bored in this class.</span></li>
+          <li><span class="dots">●●●</span><span class="grow">I’m <span class="opt inl" id="em-ex19-5" data-answer="extremely"><button type="button">a little</button><button type="button">very</button><button type="button">extremely</button></span> angry! He breaks my phone!</span></li>
+          <li><span class="dots">●●</span><span class="grow">I’m <span class="opt inl" id="em-ex19-6" data-answer="very"><button type="button">a little</button><button type="button">very</button><button type="button">extremely</button></span> happy to see you.</span></li>
+        </ol>
+</div>
+      
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer em-foot abs" style="--x:13.5;--y:134.4;--w:40">Emotions</span>
+    </section>
+    <section class="page page-right emo em-r6">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><path d="M0 0 H100 V14 q-2.5 1.4 -5 0 t-5 0 q-2.5 1.4 -5 0 t-5 0 q-2.5 1.4 -5 0 t-5 0 q-2.5 1.4 -5 0 t-5 0 q-2.5 1.4 -5 0 t-5 0 q-2.5 1.4 -5 0 t-5 0 q-2.5 1.4 -5 0 t-5 0 q-2.5 1.4 -5 0 t-5 0 q-2.5 1.4 -5 0 t-5 0 q-2.5 1.4 -5 0 t-5 0Z" style="fill:var(--pal-lime)"/><use href="#em-flower" x="88" y="94" width="26" height="26" style="color:var(--pal-blush)"/><use href="#em-spark" x="4" y="100" width="4" height="4" style="color:var(--pal-lime)"/></svg>
+
+      <p class="em-kicker abs dark" style="--x:7;--y:2.6">Vocabulary · practice</p><h1 class="em-h  abs dark" style="--x:7;--y:5.2">Stronger words</h1>
+      <div class="em-flow abs " style="--x:7;--y:20;--w:86;--g:2cqw">
+
+        <div class="em-scale"><b>a bit</b><b>quite</b><b>very</b><b>really</b><b>extremely</b></div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">21</i> Which word is stronger?</div><button class="check" type="button" data-tf="em-ex20">✓ Check</button></div>
+        <ol class="em-list two" id="em-ex20" style="--lg:1.3cqw">
+          <li><span class="grow"><span class="opt flat" id="em-ex20-1" data-answer="furious"><button type="button">angry</button><button type="button">furious</button></span></span></li>
+          <li><span class="grow"><span class="opt flat" id="em-ex20-2" data-answer="thrilled"><button type="button">thrilled</button><button type="button">happy</button></span></span></li>
+          <li><span class="grow"><span class="opt flat" id="em-ex20-3" data-answer="terrified"><button type="button">scared</button><button type="button">terrified</button></span></span></li>
+          <li><span class="grow"><span class="opt flat" id="em-ex20-4" data-answer="heartbroken"><button type="button">heartbroken</button><button type="button">sad</button></span></span></li>
+          <li><span class="grow"><span class="opt flat" id="em-ex20-5" data-answer="exhausted"><button type="button">tired</button><button type="button">exhausted</button></span></span></li>
+          <li><span class="grow"><span class="opt flat" id="em-ex20-6" data-answer="shocked"><button type="button">shocked</button><button type="button">surprised</button></span></span></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">22</i> My feelings meter <small>write one feeling word in each box</small></div></div>
+        <div class="em-meter">
+          <div class="head"><span></span><b style="--c:var(--pal-pale-lime)">small</b><b style="--c:var(--pal-lime)">medium</b><b style="--c:var(--pal-magenta);color:var(--pal-white)">BIG</b></div>
+          <div class="row"><b>At school</b><input class="fill " id="em-ex21-1-1" autocomplete="off" aria-label="At school, small feeling"><input class="fill " id="em-ex21-1-2" autocomplete="off" aria-label="At school, medium feeling"><input class="fill " id="em-ex21-1-3" autocomplete="off" aria-label="At school, BIG feeling"></div>
+          <div class="row"><b>With friends</b><input class="fill " id="em-ex21-2-1" autocomplete="off" aria-label="With friends, small feeling"><input class="fill " id="em-ex21-2-2" autocomplete="off" aria-label="With friends, medium feeling"><input class="fill " id="em-ex21-2-3" autocomplete="off" aria-label="With friends, BIG feeling"></div>
+          <div class="row"><b>At home</b><input class="fill " id="em-ex21-3-1" autocomplete="off" aria-label="At home, small feeling"><input class="fill " id="em-ex21-3-2" autocomplete="off" aria-label="At home, medium feeling"><input class="fill " id="em-ex21-3-3" autocomplete="off" aria-label="At home, BIG feeling"></div>
+        </div>
+        <p class="em-p small">🗣️ Tell your partner: <i>“At school I feel <b>a little</b> nervous, but at home I feel <b>very</b> calm.”</i></p>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-lime)"><i class="n">23</i> Odd one out</div><button class="check" type="button" data-tf="em-ex22">✓ Check</button></div>
+        <ol class="em-list two" id="em-ex22" style="--lg:1.3cqw">
+          <li><span class="grow"><span class="opt flat" id="em-ex22-1" data-answer="furious"><button type="button">happy</button><button type="button">glad</button><button type="button">thrilled</button><button type="button">furious</button></span></span></li>
+          <li><span class="grow"><span class="opt flat" id="em-ex22-2" data-answer="proud"><button type="button">sad</button><button type="button">unhappy</button><button type="button">heartbroken</button><button type="button">proud</button></span></span></li>
+          <li><span class="grow"><span class="opt flat" id="em-ex22-3" data-answer="calm"><button type="button">scared</button><button type="button">terrified</button><button type="button">nervous</button><button type="button">calm</button></span></span></li>
+          <li><span class="grow"><span class="opt flat" id="em-ex22-4" data-answer="excited"><button type="button">bored</button><button type="button">tired</button><button type="button">sleepy</button><button type="button">excited</button></span></span></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">24</i> Positive or negative?</div><button class="check" type="button" data-tf="em-ex23">✓ Check</button></div>
+        <ol class="em-list three" id="em-ex23" style="--lg:1.3cqw">
+          <li><b class="fe">proud</b><span class="opt flat sm" id="em-ex23-1" data-answer="positive"><button type="button">positive</button><button type="button">negative</button></span></li>
+          <li><b class="fe">embarrassed</b><span class="opt flat sm" id="em-ex23-2" data-answer="negative"><button type="button">positive</button><button type="button">negative</button></span></li>
+          <li><b class="fe">calm</b><span class="opt flat sm" id="em-ex23-3" data-answer="positive"><button type="button">positive</button><button type="button">negative</button></span></li>
+          <li><b class="fe">worried</b><span class="opt flat sm" id="em-ex23-4" data-answer="negative"><button type="button">positive</button><button type="button">negative</button></span></li>
+          <li><b class="fe">excited</b><span class="opt flat sm" id="em-ex23-5" data-answer="positive"><button type="button">positive</button><button type="button">negative</button></span></li>
+          <li><b class="fe">disgusted</b><span class="opt flat sm" id="em-ex23-6" data-answer="negative"><button type="button">positive</button><button type="button">negative</button></span></li>
+        </ol>
+        <div class="em-note pink"><p>🧭 a bit &lt; quite &lt; very &lt; really &lt; extremely — before the feeling word: <i>I’m extremely tired.</i></p></div>
+</div>
+      
+      <span class="footer em-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Emotions</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="emo-friends" data-title="Emotions" data-name="Four friends · Help your friends">
+    <!-- Reading: four messages (present simple, because, feelings + body), who says it?, which advice is good?, write a reply -->
+    <section class="page page-left emo em-l7">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><path d="M0 0H100V22L0 34Z" style="fill:var(--pal-lime)"/><path d="M0 0H100V13L0 25Z" style="fill:var(--pal-magenta)"/><use href="#em-flower" x="86" y="118" width="28" height="28" style="color:var(--pal-pale-lime)"/><use href="#em-spark" x="6" y="132" width="3.6" height="3.6" style="color:var(--pal-magenta)"/></svg>
+
+      <p class="em-kicker abs" style="--x:7;--y:3.4;color:var(--pal-white)">Reading</p>
+      <h1 class="em-h abs" style="--x:7;--y:6;color:var(--pal-white)">Four friends,<br>four problems</h1>
+      <div class="em-sticker abs" style="--x:77;--y:1.6;--w:15;--h:15;z-index:3;transform:rotate(8deg)"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg></div>
+      <div class="em-flow abs " style="--x:7;--y:26;--w:86;--g:2.2cqw">
+
+        <div class="em-chat">
+          <div class="em-msg "><i><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg></i><div><b>Alex</b><p>I have a bad grade on my math test. I study a lot, but it is not enough. I feel <b>sad</b>. I think: “I’m not good at math.”</p></div></div>
+          <div class="em-msg r"><i><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg></i><div><b>Mia</b><p>My best friend always tells my secrets. I’m so <b>angry</b>! My heart beats fast and my face is hot.</p></div></div>
+          <div class="em-msg "><i><svg class="em-f nervous " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-nervous"/></svg></i><div><b>Sam</b><p>Tomorrow I speak in front of the whole class. My stomach hurts and I can’t sleep. I’m really <b>nervous</b>.</p></div></div>
+          <div class="em-msg r"><i><svg class="em-f worried " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-worried"/></svg></i><div><b>Lily</b><p>I’m new at school. I don’t know anybody. At lunch I sit alone. I feel <b>lonely</b>.</p></div></div>
+        </div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">25</i> Who says it?</div><button class="check" type="button" data-tf="em-ex24">✓ Check</button></div>
+        <ol class="em-list two who" id="em-ex24" style="--lg:1.2cqw">
+          <li><span class="grow">“My stomach hurts.”</span><span class="opt flat sm" id="em-ex24-1" data-answer="Sam"><button type="button">Alex</button><button type="button">Mia</button><button type="button">Sam</button><button type="button">Lily</button></span></li>
+          <li><span class="grow">“My face is hot.”</span><span class="opt flat sm" id="em-ex24-2" data-answer="Mia"><button type="button">Alex</button><button type="button">Mia</button><button type="button">Sam</button><button type="button">Lily</button></span></li>
+          <li><span class="grow">“I sit alone at lunch.”</span><span class="opt flat sm" id="em-ex24-3" data-answer="Lily"><button type="button">Alex</button><button type="button">Mia</button><button type="button">Sam</button><button type="button">Lily</button></span></li>
+          <li><span class="grow">“I have a bad grade.”</span><span class="opt flat sm" id="em-ex24-4" data-answer="Alex"><button type="button">Alex</button><button type="button">Mia</button><button type="button">Sam</button><button type="button">Lily</button></span></li>
+          <li><span class="grow">“My friend tells my secrets.”</span><span class="opt flat sm" id="em-ex24-5" data-answer="Mia"><button type="button">Alex</button><button type="button">Mia</button><button type="button">Sam</button><button type="button">Lily</button></span></li>
+          <li><span class="grow">“I can’t sleep.”</span><span class="opt flat sm" id="em-ex24-6" data-answer="Sam"><button type="button">Alex</button><button type="button">Mia</button><button type="button">Sam</button><button type="button">Lily</button></span></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">26</i> Why? Finish the sentences</div><button class="check" type="button" data-list="em-ex24b">✓ Check</button></div>
+        <ol class="em-list" id="em-ex24b" style="--lg:1.1cqw">
+          <li><span class="lead">Alex is sad because</span><input class="fill long" data-given="" data-answer="he has a bad grade|he has a bad grade on his math test|he has a bad grade on his test|he thinks he is not good at math" id="em-ex24b-1" autocomplete="off" aria-label="Reason 1"></li>
+          <li><span class="lead">Mia is angry because</span><input class="fill long" data-given="" data-answer="her best friend tells her secrets|her friend tells her secrets|her best friend always tells her secrets|her friend always tells her secrets" id="em-ex24b-2" autocomplete="off" aria-label="Reason 2"></li>
+          <li><span class="lead">Sam is nervous because</span><input class="fill long" data-given="" data-answer="he speaks in front of the class tomorrow|he speaks in front of the whole class tomorrow|he has to speak in front of the class|he can’t sleep" id="em-ex24b-3" autocomplete="off" aria-label="Reason 3"></li>
+          <li><span class="lead">Lily is lonely because</span><input class="fill long" data-given="" data-answer="she is new at school|she is new|she doesn’t know anybody|she sits alone at lunch" id="em-ex24b-4" autocomplete="off" aria-label="Reason 4"></li>
+        </ol>
+</div>
+      
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer em-foot abs" style="--x:13.5;--y:134.4;--w:40">Emotions</span>
+    </section>
+    <section class="page page-right emo em-r7">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-ivory)" /><rect x="0" y="0" width="100" height="17" style="fill:var(--pal-forest)" /><use href="#em-flower" x="88" y="108" width="28" height="28" style="color:var(--pal-blush)"/><use href="#em-spark" x="4" y="104" width="4" height="4" style="color:var(--pal-lime)"/></svg>
+
+      <div class="em-nav abs" style="--x:7;--y:3.6;--w:86"><span><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg>Alex</span><span><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg>Mia</span><span><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg>Sam</span><span><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg>Lily</span></div>
+      <h1 class="em-h abs" style="--x:7;--y:9.6;color:var(--em-b)">Help your friends</h1>
+      <div class="em-flow abs " style="--x:7;--y:22;--w:86;--g:2cqw">
+
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">27</i> Which advice is good?</div><button class="check" type="button" data-tf="em-ex25">✓ Check</button></div>
+        <div class="em-adv" id="em-ex25">
+          <div class="em-advice"><div class="who"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><b>Alex</b></div><ol type="A"><li>Talk to your teacher and make a study plan.</li><li>Play video games all day.</li><li>Say: “I’m stupid.”</li></ol><span class="opt" id="em-ex25-1" data-answer="A"><button type="button">A</button><button type="button">B</button><button type="button">C</button></span></div>
+          <div class="em-advice"><div class="who"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><b>Mia</b></div><ol type="A"><li>Shout at your friend in front of everyone.</li><li>Breathe slowly and count to ten.</li><li>Pretend you’re not angry.</li></ol><span class="opt" id="em-ex25-2" data-answer="B"><button type="button">A</button><button type="button">B</button><button type="button">C</button></span></div>
+          <div class="em-advice"><div class="who"><svg class="em-f nervous " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-nervous"/></svg><b>Sam</b></div><ol type="A"><li>Practice in front of the mirror.</li><li>Stay home tomorrow.</li><li>Drink five coffees.</li></ol><span class="opt" id="em-ex25-3" data-answer="A"><button type="button">A</button><button type="button">B</button><button type="button">C</button></span></div>
+          <div class="em-advice"><div class="who"><svg class="em-f worried " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-worried"/></svg><b>Lily</b></div><ol type="A"><li>Sit alone again.</li><li>Say hello to a classmate.</li><li>Never talk to anyone.</li></ol><span class="opt" id="em-ex25-4" data-answer="B"><button type="button">A</button><button type="button">B</button><button type="button">C</button></span></div>
+        </div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">28</i> Write a reply <small>choose one friend</small></div></div>
+        <div class="em-letter">
+          <p class="to">Hi <input class="fill blank" id="em-ex26-to" autocomplete="off" aria-label="Name of the friend">,</p>
+          <textarea class="fill em-lines" id="em-ex26" rows="7" aria-label="Your reply" style="--rows:7"></textarea>
+          <p class="from">Your friend, <input class="fill blank" id="em-ex26-from" autocomplete="off" aria-label="Your name"></p>
+        </div>
+        <div class="em-phr"><span>Don’t worry!</span><span>You can…</span><span>Try to…</span><span>Why don’t you…?</span><span>I’m here for you.</span><span>Take a deep breath.</span></div>
+</div>
+      
+      <span class="footer em-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Emotions</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="emo-coping" data-title="Emotions" data-name="The calm toolkit · Match it">
+    <!-- Coping ideas (imperatives, when I’m… I…), good idea or not?, match the feeling to the idea, give advice. Game: Coping Crew (computer) -->
+    <section class="page page-left emo em-l8">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><path d="M0 0 H112 V40 q-4 2.4 -8 0 t-8 0 q-4 2.4 -8 0 t-8 0 q-4 2.4 -8 0 t-8 0 q-4 2.4 -8 0 t-8 0 q-4 2.4 -8 0 t-8 0 q-4 2.4 -8 0 t-8 0 q-4 2.4 -8 0 t-8 0Z" style="fill:var(--pal-forest)"/><use href="#em-flower" x="84" y="112" width="30" height="30" style="color:var(--pal-pale-lime)"/><use href="#em-spark" x="3" y="124" width="4.2" height="4.2" style="color:var(--pal-magenta)"/><use href="#em-spark" x="47" y="5" width="3.6" height="3.6" style="color:var(--pal-lime)"/></svg>
+
+      <p class="em-kicker abs" style="--x:7;--y:3.6;color:var(--em-b)">Wellbeing</p>
+      <h1 class="em-h abs" style="--x:7;--y:6.2;color:var(--pal-white)">The calm toolkit</h1>
+      <svg class="em-box abs" style="--x:52;--y:3.6;--w:42;--h:36" viewBox="0 0 84 72" aria-hidden="true">
+        <rect x="14" y="12" width="56" height="48" rx="8" fill="none" style="stroke:var(--pal-lime)" stroke-width="3" stroke-dasharray="1 5" stroke-linecap="round"/>
+        <g style="fill:var(--pal-lime)"><circle cx="14" cy="60" r="3.6"/><circle cx="14" cy="12" r="3.6"/><circle cx="70" cy="12" r="3.6"/><circle cx="70" cy="60" r="3.6"/></g>
+        <g style="font:700 7px Fredoka,sans-serif;fill:var(--pal-white)" text-anchor="middle"><text x="42" y="8">HOLD 4</text><text x="80" y="38" transform="rotate(90 80 38)">OUT 4</text><text x="42" y="70">HOLD 4</text><text x="4" y="38" transform="rotate(-90 4 38)">IN 4</text></g>
+        <text x="42" y="40" text-anchor="middle" style="font:700 9px Fredoka,sans-serif;fill:var(--pal-lime)">box</text><text x="42" y="48" text-anchor="middle" style="font:700 6px Fredoka,sans-serif;fill:var(--pal-white)">breathing</text>
+        <path d="M17 51V22M26 9H58M73 20V50M60 63H27" fill="none" style="stroke:var(--pal-magenta)" stroke-width="2.4" stroke-linecap="round"/>
+      </svg>
+      <ol class="em-howto abs" style="--x:7;--y:15;--w:42">
+        <li>Breathe <b>in</b> slowly: 1, 2, 3, 4.</li>
+        <li><b>Hold</b> your breath: 1, 2, 3, 4.</li>
+        <li>Breathe <b>out</b> slowly: 1, 2, 3, 4.</li>
+        <li><b>Hold</b> again. Repeat 3 times!</li>
+      </ol>
+      <div class="em-flow abs " style="--x:7;--y:44;--w:86;--g:2.1cqw">
+
+        <ul class="em-ideas">
+          <li><i><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 16h24a6 6 0 1 0-6-6M4 26h32a6 6 0 1 1-6 6M10 36h16" fill="none" style="stroke:var(--pal-forest)" stroke-width="3" stroke-linecap="round"/></svg></i><b>Breathe</b><span>Breathe in, breathe out.</span></li>
+          <li><i><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="19" style="fill:var(--pal-magenta)"/><text x="24" y="31" text-anchor="middle" style="font:700 19px Fredoka,sans-serif;fill:var(--pal-white)">10</text></svg></i><b>Count</b><span>Count to ten.</span></li>
+          <li><i><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 8h34a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H23l-10 8v-8H7a4 4 0 0 1-4-4V12a4 4 0 0 1 4-4z" style="fill:var(--pal-lime);stroke:var(--pal-forest)" stroke-width="2.4" stroke-linejoin="round"/><g style="fill:var(--pal-forest)"><circle cx="15" cy="21" r="2.3"/><circle cx="24" cy="21" r="2.3"/><circle cx="33" cy="21" r="2.3"/></g></svg></i><b>Talk</b><span>Talk to a friend.</span></li>
+          <li><i><svg viewBox="0 0 48 48" aria-hidden="true"><g style="fill:var(--pal-magenta)"><ellipse cx="16" cy="30" rx="6" ry="9" transform="rotate(-12 16 30)"/><ellipse cx="33" cy="20" rx="6" ry="9" transform="rotate(12 33 20)"/><circle cx="13" cy="17" r="2.4"/><circle cx="19" cy="15" r="2.4"/><circle cx="30" cy="7" r="2.4"/><circle cx="36" cy="8" r="2.4"/></g></svg></i><b>Walk</b><span>Go for a walk.</span></li>
+          <li><i><svg viewBox="0 0 48 48" aria-hidden="true"><g style="fill:var(--pal-forest)"><circle cx="15" cy="36" r="6.4"/><path d="M19.4 34V8l18 5v8l-14-3.6" style="fill:none;stroke:var(--pal-forest)" stroke-width="3.2" stroke-linejoin="round"/></g></svg></i><b>Listen</b><span>Listen to music.</span></li>
+          <li><i><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 38L8 44l6-2 24-24-4-4z" style="fill:var(--pal-lime);stroke:var(--pal-forest)" stroke-width="2.4" stroke-linejoin="round"/><path d="M34 14l4 4 4-4-4-4z" style="fill:var(--pal-magenta);stroke:var(--pal-forest)" stroke-width="2.4" stroke-linejoin="round"/></svg></i><b>Draw</b><span>Draw or write.</span></li>
+          <li><i><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="19" style="fill:var(--pal-lime);stroke:var(--pal-forest)" stroke-width="2.4"/><text x="24" y="32" text-anchor="middle" style="font:700 24px Fredoka,sans-serif;fill:var(--pal-forest)">?</text></svg></i><b>Ask</b><span>Ask an adult.</span></li>
+          <li><i><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 4C24 4 10 20 10 29a14 14 0 0 0 28 0C38 20 24 4 24 4z" style="fill:var(--pal-aqua);stroke:var(--pal-forest)" stroke-width="2.4" stroke-linejoin="round"/><path d="M17 30a7 7 0 0 0 5 6" fill="none" style="stroke:var(--pal-white)" stroke-width="2.4" stroke-linecap="round"/></svg></i><b>Drink</b><span>Drink some water.</span></li>
+        </ul>
+        <div class="em-note"><p>🗣️ <b>Say it:</b> <i>“When I’m angry, I count to ten.”</i> · <i>“When I’m sad, I listen to music.”</i></p></div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">29</i> Good idea or not?</div><button class="check" type="button" data-tf="em-ex27">✓ Check</button></div>
+        <ol class="em-list two" id="em-ex27" style="--lg:1.3cqw">
+          <li><span class="grow">Take a deep breath.</span><span class="opt flat sm" id="em-ex27-1" data-answer="good"><button type="button">good</button><button type="button">bad</button></span></li>
+          <li><span class="grow">Shout at your friend.</span><span class="opt flat sm" id="em-ex27-2" data-answer="bad"><button type="button">good</button><button type="button">bad</button></span></li>
+          <li><span class="grow">Go for a walk.</span><span class="opt flat sm" id="em-ex27-3" data-answer="good"><button type="button">good</button><button type="button">bad</button></span></li>
+          <li><span class="grow">Say: “I don’t care!”</span><span class="opt flat sm" id="em-ex27-4" data-answer="bad"><button type="button">good</button><button type="button">bad</button></span></li>
+          <li><span class="grow">Talk to a trusted adult.</span><span class="opt flat sm" id="em-ex27-5" data-answer="good"><button type="button">good</button><button type="button">bad</button></span></li>
+          <li><span class="grow">Stay in bed all day.</span><span class="opt flat sm" id="em-ex27-6" data-answer="bad"><button type="button">good</button><button type="button">bad</button></span></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-lime)"><i class="n">30</i> My own toolkit <small>choose three ideas that work for you</small></div></div>
+        <ol class="em-list" style="--lg:1.1cqw">
+          <li><span class="lead">When I’m <input class="fill blank w2" id="em-ex28t-1a" autocomplete="off" aria-label="Feeling 1">, I</span><input class="fill long" id="em-ex28t-1b" autocomplete="off" aria-label="Idea 1"></li>
+          <li><span class="lead">When I’m <input class="fill blank w2" id="em-ex28t-2a" autocomplete="off" aria-label="Feeling 2">, I</span><input class="fill long" id="em-ex28t-2b" autocomplete="off" aria-label="Idea 2"></li>
+          <li><span class="lead">When I’m <input class="fill blank w2" id="em-ex28t-3a" autocomplete="off" aria-label="Feeling 3">, I</span><input class="fill long" id="em-ex28t-3b" autocomplete="off" aria-label="Idea 3"></li>
+        </ol>
+</div>
+      
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer em-foot abs" style="--x:13.5;--y:134.4;--w:40">Emotions</span>
+    </section>
+    <section class="page page-right emo em-r8">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><path d="M0 0 H100 V15 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0 a3.125 3.125 0 0 1 -6.25 0Z" style="fill:var(--pal-magenta)"/><use href="#em-flower" x="-10" y="112" width="26" height="26" style="color:var(--pal-blush)"/><use href="#em-spark" x="93" y="128" width="3.6" height="3.6" style="color:var(--pal-lime)"/></svg>
+
+      <p class="em-kicker abs w" style="--x:7;--y:2.6">Wellbeing · practice</p><h1 class="em-h  abs w" style="--x:7;--y:5.2">Match it!</h1>
+      <div class="em-flow abs " style="--x:7;--y:21;--w:86;--g:2.1cqw">
+
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">31</i> Match it! <small>the feeling and the best idea</small></div><button class="check" type="button" data-match="em-m28">✓ Check</button></div>
+        <div class="match em-match wide" id="em-m28">
+    <ul class="match-words"><li><button type="button" data-key="happy"><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg><b>happy</b></button></li><li><button type="button" data-key="sad"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><b>sad</b></button></li><li><button type="button" data-key="angry"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><b>angry</b></button></li><li><button type="button" data-key="scared"><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg><b>scared</b></button></li><li><button type="button" data-key="surprised"><svg class="em-f surprised " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-surprised"/></svg><b>surprised</b></button></li><li><button type="button" data-key="bored"><svg class="em-f bored " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-bored"/></svg><b>bored</b></button></li><li><button type="button" data-key="excited"><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg><b>excited</b></button></li></ul>
+    <ul class="match-defs"><li><button type="button" data-key="scared">Talk to a friend or an adult.</button></li><li><button type="button" data-key="bored">Move! Dance, walk or stretch.</button></li><li><button type="button" data-key="sad">Listen to music or write in a diary.</button></li><li><button type="button" data-key="excited">Do something creative.</button></li><li><button type="button" data-key="happy">Share it with someone you love.</button></li><li><button type="button" data-key="surprised">Stop, breathe and wait a moment.</button></li><li><button type="button" data-key="angry">Take a deep breath and count to ten.</button></li></ul>
+    <svg class="match-lines" aria-hidden="true"></svg>
+  </div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">32</i> Give advice <small>use You can… or Try to…</small></div></div>
+        <ol class="em-list" style="--lg:1.2cqw">
+          <li><span class="adv"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><i>“I can’t sleep.”</i></span><input class="fill long" id="em-ex29-1" autocomplete="off" aria-label="Advice 1" placeholder="You can… / Try to…"></li>
+          <li><span class="adv"><svg class="em-f worried " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-worried"/></svg><i>“My friend is angry with me.”</i></span><input class="fill long" id="em-ex29-2" autocomplete="off" aria-label="Advice 2" placeholder="You can… / Try to…"></li>
+          <li><span class="adv"><svg class="em-f nervous " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-nervous"/></svg><i>“I’m nervous about my test.”</i></span><input class="fill long" id="em-ex29-3" autocomplete="off" aria-label="Advice 3" placeholder="You can… / Try to…"></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-lime)"><i class="n">33</i> Build your calm-down staircase <small>what do you do, step by step?</small></div></div>
+        <div class="em-stairs">
+          <div class="st s4"><i>4</i><span>I feel <b>angry</b>! I stop and I…</span><input class="fill long" id="em-ex30-4" autocomplete="off" aria-label="Step 4"></div>
+          <div class="st s3"><i>3</i><span>Then I…</span><input class="fill long" id="em-ex30-3" autocomplete="off" aria-label="Step 3"></div>
+          <div class="st s2"><i>2</i><span>After that I…</span><input class="fill long" id="em-ex30-2" autocomplete="off" aria-label="Step 2"></div>
+          <div class="st s1"><i>1</i><span>Now I feel <b>calm</b>!</span><input class="fill long" id="em-ex30-1" autocomplete="off" aria-label="Step 1"></div>
+        </div>
+</div>
+      <div class="em-games abs" style="--x:7;--y:122.5;--w:86"><b>🎮 GAME CORNER</b><span>play with your class or on your own!</span><button type="button" data-emo="crew">Coping Crew</button></div>
+      
+      <span class="footer em-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Emotions</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="emo-compare" data-title="Emotions" data-name="Compare! · Super situations">
+    <!-- Written version of the game "Compare!": comparatives and superlatives of feelings; which makes you feel more…?; super situations -->
+    <section class="page page-left emo em-l9">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><rect x="0" y="0" width="50" height="24" style="fill:var(--pal-magenta)" /><rect x="50" y="0" width="50" height="24" style="fill:var(--pal-lime)" /><circle cx="50" cy="24" r="7.6" style="fill:var(--pal-forest)"/><use href="#em-flower" x="84" y="116" width="30" height="30" style="color:var(--pal-pale-lime)"/><use href="#em-spark" x="5" y="124" width="3.6" height="3.6" style="color:var(--pal-magenta)"/></svg>
+
+      <p class="em-kicker abs" style="--x:7;--y:3.4;color:var(--pal-white)">Grammar</p>
+      <h1 class="em-h abs" style="--x:7;--y:6;color:var(--pal-white);font-size:7.6cqw">Compare!</h1>
+      <p class="em-sub abs" style="--x:52;--y:5.6;--w:42;color:var(--em-c);text-align:right;padding-right:0">Which makes you feel <b>more</b>…?</p>
+      <div class="em-vs abs" style="--x:43.4;--y:16.4;--w:13.2;--h:13.2"><span>VS</span></div>
+      <div class="em-flow abs " style="--x:7;--y:33;--w:86;--g:2cqw">
+
+        <div class="em-rule3">
+          <div style="--c:var(--pal-magenta)"><small>short words</small><b>happy → happ<u>ier</u></b><span>She is happ<u>ier</u> than me.</span></div>
+          <div style="--c:var(--pal-forest)"><small>long words</small><b><u>more</u> scared</b><span>I’m <u>more</u> scared than you.</span></div>
+          <div style="--c:var(--pal-green)"><small>the top</small><b><u>the most</u> excited</b><span>He is <u>the most</u> excited.</span></div>
+        </div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">34</i> Complete the table</div><button class="check" type="button" data-list="em-ex31">✓ Check</button></div>
+        <div class="em-cmphead"><span></span><b>feeling</b><b>comparative</b><b>superlative</b></div>
+        <ol class="em-cmp" id="em-ex31">
+          <li class="given"><b><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg>happy</b><span>happier</span><span>the happiest</span></li>
+          <li class=""><b><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg>sad</b><input class="fill blank w2" id="em-ex31-2a" data-given="" data-answer="sadder" autocomplete="off" aria-label="Comparative of sad"><input class="fill blank w2" id="em-ex31-2b" data-given="" data-answer="the saddest" autocomplete="off" aria-label="Superlative of sad"></li>
+          <li class=""><b><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg>angry</b><input class="fill blank w2" id="em-ex31-3a" data-given="" data-answer="angrier" autocomplete="off" aria-label="Comparative of angry"><input class="fill blank w2" id="em-ex31-3b" data-given="" data-answer="the angriest" autocomplete="off" aria-label="Superlative of angry"></li>
+          <li class=""><b><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg>scared</b><input class="fill blank w2" id="em-ex31-4a" data-given="" data-answer="more scared" autocomplete="off" aria-label="Comparative of scared"><input class="fill blank w2" id="em-ex31-4b" data-given="" data-answer="the most scared" autocomplete="off" aria-label="Superlative of scared"></li>
+          <li class=""><b><svg class="em-f nervous " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-nervous"/></svg>nervous</b><input class="fill blank w2" id="em-ex31-5a" data-given="" data-answer="more nervous" autocomplete="off" aria-label="Comparative of nervous"><input class="fill blank w2" id="em-ex31-5b" data-given="" data-answer="the most nervous" autocomplete="off" aria-label="Superlative of nervous"></li>
+          <li class=""><b><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg>excited</b><input class="fill blank w2" id="em-ex31-6a" data-given="" data-answer="more excited" autocomplete="off" aria-label="Comparative of excited"><input class="fill blank w2" id="em-ex31-6b" data-given="" data-answer="the most excited" autocomplete="off" aria-label="Superlative of excited"></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-lime)"><i class="n">35</i> Choose the right form</div><button class="check" type="button" data-tf="em-ex34">✓ Check</button></div>
+        <ol class="em-list" id="em-ex34" style="--lg:1.1cqw">
+          <li><span class="grow">I’m ___ than my sister.</span><span class="opt" id="em-ex34-1" data-answer="angrier"><button type="button">angrier</button><button type="button">more angry</button></span></li>
+          <li><span class="grow">Spiders make me ___ than snakes.</span><span class="opt" id="em-ex34-2" data-answer="more scared"><button type="button">more scared</button><button type="button">scareder</button></span></li>
+          <li><span class="grow">He is ___ than yesterday.</span><span class="opt" id="em-ex34-3" data-answer="sadder"><button type="button">sadder</button><button type="button">more sad</button></span></li>
+          <li><span class="grow">This is ___ day of my life!</span><span class="opt" id="em-ex34-4" data-answer="the happiest"><button type="button">the happiest</button><button type="button">the most happy</button></span></li>
+        </ol>
+        <div class="em-note pink"><p>⚠️ <b>happy → happier</b> (y → ier) · <b>sad → sadder</b> (double the d) · <b>angry → angrier</b>. After a long word: <b>more</b> / <b>the most</b>.</p></div>
+</div>
+      
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer em-foot abs" style="--x:13.5;--y:134.4;--w:40">Emotions</span>
+    </section>
+    <section class="page page-right emo em-r9">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-ivory)" /><rect x="0" y="0" width="100" height="13" style="fill:var(--pal-forest)" /><use href="#em-flower" x="88" y="116" width="26" height="26" style="color:var(--pal-blush)"/><use href="#em-spark" x="3" y="100" width="4" height="4" style="color:var(--pal-lime)"/></svg>
+
+      <p class="em-kicker abs" style="--x:7;--y:3;color:var(--em-b)">Grammar · practice</p>
+      <h1 class="em-h abs" style="--x:7;--y:5.6;color:var(--pal-white)">More or less?</h1>
+      <div class="em-flow abs " style="--x:7;--y:19;--w:86;--g:1.8cqw">
+
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">36</i> Which makes you more…? <small>choose A or B, then write</small></div></div>
+        <div class="em-vscards">
+          <div class="vs"><h4>Which makes you feel <b>more scared</b>?</h4><div class="ab"><div><i>A</i>a snake in your school bag</div><em>or</em><div><i>B</i>a giant spider on your pillow</div></div><span class="opt" id="em-ex32-1"><button type="button">A</button><button type="button">B</button></span><div class="wr"><span>…… makes me more scared than ……</span></div><input class="fill long" id="em-ex32-w1" autocomplete="off" aria-label="Sentence 1"></div>
+          <div class="vs"><h4>Which makes you feel <b>more embarrassed</b>?</h4><div class="ab"><div><i>A</i>socks with sandals at school</div><em>or</em><div><i>B</i>a bad hair day at a party</div></div><span class="opt" id="em-ex32-2"><button type="button">A</button><button type="button">B</button></span><div class="wr"><span>…… makes me more embarrassed than ……</span></div><input class="fill long" id="em-ex32-w2" autocomplete="off" aria-label="Sentence 2"></div>
+          <div class="vs"><h4>Which makes you feel <b>more excited</b>?</h4><div class="ab"><div><i>A</i>a surprise birthday party</div><em>or</em><div><i>B</i>the gift you always wanted</div></div><span class="opt" id="em-ex32-3"><button type="button">A</button><button type="button">B</button></span><div class="wr"><span>…… makes me more excited than ……</span></div><input class="fill long" id="em-ex32-w3" autocomplete="off" aria-label="Sentence 3"></div>
+          <div class="vs"><h4>Which makes you feel <b>more nervous</b>?</h4><div class="ab"><div><i>A</i>a solo in front of the school</div><em>or</em><div><i>B</i>reading your diary to the class</div></div><span class="opt" id="em-ex32-4"><button type="button">A</button><button type="button">B</button></span><div class="wr"><span>…… makes me more nervous than ……</span></div><input class="fill long" id="em-ex32-w4" autocomplete="off" aria-label="Sentence 4"></div>
+        </div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-lime)"><i class="n">37</i> Super situations <small>use the most…</small></div><button class="check" type="button" data-list="em-ex33">✓ Check</button></div>
+        <div class="em-phr bank"><span>terrified</span><span>embarrassed</span><span>thrilled</span><span>heartbroken</span><span>panicked</span><span>delighted</span></div>
+        <ol class="em-list" id="em-ex33" style="--lg:1.2cqw">
+          <li style="flex-direction:column;align-items:flex-start;gap:.2cqw"><span class="lead">A tarantula lands on your shoulder.</span><span class="sup">This is <b>the most</b> <input class="fill blank w2" id="em-ex33-1" data-given="" data-answer="terrified|scared|panicked|frightened|afraid|horrified" autocomplete="off" aria-label="Feeling 1"> moment of my life!</span></li>
+          <li style="flex-direction:column;align-items:flex-start;gap:.2cqw"><span class="lead">You trip and fall in front of the whole class.</span><span class="sup">This is <b>the most</b> <input class="fill blank w2" id="em-ex33-2" data-given="" data-answer="embarrassed|ashamed" autocomplete="off" aria-label="Feeling 2"> moment of my life!</span></li>
+          <li style="flex-direction:column;align-items:flex-start;gap:.2cqw"><span class="lead">Your teacher says: “No homework for a month!”</span><span class="sup">This is <b>the most</b> <input class="fill blank w2" id="em-ex33-3" data-given="" data-answer="thrilled|delighted|happy|excited|joyful|glad" autocomplete="off" aria-label="Feeling 3"> moment of my life!</span></li>
+          <li style="flex-direction:column;align-items:flex-start;gap:.2cqw"><span class="lead">You find out your best friend lies to you.</span><span class="sup">This is <b>the most</b> <input class="fill blank w2" id="em-ex33-4" data-given="" data-answer="heartbroken|sad|upset|hurt|disappointed|angry" autocomplete="off" aria-label="Feeling 4"> moment of my life!</span></li>
+        </ol>
+        <div class="em-stage"><span class="em-stage-tag">Your cards</span><p>Make two cards. Swap them with a partner. Ask: <b>“Which makes you feel more …?”</b></p>
+          <div class="em-own"><div><i>Feeling</i><input class="fill blank" id="em-own-1f" autocomplete="off" aria-label="Feeling of card 1"><i>A</i><input class="fill " id="em-own-1a" autocomplete="off" aria-label="Card 1, A"><i>B</i><input class="fill " id="em-own-1b" autocomplete="off" aria-label="Card 1, B"></div><div><i>Feeling</i><input class="fill blank" id="em-own-2f" autocomplete="off" aria-label="Feeling of card 2"><i>A</i><input class="fill " id="em-own-2a" autocomplete="off" aria-label="Card 2, A"><i>B</i><input class="fill " id="em-own-2b" autocomplete="off" aria-label="Card 2, B"></div></div></div>
+</div>
+      
+      <span class="footer em-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Emotions</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="emo-dice" data-title="Emotions" data-name="Say it with feeling · Roll, read, guess">
+    <!-- Written version of "Sentence Dice": voices (match), a real die (class activity), which feeling?, write it with feeling -->
+    <section class="page page-left emo em-l10">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><rect x="0" y="0" width="100" height="15" style="fill:var(--pal-forest)" /><rect x="0" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="7.2" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="14.4" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="21.6" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="28.8" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="36" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="43.2" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="50.4" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="57.6" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="64.8" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="72" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="79.2" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="86.4" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><rect x="93.60000000000001" y="15" width="3.6" height="3" style="fill:var(--pal-lime)" /><use href="#em-flower" x="88" y="100" width="28" height="28" style="color:var(--pal-blush)"/><use href="#em-spark" x="4" y="118" width="4.2" height="4.2" style="color:var(--pal-magenta)"/></svg>
+
+      <p class="em-kicker abs" style="--x:7;--y:3.4;color:var(--em-b)">Speaking</p>
+      <h1 class="em-h abs" style="--x:7;--y:6;color:var(--pal-white)">Say it with feeling!</h1>
+      <div class="em-flow abs " style="--x:7;--y:21;--w:86;--g:2cqw">
+
+        <p class="em-p">The same words can sound <b>happy</b>, <b>sad</b> or <b>angry</b>. First read the sentence like a <b>robot</b>. Then <b>roll a die</b> and read it again with the feeling!</p>
+        <div class="em-dice">
+          <div><svg class="pips" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="20" style="fill:var(--pal-white);stroke:var(--pal-forest)" stroke-width="5"/><circle cx="50" cy="50" r="8.5" style="fill:var(--pal-magenta)"/></svg><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg><b>happy</b></div>
+          <div><svg class="pips" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="20" style="fill:var(--pal-white);stroke:var(--pal-forest)" stroke-width="5"/><circle cx="28" cy="28" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="72" cy="72" r="8.5" style="fill:var(--pal-magenta)"/></svg><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><b>sad</b></div>
+          <div><svg class="pips" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="20" style="fill:var(--pal-white);stroke:var(--pal-forest)" stroke-width="5"/><circle cx="28" cy="28" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="50" cy="50" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="72" cy="72" r="8.5" style="fill:var(--pal-magenta)"/></svg><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><b>angry</b></div>
+          <div><svg class="pips" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="20" style="fill:var(--pal-white);stroke:var(--pal-forest)" stroke-width="5"/><circle cx="28" cy="28" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="72" cy="28" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="28" cy="72" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="72" cy="72" r="8.5" style="fill:var(--pal-magenta)"/></svg><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg><b>scared</b></div>
+          <div><svg class="pips" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="20" style="fill:var(--pal-white);stroke:var(--pal-forest)" stroke-width="5"/><circle cx="28" cy="28" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="72" cy="28" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="50" cy="50" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="28" cy="72" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="72" cy="72" r="8.5" style="fill:var(--pal-magenta)"/></svg><svg class="em-f surprised " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-surprised"/></svg><b>surprised</b></div>
+          <div><svg class="pips" viewBox="0 0 100 100" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="20" style="fill:var(--pal-white);stroke:var(--pal-forest)" stroke-width="5"/><circle cx="30" cy="26" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="70" cy="26" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="30" cy="50" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="70" cy="50" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="30" cy="74" r="8.5" style="fill:var(--pal-magenta)"/><circle cx="70" cy="74" r="8.5" style="fill:var(--pal-magenta)"/></svg><svg class="em-f bored " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-bored"/></svg><b>bored</b></div>
+        </div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">38</i> How does it sound?</div><button class="check" type="button" data-match="em-m35">✓ Check</button></div>
+        <div class="match em-match wide" id="em-m35">
+    <ul class="match-words"><li><button type="button" data-key="happy"><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg><b>happy</b></button></li><li><button type="button" data-key="sad"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><b>sad</b></button></li><li><button type="button" data-key="angry"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><b>angry</b></button></li><li><button type="button" data-key="scared"><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg><b>scared</b></button></li><li><button type="button" data-key="surprised"><svg class="em-f surprised " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-surprised"/></svg><b>surprised</b></button></li><li><button type="button" data-key="bored"><svg class="em-f bored " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-bored"/></svg><b>bored</b></button></li></ul>
+    <ul class="match-defs"><li><button type="button" data-key="scared">A shaky voice and wide eyes.</button></li><li><button type="button" data-key="bored">A flat, slow voice and a long sigh.</button></li><li><button type="button" data-key="sad">A slow, quiet voice and a sad face.</button></li><li><button type="button" data-key="happy">A warm voice and a big smile.</button></li><li><button type="button" data-key="surprised">A high voice and an open mouth.</button></li><li><button type="button" data-key="angry">A loud, sharp voice and a frown.</button></li></ul>
+    <svg class="match-lines" aria-hidden="true"></svg>
+  </div>
+        <div class="em-stage"><span class="em-stage-tag">Roll, read, guess</span><p>Roll the die. Read <i>“I like pizza.”</i> with the feeling. Your team guesses: <b>“Are you …?”</b></p><div class="em-phr"><span>I like pizza.</span><span>Today is Monday.</span><span>My cat is at home.</span><span>I have a test today.</span><span>It is raining outside.</span><span>I want to go home.</span></div></div>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-lime)"><i class="n">39</i> Describe the voice <small>write 3 sentences</small></div></div>
+        <div class="em-phr bank"><span>loud</span><span>quiet</span><span>slow</span><span>fast</span><span>shaky</span><span>soft</span><span>flat</span><span>high</span></div>
+        <ol class="em-list" style="--lg:1cqw">
+          <li><span class="lead">When I’m <input class="fill blank w2" id="em-ex39-1a" autocomplete="off" aria-label="Feeling 1">, I speak in a</span><input class="fill long" id="em-ex39-1b" autocomplete="off" aria-label="Voice 1"><span class="lead">voice.</span></li>
+          <li><span class="lead">When I’m <input class="fill blank w2" id="em-ex39-2a" autocomplete="off" aria-label="Feeling 2">, I speak in a</span><input class="fill long" id="em-ex39-2b" autocomplete="off" aria-label="Voice 2"><span class="lead">voice.</span></li>
+          <li><span class="lead">When I’m <input class="fill blank w2" id="em-ex39-3a" autocomplete="off" aria-label="Feeling 3">, I speak in a</span><input class="fill long" id="em-ex39-3b" autocomplete="off" aria-label="Voice 3"><span class="lead">voice.</span></li>
+        </ol>
+</div>
+      <div class="em-chk end abs" style="--x:0;--y:138.42;--w:100;--h:3;z-index:1"></div>
+      
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer em-foot abs" style="--x:13.5;--y:134.4;--w:40">Emotions</span>
+    </section>
+    <section class="page page-right emo em-r10">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-ivory)" /><path d="M0 0 H100 V11 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0 a2.5 2.5 0 0 1 -5 0Z" style="fill:var(--pal-lime)"/><use href="#em-flower" x="-9" y="116" width="26" height="26" style="color:var(--pal-pale-lime)"/><use href="#em-spark" x="92" y="118" width="3.6" height="3.6" style="color:var(--pal-magenta)"/></svg>
+
+      <p class="em-kicker abs" style="--x:7;--y:2.4">Speaking · practice</p>
+      <h1 class="em-h abs dark" style="--x:7;--y:4.8;font-size:4.8cqw">Listen and write</h1>
+      <div class="em-flow abs " style="--x:7;--y:17;--w:86;--g:2cqw">
+
+        <div class="em-row between"><div class="em-pill" style="--c:var(--em-a)"><i class="n">40</i> Which feeling?</div><button class="check" type="button" data-tf="em-ex36">✓ Check</button></div>
+        <ol class="em-list" id="em-ex36" style="--lg:1.3cqw">
+          <li><span class="grow">“Yes! Yes! Yes! I win!”</span><span class="opt" id="em-ex36-1" data-answer="excited"><button type="button">bored</button><button type="button">excited</button><button type="button">sad</button></span></li>
+          <li><span class="grow">“Ugh… again? Really?”</span><span class="opt" id="em-ex36-2" data-answer="bored"><button type="button">bored</button><button type="button">happy</button><button type="button">scared</button></span></li>
+          <li><span class="grow">“Please, don’t go…”</span><span class="opt" id="em-ex36-3" data-answer="sad"><button type="button">angry</button><button type="button">proud</button><button type="button">sad</button></span></li>
+          <li><span class="grow">“Help! A spider!”</span><span class="opt" id="em-ex36-4" data-answer="scared"><button type="button">scared</button><button type="button">calm</button><button type="button">proud</button></span></li>
+          <li><span class="grow">“What? Really?! No way!”</span><span class="opt" id="em-ex36-5" data-answer="surprised"><button type="button">tired</button><button type="button">surprised</button><button type="button">sad</button></span></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">41</i> Write it with feeling <small>add Wow! / Oh no! / Yes! / Ugh! … and punctuation</small></div></div>
+        <div class="em-phr bank" title="Read your sentence with the feeling: can your partner guess it?"><span>Wow!</span><span>Oh no!</span><span>Yes!</span><span>Ugh…</span><span>Hmm…</span><span>Help!</span><span>Yuck!</span><span>Aww…</span></div>
+        <ol class="em-write" style="--lg:1cqw">
+          <li><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg><div><p><i>“I have a test today.”</i> <b>scared</b></p><input class="fill long" id="em-ex37-1" autocomplete="off" aria-label="Sentence 1" placeholder="Oh no! …"></div></li>
+          <li><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg><div><p><i>“We have pizza for lunch.”</i> <b>excited</b></p><input class="fill long" id="em-ex37-2" autocomplete="off" aria-label="Sentence 2" placeholder="Oh no! …"></div></li>
+          <li><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><div><p><i>“My cat is at home.”</i> <b>sad</b></p><input class="fill long" id="em-ex37-3" autocomplete="off" aria-label="Sentence 3" placeholder="Oh no! …"></div></li>
+          <li><svg class="em-f bored " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-bored"/></svg><div><p><i>“It is raining outside.”</i> <b>bored</b></p><input class="fill long" id="em-ex37-4" autocomplete="off" aria-label="Sentence 4" placeholder="Oh no! …"></div></li>
+          <li><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><div><p><i>“My bag is very heavy.”</i> <b>angry</b></p><input class="fill long" id="em-ex37-5" autocomplete="off" aria-label="Sentence 5" placeholder="Oh no! …"></div></li>
+        </ol>
+        <div class="em-row between"><div class="em-pill" style="--c:var(--pal-lime)"><i class="n">42</i> Describe a scene <small>a film or a series you know</small></div></div>
+        <div class="em-scene">
+          <div><i>A scene from a film or a series</i><input class="fill long" id="em-ex40-1" autocomplete="off" aria-label="Which scene?" placeholder="What happens?"></div>
+          <div><i>How does the hero feel?</i><input class="fill long" id="em-ex40-2" autocomplete="off" aria-label="Feeling" placeholder="The hero feels…"></div>
+          <div><i>Why?</i><input class="fill long" id="em-ex40-3" autocomplete="off" aria-label="Why" placeholder="Because…"></div>
+        </div>
+</div>
+      
+      <span class="footer em-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Emotions</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="emo-ttt" data-title="Emotions" data-name="Emotion Tic-Tac-Toe · two boards">
+    <!-- Written version of "Emotion Tic-Tac-Toe" (2 teams, pencil, printable): write a correct sentence to win a square, three in a row wins -->
+    <section class="page page-left emo em-l11">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><rect x="0" y="0" width="100" height="17" style="fill:var(--pal-forest)" /><use href="#em-flower" x="86" y="114" width="26" height="26" style="color:var(--pal-pale-lime)"/></svg>
+
+      <p class="em-kicker abs" style="--x:7;--y:3;color:var(--em-b)">Pair work · board 1</p>
+      <h1 class="em-h abs" style="--x:7;--y:5.6;color:var(--pal-white)">Emotion Tic-Tac-Toe</h1>
+      <div class="em-chk mid2 abs" style="--x:0;--y:17;--w:100;--h:3"></div>
+      <div class="em-flow abs " style="--x:7;--y:24;--w:86;--g:2cqw">
+
+        <ol class="em-howto2">
+          <li><i>1</i>Choose a square. Write a sentence: <b>I feel … when …</b></li>
+          <li><i>2</i>The other team checks it. Is it <b>correct</b> and does it make <b>sense</b>?</li>
+          <li><i>3</i>Yes? Mark it ✗ or ○. <b>Three in a row</b> wins!</li>
+        </ol>
+        <div class="em-board" id="em-bd1">
+          <div class="cell"><div class="top"><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg><b>happy</b><span class="opt mark" id="em-bd1-m1"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>happy</b> when…</p><textarea class="fill" id="em-bd1-t1" rows="2" aria-label="Sentence for happy"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><b>sad</b><span class="opt mark" id="em-bd1-m2"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>sad</b> when…</p><textarea class="fill" id="em-bd1-t2" rows="2" aria-label="Sentence for sad"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><b>angry</b><span class="opt mark" id="em-bd1-m3"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>angry</b> when…</p><textarea class="fill" id="em-bd1-t3" rows="2" aria-label="Sentence for angry"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg><b>scared</b><span class="opt mark" id="em-bd1-m4"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>scared</b> when…</p><textarea class="fill" id="em-bd1-t4" rows="2" aria-label="Sentence for scared"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f bored " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-bored"/></svg><b>bored</b><span class="opt mark" id="em-bd1-m5"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>bored</b> when…</p><textarea class="fill" id="em-bd1-t5" rows="2" aria-label="Sentence for bored"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f surprised " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-surprised"/></svg><b>surprised</b><span class="opt mark" id="em-bd1-m6"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>surprised</b> when…</p><textarea class="fill" id="em-bd1-t6" rows="2" aria-label="Sentence for surprised"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f proud " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-proud"/></svg><b>proud</b><span class="opt mark" id="em-bd1-m7"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>proud</b> when…</p><textarea class="fill" id="em-bd1-t7" rows="2" aria-label="Sentence for proud"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f tired " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-tired"/></svg><b>tired</b><span class="opt mark" id="em-bd1-m8"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>tired</b> when…</p><textarea class="fill" id="em-bd1-t8" rows="2" aria-label="Sentence for tired"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f disgusted " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-disgusted"/></svg><b>disgusted</b><span class="opt mark" id="em-bd1-m9"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>disgusted</b> when…</p><textarea class="fill" id="em-bd1-t9" rows="2" aria-label="Sentence for disgusted"></textarea></div>
+        </div>
+        <div class="em-score"><span>Team ✗ <input class="fill" id="em-sc1-x" autocomplete="off" aria-label="Team X score"></span><span>Team ○ <input class="fill" id="em-sc1-o" autocomplete="off" aria-label="Team O score"></span></div>
+</div>
+      
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer em-foot abs" style="--x:13.5;--y:134.4;--w:40">Emotions</span>
+    </section>
+    <section class="page page-right emo em-r11">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)" /><rect x="0" y="0" width="100" height="17" style="fill:var(--pal-magenta)" /><use href="#em-flower" x="-10" y="116" width="26" height="26" style="color:var(--pal-blush)"/></svg>
+
+      <p class="em-kicker abs" style="--x:7;--y:3;color:var(--pal-white)">Pair work · board 2</p>
+      <h1 class="em-h abs" style="--x:7;--y:5.6;color:var(--pal-white)">Again! New feelings</h1>
+      <div class="em-chk mid2 abs" style="--x:0;--y:17;--w:100;--h:3"></div>
+      <div class="em-flow abs " style="--x:7;--y:24;--w:86;--g:2cqw">
+
+        <div class="em-tips">
+          <div><b>Use because!</b><span>I feel nervous <u>when</u> I speak in public <u>because</u> …</span></div>
+          <div><b>Be careful!</b><span>I <u>feel</u> / I’<u>m</u> nervous — not “I have nervous”.</span></div>
+        </div>
+        <div class="em-board" id="em-bd2">
+          <div class="cell"><div class="top"><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg><b>excited</b><span class="opt mark" id="em-bd2-m1"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>excited</b> when…</p><textarea class="fill" id="em-bd2-t1" rows="2" aria-label="Sentence for excited"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f nervous " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-nervous"/></svg><b>nervous</b><span class="opt mark" id="em-bd2-m2"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>nervous</b> when…</p><textarea class="fill" id="em-bd2-t2" rows="2" aria-label="Sentence for nervous"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f worried " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-worried"/></svg><b>worried</b><span class="opt mark" id="em-bd2-m3"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>worried</b> when…</p><textarea class="fill" id="em-bd2-t3" rows="2" aria-label="Sentence for worried"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f embarrassed " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-embarrassed"/></svg><b>embarrassed</b><span class="opt mark" id="em-bd2-m4"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>embarrassed</b> when…</p><textarea class="fill" id="em-bd2-t4" rows="2" aria-label="Sentence for embarrassed"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f calm " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-calm"/></svg><b>calm</b><span class="opt mark" id="em-bd2-m5"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>calm</b> when…</p><textarea class="fill" id="em-bd2-t5" rows="2" aria-label="Sentence for calm"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f confused " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-confused"/></svg><b>confused</b><span class="opt mark" id="em-bd2-m6"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>confused</b> when…</p><textarea class="fill" id="em-bd2-t6" rows="2" aria-label="Sentence for confused"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><b>lonely</b><span class="opt mark" id="em-bd2-m7"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>lonely</b> when…</p><textarea class="fill" id="em-bd2-t7" rows="2" aria-label="Sentence for lonely"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><b>annoyed</b><span class="opt mark" id="em-bd2-m8"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>annoyed</b> when…</p><textarea class="fill" id="em-bd2-t8" rows="2" aria-label="Sentence for annoyed"></textarea></div>
+          <div class="cell"><div class="top"><svg class="em-f calm " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-calm"/></svg><b>relieved</b><span class="opt mark" id="em-bd2-m9"><button type="button">✗</button><button type="button">○</button></span></div><p>I feel <b>relieved</b> when…</p><textarea class="fill" id="em-bd2-t9" rows="2" aria-label="Sentence for relieved"></textarea></div>
+        </div>
+        <div class="em-score"><span>Team ✗ <input class="fill" id="em-sc2-x" autocomplete="off" aria-label="Team X score"></span><span>Team ○ <input class="fill" id="em-sc2-o" autocomplete="off" aria-label="Team O score"></span></div>
+</div>
+      
+      <span class="footer em-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Emotions</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="emo-diary" data-title="Emotions" data-name="My feelings diary · My checkpoint">
+    <!-- A week of feelings (calendar), three journal questions; my words, my checkpoint, a challenge poster -->
+    <section class="page page-left emo em-l12">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-pale-lime)" /><circle cx="0" cy="0" r="30" style="fill:var(--pal-lime)"/><use href="#em-flower" x="84" y="116" width="30" height="30" style="color:var(--pal-lime)"/><use href="#em-spark" x="90" y="6" width="4" height="4" style="color:var(--pal-magenta)"/></svg>
+
+      <div class="em-ticket abs" style="--x:7;--y:3.4;transform:rotate(-1.4deg)"><small>Journal</small><h1>My feelings diary</h1></div>
+      <div class="em-flow abs " style="--x:7;--y:20;--w:86;--g:1.8cqw">
+
+        <p class="em-p small">Every day write <b>one</b> feeling and <b>why</b>. Draw the face in the circle!</p>
+        <div class="em-cal">
+          <div class="day"><b>Monday</b><span class="draw" aria-hidden="true"></span><label>I feel</label><input class="fill " id="em-day-1-f" autocomplete="off" aria-label="Monday: I feel"><label>because</label><textarea class="fill em-lines" id="em-day-1-b" rows="2" aria-label="Monday: because" style="--rows:2"></textarea></div>
+          <div class="day"><b>Tuesday</b><span class="draw" aria-hidden="true"></span><label>I feel</label><input class="fill " id="em-day-2-f" autocomplete="off" aria-label="Tuesday: I feel"><label>because</label><textarea class="fill em-lines" id="em-day-2-b" rows="2" aria-label="Tuesday: because" style="--rows:2"></textarea></div>
+          <div class="day"><b>Wednesday</b><span class="draw" aria-hidden="true"></span><label>I feel</label><input class="fill " id="em-day-3-f" autocomplete="off" aria-label="Wednesday: I feel"><label>because</label><textarea class="fill em-lines" id="em-day-3-b" rows="2" aria-label="Wednesday: because" style="--rows:2"></textarea></div>
+          <div class="day"><b>Thursday</b><span class="draw" aria-hidden="true"></span><label>I feel</label><input class="fill " id="em-day-4-f" autocomplete="off" aria-label="Thursday: I feel"><label>because</label><textarea class="fill em-lines" id="em-day-4-b" rows="2" aria-label="Thursday: because" style="--rows:2"></textarea></div>
+          <div class="day"><b>Friday</b><span class="draw" aria-hidden="true"></span><label>I feel</label><input class="fill " id="em-day-5-f" autocomplete="off" aria-label="Friday: I feel"><label>because</label><textarea class="fill em-lines" id="em-day-5-b" rows="2" aria-label="Friday: because" style="--rows:2"></textarea></div>
+          <div class="day"><b>Saturday</b><span class="draw" aria-hidden="true"></span><label>I feel</label><input class="fill " id="em-day-6-f" autocomplete="off" aria-label="Saturday: I feel"><label>because</label><textarea class="fill em-lines" id="em-day-6-b" rows="2" aria-label="Saturday: because" style="--rows:2"></textarea></div>
+          <div class="day"><b>Sunday</b><span class="draw" aria-hidden="true"></span><label>I feel</label><input class="fill " id="em-day-7-f" autocomplete="off" aria-label="Sunday: I feel"><label>because</label><textarea class="fill em-lines" id="em-day-7-b" rows="2" aria-label="Sunday: because" style="--rows:2"></textarea></div>
+          <div class="day sum"><b>My week</b><p>One word:</p><input class="fill " id="em-week-word" autocomplete="off" aria-label="My week in one word"><p>My best day:</p><input class="fill " id="em-week-best" autocomplete="off" aria-label="My best day"></div>
+        </div>
+        <div class="em-jq">
+          <h3>Right now</h3>
+          <p><i>1</i>How do you feel <b>right now</b>? Click ✓</p>
+          <div class="em-chips six"><button class="em-chip toggle sm" type="button" id="em-now-happy"><svg class="em-f happy " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-happy"/></svg><span>happy</span></button><button class="em-chip toggle sm" type="button" id="em-now-sad"><svg class="em-f sad " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-sad"/></svg><span>sad</span></button><button class="em-chip toggle sm" type="button" id="em-now-angry"><svg class="em-f angry " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-angry"/></svg><span>angry</span></button><button class="em-chip toggle sm" type="button" id="em-now-scared"><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg><span>scared</span></button><button class="em-chip toggle sm" type="button" id="em-now-tired"><svg class="em-f tired " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-tired"/></svg><span>tired</span></button><button class="em-chip toggle sm" type="button" id="em-now-excited"><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg><span>excited</span></button></div>
+          <p><i>2</i>Why? <input class="fill long" id="em-jq-2" autocomplete="off" aria-label="Why do you feel like this?"></p>
+          <p><i>3</i>What can you do to feel better today? <input class="fill long" id="em-jq-3" autocomplete="off" aria-label="What can you do?"></p>
+        </div>
+</div>
+      
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer em-foot abs" style="--x:13.5;--y:134.4;--w:40">Emotions</span>
+    </section>
+    <section class="page page-right emo em-r12">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-lime)" /><circle cx="100" cy="0" r="26" style="fill:var(--pal-magenta)"/><use href="#em-spark" x="6" y="118" width="4.4" height="4.4" style="color:var(--pal-forest)"/><use href="#em-flower" x="-12" y="100" width="28" height="28" style="color:var(--pal-pale-lime)"/></svg>
+
+      <p class="em-kicker abs" style="--x:7;--y:3.4;color:var(--em-c)">The end of the unit</p>
+      <h1 class="em-h abs" style="--x:7;--y:6;color:var(--em-c)">My words &amp; me</h1>
+      <div class="em-flow abs " style="--x:7;--y:17;--w:86;--g:1.9cqw">
+
+        <div class="em-wcard">
+          <div class="em-row between"><div class="em-pill" style="--c:var(--pal-forest)"><i class="n">✎</i> My words <small>write the Italian word</small></div></div>
+          <ol class="em-words">
+            <li><span><svg class="em-f nervous " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-nervous"/></svg><b>nervous</b></span><input class="fill " id="em-wd-1" autocomplete="off" aria-label="nervous in Italian"></li>
+            <li><span><svg class="em-f worried " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-worried"/></svg><b>worried</b></span><input class="fill " id="em-wd-2" autocomplete="off" aria-label="worried in Italian"></li>
+            <li><span><svg class="em-f embarrassed " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-embarrassed"/></svg><b>embarrassed</b></span><input class="fill " id="em-wd-3" autocomplete="off" aria-label="embarrassed in Italian"></li>
+            <li><span><svg class="em-f proud " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-proud"/></svg><b>proud</b></span><input class="fill " id="em-wd-4" autocomplete="off" aria-label="proud in Italian"></li>
+            <li><span><svg class="em-f bored " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-bored"/></svg><b>bored</b></span><input class="fill " id="em-wd-5" autocomplete="off" aria-label="bored in Italian"></li>
+            <li><span><svg class="em-f excited " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-excited"/></svg><b>excited</b></span><input class="fill " id="em-wd-6" autocomplete="off" aria-label="excited in Italian"></li>
+            <li><span><svg class="em-f scared " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-scared"/></svg><b>scared</b></span><input class="fill " id="em-wd-7" autocomplete="off" aria-label="scared in Italian"></li>
+            <li><span><svg class="em-f surprised " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-surprised"/></svg><b>surprised</b></span><input class="fill " id="em-wd-8" autocomplete="off" aria-label="surprised in Italian"></li>
+            <li><span><svg class="em-f disgusted " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-disgusted"/></svg><b>disgusted</b></span><input class="fill " id="em-wd-9" autocomplete="off" aria-label="disgusted in Italian"></li>
+            <li><span><svg class="em-f calm " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-calm"/></svg><b>calm</b></span><input class="fill " id="em-wd-10" autocomplete="off" aria-label="calm in Italian"></li>
+            <li><span><svg class="em-f confused " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-confused"/></svg><b>confused</b></span><input class="fill " id="em-wd-11" autocomplete="off" aria-label="confused in Italian"></li>
+            <li><span><svg class="em-f tired " viewBox="0 0 100 100" aria-hidden="true"><use href="#em-tired"/></svg><b>tired</b></span><input class="fill " id="em-wd-12" autocomplete="off" aria-label="tired in Italian"></li>
+          </ol>
+        </div>
+        <div class="em-wcard">
+          <div class="em-row between"><div class="em-pill" style="--c:var(--pal-magenta)"><i class="n">★</i> My checkpoint <small>click ✓ what you can do</small></div></div>
+          <div class="em-cp">
+            <button class="em-chip toggle sm" type="button" id="em-cp-1"><span>I can name 15 feelings.</span></button>
+            <button class="em-chip toggle sm" type="button" id="em-cp-2"><span>I can say how I feel: I’m… / I feel…</span></button>
+            <button class="em-chip toggle sm" type="button" id="em-cp-3"><span>I can say why: because…</span></button>
+            <button class="em-chip toggle sm" type="button" id="em-cp-4"><span>I can use a little / very / extremely.</span></button>
+            <button class="em-chip toggle sm" type="button" id="em-cp-5"><span>I can compare: more… than… / the most…</span></button>
+            <button class="em-chip toggle sm" type="button" id="em-cp-6"><span>I can say what to do to feel better.</span></button>
+          </div>
+        </div>
+        <div class="em-wcard challenge">
+          <div class="em-row between"><div class="em-pill" style="--c:var(--pal-mustard)"><i class="n">★</i> Challenge <small>optional</small></div></div>
+          <p class="em-p">Make a <b>feelings poster</b> at home: draw one face and write 3 sentences.</p>
+          <div class="em-poster"><span class="draw" aria-hidden="true">Draw the face</span>
+          <ol class="em-list" style="--lg:.9cqw">
+            <li><span class="lead">I feel <input class="fill blank w2" id="em-poster-f" autocomplete="off" aria-label="Poster: feeling"> when</span><input class="fill long" id="em-poster-1" autocomplete="off" aria-label="Poster: when"></li>
+            <li><span class="lead">My body:</span><input class="fill long" id="em-poster-2" autocomplete="off" aria-label="Poster: my body" placeholder="My heart… / My hands…"></li>
+            <li><span class="lead">To feel better I</span><input class="fill long" id="em-poster-3" autocomplete="off" aria-label="Poster: to feel better"></li>
+          </ol></div>
+        </div>
+</div>
+      
+      <span class="footer em-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Emotions</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread scaffold" data-id="scaf-emo-lessons" data-title="Emotions" data-name="Lesson plan · Emotions">
+    <!-- Teacher only: the order of the lessons, where the games of the websites went, the answers of the exercises (checked by the book too: several right answers are accepted) -->
+
+    <section class="page page-left scf-page emo-scf"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · lesson plan</p>
+      <h1 class="scf-title">Emotions <span>· how do you feel?</span></h1>
+      <p class="scf-sub">Level A1+/A2, like the other chapters of the 1st year: <b>be + feeling</b>, <b>feel</b>, <b>because</b>, <b>a little / very / extremely</b> (seen in Alice), <b>-er / more / the most</b>, <b>When I’m …, I …</b>. No past tense, no technical words.</p>
+      <article class="em-les" style="--c:var(--pal-magenta)">
+        <h2><i>1</i> Faces & words <small>15 feelings</small></h2>
+        <p class="pg"><a data-page="emo-intro">The cover and faces</a> · <a data-page="emo-vocab">Meet the crew</a></p>
+        <ul>
+          <li>Warm-up: pupils click ✓ the feelings they know; match and write the faces (1, 2); read the nine cards aloud (<i>I feel … when …</i>).</li>
+          <li>Body clues (3) and “How do they feel?” (4). Computer: <b>Emotion Wheel</b> as a warm-up or a reward.</li></ul>
+      </article>
+      <article class="em-les" style="--c:var(--pal-forest)">
+        <h2><i>2</i> Be, feel, because <small>grammar</small></h2>
+        <p class="pg"><a data-page="emo-be">I am… I feel…</a> · <a data-page="emo-because">Mia’s week</a></p>
+        <ul>
+          <li>Rule cards (+ − ?) and the typical mistake <i>I have fear</i> → <i>I’m scared</i>. Exercises 5–9, speaking in pairs.</li>
+          <li>Reading “Mia’s week”: true/false, why? (because), join the halves, the sentence machine.</li></ul>
+      </article>
+      <article class="em-les" style="--c:var(--pal-green)">
+        <h2><i>3</i> The body and the size of a feeling <small>vocabulary</small></h2>
+        <p class="pg"><a data-page="emo-body">Body talk</a> · <a data-page="emo-ladder">Small &amp; BIG feelings</a></p>
+        <ul>
+          <li>Verbs for the body (smile, cry, shout…), the body map, the dialogue in order (drag or type the number).</li>
+          <li>Ladders: drag the words to the steps; intensifiers (they know them from Alice); “My feelings meter”.</li></ul>
+      </article>
+      <article class="em-les" style="--c:var(--pal-magenta)">
+        <h2><i>4</i> Reading and wellbeing <small>CLIL-light</small></h2>
+        <p class="pg"><a data-page="emo-friends">Four friends</a> · <a data-page="emo-coping">The calm toolkit</a></p>
+        <ul>
+          <li>Chat reading, advice (A/B/C), a reply message. The box-breathing diagram can be done together with the class (1 minute).</li>
+          <li>Match it!, my own toolkit, the calm-down staircase. Computer: <b>Coping Crew</b> (play with the whole class: each team keeps its score).</li></ul>
+      </article>
+      <article class="em-les" style="--c:var(--pal-forest)">
+        <h2><i>5</i> Compare, say it, play <small>speaking</small></h2>
+        <p class="pg"><a data-page="emo-compare">Compare!</a> · <a data-page="emo-dice">Say it with feeling</a> · <a data-page="emo-ttt">Tic-Tac-Toe</a></p>
+        <ul>
+          <li><b>Compare!</b> table and cards; <b>Sentence dice</b> with a real die (the six faces are printed on the page); <b>Tic-Tac-Toe</b>: two teams, one board each, the other team accepts or rejects the sentence.</li></ul>
+      </article>
+      <article class="em-les" style="--c:var(--pal-green)">
+        <h2><i>6</i> My diary and checkpoint <small>review</small></h2>
+        <p class="pg"><a data-page="emo-diary">My feelings diary</a> · <a data-page="emo-diary:R">My words &amp; me</a></p>
+        <ul>
+          <li>A week of feelings (draw the face, one word, because). Homework: the words in Italian and the optional poster.</li></ul>
+      </article>
+    </div></section>
+
+    <section class="page page-right scf-page emo-scf"><div class="scf-in">
+      <h2 class="em-scf-h">From the websites to the book</h2>
+      <table class="em-inv"><thead><tr><th>Game</th><th>How</th><th>Where</th></tr></thead><tbody>
+        <tr><td>Emotion Tic-Tac-Toe</td><td><span class="pp">paper</span></td><td>written boards on <a data-page="emo-ttt">two pages</a></td></tr>
+        <tr><td>Sentence Dice</td><td><span class="pp">paper (a real die)</span></td><td>voices, die key and writing on <a data-page="emo-dice">the dice pages</a></td></tr>
+        <tr><td>Match It!</td><td><span class="pp">paper</span></td><td>exercise “Match it!” on <a data-page="emo-coping:R">the coping page</a></td></tr>
+        <tr><td>Compare!</td><td><span class="pp">paper</span></td><td>tables, cards and superlatives on <a data-page="emo-compare">the Compare! pages</a></td></tr>
+        <tr><td>Journal (hidden on the site)</td><td><span class="pp">paper</span></td><td>diary and questions on <a data-page="emo-diary:L">the diary page</a></td></tr>
+        <tr><td>Emotion Wheel</td><td><span class="pc">computer only</span></td><td>pop-up: button on <a data-page="emo-vocab:R">this page</a> + the home page</td></tr>
+        <tr><td>Coping Crew</td><td><span class="pc">computer only</span></td><td>pop-up: button on <a data-page="emo-coping:R">this page</a> + the home page</td></tr>
+        <tr><td>Coping Library (12 CBT cards)</td><td><span class="pp">reading / printing</span></td><td>simplified in the calm toolkit and the friends’ advice (no technical words)</td></tr>
+      </tbody></table>
+      <h2 class="em-scf-h">Answer key</h2>
+      <ol class="em-key">
+          <li><b>1</b><span><em>Match the face to the word:</em> happy · sad · angry · scared · surprised · bored · tired</span></li>
+          <li><b>2</b><span><em>What is the feeling?:</em> excited · proud · nervous · worried · embarrassed · calm · confused · disgusted</span></li>
+          <li><b>3</b><span><em>Body clues:</em> angry = hot, tense muscles · scared = cold hands, fast heart · sad = heavy, tight throat · bored = flat, slow, yawn · surprised = open mouth, fast breath · happy = warm chest, big smile · excited = bouncy, big smile, fast</span></li>
+          <li><b>4</b><span><em>How do they feel?:</em> happy · scared · angry · bored · scared · excited · proud · surprised</span></li>
+          <li><b>5</b><span><em>am, is or are?:</em> am · is · are · are · is · are · Are · is</span></li>
+          <li><b>6</b><span><em>Say it with feel:</em> I feel angry. · She feels sad. · We feel nervous. · My dog feels scared.</span></li>
+          <li><b>7</b><span><em>True or false?:</em> T · F · F · T · F · T</span></li>
+          <li><b>8</b><span><em>Put the words in order:</em> How are you today? · I am very happy · My sister isn’t angry · My parents are proud of me</span></li>
+          <li><b>10</b><span><em>True or false? (Mia’s week):</em> T · F · F · T · F</span></li>
+          <li><b>11</b><span><em>Find the reason:</em> because his team loses · because it’s Friday · because he has a speech · because her brother takes her book</span></li>
+          <li><b>12</b><span><em>Why?:</em> Because she has a math test. · Because she gets an 8 on her test. · She is excited.</span></li>
+          <li><b>13</b><span><em>Join the halves:</em> I’m nervous → because I have a test. · She’s happy → because it’s her birthday. · We’re bored → because there is nothing to do. · He’s angry → because someone takes his bike. · They’re scared → because they hear a strange noise. · I’m proud → because I help my little brother.</span></li>
+          <li><b>15</b><span><em>When I’m… I…:</em> happy → smile · sad → cry · angry → shout · tired → yawn · scared → shake · embarrassed → blush</span></li>
+          <li><b>17</b><span><em>Put the conversation in order:</em> 1. Hi Sam! How are you? · 2. Not great. I’m nervous. · 3. Why are you nervous? · 4. Because I have a speech tomorrow. · 5. Don’t worry! You can practice with me. · 6. Really? Thanks, that’s a great idea! · 7. Let’s start now. First, take a deep breath. · 8. OK… I feel better already!</span></li>
+          <li><b>19</b><span><em>Put the words on the steps:</em> glad → happy → thrilled · unhappy → sad → heartbroken · annoyed → angry → furious · nervous → scared → terrified</span></li>
+          <li><b>20</b><span><em>How strong is it?:</em> a little · extremely · very · a little · extremely · very</span></li>
+          <li><b>21</b><span><em>Which word is stronger?:</em> furious · thrilled · terrified · heartbroken · exhausted · shocked</span></li>
+          <li><b>23</b><span><em>Odd one out:</em> furious · proud · calm · excited</span></li>
+          <li><b>24</b><span><em>Positive or negative?:</em> proud = positive · embarrassed = negative · calm = positive · worried = negative · excited = positive · disgusted = negative</span></li>
+          <li><b>25</b><span><em>Who says it?:</em> Sam · Mia · Lily · Alex · Mia · Sam</span></li>
+          <li><b>26</b><span><em>Why? Finish the sentences:</em> Alex is sad because he has a bad grade · Mia is angry because her best friend tells her secrets · Sam is nervous because he speaks in front of the class tomorrow · Lily is lonely because she is new at school</span></li>
+          <li><b>27</b><span><em>Which advice is good?:</em> Alex: A · Mia: B · Sam: A · Lily: B</span></li>
+          <li><b>29</b><span><em>Good idea or not?:</em> good · bad · good · bad · good · bad</span></li>
+          <li><b>31</b><span><em>Match it!:</em> happy → Share it with someone you love. · sad → Listen to music or write in a diary. · angry → Take a deep breath and count to ten. · scared → Talk to a friend or an adult. · surprised → Stop, breathe and wait a moment. · bored → Move! Dance, walk or stretch. · excited → Do something creative.</span></li>
+          <li><b>34</b><span><em>Complete the table:</em> happy → happier → the happiest · sad → sadder → the saddest · angry → angrier → the angriest · scared → more scared → the most scared · nervous → more nervous → the most nervous · excited → more excited → the most excited</span></li>
+          <li><b>35</b><span><em>Choose the right form:</em> angrier · more scared · sadder · the happiest</span></li>
+          <li><b>37</b><span><em>Super situations:</em> terrified (or similar) · embarrassed (or similar) · thrilled (or similar) · heartbroken (or similar)</span></li>
+          <li><b>38</b><span><em>How does it sound?:</em> happy → A warm voice and a big smile. · sad → A slow, quiet voice and a sad face. · angry → A loud, sharp voice and a frown. · scared → A shaky voice and wide eyes. · surprised → A high voice and an open mouth. · bored → A flat, slow voice and a long sigh.</span></li>
+          <li><b>40</b><span><em>Which feeling?:</em> excited · bored · sad · scared · surprised</span></li>
+      </ol>
+      <p class="em-scf-foot">Free writing (sentences, diary, poster, dialogues) is not checked by the book. In the typed answers the book accepts the American and the short forms (<i>I’m / I am</i>).</p>
     </div></section>
   </div>
 
@@ -13002,6 +13975,7 @@
   <script src="summer.js"></script>
   <script src="murdoku.js"></script>
   <script src="sports.js"></script>
+  <script src="emotions.js"></script>
   <script src="teach.js"></script>
   <script src="scaffold.js"></script>
   <script type="module" src="cloud.js"></script>
