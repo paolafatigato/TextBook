@@ -654,6 +654,32 @@ textarea.fill.em-lines { height: calc(var(--rows, 4) * 4.2cqw); padding: 0 .6cqw
 @media (prefers-reduced-motion: reduce) { .em-marq span { animation: none; } }
 @media print { .em-marq span { animation: none; } }
 
+/* ---- the test [test-emo]: white, plain, clean print ---- */
+.emo.em-test { background: #fff; }
+.em-t-id { display: flex; gap: 2cqw; font: 700 1.8cqw/1 'Nunito', sans-serif; }
+.em-t-id label { flex: 1; display: flex; align-items: flex-end; gap: .8cqw; }
+.em-t-id .fill { height: 3cqw; font-size: 2cqw; border-bottom: .15cqw solid var(--em-c); }
+.em-t-title small { display: block; font: 800 1.3cqw/1 'Nunito', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--em-a-ink); }
+.em-t-title h1 { margin: .3cqw 0 0; padding-bottom: 1cqw; border-bottom: .5cqw solid var(--em-a); font: 700 5.6cqw/1 'Fredoka', sans-serif; color: var(--em-c); }
+.em-t-h { margin: 0; display: flex; align-items: center; gap: 1cqw; font: 700 2.3cqw/1.1 'Fredoka', sans-serif; color: var(--em-c); }
+.em-t-h i { width: 3.4cqw; height: 3.4cqw; border-radius: 50%; display: grid; place-items: center; background: var(--em-c); color: var(--pal-white); font: 700 1.9cqw/1 'Fredoka', sans-serif; font-style: normal; }
+.em-t-h small { font: 600 1.4cqw/1 'Nunito', sans-serif; color: var(--em-mute); }
+.em-t-sub { margin: 0; font: 800 1.5cqw/1 'Nunito', sans-serif; letter-spacing: .1em; text-transform: uppercase; color: var(--em-a-ink); }
+.em-t-faces .em-f { width: 7cqw; height: 7cqw; }
+.em-t-words { display: block; margin-bottom: .3cqw; font: 700 1.8cqw/1.2 'Nunito', sans-serif; color: var(--em-mute); }
+.em-t-text { padding: 1.4cqw 1.8cqw; border: .22cqw solid var(--em-c); border-radius: 1.6cqw; font: 400 1.85cqw/1.5 'Nunito', sans-serif; }
+.em-t-text p { margin: 0 0 .5cqw; } .em-t-text p:last-child { margin: 0; }
+.em-list > li[style*="display:block"] input.fill.long { display: block; width: 100%; }
+.em-t-draw { display: grid; grid-template-columns: 1fr 1.6fr; gap: 1.6cqw; }
+.em-t-draw label { display: flex; align-items: flex-end; gap: .8cqw; font: 800 1.6cqw/1 'Nunito', sans-serif; }
+.em-t-draw .fill { height: 3.2cqw; font-size: 1.9cqw; border-bottom: .15cqw solid var(--em-c); }
+.em-t-cards { display: grid; gap: 0; border-top: .15cqw dashed var(--em-mute); border-left: .15cqw dashed var(--em-mute); }
+.em-t-cards > div { border-right: .15cqw dashed var(--em-mute); border-bottom: .15cqw dashed var(--em-mute); display: flex; align-items: center; justify-content: center; text-align: center; padding: .8cqw; }
+.em-t-cards.f { grid-template-columns: repeat(4, 1fr); } .em-t-cards.f > div { flex-direction: column; gap: .4cqw; height: 19.5cqw; }
+.em-t-cards.f .em-f { width: 9cqw; height: 9cqw; } .em-t-cards.f b { font: 700 2cqw/1 'Fredoka', sans-serif; text-transform: uppercase; color: var(--em-c); }
+.em-t-cards.s { grid-template-columns: repeat(2, 1fr); } .em-t-cards.s > div { height: 11.2cqw; } .em-t-cards.s b { font: 700 2cqw/1.3 'Fredoka', sans-serif; color: var(--em-c); }
+.em-t-draw label { white-space: nowrap; }
+
 /* ---- the pop-up of the computer games (pixels: it is not inside a page) ---- */
 
 .gq-overlay.emo-modal { --gq-purple: var(--pal-magenta); --gq-coral: var(--pal-forest); --gq-lilac: var(--pal-pink); --gq-card: var(--pal-rose-white); --gq-navy: var(--pal-forest); --gq-dim: var(--pal-slate); --gq-ok: var(--pal-green); --gq-fail: var(--pal-coral); background: color-mix(in srgb, var(--pal-forest) 66%, transparent); }
