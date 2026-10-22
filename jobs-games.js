@@ -156,37 +156,10 @@
       ['CHEF', 'Cooks in a restaurant'], ['AUTHOR', 'Writes books'], ['MUSICIAN', 'Plays music'], ['CHILDMINDER', 'Looks after children'],
       ['SOLDIER', 'Is part of the army'], ['RESUME', 'The American word for CV'], ['SKILLS', 'What you are good at'],
     ],
-    // "Who am I?" ([jobs-forehead:R]): the yes/no questions and, for each secret job, the questions with
-    // the answer "yes" (y) and "sometimes" (s); every other answer is "no"
-    questions: {
-      money: 'Do I make a lot of money?', university: 'Do I need to go to university?', famous: 'Am I famous?',
-      outside: 'Do I work outside?', standing: 'Do I work standing up?', uniform: 'Do I wear a uniform?',
-      children: 'Do I work with children?', sick: 'Do I help sick people?', animals: 'Do I work with animals?',
-      computer: 'Do I use a computer?', drive: 'Do I drive?', hands: 'Do I use my hands a lot?',
-      night: 'Do I work at night?', food: 'Do I work with food?',
-    },
-    secrets: [
-      { job: 'DOCTOR', y: 'money sick computer university', s: 'standing children night uniform' },
-      { job: 'NURSE', y: 'standing uniform sick hands university night', s: 'children computer' },
-      { job: 'VET', y: 'standing animals hands university', s: 'money outside uniform computer night' },
-      { job: 'TEACHER', y: 'children standing computer university', s: '' },
-      { job: 'CHEF', y: 'standing uniform hands night food', s: 'money famous' },
-      { job: 'PILOT', y: 'money uniform computer night', s: 'university drive' },
-      { job: 'POLICE OFFICER', y: 'outside standing uniform drive night', s: 'children animals sick computer' },
-      { job: 'FIRE OFFICER', y: 'outside standing uniform drive hands night', s: 'sick animals' },
-      { job: 'FARMER', y: 'outside standing animals hands drive food', s: '' },
-      { job: 'BUILDER', y: 'outside standing hands drive', s: 'uniform' },
-      { job: 'HAIRDRESSER', y: 'standing hands', s: 'children uniform famous' },
-      { job: 'WEBSITE DEVELOPER', y: 'computer', s: 'money university night' },
-      { job: 'TAXI DRIVER', y: 'drive night', s: 'computer' },
-      { job: 'FOOTBALLER', y: 'money outside standing uniform famous', s: 'children night' },
-      { job: 'CEO', y: 'money computer', s: 'university famous drive' },
-      { job: 'SHOP ASSISTANT', y: 'standing', s: 'uniform computer food children' },
-    ],
   };
 
   const INFO = {
-    twenty: { icon: '🤔', name: 'Who am I?', text: 'The computer has a secret job: ask yes/no questions, then guess!' },
+    twenty: { icon: '🤔', name: 'Who am I?', text: 'The computer has a secret job: type your own yes/no questions, then guess!' },
     who: { icon: '🎯', name: 'Guess the job', text: 'Who am I? Guess the job with as few clues as you can.' },
     categories: { icon: '🗂️', name: 'Job categories', text: 'Health, transport, arts…? Put each job in its group.' },
     speed: { icon: '⚡', name: 'True or false?', text: 'Answer before the time ends!' },
@@ -221,6 +194,7 @@
 
   function showMenu() {
     stop();
+    modal.querySelector('.gq-box').classList.remove('jg-wide');
     $('jbBack').hidden = true;
     $('jbTitle').textContent = '💼 Jobs games';
     setScore(null);
@@ -230,6 +204,7 @@
 
   function play(id) {
     stop();
+    modal.querySelector('.gq-box').classList.remove('jg-wide');
     $('jbBack').hidden = false;
     $('jbTitle').textContent = `${INFO[id].icon} ${INFO[id].name}`;
     setScore(0);
@@ -246,6 +221,7 @@
 
   function close() {
     stop();
+    modal.querySelector('.gq-box').classList.remove('jg-wide');
     modal.hidden = true;
     document.documentElement.classList.remove('gq-open');
   }
@@ -275,56 +251,10 @@
   }
 
   const GAMES = {
-    // like the forehead game: fewer questions = more points, a wrong guess costs 3 points
+    // the forehead game against the computer: the pupil types the questions (jobs-guess.js, questions in jobs-questions.js)
     twenty() {
-      const rounds = shuffle(DATA.secrets).slice(0, 3);
-      const all = DATA.secrets.map(x => x.job).sort();
-      let i = 0, score = 0;
-      const next = () => {
-        if (i === rounds.length) return end(score, rounds.length * 12, 'twenty');
-        const secret = rounds[i];
-        const answer = key => {
-          const v = secret.y.split(' ').includes(key) ? 'y' : secret.s.split(' ').includes(key) ? 's' : 'n';
-          const am = DATA.questions[key].startsWith('Am');
-          return [v, { y: am ? 'Yes, you are.' : 'Yes, you do.', n: am ? 'No, you aren\'t.' : 'No, you don\'t.', s: 'Sometimes.' }[v]];
-        };
-        let asked = 0, points = 12;
-        area.innerHTML = `<div class="gq-card">
-          <div class="gq-count">${i + 1} / ${rounds.length} · this job is worth <b id="jbPts">12</b> points</div>
-          <p class="gq-instr">I have a secret job on my forehead… <em>Ask me questions!</em></p>
-          <div class="jb-qs">${Object.entries(DATA.questions).map(([k, q]) => `<button type="button" class="gq-chip" data-q="${k}">${esc(q)}</button>`).join('')}</div>
-          <ul class="jb-log" id="jbLog"></ul>
-          <p class="gq-instr">Do you know? <em>Am I a…?</em></p>
-          <div class="jb-guess">${all.map(j => `<button type="button" class="gq-choice" data-v="${esc(j)}">${esc(j)}</button>`).join('')}</div>
-          <p class="gq-fb" id="jbFb"></p></div>`;
-        const pts = () => { $('jbPts').textContent = Math.max(1, points); };
-        area.querySelectorAll('.jb-qs .gq-chip').forEach(b => b.addEventListener('click', () => {
-          b.disabled = true;
-          asked++;
-          if (asked > 2) points--; // the first two questions are free
-          const [v, text] = answer(b.dataset.q);
-          $('jbLog').insertAdjacentHTML('afterbegin', `<li><span>${esc(DATA.questions[b.dataset.q])}</span><b class="${v}">${text}</b></li>`);
-          pts();
-        }));
-        const guesses = [...area.querySelectorAll('.jb-guess .gq-choice')];
-        guesses.forEach(b => b.addEventListener('click', () => {
-          if (b.dataset.v !== secret.job) {
-            b.disabled = true;
-            b.classList.add('c-fail');
-            points -= 3;
-            pts();
-            $('jbFb').innerHTML = `<span class="no">✗ No, you aren't! Ask more questions.</span>`;
-            return;
-          }
-          area.querySelectorAll('button').forEach(x => { x.disabled = true; });
-          b.classList.add('c-ok');
-          score += Math.max(1, points);
-          setScore(score);
-          $('jbFb').innerHTML = `<span class="ok">✓ Yes, you are! +${Math.max(1, points)} (${asked} questions)</span>`;
-          later(() => { i++; next(); }, 1800);
-        }));
-      };
-      next();
+      modal.querySelector('.gq-box').classList.add('jg-wide');
+      window.JOBS_GUESS.start(area, { setScore: t => { $('jbScore').textContent = t; }, menu: showMenu });
     },
 
     who() {
@@ -542,6 +472,7 @@
   $('jbClose').addEventListener('click', close);
   modal.addEventListener('click', e => { if (e.target === modal) close(); });
   document.querySelectorAll('[data-jb]').forEach(b => b.addEventListener('click', () => open(b.dataset.jb)));
+  window.JOBS_GAMES = { open };   // used by the Games list on the home page (job-race.js)
 
   // while the pop-up is open the arrow keys must not turn the book's pages
   document.addEventListener('keydown', e => {

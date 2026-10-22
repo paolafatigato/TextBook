@@ -9,7 +9,7 @@
 // Since 2026-10-22 this is only the CLASS game (the computer is the narrator on the whiteboard/LIM, directed by the teacher); the game for one pupil is witch-detective.js.
 // The 'solo' branches below are not reachable any more (mode is always 'class'); leave them or delete them.
 // Cards: 'pc' = the computer deals them, 'hand' = they were dealt by hand (the pupil / the teacher says who is who).
-// Opened by a button with data-wh="play" ([wh-play]) and by the pill "Witch hunt" of the Games list on the home page.
+// Opened by a button with data-wh="play" ([wh-play]) and by the pill "Witch hunt" of the Games list on the home page (which also opens Village Farm).
 
 (() => {
   const DATA = window.WITCH_DATA;
@@ -937,7 +937,7 @@
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', 'var(--pal-plum)');
-    const games = [['play', 'The Village Game (class)', 'wh-play', () => open()], ['detective', 'The Village Detective (alone)', 'wh-play', () => window.WITCH_DETECTIVE && window.WITCH_DETECTIVE.open()], ['guess', 'Who am I? (Guess who)', 'wh-guess:R', () => window.WITCH_GUESS && window.WITCH_GUESS.open()]];
+    const games = [['play', 'The Village Game (class)', 'wh-play', () => open()], ['detective', 'The Village Detective (alone)', 'wh-play', () => window.WITCH_DETECTIVE && window.WITCH_DETECTIVE.open()], ['guess', 'Who am I? (Guess who)', 'wh-guess:R', () => window.WITCH_GUESS && window.WITCH_GUESS.open()], ['farm', 'Village Farm (alone or online)', 'wh-working:R', () => window.WITCH_FARM && window.WITCH_FARM.open()]];
     pill.innerHTML = `<summary>Witch hunt <small>${games.length}</small></summary><div class="topic-pages">${games.map(([id, t, where]) => `<a href="#p${PAGES.of(where)}" data-wh-go="${id}">${t}</a>`).join('')}</div>`;
     list.append(pill);
     document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });
