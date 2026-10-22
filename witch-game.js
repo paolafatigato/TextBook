@@ -784,6 +784,7 @@
       <fieldset id="wgPup" ${mode === 'class' ? '' : 'hidden'}><legend>The pupils</legend>
         <label class="wg-opt"><input type="radio" name="src" value="none" checked><span><b>✎ I type the names later (or never)</b><small>You can play without names. Tap ✎ on a card to type a name. All the characters play.</small></span></label>
         <label class="wg-opt"><input type="radio" name="src" value="class"><span><b>🏫 A class of Classroom Manager</b><small>The characters are given to the pupils of the class at random.</small><span id="wgCls" class="wg-cls"></span></span></label>
+        <div id="wgStu" class="wg-stu-box" hidden></div>
         <label class="wg-opt"><input type="radio" name="src" value="list"><span><b>📝 A list of names</b><small>Separated by commas. The characters are given at random (from 6 to ${CHARS.length} names: with fewer pupils, fewer characters play).</small><textarea name="list" rows="2" placeholder="Anna, Marco, Sara, …">${esc(recall('wh-list') || '')}</textarea></span></label>
         <p class="wg-err" id="wgErr" hidden></p>
       </fieldset>
@@ -794,13 +795,23 @@
       box.innerHTML = cl ? `<select name="cls">${cl.map(c => `<option value="${esc(c.id)}">${esc(c.name)} (${c.students.length})</option>`).join('')}</select>`
         : '<button type="button" class="wg-btn ghost" id="wgConnect">🔗 Connect Classroom Manager</button>';
       $('wgConnect')?.addEventListener('click', async e => { e.preventDefault(); await window.assignCloud?.connect(); fillClasses(); });
+      fillStudents();
+    };
+    // the pupils of the chosen class: untick the ones who are absent
+    const fillStudents = () => {
+      const box = $('wgStu'); if (!box) return;
+      const cl = typeof ASSIGN !== 'undefined' ? ASSIGN.getClasses?.() : null;
+      const c = cl && cl.find(x => x.id === $('wgSet').querySelector('[name=cls]')?.value);
+      box.hidden = !c;
+      box.innerHTML = c ? `<b>Who is here today?</b> <small>Untick the absent pupils.</small><div class="wg-stu">${c.students.map((n, i) => `<label><input type="checkbox" name="stu" value="${i}" checked> ${esc(n)}</label>`).join('')}</div>` : '';
     };
     fillClasses();
     // already signed in on this device: read the classes without asking
     window.assignCloud?.ready?.().then(fillClasses).catch(() => {});
     $('wgSet').addEventListener('change', e => {
       if (e.target.name === 'mode') $('wgPup').hidden = e.target.value !== 'class';
-      if (e.target.name === 'cls') $('wgSet').querySelector('[name=src][value=class]').checked = true;
+      if (e.target.name === 'cls') { $('wgSet').querySelector('[name=src][value=class]').checked = true; fillStudents(); }
+      if (e.target.name === 'stu') $('wgSet').querySelector('[name=src][value=class]').checked = true;
     });
     $('wgSet').querySelector('textarea').addEventListener('input', () => { $('wgSet').querySelector('[name=src][value=list]').checked = true; });
     await new Promise((res, rej) => {
@@ -816,12 +827,12 @@
           let names = [], err = '';
           if (src === 'class') {
             const c = (ASSIGN.getClasses?.() || []).find(x => x.id === f.get('cls'));
-            if (!c) err = 'Connect Classroom Manager and choose a class.'; else names = c.students;
+            if (!c) err = 'Connect Classroom Manager and choose a class.'; else names = f.getAll('stu').map(i => c.students[+i]).filter(Boolean);
           } else if (src === 'list') {
             names = String(f.get('list')).split(/[,;\n]+/).map(x => x.trim()).filter(Boolean);
             store('wh-list', String(f.get('list')));
           }
-          if (src !== 'none' && !err && names.length < 6) err = 'I need at least 6 names to play.';
+          if (src !== 'none' && !err && names.length < 6) err = src === 'class' ? 'I need at least 6 pupils who are here today.' : 'I need at least 6 names to play.';
           if (err) { $('wgErr').textContent = err; $('wgErr').hidden = false; return; }
           if (src !== 'none') pupilList = names.map(x => x.slice(0, 20));
         }

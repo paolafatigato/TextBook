@@ -171,3 +171,7 @@
 .wg-err { margin: 0; padding: 6px 12px; border-radius: 10px; background: var(--pal-coral); font: 800 14px 'Nunito', sans-serif; }
 .wg-opt textarea, .wg-cls select { display: block; width: 100%; margin-top: 6px; padding: 6px 10px; border: 2px solid var(--pal-night); border-radius: 10px; background: var(--pal-white); font: 600 15px 'Nunito', sans-serif; color: var(--pal-night); }
 .wg-cls { display: block; }
+.wg-stu-box { margin: 4px 0 0 34px; padding: 8px 12px; border: 2px dashed var(--pal-plum); border-radius: 12px; background: var(--pal-white); font: 600 14px 'Nunito', sans-serif; }
+.wg-stu { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 2px 12px; margin-top: 6px; max-height: 170px; overflow-y: auto; }
+.wg-stu label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+.wg-stu input { accent-color: var(--pal-plum); }
