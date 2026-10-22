@@ -1,0 +1,39 @@
+/* ---------- "The Village Detective" (pop-up of witch-detective.js): it reuses the .wg-* pieces of witch-game.css, same colors ---------- */
+.wd-left { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.wd-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.wd-day { padding: 3px 14px; border-radius: 999px; background: var(--pal-plum); color: var(--pal-cream); font: 400 16px 'Gloock', serif; }
+.wd-slot { padding: 3px 10px; border: 2px solid var(--pal-night); border-radius: 999px; background: var(--pal-white); font: 700 13px 'Nunito', sans-serif; opacity: .55; }
+.wd-slot.done { opacity: 1; background: var(--pal-wheat); }
+.wd-slot.now { opacity: 1; background: var(--pal-mustard); box-shadow: 2px 2px 0 var(--pal-night); }
+.wd-clues { margin-left: auto; padding: 3px 12px; border-radius: 999px; background: var(--pal-mustard); border: 2px solid var(--pal-night); font: 800 14px 'Nunito', sans-serif; }
+.wd-board { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.wd-board .wg-tile { cursor: default; padding-top: 7px; }
+.wd-board .wg-tile.pickable { cursor: pointer; }
+.wd-board .wg-tile.here { background: var(--pal-wheat); box-shadow: 0 0 0 3px var(--pal-mustard); }
+.wd-star { position: absolute; top: 1px; left: 4px; font-size: 18px; line-height: 1; color: var(--pal-slate); opacity: .45; cursor: pointer; }
+.wd-star:hover { opacity: 1; }
+.wd-star.on { color: var(--pal-coral); opacity: 1; text-shadow: 0 0 0 var(--pal-night), 1px 1px 0 var(--pal-night); }
+.wd-panel { min-height: 210px; }
+.wd-map { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.wd-place { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 12px 6px; border: 2px solid var(--pal-night); border-radius: 14px; background: var(--pal-cream); color: var(--pal-night); cursor: pointer; box-shadow: 3px 3px 0 var(--pal-night); font: 400 16px 'Gloock', serif; }
+.wd-place .i { font-size: 34px; line-height: 1.1; }
+.wd-place:hover { background: var(--pal-mustard); transform: translateY(-2px); }
+.wd-big { margin: 4px 0; font-size: 64px; line-height: 1; text-align: center; }
+.wd-type { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.wd-type input { flex: 1 1 220px; padding: 9px 12px; border: 2px solid var(--pal-night); border-radius: 12px; background: var(--pal-white); font: 600 16px 'Nunito', sans-serif; color: var(--pal-night); }
+.wd-speak { display: grid; grid-template-columns: 70px 1fr; gap: 12px; align-items: center; }
+.wd-speak img { width: 70px; height: 70px; object-fit: contain; border-radius: 50%; background: var(--pal-wheat); }
+.wd-speak .shown { margin: 2px 0; padding: 8px 12px; border-radius: 12px; background: var(--pal-wheat); font: italic 500 18px/1.35 'Cormorant Garamond', serif; }
+.wd-votes { margin: 6px 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3px 12px; font: 400 14px 'Nunito', sans-serif; }
+.wd-note { padding: 10px 12px; border: 2px solid var(--pal-night); border-radius: 14px; background: var(--pal-wheat); font: 400 13px/1.35 'Nunito', sans-serif; max-height: 360px; overflow-y: auto; }
+.wd-note h4 { margin: 0 0 4px; font: 400 17px 'Gloock', serif; color: var(--pal-plum); }
+.wd-note ul { margin: 2px 0 6px; padding-left: 16px; }
+.wd-note li span { font-weight: 800; }
+.wd-sec { margin-top: 6px; }
+.wd-body { margin: 6px 0; padding: 6px 10px; border-radius: 10px; background: var(--pal-coral); color: var(--pal-night); }
+.wd-hist { margin-bottom: 4px; font-size: 12px; color: var(--pal-slate); }
+.wd-tab { width: 100%; border-collapse: collapse; margin-top: 3px; font-size: 12.5px; }
+.wd-tab th, .wd-tab td { padding: 2px 6px; border: 1px solid var(--pal-night); text-align: left; background: var(--pal-white); }
+.wd-tab th { background: var(--pal-plum); color: var(--pal-cream); font-weight: 700; }
+.wd-tip { margin: 6px 0 0; color: var(--pal-slate); font-size: 12px; }
+@media (max-width: 900px) { .wd-board { grid-template-columns: repeat(4, minmax(0, 1fr)); } }

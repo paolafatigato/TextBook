@@ -6,7 +6,8 @@
 // After every night the village does the WITCH HUNT: accusations (the pupil writes hers in English: it counts only if it is correct and sensible), then the vote: who goes to the stake?
 // The witches win when no innocent is left (or when they are as many as the innocents: then they control every vote);
 // the village wins when all the witches are burned. At the end the game says that in real history witches never existed.
-// Settings (start screen): mode 'solo' = the pupil plays against the computer; 'class' = the computer is the narrator on the whiteboard (LIM) and the class plays.
+// Since 2026-10-22 this is only the CLASS game (the computer is the narrator on the whiteboard/LIM, directed by the teacher); the game for one pupil is witch-detective.js.
+// The 'solo' branches below are not reachable any more (mode is always 'class'); leave them or delete them.
 // Cards: 'pc' = the computer deals them, 'hand' = they were dealt by hand (the pupil / the teacher says who is who).
 // Opened by a button with data-wh="play" ([wh-play]) and by the pill "Witch hunt" of the Games list on the home page.
 
@@ -768,15 +769,12 @@
 
   /* ---------- the settings ---------- */
   async function settings() {
-    mode = recall('wh-mode') === 'class' ? 'class' : 'solo';
+    mode = 'class';   // this game is played in class, directed by the teacher; the solo game is witch-detective.js
     deal = recall('wh-deal') === 'hand' ? 'hand' : 'pc';
     const opt = (name, v, cur, icon, title, text) => `<label class="wg-opt"><input type="radio" name="${name}" value="${v}" ${cur === v ? 'checked' : ''}><span><b>${icon} ${title}</b><small>${text}</small></span></label>`;
     area.innerHTML = `<form class="wg-set" id="wgSet">
       <h3>Before we start</h3>
-      <fieldset><legend>Who plays?</legend>
-        ${opt('mode', 'solo', mode, '🧑', 'I play against the computer', 'You are one of the 22 villagers. The computer plays the other 21 and is the narrator.')}
-        ${opt('mode', 'class', mode, '🖥', 'Class game · the narrator is on the whiteboard', 'The whole class plays (up to 22 pupils, one character each). The computer is the narrator on the whiteboard (LIM); the teacher taps what the pupils point at.')}
-      </fieldset>
+      <input type="hidden" name="mode" value="class">
       <fieldset><legend>The cards</legend>
         ${opt('deal', 'pc', deal, '🎲', 'The computer deals the cards', 'It chooses the four witches by chance. Alone: it gives you a character. In class: every pupil taps a character and reads the secret card on the screen.')}
         ${opt('deal', 'hand', deal, '✋', 'The cards are dealt by hand', 'Alone: you tell the game which card you drew. In class: the teacher gives out real cards and taps the witches on the screen.')}
@@ -939,7 +937,7 @@
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', 'var(--pal-plum)');
-    const games = [['play', 'The Village Game', 'wh-play', () => open()], ['guess', 'Who am I? (Guess who)', 'wh-guess:R', () => window.WITCH_GUESS && window.WITCH_GUESS.open()]];
+    const games = [['play', 'The Village Game (class)', 'wh-play', () => open()], ['detective', 'The Village Detective (alone)', 'wh-play', () => window.WITCH_DETECTIVE && window.WITCH_DETECTIVE.open()], ['guess', 'Who am I? (Guess who)', 'wh-guess:R', () => window.WITCH_GUESS && window.WITCH_GUESS.open()]];
     pill.innerHTML = `<summary>Witch hunt <small>${games.length}</small></summary><div class="topic-pages">${games.map(([id, t, where]) => `<a href="#p${PAGES.of(where)}" data-wh-go="${id}">${t}</a>`).join('')}</div>`;
     list.append(pill);
     document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });
