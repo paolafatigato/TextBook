@@ -56,6 +56,10 @@ async function load() {
 }
 
 window.assignCloud = {
+  // read the classes if the teacher is already signed in on this device (no pop-up)
+  async ready() {
+    if (!fb) await (starting ||= start());
+  },
   async connect() {
     if (!fb) await (starting ||= start());
     const provider = new fb.GoogleAuthProvider();

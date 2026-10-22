@@ -135,3 +135,39 @@
 @media (max-width: 860px) { .wq { grid-template-columns: minmax(0, 1fr); } .wq-board { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .wq-board { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; } .wq-tile .pp { width: 50px; height: 50px; } .wq-tile b { font-size: 11.5px; } .wq-end .card { grid-template-columns: 1fr; } }
 @media print { .wh-modal { display: none !important; } }
+/* ---------- accusations, hunger, settings and the class game ---------- */
+.wg-tile.accused .acc { position: absolute; left: 2px; top: -8px; padding: 1px 6px; border-radius: 999px; background: var(--pal-coral); color: var(--pal-night); font: 800 9.5px/1.4 'Nunito', sans-serif; }
+.wg-tile.hungry { border-color: var(--pal-plum); }
+.wg-tile.hungry .st { color: var(--pal-plum); }
+.wg-tile.out.burned { background: var(--pal-blush); }
+.wg-me .wide { grid-column: 1 / -1; }
+.wg-me:has(.wide) { grid-template-columns: 1fr; }
+.wg-me .warn { color: var(--pal-plum); font-style: normal; font-weight: 800; }
+.wg-say .shown { display: block; margin: 6px 0; padding: 8px 12px; border-radius: 10px; background: var(--pal-wheat); font: 700 16px/1.4 'Nunito', sans-serif; }
+.wg-say .shown.bad { background: var(--pal-coral); } .wg-say .shown.good { background: var(--pal-pale-lime); }
+.wg-form { display: flex; gap: 8px; margin-top: 8px; }
+.wg-form input { flex: 1; min-width: 0; padding: 10px 14px; border: 3px solid var(--pal-night); border-radius: 999px; background: var(--pal-white); font: 600 16px 'Nunito', sans-serif; color: var(--pal-night); outline: none; }
+.wg-form input:focus { border-color: var(--pal-plum); box-shadow: 0 0 0 3px var(--pal-lilac-light); }
+.wg-fix { margin-top: 8px; padding: 8px 12px; border-radius: 10px; background: var(--pal-blush); font: 400 14px/1.4 'Nunito', sans-serif; }
+.wg-fix ul { margin: 4px 0 0; padding-left: 20px; }
+.wg-fix mark { background: var(--pal-coral); color: var(--pal-night); padding: 0 4px; border-radius: 4px; }
+.wg-set { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.wg-set h3 { margin: 0; font: 400 30px 'Gloock', serif; color: var(--pal-plum); text-align: center; }
+.wg-set fieldset { margin: 0; padding: 10px 14px 14px; border: 3px solid var(--pal-plum); border-radius: 14px; background: var(--pal-white); display: flex; flex-direction: column; gap: 8px; }
+.wg-set legend { padding: 0 8px; font: 800 12px 'Nunito', sans-serif; letter-spacing: .18em; text-transform: uppercase; color: var(--pal-plum); }
+.wg-opt { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 2px solid var(--pal-night); border-radius: 12px; background: var(--pal-cream); cursor: pointer; }
+.wg-opt:has(input:checked) { background: var(--pal-mustard); box-shadow: 3px 3px 0 var(--pal-night); }
+.wg-opt input { margin-top: 5px; accent-color: var(--pal-plum); }
+.wg-opt b { display: block; font: 400 18px 'Gloock', serif; }
+.wg-opt small { display: block; font: 400 14px/1.35 'Nunito', sans-serif; }
+.wg-set .wg-btns { justify-content: center; }
+/* class game: the name of the pupil on the tile */
+.wg-tile .pup { max-width: 100%; padding: 0 6px; border-radius: 999px; background: var(--pal-plum); color: var(--pal-white); font: 800 11px/1.5 'Nunito', sans-serif; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wg-tile .ed { position: absolute; bottom: 2px; right: 3px; width: 20px; height: 20px; display: grid; place-items: center; border-radius: 50%; background: var(--pal-wheat); font-size: 12px; cursor: pointer; opacity: .75; }
+.wg-tile .ed:hover { opacity: 1; background: var(--pal-mustard); }
+.wg-say .pn, .wg-log .pn { font-weight: 700; color: var(--pal-plum); }
+.wg-log .pn { color: var(--pal-mustard); }
+.wg-log .pn::before, .wg-say .pn::before { content: "("; } .wg-log .pn::after, .wg-say .pn::after { content: ")"; }
+.wg-err { margin: 0; padding: 6px 12px; border-radius: 10px; background: var(--pal-coral); font: 800 14px 'Nunito', sans-serif; }
+.wg-opt textarea, .wg-cls select { display: block; width: 100%; margin-top: 6px; padding: 6px 10px; border: 2px solid var(--pal-night); border-radius: 10px; background: var(--pal-white); font: 600 15px 'Nunito', sans-serif; color: var(--pal-night); }
+.wg-cls { display: block; }

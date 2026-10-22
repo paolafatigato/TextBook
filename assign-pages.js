@@ -393,6 +393,7 @@ const ASSIGN = (() => {
 
   // assign.js (Classroom Manager)
   return {
+    getClasses: () => classes,
     setClasses(list, account) {
       classes = list;
       who = account || '';
