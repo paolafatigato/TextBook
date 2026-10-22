@@ -5,7 +5,7 @@
 //   · at the end of the day the village finds the body: where and when. Then the COUNCIL: you interrogate people ("Where were you in the
 //     afternoon? Who did you see?"), you compare their answers with your notebook, you accuse in correct English (witch-english.js) and the village votes.
 //   · the honest tell the truth; the witch who cursed lies about that time (a place where nobody can say "I saw you", or the alibi of the other witch).
-//   · small chores in the places (picture → English word) give clue coins: more questions for the council.
+//   · small grammar jobs in the places (find and correct the mistake in an A1 sentence about the Middle Ages) give clue coins: 3 coins = one more question.
 // The village wins when both witches are burned; the witches win when they are as many as the innocents, or when they curse you.
 // The logic (state, walking, curses, answers, votes) is in the first block and does not touch the page: it is exported as WITCH_DETECTIVE_LOGIC (tests).
 // Opened by a button with data-wh="detective" ([wh-play]) and by the Games list on the home page.
@@ -25,14 +25,28 @@
   const PL = Object.fromEntries(PLACES.map(p => [p.id, p]));
   const SLOTS = [{ n: 'morning', ico: '🌅' }, { n: 'afternoon', ico: '☀️' }, { n: 'evening', ico: '🌆' }];
   const NVILL = 10, NWITCH = 2, QUESTIONS = 3;
-  // the chores: a picture, type its English word
-  const CHORES = {
-    church: [['🕯️', 'candle'], ['🔔', 'bell'], ['📖', 'book'], ['⭐', 'star']],
-    market: [['🍎', 'apple'], ['🧀', 'cheese'], ['🐟', 'fish'], ['🍞', 'bread'], ['🥚', 'egg']],
-    mill: [['🌾', 'wheat'], ['🍞', 'bread'], ['🐴', 'horse'], ['💧', 'water']],
-    tavern: [['🍲', 'soup'], ['🍖', 'meat'], ['🥛', 'milk'], ['🛏️', 'bed'], ['🔑', 'key']],
-    well: [['🪣', 'bucket'], ['💧', 'water'], ['🐸', 'frog'], ['🌧️', 'rain']],
-    forest: [['🌲', 'tree'], ['🍄', 'mushroom'], ['🐺', 'wolf'], ['🦌', 'deer'], ['🍂', 'leaf'], ['🦉', 'owl']],
+  // the grammar jobs: A1 sentences about the Middle Ages with ONE mistake: [wrong|right]. Tap the wrong word, then write the right one.
+  const COST = 3;   // clue coins for one more question in the council
+  const GRAMMAR = [
+    'The farmer [work|works] in the field.', 'The bishop [have|has] a big church.', 'The lord [live|lives] in a castle.',
+    'The monks [is|are] in the monastery.', 'The blacksmith makes [a|an] iron axe.', 'There [is|are] three nuns in the church.',
+    'The merchant [sell|sells] cloth and spices.', 'I [is|am] a farmer in a small village.', 'The herbalist [know|knows] many plants.',
+    'The peasants [pays|pay] taxes to the lord.', 'The innkeeper [don’t|doesn’t] have a big inn.', 'The beggar [haven’t|hasn’t] got a house.',
+    'The midwife [help|helps] the women.', 'The spinner [make|makes] thread from wool.', 'The villagers [is|are] afraid of the witch.',
+    'There [are|is] a well in the village.', 'The nun [pray|prays] every day.', 'A knight can [goes|go] to war.',
+    'We [has|have] a lot of bread.', 'The farmers [works|work] from sunrise to sunset.', 'The Church [have|has] a lot of power.',
+    'The maids [doesn’t|don’t] have free time.', 'My brother [are|is] a monk.', 'She [don’t|doesn’t] like the lord.',
+    'This is [an|a] witch.', 'The lord has two [horse|horses].', 'There are many [child|children] in the village.',
+    'The woman [have|has] a black cat.', 'They [is|are] very poor.', 'He [go|goes] to the market on Sunday.',
+    'The monk [copy|copies] books by hand.', 'The squire [study|studies] with the knights.', 'People [doesn’t|don’t] have electricity in the Middle Ages.',
+    'The castle [are|is] big and cold.', 'The beggar [ask|asks] for bread.', 'I [has|have] a bad harvest this year.',
+    'You [is|are] a good villager.', 'The healer [help|helps] sick people.', 'The craftsmen [makes|make] shoes and barrels.',
+    'The noblewoman [wear|wears] a long dress.', 'A hungry man [need|needs] food.', 'We [doesn’t|don’t] see the witch.',
+  ];
+  const parseG = t => {
+    const m = t.match(/\[([^|]+)\|([^\]]+)\]/);
+    const before = t.slice(0, m.index), after = t.slice(m.index + m[0].length);
+    return { words: (before + m[1] + after).split(/\s+/), at: before.split(/\s+/).filter(Boolean).length, wrong: m[1], right: m[2], fixed: before + m[2] + after };
   };
 
   const pick = a => a[Math.floor(Math.random() * a.length)];
@@ -221,7 +235,7 @@
     $('wdBoard').innerHTML = G.P.map(tileHtml).join('');
     const T = G.today;
     $('wdBar').innerHTML = `<span class="wd-day">Day ${G.day}</span>${SLOTS.map((s, i) => `<span class="wd-slot ${phase === 'day' && T && T.saw[i] ? 'done' : ''} ${phase === 'day' && T && T.cur === i ? 'now' : ''}">${s.ico} ${s.n}</span>`).join('')}
-      <span class="wd-clues" title="Clue coins: more questions in the council">🪙 ${G.coins}</span>`;
+      <span class="wd-clues" title="Clue coins: 3 coins = one more question in the council">🪙 ${G.coins}</span>`;
     $('wdScore').textContent = G.day ? `Day ${G.day} · ${liveWitches(G).length} witch${liveWitches(G).length === 1 ? '' : 'es'} still hide${liveWitches(G).length === 1 ? 's' : ''}` : '';
     note();
   }
@@ -290,16 +304,29 @@
   /* ---------- a day ---------- */
   const placeButtons = () => PLACES.map(p => ({ label: `<span class="i">${p.ico}</span><b>${p.n}</b>`, value: p.id, place: true }));
 
-  async function chore(place) {
-    const [ico, word] = pick(CHORES[place]);
+  // find and correct the mistake: 2 tries to tap the wrong word, 2 tries to write the right one; 1 clue coin
+  const used = new Set();
+  async function chore() {
+    const left = GRAMMAR.filter(t => !used.has(t));
+    const t = pick(left.length ? left : GRAMMAR);
+    used.add(t);
+    const g = parseG(t);
+    const show = (hl) => `<p class="wd-sent">${g.words.map((w, i) => (hl && i === g.at ? `<mark>${esc(w)}</mark>` : esc(w))).join(' ')}</p>`;
     let msg = '';
-    for (let t = 0; t < 3; t++) {
-      const a = await typeBox(`<h4>🧩 A small job</h4><p>What is this in English?</p><p class="wd-big">${ico}</p>${msg}${t ? `<p class="mute">It has ${word.length} letters and starts with <b>${word[0]}</b>.</p>` : ''}`);
-      if (a === null) return;
-      if (a.trim().toLowerCase() === word) { G.coins++; board(); await next(`<h4>✔ Well done!</h4><p class="goodtx">The ${esc(word)}! You get <b>1 clue coin</b> 🪙.</p>`); return; }
-      msg = '<p class="badtx">Not that word. Try again.</p>';
+    for (let n = 0; ; n++) {
+      if (n === 2) { await next(`<h4>The mistake was here</h4>${show(true)}<p>Right: <b>“${esc(g.fixed)}”</b></p><p class="mute">No coin this time.</p>`); return; }
+      const v = await wait(`<h4>🧩 Find the mistake</h4><p>There is <b>one wrong word</b>. Tap it.</p>${msg}`, g.words.map((w, i) => ({ label: esc(w), value: i, cls: 'ghost wd-word' })), 'wd-words');
+      if (v === g.at) break;
+      msg = '<p class="badtx">No, this word is correct. Look again.</p>';
     }
-    await next(`<h4>It was “${esc(word)}”</h4><p class="mute">No coin this time.</p>`);
+    msg = '';
+    for (let n = 0; ; n++) {
+      if (n === 2) { await next(`<h4>The right word is “${esc(g.right)}”</h4>${show(false).replace(esc(g.words[g.at]), `<mark>${esc(g.words[g.at])}</mark>`)}<p>Right: <b>“${esc(g.fixed)}”</b></p><p class="mute">No coin this time.</p>`); return; }
+      const a = await typeBox(`<h4>✔ That is the wrong word!</h4>${show(true)}<p>Write the <b>right word</b> to replace <mark>${esc(g.wrong)}</mark>.</p>${msg}`);
+      if (a === null) return;
+      if (a.trim().toLowerCase().replace(/'/g, '’') === g.right.toLowerCase()) { G.coins++; board(); await next(`<h4>🎉 Correct!</h4><p class="shown">“${esc(g.fixed)}”</p><p class="goodtx">You get <b>1 clue coin</b> 🪙. <span class="mute">(${COST} coins = 1 more question in the council)</span></p>`); return; }
+      msg = '<p class="badtx">Not this word. Try again.</p>';
+    }
   }
 
   async function playSlot(s) {
@@ -312,8 +339,8 @@
     here = new Set(saw.with); board();
     const where = PL[place];
     let msg = saw.with.length ? `<p>You meet: <b>${esc(list(G, saw.with))}</b>.</p>` : `<p>You are <b>alone</b>. 😬 You hear a noise… but nobody comes.</p>`;
-    const r = await wait(`<h4>${where.ico} You are ${where.at}</h4>${msg}`, [{ label: '🧩 Do a small job (+1 🪙)', value: 'chore' }, { label: 'Continue ▶', value: 'go', cls: 'ghost' }]);
-    if (r === 'chore') await chore(place);
+    const r = await wait(`<h4>${where.ico} You are ${where.at}</h4>${msg}`, [{ label: '🧩 Find the mistake (+1 🪙)', value: 'chore' }, { label: 'Continue ▶', value: 'go', cls: 'ghost' }]);
+    if (r === 'chore') await chore();
     here = new Set();
     return 'ok';
   }
@@ -322,15 +349,15 @@
   async function interrogate() {
     const T = G.today;
     for (;;) {
-      const can = T.qLeft > 0 || G.coins > 0;
-      const r = await pickTile(`<h4>🗣 The council</h4><p>${can ? `Choose a villager to <b>question</b>. ${T.qLeft > 0 ? `Free questions today: <b>${T.qLeft}</b>.` : 'No free questions left: a new question costs <b>1 🪙</b>.'}` : 'You have no questions left.'} <span class="mute">The same question gets the same answer.</span></p>`,
+      const can = T.qLeft > 0 || G.coins >= COST;
+      const r = await pickTile(`<h4>🗣 The council</h4><p>${can ? `Choose a villager to <b>question</b>. ${T.qLeft > 0 ? `Free questions today: <b>${T.qLeft}</b>.` : `No free questions left: one more question costs <b>${COST} 🪙</b> (you have ${G.coins}).`}` : 'You have no questions left.'} <span class="mute">The same question gets the same answer.</span></p>`,
         p => can && p.alive && p !== G.me, [{ label: 'Go to the vote ▶', value: 'vote' }]);
       if (r === 'vote') return;
       const p = G.P[r.tile];
       const s = await wait(`<h4>Question for ${esc(label(p))}</h4><p>“Where were you… and who did you see?”</p>`, [...SLOTS.map((x, i) => ({ label: `${x.ico} in the ${x.n}`, value: i })), { label: '← Back', value: -1, cls: 'ghost' }]);
       if (s < 0) continue;
       const fresh = !(T.claims[p.i] && T.claims[p.i][s]);
-      if (fresh) { if (T.qLeft > 0) T.qLeft--; else { G.coins--; } }
+      if (fresh) { if (T.qLeft > 0) T.qLeft--; else { G.coins -= COST; } }
       const c = claim(G, p.i, s);
       const text = `In the ${SLOTS[s].n} I was ${PL[c.place].at}. ${c.with.length ? `I saw ${list(G, c.with)}.` : 'I was alone.'}`;
       board();
@@ -411,7 +438,7 @@
       const r = G.me.role;
       await next(`<h4>🔎 The Village Detective</h4><p>You are <b>the ${esc(label(G.me))}</b> <em>(${esc(r.it)})</em>. You are innocent. But <b>${NWITCH} of the ${NVILL} villagers are secret witches</b>.</p>
         <p>Every day you go to <b>three places</b>. You see only who is there with you. A witch curses somebody <b>only when they are alone together</b>. Then the village meets: <b>question</b> the villagers, find who is lying, and vote.</p>
-        <p class="mute">Write your notes in the notebook. Do small jobs to win clue coins 🪙.</p>`, 'Start the game ▶');
+        <p class="mute">Write your notes in the notebook. In every place you can find the mistake in a sentence: each win is 1 clue coin 🪙, and <b>3 coins buy one more question</b>.</p>`, 'Start the game ▶');
       let w = null;
       while (!w) {
         startDay(G); phase = 'day'; board();

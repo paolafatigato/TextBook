@@ -212,8 +212,17 @@ async function route() {
     return;
   }
   const m = location.hash.match(/^#p(\d+(?:\.\d+)?)/);
-  if (m) goToPage(parseFloat(m[1]));
-  else showHome();
+  if (m) {
+    // the exact page may be one only the teacher sees: wait for the sign-in before choosing the closest one
+    const n = parseFloat(m[1]);
+    const exact = spreads.find(sp => !isScaffold(sp) && pagesOf(sp)[0] <= n && n <= pagesOf(sp)[1]);
+    if (exact && !canSee(exact)) {
+      const hash = location.hash;
+      await Promise.race([userReady, new Promise(r => setTimeout(r, 6000))]);
+      if (location.hash !== hash) return;
+    }
+    goToPage(n);
+  } else showHome();
 }
 window.addEventListener('hashchange', route);
 

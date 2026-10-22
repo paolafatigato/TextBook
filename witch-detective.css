@@ -37,3 +37,7 @@
 .wd-tab th { background: var(--pal-plum); color: var(--pal-cream); font-weight: 700; }
 .wd-tip { margin: 6px 0 0; color: var(--pal-slate); font-size: 12px; }
 @media (max-width: 900px) { .wd-board { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.wd-words { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.wd-word { padding: 8px 14px; font-size: 17px; }
+.wd-sent { margin: 6px 0; padding: 8px 12px; border-radius: 12px; background: var(--pal-wheat); font: 600 18px/1.4 'Nunito', sans-serif; }
+.wd-sent mark { background: var(--pal-coral); color: var(--pal-night); padding: 0 4px; border-radius: 4px; }
