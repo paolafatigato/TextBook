@@ -1,0 +1,116 @@
+/* ---------- "Village Farm" (pop-up of witch-farm.js), the colors of the witch chapter: plum, mustard, coral ---------- */
+.fv { display: grid; grid-template-columns: minmax(250px, 320px) minmax(0, 1fr); gap: 14px; align-items: start; }
+.fv > * { min-width: 0; }
+.fv-top { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.fv-chip { padding: 4px 12px; border: 2px solid var(--pal-night); border-radius: 999px; background: var(--pal-white); font: 800 14px 'Nunito', sans-serif; }
+.fv-chip.season { background: var(--pal-lilac-light); }
+.fv-chip.coin { background: var(--pal-mustard); }
+.fv-goal { position: relative; flex: 1 1 220px; min-width: 200px; height: 30px; border: 2px solid var(--pal-night); border-radius: 999px; overflow: hidden; background: var(--pal-white); }
+.fv-goal i { position: absolute; inset: 0 auto 0 0; background: var(--pal-mustard); transition: width .6s; }
+.fv-goal b { position: relative; display: block; text-align: center; font: 800 13px/26px 'Nunito', sans-serif; }
+
+/* the field: 3 × 3 plots */
+.fv-field { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 10px; border: 3px solid var(--pal-brown); border-radius: 14px; background: var(--pal-wheat); }
+.fv-plot { position: relative; aspect-ratio: 1; display: grid; place-items: center; border-radius: 10px; background: var(--pal-brown); border-bottom: 4px solid color-mix(in srgb, var(--pal-night) 45%, var(--pal-brown)); transition: background .3s; }
+.fv-plot .ic { font-size: 30px; line-height: 1; transition: font-size .4s; }
+.fv-plot.s1 .ic { font-size: 34px; } .fv-plot.s2 .ic { font-size: 40px; } .fv-plot.s3 .ic { font-size: 46px; }
+.fv-plot.now { box-shadow: 0 0 0 3px var(--pal-mustard); animation: wgPulse 1s ease-in-out infinite; }
+.fv-plot.rot { filter: grayscale(.6); }
+.fv-plot.ripe { background: color-mix(in srgb, var(--pal-green) 35%, var(--pal-brown)); }
+.fv-w { position: absolute; left: 0; right: 0; bottom: 1px; text-align: center; font-size: 11px; line-height: 1; }
+.fv-legend { margin: 6px 2px 0; font: 600 12.5px/1.3 'Nunito', sans-serif; color: var(--pal-slate); }
+
+/* the panel */
+.fv-panel { min-height: 360px; min-width: 0; }
+.fv-say { padding: 14px 16px; border: 3px solid var(--pal-plum); border-radius: 14px; background: var(--pal-white); }
+.fv-say h4 { margin: 0 0 6px; font: 400 22px 'Gloock', serif; color: var(--pal-plum); }
+.fv-say h2 { margin: 0 0 6px; font: 400 36px 'Gloock', serif; color: var(--pal-plum); }
+.fv-say p { margin: 6px 0; font: 400 15.5px/1.4 'Nunito', sans-serif; }
+.fv-steps { margin: 8px 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.fv-steps li { display: flex; align-items: center; gap: 10px; padding: 6px 10px; border-radius: 10px; background: var(--pal-wheat); font: 400 15px/1.3 'Nunito', sans-serif; }
+.fv-steps li > span { font-size: 26px; }
+.fv-say .fx { padding: 8px 12px; border-radius: 10px; border-left: 6px solid var(--pal-mustard); background: var(--pal-wheat); font-size: 14px; }
+.fv-say .fx b:first-child { letter-spacing: .14em; color: var(--pal-plum); }
+
+/* sowing */
+.fv-seed { text-align: center; }
+.fv-pic { display: inline-grid; place-items: center; width: 130px; height: 130px; margin: 4px 0; border-radius: 50%; background: var(--pal-lilac-light); border: 3px solid var(--pal-night); font-size: 74px; line-height: 1; }
+.fv-pic.shake { animation: fvShake .35s; }
+@keyframes fvShake { 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+.fv-blanks { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin: 6px 0 10px; }
+.fv-blanks i { display: grid; place-items: center; width: 34px; height: 42px; border-bottom: 4px solid var(--pal-plum); background: var(--pal-cream); border-radius: 6px 6px 0 0; font: 400 24px 'Gloock', serif; font-style: normal; color: var(--pal-night); }
+.fv-blanks i.on { background: var(--pal-mustard); }
+.fv-seed .wq-form { justify-content: center; }
+.fv-msg { min-height: 24px; font-weight: 700; }
+.fv-msg.good { color: var(--pal-forest); } .fv-msg.bad { color: var(--pal-plum); }
+.fv-tries { font-size: 14px; color: var(--pal-slate); }
+
+/* rain */
+.fv-arena { position: relative; height: 380px; overflow: hidden; border: 3px solid var(--pal-night); border-radius: 14px; background: linear-gradient(var(--pal-lilac-light), color-mix(in srgb, var(--pal-sky) 55%, var(--pal-cream))); user-select: none; touch-action: manipulation; }
+.fv-arena.hit { animation: fvShake .3s; }
+.fv-cloud { position: absolute; z-index: 2; left: 50%; top: 6px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; min-width: 220px; padding: 8px 30px 10px; border: 3px solid var(--pal-night); border-radius: 999px; background: var(--pal-white); box-shadow: 0 5px 0 var(--pal-plum); text-align: center; }
+.fv-cloud small { font: 800 10px 'Nunito', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--pal-plum); }
+.fv-cloud b { font: 400 24px/1.1 'Gloock', serif; }
+.fv-cloud.new { animation: fvCloud .6s ease-out; }
+@keyframes fvCloud { from { transform: translateX(-50%) scale(.6); opacity: 0; } }
+.fv-drop { position: absolute; left: 0; top: 0; z-index: 1; padding: 5px 14px 5px 10px; border: 2px solid var(--pal-night); border-radius: 50% 50% 50% 50% / 65% 65% 38% 38%; background: var(--pal-aqua); font: 800 16px 'Nunito', sans-serif; white-space: nowrap; cursor: pointer; box-shadow: 2px 3px 0 var(--pal-night); }
+.fv-drop::before { content: '💧 '; font-size: 13px; }
+.fv-drop:hover { background: var(--pal-sky); }
+.fv-drop.good { background: var(--pal-pale-lime); opacity: .6; } .fv-drop.bad { background: var(--pal-coral); opacity: .6; }
+.fv-toast { position: absolute; z-index: 3; pointer-events: none; padding: 2px 10px; border-radius: 999px; font: 800 14px 'Nunito', sans-serif; animation: fvUp .9s ease-out forwards; }
+.fv-toast.good { background: var(--pal-pale-lime); } .fv-toast.bad { background: var(--pal-coral); }
+@keyframes fvUp { to { transform: translateY(-30px); opacity: 0; } }
+.fv-rbar { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+.fv-wat { padding: 3px 14px; border: 2px solid var(--pal-night); border-radius: 999px; background: var(--pal-aqua); font: 800 17px 'Nunito', sans-serif; }
+.fv-time { flex: 1; height: 14px; border: 2px solid var(--pal-night); border-radius: 999px; overflow: hidden; background: var(--pal-white); }
+.fv-time i { display: block; height: 100%; width: 0; background: var(--pal-plum); }
+
+/* market and taxes */
+.fv-ev { padding: 8px 12px; border-radius: 10px; background: var(--pal-wheat); font-size: 15.5px; }
+.fv-ev.good { background: var(--pal-pale-lime); } .fv-ev.bad { background: var(--pal-blush); }
+.fv-crops { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0; }
+.fv-crops span { padding: 2px 9px; border: 1.5px solid var(--pal-night); border-radius: 999px; background: var(--pal-white); font: 600 13.5px 'Nunito', sans-serif; }
+.fv-crops span b { padding: 0 6px; border-radius: 999px; background: var(--pal-mustard); }
+.fv-crops span.dead { opacity: .55; }
+.fv-tax { width: 100%; border-collapse: collapse; font: 600 16px 'Nunito', sans-serif; }
+.fv-tax td { padding: 6px 8px; border-bottom: 1.5px solid var(--pal-wheat); }
+.fv-tax td:first-child { width: 36px; font-size: 20px; }
+.fv-tax td:nth-child(3) { width: 60px; color: var(--pal-slate); }
+.fv-tax td:last-child { width: 70px; text-align: right; color: var(--pal-plum); font-weight: 800; }
+.fv-tax tr.sold td, .fv-tax tr.keep td { background: var(--pal-wheat); }
+.fv-tax tr.keep td:last-child { color: var(--pal-forest); }
+.fv-sum { font-size: 17px; }
+.fv-win { text-align: center; }
+.fv-win .fx { text-align: left; }
+
+@media (max-width: 860px) { .fv { grid-template-columns: minmax(0, 1fr); } .fv-field { max-width: 340px; } }
+
+/* the button under the card of the Farmer (page 166) */
+.wh-farmbtn { align-self: center; flex: none; }
+
+/* strategy: the plants to choose, the shepherd, the plots */
+.fv-plot { cursor: default; }
+.fv-plot .ic { font-size: 38px; }
+.fv-plot.young .ic { font-size: 34px; opacity: .85; }
+.fv-plot.empty.can { cursor: pointer; box-shadow: 0 0 0 2px var(--pal-mustard); }
+.fv-plot.empty.can:hover { background: color-mix(in srgb, var(--pal-mustard) 30%, var(--pal-brown)); }
+.fv-plot:not(.empty) .ic { font-size: 42px; }
+.fv-w i { font-style: normal; opacity: .55; color: var(--pal-cream); }
+.fv-forecast { padding: 8px 12px; border-left: 6px solid var(--pal-mustard); border-radius: 8px; background: var(--pal-wheat); font: 400 15px/1.35 'Nunito', sans-serif; }
+.fv-forecast small { color: var(--pal-slate); }
+.fv-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; margin: 8px 0; }
+.fv-card { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 6px 9px; border: 2px solid var(--pal-night); border-radius: 12px; background: var(--pal-white); color: var(--pal-night); font: 600 13px/1.2 'Nunito', sans-serif; cursor: pointer; text-align: center; }
+.fv-card:hover { background: var(--pal-wheat); }
+.fv-card.sel { background: var(--pal-mustard); box-shadow: 3px 3px 0 var(--pal-plum); transform: translateY(-2px); }
+.fv-card .e { font-size: 34px; line-height: 1.1; }
+.fv-card b { font: 400 17px 'Gloock', serif; }
+.fv-card .pr i { font-style: normal; font-weight: 800; padding: 0 6px; border-radius: 999px; background: var(--pal-wheat); }
+.fv-card .pr i.common { background: var(--pal-blush); } .fv-card .pr i.rare { background: var(--pal-pale-lime); }
+.fv-card .mk { font: 800 10.5px 'Nunito', sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--pal-slate); }
+.fv-card .mk.common { color: var(--pal-coral); } .fv-card .mk.rare { color: var(--pal-forest); }
+.fv-card .tr { display: flex; flex-wrap: wrap; justify-content: center; gap: 3px; margin-top: 3px; }
+.fv-card .t { padding: 0 6px; border-radius: 999px; border: 1.5px solid var(--pal-night); font: 700 11px/1.5 'Nunito', sans-serif; background: var(--pal-white); }
+.fv-card .t.w { background: var(--pal-aqua); } .fv-card .t.c { background: var(--pal-lilac-light); } .fv-card .t.h { background: var(--pal-pale-lime); }
+.fv-card .t.d { background: var(--pal-lemon); } .fv-card .t.m { background: var(--pal-blush); }
+.fv-key, .fv-lock { margin: 6px 0; font: 600 13px/1.35 'Nunito', sans-serif; color: var(--pal-slate); }
+.fv-ev small { display: block; margin-top: 2px; color: var(--pal-slate); }

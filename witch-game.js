@@ -594,7 +594,7 @@
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', 'var(--pal-plum)');
-    const games = [['play', 'The Village Game', 'wh-play', () => open()], ['guess', 'Who am I? (Guess who)', 'wh-guess', () => window.WITCH_GUESS && window.WITCH_GUESS.open()]];
+    const games = [['play', 'The Village Game', 'wh-play', () => open()], ['guess', 'Who am I? (Guess who)', 'wh-guess:R', () => window.WITCH_GUESS && window.WITCH_GUESS.open()]];
     pill.innerHTML = `<summary>Witch hunt <small>${games.length}</small></summary><div class="topic-pages">${games.map(([id, t, where]) => `<a href="#p${PAGES.of(where)}" data-wh-go="${id}">${t}</a>`).join('')}</div>`;
     list.append(pill);
     document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });
