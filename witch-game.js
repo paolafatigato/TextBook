@@ -29,7 +29,6 @@
   const store = (k, v) => { try { saved[k] = v; persist(); } catch { /* script.js not ready: skip */ } };
   const recall = k => { try { return saved[k]; } catch { return undefined; } };
 
-  try { if (recall('wh-names') && typeof recall('wh-names') === 'object') store('wh-names', JSON.stringify(recall('wh-names'))); } catch { /* skip */ }
   document.body.insertAdjacentHTML('beforeend', `
     <div class="gq-overlay wh-modal" id="whModal" role="dialog" aria-modal="true" aria-labelledby="whTitle" hidden>
       <div class="gq-box wg-box">
