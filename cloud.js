@@ -206,7 +206,7 @@ onAuthStateChanged(auth, async signed => {
   localStorage.setItem(OWNER_KEY, u.uid);
 
   const same = Object.keys(merged).length === Object.keys(local).length
-    && Object.entries(merged).every(([k, v]) => local[k] === v);
+    && Object.entries(merged).every(([k, v]) => local[k] === v || JSON.stringify(local[k]) === JSON.stringify(v)); // (a value that is an object is never === to its copy)
   if (!same) {
     // let the book start again with the merged answers
     book.replaceSaved(merged);

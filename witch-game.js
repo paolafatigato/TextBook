@@ -29,6 +29,7 @@
   const store = (k, v) => { try { saved[k] = v; persist(); } catch { /* script.js not ready: skip */ } };
   const recall = k => { try { return saved[k]; } catch { return undefined; } };
 
+  try { if (recall('wh-names') && typeof recall('wh-names') === 'object') store('wh-names', JSON.stringify(recall('wh-names'))); } catch { /* skip */ }
   document.body.insertAdjacentHTML('beforeend', `
     <div class="gq-overlay wh-modal" id="whModal" role="dialog" aria-modal="true" aria-labelledby="whTitle" hidden>
       <div class="gq-box wg-box">
@@ -72,7 +73,8 @@
   const liveWitches = () => P.filter(p => p.witch && p.alive);
   const innocents = () => P.filter(p => !p.witch && p.alive);
   // class game: the teacher can type the name of the pupil who plays a character (kept between games, per character)
-  const pupilNames = () => { const n = recall('wh-names'); return n && typeof n === 'object' ? n : {}; };
+  // (the saved values are text: an object would make the book reload again and again when it syncs)
+  const pupilNames = () => { try { const n = recall('wh-names'); const o = typeof n === 'string' ? JSON.parse(n) : n; return o && typeof o === 'object' ? o : {}; } catch { return {}; } };
   const pupil = p => (p.pupil ? ` <small class="pn">${esc(p.pupil)}</small>` : '');
   const name = p => `<b>${esc(label(p))}</b>${mode === 'class' ? pupil(p) : ''}`;
   const weight = p => ({ bishop: 3, lord1: 2, lord2: 2 }[p.role] || 1);
@@ -241,7 +243,7 @@
       const v = prompt(`Which pupil plays the ${label(p)}?`, p.pupil || '');
       if (v === null) return;
       p.pupil = v.trim().slice(0, 20);
-      store('wh-names', { ...pupilNames(), [p.role]: p.pupil });
+      store('wh-names', JSON.stringify({ ...pupilNames(), [p.role]: p.pupil }));
       board();
     });
     board();
