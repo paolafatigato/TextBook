@@ -114,3 +114,29 @@
 .fv-card .t.d { background: var(--pal-lemon); } .fv-card .t.m { background: var(--pal-blush); }
 .fv-key, .fv-lock { margin: 6px 0; font: 600 13px/1.35 'Nunito', sans-serif; color: var(--pal-slate); }
 .fv-ev small { display: block; margin-top: 2px; color: var(--pal-slate); }
+
+/* grammar questions of the trader */
+.fv-lvl { margin: 0; font: 800 11px "Nunito", sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--pal-plum); }
+.fv-q { margin: 10px 0 14px; font: 400 25px/1.4 "Gloock", serif; text-align: center; }
+.fv-q .gap { display: inline-block; min-width: 70px; padding: 0 12px; border-bottom: 4px solid var(--pal-plum); border-radius: 6px 6px 0 0; background: var(--pal-wheat); color: var(--pal-plum); text-align: center; }
+.fv-q .gap.good { background: var(--pal-pale-lime); color: var(--pal-forest); } .fv-q .gap.bad { background: var(--pal-blush); }
+.fv-opts { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 6px 0 12px; }
+.fv-opt { min-width: 110px; font-size: 18px; }
+.fv-opt.good { background: var(--pal-pale-lime); } .fv-opt.bad { background: var(--pal-coral); } .fv-opt:disabled { cursor: default; }
+.fv-marks { margin: 4px 0; min-height: 22px; font-size: 18px; letter-spacing: 3px; }
+
+/* online: two devices */
+.fv-net { max-width: 760px; margin: 0 auto; }
+.fv-nm { display: flex; align-items: center; gap: 10px; margin: 8px 0; font: 800 15px 'Nunito', sans-serif; }
+.fv-nm input, .fv-netbox input { padding: 8px 12px; border: 2px solid var(--pal-night); border-radius: 999px; font: 700 16px 'Nunito', sans-serif; }
+.fv-netcols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 10px 0; }
+.fv-netbox { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 12px 14px; border: 2px solid var(--pal-night); border-radius: 14px; background: var(--pal-wheat); font: 400 14px/1.35 'Nunito', sans-serif; }
+.fv-netbox b { font: 400 19px 'Gloock', serif; }
+.fv-netbox input { width: 120px; text-transform: uppercase; letter-spacing: .3em; text-align: center; }
+.fv-roomcode { display: inline-block; padding: 2px 18px; border: 3px solid var(--pal-night); border-radius: 12px; background: var(--pal-mustard); font: 400 40px 'Gloock', serif; letter-spacing: .25em; }
+.fv-lobby { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; padding: 0; list-style: none; }
+.fv-lobby li { padding: 8px 14px; border: 2px dashed var(--pal-slate); border-radius: 12px; font: 600 17px 'Nunito', sans-serif; opacity: .6; }
+.fv-lobby li.on { border-style: solid; border-color: var(--pal-night); background: var(--pal-pale-lime); opacity: 1; }
+.fv-chip.opp { background: var(--pal-lilac-light); }
+.fv-wait { margin: 8px 0; font: 700 16px 'Nunito', sans-serif; color: var(--pal-plum); }
+@media (max-width: 640px) { .fv-netcols { grid-template-columns: 1fr; } }
