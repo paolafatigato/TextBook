@@ -1745,6 +1745,7 @@ function refreshAccess() {
 function hideClosedGames() {
   document.querySelectorAll('#gameList .game-topic').forEach(d => {
     const links = [...d.querySelectorAll('a[href^="#p"]')];
+    if (!links.length) return; // games with no page of their own (Grammar Poker) are always there
     const open = links.some(a => {
       const n = parseFloat(a.getAttribute('href').slice(2));
       const s = spreads.find(x => { const [p, q] = pagesOf(x); return n >= p && n <= q; });

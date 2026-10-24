@@ -209,6 +209,8 @@ onAuthStateChanged(auth, async signed => {
     && Object.entries(merged).every(([k, v]) => local[k] === v || JSON.stringify(local[k]) === JSON.stringify(v)); // (a value that is an object is never === to its copy)
   if (!same) {
     // let the book start again with the merged answers
+    // (the console says which answers made the page reload: useful if it reloads more than once)
+    console.warn('[cloud] the page reloads: answers that differ from the cloud →', Object.keys(merged).filter(k => JSON.stringify(local[k]) !== JSON.stringify(merged[k])).slice(0, 20));
     book.replaceSaved(merged);
     location.reload();
     return;

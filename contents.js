@@ -50,7 +50,7 @@ const CONTENTS = {
         { title: 'Literature: Shakespeare', start: 'shk-meet', color: '#b23a48' },
         { title: 'Clothes & Fashion show', start: 'clothes-vocab', color: '#dc3394', image: 'img/clothes/cover-hamster.png' },
         { title: 'Murdoku: prepositions of place', start: 'mk-intro', color: '#d6423b' },
-        { title: 'Describing photos', color: '#46d9c0' },
+        { title: 'Describing photos', start: 'dp-intro', color: '#46d9c0' },
         { title: 'Past simple', color: '#e8820c' },
         { title: 'Paradigms', color: '#8e2de2' },
         { title: 'CLIL: the Haitian revolution', color: '#1f2a6b' },
@@ -91,6 +91,8 @@ const CONTENTS = {
         { title: 'Exit tickets', start: 'exit-persephone1', color: '#fd7366' },
         // job cards to print for the forehead game (jobs-forehead:R)
         { title: 'Job cards (forehead game)', start: 'jobcards-1', color: '#1f2a6b' },
+        // the Grammar Poker deck: choose the cards, see them, print them (poker-deck.js)
+        { title: 'Poker deck (Grammar Poker)', start: 'pokerdeck-1', color: '#8e2de2' },
       ],
     },
     {
@@ -136,6 +138,15 @@ const CONTENTS = {
     { title: 'Rooms of the house: decorate the house', color: '#4b924d', pages: ['home-vocab:R'] },
     { title: 'Room missions (prepositions game)', color: '#3d9a3d', pages: [['home-prepositions:R', 'home-missions']] },
     { title: 'Reading: Coraline', color: '#c9de3c', pages: ['home-coraline'] },
+    { title: 'Describing photos: the 6-step lens (Cambridge speaking)', color: '#46d9c0', pages: [['dp-intro', 'dp-speak']] },
+    { title: 'Photos: the big picture, weather and time', color: '#46d9c0', pages: ['dp-where'] },
+    { title: 'There is / There are: what I can see', color: '#46d9c0', pages: ['dp-there'] },
+    { title: 'Prepositions of place: where things are in a photo', color: '#46d9c0', pages: ['dp-prep'] },
+    { title: 'Present continuous: what is happening in a photo', color: '#46d9c0', pages: ['dp-doing'] },
+    { title: 'Describing people and things: wearing, has, adjective order', color: '#46d9c0', pages: ['dp-details'] },
+    { title: 'Guessing and opinions: I think, maybe, looks', color: '#46d9c0', pages: ['dp-opinion'] },
+    { title: 'A full description of a photo: model, cloze, writing', color: '#46d9c0', pages: ['dp-model', 'dp-write'] },
+    { title: 'Speaking practice: describe a photo for one minute', color: '#46d9c0', pages: ['dp-speak'] },
     { title: 'Teach Teaching: how the brain learns (CLIL neuroscience)', color: '#2e6890', pages: [['teach-intro', 'teach-day']] },
     { title: 'Science text & cloze: your brain is a forest (blue words)', color: '#2e6890', pages: ['teach-neurons:R'] },
     { title: 'Science text & put the paragraphs in order (drag them): the small desk of the brain', color: '#0b4e87', pages: ['teach-desk:L'] },

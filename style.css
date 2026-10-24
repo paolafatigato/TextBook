@@ -920,7 +920,7 @@ input.fill.nb-num.no { background: #e53935; color: #fff; }
 .game-rules ul { margin: 0 0 .8cqw; padding-left: 2cqw; }
 .game-rules li { margin-bottom: .8cqw; }
 .game-rules p { margin: 0 0 .8cqw 2cqw; }
-.dice-row { display: flex; align-items: center; gap: 1.6cqw; margin: 1cqw 0 0 2cqw; }
+.dice-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1cqw 1.6cqw; margin: 1cqw 0 0 2cqw; }
 .dice-btn { font: 800 1.5cqw/1 'Nunito', sans-serif; color: #fff; background: #8e2de2; border: 0; border-radius: 999px; padding: .8cqw 1.8cqw; cursor: pointer; }
 .dice-btn:hover { background: #7a22c7; }
 .dice-face { font: 700 3.6cqw/1 'Fredoka', 'Nunito', sans-serif; color: #8e2de2; min-width: 3cqw; }

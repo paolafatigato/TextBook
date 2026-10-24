@@ -1,0 +1,244 @@
+/* Grammar Poker (poker.js). Book colors: purple, coral, blue, green, navy.
+   Suit colors come from poker-cards.js (--c on each card). Phone, PC and whiteboard: sizes use clamp(). */
+
+html.gp-open { overflow: hidden; scrollbar-gutter: stable; }
+
+.gp-overlay {
+  --gp-purple: #8e2de2; --gp-plum: #4a1d7a; --gp-coral: #f05f4b; --gp-navy: #1f2a6b; --gp-dim: #5f6592;
+  --gp-ok: #2e9e4f; --gp-fail: #d6453d; --gp-gold: #e3b505; --gp-card: #f6eefc;
+  position: fixed; inset: 0; z-index: 210; display: flex; align-items: center; justify-content: center;
+  padding: clamp(0px, 1.5vw, 16px); background: rgba(40, 10, 70, .6);
+  font: 400 clamp(15px, 1.2vw + 8px, 20px)/1.4 'Nunito', sans-serif; color: var(--gp-navy);
+}
+.gp-overlay[hidden], .gp-pop[hidden] { display: none; }
+.gp-overlay * { box-sizing: border-box; }
+
+.gp-box {
+  position: relative; width: 100%; max-width: 1000px; max-height: 100%; overflow-y: auto; outline: 0;
+  background: #fff; border-radius: 18px; box-shadow: 0 12px 40px rgba(0, 0, 0, .35);
+}
+.gp-top {
+  position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  padding: 8px 12px; background: #fff; border-bottom: 2px solid #efdcfb;
+}
+.gp-title { flex: 1; min-width: 150px; font: 700 1.2em 'Fredoka', 'Nunito', sans-serif; color: var(--gp-purple); background: none; border: 0; padding: 4px 6px; text-align: left; cursor: pointer; border-radius: 10px; }
+.gp-title:hover { background: var(--gp-card); }
+.gp-suits { letter-spacing: 2px; font-size: .9em; }
+.gp-info { font-weight: 800; color: var(--gp-coral); }
+.gp-ib {
+  font: 800 .8em 'Nunito', sans-serif; color: var(--gp-navy); background: var(--gp-card);
+  border: 0; border-radius: 999px; padding: 6px 11px; cursor: pointer;
+}
+.gp-ib:hover { background: #ecdcfa; }
+@media (max-width: 560px) { .gp-ib span { display: none; } }
+
+.gp-area { padding: clamp(10px, 2vw, 20px); }
+.gp-area button:focus-visible, .gp-ib:focus-visible { outline: 3px solid var(--gp-gold); outline-offset: 2px; }
+
+/* ---------- buttons ---------- */
+.gp-btn {
+  font: 800 1em 'Nunito', sans-serif; color: #fff; background: var(--gp-purple);
+  border: 0; border-radius: 999px; padding: 10px 20px; cursor: pointer; box-shadow: 0 3px 0 rgba(0, 0, 0, .18);
+}
+.gp-btn:hover:not(:disabled) { filter: brightness(1.08); }
+.gp-btn:disabled { opacity: .4; cursor: default; }
+.gp-btn.ghost { background: var(--gp-card); color: var(--gp-purple); box-shadow: none; }
+.gp-btn.go { background: var(--gp-ok); }
+.gp-btn.bad { background: var(--gp-coral); }
+.gp-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 12px; }
+
+/* ---------- menu ---------- */
+.gp-menu { text-align: center; }
+.gp-menu h2, .gp-summary h2 { margin: 0 0 6px; font: 700 1.7em 'Fredoka', 'Nunito', sans-serif; color: var(--gp-purple); }
+.gp-levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 16px 0; }
+.gp-level {
+  display: flex; flex-direction: column; gap: 4px; text-align: left; cursor: pointer; color: #fff;
+  border: 0; border-radius: 16px; padding: 14px 16px; box-shadow: 0 4px 0 rgba(0, 0, 0, .2); font-family: 'Nunito', sans-serif;
+}
+.gp-level b { font: 700 1.3em 'Fredoka', 'Nunito', sans-serif; }
+.gp-level span { font-weight: 800; }
+.gp-level small { font-size: .85em; opacity: .95; }
+.gp-level em { font-style: normal; font-weight: 800; font-size: .8em; background: rgba(255, 255, 255, .25); align-self: flex-start; padding: 2px 9px; border-radius: 999px; margin-top: 4px; }
+.gp-level:hover { transform: translateY(-2px); }
+.gp-level.l1 { background: #3b9ae0; } .gp-level.l2 { background: var(--gp-purple); } .gp-level.l3 { background: var(--gp-coral); }
+.gp-suitkey { display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: center; font-weight: 800; font-size: .8em; margin: 8px 0; }
+.gp-suitkey i { font-style: normal; font-size: 1.3em; color: var(--c, var(--gp-navy)); }
+.gp-how { display: inline-block; text-align: left; margin: 8px 0 14px; padding-left: 22px; }
+
+/* ---------- the table ---------- */
+.gp-table {
+  background: radial-gradient(ellipse at 50% 30%, #6b2fb0, var(--gp-plum)); color: #fff;
+  border-radius: 18px; padding: clamp(10px, 2vw, 18px);
+}
+.gp-chips { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-weight: 800; }
+.gp-chips b { color: var(--gp-gold); font-size: 1.15em; }
+.gp-chips .pot { background: rgba(0, 0, 0, .25); padding: 2px 14px; border-radius: 999px; }
+.gp-robo, .gp-hand { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(4px, 1vw, 10px); margin: 10px 0; }
+.gp-coach { margin: 8px 0; text-align: center; font-weight: 700; background: rgba(255, 255, 255, .14); border-radius: 12px; padding: 8px 12px; }
+
+.gp-card {
+  --w: clamp(62px, 11.5vw, 108px);
+  position: relative; width: var(--w); height: calc(var(--w) * 1.35); padding: 4px 3px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  background: #fff; color: var(--gp-navy); border: 3px solid var(--c, #bbb); border-radius: 10px;
+  font-family: 'Fredoka', 'Nunito', sans-serif; cursor: pointer; transition: transform .15s, box-shadow .15s;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
+}
+.gp-card b { font-weight: 700; font-size: clamp(14px, 1.7vw + 6px, 24px); line-height: 1.1; overflow-wrap: anywhere; text-align: center; }
+.gp-card small { font: 700 clamp(9px, .7vw + 5px, 12px)/1.15 'Nunito', sans-serif; color: var(--gp-dim); text-align: center; background: color-mix(in srgb, var(--c) 14%, #fff); border-radius: 6px; padding: 1px 4px; }
+.gp-nolabels .gp-card small { visibility: hidden; }
+.gp-glyph { position: absolute; top: 2px; left: 5px; font-style: normal; font-size: clamp(13px, 1.4vw + 4px, 20px); color: var(--c); line-height: 1; }
+.gp-glyph.br { top: auto; left: auto; bottom: 2px; right: 5px; transform: rotate(180deg); }
+.gp-card:disabled { cursor: default; }
+.gp-card:hover:not(:disabled):not(.used) { transform: translateY(-4px); }
+.gp-card.sel { transform: translateY(-12px); box-shadow: 0 0 0 4px var(--gp-gold), 0 6px 12px rgba(0, 0, 0, .35); }
+.gp-card.used { opacity: .35; transform: scale(.92); }
+.gp-card.glow { box-shadow: 0 0 0 4px var(--gp-gold), 0 0 16px 4px rgba(227, 181, 5, .7); }
+.gp-card.back {
+  border-color: #fff; cursor: default;
+  background: repeating-linear-gradient(45deg, var(--gp-purple) 0 8px, #b15cf0 8px 16px);
+}
+
+/* the sentence line and its tiles */
+.gp-line {
+  display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: center; min-height: 54px;
+  background: rgba(255, 255, 255, .92); border-radius: 14px; padding: 8px 10px; margin: 8px 0; color: var(--gp-navy);
+}
+.gp-line.empty { border: 2px dashed rgba(142, 45, 226, .5); }
+.gp-placeholder { color: var(--gp-dim); font-weight: 700; font-size: .9em; }
+.gp-tile {
+  display: inline-flex; align-items: center; gap: 5px; font: 700 1.05em 'Fredoka', 'Nunito', sans-serif;
+  border: 2px solid var(--c); background: color-mix(in srgb, var(--c) 16%, #fff); color: var(--gp-navy);
+  border-radius: 10px; padding: 5px 10px;
+}
+button.gp-tile { cursor: pointer; }
+.gp-tile i { font-style: normal; color: var(--c); }
+.gp-tile.err { outline: 3px solid var(--gp-fail); background: #ffe3e0; animation: gpShake .3s; }
+@keyframes gpShake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+.gp-fb { border-radius: 12px; padding: 8px 12px; margin: 6px 0; color: var(--gp-navy); background: #fff; border-left: 6px solid var(--gp-ok); }
+.gp-fb.no { border-left-color: var(--gp-fail); }
+.gp-fb p { margin: 4px 0 0; }
+.gp-fb small { color: var(--gp-fail); font-weight: 800; }
+.gp-it { color: var(--gp-dim); font-style: italic; }
+.gp-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.gp-badge { font: 800 .72em 'Nunito', sans-serif; background: var(--gp-card); color: var(--gp-purple); border-radius: 999px; padding: 2px 9px; }
+.gp-banner { text-align: center; margin: 4px 0 0; }
+.gp-banner b { color: var(--gp-gold); }
+
+/* ---------- the result ---------- */
+.gp-result { background: #fff; color: var(--gp-navy); border-radius: 16px; padding: 14px; margin-top: 10px; text-align: center; border-top: 8px solid var(--gp-gold); }
+.gp-result.won { border-top-color: var(--gp-ok); } .gp-result.lost { border-top-color: var(--gp-fail); }
+.gp-result h3 { margin: 0; font: 700 1.5em 'Fredoka', 'Nunito', sans-serif; }
+.gp-vs { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin: 10px 0; }
+.gp-vs > div { background: var(--gp-card); border-radius: 12px; padding: 10px; border: 3px solid transparent; }
+.gp-vs > div.win { border-color: var(--gp-ok); background: #e8f7ec; }
+.gp-vs small { display: block; font-weight: 800; color: var(--gp-dim); }
+.gp-sent { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-top: 6px; }
+.gp-missed { background: #fff6d6; border-radius: 12px; padding: 8px; }
+
+/* ---------- pop-ups (tip, hands) ---------- */
+.gp-pop { position: absolute; inset: 0; z-index: 10; display: flex; align-items: center; justify-content: center; padding: 14px; background: rgba(40, 10, 70, .5); }
+.gp-pop-box { width: 100%; max-width: 560px; max-height: 100%; overflow-y: auto; background: #fff; border-radius: 16px; padding: 16px 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, .4); }
+.gp-pop-box h3 { margin: 0 0 8px; font: 700 1.3em 'Fredoka', 'Nunito', sans-serif; color: var(--gp-purple); }
+.gp-pop-box h3 small { font: 600 .6em 'Nunito', sans-serif; color: var(--gp-dim); }
+.gp-tip { font-size: 1.1em; font-weight: 700; margin: 4px 0; }
+.gp-ex { display: flex; flex-direction: column; gap: 3px; font-weight: 700; margin: 8px 0; }
+.gp-ex .ok { color: var(--gp-ok); } .gp-ex .no { color: var(--gp-fail); }
+.gp-pop-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
+.gp-hands { margin: 0; padding: 0; list-style: none; counter-reset: h; display: grid; gap: 4px; }
+.gp-hands li { counter-increment: h; display: grid; grid-template-columns: 1.6em 9em 1fr; gap: 2px 8px; align-items: baseline; padding: 4px 6px; border-radius: 8px; background: var(--gp-card); }
+.gp-hands li::before { content: counter(h); font-weight: 800; color: var(--gp-purple); }
+.gp-hands li.sent { background: #e8f7ec; }
+.gp-hands li em { grid-column: 3; font-size: .85em; color: var(--gp-dim); }
+@media (max-width: 560px) { .gp-hands li { grid-template-columns: 1.4em 1fr; } .gp-hands li span, .gp-hands li em { grid-column: 2; } }
+
+/* ---------- the summary ---------- */
+.gp-summary { max-width: 760px; margin: 0 auto; }
+.gp-summary h2 { text-align: center; }
+.gp-score { display: flex; gap: 14px; justify-content: center; font-weight: 800; font-size: 1.2em; }
+.gp-score b { color: var(--gp-coral); }
+.gp-sub { text-align: center; color: var(--gp-dim); }
+.gp-summary section { background: var(--gp-card); border-radius: 14px; padding: 10px 14px; margin: 12px 0; }
+.gp-summary h3 { margin: 0 0 6px; font: 700 1.1em 'Fredoka', 'Nunito', sans-serif; color: var(--gp-purple); }
+.gp-summary h3 small { background: var(--gp-purple); color: #fff; border-radius: 999px; padding: 1px 8px; font: 800 .7em 'Nunito', sans-serif; }
+.gp-summary h4 { margin: 10px 0 4px; }
+.gp-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.gp-list li { background: #fff; border-radius: 10px; padding: 6px 10px; }
+.gp-list .gp-rule, .gp-list .gp-ex { display: block; font-size: .85em; color: var(--gp-dim); }
+.gp-n { font-weight: 800; color: var(--gp-coral); }
+.gp-none { margin: 0; color: var(--gp-dim); }
+
+@media (prefers-reduced-motion: reduce) {
+  .gp-card, .gp-level { transition: none; }
+  .gp-tile.err { animation: none; }
+}
+
+/* ---------- choosing the poker, reordering, Texas table cards ---------- */
+.gp-step { margin: 14px 0 6px; font: 700 1.05em 'Fredoka', 'Nunito', sans-serif; color: var(--gp-dim); }
+.gp-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; }
+.gp-mode {
+  display: flex; flex-direction: column; gap: 3px; text-align: left; cursor: pointer; font-family: 'Nunito', sans-serif; color: var(--gp-navy);
+  background: var(--gp-card); border: 3px solid transparent; border-radius: 14px; padding: 10px 14px;
+}
+.gp-mode b { font: 700 1.1em 'Fredoka', 'Nunito', sans-serif; color: var(--gp-purple); }
+.gp-mode small { font-size: .85em; color: var(--gp-dim); }
+.gp-mode.on { border-color: var(--gp-purple); background: #fff; box-shadow: 0 3px 10px rgba(142, 45, 226, .25); }
+.gp-mode.on b::before { content: "✓ "; }
+
+.gp-handbar { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: .8em; font-weight: 700; opacity: .9; margin-top: 8px; }
+.gp-handbar .gp-ib:disabled { opacity: .4; cursor: default; }
+.gp-hand .gp-card { touch-action: none; user-select: none; -webkit-user-select: none; }
+.gp-card.drag { z-index: 6; transition: none; opacity: .92; box-shadow: 0 10px 22px rgba(0, 0, 0, .45); pointer-events: none; }
+.gp-card.drop { outline: 3px dashed var(--gp-gold); outline-offset: 3px; }
+.gp-card.shared { border-bottom: 8px solid var(--gp-gold); }
+
+.gp-rowfb { text-align: left; background: #ffe9e6; border-left: 6px solid var(--gp-fail); border-radius: 12px; padding: 8px 12px; margin: 8px 0; }
+.gp-rowfb p { margin: 4px 0; }
+.gp-rowfb .gp-sent { justify-content: flex-start; }
+
+/* ---------- online ---------- */
+.gp-net { max-width: 720px; margin: 0 auto; text-align: center; }
+.gp-net h2 { margin: 0 0 6px; font: 700 1.6em 'Fredoka', 'Nunito', sans-serif; color: var(--gp-purple); }
+.gp-nm { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; margin: 6px 0; }
+.gp-nm input, .gp-netbox input {
+  font: 700 1em 'Nunito', sans-serif; color: var(--gp-navy); border: 2px solid #d9c3f3; border-radius: 10px; padding: 7px 10px; background: #fff;
+}
+.gp-netbox input { text-transform: uppercase; letter-spacing: 6px; text-align: center; width: 7em; align-self: center; }
+.gp-netcols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 10px 0; }
+.gp-netbox { display: flex; flex-direction: column; gap: 8px; background: var(--gp-card); border-radius: 14px; padding: 12px 14px; }
+.gp-netbox span { font-size: .9em; color: var(--gp-dim); }
+.gp-code { font: 700 2em 'Fredoka', 'Nunito', sans-serif; letter-spacing: 8px; color: var(--gp-coral); background: var(--gp-card); border-radius: 12px; padding: 2px 16px; }
+.gp-lobby { list-style: none; margin: 10px auto; padding: 0; display: grid; gap: 6px; max-width: 320px; }
+.gp-lobby li { background: var(--gp-card); border-radius: 10px; padding: 6px 12px; opacity: .5; text-align: left; }
+.gp-lobby li.on { opacity: 1; }
+.gp-neterr { min-height: 1.4em; color: var(--gp-fail); font-weight: 700; margin: 6px 0; }
+.gp-netmsg { color: var(--gp-dim); font-weight: 700; }
+
+/* ---------- “Very clever!”: a sentence that needs the second meaning of a word ---------- */
+.gp-spark {
+  position: relative; margin-top: 8px; padding: 8px 12px 8px 14px; border-radius: 12px; font-weight: 700;
+  background: #fff6d6; border: 2px solid var(--gp-gold); animation: gpPop .5s ease-out;
+}
+.gp-spark b { color: var(--gp-purple); }
+.gp-spark em { font-style: normal; font-weight: 800; color: var(--gp-ok); white-space: nowrap; }
+.gp-spark i { position: absolute; font-style: normal; pointer-events: none; opacity: 0; animation: gpSpark 1.2s ease-out forwards; }
+.gp-spark .s1 { left: 6%; top: 0; } .gp-spark .s2 { left: 48%; top: -4px; animation-delay: .15s; } .gp-spark .s3 { right: 6%; top: 0; animation-delay: .3s; }
+@keyframes gpPop { 0% { transform: scale(.85); } 60% { transform: scale(1.04); } 100% { transform: scale(1); } }
+@keyframes gpSpark { 0% { opacity: 0; transform: translateY(6px) scale(.5); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(-26px) scale(1.4) rotate(25deg); } }
+@media (prefers-reduced-motion: reduce) { .gp-spark, .gp-spark i { animation: none; } .gp-spark i { display: none; } }
+
+/* the Level that is ready (when the game is opened from the Present simple chapter), and the hint */
+.gp-level.ready { outline: 4px solid var(--gp-gold); outline-offset: 3px; }
+.gp-level.ready::after { content: "← start here"; font: 800 .75em 'Nunito', sans-serif; color: #fff; background: rgba(0, 0, 0, .25); border-radius: 999px; padding: 2px 10px; align-self: flex-start; }
+.gp-hint { background: #fff6d6; border: 2px solid var(--gp-gold); border-radius: 12px; padding: 8px 12px; font-weight: 700; }
+
+/* the dots: how difficult (rare) the word is, for the tie-break and the High card */
+.gp-dots { position: absolute; top: 3px; right: 5px; font-style: normal; font-size: clamp(8px, .8vw + 3px, 12px); letter-spacing: -1px; line-height: 1; color: #b78a00; }
+.gp-card.back .gp-dots { display: none; }
+.gp-why { margin: 4px 0 0; font-weight: 700; }
+
+/* grammar only: a correct sentence that is strange */
+.gp-odd { margin-top: 8px; padding: 8px 12px; border-radius: 12px; font-weight: 700; background: #fff0d6; border-left: 6px solid #e8820c; color: var(--gp-navy); }
+.gp-odd.bad { background: #ffe3e0; border-left-color: var(--gp-fail); }
+.gp-result.judge { border-top-color: #e8820c; }

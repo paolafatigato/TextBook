@@ -1,0 +1,92 @@
+/* Grammar Poker: the deck to see and print (poker-deck.js). Teacher only.
+   The sizes of the cards are in millimetres: --mm is 1mm on paper and a fraction of the page when the cards are shown in the book.
+   Everything inside a card is in cqw (a % of the card width), so the card looks the same at every size. */
+
+.pd-card {
+  --cw: 63; --ch: 88; --c: #8e2de2;
+  position: relative; box-sizing: border-box; display: block; flex: none; margin: 0; padding: 0; overflow: hidden;
+  width: calc(var(--mm) * var(--cw)); height: calc(var(--mm) * var(--ch));
+  container-type: size; text-align: center; font: inherit; color: var(--c); border: 0;
+  background: color-mix(in srgb, var(--c) 7%, #fff);
+  box-shadow: inset 0 0 0 calc(var(--mm) * .3) #cfc9dc; /* a hairline: the edge of the card, to cut along */
+  print-color-adjust: exact; -webkit-print-color-adjust: exact;
+}
+.pd-card::before { content: ''; position: absolute; inset: 4.5cqw; border: 1.2cqw solid var(--c); border-radius: 6cqw; }
+.pd-g { position: absolute; left: 10cqw; top: 8.5cqw; font: 700 15cqw/1 'Nunito', 'Segoe UI Symbol', sans-serif; }
+.pd-g.br { left: auto; top: auto; right: 10cqw; bottom: 8.5cqw; transform: rotate(180deg); }
+.pd-w {
+  position: absolute; left: 8cqw; right: 8cqw; top: 62cqw; transform: translateY(-50%);
+  font: 700 24cqw/1 'Fredoka', 'Nunito', sans-serif; color: #1f2a6b; overflow-wrap: anywhere;
+}
+.pd-w.s2 { font-size: 20cqw; } .pd-w.s3 { font-size: 16.5cqw; } .pd-w.s4 { font-size: 13.5cqw; }
+.pd-t { position: absolute; left: 14cqw; right: 14cqw; top: 80cqw; font: 800 6.3cqw/1.2 'Nunito', sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.pd-lv { position: absolute; left: 11cqw; bottom: 12cqw; display: flex; gap: 2cqw; }
+.pd-lv i { width: 4.4cqw; height: 4.4cqw; border-radius: 50%; background: var(--c); }
+.pd-sheet.no-labels .pd-t, .pd-sheet.no-dots .pd-lv, .pd-view.no-labels .pd-t, .pd-view.no-dots .pd-lv { display: none; }
+
+/* the back: the same for all the cards */
+.pd-card.back { background: linear-gradient(145deg, #1f2a6b, #67288a); box-shadow: inset 0 0 0 calc(var(--mm) * .3) #1f2a6b; }
+.pd-card.back::before { border-color: rgba(255, 255, 255, .85); }
+.pd-bk { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4cqw; color: #fff; }
+.pd-bk b { display: grid; grid-template-columns: 1fr 1fr; gap: 3cqw 8cqw; font: 700 26cqw/1 'Nunito', 'Segoe UI Symbol', sans-serif; }
+.pd-bk b i { font-style: normal; } .pd-bk b i:nth-child(2n) { color: #ff8d7f; }
+.pd-bk span { font: 700 8.5cqw/1.1 'Fredoka', 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; text-align: center; }
+
+/* ---------- a sheet of A4 ---------- */
+.pd-sheet { position: relative; width: calc(var(--mm) * 210); height: calc(var(--mm) * 297); background: #fff; overflow: hidden; }
+.pd-sheet .pd-card { position: absolute; }
+.pd-cut { position: absolute; background: #000; }
+.pd-no { position: absolute; left: calc(var(--mm) * 6); top: calc(var(--mm) * 2.6); font: 700 calc(var(--mm) * 2.4) 'Nunito', sans-serif; color: #999; }
+
+/* ---------- the pages in the book ---------- */
+.pd-page { background: #fffdf6; }
+.pd-in { position: absolute; inset: 0; padding: 4cqw 6cqw 4cqw; font: 400 2cqw/1.35 'Nunito', sans-serif; color: #2b2b38; overflow-y: auto; }
+.pd-in h2 { margin: 2.2cqw 0 .8cqw; font: 700 2.8cqw 'Fredoka', sans-serif; color: var(--navy); }
+.pd-in h2 small { font: 400 1.8cqw 'Nunito', sans-serif; color: #777; }
+.pd-in p { margin: 0 0 1cqw; }
+.pd-levels, .pd-seg { display: flex; flex-wrap: wrap; gap: 1cqw; }
+.pd-levels button, .pd-seg button, .pd-btn, .pd-nav button {
+  font: 800 1.9cqw/1.2 'Nunito', sans-serif; color: var(--navy); background: #fff; border: .3cqw solid #c9d2e0; border-radius: 1.4cqw; padding: .8cqw 1.6cqw; cursor: pointer;
+}
+.pd-levels button { flex: 1; min-width: 20cqw; text-align: left; border-color: var(--k); }
+.pd-levels button b { display: block; font: 700 2.6cqw 'Fredoka', sans-serif; color: var(--k); }
+.pd-levels button small { display: block; font: 400 1.6cqw 'Nunito', sans-serif; color: #666; }
+.pd-levels button.on { background: var(--k); color: #fff; } .pd-levels button.on b, .pd-levels button.on small { color: #fff; }
+.pd-seg button.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.pd-count { padding: 1cqw 1.6cqw; border-radius: 1.4cqw; background: #eef2f8; font-weight: 700; }
+.pd-opt { display: flex; align-items: center; gap: 1.2cqw; margin: 0 0 .9cqw; }
+.pd-opt > span:first-child { flex: 0 0 15cqw; font-weight: 800; }
+.pd-opt label { display: flex; align-items: center; gap: .8cqw; cursor: pointer; }
+.pd-opt input[type=number] { width: 6cqw; font: 700 1.9cqw 'Nunito', sans-serif; padding: .4cqw; text-align: center; border: .3cqw solid #c9d2e0; border-radius: 1cqw; }
+.pd-opt small { color: #777; }
+.pd-actions { display: flex; flex-wrap: wrap; gap: 1.2cqw; margin-top: 2cqw; }
+.pd-btn { padding: 1.2cqw 2.4cqw; font-size: 2.2cqw; }
+.pd-btn.go { background: var(--navy); border-color: var(--navy); color: #fff; }
+.pd-tip { margin-top: 2cqw; padding: 1.4cqw 2cqw; border-left: .6cqw solid #e0a800; background: #fff6d8; border-radius: 0 1.2cqw 1.2cqw 0; font-size: 1.8cqw; }
+
+.pd-prev { display: flex; flex-direction: column; align-items: center; gap: 1.2cqw; }
+.pd-prev .pd-sheet { --mm: calc(76cqw / 210); box-shadow: 0 .6cqw 2cqw rgba(0, 0, 0, .25); }
+.pd-nav { display: flex; align-items: center; gap: 1cqw; font-weight: 800; }
+.pd-nav button:disabled { opacity: .35; cursor: default; }
+
+.pd-view { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2cqw; justify-items: center; --mm: calc(20.5cqw / 63); }
+.pd-view .pd-card { cursor: pointer; transition: opacity .15s; }
+.pd-view .pd-card:hover { box-shadow: inset 0 0 0 calc(var(--mm) * .3) #cfc9dc, 0 0 0 .5cqw var(--c); }
+.pd-view .pd-card.off { opacity: .22; filter: grayscale(1); }
+.pd-view .pd-card:focus-visible { outline: .5cqw solid #e3b505; outline-offset: .3cqw; }
+
+@media print { .pd-nav, .pd-actions, .pd-btn { display: none; } }
+
+/* the window that opens to print */
+body.pd-print { margin: 0; background: #d9d4e4; --mm: 1mm; }
+.pd-bar { position: sticky; top: 0; z-index: 3; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 10px 16px; background: #1f2a6b; color: #fff; font: 700 15px 'Nunito', sans-serif; }
+.pd-bar button { font: 800 16px 'Nunito', sans-serif; padding: 8px 18px; border: 0; border-radius: 999px; background: #ffc93c; color: #1f2a6b; cursor: pointer; }
+.pd-bar span { font-weight: 400; opacity: .9; }
+body.pd-print .pd-sheet { margin: 14px auto; box-shadow: 0 4px 16px rgba(0, 0, 0, .3); }
+@page { size: A4 portrait; margin: 0; }
+@media print {
+  body.pd-print { background: #fff; }
+  .pd-bar { display: none; }
+  body.pd-print .pd-sheet { margin: 0; box-shadow: none; height: calc(var(--mm) * 296.6); break-after: page; break-inside: avoid; }
+  body.pd-print .pd-sheet:last-of-type { break-after: auto; }
+}
