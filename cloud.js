@@ -207,11 +207,17 @@ onAuthStateChanged(auth, async signed => {
 
   const same = Object.keys(merged).length === Object.keys(local).length
     && Object.entries(merged).every(([k, v]) => local[k] === v || JSON.stringify(local[k]) === JSON.stringify(v)); // (a value that is an object is never === to its copy)
-  if (!same) {
+  // the page reloads at most once in a while: if the difference comes back after the reload
+  // (storage full, a value the cloud changes…), reloading again would only make a loop
+  const RELOAD_KEY = book.storageKey + ':reloaded';
+  let lastReload = 0;
+  try { lastReload = Number(sessionStorage.getItem(RELOAD_KEY)) || 0; } catch { /* no session storage */ }
+  if (!same && Date.now() - lastReload > 60000) {
     // let the book start again with the merged answers
-    // (the console says which answers made the page reload: useful if it reloads more than once)
+    // (the console says which answers made the page reload)
     console.warn('[cloud] the page reloads: answers that differ from the cloud →', Object.keys(merged).filter(k => JSON.stringify(local[k]) !== JSON.stringify(merged[k])).slice(0, 20));
     book.replaceSaved(merged);
+    try { sessionStorage.setItem(RELOAD_KEY, String(Date.now())); } catch { /* ignore */ }
     location.reload();
     return;
   }
@@ -270,5 +276,10 @@ book.rooms = {
   },
   update(code, patch) {
     return updateDoc(roomRef(code), { ...patch, updated: Date.now() });
+  },
+  // one reading of the room (the games ask again now and then, in case the live updates do not arrive)
+  async read(code) {
+    const s = await getDoc(roomRef(code));
+    return s.exists() ? s.data() : null;
   },
 };

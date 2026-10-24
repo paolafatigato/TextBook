@@ -64,6 +64,7 @@
   let lastLevel = 1, lastMode = D.modes[0].id;
   let lastMeaning = store.get('meaning') === 'open' ? 'open' : 'check';   // does the meaning count, or only the grammar?
   let hint = '';    // a line in the menu (when the game is opened from a chapter)
+  let pollT = null; // asks the room again now and then while we wait (the live updates may not arrive)
   let NS = null;    // the room when we play online (null = against Robo): see "online" below
   const NET = window.POKER_NET;
   let netName = store.get('name') || '';
@@ -97,7 +98,7 @@
       G.hand = d.hand; G.table = d.table; G.pile = d.pile; G.bot = [];
       G.step = 0;
       G.entry = { a: [] };
-      NET.post(G.net.code, { ['pk.' + NET.key(G.round, G.net.me)]: G.entry });
+      NET.post(G.net.code, { ['pk.' + NET.key(G.round, G.net.me)]: G.entry }, netFail);
     } else {
       const pile = shuffle(G.deck);
       const ante = Math.min(S.ante, G.chips.you, G.chips.bot);
@@ -208,7 +209,7 @@
   function awardClever() {
     if (G.cleverPaid) return false;
     G.cleverPaid = true;
-    if (G.net) { G.entry.bonus = 1; NET.post(NS.code, { ['pk.' + NET.key(G.round, NS.me)]: G.entry }); }
+    if (G.net) { G.entry.bonus = 1; NET.post(NS.code, { ['pk.' + NET.key(G.round, NS.me)]: G.entry }, netFail); }
     else G.chips.you += 1;
     return true;
   }
@@ -376,7 +377,7 @@
       e.hand = G.hand.map(c => c.word);
       e.row = G.line.map(i => G.hand[i].word);
     }
-    NET.post(NS.code, { ['pk.' + NET.key(G.round, NS.me)]: e });
+    NET.post(NS.code, { ['pk.' + NET.key(G.round, NS.me)]: e }, netFail);
     G.phase = 'wait';
     G.msg = `⏳ Waiting for ${foe()}…`;
     render();
@@ -409,6 +410,24 @@
       G.bot = NS.pk[NET.key(G.round, 1 - me)].hand.map(w => G.words[w]).filter(c => !G.table.includes(c));
     }
     conclude(how, outcome, strength(), bot, R.pot);
+  }
+
+  // the room could not be written: say it (it used to stay silent)
+  function netFail(e) {
+    console.warn('[poker online]', e);
+    const t = NET.errorText(e);
+    if (G && G.net) G.msg = '⚠️ ' + t; else if (NS) NS.msg = t;
+    render();
+  }
+  // while we wait for the friend, ask the room again every few seconds; if the live updates are stuck, this makes the game go on
+  function managePoll() {
+    const need = !!(NS && NS.code && (NS.screen === 'lobby' || (G && G.net && G.phase === 'wait')));
+    if (need && !pollT) {
+      pollT = setInterval(() => {
+        if (!NS || !NS.code) return;
+        NET.read(NS.code).then(room => { if (room && NS && JSON.stringify(room.pk || {}) !== NS.lastPk) onRoom(room); }).catch(() => {});
+      }, 2500);
+    } else if (!need && pollT) { clearInterval(pollT); pollT = null; }
   }
 
   function netDrop() {
@@ -445,6 +464,7 @@
   function onRoom(room) {
     if (!NS) return;
     if (!room) { netMenu('This room is gone.'); return; }
+    NS.lastPk = JSON.stringify(room.pk || {});
     NS.pk = room.pk || {};
     const pk = NS.pk;
     if (pk.left === 1 - NS.me && !(G && G.phase === 'over')) { NS.screen = 'left'; G = null; render(); return; }
@@ -587,7 +607,8 @@
     return `“${a.word}” and “${b.word}” are the same type (${typeName(a)}). “${o.word}” is a different type (${typeName(o)}), so it is not three of a kind.`;
   }
 
-  function render() {
+  function render() { draw(); managePoll(); }
+  function draw() {
     applyLabels();
     syncChips();
     $('#gpInfo').textContent = G && G.phase !== 'over' ? `Deal ${G.round}/${S.rounds}${G.net ? ' · online' : ''}` : '';
@@ -795,10 +816,10 @@
       case 'net-leave': netMenu(); return;
       case 'net-make': netEnter(true); return;
       case 'net-join': netEnter(false); return;
-      case 'net-start': case 'net-again': NET.newGame(NS.code, NS.pk); return;
-      case 'net-pmode': NET.post(NS.code, { 'pk.mode': b.dataset.mode }); return;
-      case 'net-plabels': NET.post(NS.code, { 'pk.labels': NS.pk.labels === false }); return;
-      case 'net-plevel': NET.post(NS.code, { 'pk.level': +b.dataset.level }); return;
+      case 'net-start': case 'net-again': NET.newGame(NS.code, NS.pk, netFail); return;
+      case 'net-pmode': NET.post(NS.code, { 'pk.mode': b.dataset.mode }, netFail); return;
+      case 'net-plabels': NET.post(NS.code, { 'pk.labels': NS.pk.labels === false }, netFail); return;
+      case 'net-plevel': NET.post(NS.code, { 'pk.level': +b.dataset.level }, netFail); return;
       case 'again': startGame(lastLevel); return;
       case 'card':
         if (G.phase === 'swap') {
@@ -811,7 +832,7 @@
       case 'mode': lastMode = b.dataset.mode; break;
       case 'meaning': lastMeaning = b.dataset.m; store.set('meaning', lastMeaning); break;
       case 'judge-yes': case 'judge-no': return judge(b.dataset.act === 'judge-yes');
-      case 'net-pmeaning': NET.post(NS.code, { 'pk.meaning': NS.pk.meaning === 'open' ? 'check' : 'open' }); return;
+      case 'net-pmeaning': NET.post(NS.code, { 'pk.meaning': NS.pk.meaning === 'open' ? 'check' : 'open' }, netFail); return;
       case 'keep': G.sel = new Set(); return swapCards();
       case 'check': return checkLine();
       case 'clear': G.line = []; G.fb = null; G.errIndex = -1; break;
@@ -875,7 +896,7 @@
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', '#8e2de2');
-    pill.innerHTML = '<summary>Grammar Poker <small>1</small></summary><div class="topic-pages"><a href="#" data-gp-go>♠ ♥ ♦ ♣ Grammar Poker (vs Robo)</a></div>';
+    pill.innerHTML = '<summary>Grammar Poker <small>1</small></summary><div class="topic-pages"><a href="#" data-gp-go>♠ ♥ ♦ ♣ Grammar Poker</a></div>';
     // in the home page: right after the games of the present simple
     const ps = [...list.querySelectorAll('.game-topic')].find(d => /^present simple/i.test(d.querySelector('summary')?.textContent.trim() || ''));
     ps ? ps.after(pill) : list.append(pill);

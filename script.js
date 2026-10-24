@@ -44,9 +44,10 @@ window.book = {
     try { localStorage.removeItem(KEY); localStorage.removeItem(KEY + ':spread'); } catch { /* ignore */ }
   },
   setVisible(list) {
+    const same = list.length === visibleSpreads.size && list.every(id => visibleSpreads.has(id));
     visibleSpreads = new Set(list);
     try { localStorage.setItem(VISIBLE_KEY, JSON.stringify(list)); } catch { /* ignore */ }
-    refreshAccess();
+    if (!same) refreshAccess(); // the server repeats the list we already have: no need to draw the home again
   },
   setUser(u) { account = u; refreshAccess(); userKnown(); },
   setSyncState(s) { syncState = s; paintAccount(); },

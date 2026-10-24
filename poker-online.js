@@ -120,16 +120,18 @@
     return { code, me };
   }
   const watch = (code, onRoom, onError) => rooms().watch(code, onRoom, onError);
-  const post = (code, patch) => { try { return rooms().update(code, patch).catch(() => {}); } catch { return null; } }; // offline: the friend just sees nothing new
+  // onError: what to do if the room could not be written (offline, not allowed…)
+  const post = (code, patch, onError) => { try { return rooms().update(code, patch).catch(e => onError?.(e)); } catch (e) { onError?.(e); return null; } };
+  const read = code => rooms().read(code);
   // a new game: new seed, the old entries are wiped
-  function newGame(code, pk) {
+  function newGame(code, pk, onError) {
     const patch = { 'pk.gid': (pk.gid || 0) + 1, 'pk.seed': Math.random().toString(36).slice(2, 8), 'pk.left': null };
     for (let r = 1; r <= S.rounds; r++) for (const p of [0, 1]) patch[`pk.${key(r, p)}`] = null;
-    return post(code, patch);
+    return post(code, patch, onError);
   }
   const leave = (code, me) => post(code, { 'pk.left': me });
 
-  const api = { clientId, key, stepsOf, deckRng, dealFor, evalEntry, ledger, errorText, enter, watch, post, newGame, leave };
+  const api = { clientId, key, stepsOf, deckRng, dealFor, evalEntry, ledger, errorText, enter, watch, read, post, newGame, leave };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else window.POKER_NET = api;
 })();
