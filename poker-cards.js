@@ -5,7 +5,7 @@
 // every card here is a SLOT of the deck. A slot has
 //   decks    = the Levels whose deck has the slot (1, 2, 3). Level 1 = present simple, Level 2 = all the verbs in the past,
 //              Level 3 = modals (can, must…) and comparatives. Every deck has 52 slots.
-//   variants = other words that can take the place of the slot, chosen at random in every game (Anna → Paola, eggs → carrots).
+//   variants = other words that can take the place of the slot, chosen at random in every game (Anna → Paola, bunnies → horses).
 //              A variant is a word (everything else stays the same) or { word, …the fields that change }.
 //              A variant MUST have the same characteristics as the slot (same suit, subtype, number, kind, takes…).
 //   level    = how difficult the card is (1 easy … 3): only for the tie-break, "more difficult cards win".
@@ -14,6 +14,7 @@
 // Fields the grammar looks at:
 //   noun      number 'singular' | 'plural'; subtype 'countable' (needs a / an / the), 'plural', 'uncountable', 'proper'
 //             kind 'person' | 'animal' | 'food' | 'drink' | 'thing' | 'place'  (the meaning check: persons and animals are "animate")
+//             edible: true = an animal that people eat (bunnies, horses): eat / cooked accept it as food, but it stays an animal (it can still be a subject)
 //   verb      subjectKind 'animate' = only people and animals do it; objectKinds = the kinds it can have as object
 //   modifier  needs 'animate' = only people and animals can be it (happy, hungry)
 //   verb      tense 'present' | 'past'; person '3rd' (is, has, likes, runs) | 'other' (the rank for pairs, see pairBy)
@@ -97,13 +98,13 @@ const GP_DATA = {
   // "sentence: true" = the hands made with a correct sentence.
   hands: [
     { key: 'high',  name: 'High card',       how: 'No combination. The card with the most dots (the most difficult word ●●●) counts.', example: '' },
-    { key: 'pair',  name: 'Pair',             how: '2 cards of the same type: 2 plural nouns ♠, 2 singular nouns ♠ (even countable + uncountable), 2 verbs in the 3rd person ♥ (is + has)…', example: 'books + eggs · dog + pizza · is + has' },
-    { key: 'two',   name: 'Two pairs',        how: '2 different pairs.', example: 'books + eggs, dog + cat' },
+    { key: 'pair',  name: 'Pair',             how: '2 cards of the same type: 2 plural nouns ♠, 2 singular nouns ♠ (even countable + uncountable), 2 verbs in the 3rd person ♥ (is + has)…', example: 'books + bunnies · dog + pizza · is + has' },
+    { key: 'two',   name: 'Two pairs',        how: '2 different pairs.', example: 'books + bunnies, dog + cat' },
     { key: 's3',    name: 'Sentence of 3 cards', sentence: true, how: 'A correct sentence with 3 cards.', example: 'Anna likes pizza.' },
     { key: 's4',    name: 'Sentence of 4 cards', sentence: true, how: 'A correct sentence with 4 cards.', example: 'The dog runs quickly.' },
     { key: 'trips', name: 'Three of a kind',  how: '3 cards of the same type.', example: 'is + am + are' },
     { key: 's5',    name: 'Sentence of 5 cards', sentence: true, how: 'A correct sentence with 5 cards.', example: 'Anna likes pizza with friends.' },
-    { key: 'full',  name: 'Full house',       how: 'Three of a kind + a pair.', example: 'is + am + are + books + eggs' },
+    { key: 'full',  name: 'Full house',       how: 'Three of a kind + a pair.', example: 'is + am + are + books + bunnies' },
     { key: 's6',    name: 'Sentence of 6+ cards', sentence: true, how: 'A correct sentence with 6 or more cards. A longer sentence is stronger.', example: 'Anna and I like pizza with friends.' },
     { key: 'four',  name: 'Four of a kind',   how: '4 cards of the same type.', example: 'I + you + she + they' },
     { key: 'flush', name: 'Flush',            how: '5 cards of the same suit (for example 5 nouns ♠).', example: '5 × ♥' },
@@ -113,13 +114,13 @@ const GP_DATA = {
 
   cards: [
     // ♠ NOUNS: the same 13 slots in every deck
-    { word: 'dog',      decks: [1, 2, 3], suit: 'noun', subtype: 'countable',   number: 'singular', level: 1, kind: 'animal', variants: ['horse', 'rabbit'] },
+    { word: 'dog',      decks: [1, 2, 3], suit: 'noun', subtype: 'countable',   number: 'singular', level: 1, kind: 'animal', variants: ['dragon', 'axolotl'] },
     { word: 'cat',      decks: [1, 2, 3], suit: 'noun', subtype: 'countable',   number: 'singular', level: 1, kind: 'animal', variants: ['bird', 'mouse'] },
     { word: 'apple',    decks: [1, 2, 3], suit: 'noun', subtype: 'countable',   number: 'singular', level: 1, kind: 'food',   variants: ['orange', 'banana', 'sandwich'] },
     { word: 'teacher',  decks: [1, 2, 3], suit: 'noun', subtype: 'countable',   number: 'singular', level: 1, kind: 'person', variants: ['doctor', 'student', 'boy', 'girl'] },
     { word: 'books',    decks: [1, 2, 3], suit: 'noun', subtype: 'plural',      number: 'plural',   level: 1, kind: 'thing',  // no variants: its second meaning is a verb (to book)
       alt: [{ suit: 'verb', subtype: 'regular', tense: 'present', agrees: ['sg'], person: '3rd', takes: ['np'], subjectKind: 'animate', objectKinds: ['event'], note: 'to book = to reserve (prenotare)', decks: [1, 3] }] },
-    { word: 'eggs',     decks: [1, 2, 3], suit: 'noun', subtype: 'plural',      number: 'plural',   level: 1, kind: 'food',   variants: ['carrots', 'cookies', 'grapes'] },
+    { word: 'bunnies',  decks: [1, 2, 3], suit: 'noun', subtype: 'plural',      number: 'plural',   level: 1, kind: 'animal', edible: true, variants: ['horses', 'ducks', 'frogs'] },   // animals: subject AND object
     { word: 'friends',  decks: [1, 2, 3], suit: 'noun', subtype: 'plural',      number: 'plural',   level: 1, kind: 'person', variants: ['cousins', 'parents', 'classmates'] },
     { word: 'children', decks: [1, 2, 3], suit: 'noun', subtype: 'plural',      number: 'plural',   level: 2, kind: 'person', irregular: true, variants: ['people', 'men', 'women'] },
     { word: 'water',    decks: [1, 2, 3], suit: 'noun', subtype: 'uncountable', number: 'singular', level: 1, kind: 'drink',  variants: ['milk', 'juice', 'tea'] },
@@ -286,7 +287,7 @@ const GP_DATA = {
     'connector':  { level: 3, name: 'and / but / because', tip: 'Join two sentences: I play but she eats. BECAUSE gives a reason.', it: 'Unisci due frasi. BECAUSE dà la ragione.', ok: 'I am happy because you play.', no: 'I am happy because.' },
     'connector-clause': { level: 3, hidden: true, name: 'and / but / because', tip: 'After and / but / because write a whole new sentence: who + verb…', it: 'Dopo and / but / because scrivi una frase intera.', ok: 'I play but she eats.', no: 'I play but.',
                   wrong: 'After and / but / because write a whole new sentence (who + verb…).' },
-    'and-list':   { level: 3, name: 'And joins words', tip: 'And can join two nouns or two adjectives: books and eggs.', it: 'And può unire due nomi o due aggettivi.', ok: 'I have books and eggs.', no: 'I have books and.' },
+    'and-list':   { level: 3, name: 'And joins words', tip: 'And can join two nouns or two adjectives: books and bunnies.', it: 'And può unire due nomi o due aggettivi.', ok: 'I have books and bunnies.', no: 'I have books and.' },
     'and-subject': { level: 3, name: 'Two subjects = plural', tip: 'Two subjects with AND are plural: Anna and I play.', it: 'Due soggetti con AND sono plurale.', ok: 'Anna and I play.', no: 'Anna and I plays.' },
   },
 };

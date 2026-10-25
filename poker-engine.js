@@ -20,7 +20,7 @@
   const uniq = a => [...new Set(a)];
   const animate = c => c.kind === 'person' || c.kind === 'animal';
 
-  // The deck of a game: every slot of the Level takes one of its words at random (Anna → Paola, eggs → carrots…); no word twice.
+  // The deck of a game: every slot of the Level takes one of its words at random (Anna → Paola, bunnies → horses…); no word twice.
   // rng = Math.random, or the seeded generator of the room when two devices play (same deck on both).
   const deckFor = (level, rng = Math.random) => {
     const slots = D.cards.filter(c => c.decks.includes(level));
@@ -237,7 +237,9 @@
     function after(v, i) {
       const objs = [];
       if (v.takes.includes('np')) for (const o of npList(i, 'object')) {
-        const h = strict && v.objectKinds ? o.heads.find(x => !v.objectKinds.includes(cards[x].kind)) : undefined;
+        // a verb that takes food (eat, cooked) also takes an edible animal (bunnies, horses…)
+        const okKind = x => v.objectKinds.includes(cards[x].kind) || (cards[x].edible && v.objectKinds.includes('food'));
+        const h = strict && v.objectKinds ? o.heads.find(x => !okKind(x)) : undefined;
         if (h !== undefined) bad(h, 'meaning'); else objs.push(R(o.i, ['svo', ...o.rules]));
       }
       if (v.takes.includes('none')) objs.push(R(i, []));

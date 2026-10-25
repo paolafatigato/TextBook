@@ -105,3 +105,22 @@
   .ta-say .who { width: 60px; height: 60px; font-size: 34px; } .ta-say .bub p { font-size: 17px; }
 }
 @media print { .ta-modal { display: none; } }
+
+/* online: two devices */
+.ta-slot.old { animation: none; }
+.ta-slot .eye { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); font-size: 18px; line-height: 1; }
+.ta-chip.opp { background: var(--pal-pale-lime); }
+.ta-net { max-width: 760px; }
+.ta-nm { display: flex; align-items: center; gap: 10px; margin: 8px 0; font: 800 15px 'Nunito', sans-serif; }
+.ta-nm input, .ta-netbox input { padding: 8px 12px; border: 2px solid var(--pal-forest); border-radius: 999px; font: 700 16px 'Nunito', sans-serif; color: var(--pal-forest); }
+.ta-netcols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 10px 0; }
+.ta-netbox { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 12px 14px; border: 2px solid var(--pal-forest); border-radius: 14px; background: var(--pal-pale-lime); font: 400 14px/1.35 'Nunito', sans-serif; }
+.ta-netbox b { font: 400 19px 'Gloock', serif; }
+.ta-netbox input { width: 120px; text-transform: uppercase; letter-spacing: .3em; text-align: center; }
+.ta-roomcode { display: inline-block; padding: 2px 18px; border: 3px solid var(--pal-forest); border-radius: 12px; background: var(--pal-lime); font: 400 40px 'Gloock', serif; letter-spacing: .25em; }
+.ta-lobby { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; padding: 0; list-style: none; }
+.ta-lobby li { padding: 8px 14px; border: 2px dashed var(--pal-slate); border-radius: 12px; font: 600 17px 'Nunito', sans-serif; opacity: .6; }
+.ta-lobby li.on { border-style: solid; border-color: var(--pal-forest); background: var(--pal-pale-lime); opacity: 1; }
+.ta-msg.ok { color: var(--pal-forest); }
+.ta-btn:disabled { opacity: .5; cursor: default; }
+@media (max-width: 640px) { .ta-netcols { grid-template-columns: 1fr; } }

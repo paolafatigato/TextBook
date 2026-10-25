@@ -1,5 +1,5 @@
 // The Games list on the home page: the chapters that have no pill of their own in the script of their games.
-// (Jobs, Witch hunt, Emotions, Sports, Personality and Present simple make theirs; script.js puts all the pills in the order of the book.)
+// (School trip is here too; Jobs, Witch hunt, Emotions, Sports, Personality and Present simple make theirs; script.js puts all the pills in the order of the book.)
 // A link goes to the page of the game. If it has `open`, the pop-up of the game opens when the page is there;
 // without it the game is on the page itself (the maze, the house).
 window.addEventListener('load', () => {
@@ -12,6 +12,7 @@ window.addEventListener('load', () => {
       ['🎯 Who am I?', 'rj-verona', () => window.RJ_GAMES?.open('who')],
       ['🃏 Memory pairs', 'rj-verona', () => window.RJ_GAMES?.open('memory')],
     ] },
+    { title: 'School trip', color: '#f06054', games: [['✈️ Travel Agent', 'trip-budget', () => window.TRIP_AGENCY?.open()]] },
     { title: 'Orwell', color: '#262626', games: [
       ['🎯 Who am I?', 'af-rules', () => window.ORWELL_GAMES?.open('who')],
       ['🃏 Memory: Farm &amp; history', 'af-rules', () => window.ORWELL_GAMES?.open('memory')],
