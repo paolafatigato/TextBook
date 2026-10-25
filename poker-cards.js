@@ -30,8 +30,8 @@
 const GP_DATA = {
 
   suits: {
-    noun:     { symbol: '♠', name: 'NOUNS',          color: '#3b9ae0' },
-    verb:     { symbol: '♥', name: 'VERBS',          color: '#f05f4b' },
+    noun:     { symbol: '♠', name: 'NOUNS',          color: '#f05f4b' },
+    verb:     { symbol: '♥', name: 'VERBS',          color: '#3b9ae0' },
     modifier: { symbol: '♦', name: 'MODIFIERS',      color: '#8e2de2' },
     function: { symbol: '♣', name: 'FUNCTION WORDS', color: '#3aa04a' },
   },
@@ -43,7 +43,10 @@ const GP_DATA = {
     { id: 'italian', name: 'Poker all’italiana', text: '5 cards, one swap of any cards (even all 5).',         handSize: 5, swaps: 5, shared: 0, royalMin: 5,
       order: ['high', 'pair', 's3', 'two', 'trips', 's4', 's5', 'full', 'four', 'flush', 'royal'] },
     { id: 'texas',   name: 'Texas Hold’em', text: '2 cards of yours + 5 on the table, shown one step at a time.', handSize: 2, swaps: 0, shared: 5, royalMin: 6,
-      order: ['high', 'pair', 'two', 's3', 's4', 'trips', 's5', 'full', 's6', 'four', 'flush', 'royal'] },
+      // no High card in the Texas Hold’em: with no combination you have no hand. The same hand (the same sentence length) = the pot is shared:
+      // the dots ●●● are not used for the tie-break.
+      tieDots: false, tieBreak: 'No pair and no sentence? Then you have no hand. The same hand? The pot is shared. (A longer sentence is stronger than a shorter one.)',
+      order: ['pair', 'two', 's3', 's4', 'trips', 's5', 'full', 's6', 'four', 'flush', 'royal'] },
   ],
 
   // the small caption on the cards (it shows what the "rank" of the card is)
@@ -73,7 +76,8 @@ const GP_DATA = {
   ],
 
   settings: {
-    rounds: 5,        // deals in a game
+    rounds: 0,        // deals in a game: 0 = you play until somebody has no chips left (you lose when YOUR chips are over)
+    maxRounds: 60,    // the most deals of a game when rounds is 0 (a safety limit: then the one with more chips wins)
     chips: 100,       // chips at the start
     ante: 5,          // everybody puts this in the pot before the deal
     bet: 10,          // the usual bet (Robo raises with it)
@@ -121,7 +125,7 @@ const GP_DATA = {
     { word: 'water',    decks: [1, 2, 3], suit: 'noun', subtype: 'uncountable', number: 'singular', level: 1, kind: 'drink',  variants: ['milk', 'juice', 'tea'] },
     { word: 'homework', decks: [1, 2, 3], suit: 'noun', subtype: 'uncountable', number: 'singular', level: 1, kind: 'thing',  variants: ['music', 'money'] },
     { word: 'pizza',    decks: [1, 2, 3], suit: 'noun', subtype: 'uncountable', number: 'singular', level: 1, kind: 'food',   variants: ['rice', 'bread', 'pasta', 'cheese'] },
-    { word: 'Anna',     decks: [1, 2, 3], suit: 'noun', subtype: 'proper',      number: 'singular', level: 1, kind: 'person', variants: ['Paola', 'Giulia', 'Matteo', 'Marco', 'Sara'] },
+    { word: 'Anna',     decks: [1, 2, 3], suit: 'noun', subtype: 'proper',      number: 'singular', level: 1, kind: 'person', variants: ['Paola', 'Giulia', 'Omar', 'Ahmed', 'Sara'] },
     { word: 'London',   decks: [1, 2, 3], suit: 'noun', subtype: 'proper',      number: 'singular', level: 2, kind: 'place',  variants: ['Rome', 'Paris', 'Milan', 'Italy'] },
 
     // ♥ VERBS

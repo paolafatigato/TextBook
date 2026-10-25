@@ -74,7 +74,7 @@
   // a new game: the deck is made now (random words in the slots; with the seed of the room when we play online)
   const freshGame = (level, mode, rng, meaning = 'check') => {
     const deck = E.deckFor(level, rng);
-    E.setRules({ royalMin: mode.royalMin, pairBy: D.levels[level - 1].pairBy, level, order: mode.order, meaning });
+    E.setRules({ royalMin: mode.royalMin, pairBy: D.levels[level - 1].pairBy, level, order: mode.order, meaning, tieDots: mode.tieDots !== false });
     return {
     level, mode, meaning, deck, words: Object.fromEntries(deck.map(c => [c.word, c])), round: 0, tipN: 0,
     chips: { you: S.chips, bot: S.chips },
@@ -124,7 +124,7 @@
     G.lastError = null;
     G.errIndex = -1;
     G.msg = `Deal ${G.round}. Tap up to ${m.swaps} cards you don’t need, then press Swap. Or keep them all.`;
-    if (m.shared) { showTable(3); G.msg = `Deal ${G.round}. The flop: 3 cards on the table (gold line) are for both of you. Put the cards you play in the row, then bet.`; }
+    if (m.shared) { showTable(3); G.msg = `Deal ${G.round}. The flop: 3 cards on the table (above) are for both of you. Put the cards you play in the row, then bet.`; }
     render();
   }
 
@@ -230,14 +230,14 @@
 
   // a big bet scares Robo: the weaker its hand, the more
   function botCalls(amt) {
-    const p = { high: .3, pair: .55, two: .8, s3: .8, s4: .85, trips: .9 }[G.botBest.key];   // the strong hands always call
+    const p = { none: .3, high: .3, pair: .55, two: .8, s3: .8, s4: .85, trips: .9 }[G.botBest.key];   // the strong hands always call
     const scare = amt > S.bet ? Math.min(.6, .15 * Math.log2(amt / S.bet)) : -.05;
     return Math.random() < (p === undefined ? 1 : Math.min(1, Math.max(.05, p - scare)));
   }
   // Robo raises: more when its hand is strong
   const botRaiseAmount = () => betAmount(['full', 's6', 'four', 'flush', 'royal'].includes(G.botBest.key) ? S.bets[S.bets.length - 1] : ['trips', 's5'].includes(G.botBest.key) ? S.bet : S.bets[0]);
   function botRaises() {
-    return Math.random() < ({ high: .05, pair: .08, two: .2, s3: .2, s4: .3, trips: .4 }[G.botBest.key] ?? .6);
+    return Math.random() < ({ none: .05, high: .05, pair: .08, two: .2, s3: .2, s4: .3, trips: .4 }[G.botBest.key] ?? .6);
   }
   // the most that can be bet: the chips of the poorer player (that is ALL IN)
   const maxBet = () => Math.max(0, Math.min(G.chips.you, G.chips.bot));
@@ -351,8 +351,11 @@
       <div class="gp-actions"><button type="button" class="gp-btn go" data-act="judge-yes">👍 Convincing: it counts</button><button type="button" class="gp-btn bad" data-act="judge-no">👎 Not convincing</button></div></div>`;
   }
 
+  // the game ends when somebody has no chips left (or, if you stop it, or at the safety limit of deals)
+  const gameOver = () => G.stopped || G.round >= (S.rounds || S.maxRounds) || G.chips.you <= 0 || G.chips.bot <= 0;
+
   function next() {
-    if (G.round >= S.rounds || G.chips.you <= 0 || G.chips.bot <= 0) { G.phase = 'over'; return render(); }
+    if (gameOver()) { G.phase = 'over'; return render(); }
     deal();
   }
 
@@ -552,13 +555,14 @@
     pop.hidden = false;
   }
   // the hands of the poker that is played (or chosen), from the weakest to the strongest
-  const handsOrder = () => (G ? G.mode : D.modes.find(m => m.id === lastMode) || D.modes[0]).order.map(k => D.hands.find(h => h.key === k));
+  const handsMode = () => (G ? G.mode : D.modes.find(m => m.id === lastMode) || D.modes[0]);
+  const handsOrder = () => handsMode().order.map(k => D.hands.find(h => h.key === k));
   function showHands() {
     pop.firstElementChild.innerHTML = `
       <h3>🃏 The hands <small>(weak → strong)</small></h3>
       <ol class="gp-hands">${handsOrder().map(h => `<li class="${h.sentence ? 'sent' : ''}"><b>${esc(h.name)}</b><span>${esc(h.how)}</span>${h.example ? `<em>${esc(h.example)}</em>` : ''}</li>`).join('')}</ol>
-      <p class="gp-it">${esc(D.tieBreak)}</p>
-      <p class="gp-it">●●● on the cards = how difficult the word is.</p>
+      <p class="gp-it">${esc(handsMode().tieBreak || D.tieBreak)}</p>
+      ${handsMode().tieDots === false ? '' : '<p class="gp-it">●●● on the cards = how difficult the word is.</p>'}
       <div class="gp-suitkey">${Object.values(D.suits).map(s => `<span><i>${s.symbol}</i> ${s.name}</span>`).join('')}</div>
       <div class="gp-pop-actions"><button type="button" class="gp-btn" data-pop="close">OK</button></div>`;
     pop.hidden = false;
@@ -601,6 +605,7 @@
   // “It was played as a Pair”: and why it is not more
   function whyNot(cards, mine) {
     const rest = cards.filter(c => !mine.used.includes(c));
+    if (mine.key === 'none') return 'No two cards are the same type and it is not a sentence, so this row is no hand.';
     if (mine.key === 'high') return 'No two cards are the same type, so only the card with the most dots ●●● counts.';
     if (mine.key !== 'pair' || !rest.length) return '';
     const [a, b] = mine.used, o = rest.find(c => c.suit === a.suit) || rest[0];
@@ -610,8 +615,9 @@
   function render() { draw(); managePoll(); }
   function draw() {
     applyLabels();
+    overlay.classList.toggle('gp-nodots', !!G && G.mode.tieDots === false);   // no dots where they are not used
     syncChips();
-    $('#gpInfo').textContent = G && G.phase !== 'over' ? `Deal ${G.round}/${S.rounds}${G.net ? ' · online' : ''}` : '';
+    $('#gpInfo').textContent = G && G.phase !== 'over' ? `Deal ${G.round}${S.rounds ? '/' + S.rounds : ''}${G.net ? ' · online' : ''}` : '';
     $('[data-top="sound"]').textContent = sound ? '🔊' : '🔇';
     if (!G) return NS ? netScreen() : menu();
     if (G.phase === 'over') return summary();
@@ -647,11 +653,17 @@
 
   function table() {
     const mine = strength();
-    const cards = G.hand.map((c, i) => {
-      const inLine = G.line.includes(i);
-      const cls = [G.shared.has(c) ? 'shared' : '', G.sel.has(i) ? 'sel' : '', inLine ? 'used' : '', G.phase === 'bet' && mine.used.includes(c) ? 'glow' : ''].join(' ');
+    // a card of G.hand (the cards of the table in the Texas are at the end of it, but they are shown above, next to Robo’s cards)
+    const cardAt = i => {
+      const c = G.hand[i];
+      const cls = [G.shared.has(c) ? 'shared' : '', G.sel.has(i) ? 'sel' : '', G.line.includes(i) ? 'used' : '', G.phase === 'bet' && mine.used.includes(c) ? 'glow' : ''].join(' ');
       return cardHTML(c, `data-act="card" data-i="${i}"${G.phase === 'swap' || G.phase === 'build' ? '' : ' disabled'}`, cls);
-    }).join('');
+    };
+    const all = G.hand.map((c, i) => i);
+    const cards = all.filter(i => !G.shared.has(G.hand[i])).map(cardAt).join('');
+    // the 5 places of the table: the cards that are turned up, then the covered ones
+    const board = !G.mode.shared ? '' : all.filter(i => G.shared.has(G.hand[i])).map(cardAt).join('')
+      + backHTML(G.mode.shared - G.shared.size);
 
     const lineHTML = G.line.length
       ? G.line.map((i, k) => `<button type="button" class="gp-tile ${G.errIndex === k && G.fb && !G.fb.ok ? 'err' : ''}" style="--c:${D.suits[G.hand[i].suit].color}" data-act="unline" data-i="${i}" aria-label="Remove ${esc(G.hand[i].word)}"><i>${D.suits[G.hand[i].suit].symbol}</i>${esc(G.hand[i].word)}</button>`).join('')
@@ -681,12 +693,15 @@
     area.innerHTML = `
       <div class="gp-table">
         <div class="gp-chips"><span>🧑 You <b>${you}</b></span><span class="pot">🪙 Pot <b>${G.pot}</b></span><span>${G.net ? '🧑' : '🤖'} ${esc(foe())} <b>${bot}</b></span></div>
-        <div class="gp-robo" aria-label="${esc(foe())}’s cards">${G.phase === 'result' ? botReveal() : backHTML(G.mode.handSize)}</div>
+        ${G.mode.shared ? `<div class="gp-robo gp-tx">
+          <div class="gp-grp" aria-label="${esc(foe())}’s cards"><div class="gp-row">${G.phase === 'result' ? botReveal() : backHTML(G.mode.handSize)}</div><small class="gp-cap">${esc(foe())}</small></div>
+          <div class="gp-grp" aria-label="The cards on the table"><div class="gp-row gp-board">${board}</div><small class="gp-cap">On the table (for both)</small></div></div>`
+        : `<div class="gp-robo" aria-label="${esc(foe())}’s cards">${G.phase === 'result' ? botReveal() : backHTML(G.mode.handSize)}</div>`}
         <p class="gp-coach" role="status">${esc(G.msg)}</p>
         ${G.phase === 'result' ? resultHTML() : G.phase === 'judge' ? judgeHTML() : `
           <div class="gp-line ${G.line.length ? '' : 'empty'}">${lineHTML}</div>
           ${G.fb ? `<div class="gp-fb ${G.fb.ok ? 'ok' : 'no'}" role="status">${G.fb.html}</div>` : ''}
-          <div class="gp-handbar"><span>Your cards – drag to reorder${G.mode.shared ? ' · gold line = on the table' : ''}</span><button type="button" class="gp-ib" data-act="sort" ${G.phase === 'swap' || G.phase === 'build' ? '' : 'disabled'}>↔ Sort</button></div>
+          <div class="gp-handbar"><span>${G.mode.shared ? 'Your 2 cards · tap the cards on the table too' : 'Your cards – drag to reorder'}</span>${G.mode.shared ? '' : `<button type="button" class="gp-ib" data-act="sort" ${G.phase === 'swap' || G.phase === 'build' ? '' : 'disabled'}>↔ Sort</button>`}</div>
           <div class="gp-hand">${cards}</div>
           ${showBanner ? `<p class="gp-banner">${G.line.length ? 'Your played hand' : 'Nothing in the row: your best combination'}: <b>${esc(handName(mine))}</b></p>` : ''}
           <div class="gp-actions">${buttons}</div>`}
@@ -718,14 +733,15 @@
     const missed = r.missed ? `<p class="gp-missed">💡 You had a ${r.missed.key === 'royal' ? 'ROYAL SENTENCE' : 'sentence'} hidden in your cards:<span class="gp-sent">${r.missed.used.map(c => tile(c)).join('')}</span></p>` : '';
     const oddNote = !r.odd ? '' : r.odd.accepted === true ? `<p class="gp-odd">👍 The class accepted “${esc(r.odd.text)}”</p>` : r.odd.accepted === false ? `<p class="gp-odd bad">👎 The class did not accept “${esc(r.odd.text)}”: your hand was played as ${esc(handName(r.mine))}.</p>` : `<p class="gp-odd">🤔 Strange sentence: “${esc(r.odd.word)}” does not make sense here.</p>`;
     const spark = r.clever && r.clever.paid ? sparkHTML(r.clever.words, true) : '';
-    const last = G.round >= S.rounds || G.chips.you <= 0 || G.chips.bot <= 0;
+    const last = gameOver();
     return `<div class="gp-result ${r.outcome}"><h3>${head}</h3>${body}${rows}${spark}${oddNote}${row}${missed}
-      <div class="gp-actions"><button type="button" class="gp-btn go" data-act="next">${last ? 'See the summary →' : 'Next deal →'}</button></div></div>`;
+      <div class="gp-actions"><button type="button" class="gp-btn go" data-act="next">${last ? 'See the summary →' : 'Next deal →'}</button>${last || G.net ? '' : '<button type="button" class="gp-btn ghost" data-act="stop">🏁 Stop and see the summary</button>'}</div></div>`;
   }
 
   function summary() {
     const st = G.stats, you = G.chips.you, bot = G.chips.bot;
-    const verdict = you > bot ? `🏆 You beat ${foe()}!` : you < bot ? `${G.net ? '🏅' : '🤖'} ${foe()} wins this time` : '🤝 A tie!';
+    // you lose when YOUR chips are over; you win when the other has no chips left
+    const verdict = G.stopped ? '🏁 Game stopped' : you <= 0 ? `💸 You have no chips left: ${foe()} wins` : bot <= 0 ? `🏆 You won all the chips of ${foe()}!` : you > bot ? `🏆 You are ahead of ${foe()}!` : you < bot ? `${G.net ? '🏅' : '🤖'} ${foe()} is ahead` : '🤝 A tie!';
     const used = Object.entries(st.rules).sort((a, b) => b[1] - a[1]);
     const errCount = {};
     st.errors.forEach(e => { errCount[e.rule] = (errCount[e.rule] || 0) + 1; });
@@ -846,6 +862,7 @@
       case 'bet': return act('bet', +b.dataset.amt);
       case 'call': return act('call');
       case 'next': return next();
+      case 'stop': G.stopped = true; G.phase = 'over'; break;
     }
     render();
   });

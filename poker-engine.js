@@ -335,7 +335,8 @@
   const setRules = r => { Object.assign(cfg, r); if (r.order) cfg.ranks = ranksOf(r.order); };
   const rankOf = key => cfg.ranks[key];
 
-  const mk = (key, used, extra) => ({ key, rank: cfg.ranks[key], name: BY_KEY[key].name, used, hard: hard(used), len: used.length, ...extra });
+  // key 'none' = no hand at all (the pokers without a High card)
+  const mk = (key, used, extra) => ({ key, rank: cfg.ranks[key] ?? 0, name: BY_KEY[key]?.name || 'No hand', used, hard: hard(used), len: used.length, ...extra });
 
   // the poker combinations (a pair is 2 cards with the same suit AND subtype)
   function pokerHand(cards) {
@@ -359,7 +360,7 @@
     const p1 = best(2), p2 = p1 && best(2, p1);
     if (p1 && p2) cand.push(mk('two', [...p1.slice(0, 2), ...p2.slice(0, 2)]));
     if (p1) cand.push(mk('pair', p1.slice(0, 2)));
-    cand.push(mk('high', [cards.slice().sort(byLevel)[0]]));
+    cand.push(cfg.ranks.high ? mk('high', [cards.slice().sort(byLevel)[0]]) : mk('none', []));
     return cand.sort((a, b) => b.rank - a.rank)[0];
   }
 
@@ -376,7 +377,7 @@
   function compare(a, b) {
     if (a.rank !== b.rank) return a.rank - b.rank;
     if (a.sentence && b.sentence && a.len !== b.len) return a.len - b.len;
-    return a.hard - b.hard;
+    return cfg.tieDots === false ? 0 : a.hard - b.hard;   // the dots decide a tie, unless the poker shares the pot
   }
 
   function bestHand(hand, sentence) {

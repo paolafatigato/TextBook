@@ -101,6 +101,10 @@
       { d: 1, f: cards => ({ say: pick(['Hello! I’d like the cheapest room, please.', 'Good morning. Could I have the cheapest hotel?']), pred: c => c.price === lowest(cards, 'price') }) },
       { d: 1, f: cards => ({ say: pick(['Could I have the hotel closest to the center?', 'I’d like a hotel close to the center. The closest, please!']), pred: c => c.min === lowest(cards, 'min') }) },
       { d: 1, f: cards => ({ say: 'It’s our wedding trip! I’d like the most expensive hotel, please.', pred: c => c.price === highest(cards, 'price') }) },
+      { d: 2, f: cards => { const cheap = cards.find(c => c.price === lowest(cards, 'price')); if (cheap.bf) return null;     // trap: the cheapest has no breakfast
+          return { say: 'I’d like the cheapest hotel, but breakfast must be included.', pred: c => c.bf && c.price === lowest(cards, 'price', a => a.bf) }; } },
+      { d: 3, f: cards => { const near = cards.find(c => c.min === lowest(cards, 'min')); const x = rint(30, 85); if (near.price <= x) return null;     // trap: the closest is too dear
+          return { say: `I want the closest hotel to the center, but I can’t pay more than €${x} per night.`, pred: c => c.price <= x && c.min === lowest(cards, 'min', a => a.price <= x) }; } },
       { d: 2, f: cards => { const x = rint(25, 90); return { say: `Could I have a room with breakfast? I can’t pay more than €${x} a night.`, pred: c => c.bf && c.price <= x }; } },
       { d: 2, f: cards => { const n = rint(2, 4), t = rint(8, 30) * 10; return { say: `We’re staying ${n} nights and we have only €${t} in total. Which hotel can we pay?`, pred: c => c.price * n <= t }; } },
       { d: 3, f: cards => { const m = pick([10, 15, 20, 30]), x = rint(30, 85); return { say: `I’d like to be less than ${m} minutes from the center, and I can’t pay more than €${x} per night.`, pred: c => c.min < m && c.price <= x }; } },
@@ -110,12 +114,16 @@
       { d: 1, f: (cards, s) => ({ say: `I’d like to go to ${s.city}, and I’m in a hurry! The fastest way, please.`, pred: c => c.h === lowest(cards, 'h') }) },
       { d: 2, f: (cards, s) => ({ say: `I’m afraid of flying. Could I have the cheapest way to ${s.city}?`, pred: c => !c.plane && c.price === lowest(cards, 'price', a => !a.plane) }) },
       { d: 2, f: (cards, s) => { const x = rint(30, 140); return { say: `I have only €${x}. What’s the fastest way to ${s.city} I can pay?`, pred: c => c.price <= x && c.h === lowest(cards, 'h', a => a.price <= x) }; } },
+      { d: 2, f: (cards, s) => { const fast = cards.find(c => c.h === lowest(cards, 'h')); if (!fast.plane) return null;     // trap: the fastest is the plane, but…
+          return { say: pick([`I’m in a rush, but I have a fear of flying. Could I have the fastest way to ${s.city}?`, `I’m late! But I never fly. What’s the fastest way to ${s.city}, please?`]), pred: c => !c.plane && c.h === lowest(cards, 'h', a => !a.plane) }; } },
       { d: 3, f: (cards, s) => { const h = rint(3, 8); return { say: `I want to arrive in ${s.city} in less than ${h} hours, but I don’t want to spend a lot. The cheapest, please!`, pred: c => c.h < h && c.price === lowest(cards, 'price', a => a.h < h) }; } },
     ],
     activity: [
       { d: 1, f: cards => { const t = pick(cards); return { say: pick(t.say), pred: c => c.name === t.name }; } },
       { d: 1, f: cards => ({ say: 'I’m a student, so the cheapest visit, please.', pred: c => c.price === lowest(cards, 'price') }) },
       { d: 2, f: cards => { const n = rint(3, 5), t = rint(6, 30) * 5; return { say: `We’re ${n} people and we have €${t}. Which visit can we pay?`, pred: c => c.price * n <= t }; } },
+      { d: 2, f: cards => { const cheap = cards.find(c => c.price === lowest(cards, 'price')); if (!/museum/.test(cheap.name)) return null;     // trap: the cheapest is a museum
+          return { say: 'I’m a student, but I hate museums. What’s the cheapest visit?', pred: c => !/museum/.test(c.name) && c.price === lowest(cards, 'price', a => !/museum/.test(a.name)) }; } },
       { d: 3, f: cards => ({ say: 'We have a lot of time today: we want the longest visit!', pred: c => c.h === highest(cards, 'h') }) },
     ],
   };
@@ -125,7 +133,7 @@
       const set = CARDS[kind]();
       const m = t < 200 ? pick(MAKERS[kind].filter(x => x.d <= day)) : MAKERS[kind][0];
       const r = m.f(set.cards, set);
-      if (set.cards.filter(r.pred).length === 1) return { ...r, cards: set.cards, city: set.city, lvl: m.d };
+      if (r && set.cards.filter(r.pred).length === 1) return { ...r, cards: set.cards, city: set.city, lvl: m.d };
     }
     throw new Error('no request for ' + kind);
   }

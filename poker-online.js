@@ -57,7 +57,7 @@
   // → { chips: [c0, c1], rounds: { n: { status: 'play' | 'done', steps, pot, how, winner, foldBy, hands } } }
   function ledger(pk, mode, words) {
     const chips = [S.chips, S.chips], rounds = {}, steps = stepsOf(mode);
-    for (let r = 1; r <= S.rounds; r++) {
+    for (let r = 1; r <= (S.rounds || S.maxRounds); r++) {
       const e = [pk[key(r, 0)], pk[key(r, 1)]];
       if (!e[0] && !e[1]) break;
       const ante = Math.min(S.ante, chips[0], chips[1]);
@@ -126,7 +126,7 @@
   // a new game: new seed, the old entries are wiped
   function newGame(code, pk, onError) {
     const patch = { 'pk.gid': (pk.gid || 0) + 1, 'pk.seed': Math.random().toString(36).slice(2, 8), 'pk.left': null };
-    for (let r = 1; r <= S.rounds; r++) for (const p of [0, 1]) patch[`pk.${key(r, p)}`] = null;
+    for (let r = 1; r <= (S.rounds || S.maxRounds); r++) for (const p of [0, 1]) patch[`pk.${key(r, p)}`] = null;
     return post(code, patch, onError);
   }
   const leave = (code, me) => post(code, { 'pk.left': me });
