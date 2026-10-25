@@ -11,7 +11,7 @@
     'tobe-rules': { title: 'The verb TO BE', games: ['tobe-rule', 'tobe-fire'] },
     'own-saxon': { title: 'The Saxon genitive', games: ['sg-order', 'sg-apos', 'sg-tf', 'sg-final'] },
     'own-three-s': { title: 'The three ’s', games: ['ap-cards', 'ap-fire'] },
-    'ps-affirmative': { title: 'Present simple: the -s', games: ['s-rule', 's-catch'] },
+    'ps-affirmative': { title: 'Present simple: the -s', games: ['s-rule', 's-catch'], poker: true },
   };
   for (const [key, set] of Object.entries(SETS)) {
     set.intro = `pp. ${PAGES.of(set.from || key)}–${PAGES.end(key)} · Scegli un gioco!`;
@@ -129,7 +129,10 @@
     area.innerHTML = `<p class="gq-menu-intro">${section.intro}</p><div class="gq-menu">${section.games.map(id => `
       <button type="button" class="gq-game" data-play="${id}">
         <i>${INFO[id].icon}</i><span><b>${INFO[id].name}</b>${INFO[id].text}</span>
-      </button>`).join('')}</div>`;
+      </button>`).join('')}${section.poker ? `
+      <button type="button" class="gq-game" data-poker>
+        <i>♠️</i><span><b>Grammar Poker</b>Contro Robo o un amico online: il mazzo del present simple.</span>
+      </button>` : ''}</div>`;
     modal.querySelector('.gq-box').scrollTop = 0;
   }
 
@@ -160,6 +163,11 @@
   }
 
   area.addEventListener('click', e => {
+    if (e.target.closest('[data-poker]')) {
+      close();
+      window.GRAMMAR_POKER?.open({ level: 1, hint: 'You are studying the present simple: Level 1 has all the verbs in the present (I like, she likes…).' });
+      return;
+    }
     const b = e.target.closest('[data-play], [data-menu]');
     if (!b) return;
     if (b.dataset.menu !== undefined) showMenu();
@@ -1133,8 +1141,38 @@
   GAMES['ap-fire'] = () => apGame('ap-fire', '🔥 The three ’s – Quick Fire', { timed: true });
 
   // These drills are about the pages they follow, so they are NOT on the home page: they pop up at the end of
-  // their spread (and the button on the page opens them). The home page only lists the games with an opponent
-  // and the ones with no page of their own (see the "Games list on the home page" of each game).
+  // their spread (and the button on the page opens them). Only the real games are on the Games list of the home page
+  // (script.js puts the pills in the order of the book): here "Acchiappa il Finale!", the arcade of the present simple.
+  window.addEventListener('load', () => {
+    const list = $('gameList');
+    if (!list || typeof PAGES === 'undefined') return;
+    const set = 'ps-affirmative', game = 's-catch';
+    const pill = document.createElement('details');
+    pill.className = 'game-topic';
+    pill.style.setProperty('--c', '#c97df6'); // the color of the topic on the home page
+    // the goose game of the Conversation Game page (game.js, played by friends on one screen: it has the sign of the opponents)
+    const links = [
+      [`${VS_SIGN} 🎲 Conversation Game`, 'ps-conversation-game', () => window.CONVERSATION_GAME?.open()],
+      [`${INFO[game].icon} ${INFO[game].name}`, set, () => { seen.add(set); open(set); play(game); }],
+    ];
+    pill.innerHTML = `<summary>${VS_SIGN} Present simple <small>${links.length}</small></summary><div class="topic-pages">${links.map(([t, where], i) =>
+      `<a href="#p${PAGES.of(where)}" data-go="${i}">${t}</a>`).join('')}</div>`;
+    list.append(pill);
+    document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });
+    list.addEventListener('toggle', e => {
+      if (e.target.open) list.querySelectorAll('.game-topic').forEach(o => { if (o !== e.target) o.open = false; });
+    }, true);
+    // go to the pages of the topic, then start the game over them
+    pill.querySelectorAll('[data-go]').forEach(a => a.addEventListener('click', e => {
+      e.preventDefault();
+      pill.open = false;
+      const go = links[+a.dataset.go][2];
+      if (location.hash === a.getAttribute('href')) { go(); return; }
+      document.addEventListener('spreadchange', go, { once: true });
+      location.hash = a.getAttribute('href');
+    }));
+    window.hideClosedGames?.();
+  });
 
   // the page may already be at the end of a spread when the script loads
   updateFab();

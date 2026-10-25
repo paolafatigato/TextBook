@@ -95,6 +95,7 @@ TOKEN_EMOJI.forEach(e => {
 });
 
 const openSetup = () => { if (!busy) $('gmSetup').hidden = false; };
+window.CONVERSATION_GAME = { open: openSetup }; // used by the Games list on the home page (grammar-games.js)
 $('gameSetupBtn').addEventListener('click', openSetup);
 $('gmCancel').addEventListener('click', () => ($('gmSetup').hidden = true));
 $('gmPlay').addEventListener('click', () => {

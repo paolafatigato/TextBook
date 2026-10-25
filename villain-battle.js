@@ -1076,7 +1076,7 @@
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', '#c08be8');
-    pill.innerHTML = `<summary>${VS_SIGN} Personality <small>1</small></summary><div class="topic-pages"><a href="#p${at}" data-vb>${VS_SIGN} Villain Battle</a></div>`;
+    pill.innerHTML = `<summary>${VS_SIGN} Personality <small>2</small></summary><div class="topic-pages"><a href="#p${at}" data-vb>${VS_SIGN} Villain Battle</a><a href="#p${PAGES.of('pers-adjectives:R')}" data-pg>🔤 Adjectives game</a></div>`;
     list.append(pill);
     document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });
     list.addEventListener('toggle', e => {
@@ -1089,6 +1089,16 @@
       if (location.hash === `#p${at}`) { open(); return; }
       document.addEventListener('spreadchange', open, { once: true });
       location.hash = `#p${at}`;
+    });
+    // the missing-letters game of the personality adjectives (personality-game.js): go to its page, then open it
+    pill.querySelector('[data-pg]').addEventListener('click', e => {
+      e.preventDefault();
+      pill.open = false;
+      const go = () => window.PERSONALITY_GAME?.open();
+      const href = e.currentTarget.getAttribute('href');
+      if (location.hash === href) { go(); return; }
+      document.addEventListener('spreadchange', go, { once: true });
+      location.hash = href;
     });
     window.hideClosedGames?.(); // hide the pill if the page is not open to the students
   });

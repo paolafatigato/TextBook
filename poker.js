@@ -896,7 +896,7 @@
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', '#8e2de2');
-    pill.dataset.at = PAGES.of('ps-conversation-game'); // the list is in the order of the book: poker comes with the present simple
+    pill.dataset.at = Number(PAGES.of('ps-affirmative')) + 0.1; // the list is in the order of the book: poker comes right after the present simple
     pill.innerHTML = `<summary>${VS_SIGN} Grammar Poker <small>1</small></summary><div class="topic-pages"><a href="#" data-gp-go>${VS_SIGN} ♠ ♥ ♦ ♣ Grammar Poker</a></div>`;
     // in the home page: right after the games of the present simple
     const ps = [...list.querySelectorAll('.game-topic')].find(d => /^present simple/i.test(d.querySelector('summary')?.textContent.trim() || ''));
@@ -905,8 +905,7 @@
     list.addEventListener('toggle', e => {
       if (e.target.open) list.querySelectorAll('.game-topic').forEach(o => { if (o !== e.target) o.open = false; });
     }, true);
-    // in the Present simple chapter (the Conversation Game page): the deck of the present simple is ready
-    document.querySelectorAll('[data-poker="present"]').forEach(b => b.addEventListener('click', () => open({ level: 1, hint: 'You are studying the present simple: Level 1 has all the verbs in the present (I like, she likes…).' })));
+    // in the Present simple chapter the button is in the pop-up of the -s games (grammar-games.js): window.GRAMMAR_POKER.open({ level: 1, hint })
     pill.querySelector('[data-gp-go]').addEventListener('click', e => { e.preventDefault(); pill.open = false; open(); });
     window.hideClosedGames?.();
   });

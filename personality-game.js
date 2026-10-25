@@ -84,6 +84,7 @@
     intro();
     overlay.querySelector('.pg-close').focus();
   }
+  window.PERSONALITY_GAME = { open };   // used by the Games list on the home page (villain-battle.js)
   function close() {
     overlay.hidden = true;
     lastFocus?.focus();

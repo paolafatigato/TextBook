@@ -4547,3 +4547,10 @@ body.toc-open .toc { display: block; }
 .jb-prof p.head { align-items: center; height: 3.6cqw; border-bottom: .2cqw solid var(--navy); background: var(--jb-sun); }
 .jb-prof p.head b { font: 700 1.5cqw/1 'Fredoka', 'Nunito', sans-serif; text-align: center; color: var(--navy); }
 .jb-prof input.fill { min-width: 0; height: 2.9cqw; border-bottom: .14cqw solid #b9b6d3; font-size: 1.5cqw; }
+/* "My job" box above the job maps: the words that fit the job light up (jobs-map.js) */
+.jb-pick { z-index: 3; display: flex; align-items: flex-end; gap: 1cqw; margin: 0; font: 800 1.5cqw/1 'Nunito', sans-serif; color: var(--navy); }
+.jb-pick label { white-space: nowrap; padding-bottom: .5cqw; }
+.jb-pick input.fill { flex: 1; min-width: 0; height: 3.4cqw; border-bottom: .2cqw solid var(--navy); font-size: 1.8cqw; }
+.jb-pick em { flex: 0 0 auto; padding-bottom: .5cqw; font: 700 1.2cqw/1 'Nunito', sans-serif; font-style: normal; color: var(--jb-red); }
+.jb-map.has-job span:not(.sel) { opacity: .3; }
+.jb-map span.sel { background: var(--navy); color: #fff; box-shadow: none; opacity: 1; font-weight: 800; }
