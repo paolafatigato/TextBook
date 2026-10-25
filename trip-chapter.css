@@ -295,3 +295,23 @@ textarea.fill.trip-ta.sm { font-size: 1.8cqw; line-height: 1.7; }
 input.fill.trip-order { width: 3.6cqw; height: 3.6cqw; padding: 0; text-align: center; border: .2cqw solid var(--trip-a); border-radius: 50%; background: var(--pal-white); font-size: 2cqw; }
 .trip-stops small { white-space: nowrap; }
 .trip-stops li { grid-template-columns: 6.6cqw 1fr auto; }
+
+/* ---- error hunt: click the lines with a mistake ---- */
+.trip-hunt { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--lg, 1cqw); }
+.trip-hunt li.toggle { position: relative; display: flex; align-items: center; gap: 1.4cqw; padding: .7cqw 3.6cqw .7cqw .8cqw; border-radius: 999px; background: var(--pal-white); border: .22cqw solid var(--trip-a); font: 400 var(--fs, 1.75cqw)/1.3 'Nunito', sans-serif; cursor: pointer; user-select: none; }
+.trip-hunt li.toggle time { flex: none; min-width: 7.4cqw; text-align: center; padding: .4cqw 0; border-radius: 999px; background: var(--trip-b); font: 700 1.5cqw/1 'Fredoka', sans-serif; color: var(--trip-a); }
+.trip-hunt li.toggle:hover { background: var(--trip-soft-b); }
+.trip-hunt li.toggle.on { background: var(--trip-soft-c); border-color: var(--trip-c); box-shadow: .35cqw .35cqw 0 var(--trip-c); }
+.trip-hunt li.toggle.on::after { content: "🔍"; position: absolute; right: 1.2cqw; top: 50%; margin-top: -1.1cqw; font-size: 1.9cqw; line-height: 1; }
+.trip-hunt li.toggle.ok { border-color: var(--pal-green); box-shadow: 0 0 0 .3cqw var(--pal-green); }
+.trip-hunt li.toggle.no { border-color: var(--pal-coral); box-shadow: 0 0 0 .3cqw var(--pal-coral); }
+.trip-hunt.plain li.toggle { border-radius: 1.6cqw; padding-left: 1.6cqw; }
+.trip-score { display: inline-flex; align-items: baseline; gap: .8cqw; padding: .8cqw 2cqw; border-radius: 999px; background: var(--trip-a); color: var(--pal-white); font: 700 2cqw/1 'Fredoka', sans-serif; }
+.trip-score input.fill { width: 5cqw; height: 3cqw; text-align: center; font-size: 2.2cqw; color: var(--trip-b); border-bottom: .15cqw solid var(--trip-b); }
+
+/* ---- the button that opens "Travel Agent" (trip-agency.js, page 320) ---- */
+.trip-play { align-self: center; display: inline-flex; align-items: center; gap: 1.4cqw; margin-top: .6cqw; padding: 1.3cqw 3cqw; border: .3cqw solid var(--trip-a); border-radius: 999px; background: var(--trip-b); color: var(--trip-a); font: 400 2.5cqw/1 'Fredoka', sans-serif; cursor: pointer; box-shadow: .5cqw .5cqw 0 var(--trip-c); }
+.trip-play span { font-size: 3cqw; }
+.trip-play small { font: 700 1.5cqw/1 'Nunito', sans-serif; letter-spacing: .02em; opacity: .8; }
+.trip-play:hover { background: var(--trip-c); }
+@media print { .trip-play { display: none; } }

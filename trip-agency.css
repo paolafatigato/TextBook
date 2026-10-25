@@ -1,0 +1,107 @@
+/* ---------- "Travel Agent" (pop-up of trip-agency.js, page 320), the colors of the School trip chapter: forest, lime, coral ---------- */
+.gq-overlay.trip-modal { --gq-purple: var(--pal-forest); --gq-coral: var(--pal-coral); --gq-lilac: var(--pal-lime); --gq-card: var(--pal-ivory); --gq-navy: var(--pal-forest); --gq-dim: var(--pal-slate); --gq-ok: var(--pal-green); --gq-fail: var(--pal-coral); background: color-mix(in srgb, var(--pal-forest) 78%, transparent); }
+.trip-modal .gq-box.ta-box { max-width: 980px; border: 3px solid var(--pal-forest); box-shadow: 8px 8px 0 var(--pal-coral); background: var(--pal-ivory); }
+.trip-modal .gq-top { border-bottom-color: var(--pal-lime); }
+.trip-modal .gq-back:hover, .trip-modal .gq-close:hover { background: var(--pal-lime); }
+.ta-area { padding: 14px; color: var(--pal-forest); }
+.ta-area * { box-sizing: border-box; }
+.ta { position: relative; display: flex; flex-direction: column; gap: 12px; }
+
+/* top bar */
+.ta-hud { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ta-chip { padding: 4px 14px; border: 2px solid var(--pal-forest); border-radius: 999px; background: var(--pal-white); font: 800 15px 'Nunito', sans-serif; white-space: nowrap; }
+.ta-chip.money { background: var(--pal-lime); }
+.ta-chip.money.neg, .ta-chip.rate.neg { background: var(--pal-blush); }
+.ta-chip .st, .ta-rv .st { color: var(--pal-forest); letter-spacing: 1px; }
+.ta-chip.time { position: relative; flex: 1 1 160px; min-width: 150px; overflow: hidden; text-align: center; }
+.ta-chip.time i { position: absolute; inset: 0 auto 0 0; background: var(--pal-pale-lime); transition: width .2s linear; }
+.ta-chip.time b { position: relative; font: inherit; }
+
+/* the line */
+.ta-queue { display: flex; align-items: flex-end; gap: 8px; padding: 10px 12px; border: 3px solid var(--pal-forest); border-radius: 16px; background: repeating-linear-gradient(90deg, var(--pal-pale-lime) 0 14px, color-mix(in srgb, var(--pal-pale-lime) 70%, var(--pal-white)) 14px 28px); }
+.ta-door, .ta-desk-sign { flex: none; display: flex; flex-direction: column; align-items: center; font-size: 30px; line-height: 1; }
+.ta-door small, .ta-desk-sign small { font: 800 10px 'Nunito', sans-serif; letter-spacing: .1em; text-transform: uppercase; color: var(--pal-slate); }
+.ta-slot { position: relative; flex: 1 1 0; min-width: 0; height: 96px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 6px 4px 8px; border: 2px solid var(--pal-forest); border-radius: 14px; background: var(--pal-white); color: var(--pal-forest); cursor: pointer; font: inherit; animation: taIn .35s ease-out; }
+.ta-slot.empty { border-style: dashed; border-color: color-mix(in srgb, var(--pal-forest) 35%, transparent); background: transparent; cursor: default; animation: none; }
+.ta-slot:not(.empty):hover { background: var(--pal-lime); }
+.ta-slot.on { background: var(--pal-lime); box-shadow: 0 0 0 3px var(--pal-coral); transform: translateY(-3px); }
+.ta-slot .who { font-size: 34px; line-height: 1; }
+.ta-slot .kind { position: absolute; left: 4px; top: 4px; font-size: 15px; line-height: 1; }
+.ta-slot .mood { position: absolute; right: 4px; top: 4px; font-size: 15px; line-height: 1; }
+@keyframes taIn { from { opacity: 0; transform: translateX(-24px); } }
+
+/* patience bars */
+.ta .bar { display: block; width: 100%; height: 9px; border: 1.5px solid var(--pal-forest); border-radius: 999px; background: var(--pal-white); overflow: hidden; }
+.ta .bar i { display: block; height: 100%; width: 100%; background: var(--pal-green); transition: background .3s; }
+.ta .bar i.mid { background: var(--pal-mustard); } .ta .bar i.low { background: var(--pal-coral); }
+
+/* the desk */
+.ta-desk { min-height: 300px; padding: 14px; border: 3px solid var(--pal-forest); border-radius: 16px; background: var(--pal-white); }
+.ta-idle { display: grid; place-items: center; min-height: 270px; font: 400 22px 'Gloock', serif; color: var(--pal-slate); text-align: center; }
+.ta-say { display: flex; align-items: center; gap: 14px; }
+.ta-say .who { position: relative; flex: none; display: grid; place-items: center; width: 84px; height: 84px; border: 3px solid var(--pal-forest); border-radius: 50%; background: var(--pal-lime); font-size: 50px; line-height: 1; }
+.ta-say .who .mood { position: absolute; right: -6px; bottom: -4px; font-size: 24px; }
+.ta-say .bub { position: relative; flex: 1; padding: 10px 16px 12px; border: 3px solid var(--pal-forest); border-radius: 18px; background: var(--pal-ivory); }
+.ta-say .bub::before { content: ""; position: absolute; left: -12px; top: 30px; width: 18px; height: 18px; border-left: 3px solid var(--pal-forest); border-bottom: 3px solid var(--pal-forest); background: var(--pal-ivory); transform: rotate(45deg); }
+.ta-say .bub small { font: 800 12px 'Nunito', sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--pal-slate); }
+.ta-say .bub p { margin: 4px 0 8px; font: 400 22px/1.3 'Gloock', serif; }
+.ta-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+.ta-card { position: relative; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 12px 8px 14px; border: 3px solid var(--pal-forest); border-radius: 16px; background: var(--pal-white); color: var(--pal-forest); cursor: pointer; font: 600 15px/1.3 'Nunito', sans-serif; box-shadow: 4px 4px 0 var(--pal-lime); transition: transform .12s; }
+.ta-card:hover:not(:disabled) { background: var(--pal-pale-lime); transform: translateY(-3px); }
+.ta-card .e { font-size: 42px; line-height: 1.1; }
+.ta-card b { font: 400 20px 'Gloock', serif; text-align: center; }
+.ta-card i { font-style: normal; }
+.ta-card i:first-of-type { margin-top: 2px; padding: 0 12px; border-radius: 999px; background: var(--pal-lime); font-weight: 800; }
+.ta-card kbd { position: absolute; left: 8px; top: 6px; font: 800 12px 'Nunito', sans-serif; color: var(--pal-slate); }
+.ta-card.bad { background: var(--pal-blush); border-color: var(--pal-coral); box-shadow: none; opacity: .6; cursor: default; animation: taShake .35s; }
+@keyframes taShake { 25% { transform: translateX(-7px); } 75% { transform: translateX(7px); } }
+.ta-msg { min-height: 24px; margin: 10px 0 0; font: 800 16px 'Nunito', sans-serif; color: var(--pal-coral); text-align: center; }
+
+/* reviews */
+.ta-reviews { display: flex; flex-direction: column; gap: 5px; }
+.ta-rv { display: flex; align-items: center; gap: 10px; padding: 5px 12px; border: 2px solid var(--pal-forest); border-radius: 999px; background: var(--pal-white); font: 600 14.5px 'Nunito', sans-serif; }
+.ta-rv span { font-size: 20px; line-height: 1; }
+.ta-rv i { font-style: normal; color: var(--pal-charcoal); }
+.ta-rv.s1, .ta-rv.s2 { background: var(--pal-blush); }
+.ta-rv.s4, .ta-rv.s5 { background: var(--pal-pale-lime); }
+.ta-rv.none { justify-content: center; color: var(--pal-slate); border-style: dashed; }
+
+/* what happened: floats over the desk */
+.ta-pops { position: absolute; left: 0; right: 0; top: 150px; display: flex; flex-direction: column; align-items: center; gap: 6px; pointer-events: none; z-index: 5; }
+.ta-pop { padding: 8px 20px; border: 3px solid var(--pal-forest); border-radius: 999px; background: var(--pal-lime); font: 800 18px 'Nunito', sans-serif; box-shadow: 4px 4px 0 var(--pal-forest); animation: taPop 2.2s ease-out forwards; }
+.ta-pop.bad { background: var(--pal-blush); border-color: var(--pal-coral); box-shadow: 4px 4px 0 var(--pal-coral); }
+.ta-pop span { margin-left: 6px; }
+@keyframes taPop { 0% { opacity: 0; transform: translateY(18px) scale(.9); } 12% { opacity: 1; transform: none; } 75% { opacity: 1; } 100% { opacity: 0; transform: translateY(-26px); } }
+
+/* intro, end of the day, end of the game */
+.ta-say-box { max-width: 760px; margin: 0 auto; padding: 16px 20px; border: 3px solid var(--pal-forest); border-radius: 18px; background: var(--pal-white); }
+.ta-say-box h4 { margin: 0 0 6px; font: 400 26px 'Gloock', serif; }
+.ta-say-box h2 { margin: 0 0 8px; font: 400 38px 'Gloock', serif; }
+.ta-say-box p { margin: 8px 0; font: 400 16px/1.45 'Nunito', sans-serif; }
+.ta-steps { margin: 10px 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.ta-steps li { display: flex; align-items: center; gap: 12px; padding: 6px 12px; border-radius: 12px; background: var(--pal-pale-lime); font: 400 15.5px/1.35 'Nunito', sans-serif; }
+.ta-steps li > span { font-size: 28px; }
+.ta-words { padding: 8px 12px; border-left: 6px solid var(--pal-lime); border-radius: 8px; background: var(--pal-ivory); font-size: 15px; }
+.ta-best, .ta-note { font-weight: 800; }
+.ta-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 14px; }
+.ta-btn { padding: 10px 24px; border: 2px solid var(--pal-forest); border-radius: 999px; background: var(--pal-white); color: var(--pal-forest); font: 800 16px 'Nunito', sans-serif; cursor: pointer; box-shadow: 3px 3px 0 var(--pal-forest); }
+.ta-btn.go { background: var(--pal-lime); }
+.ta-btn:hover { background: var(--pal-coral); }
+.ta-tab { width: 100%; border-collapse: collapse; font: 600 16px 'Nunito', sans-serif; }
+.ta-tab td { padding: 5px 10px; border-bottom: 1px solid var(--pal-pale-lime); }
+.ta-tab td:last-child { text-align: right; font-weight: 800; }
+.ta-tab .plus { color: var(--pal-forest); } .ta-tab .minus { color: var(--pal-coral); }
+.ta-tab tr.sep td { border-top: 2px solid var(--pal-forest); }
+.ta-tab tr.tot td { background: var(--pal-lime); border-bottom: 0; font-size: 18px; }
+.ta-end { text-align: center; }
+.ta-end.win { background: var(--pal-pale-lime); } .ta-end.lose { background: var(--pal-blush); }
+.ta-end .ta-reviews { margin-top: 10px; text-align: left; }
+
+@media (max-width: 720px) {
+  .ta-cards { grid-template-columns: 1fr; }
+  .ta-card { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+  .ta-slot { height: 78px; } .ta-slot .who { font-size: 26px; }
+  .ta-door, .ta-desk-sign { display: none; }
+  .ta-say .who { width: 60px; height: 60px; font-size: 34px; } .ta-say .bub p { font-size: 17px; }
+}
+@media print { .ta-modal { display: none; } }
