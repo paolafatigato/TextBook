@@ -137,6 +137,7 @@
     id ? play(id) : showMenu();
     $('rjClose').focus();
   }
+  window.RJ_GAMES = { open };   // used by the Games list on the home page (home-puzzles.js)
 
   function close() {
     stop();

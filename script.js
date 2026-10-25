@@ -1746,6 +1746,26 @@ function refreshAccess() {
   syncPanel();
 }
 
+// a link of the Games list closes its dropdown (the games that open a pop-up close it themselves)
+document.getElementById('gameList')?.addEventListener('click', e => {
+  if (e.target.closest('a')) e.target.closest('details')?.removeAttribute('open');
+});
+
+// The Games list is always in the order of the book: the chapters, and the games inside each chapter, by the page they are on.
+// Every script adds its own pill, so this runs once they have all done it (a pill with no page of its own has data-at).
+window.addEventListener('load', () => setTimeout(() => {
+  const list = document.getElementById('gameList');
+  if (!list) return;
+  const page = el => { const n = parseFloat((el.getAttribute('href') || '').replace('#p', '')); return Number.isNaN(n) ? Infinity : n; };
+  const pills = [...list.querySelectorAll('.game-topic')];
+  pills.forEach(p => {
+    const box = p.querySelector('.topic-pages');
+    [...box.children].sort((a, b) => page(a) - page(b)).forEach(a => box.append(a));
+  });
+  const key = p => (p.dataset.at ? Number(p.dataset.at) : Math.min(...[...p.querySelectorAll('a')].map(page)));
+  pills.sort((a, b) => key(a) - key(b)).forEach(p => list.append(p));
+}, 0));
+
 // game pills on the home page: hide the ones that start on a page students cannot open
 function hideClosedGames() {
   document.querySelectorAll('#gameList .game-topic').forEach(d => {

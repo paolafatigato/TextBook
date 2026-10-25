@@ -896,6 +896,7 @@
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', '#8e2de2');
+    pill.dataset.at = PAGES.of('ps-conversation-game'); // the list is in the order of the book: poker comes with the present simple
     pill.innerHTML = `<summary>${VS_SIGN} Grammar Poker <small>1</small></summary><div class="topic-pages"><a href="#" data-gp-go>${VS_SIGN} ♠ ♥ ♦ ♣ Grammar Poker</a></div>`;
     // in the home page: right after the games of the present simple
     const ps = [...list.querySelectorAll('.game-topic')].find(d => /^present simple/i.test(d.querySelector('summary')?.textContent.trim() || ''));

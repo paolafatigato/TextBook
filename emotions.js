@@ -2,7 +2,7 @@
 // 1. The shapes of the chapter: the faces of the 15 feelings (a wobbly blob + eyes + mouth), a flower, a sparkle, a squiggle.
 //    They are drawn once in a hidden sprite; the pages use them with <use href="#em-happy"> (the colors are in emotions-chapter.css).
 // 2. The games that can only be played on the computer (Emotion Wheel, Coping Crew): they open in a pop-up (like the Sports games),
-//    from the "game corner" buttons of [emo-vocab:R] and [emo-coping:R] and from the pill "Emotions" of the Games list on the home page.
+//    from the "game corner" buttons of [emo-vocab:R] and [emo-coping:R] (they are not on the Games list of the home page: they are not games).
 //    A button with data-emo="wheel" opens that game, data-emo="" the menu.
 // Only the best results are kept, in `saved` (script.js).
 
@@ -462,26 +462,19 @@
   window.addEventListener('load', () => {
     const list = $('gameList');
     if (!list || typeof PAGES === 'undefined') return;
-    const where = { wheel: 'emo-vocab:R', crew: 'emo-coping:R' };
+    // The Emotion Wheel and Coping Crew are activities, not games: they stay in the chapter (their buttons on the pages).
+    // The games of the chapter are on paper, so the links go to their pages: Tic-Tac-Toe (two teams) and the crossword.
+    const games = [[`${VS_SIGN} ✏️ Emotion Tic-Tac-Toe`, 'emo-ttt'], ['🧩 Coping crossword', 'emo-puzzle:L']];
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', 'var(--pal-magenta)');
-    pill.innerHTML = `<summary>Emotions <small>${ORDER.length}</small></summary><div class="topic-pages">${ORDER.map(id =>
-      `<a href="#p${PAGES.of(where[id])}" data-emo-go="${id}">${INFO[id].name}</a>`).join('')}</div>`;
+    pill.innerHTML = `<summary>${VS_SIGN} Emotions <small>${games.length}</small></summary><div class="topic-pages">${games.map(([t, where]) =>
+      `<a href="#p${PAGES.of(where)}">${t}</a>`).join('')}</div>`;
     list.append(pill);
     document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });
     list.addEventListener('toggle', e => {
       if (e.target.open) list.querySelectorAll('.game-topic').forEach(o => { if (o !== e.target) o.open = false; });
     }, true);
-    // go to the page the game belongs to, then open it
-    pill.querySelectorAll('[data-emo-go]').forEach(a => a.addEventListener('click', e => {
-      e.preventDefault();
-      pill.open = false;
-      const go = () => open(a.dataset.emoGo);
-      if (location.hash === a.getAttribute('href')) { go(); return; }
-      document.addEventListener('spreadchange', go, { once: true });
-      location.hash = a.getAttribute('href');
-    }));
     window.hideClosedGames?.(); // hide the pill if the pages are not open to the students
   });
 })();

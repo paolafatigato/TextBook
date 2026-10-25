@@ -1,7 +1,7 @@
 // [jobs-describe]: getting ready for the jobs test ([scaf-jobs-test-a] …).
-// Left page (9.34): the pupil picks a random job and, for every part of the text (where, when, money…),
+// Left page (9.43): the pupil picks a random job and, for every part of the text (where, when, money…),
 // chooses the right words out of three; at the end the sentences become a text to copy.
-// Right page (9.35): the Job Flag Game, for the whole class: the teacher holds the flag, clicks for a job
+// Right page (9.44): the Job Flag Game, for the whole class: the teacher holds the flag, clicks for a job
 // (level 2: also the part of the job to talk about) and calls a number.
 // The colors of the parts are the ones of the legend of the model test (style.css .k-what, .k-where…).
 
@@ -204,7 +204,7 @@
     };
   };
 
-  /* ---------- 9.34: pick a job and choose ---------- */
+  /* ---------- 9.43: pick a job and choose ---------- */
   const box = $('jbd');
   if (box) {
     const nextJob = bag(JOBS);
@@ -265,7 +265,7 @@
     render();
   }
 
-  /* ---------- 9.35: the Job Flag Game ---------- */
+  /* ---------- 9.44: the Job Flag Game ---------- */
   document.body.insertAdjacentHTML('beforeend', `
     <div class="gq-overlay jf-modal" id="jfModal" role="dialog" aria-modal="true" aria-labelledby="jfTitle" hidden>
       <div class="gq-box jf-box">

@@ -163,6 +163,7 @@
     id ? play(id) : showMenu();
     $('owClose').focus();
   }
+  window.ORWELL_GAMES = { open };   // used by the Games list on the home page (home-puzzles.js)
 
   function close() {
     stop();

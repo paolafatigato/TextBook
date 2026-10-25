@@ -697,7 +697,8 @@
     pill.className = 'game-topic';
     pill.style.setProperty('--c', '#f06054');
     const vs = { race: true }; // the Sports Day race is against robots
-    pill.innerHTML = `<summary>${VS_SIGN} Sports &amp; Hobbies <small>${ORDER.length}</small></summary><div class="topic-pages">${ORDER.map(id =>
+    const onHome = ORDER.filter(id => id !== 'workshop'); // the Superpower workshop is not a game: it stays in the chapter
+    pill.innerHTML = `<summary>${VS_SIGN} Sports &amp; Hobbies <small>${onHome.length}</small></summary><div class="topic-pages">${onHome.map(id =>
       `<a href="#p${PAGES.of(where[id])}" data-sph-go="${id}">${vs[id] ? VS_SIGN + ' ' : ''}${INFO[id].icon} ${INFO[id].name}</a>`).join('')}</div>`;
     list.append(pill);
     document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });

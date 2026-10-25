@@ -3814,6 +3814,7 @@ body.zoomed .toolbar { position: sticky; left: 0; width: 100vw; }
 .shx-orbit { margin: 0; aspect-ratio: 1; font-size: 3.4cqw; }
 .shx-orbit::before { content: ""; position: absolute; inset: -7%; border: .14cqw solid var(--hair-red); border-radius: 50%; }
 .shx-orbit-pic { position: absolute; inset: 0; overflow: hidden; border-radius: 50%; background: #e7e0d8; }
+.shx-orbit-pic img { width: 100%; height: 100%; object-fit: contain; transform: translateX(18px); }
 .shx-orbit > i { position: absolute; font-style: normal; font-size: 1.5cqw; line-height: 1; color: var(--sh); transform: translate(-50%, -50%); }
 .shx-orbit > .n { left: 50%; top: -7%; } .shx-orbit > .s { left: 50%; top: 107%; }
 .shx-orbit > .e { left: 107%; top: 50%; } .shx-orbit > .w { left: -7%; top: 50%; }
@@ -4516,3 +4517,33 @@ body.toc-open .toc { display: block; }
 .paused > span { animation-play-state: paused !important; }
 @media (prefers-reduced-motion: reduce) { .jb-marquee > span, .wh-marq > span { animation: none; } }
 @media print { .jb-marquee > span, .wh-marq > span { animation: none; } }
+
+/* ===== [jobs-differ] "How can jobs differ?": the job map (where / what kind / when / who with … ), drag exercise, job profile ===== */
+.jb-aan.one { grid-template-columns: 1fr; }
+.jb-map { z-index: 2; display: grid; gap: 1cqw; }
+.jb-map > div { display: grid; grid-template-columns: 18cqw 1fr; overflow: hidden; border: .2cqw solid #efe2c8; border-radius: 1.4cqw; background: #fff; }
+.jb-map h4 { display: flex; flex-direction: column; justify-content: center; gap: .3cqw; margin: 0; padding: 1cqw 1.2cqw; background: var(--c); font: 700 1.8cqw/1.05 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.jb-map h4 i { font-size: 3.2cqw; font-style: normal; line-height: 1; }
+.jb-map h4 small { font: 700 1.1cqw/1.1 'Nunito', sans-serif; letter-spacing: .06em; text-transform: uppercase; opacity: .75; }
+.jb-map > div > div { display: flex; flex-direction: column; justify-content: center; gap: .8cqw; padding: 1.1cqw 1.2cqw; }
+.jb-map p { display: flex; flex-wrap: wrap; align-items: center; gap: .4cqw .5cqw; margin: 0; }
+.jb-map u { flex: 0 0 12.5cqw; text-decoration: none; font: 800 1.05cqw/1.1 'Nunito', sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--jb-red); }
+.jb-map span { padding: .4cqw .95cqw; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 .14cqw var(--navy); font: 600 1.4cqw/1.1 'Nunito', sans-serif; color: var(--navy); }
+.jb-map span.key, .jb-key { background: var(--jb-sun); box-shadow: none; font-weight: 800; }
+.jb-key { padding: .1cqw .6cqw; border-radius: 999px; text-decoration: none; }
+.jb-dd .dd-bank { gap: .5cqw .6cqw; min-height: 5cqw; margin-bottom: 1cqw; border-color: var(--jb-teal); background: #fff; }
+.jb-dd .dd-chip { padding: .5cqw 1.2cqw; font: 700 1.5cqw/1.1 'Nunito', sans-serif; background: #fff; color: var(--navy); box-shadow: inset 0 0 0 .15cqw var(--navy); }
+.jb-dd .dd-chip.picked { outline-color: var(--jb-red); }
+.jb-dd-row { display: grid; grid-template-columns: 17cqw repeat(3, 1fr); gap: 0 1.2cqw; align-items: center; margin-bottom: 1cqw; }
+.jb-dd-row b { font: 800 1.5cqw/1 'Nunito', sans-serif; color: var(--navy); }
+.jb-dd .dd-slot { height: 4.8cqw; justify-content: center; border: .18cqw dashed #cfc6b0; border-radius: 1cqw; background: #fffdf8; }
+.jb-dd .dd-slot .dd-chip { box-shadow: inset 0 0 0 .15cqw var(--navy); }
+.jb-dd .dd-slot.ok { border-style: solid; border-color: #43a047; background: #eaf6ec; }
+.jb-dd .dd-slot.no { border-style: solid; border-color: #e53935; background: #fdeceb; }
+.jb-prof { z-index: 2; border: .2cqw solid #efe2c8; border-radius: 1.4cqw; background: #fff; overflow: hidden; }
+.jb-prof p { display: grid; grid-template-columns: 22cqw 1fr 1fr; gap: 0 1.4cqw; align-items: end; height: 4.3cqw; margin: 0; padding: 0 1.4cqw; border-bottom: .14cqw dashed #e2d8c4; }
+.jb-prof p:last-child { border-bottom: 0; }
+.jb-prof p > span { align-self: center; font: 800 1.3cqw/1 'Nunito', sans-serif; color: var(--navy); }
+.jb-prof p.head { align-items: center; height: 3.6cqw; border-bottom: .2cqw solid var(--navy); background: var(--jb-sun); }
+.jb-prof p.head b { font: 700 1.5cqw/1 'Fredoka', 'Nunito', sans-serif; text-align: center; color: var(--navy); }
+.jb-prof input.fill { min-width: 0; height: 2.9cqw; border-bottom: .14cqw solid #b9b6d3; font-size: 1.5cqw; }

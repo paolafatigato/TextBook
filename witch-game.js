@@ -937,10 +937,10 @@
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', 'var(--pal-plum)');
-    // only the farm is here (you play it against the computer or a friend online); the village game (class), the detective
-    // and Who am I? stay in the chapter, they have their buttons on the pages
-    const games = [['farm', 'Village Farm (computer or online)', 'wh-working:R', () => window.WITCH_FARM && window.WITCH_FARM.open()]];
-    pill.innerHTML = `<summary>${VS_SIGN} Witch hunt <small>${games.length}</small></summary><div class="topic-pages">${games.map(([id, t, where]) => `<a href="#p${PAGES.of(where)}" data-wh-go="${id}">${VS_SIGN} ${t}</a>`).join('')}</div>`;
+    // the games against the computer (the detective, Who am I?, the farm: also online with a friend); the village game
+    // is for the whole class, directed by the teacher, so it stays in the chapter
+    const games = [['detective', 'The Village Detective', 'wh-play', () => window.WITCH_DETECTIVE && window.WITCH_DETECTIVE.open()], ['guess', 'Who am I?', 'wh-guess:R', () => window.WITCH_GUESS && window.WITCH_GUESS.open()], ['farm', 'Village Farm (computer or online)', 'wh-working:R', () => window.WITCH_FARM && window.WITCH_FARM.open()]];
+    pill.innerHTML = `<summary>${VS_SIGN} Witch hunt <small>${games.length + 1}</small></summary><div class="topic-pages">${games.map(([id, t, where]) => `<a href="#p${PAGES.of(where)}" data-wh-go="${id}">${VS_SIGN} ${t}</a>`).join('')}<a href="#p${PAGES.of('wh-final:L')}">🔍 Word search</a></div>`;
     list.append(pill);
     document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });
     list.addEventListener('toggle', e => {
