@@ -293,3 +293,5 @@ textarea.fill.trip-ta.sm { font-size: 1.8cqw; line-height: 1.7; }
 .trip-brief .mk { display: inline-block; width: 7cqw; height: 2.4cqw; border: .15cqw solid var(--pal-forest); border-radius: .6cqw; vertical-align: middle; }
 .trip-bub { color: var(--pal-charcoal); }
 input.fill.trip-order { width: 3.6cqw; height: 3.6cqw; padding: 0; text-align: center; border: .2cqw solid var(--trip-a); border-radius: 50%; background: var(--pal-white); font-size: 2cqw; }
+.trip-stops small { white-space: nowrap; }
+.trip-stops li { grid-template-columns: 6.6cqw 1fr auto; }
