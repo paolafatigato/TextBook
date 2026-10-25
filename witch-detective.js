@@ -8,7 +8,7 @@
 //   · small grammar jobs in the places (find and correct the mistake in an A1 sentence about the Middle Ages) give clue coins: 3 coins = one more question.
 // The village wins when both witches are burned; the witches win when they are as many as the innocents, or when they curse you.
 // The logic (state, walking, curses, answers, votes) is in the first block and does not touch the page: it is exported as WITCH_DETECTIVE_LOGIC (tests).
-// Opened by a button with data-wh="detective" ([wh-play]) and by the Games list on the home page.
+// Opened by a button with data-wh="detective" ([wh-play]) (not on the Games list of the home page: it has no opponent).
 
 (() => {
   const DATA = (typeof window !== 'undefined' && window.WITCH_DATA) || null;

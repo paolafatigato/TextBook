@@ -5,7 +5,7 @@
 //     the question BEFORE answering (hint after the 2nd try, the right question after the 3rd).
 //  3. Anything else → "I don't know how to answer" + three questions to choose from (the ones that split the remaining characters best).
 // A direct guess ("Am I a bishop?") is not a question: the pupil must use the button "I know who I am!".
-// Opened by a button with data-wh="guess" and by the pill "Witch hunt" of the Games list on the home page.
+// Opened by a button with data-wh="guess" (not on the Games list of the home page: it has no opponent).
 
 (() => {
   const DATA = window.WITCH_DATA, QS = window.WITCH_QUESTIONS;

@@ -1825,6 +1825,10 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
   padding: 12px; background: #fff; border-radius: 14px; border-left: 5px solid var(--c); box-shadow: 0 8px 24px rgba(60,40,20,.18);
 }
 @media (prefers-reduced-motion: reduce) { .game-topic summary::after { transition: none; } }
+/* the sign of the games with an opponent */
+.vs-sign { display: inline-block; font-size: .9em; line-height: 1; padding: 2px 5px; border-radius: 6px; background: #262626; color: #fff; vertical-align: 1px; }
+.game-topic[open] summary .vs-sign { background: #fff; color: #262626; }
+.game-legend { margin: 0 0 10px; font: 600 14px 'Nunito', sans-serif; color: #5b5560; }
 
 /* ---------- print: one A4 portrait sheet per page ---------- */
 @page { size: A4 portrait; margin: 0; }

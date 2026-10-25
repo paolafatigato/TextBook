@@ -237,8 +237,11 @@ const roomRef = code => doc(db, 'duels', code);
 const roomError = code => Object.assign(new Error(code), { code });
 
 book.rooms = {
-  // the player must be signed in (anonymously, if nobody is)
+  // The player must be signed in, anonymously if nobody is: playing online never needs a Google login.
+  // Wait until Firebase has restored the saved session first: right after the page loads currentUser is still
+  // null even for a student who is signed in, and signing in anonymously then would replace their account.
   async ready() {
+    await auth.authStateReady();
     if (!auth.currentUser) await signInAnonymously(auth);
   },
   async create(client) {

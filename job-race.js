@@ -2077,11 +2077,11 @@
   window.addEventListener('load', () => {
     const list = document.getElementById('gameList');
     if (!list || typeof PAGES === 'undefined') return;
-    const at = PAGES.of('jobs-pros'), atStory = PAGES.of('jobs-story'), atGuess = PAGES.of('jobs-forehead:R'); // the race is on [jobs-pros:L], Make Them Happy! on [jobs-story:L], Who am I? on [jobs-forehead:R]
+    const at = PAGES.of('jobs-pros'), atStory = PAGES.of('jobs-story'); // the race is on [jobs-pros:L], Make Them Happy! on [jobs-story:L]; Who am I? (jobs-forehead:R) stays in the chapter
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', '#e8820c');
-    pill.innerHTML = `<summary>Jobs <small>3</small></summary><div class="topic-pages"><a href="#p${at}" data-jr="race">🏁 Happy Job Race</a><a href="#p${atStory}" data-jr="match">💞 Make Them Happy!</a><a href="#p${atGuess}" data-jr="guess">🤔 Who am I? (Guess who)</a></div>`;
+    pill.innerHTML = `<summary>${VS_SIGN} Jobs <small>2</small></summary><div class="topic-pages"><a href="#p${at}" data-jr="race">${VS_SIGN} 🏁 Happy Job Race</a><a href="#p${atStory}" data-jr="match">${VS_SIGN} 💞 Make Them Happy!</a></div>`;
     list.append(pill);
     document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });
     pill.addEventListener('toggle', () => {
@@ -2090,7 +2090,7 @@
     pill.querySelectorAll('[data-jr]').forEach(a => a.addEventListener('click', e => {
       e.preventDefault();
       pill.open = false;
-      const go = () => a.dataset.jr === 'guess' ? window.JOBS_GAMES?.open('twenty') : open(a.dataset.jr);
+      const go = () => open(a.dataset.jr);
       const page = a.getAttribute('href');
       if (location.hash === page) { go(); return; }
       document.addEventListener('spreadchange', go, { once: true });

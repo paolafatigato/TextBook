@@ -1076,7 +1076,7 @@
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', '#c08be8');
-    pill.innerHTML = `<summary>Personality <small>1</small></summary><div class="topic-pages"><a href="#p${at}" data-vb>⚔ Villain Battle</a></div>`;
+    pill.innerHTML = `<summary>${VS_SIGN} Personality <small>1</small></summary><div class="topic-pages"><a href="#p${at}" data-vb>${VS_SIGN} Villain Battle</a></div>`;
     list.append(pill);
     document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });
     list.addEventListener('toggle', e => {

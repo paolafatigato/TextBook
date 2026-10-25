@@ -937,8 +937,10 @@
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', 'var(--pal-plum)');
-    const games = [['play', 'The Village Game (class)', 'wh-play', () => open()], ['detective', 'The Village Detective (alone)', 'wh-play', () => window.WITCH_DETECTIVE && window.WITCH_DETECTIVE.open()], ['guess', 'Who am I? (Guess who)', 'wh-guess:R', () => window.WITCH_GUESS && window.WITCH_GUESS.open()], ['farm', 'Village Farm (alone or online)', 'wh-working:R', () => window.WITCH_FARM && window.WITCH_FARM.open()]];
-    pill.innerHTML = `<summary>Witch hunt <small>${games.length}</small></summary><div class="topic-pages">${games.map(([id, t, where]) => `<a href="#p${PAGES.of(where)}" data-wh-go="${id}">${t}</a>`).join('')}</div>`;
+    // only the farm is here (you play it against the computer or a friend online); the village game (class), the detective
+    // and Who am I? stay in the chapter, they have their buttons on the pages
+    const games = [['farm', 'Village Farm (computer or online)', 'wh-working:R', () => window.WITCH_FARM && window.WITCH_FARM.open()]];
+    pill.innerHTML = `<summary>${VS_SIGN} Witch hunt <small>${games.length}</small></summary><div class="topic-pages">${games.map(([id, t, where]) => `<a href="#p${PAGES.of(where)}" data-wh-go="${id}">${VS_SIGN} ${t}</a>`).join('')}</div>`;
     list.append(pill);
     document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });
     list.addEventListener('toggle', e => {

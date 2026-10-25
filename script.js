@@ -16,6 +16,10 @@ function persist() {
   window.book.onSaved?.(); // cloud.js sends it to Firebase when a student is signed in
 }
 
+// The sign of the games you can play against an opponent (the computer, or a friend, also online): on the Games list
+// of the home page, in the summary of a pill and before the name of the game. The games' scripts use it.
+const VS_SIGN = '<span class="vs-sign" title="You can play against an opponent">⚔</span>';
+
 /* ================= access: login and visible pages ================= */
 // cloud.js (Firebase) fills this in. Students see only the spreads the teacher ticked;
 // the teacher sees everything and can tick them in the panel.

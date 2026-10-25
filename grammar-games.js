@@ -13,7 +13,6 @@
     'own-three-s': { title: 'The three ’s', games: ['ap-cards', 'ap-fire'] },
     'ps-affirmative': { title: 'Present simple: the -s', games: ['s-rule', 's-catch'] },
   };
-  const COLORS = { 'tobe-pronouns': '#4aa8ec', 'tobe-rules': '#7b3fc4', 'own-saxon': '#4aa8ec', 'own-three-s': '#c9de3c', 'ps-affirmative': '#c97df6' }; // as the topics on the home page
   for (const [key, set] of Object.entries(SETS)) {
     set.intro = `pp. ${PAGES.of(set.from || key)}–${PAGES.end(key)} · Scegli un gioco!`;
   }
@@ -1133,34 +1132,9 @@
   GAMES['ap-cards'] = () => apGame('ap-cards', '🃏 The three ’s – the cards', { timed: false });
   GAMES['ap-fire'] = () => apGame('ap-fire', '🔥 The three ’s – Quick Fire', { timed: true });
 
-  /* ================= index of the games on the home page ================= */
-
-  // each topic is a small pill: click it and its games drop down
-  $('gameList').innerHTML = Object.entries(SETS).map(([key, set]) => `
-    <details class="game-topic" style="--c:${COLORS[key]}">
-      <summary>${set.title} <small>${set.games.length}</small></summary>
-      <div class="topic-pages">${set.games.map(id => `<a href="#p${PAGES.of(key)}" data-set="${key}" data-game="${id}">${INFO[id].icon} ${INFO[id].name}</a>`).join('')}</div>
-    </details>`).join('');
-
-  // only one dropdown open at a time; a click outside closes it
-  const topics = [...$('gameList').querySelectorAll('.game-topic')];
-  topics.forEach(d => d.addEventListener('toggle', () => {
-    if (d.open) topics.forEach(o => { if (o !== d) o.open = false; });
-  }));
-  document.addEventListener('click', e => {
-    if (!e.target.closest('#gameList')) topics.forEach(d => { d.open = false; });
-  });
-
-  // go to the pages of the topic, then start the game over them
-  $('gameList').addEventListener('click', e => {
-    const a = e.target.closest('[data-game]');
-    if (!a) return;
-    e.preventDefault();
-    const { set, game } = a.dataset;
-    seen.add(set);
-    document.addEventListener('spreadchange', () => { open(set); play(game); }, { once: true });
-    location.hash = a.getAttribute('href');
-  });
+  // These drills are about the pages they follow, so they are NOT on the home page: they pop up at the end of
+  // their spread (and the button on the page opens them). The home page only lists the games with an opponent
+  // and the ones with no page of their own (see the "Games list on the home page" of each game).
 
   // the page may already be at the end of a spread when the script loads
   updateFab();
