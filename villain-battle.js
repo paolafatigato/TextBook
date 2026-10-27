@@ -2,13 +2,13 @@
 //
 // Three ways to play: villain vs a random hero (1 player), villain vs villain on one computer (passing it),
 // or villain vs villain online, each on their own device with a 4-letter room code (rooms live in cloud.js).
-// The pupil picks 3 flaws, reads the 6 powers of each flaw and chooses 3 of them as the villain's special attacks.
+// The pupil picks 3 flaws, reads the 3 powers of each flaw and chooses 3 of them as the villain's special attacks.
 // The hero only has attacks that come from virtues.
 // The pupil can read what an attack does, but never how many points it is worth:
 // the numbers (`fx`) live in this file only, and the descriptions have to give a hint about them.
 //
 // How to add things:
-//   a power  → one line in ATTACKS (6 per flaw): P(name, story, archetype); the archetype fixes the numbers (ARCH)
+//   a power  → one line in ATTACKS (3 per flaw, the other 3 are commented out for now): P(name, story, archetype); the archetype fixes the numbers (ARCH)
 //   a hero   → one entry in HEROES (4 attacks, all from virtues)
 //
 // An attack is { name, desc, uses, fx: [ … ] } where fx is a list of effects:
@@ -69,170 +69,170 @@
   const ATTACKS = {
     messy: [
       P('Clutter Storm', 'A whirlwind of junk hits the hero and confuses it.', 'hitWeak'),
-      P('Chaos Trail', 'Small hazards appear behind you everywhere you walk.', 'medium'),
+      // P('Chaos Trail', 'Small hazards appear behind you everywhere you walk.', 'medium'),
       P('Junk Wall', 'You pile up trash into a messy wall.', 'guardMost'),
-      P('Pocket Surprise', 'You throw everything that is in your pockets.', 'small'),
-      P('Lost & Found', 'You find your lost snack in the mess.', 'healS'),
+      // P('Pocket Surprise', 'You throw everything that is in your pockets.', 'small'),
+      // P('Lost & Found', 'You find your lost snack in the mess.', 'healS'),
       P('Avalanche of Stuff', 'Everything on your desk falls on the hero.', 'strong'),
     ],
     chaotic: [
       P('Random Roll', 'Every attack you make is different.', 'chaos'),
-      P('Wild Card', 'You change one rule of the fight, just once.', 'weakBig'),
-      P('Spin the Room', 'The whole room starts to spin.', 'skip'),
+      // P('Wild Card', 'You change one rule of the fight, just once.', 'weakBig'),
+      // P('Spin the Room', 'The whole room starts to spin.', 'skip'),
       P('Surprise Shield', 'A shield appears, but nobody knows why.', 'guardFull'),
       P('Mayhem Burst', 'You make a big, messy explosion.', 'huge'),
-      P('Lucky Break', 'Something lucky happens at the right time.', 'healS'),
+      // P('Lucky Break', 'Something lucky happens at the right time.', 'healS'),
     ],
     forgetful: [
-      P('Memory Wipe', 'One touch and the hero forgets why it was fighting.', 'weakBig'),
+      // P('Memory Wipe', 'One touch and the hero forgets why it was fighting.', 'weakBig'),
       P('Blank Slate', 'You forget pain and fear on command.', 'healS'),
       P('Where Was I?', 'The hero forgets what it was doing and just stands there.', 'skip'),
       P('Flying Homework', 'You throw all the homework you forgot to do.', 'medium'),
-      P('Fog of Forgetting', 'A gray fog makes the hero forget its next moves.', 'weakTwo'),
-      P('Forgotten Fireball', 'You forgot you had it! A sudden blast.', 'strong'),
+      // P('Fog of Forgetting', 'A gray fog makes the hero forget its next moves.', 'weakTwo'),
+      // P('Forgotten Fireball', 'You forgot you had it! A sudden blast.', 'strong'),
     ],
     alwayslate: [
       P('Delay Field', 'The hero’s attacks always arrive one second too late.', 'weakTwo'),
       P('Time Skip', 'You jump five minutes into the future and the next attack misses.', 'guardFull'),
       P('Last-Minute Rush', 'At the very last second you run in at full speed.', 'strong'),
-      P('Running Late', 'You run so fast that everything shakes.', 'small'),
-      P('Snooze Button', 'You press snooze and rest for five more minutes.', 'healM'),
-      P('Stopped Clock', 'Time freezes for the hero.', 'skip'),
+      // P('Running Late', 'You run so fast that everything shakes.', 'small'),
+      // P('Snooze Button', 'You press snooze and rest for five more minutes.', 'healM'),
+      // P('Stopped Clock', 'Time freezes for the hero.', 'skip'),
     ],
     distracted: [
       P('Split Focus', 'You watch five things at once and see every weak point.', 'boostBig'),
       P('Wandering Eye', 'You spot the one weak point everyone else missed.', 'strong'),
       P('Daydream Shield', 'You start daydreaming and the next attack passes right through you.', 'guardMost'),
-      P('Shiny Thing!', 'You point at something shiny and the hero looks away.', 'skip'),
-      P('Five Things at Once', 'You do five small things at the same time.', 'double'),
-      P('Doodle Break', 'You draw a little doodle and relax.', 'healS'),
+      // P('Shiny Thing!', 'You point at something shiny and the hero looks away.', 'skip'),
+      // P('Five Things at Once', 'You do five small things at the same time.', 'double'),
+      // P('Doodle Break', 'You draw a little doodle and relax.', 'healS'),
     ],
     shy: [
       P('Ghost Step', 'You turn invisible and get ready for a sneaky strike.', 'sneak'),
       P('Quiet Storm', 'Your silence slowly builds into a shockwave.', 'strong'),
-      P('Under the Desk', 'You hide under the desk and nobody can reach you.', 'guardLong'),
-      P('Blush Beam', 'Your red cheeks heat up into a beam.', 'small'),
-      P('Whisper Spell', 'You whisper a spell that confuses the hero.', 'weakBig'),
+      // P('Under the Desk', 'You hide under the desk and nobody can reach you.', 'guardLong'),
+      // P('Blush Beam', 'Your red cheeks heat up into a beam.', 'small'),
+      // P('Whisper Spell', 'You whisper a spell that confuses the hero.', 'weakBig'),
       P('Cozy Shell', 'You hide in your shell and calm down.', 'healM'),
     ],
     anxious: [
-      P('Nervous Energy', 'Your racing heartbeat gives you extra speed.', 'boostTwo'),
+      // P('Nervous Energy', 'Your racing heartbeat gives you extra speed.', 'boostTwo'),
       P('Early Warning', 'You sense danger seconds before it happens.', 'guardMost'),
       P('Panic Shout', 'You scream so loudly that the walls shake.', 'medium'),
-      P('Jitter Shake', 'Your trembling shakes the ground under the hero.', 'hitSkip'),
-      P('Worst-Case Plan', 'You are ready for everything that could go wrong.', 'guardLong'),
+      // P('Jitter Shake', 'Your trembling shakes the ground under the hero.', 'hitSkip'),
+      // P('Worst-Case Plan', 'You are ready for everything that could go wrong.', 'guardLong'),
       P('Deep Worry Breath', 'You breathe slowly and your heart calms down.', 'healS'),
     ],
     touchy: [
-      P('Instant Armor', 'The moment someone insults you, your skin turns hard as steel.', 'guardMost'),
+      // P('Instant Armor', 'The moment someone insults you, your skin turns hard as steel.', 'guardMost'),
       P('Echo Sting', 'Insults bounce off you and go back to the sender.', 'reflect'),
-      P('Thorny Words', 'Sharp words fly at the hero like little needles.', 'small'),
+      // P('Thorny Words', 'Sharp words fly at the hero like little needles.', 'small'),
       P('Hurt Feelings Blast', 'Your hurt feelings burst out in a big wave.', 'strong'),
       P('Sulk Corner', 'You sulk in a corner until you feel better.', 'healM'),
-      P('Prickle Cloud', 'A cloud of tiny thorns surrounds you.', 'weakBig'),
+      // P('Prickle Cloud', 'A cloud of tiny thorns surrounds you.', 'weakBig'),
     ],
     pessimistic: [
-      P('Storm Caller', 'Your gloomy mood brings rain, fog and darkness.', 'strong'),
+      // P('Storm Caller', 'Your gloomy mood brings rain, fog and darkness.', 'strong'),
       P('Gray Cloud', 'A personal raincloud follows you, ready to strike.', 'medium'),
       P('Bad Omen', 'You announce bad news and the hero loses courage.', 'weakBig'),
       P('Umbrella of Doom', 'You open a big black umbrella.', 'guardMost'),
-      P('It Will Fail', 'You say that nothing will work, and the hero starts to believe it.', 'weakTwo'),
-      P('Gloomy Snack', 'A sad little snack makes you feel a bit better.', 'healS'),
+      // P('It Will Fail', 'You say that nothing will work, and the hero starts to believe it.', 'weakTwo'),
+      // P('Gloomy Snack', 'A sad little snack makes you feel a bit better.', 'healS'),
     ],
     hottempered: [
-      P('Flash Fire', 'Your anger turns instantly into a burst of flame.', 'huge'),
+      // P('Flash Fire', 'Your anger turns instantly into a burst of flame.', 'huge'),
       P('Short Fuse', 'The angrier you get, the stronger you get.', 'boostBig'),
-      P('Steam Burst', 'Hot steam comes out of your ears.', 'medium'),
+      // P('Steam Burst', 'Hot steam comes out of your ears.', 'medium'),
       P('Tantrum Stomp', 'You stamp your feet and the floor cracks.', 'strong'),
       P('Cool Down', 'You count to ten and calm down.', 'healS'),
-      P('Red Mist', 'A red mist of anger blinds the hero.', 'hitSkip'),
+      // P('Red Mist', 'A red mist of anger blinds the hero.', 'hitSkip'),
     ],
     bossy: [
       P('Command Voice', 'For ten seconds, everyone must do exactly what you say.', 'strong'),
-      P('Lead the Pack', 'You give orders and your next moves become stronger.', 'boostTwo'),
+      // P('Lead the Pack', 'You give orders and your next moves become stronger.', 'boostTwo'),
       P('Stop Right There!', 'You give an order and the hero must obey.', 'skip'),
-      P('Do It Again!', 'You make the hero repeat its own mistake.', 'hitWeak'),
+      // P('Do It Again!', 'You make the hero repeat its own mistake.', 'hitWeak'),
       P('Boss Barrier', 'You build a wall and say: “Nobody passes.”', 'guardMost'),
-      P('Pointing Finger', 'You point your finger and the hero feels small.', 'small'),
+      // P('Pointing Finger', 'You point your finger and the hero feels small.', 'small'),
     ],
     pushy: [
-      P('Telekinetic Shove', 'You push things and people without touching them.', 'small'),
+      // P('Telekinetic Shove', 'You push things and people without touching them.', 'small'),
       P('Wave Force', 'You send a blast of force in a straight line.', 'medium'),
-      P('Elbow Through', 'You push through everything with your elbows.', 'strong'),
+      // P('Elbow Through', 'You push through everything with your elbows.', 'strong'),
       P('Push Back', 'You push the next attack away.', 'guardMost'),
-      P('Off Balance', 'You push the hero so hard that it falls over.', 'hitSkip'),
+      // P('Off Balance', 'You push the hero so hard that it falls over.', 'hitSkip'),
       P('Pep Talk', 'You push yourself to keep going.', 'healS'),
     ],
     arrogant: [
       P('Ego Shield', 'Your confidence forms a shield.', 'guardFull'),
-      P('Spotlight', 'You become impossible to ignore, and the hero cannot look away.', 'skip'),
-      P('Golden Crown', 'You put on a golden crown and feel untouchable.', 'guardMost'),
-      P('Look at Me!', 'Everyone watches you and you feel unstoppable.', 'boostBig'),
+      // P('Spotlight', 'You become impossible to ignore, and the hero cannot look away.', 'skip'),
+      // P('Golden Crown', 'You put on a golden crown and feel untouchable.', 'guardMost'),
+      // P('Look at Me!', 'Everyone watches you and you feel unstoppable.', 'boostBig'),
       P('Superior Smirk', 'You smile in a way that makes the hero feel small.', 'hitWeak'),
       P('Mirror Admire', 'You look in the mirror and love what you see.', 'healM'),
     ],
     greedy: [
       P('Power Feast', 'You steal a little of the hero’s power.', 'drain'),
-      P('Collector', 'You pull small objects across the room into your hand.', 'small'),
+      // P('Collector', 'You pull small objects across the room into your hand.', 'small'),
       P('Treasure Toss', 'You throw a bag full of heavy gold coins.', 'strong'),
       P('Gold Armor', 'You cover yourself in shiny gold.', 'guardMost'),
-      P('Hoard Snack', 'You eat everything you saved for a bad day.', 'healB'),
-      P('Grab It All', 'You grab the hero’s weapon and run.', 'hitSkip'),
+      // P('Hoard Snack', 'You eat everything you saved for a bad day.', 'healB'),
+      // P('Grab It All', 'You grab the hero’s weapon and run.', 'hitSkip'),
     ],
     superficial: [
       P('Mirror Shine', 'Light bounces off you.', 'reflect'),
-      P('Dazzle', 'You create bright illusions that distract the hero.', 'weakBig'),
+      // P('Dazzle', 'You create bright illusions that distract the hero.', 'weakBig'),
       P('Glitter Bomb', 'You throw a big cloud of glitter.', 'medium'),
-      P('Fancy Cloak', 'A beautiful cloak shines around you.', 'guardMost'),
-      P('Selfie Flash', 'A huge camera flash blinds the hero.', 'skip'),
+      // P('Fancy Cloak', 'A beautiful cloak shines around you.', 'guardMost'),
+      // P('Selfie Flash', 'A huge camera flash blinds the hero.', 'skip'),
       P('Makeover', 'A quick makeover and you feel brand new.', 'healM'),
     ],
     clingy: [
-      P('Stretch Grip', 'Your arms stretch and hold the hero tight.', 'hitSkip'),
-      P('Stick Tight', 'You stick to the hero and slow it down.', 'weakTwo'),
+      // P('Stretch Grip', 'Your arms stretch and hold the hero tight.', 'hitSkip'),
+      // P('Stick Tight', 'You stick to the hero and slow it down.', 'weakTwo'),
       P('Koala Hug', 'You hug a tree and recharge.', 'healM'),
       P('Octopus Arms', 'You grab the hero with many arms.', 'double'),
       P('Velcro Shield', 'A sticky shield catches the next attack.', 'guardMost'),
-      P('Don’t Leave Me!', 'You squeeze the hero with all your might.', 'medium'),
+      // P('Don’t Leave Me!', 'You squeeze the hero with all your might.', 'medium'),
     ],
     chatty: [
       P('The Endless Talk', 'You talk so much that the hero gets dizzy.', 'skip'),
-      P('Word Web', 'Your sentences turn into sticky threads.', 'weakTwo'),
-      P('Noisy Chatter', 'Your non-stop words buzz around the hero’s head.', 'small'),
+      // P('Word Web', 'Your sentences turn into sticky threads.', 'weakTwo'),
+      // P('Noisy Chatter', 'Your non-stop words buzz around the hero’s head.', 'small'),
       P('Gossip Storm', 'A storm of rumors hits the hero.', 'medium'),
       P('Talking Shield', 'You talk so fast that nothing can reach you.', 'guardMost'),
-      P('Story Time', 'You tell a long story and feel relaxed.', 'healS'),
+      // P('Story Time', 'You tell a long story and feel relaxed.', 'healS'),
     ],
     lazy: [
       P('Time Nap', 'You close your eyes for one second and an hour passes.', 'healM'),
-      P('Slow Field', 'Anyone who comes near you starts moving in slow motion.', 'weakTwo'),
+      // P('Slow Field', 'Anyone who comes near you starts moving in slow motion.', 'weakTwo'),
       P('Sofa Fort', 'You build a fort out of sofa cushions.', 'guardLong'),
       P('Lazy Roll', 'You roll over and bump into the hero.', 'small'),
-      P('Yawn Wave', 'A giant yawn makes the hero fall asleep for a moment.', 'skip'),
-      P('Do It Tomorrow', 'The hero starts to feel that nothing matters today.', 'weakBig'),
+      // P('Yawn Wave', 'A giant yawn makes the hero fall asleep for a moment.', 'skip'),
+      // P('Do It Tomorrow', 'The hero starts to feel that nothing matters today.', 'weakBig'),
     ],
     impatient: [
-      P('Flash Rush', 'You move faster and faster.', 'small'),
-      P('Countdown', 'You set a timer, and the hero must obey it.', 'skip'),
-      P('Tap Tap Tap', 'You tap your foot and the ground shakes.', 'medium'),
+      // P('Flash Rush', 'You move faster and faster.', 'small'),
+      // P('Countdown', 'You set a timer, and the hero must obey it.', 'skip'),
+      // P('Tap Tap Tap', 'You tap your foot and the ground shakes.', 'medium'),
       P('Hurry Up!', 'You rush and your next moves become stronger.', 'boostTwo'),
       P('Impatient Kick', 'You can’t wait any longer and kick the hero.', 'strong'),
       P('Sprint Away', 'You sprint away from the next attack.', 'guardMost'),
     ],
     stubborn: [
-      P('Iron Root', 'Once you plant your feet, nothing can move you.', 'guardLong'),
+      // P('Iron Root', 'Once you plant your feet, nothing can move you.', 'guardLong'),
       P('Unbreakable Will', 'No power can work on you.', 'guardFull'),
-      P('Crossed Arms', 'You cross your arms and refuse to move.', 'medium'),
+      // P('Crossed Arms', 'You cross your arms and refuse to move.', 'medium'),
       P('Mule Kick', 'You kick back with all your stubborn strength.', 'strong'),
-      P('Not Moving', 'You refuse to move and the hero wastes its energy.', 'weakBig'),
+      // P('Not Moving', 'You refuse to move and the hero wastes its energy.', 'weakBig'),
       P('Stubborn Snack', 'You are not leaving until you finish your snack.', 'healS'),
     ],
     indecisive: [
       P('Copy Split', 'You split in two and each copy decides differently.', 'double'),
-      P('Maybe Field', 'The hero becomes as unsure as you and freezes.', 'skip'),
-      P('Coin Flip', 'You can’t decide, so you flip a coin.', 'chaos'),
+      // P('Maybe Field', 'The hero becomes as unsure as you and freezes.', 'skip'),
+      // P('Coin Flip', 'You can’t decide, so you flip a coin.', 'chaos'),
       P('Two Doors Shield', 'You stand between two doors and nobody can reach you.', 'guardMost'),
-      P('Hesitation Haze', 'A cloud of doubt surrounds the hero.', 'weakTwo'),
+      // P('Hesitation Haze', 'A cloud of doubt surrounds the hero.', 'weakTwo'),
       P('Change My Mind', 'You change your mind and feel better.', 'healS'),
     ],
   };
@@ -464,7 +464,7 @@
         <b>How to play</b>
         <ol>
           <li>Choose a <b>name</b>, a <b>picture</b> and <b>3 flaws</b>.</li>
-          <li>Each flaw has 6 <b>superpowers</b>. Read them and choose <b>3</b> for your villain.</li>
+          <li>Each flaw has 3 <b>superpowers</b>. Read them and choose <b>3</b> for your villain.</li>
           ${netm
             ? `<li>Press <b>Ready</b> when your villain is done. The fight starts when <b>both</b> players are ready.</li>
           <li>You fight <b>one turn each</b>. The <b>points are secret</b>: read what each attack does, and choose which to use and when.</li>
@@ -514,7 +514,7 @@
     screen.querySelectorAll('.vb-ic').forEach(b => b.classList.toggle('on', b.dataset.id === id));
   }
 
-  /* ---- 1b. choose 3 of the 18 superpowers ---- */
+  /* ---- 1b. choose 3 of the 9 superpowers ---- */
   const pips = a => a.uses === Infinity ? '<i class="vb-inf">always ready</i>'
     : Array.from({ length: a.uses }, (_, i) => `<i class="${i < a.left ? 'on' : ''}"></i>`).join('');
 

@@ -121,7 +121,8 @@
     const LETTERS = SENTENCE.replace(/ /g, '');
     const screen = $('tc-lt-screen'), input = $('tc-lt-input'), res = $('tc-lt-res'), check = $('tc-lt-check');
     const starts = [$('tc-lt-s1'), $('tc-lt-s2')];
-    let round = 0, shown = '', timer = null;
+    let round = 0, shown = '', timer = null, r1 = '';
+    const review = $('tc-lt-review');
     const scoreOf = (a, b) => { let n = 0; for (let i = 0; i < Math.min(a.length, b.length); i++) if (a[i] === b[i]) n++; return n; };
     const paint = () => { ['r1', 'r2'].forEach(k => { const v = recall(`tc-lt-${k}`); $(`tc-lt-${k}`).textContent = v === undefined || v === '' ? '–' : v; }); };
     function go(r) {
@@ -129,10 +130,12 @@
       let letters = LETTERS;
       if (r === 1) { do { letters = shuffle(LETTERS.split('')).join(''); } while (letters === LETTERS); }
       shown = letters;
+      if (r === 1) { r1 = letters; if (review) review.disabled = true; }
       const text = r === 1 ? letters.split('').join(' ') : SENTENCE.split(' ').map(w => w.split('').join(' ')).join('   ');
       screen.innerHTML = `<span>${text}</span>`;
       input.value = ''; input.disabled = true; check.disabled = true; res.textContent = '';
       starts.forEach(b => { b.disabled = true; });
+      if (review) review.disabled = true;
       let t = 11;
       const cd = document.createElement('div'); cd.className = 't'; cd.textContent = `⏱ ${t}`; screen.append(cd);
       timer = every(() => {
@@ -144,6 +147,15 @@
         }
       }, 1000);
     }
+    // look at the letters of round 1 again, to check them against what was typed
+    review?.addEventListener('click', () => {
+      if (!r1) return;
+      stop(timer);
+      const before = screen.innerHTML;
+      screen.innerHTML = '<div class="t">ROUND 1 · THE LETTERS</div><span>' + r1.split('').join(' ') + '</span>';
+      review.disabled = true;
+      later(() => { screen.innerHTML = before; review.disabled = false; }, 8000);
+    });
     starts[0].addEventListener('click', () => go(1));
     starts[1].addEventListener('click', () => go(2));
     check.addEventListener('click', () => {
@@ -153,6 +165,7 @@
       res.innerHTML = `Round ${round}: <b>${n} / ${LETTERS.length}</b> letters in the right place.`;
       check.disabled = true; input.disabled = true;
       starts.forEach(b => { b.disabled = false; });
+      if (review && r1) review.disabled = false;
       screen.innerHTML = `<span>${shown.length ? (round === 1 ? 'Round 2 uses the same letters…' : 'Compare your two scores!') : ''}</span>`;
     });
     paint();

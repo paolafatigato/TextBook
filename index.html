@@ -6207,7 +6207,7 @@
         <div class="tc-row between"><div class="tc-pill" style="--c:#0b4e87"><i class="n">7</i> Two rounds <small>15 letters for 11 seconds, then type them in order</small></div></div>
         <div class="tc-lab" id="tc-lt" style="--c:#0b4e87">
           <div class="tc-screen" id="tc-lt-screen"><span>Ready?</span></div>
-          <div class="tc-row wrap"><button class="tc-btn" type="button" id="tc-lt-s1">▶ Round 1</button><button class="tc-btn" type="button" id="tc-lt-s2" style="--c:#0b4e87">▶ Round 2</button></div>
+          <div class="tc-row wrap"><button class="tc-btn" type="button" id="tc-lt-s1">▶ Round 1</button><button class="tc-btn" type="button" id="tc-lt-s2" style="--c:#0b4e87">▶ Round 2</button><button class="tc-btn ghost" type="button" id="tc-lt-review" style="--c:#0b4e87" disabled>👁 See round 1 again</button></div>
           <input class="fill box" id="tc-lt-input" autocomplete="off" aria-label="Type the letters" placeholder="type the letters here" disabled>
           <button class="tc-btn" type="button" id="tc-lt-check" style="--c:#0b4e87" disabled>Check</button>
           <div class="res" id="tc-lt-res"></div>
@@ -9585,6 +9585,112 @@
   </div>
 
   <!-- ============ SCAFFOLDING (teacher only, no page numbers: pages.js) ============ -->
+  <!-- grading grid for the villain file (the right page of pers-villain-powers). Style: style.css "scf-rub" -->
+  <div class="spread scaffold" data-id="scaf-pers-villain-grid" data-title="Personality" data-name="Villain file · grading grid">
+
+    <section class="page page-left scf-page"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · grading grid</p>
+      <h1 class="scf-title">Villain <span>file</span></h1>
+      <p class="scf-sub">Griglia di valutazione · scheda del cattivo (Standard)</p>
+      <table class="scf-rub">
+        <thead>
+          <tr><th rowspan="2">Voto</th><th colspan="2">Content</th><th>Grammar</th><th>Creativity</th></tr>
+          <tr class="sub"><th>Completeness <i>/10</i></th><th>Coherence <i>/10</i></th><th>Grammar &amp; vocabulary <i>/10</i></th><th>Creativity <i>/10</i></th></tr>
+        </thead>
+        <tbody>
+          <tr><th>0</th><td>non consegnata</td><td>niente da valutare</td><td>nessun testo</td><td>nessuna idea propria</td></tr>
+          <tr><th>1</th><td>c'è solo il nome</td><td>le informazioni non c'entrano l'una con l'altra</td><td>solo parole isolate, nessuna frase</td><td>idee copiate dagli esempi del libro</td></tr>
+          <tr><th>2</th><td>il nome e una o due parti con poche parole</td><td>informazioni scollegate o in contraddizione</td><td>parole isolate, le frasi non si capiscono</td><td>personaggio generico: «cattivo e basta»</td></tr>
+          <tr><th>3</th><td>poche parti, quasi tutte incomplete</td><td>pochi collegamenti, molte contraddizioni</td><td>frasi quasi sempre incomprensibili</td><td>generico, nessun dettaglio personale</td></tr>
+          <tr><th>4</th><td>mancano molte parti, informazioni senza frasi</td><td>qualche collegamento (es. poteri e debolezze), il resto non c'entra</td><td>errori gravi / mancanze: info senza frasi / scritto in italiano</td><td>un'idea originale ma appena accennata</td></tr>
+          <tr><th>5</th><td>ci sono solo parti incomplete</td><td>alcune parti si collegano, altre no</td><td>errori che compromettono la comprensione</td><td>personaggio standard, qualche dettaglio personale</td></tr>
+          <tr><th>6</th><td>ci sono almeno description, history e un superpower</td><td>poteri e debolezze c'entrano con il cattivo, il resto poco</td><td>molti errori gravi, ma tutto comprensibile</td><td>almeno un dettaglio originale (nome, potere o debolezza inventati)</td></tr>
+          <tr><th>7</th><td>ci sono tutte le parti.</td><td>il cattivo è riconoscibile: description, history e poteri vanno d'accordo</td><td>alcuni errori gravi</td><td>potere e debolezza originali e legati al difetto</td></tr>
+          <tr><th>8</th><td>tutte le parti, alcune molto brevi</td><td>tutto collegato, solo qualche dettaglio non torna</td><td>pochi errori, lessico semplice</td><td>idee originali in più parti della scheda</td></tr>
+          <tr><th>9</th><td>tutte le parti, ben sviluppate</td><td>tutto coerente: i difetti spiegano poteri, debolezze e obiettivi</td><td>nessun errore, lessico adeguato</td><td>molto originale, con humour e dettagli curiosi</td></tr>
+          <tr><th>10</th><td>c'è tutto, anche un disegno ben fatto</td><td>coerenza totale: anche i dettagli sono coerenti con la persona e il personaggio</td><td>nessun errore, lessico complesso</td><td>personaggio unico e sorprendente, idee tutte sue</td></tr>
+        </tbody>
+      </table>
+    </div></section>
+
+    <section class="page page-right scf-page"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · grading grid</p>
+      <h2 class="scf-title sm">Come usare la griglia</h2>
+      <ol class="scf-steps">
+        <li>Per ogni colonna scegli la riga che descrive meglio la scheda: ottieni <b>quattro voti</b> (completeness, coherence, grammar &amp; vocabulary, creativity).</li>
+        <li>Voto finale = <b>media dei quattro voti</b>.</li>
+        <li>Se una colonna sta tra due righe, scegli la più bassa se manca qualcosa di importante, la più alta se la scheda si capisce bene.</li>
+      </ol>
+      <div class="scf-box">
+        <h2>Le parti della scheda (p. 229)</h2>
+        <ul class="scf-frame">
+          <li>Name · disegno o avatar · Name and surname</li>
+          <li>Description · History</li>
+          <li>Main attack · Equipment</li>
+          <li>Powers · Weaknesses</li>
+          <li>Goals · Sidekicks · Motto</li>
+        </ul>
+      </div>
+      <div class="scf-box" style="margin-top:2.4cqw">
+        <h2>Cosa guardare nella coerenza</h2>
+        <ul class="scf-frame">
+          <li>il difetto scelto (10.9) spiega i poteri e le debolezze</li>
+          <li>description e history raccontano lo stesso cattivo</li>
+          <li>goals, sidekicks e motto sono in carattere</li>
+        </ul>
+      </div>
+    </div></section>
+  </div>
+
+  <!-- explanation sheet for the villain file: pupils say which flaws they started from and which details of their
+       real life they put in (used to grade "coherence" in the grid above). Left = sheet to photocopy, right = a filled-in example. -->
+  <div class="spread scaffold" data-id="scaf-pers-villain-why" data-title="Personality" data-name="Villain file · why is my villain like this?">
+
+    <section class="page page-left scf-page"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · explanation sheet</p>
+      <h1 class="scf-title">Why is my villain <span>like this?</span></h1>
+      <p class="scf-sub">Explain your villain: where do the ideas come from?</p>
+
+      <h2 class="scf-h">1 · The flaws I started from</h2>
+      <p class="scf-help">I started from these flaws (pick them from 10.9):</p>
+      <p class="scf-why-line">Flaw 1 <span></span></p>
+      <p class="scf-why-line">Flaw 2 <span></span></p>
+      <p class="scf-why-line">Flaw 3 <span></span></p>
+      <p class="scf-why-line">Other flaws <span></span></p>
+
+      <h2 class="scf-h">2 · My life in my villain</h2>
+      <p class="scf-help">Pick 3 details of your villain (a look, a power, a weakness, an object…) that come from your real life. Use: <i>My villain has … because I …</i></p>
+      <table class="scf-why">
+        <thead><tr><th>In my villain</th><th>In my life</th><th>Because…</th></tr></thead>
+        <tbody>
+          <tr class="eg"><td>He had an accident on a skateboard.</td><td>I go to school by skateboard.</td><td>I really skate every day.</td></tr>
+          <tr><td></td><td></td><td></td></tr>
+          <tr><td></td><td></td><td></td></tr>
+        </tbody>
+      </table>
+
+      <h2 class="scf-h">3 · How the flaws explain the villain</h2>
+      <table class="scf-why flaws">
+        <thead><tr><th>Flaw</th><th>Characteristic of my life</th><th class="arr">→</th><th>Power</th><th>Weakness</th></tr></thead>
+        <tbody>
+          <tr><td></td><td></td><td class="arr">→</td><td></td><td></td></tr>
+          <tr><td></td><td></td><td class="arr">→</td><td></td><td></td></tr>
+          <tr><td></td><td></td><td class="arr">→</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </div></section>
+
+    <section class="page page-right scf-page"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · note for the teacher</p>
+      <h2 class="scf-title sm">How to use the sheet</h2>
+      <ol class="scf-steps">
+        <li>Print the left page on the <b>back of the villain file</b> (p. 229).</li>
+        <li>Say the example aloud first (the skateboard accident, because you really skate to school; or the chin, because your mother thought it was a flaw), then let the pupils write theirs.</li>
+        <li>The sheet is the proof for the <b>coherence</b> column of the grid: the details of the file must match what the pupil explains here.</li>
+      </ol>
+    </div></section>
+  </div>
+
   <!-- sheets to photocopy for pupils with DSA / 104: one big animal villain (the black and white drawings
        of img/personality/villains/bw), 3 very simple exercises on the flaw adjectives, then they color the villain.
        Big font, no italics, Italian help. Style: personality-chapter.css "coloring sheets" -->
@@ -9786,7 +9892,7 @@
     </div></section>
   </div>
 
-  <div class="spread" data-id="shk-meet" data-title="Literature: Shakespeare" data-name="Meet the author · The evidence">
+  <div class="spread" data-id="shk-meet" data-title="Literature: Shakespeare" data-name="Meet the author · The clues">
 
     <!-- ============ LEFT PAGE ============ -->
     <section class="page page-left sh shx">
@@ -9828,151 +9934,70 @@
 
     <!-- ============ RIGHT PAGE ============ -->
     <section class="page page-right sh shx">
-      <span class="shx-kicker abs" style="--x:6;--y:3">Exhibits 1 – 12</span>
+      <span class="shx-kicker abs" style="--x:6;--y:3">The clues</span>
       <h2 class="shx-h2 abs" style="--x:6;--y:5.2">The <em>evidence</em></h2>
       <div class="shx-rule abs" style="--x:6;--y:12.6;--w:88"></div>
-      <div class="lt-pill abs" style="--x:6;--y:15.4"><b>7.3</b> What is it? What does it tell us about the author?</div>
-      <p class="hint-line abs" style="--x:6;--y:20.4">line 1: what the object is · lines 2–3: your conclusion (So he… / Maybe he…)</p>
-      <div class="sh-ev abs" style="--x:6;--y:24;--w:43">
-        <span class="sh-slot" title="picture: a leather glove"><b>1</b><img data-pic="img/shakespeare/ev-01" alt="a leather glove"><span class="shx-ph" aria-hidden="true"><i>🧤</i><small>ev-01</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-1a" autocomplete="off" aria-label="Evidence 1: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-1b" autocomplete="off" aria-label="Evidence 1: conclusion"></label>
-          <label><input class="fill" id="sh-ev-1c" autocomplete="off" aria-label="Evidence 1: conclusion, line 2"></label>
-        </div>
+      <div class="lt-pill abs" style="--x:6;--y:15.4"><b>7.3</b> Look at the clue, think, ask!</div>
+      <p class="hint-line abs" style="--x:6;--y:20.2">Write what the clue is, what it tells you about the author, then ask your question. Did he say yes? ✓ No? ✗</p>
+      <div class="shx-model abs" style="--x:6;--y:23.8;--w:43">
+        <figure class="sh-slot"><b>1</b><img data-pic="img/shakespeare/model-1" alt="Model clue 1"><span class="shx-ph" aria-hidden="true"><i>🔍</i><small>model-1</small></span></figure>
+        <p><span>Model clue 1</span>We do it together: what is it? → <i>So he… / Maybe he…</i> → <i>Do you…? / Are you…?</i> → ✓ or ✗</p>
       </div>
-      <div class="sh-ev abs" style="--x:51;--y:24;--w:43">
-        <span class="sh-slot" title="picture: leather-working tools"><b>2</b><img data-pic="img/shakespeare/ev-02" alt="leather-working tools"><span class="shx-ph" aria-hidden="true"><i>✂️</i><small>ev-02</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-2a" autocomplete="off" aria-label="Evidence 2: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-2b" autocomplete="off" aria-label="Evidence 2: conclusion"></label>
-          <label><input class="fill" id="sh-ev-2c" autocomplete="off" aria-label="Evidence 2: conclusion, line 2"></label>
-        </div>
+      <div class="shx-model abs" style="--x:51;--y:23.8;--w:43">
+        <figure class="sh-slot"><b>2</b><img data-pic="img/shakespeare/model-2" alt="Model clue 2"><span class="shx-ph" aria-hidden="true"><i>🔍</i><small>model-2</small></span></figure>
+        <p><span>Model clue 2</span>We do it together: what is it? → <i>So he… / Maybe he…</i> → <i>Do you…? / Are you…?</i> → ✓ or ✗</p>
       </div>
-      <div class="sh-ev abs" style="--x:6;--y:42;--w:43">
-        <span class="sh-slot" title="picture: precious spices in a bag"><b>3</b><img data-pic="img/shakespeare/ev-03" alt="precious spices in a bag"><span class="shx-ph" aria-hidden="true"><i>🌶️</i><small>ev-03</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-3a" autocomplete="off" aria-label="Evidence 3: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-3b" autocomplete="off" aria-label="Evidence 3: conclusion"></label>
-          <label><input class="fill" id="sh-ev-3c" autocomplete="off" aria-label="Evidence 3: conclusion, line 2"></label>
-        </div>
-      </div>
-      <div class="sh-ev abs" style="--x:51;--y:42;--w:43">
-        <span class="sh-slot" title="picture: a map: London and Stratford-upon-Avon"><b>4</b><img data-pic="img/shakespeare/ev-04" alt="a map: London and Stratford-upon-Avon"><span class="shx-ph" aria-hidden="true"><i>🗺️</i><small>ev-04</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-4a" autocomplete="off" aria-label="Evidence 4: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-4b" autocomplete="off" aria-label="Evidence 4: conclusion"></label>
-          <label><input class="fill" id="sh-ev-4c" autocomplete="off" aria-label="Evidence 4: conclusion, line 2"></label>
-        </div>
-      </div>
-      <div class="sh-ev abs" style="--x:6;--y:60;--w:43">
-        <span class="sh-slot" title="picture: a wedding ring"><b>5</b><img data-pic="img/shakespeare/ev-05" alt="a wedding ring"><span class="shx-ph" aria-hidden="true"><i>💍</i><small>ev-05</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-5a" autocomplete="off" aria-label="Evidence 5: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-5b" autocomplete="off" aria-label="Evidence 5: conclusion"></label>
-          <label><input class="fill" id="sh-ev-5c" autocomplete="off" aria-label="Evidence 5: conclusion, line 2"></label>
-        </div>
-      </div>
-      <div class="sh-ev abs" style="--x:51;--y:60;--w:43">
-        <span class="sh-slot" title="picture: a wedding certificate"><b>6</b><img data-pic="img/shakespeare/ev-06" alt="a wedding certificate"><span class="shx-ph" aria-hidden="true"><i>📜</i><small>ev-06</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-6a" autocomplete="off" aria-label="Evidence 6: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-6b" autocomplete="off" aria-label="Evidence 6: conclusion"></label>
-          <label><input class="fill" id="sh-ev-6c" autocomplete="off" aria-label="Evidence 6: conclusion, line 2"></label>
-        </div>
-      </div>
-      <div class="sh-ev abs" style="--x:6;--y:78;--w:43">
-        <span class="sh-slot" title="picture: a wooden toy horse"><b>7</b><img data-pic="img/shakespeare/ev-07" alt="a wooden toy horse"><span class="shx-ph" aria-hidden="true"><i>🐴</i><small>ev-07</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-7a" autocomplete="off" aria-label="Evidence 7: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-7b" autocomplete="off" aria-label="Evidence 7: conclusion"></label>
-          <label><input class="fill" id="sh-ev-7c" autocomplete="off" aria-label="Evidence 7: conclusion, line 2"></label>
-        </div>
-      </div>
-      <div class="sh-ev abs" style="--x:51;--y:78;--w:43">
-        <span class="sh-slot" title="picture: a small skull"><b>8</b><img data-pic="img/shakespeare/ev-08" alt="a small skull"><span class="shx-ph" aria-hidden="true"><i>💀</i><small>ev-08</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-8a" autocomplete="off" aria-label="Evidence 8: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-8b" autocomplete="off" aria-label="Evidence 8: conclusion"></label>
-          <label><input class="fill" id="sh-ev-8c" autocomplete="off" aria-label="Evidence 8: conclusion, line 2"></label>
-        </div>
-      </div>
-      <div class="sh-ev abs" style="--x:6;--y:96;--w:43">
-        <span class="sh-slot" title="picture: a theater mask"><b>9</b><img data-pic="img/shakespeare/ev-09" alt="a theater mask"><span class="shx-ph" aria-hidden="true"><i>🎭</i><small>ev-09</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-9a" autocomplete="off" aria-label="Evidence 9: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-9b" autocomplete="off" aria-label="Evidence 9: conclusion"></label>
-          <label><input class="fill" id="sh-ev-9c" autocomplete="off" aria-label="Evidence 9: conclusion, line 2"></label>
-        </div>
-      </div>
-      <div class="sh-ev abs" style="--x:51;--y:96;--w:43">
-        <span class="sh-slot" title="picture: a quill and ink"><b>10</b><img data-pic="img/shakespeare/ev-10" alt="a quill and ink"><span class="shx-ph" aria-hidden="true"><i>🪶</i><small>ev-10</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-10a" autocomplete="off" aria-label="Evidence 10: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-10b" autocomplete="off" aria-label="Evidence 10: conclusion"></label>
-          <label><input class="fill" id="sh-ev-10c" autocomplete="off" aria-label="Evidence 10: conclusion, line 2"></label>
-        </div>
-      </div>
-      <div class="sh-ev abs" style="--x:6;--y:114;--w:43">
-        <span class="sh-slot" title="picture: a playbill from court"><b>11</b><img data-pic="img/shakespeare/ev-11" alt="a playbill from court"><span class="shx-ph" aria-hidden="true"><i>👑</i><small>ev-11</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-11a" autocomplete="off" aria-label="Evidence 11: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-11b" autocomplete="off" aria-label="Evidence 11: conclusion"></label>
-          <label><input class="fill" id="sh-ev-11c" autocomplete="off" aria-label="Evidence 11: conclusion, line 2"></label>
-        </div>
-      </div>
-      <div class="sh-ev abs" style="--x:51;--y:114;--w:43">
-        <span class="sh-slot" title="picture: the Macbeth playbill"><b>12</b><img data-pic="img/shakespeare/ev-12" alt="the Macbeth playbill"><span class="shx-ph" aria-hidden="true"><i>🧙‍♀️</i><small>ev-12</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-12a" autocomplete="off" aria-label="Evidence 12: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-12b" autocomplete="off" aria-label="Evidence 12: conclusion"></label>
-          <label><input class="fill" id="sh-ev-12c" autocomplete="off" aria-label="Evidence 12: conclusion, line 2"></label>
-        </div>
+      <div class="shx-clues abs" style="--x:6;--y:41.4;--w:88">
+        <div class="shx-clue-head"><span>#</span><span>The clue<small>What is it?</small></span><span>Inference<small>So he… / Maybe he…</small></span><span>Your question<small>Do you…? / Are you…?</small></span><span>Answer<small>✓ yes · ✗ no</small></span></div>
+        <ol>
+          <li><b>1</b><textarea class="fill" id="sh-ev-1a" aria-label="Clue 1: what is it?"></textarea><textarea class="fill" id="sh-ev-1b" aria-label="Clue 1: inference"></textarea><textarea class="fill" id="sh-ev-1q" aria-label="Clue 1: your question"></textarea><button type="button" class="pd-mark" id="sh-ev-1m" aria-label="Clue 1: the answer, yes or no"></button></li>
+          <li><b>2</b><textarea class="fill" id="sh-ev-2a" aria-label="Clue 2: what is it?"></textarea><textarea class="fill" id="sh-ev-2b" aria-label="Clue 2: inference"></textarea><textarea class="fill" id="sh-ev-2q" aria-label="Clue 2: your question"></textarea><button type="button" class="pd-mark" id="sh-ev-2m" aria-label="Clue 2: the answer, yes or no"></button></li>
+          <li><b>3</b><textarea class="fill" id="sh-ev-3a" aria-label="Clue 3: what is it?"></textarea><textarea class="fill" id="sh-ev-3b" aria-label="Clue 3: inference"></textarea><textarea class="fill" id="sh-ev-3q" aria-label="Clue 3: your question"></textarea><button type="button" class="pd-mark" id="sh-ev-3m" aria-label="Clue 3: the answer, yes or no"></button></li>
+          <li><b>4</b><textarea class="fill" id="sh-ev-4a" aria-label="Clue 4: what is it?"></textarea><textarea class="fill" id="sh-ev-4b" aria-label="Clue 4: inference"></textarea><textarea class="fill" id="sh-ev-4q" aria-label="Clue 4: your question"></textarea><button type="button" class="pd-mark" id="sh-ev-4m" aria-label="Clue 4: the answer, yes or no"></button></li>
+          <li><b>5</b><textarea class="fill" id="sh-ev-5a" aria-label="Clue 5: what is it?"></textarea><textarea class="fill" id="sh-ev-5b" aria-label="Clue 5: inference"></textarea><textarea class="fill" id="sh-ev-5q" aria-label="Clue 5: your question"></textarea><button type="button" class="pd-mark" id="sh-ev-5m" aria-label="Clue 5: the answer, yes or no"></button></li>
+          <li><b>6</b><textarea class="fill" id="sh-ev-6a" aria-label="Clue 6: what is it?"></textarea><textarea class="fill" id="sh-ev-6b" aria-label="Clue 6: inference"></textarea><textarea class="fill" id="sh-ev-6q" aria-label="Clue 6: your question"></textarea><button type="button" class="pd-mark" id="sh-ev-6m" aria-label="Clue 6: the answer, yes or no"></button></li>
+          <li><b>7</b><textarea class="fill" id="sh-ev-7a" aria-label="Clue 7: what is it?"></textarea><textarea class="fill" id="sh-ev-7b" aria-label="Clue 7: inference"></textarea><textarea class="fill" id="sh-ev-7q" aria-label="Clue 7: your question"></textarea><button type="button" class="pd-mark" id="sh-ev-7m" aria-label="Clue 7: the answer, yes or no"></button></li>
+          <li><b>8</b><textarea class="fill" id="sh-ev-8a" aria-label="Clue 8: what is it?"></textarea><textarea class="fill" id="sh-ev-8b" aria-label="Clue 8: inference"></textarea><textarea class="fill" id="sh-ev-8q" aria-label="Clue 8: your question"></textarea><button type="button" class="pd-mark" id="sh-ev-8m" aria-label="Clue 8: the answer, yes or no"></button></li>
+          <li><b>9</b><textarea class="fill" id="sh-ev-9a" aria-label="Clue 9: what is it?"></textarea><textarea class="fill" id="sh-ev-9b" aria-label="Clue 9: inference"></textarea><textarea class="fill" id="sh-ev-9q" aria-label="Clue 9: your question"></textarea><button type="button" class="pd-mark" id="sh-ev-9m" aria-label="Clue 9: the answer, yes or no"></button></li>
+          <li><b>10</b><textarea class="fill" id="sh-ev-10a" aria-label="Clue 10: what is it?"></textarea><textarea class="fill" id="sh-ev-10b" aria-label="Clue 10: inference"></textarea><textarea class="fill" id="sh-ev-10q" aria-label="Clue 10: your question"></textarea><button type="button" class="pd-mark" id="sh-ev-10m" aria-label="Clue 10: the answer, yes or no"></button></li>
+        </ol>
       </div>
 
       <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Shakespeare</span>
     </section>
   </div>
 
-  <div class="spread" data-id="shk-id-card" data-title="Literature: Shakespeare" data-name="ID card · Questions · What do you remember?">
+  <div class="spread" data-id="shk-id-card" data-title="Literature: Shakespeare" data-name="Unscramble · ID card · True or false?">
 
     <!-- ============ LEFT PAGE ============ -->
     <section class="page page-left sh shx">
-      <span class="shx-kicker abs" style="--x:6;--y:2">Exhibits 13 – 16</span>
-      <div class="sh-ev abs" style="--x:6;--y:5;--w:43">
-        <span class="sh-slot" title="picture: the Midsummer Night's Dream playbill"><b>13</b><img data-pic="img/shakespeare/ev-13" alt="the Midsummer Night's Dream playbill"><span class="shx-ph" aria-hidden="true"><i>🫏</i><small>ev-13</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-13a" autocomplete="off" aria-label="Evidence 13: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-13b" autocomplete="off" aria-label="Evidence 13: conclusion"></label>
-          <label><input class="fill" id="sh-ev-13c" autocomplete="off" aria-label="Evidence 13: conclusion, line 2"></label>
-        </div>
+      <div class="lt-pill abs" style="--x:6;--y:4.4"><b>7.4</b> Unscramble the words, then connect them to their meaning</div>
+      <button class="check abs" type="button" style="--x:82;--y:4.4" data-list="sh-unscr" data-match="sh-unscr">✓ Check</button>
+      <div class="match shx-unscr abs" id="sh-unscr" style="--x:6;--y:9.6">
+        <ul class="match-words">
+          <li><i>1</i><span class="shx-tiles" aria-label="Scrambled word: TWYLAPHGIR"><b>T</b><b>W</b><b>Y</b><b>L</b><b>A</b><b>P</b><b>H</b><b>G</b><b>I</b><b>R</b></span><input class="fill" id="sh-unscr-playwright" data-given="" data-answer="playwright" autocomplete="off" aria-label="Word 1: TWYLAPHGIR unscrambled"><button type="button" data-key="playwright" aria-label="Connect word 1"></button></li>
+          <li><i>2</i><span class="shx-tiles" aria-label="Scrambled word: ARHETTE"><b>A</b><b>R</b><b>H</b><b>E</b><b>T</b><b>T</b><b>E</b></span><input class="fill" id="sh-unscr-theatre" data-given="" data-answer="theater|theatre" autocomplete="off" aria-label="Word 2: ARHETTE unscrambled"><button type="button" data-key="theater" aria-label="Connect word 2"></button></li>
+          <li><i>3</i><span class="shx-tiles" aria-label="Scrambled word: TNNOSE"><b>T</b><b>N</b><b>N</b><b>O</b><b>S</b><b>E</b></span><input class="fill" id="sh-unscr-sonnet" data-given="" data-answer="sonnet" autocomplete="off" aria-label="Word 3: TNNOSE unscrambled"><button type="button" data-key="sonnet" aria-label="Connect word 3"></button></li>
+          <li><i>4</i><span class="shx-tiles" aria-label="Scrambled word: LULIQ"><b>L</b><b>U</b><b>L</b><b>I</b><b>Q</b></span><input class="fill" id="sh-unscr-quill" data-given="" data-answer="quill" autocomplete="off" aria-label="Word 4: LULIQ unscrambled"><button type="button" data-key="quill" aria-label="Connect word 4"></button></li>
+          <li><i>5</i><span class="shx-tiles" aria-label="Scrambled word: CENIDUAE"><b>C</b><b>E</b><b>N</b><b>I</b><b>D</b><b>U</b><b>A</b><b>E</b></span><input class="fill" id="sh-unscr-audience" data-given="" data-answer="audience" autocomplete="off" aria-label="Word 5: CENIDUAE unscrambled"><button type="button" data-key="audience" aria-label="Connect word 5"></button></li>
+          <li><i>6</i><span class="shx-tiles" aria-label="Scrambled word: DYGRATE"><b>D</b><b>Y</b><b>G</b><b>R</b><b>A</b><b>T</b><b>E</b></span><input class="fill" id="sh-unscr-tragedy" data-given="" data-answer="tragedy" autocomplete="off" aria-label="Word 6: DYGRATE unscrambled"><button type="button" data-key="tragedy" aria-label="Connect word 6"></button></li>
+          <li><i>7</i><span class="shx-tiles" aria-label="Scrambled word: DECMYO"><b>D</b><b>E</b><b>C</b><b>M</b><b>Y</b><b>O</b></span><input class="fill" id="sh-unscr-comedy" data-given="" data-answer="comedy" autocomplete="off" aria-label="Word 7: DECMYO unscrambled"><button type="button" data-key="comedy" aria-label="Connect word 7"></button></li>
+          <li><i>8</i><span class="shx-tiles" aria-label="Scrambled word: GESTA"><b>G</b><b>E</b><b>S</b><b>T</b><b>A</b></span><input class="fill" id="sh-unscr-stage" data-given="" data-answer="stage" autocomplete="off" aria-label="Word 8: GESTA unscrambled"><button type="button" data-key="stage" aria-label="Connect word 8"></button></li>
+        </ul>
+        <ul class="match-defs">
+          <li><button type="button" data-key="quill">a pen made from a feather</button></li>
+          <li><button type="button" data-key="comedy">a funny play with a happy ending</button></li>
+          <li><button type="button" data-key="playwright">a person who writes plays</button></li>
+          <li><button type="button" data-key="stage">the place where the actors perform</button></li>
+          <li><button type="button" data-key="sonnet">a poem with 14 lines</button></li>
+          <li><button type="button" data-key="tragedy">a sad play: the hero dies at the end</button></li>
+          <li><button type="button" data-key="theater">a building where people watch plays</button></li>
+          <li><button type="button" data-key="audience">the people who watch a show</button></li>
+        </ul>
+        <svg class="match-lines" aria-hidden="true"></svg>
       </div>
-      <div class="sh-ev abs" style="--x:51;--y:5;--w:43">
-        <span class="sh-slot" title="picture: a sword"><b>14</b><img data-pic="img/shakespeare/ev-14" alt="a sword"><span class="shx-ph" aria-hidden="true"><i>⚔️</i><small>ev-14</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-14a" autocomplete="off" aria-label="Evidence 14: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-14b" autocomplete="off" aria-label="Evidence 14: conclusion"></label>
-          <label><input class="fill" id="sh-ev-14c" autocomplete="off" aria-label="Evidence 14: conclusion, line 2"></label>
-        </div>
-      </div>
-      <div class="sh-ev abs" style="--x:6;--y:23;--w:43">
-        <span class="sh-slot" title="picture: old keys"><b>15</b><img data-pic="img/shakespeare/ev-15" alt="old keys"><span class="shx-ph" aria-hidden="true"><i>🔑</i><small>ev-15</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-15a" autocomplete="off" aria-label="Evidence 15: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-15b" autocomplete="off" aria-label="Evidence 15: conclusion"></label>
-          <label><input class="fill" id="sh-ev-15c" autocomplete="off" aria-label="Evidence 15: conclusion, line 2"></label>
-        </div>
-      </div>
-      <div class="sh-ev abs" style="--x:51;--y:23;--w:43">
-        <span class="sh-slot" title="picture: property deeds from Stratford"><b>16</b><img data-pic="img/shakespeare/ev-16" alt="property deeds from Stratford"><span class="shx-ph" aria-hidden="true"><i>🏠</i><small>ev-16</small></span></span>
-        <div class="sh-ev-lines">
-          <label><i>It's</i><input class="fill" id="sh-ev-16a" autocomplete="off" aria-label="Evidence 16: what is it?"></label>
-          <label><i>So</i><input class="fill" id="sh-ev-16b" autocomplete="off" aria-label="Evidence 16: conclusion"></label>
-          <label><input class="fill" id="sh-ev-16c" autocomplete="off" aria-label="Evidence 16: conclusion, line 2"></label>
-        </div>
-      </div>
-      <div class="lt-pill abs" style="--x:9.7;--y:43"><b>7.4</b> Complete the author's ID card</div>
-      <div class="shx-id abs" style="--x:9.7;--y:48.6;--w:80.6">
+      <div class="lt-pill abs" style="--x:9.7;--y:49.4"><b>7.5</b> Complete the author's ID card</div>
+      <div class="shx-id shx-paper abs" style="--x:9.7;--y:54;--w:80.6">
         <figure class="shx-id-pic"><img class="drawing" data-pic="img/shakespeare/portrait" alt="Portrait of William Shakespeare"><span class="shx-ph" aria-hidden="true"><i>🧔</i><small>portrait</small></span></figure>
         <p class="shx-id-name"><small>Identity card</small><b>William<br>Shakespeare</b><span class="shx-script">poet &amp; playwright</span></p>
         <div class="shx-id-grid">
@@ -9985,7 +10010,7 @@
           <div class="wide"><label for="sh74-plays">Famous plays</label><input class="fill" id="sh74-plays" autocomplete="off"></div>
         </div>
       </div>
-      <div class="lt-pill abs" style="--x:9.7;--y:96"><b>7.5</b> Complete with Do · Does · Am · Is · Are</div>
+      <div class="lt-pill abs" style="--x:9.7;--y:96"><b>7.6</b> Complete with Do · Does · Am · Is · Are</div>
       <button class="check abs" type="button" style="--x:80;--y:96" data-list="sh75">✓ Check</button>
       <ol class="al-fill abs" id="sh75" style="--x:11;--y:100;--w:78">
         <li><i>A.</i><span><input class="fill blank" id="sh75-a" data-given="" data-answer="are" autocomplete="off" aria-label="A"> you married?</span></li>
@@ -10001,9 +10026,23 @@
 
     <!-- ============ RIGHT PAGE ============ -->
     <section class="page page-right sh shx">
-      <div class="lt-pill abs" style="--x:8;--y:7"><b>7.6</b> Tell the class! Use the present simple</div>
-      <button class="check abs" type="button" style="--x:74;--y:7" data-list="sh76">✓ Check</button>
-      <ol class="al-fill abs" id="sh76" style="--x:8;--y:11.6;--w:80">
+      <span class="shx-kicker abs" style="--x:8;--y:3.2">Guess, then check!</span>
+      <div class="lt-pill abs" style="--x:8;--y:6.4"><b>7.7</b> True or false? Guess the secrets of his life. False? Correct it!</div>
+      <button class="check abs" type="button" style="--x:80;--y:6.4" data-tf="sh-tf">✓ Check</button>
+      <div class="rj-tf shx-tf abs" id="sh-tf" style="--x:8;--y:10.4;--w:84">
+        <p><span><i>1.</i>Shakespeare was born in London.</span><span class="tf light" id="sh-tf-0" data-answer="F"><button type="button">T</button><button type="button">F</button></span><input class="fill shx-fix" id="sh-tf-0-fix" placeholder="false? write it correctly…" autocomplete="off" aria-label="Sentence 1 corrected"></p>
+        <p><span><i>2.</i>His father made gloves.</span><span class="tf light" id="sh-tf-1" data-answer="T"><button type="button">T</button><button type="button">F</button></span><input class="fill shx-fix" id="sh-tf-1-fix" placeholder="false? write it correctly…" autocomplete="off" aria-label="Sentence 2 corrected"></p>
+        <p><span><i>3.</i>His wife was called Anne Hathaway.</span><span class="tf light" id="sh-tf-2" data-answer="T"><button type="button">T</button><button type="button">F</button></span><input class="fill shx-fix" id="sh-tf-2-fix" placeholder="false? write it correctly…" autocomplete="off" aria-label="Sentence 3 corrected"></p>
+        <p><span><i>4.</i>He had only one child.</span><span class="tf light" id="sh-tf-3" data-answer="F"><button type="button">T</button><button type="button">F</button></span><input class="fill shx-fix" id="sh-tf-3-fix" placeholder="false? write it correctly…" autocomplete="off" aria-label="Sentence 4 corrected"></p>
+        <p><span><i>5.</i>His daughter Judith died when she was a child.</span><span class="tf light" id="sh-tf-judith" data-answer="F"><button type="button">T</button><button type="button">F</button></span><input class="fill shx-fix" id="sh-tf-judith-fix" placeholder="false? write it correctly…" autocomplete="off" aria-label="Sentence 5 corrected"></p>
+        <p><span><i>6.</i>He always lived with his wife in Stratford.</span><span class="tf light" id="sh-tf-lived" data-answer="F"><button type="button">T</button><button type="button">F</button></span><input class="fill shx-fix" id="sh-tf-lived-fix" placeholder="false? write it correctly…" autocomplete="off" aria-label="Sentence 6 corrected"></p>
+        <p><span><i>7.</i>He dedicated his sonnets to Lady W.H.</span><span class="tf light" id="sh-tf-wh" data-answer="F"><button type="button">T</button><button type="button">F</button></span><input class="fill shx-fix" id="sh-tf-wh-fix" placeholder="false? write it correctly…" autocomplete="off" aria-label="Sentence 7 corrected"></p>
+        <p><span><i>8.</i>He was probably unfaithful to his wife.</span><span class="tf light" id="sh-tf-7" data-answer="T"><button type="button">T</button><button type="button">F</button></span><input class="fill shx-fix" id="sh-tf-7-fix" placeholder="false? write it correctly…" autocomplete="off" aria-label="Sentence 8 corrected"></p>
+      </div>
+
+      <div class="lt-pill abs" style="--x:8;--y:55.4"><b>7.8</b> Tell the class! Use the present simple</div>
+      <button class="check abs" type="button" style="--x:80;--y:55.4" data-list="sh76">✓ Check</button>
+      <ol class="al-fill tight abs" id="sh76" style="--x:8;--y:59.6;--w:80">
         <li><i>A.</i><span>Shakespeare <input class="fill blank" id="sh76-a1" data-given="" data-answer="lives" autocomplete="off" aria-label="A first blank"> (live) in London, but his family <input class="fill blank" id="sh76-a2" data-given="" data-answer="lives" autocomplete="off" aria-label="A second blank"> (live) in Stratford.</span></li>
         <li><i>B.</i><span>His father <input class="fill blank" id="sh76-b" data-given="" data-answer="makes" autocomplete="off" aria-label="B"> (make) gloves.</span></li>
         <li><i>C.</i><span>He <input class="fill blank" id="sh76-c" data-given="" data-answer="writes" autocomplete="off" aria-label="C"> (write) plays and poems.</span></li>
@@ -10013,9 +10052,9 @@
         <li><i>G.</i><span>He <input class="fill blank" id="sh76-g" data-given="" data-answer="doesn't see|does not see" autocomplete="off" aria-label="G"> (not / see) his children very often.</span></li>
       </ol>
 
-      <div class="lt-pill abs" style="--x:8;--y:55"><b>7.7</b> What do you remember about Shakespeare's life?</div>
-      <p class="hint-line abs" style="--x:8;--y:59.8">Write a list. Then check online: click once for ✓ (correct), twice for ✗ (wrong)</p>
-      <ol class="sh-facts shx-timeline abs" style="--x:8;--y:64;--w:84">
+      <div class="lt-pill abs" style="--x:8;--y:94.2"><b>7.9</b> What do you remember about Shakespeare's life?</div>
+      <p class="hint-line abs" style="--x:8;--y:98.6">Write a list. Then check online: click once for ✓ (correct), twice for ✗ (wrong)</p>
+      <ol class="sh-facts shx-timeline tight five abs" style="--x:8;--y:101.6;--w:84">
         <li><i>1.</i><input class="fill" id="sh77-1" autocomplete="off" aria-label="Fact 1"><button type="button" class="pd-mark" id="sh77-1-m" aria-label="Fact 1: correct or wrong"></button></li>
         <li><i>2.</i><input class="fill" id="sh77-2" autocomplete="off" aria-label="Fact 2"><button type="button" class="pd-mark" id="sh77-2-m" aria-label="Fact 2: correct or wrong"></button></li>
         <li><i>3.</i><input class="fill" id="sh77-3" autocomplete="off" aria-label="Fact 3"><button type="button" class="pd-mark" id="sh77-3-m" aria-label="Fact 3: correct or wrong"></button></li>
@@ -10026,8 +10065,6 @@
         <li><i>8.</i><input class="fill" id="sh77-8" autocomplete="off" aria-label="Fact 8"><button type="button" class="pd-mark" id="sh77-8-m" aria-label="Fact 8: correct or wrong"></button></li>
         <li><i>9.</i><input class="fill" id="sh77-9" autocomplete="off" aria-label="Fact 9"><button type="button" class="pd-mark" id="sh77-9-m" aria-label="Fact 9: correct or wrong"></button></li>
         <li><i>10.</i><input class="fill" id="sh77-10" autocomplete="off" aria-label="Fact 10"><button type="button" class="pd-mark" id="sh77-10-m" aria-label="Fact 10: correct or wrong"></button></li>
-        <li><i>11.</i><input class="fill" id="sh77-11" autocomplete="off" aria-label="Fact 11"><button type="button" class="pd-mark" id="sh77-11-m" aria-label="Fact 11: correct or wrong"></button></li>
-        <li><i>12.</i><input class="fill" id="sh77-12" autocomplete="off" aria-label="Fact 12"><button type="button" class="pd-mark" id="sh77-12-m" aria-label="Fact 12: correct or wrong"></button></li>
       </ol>
 
       <span class="footer abs" style="--x:66;--y:134.6;--w:19.1">Shakespeare</span>
@@ -10045,7 +10082,7 @@
       <figure class="shx-orbit abs" style="--x:66;--y:3;--w:23"><span class="shx-orbit-pic"><img data-pic="img/shakespeare/rose" alt="An engraving of a rose"><span class="shx-ph" aria-hidden="true"><i>🌹</i><small>rose</small></span></span><i class="n">✦</i><i class="s">✦</i><i class="e">✦</i><i class="w">✦</i></figure>
       <div class="shx-rule abs" style="--x:0;--y:28.4;--w:100"></div>
 
-      <div class="lt-pill abs" style="--x:9.7;--y:30.6"><b>7.8</b> Read the sonnet and click the rhymes</div>
+      <div class="lt-pill abs" style="--x:9.7;--y:30.6"><b>7.10</b> Read the sonnet and click the rhymes</div>
       <button class="check abs" type="button" style="--x:80;--y:30.6" data-rhyme="sh78">✓ Check</button>
       <p class="hint-line abs" style="--x:9.7;--y:35.4">click the last word: A → B → C … · same sound = same letter</p>
       <ol class="sh-poem abs" id="sh78" style="--x:9.7;--y:38.6;--w:80.6">
@@ -10093,7 +10130,7 @@
         <li><span>↺</span><span>the <b>couplet</b> (the last 2 lines) is the <b>twist</b>: it changes everything!</span></li>
       </ul>
 
-      <div class="lt-pill abs" style="--x:8;--y:36"><b>7.9</b> Count the syllables</div>
+      <div class="lt-pill abs" style="--x:8;--y:36"><b>7.11</b> Count the syllables</div>
       <button class="check abs" type="button" style="--x:80;--y:36" data-syl="sh79" data-list="sh79">✓ Check</button>
       <p class="hint-line abs" style="--x:8;--y:40.6">click after a letter to add | between syllables, then write the number · e.g. My|mis|tress’|eyes|are|no|thing|like|the|sun = 10</p>
       <ol class="sh-syl-list abs" id="sh79" style="--x:8;--y:43.6;--w:84">
@@ -10105,7 +10142,7 @@
         <li><i>F.</i><span class="sh-syl" id="sh79-14" data-line="As a-ny she be-lied with false com-pare."></span><span class="sh-syl-score" id="sh79-14-score"></span><input class="fill blank" id="sh79-14-n" data-given="" data-answer="10|ten" autocomplete="off" aria-label="Syllables in line 14"></li>
       </ol>
 
-      <div class="lt-pill abs" style="--x:8;--y:81"><b>7.10</b> The perfect lady vs Shakespeare's mistress: drag the phrases</div>
+      <div class="lt-pill abs" style="--x:8;--y:81"><b>7.12</b> The perfect lady vs Shakespeare's mistress: drag the phrases</div>
       <button class="check abs" type="button" style="--x:80;--y:81" data-dd="sh710">✓ Check</button>
       <div class="dd-set sh-dd abs" id="sh710" style="--x:8;--y:85.2;--w:84">
         <div class="dd-bank"><span class="dd-chip trad" id="sh710-t-voice" data-key="t-voice">is like music</span><span class="dd-chip shak" id="sh710-s-hair" data-key="s-hair">is like black wires</span><span class="dd-chip trad" id="sh710-t-skin" data-key="t-skin">is white like snow</span><span class="dd-chip shak" id="sh710-s-walk" data-key="s-walk">she treads on the ground</span><span class="dd-chip trad" id="sh710-t-cheeks" data-key="t-cheeks">are like red and white roses</span><span class="dd-chip shak" id="sh710-s-breath" data-key="s-breath">perfume is sweeter than her breath</span><span class="dd-chip trad" id="sh710-t-lips" data-key="t-lips">are red like coral</span><span class="dd-chip shak" id="sh710-s-voice" data-key="s-voice">music has a more pleasing sound</span><span class="dd-chip trad" id="sh710-t-walk" data-key="t-walk">she walks like a goddess</span><span class="dd-chip shak" id="sh710-s-cheeks" data-key="s-cheeks">have no roses in them</span><span class="dd-chip trad" id="sh710-t-hair" data-key="t-hair">is like golden wires</span><span class="dd-chip shak" id="sh710-s-skin" data-key="s-skin">is dun (grayish brown), not white</span><span class="dd-chip trad" id="sh710-t-breath" data-key="t-breath">smells like perfume</span><span class="dd-chip shak" id="sh710-s-lips" data-key="s-lips">are less red than coral</span></div>
@@ -10124,14 +10161,256 @@
     </section>
   </div>
 
-  <div class="spread" data-id="shk-rhyme-machine" data-title="Literature: Shakespeare" data-name="Questions · The rhyme machine">
+    <div class="spread" data-id="shk-figures" data-title="Literature: Shakespeare" data-name="Sonnet 130 · Figures of speech">
+
+    <!-- ============ LEFT PAGE ============ -->
+    <section class="page page-left sh shx">
+      <span class="shx-kicker abs" style="--x:9.7;--y:3">Sonnet 130 · close reading</span>
+      <h2 class="shx-h2 abs" style="--x:9.7;--y:5.2">The poet’s <em>toolbox</em></h2>
+      <div class="shx-rule abs" style="--x:9.7;--y:12.6;--w:80.6"></div>
+      <div class="lt-pill abs" style="--x:9.7;--y:15"><b>7.13</b> Figures of speech: read, then write your own example</div>
+      <div class="shf-table abs" style="--x:9.7;--y:19.8;--w:80.6">
+        <div class="shf-head"><span>Figure</span><span>What it is · an example</span><span>My example</span></div>
+        <div class="shf-row" style="--pen:#49acf0"><b><i></i>Simile</b><p>Compares two things with <u>like</u> or <u>as</u>.<em>Her smile is like the sun.</em></p><textarea class="fill" id="shf-ex-simile" aria-label="My example: Simile"></textarea></div>
+        <div class="shf-row" style="--pen:#c97ff7"><b><i></i>Metaphor</b><p>Says that one thing <u>is</u> another, without like or as.<em>My brother is a couch potato.</em></p><textarea class="fill" id="shf-ex-metaphor" aria-label="My example: Metaphor"></textarea></div>
+        <div class="shf-row" style="--pen:#f06054"><b><i></i>Hyperbole</b><p>A big exaggeration, not to be taken literally.<em>I’ve told you a million times!</em></p><textarea class="fill" id="shf-ex-hyperbole" aria-label="My example: Hyperbole"></textarea></div>
+        <div class="shf-row" style="--pen:#4e964c"><b><i></i>Anaphora</b><p>The same word(s) at the <u>start</u> of two or more lines.<em>I have a dream… / I have a dream…</em></p><textarea class="fill" id="shf-ex-anaphora" aria-label="My example: Anaphora"></textarea></div>
+        <div class="shf-row" style="--pen:#e8c547"><b><i></i>Hypothesis</b><p>A condition with <u>if</u>: if this is true, then…<em>If you are hungry, then eat!</em></p><textarea class="fill" id="shf-ex-hypothesis" aria-label="My example: Hypothesis"></textarea></div>
+        <div class="shf-row" style="--pen:#2e6890"><b><i></i>Antithesis</b><p>Two opposite ideas side by side.<em>Speech is silver, silence is gold.</em></p><textarea class="fill" id="shf-ex-antithesis" aria-label="My example: Antithesis"></textarea></div>
+        <div class="shf-row" style="--pen:#de3796"><b><i></i>Enjambment</b><p>The sentence does not stop at the end of the line: it goes on in the next one.<em>I wandered lonely as a cloud / That floats on high…</em></p><textarea class="fill" id="shf-ex-enjambment" aria-label="My example: Enjambment"></textarea></div>
+        <div class="shf-row" style="--pen:#dfec72"><b><i></i>Double meaning</b><p>A word chosen because it means two things at the same time.<em>A book about glue? I can’t put it down!</em></p><textarea class="fill" id="shf-ex-pun" aria-label="My example: Double meaning"></textarea></div>
+        <div class="shf-row" style="--pen:#ff9884"><b><i></i>Irony</b><p>Saying something different from what people expect, often to make fun of it.<em>“What lovely weather!” (in the rain)</em></p><textarea class="fill" id="shf-ex-irony" aria-label="My example: Irony"></textarea></div>
+      </div>
+
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+
+    <!-- ============ RIGHT PAGE ============ -->
+    <section class="page page-right sh shx">
+      <div class="lt-pill abs" style="--x:8;--y:5"><b>7.14</b> Find them in Sonnet 130: choose a pen, then click the words</div>
+      <div class="pen-box shf-pens abs" data-for="shf-text" style="--x:8;--y:9.6;--w:84">
+        <button type="button" data-pen="simile" style="--pen:#49acf0">Simile</button>
+        <button type="button" data-pen="metaphor" style="--pen:#c97ff7">Metaphor</button>
+        <button type="button" data-pen="hyperbole" style="--pen:#f06054">Hyperbole</button>
+        <button type="button" data-pen="anaphora" style="--pen:#4e964c">Anaphora</button>
+        <button type="button" data-pen="hypothesis" style="--pen:#e8c547">Hypothesis</button>
+        <button type="button" data-pen="antithesis" style="--pen:#2e6890">Antithesis</button>
+        <button type="button" data-pen="enjambment" style="--pen:#de3796">Enjambment</button>
+        <button type="button" data-pen="pun" style="--pen:#dfec72">Double meaning</button>
+        <button type="button" data-pen="irony" style="--pen:#ff9884">Irony</button>
+        <button type="button" data-pen="" class="rub">⌫ rubber</button>
+      </div>
+      <div class="shf-text abs" style="--x:8;--y:20.6;--w:84">
+        <ol class="pen-text" id="shf-text">
+          <li><i>1</i><span class="pen-words">My mistress’ eyes are nothing like the sun;</span></li>
+          <li><i>2</i><span class="pen-words">Coral is far more red than her lips’ red;</span></li>
+          <li><i>3</i><span class="pen-words">If snow be white, why then her breasts are dun;</span></li>
+          <li class="end"><i>4</i><span class="pen-words">If hairs be wires, black wires grow on her head.</span></li>
+          <li><i>5</i><span class="pen-words">I have seen roses damasked, red and white,</span></li>
+          <li><i>6</i><span class="pen-words">But no such roses see I in her cheeks;</span></li>
+          <li><i>7</i><span class="pen-words">And in some perfumes is there more delight</span></li>
+          <li class="end"><i>8</i><span class="pen-words">Than in the breath that from my mistress reeks.</span></li>
+          <li><i>9</i><span class="pen-words">I love to hear her speak, yet well I know</span></li>
+          <li><i>10</i><span class="pen-words">That music hath a far more pleasing sound;</span></li>
+          <li><i>11</i><span class="pen-words">I grant I never saw a goddess go;</span></li>
+          <li class="end"><i>12</i><span class="pen-words">My mistress, when she walks, treads on the ground:</span></li>
+          <li><i>13</i><span class="pen-words">And yet, by heaven, I think my love as rare</span></li>
+          <li><i>14</i><span class="pen-words">As any she belied with false compare.</span></li>
+        </ol>
+      </div>
+      <p class="hint-line abs" style="--x:8;--y:92.6">one line can hide more than one figure: color the words of each one with its pen</p>
+
+      <p class="mt-label abs shf-label" style="--x:8;--y:97.4;--w:84">Now explain two of them</p>
+      <p class="shf-explain abs" style="--x:8;--y:102.4;--w:84"><span>Line</span><input class="fill n" id="shf-why-0-line" autocomplete="off" aria-label="Explanation 1: line"><span>: there is a / an</span><input class="fill" id="shf-why-0-fig" autocomplete="off" aria-label="Explanation 1: figure"><span>because</span><textarea class="fill" id="shf-why-0" aria-label="Explanation 1: because"></textarea></p>
+      <p class="shf-explain abs" style="--x:8;--y:114;--w:84"><span>Line</span><input class="fill n" id="shf-why-1-line" autocomplete="off" aria-label="Explanation 2: line"><span>: there is a / an</span><input class="fill" id="shf-why-1-fig" autocomplete="off" aria-label="Explanation 2: figure"><span>because</span><textarea class="fill" id="shf-why-1" aria-label="Explanation 2: because"></textarea></p>
+
+      <span class="footer abs" style="--x:69;--y:135.4;--w:19.1">Shakespeare</span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="shk-one-line" data-title="Literature: Shakespeare" data-name="Sonnet 130 · One line, everything (oral test)">
+
+    <!-- ============ LEFT PAGE ============ -->
+    <section class="page page-left sh shx">
+      <span class="shx-kicker abs" style="--x:9.7;--y:3">Get ready for your oral test</span>
+      <h2 class="shx-h2 abs" style="--x:9.7;--y:5.2">One line, <em>everything</em></h2>
+      <div class="shx-rule abs" style="--x:9.7;--y:12.6;--w:80.6"></div>
+      <p class="pd-intro abs" style="--x:9.7;--y:14.4;--w:80.6">Your teacher chooses <b>one line</b> of Sonnet 130. You say <b>everything</b> you know about it, step by step.</p>
+      <div class="lt-pill abs" style="--x:9.7;--y:21.4"><b>7.15</b> Learn the steps and the sentence starters</div>
+      <ol class="shl-steps abs" style="--x:9.7;--y:25.8;--w:80.6">
+        <li><b>1</b><span>Read it aloud</span><i>Line … says: “…”</i></li>
+        <li><b>2</b><span>Translate it</span><i>In Italian it means…</i></li>
+        <li><b>3</b><span>Count the syllables</span><i>It has 10 syllables: it is an iambic pentameter, da-DUM × 5.</i></li>
+        <li><b>4</b><span>Where is it?</span><i>It is in the first / second / third quatrain · in the couplet.</i></li>
+        <li><b>5</b><span>The rhyme</span><i>It rhymes with line … (letter …): “…” and “…”.</i></li>
+        <li><b>6</b><span>Figures of speech</span><i>There is a / an … : “…”.</i></li>
+        <li><b>7</b><span>Enjambment</span><i>The sentence goes on in the next line. / The line ends with a full stop / a semicolon.</i></li>
+        <li><b>8</b><span>Key words</span><i>The word … was chosen because it means both … and … · It reminds us of…</i></li>
+        <li><b>9</b><span>The whole poem</span><i>This line shows that Shakespeare… · It is ironic because…</i></li>
+      </ol>
+      <div class="shl-model abs" style="--x:9.7;--y:77.4;--w:80.6">
+        <p class="shl-model-head"><span>Example · line 4</span><q>If hairs be wires, black wires grow on her head.</q></p>
+        <p><sup>1</sup>Line 4 says: “If hairs be wires, black wires grow on her head.” <sup>2</sup>In Italian it means: “se i capelli sono fili, fili neri le crescono in testa”. <sup>3</sup>It has 10 syllables: it is an iambic pentameter. <sup>4</sup>It is the last line of the first quatrain <sup>5</sup>and it rhymes with line 2, letter B: “head” and “red”. <sup>6</sup>There is an anaphora with line 3, because both lines start with “If”, and a hypothesis: if hair is wire, then her hair is black wire. There is also a metaphor, hair = wires, and a repetition: “wires, black wires”. <sup>7</sup>There is no enjambment: the line ends with a full stop. <sup>8</sup>The word “wires” was chosen because in Shakespeare’s time poets compared blond hair to golden wire, a precious jewel. <sup>9</sup>Shakespeare’s wires are black: the compliment becomes funny. It is ironic, because he makes fun of the traditional love poems.</p>
+      </div>
+
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+
+    <!-- ============ RIGHT PAGE ============ -->
+    <section class="page page-right sh shx">
+      <div class="lt-pill abs" style="--x:8;--y:5"><b>7.16</b> Line card: pick a line and fill in everything</div>
+      <button class="check abs" type="button" style="--x:80;--y:5" data-linecard="shl-card">✓ Check</button>
+      <div class="shl-card abs" id="shl-card" style="--x:8;--y:10;--w:84">
+        <p class="shl-pick"><button type="button" class="shl-dice">🎲 Pick a line</button><button type="button" class="shl-n" data-n="1">1</button><button type="button" class="shl-n" data-n="2">2</button><button type="button" class="shl-n" data-n="3">3</button><button type="button" class="shl-n" data-n="4">4</button><button type="button" class="shl-n" data-n="5">5</button><button type="button" class="shl-n" data-n="6">6</button><button type="button" class="shl-n" data-n="7">7</button><button type="button" class="shl-n" data-n="8">8</button><button type="button" class="shl-n" data-n="9">9</button><button type="button" class="shl-n" data-n="10">10</button><button type="button" class="shl-n" data-n="11">11</button><button type="button" class="shl-n" data-n="12">12</button><button type="button" class="shl-n" data-n="13">13</button><button type="button" class="shl-n" data-n="14">14</button></p>
+        <p class="shl-line" aria-live="polite"><i></i><q>Choose a line, or let the dice choose!</q></p>
+        <div class="shl-fields">
+          <label class="wide"><span>Translation</span><textarea class="fill" id="shl-f-tr" data-field="tr" aria-label="Translation"></textarea></label>
+          <label><span>Syllables</span><input class="fill" id="shl-f-syl" data-field="syl" data-check autocomplete="off" aria-label="Syllables"></label>
+          <div><span>Where is it?</span><span class="shl-opt shl-where" id="shl-f-pos" data-field="pos"><button type="button" data-v="q1">1st quatrain</button><button type="button" data-v="q2">2nd</button><button type="button" data-v="q3">3rd</button><button type="button" data-v="couplet">couplet</button></span></div>
+          <label><span>It rhymes with line</span><input class="fill" id="shl-f-rh" data-field="rh" data-check autocomplete="off" aria-label="It rhymes with line"></label>
+          <label><span>Rhyme letter</span><input class="fill" id="shl-f-let" data-field="let" data-check autocomplete="off" aria-label="Rhyme letter"></label>
+          <label class="wide"><span>Figures of speech</span><textarea class="fill" id="shl-f-fig" data-field="fig" aria-label="Figures of speech"></textarea></label>
+          <div class="wide"><span>Enjambment with the next line?</span><span class="shl-opt shl-enj" id="shl-f-enj" data-field="enj"><button type="button" data-v="yes">yes</button><button type="button" data-v="no">no</button></span></div>
+          <label class="wide"><span>Key words and their meanings</span><textarea class="fill" id="shl-f-key" data-field="key" aria-label="Key words and their meanings"></textarea></label>
+          <label class="wide"><span>What it tells us about the whole poem</span><textarea class="fill" id="shl-f-msg" data-field="msg" aria-label="What it tells us about the whole poem"></textarea></label>
+        </div>
+      </div>
+
+      <div class="lt-pill abs" style="--x:8;--y:82"><b>7.17</b> Practice with a partner: they choose a line, you talk for one minute</div>
+      <p class="hint-line abs" style="--x:8;--y:86.8">your partner clicks what you said · then swap!</p>
+      <p class="sh-chk shl-said abs" style="--x:8;--y:90.2;--w:84"><span class="chip toggle" id="shl-said-0">the translation</span><span class="chip toggle" id="shl-said-1">10 syllables</span><span class="chip toggle" id="shl-said-2">quatrain or couplet</span><span class="chip toggle" id="shl-said-3">the rhyme</span><span class="chip toggle" id="shl-said-4">the figures of speech</span><span class="chip toggle" id="shl-said-5">the enjambment</span><span class="chip toggle" id="shl-said-6">a key word</span><span class="chip toggle" id="shl-said-7">the whole poem</span><span class="chip toggle" id="shl-said-8">in good English</span></p>
+
+      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Shakespeare</span>
+    </section>
+  </div>
+
+  <div class="spread scaffold" data-id="scaf-shk-oral" data-title="Literature: Shakespeare" data-name="Sonnet 130 · Oral test: grading grid">
+
+    <section class="page page-left scf-page"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · oral test</p>
+      <h1 class="scf-title">Sonnet 130 <span>oral test</span></h1>
+      <p class="scf-sub">A line, chosen at random: the pupil says everything about it (the 9 steps on p. <span data-page="shk-one-line"></span>).</p>
+      <ol class="scf-steps">
+        <li>The pupil draws a number from 1 to 14 (or you choose a line).</li>
+        <li>They read the line aloud, then talk for about <b>2 minutes</b> without help.</li>
+        <li>Then you ask: “Why this word?”, “Is there a figure of speech?”, “Does it rhyme?”, “What about the next line?”</li>
+        <li>Optional: a second line from another quatrain, to check that they did not study only one.</li>
+      </ol>
+      <h2 class="shg-h">Grading grid <small>a proposal: one mark from 4 to 10 for each row · final mark = the average</small></h2>
+      <table class="shg-grid">
+        <thead><tr><th></th><th>4–5</th><th>6</th><th>7–8</th><th>9–10</th></tr></thead>
+        <tbody>
+          <tr><th>Meaning<small>translation and understanding</small></th><td>cannot translate the line, even with help</td><td>translates the main words; the meaning is not clear</td><td>translates the line correctly</td><td>translates it and explains it clearly in English</td></tr>
+          <tr><th>Form<small>syllables, quatrain / couplet, rhyme</small></th><td>does not know where the line is or what it rhymes with</td><td>gives one or two pieces of information</td><td>syllables, position and rhyme are correct</td><td>all correct, with the rhyme scheme and iambic pentameter</td></tr>
+          <tr><th>Figures of speech<small>names them and explains them</small></th><td>names none</td><td>names one, without explaining</td><td>names the main figures and quotes the words</td><td>names all of them and explains why they are there</td></tr>
+          <tr><th>Words & message<small>key words, double meanings, the whole poem</small></th><td>no comment on the words</td><td>one simple comment</td><td>explains a key word and links it to the poem</td><td>double meanings, irony, the twist: makes connections on their own</td></tr>
+          <tr><th>Speaking<small>fluency, pronunciation, technical words</small></th><td>needs constant questions; many mistakes</td><td>speaks with pauses, some mistakes</td><td>speaks in order, uses the sentence starters</td><td>fluent, accurate, uses the technical words naturally</td></tr>
+        </tbody>
+      </table>
+      <p class="shg-final">Meaning ___ · Form ___ · Figures ___ · Words &amp; message ___ · Speaking ___ &nbsp;→&nbsp; <b>Final mark ___</b></p>
+    </div></section>
+
+    <section class="page page-right scf-page"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · the key, line by line</p>
+      <table class="shg-key">
+        <thead><tr><th>#</th><th>Traduzione</th><th>Where · rhyme</th><th>Figures</th><th>Key words</th></tr></thead>
+        <tbody>
+          <tr><th>1</th><td>Gli occhi della mia donna non somigliano per niente al sole;</td><td>1st quatrain · <b>A</b> with 3</td><td>simile denied (“nothing like”) = anti-hyperbole; irony</td><td><b>mistress</b> = feminine of master: the woman who rules (padrona), the poet’s lady; also the beloved, today also “lover”; the sun = the classic love-poem compliment</td></tr>
+          <tr><th>2</th><td>il corallo è molto più rosso del rosso delle sue labbra;</td><td>1st quatrain · <b>B</b> with 4</td><td>comparison (more … than); repetition “red … red”</td><td><b>coral</b>: precious red stone of love poems</td></tr>
+          <tr><th>3</th><td>se la neve è bianca, allora il suo seno è grigio-bruno;</td><td>1st quatrain · <b>A</b> with 1</td><td>hypothesis + anaphora “If” (3–4); antithesis white / dun</td><td><b>dun</b>: dull grey-brown, an ugly, unpoetic word (the color of a mouse, a horse)</td></tr>
+          <tr class="end"><th>4</th><td>se i capelli sono fili, fili neri le crescono in testa.</td><td>1st quatrain · <b>B</b> with 2</td><td>hypothesis + anaphora “If”; metaphor hair = wires; repetition</td><td><b>wires</b>: blond hair = golden wire (jewelry) → here black wire</td></tr>
+          <tr><th>5</th><td>Ho visto rose damascate, rosse e bianche,</td><td>2nd quatrain · <b>C</b> with 7</td><td>image of the roses; antithesis red / white</td><td><b>damasked</b>: mixed red and white (Damascus roses, damask fabric)</td></tr>
+          <tr><th>6</th><td>ma rose così non ne vedo sulle sue guance;</td><td>2nd quatrain · <b>D</b> with 8</td><td>metaphor denied (roses in her cheeks); inversion “see I”</td><td>the traditional “rosy cheeks”</td></tr>
+          <tr><th>7</th><td>e in certi profumi c’è più piacere</td><td>2nd quatrain · <b>C</b> with 5</td><td>comparison (more … than); <b>enjambment → 8</b></td><td><b>perfumes</b>: luxury, the poets’ “sweet breath”</td></tr>
+          <tr class="end"><th>8</th><td>che nel fiato che esala dalla mia donna.</td><td>2nd quatrain · <b>D</b> with 6</td><td>double meaning; repetition “my mistress”</td><td><b>reeks</b>: then “comes out”, today “stinks” → funny</td></tr>
+          <tr><th>9</th><td>Amo sentirla parlare, eppure so bene</td><td>3rd quatrain · <b>E</b> with 11</td><td>antithesis “I love … yet”; anaphora “I” (9, 11); <b>enjambment → 10</b></td><td><b>yet</b>: the turn of the sentence</td></tr>
+          <tr><th>10</th><td>che la musica ha un suono molto più piacevole;</td><td>3rd quatrain · <b>F</b> with 12</td><td>comparison (far more pleasing)</td><td><b>hath</b> = has; music = the classic compliment for a voice</td></tr>
+          <tr><th>11</th><td>ammetto di non aver mai visto camminare una dea;</td><td>3rd quatrain · <b>E</b> with 9</td><td>hyperbole of love poems (the goddess) refused</td><td><b>go</b> = walk (old meaning); goddess: Petrarch’s Laura</td></tr>
+          <tr class="end"><th>12</th><td>la mia donna, quando cammina, pesta il suolo:</td><td>3rd quatrain · <b>F</b> with 10</td><td>antithesis goddess / ground (heaven / earth)</td><td><b>treads</b>: walks heavily; she is a real woman; the colon announces the twist</td></tr>
+          <tr><th>13</th><td>Eppure, per il cielo, credo che il mio amore sia tanto raro</td><td>couplet · <b>G</b> with 14</td><td>volta (the twist “And yet”); oath “by heaven”; <b>enjambment → 14</b></td><td><b>rare</b>: precious and unusual (double meaning)</td></tr>
+          <tr><th>14</th><td>quanto qualsiasi donna travisata da falsi paragoni.</td><td>couplet · <b>G</b> with 13</td><td>irony: the other poets lie; comparison “as rare as”</td><td><b>belied</b>: misrepresented with lies; <b>false compare</b>: exaggerated comparisons; <b>she</b> = a woman</td></tr>
+        </tbody>
+      </table>
+      <p class="scf-note">All lines: 10 syllables, iambic pentameter · rhyme scheme ABAB CDCD EFEF GG · enjambments: 7→8, 9→10, 13→14</p>
+    </div></section>
+  </div>
+
+  <div class="spread scaffold" data-id="scaf-shk-lines" data-title="Literature: Shakespeare" data-name="Sonnet 130 · Oral test: what to say about every line">
+
+    <section class="page page-left scf-page"><div class="scf-in shm-in">
+      <p class="scf-tape">🧱 Scaffolding · oral test, lines 1–7</p>
+      <p class="shm-sub">What a full answer sounds like (as in the model on p. <span data-page="shk-one-line"></span>). Syllables (10) and the rhyme are left out: easy to add.</p>
+      <article class="shm-line">
+        <h3><i>1</i><q>My mistress’ eyes are nothing like the sun;</q><small>1st quatrain</small></h3>
+        <p><span class="shm-tr">Gli occhi della mia donna non somigliano per niente al sole.</span> There is a <b>simile</b>, but it is denied: “nothing like the sun”. Love poets always compared the eyes of their lady to the sun, a <b>hyperbole</b>; Shakespeare says the opposite: it is an anti-hyperbole, and it is <b>ironic</b>. There is no enjambment: the line ends with a semicolon. The word “mistress” was chosen because it is the feminine of “master”: the woman who rules, the “padrona”. In love poems the lady is the mistress of the poet’s heart and he is her servant; so “mistress” also means “the woman I love”, and today also “lover”. From the very first line we understand that the poem is a parody of traditional love poems.</p>
+      </article>
+      <article class="shm-line">
+        <h3><i>2</i><q>Coral is far more red than her lips’ red;</q><small>1st quatrain</small></h3>
+        <p><span class="shm-tr">Il corallo è molto più rosso del rosso delle sue labbra.</span> There is a <b>comparison</b>, “far more red than”, and a <b>repetition</b>: “red … red” opens and closes the comparison. There is no enjambment: the line ends with a semicolon. “Coral” was chosen because it was a precious red stone, a classic image for lips in love poems: her lips are less red than the poets say. Shakespeare refuses the perfect lady again: his mistress is a real woman.</p>
+      </article>
+      <article class="shm-line">
+        <h3><i>3</i><q>If snow be white, why then her breasts are dun;</q><small>1st quatrain</small></h3>
+        <p><span class="shm-tr">Se la neve è bianca, allora il suo seno è grigio-bruno.</span> There is a <b>hypothesis</b>, “If … why then …”, and an <b>anaphora</b> with line 4, which starts with “If” too. There is an <b>antithesis</b>: white snow and dun skin. There is no enjambment: the line ends with a semicolon. “Dun” was chosen because it is an ugly, unpoetic word: a dull grey-brown, the color of a mouse or an old horse. After “snow” it is a shock. The line is <b>ironic</b>: it makes fun of the “skin as white as snow” of love poems.</p>
+      </article>
+      <article class="shm-line">
+        <h3><i>4</i><q>If hairs be wires, black wires grow on her head.</q><small>1st quatrain</small></h3>
+        <p><span class="shm-tr">Se i capelli sono fili, fili neri le crescono in testa.</span> There is an <b>anaphora</b> with line 3, because both lines start with “If”, and a <b>hypothesis</b>: if hair is wire, then her hair is black wire. There is also a <b>metaphor</b>, hair = wires, and a <b>repetition</b>: “wires, black wires”. There is no enjambment: the line ends with a full stop. The word “wires” was chosen because in Shakespeare’s time poets compared blond hair to golden wire, a precious jewel. Shakespeare’s wires are black: the compliment becomes funny. It is <b>ironic</b>, because he makes fun of the traditional love poems.</p>
+      </article>
+      <article class="shm-line">
+        <h3><i>5</i><q>I have seen roses damasked, red and white,</q><small>2nd quatrain</small></h3>
+        <p><span class="shm-tr">Ho visto rose damascate, rosse e bianche,</span> There is the image of the roses and an <b>antithesis</b>: red and white. There is no real enjambment: the line ends with a comma and the sentence goes on in line 6 with “But”. “Damasked” was chosen because it means mixed red and white, like the roses of Damascus and the precious damask fabric: a rich, elegant word. The line prepares a contrast: here the beautiful roses, in the next line the reality.</p>
+      </article>
+      <article class="shm-line">
+        <h3><i>6</i><q>But no such roses see I in her cheeks;</q><small>2nd quatrain</small></h3>
+        <p><span class="shm-tr">ma rose così non ne vedo sulle sue guance.</span> There is a <b>metaphor</b> that is denied: traditional poets said that the lady had roses in her cheeks. The word order is inverted, “see I” instead of “I see”, to keep the rhythm. There is no enjambment: the line ends with a semicolon. “But” turns the sentence: line 5 shows the ideal, line 6 the reality. Shakespeare refuses the cliché of the “rosy cheeks”.</p>
+      </article>
+      <article class="shm-line">
+        <h3><i>7</i><q>And in some perfumes is there more delight</q><small>2nd quatrain</small></h3>
+        <p><span class="shm-tr">E in certi profumi c’è più piacere</span> There is a <b>comparison</b>: “more delight than”. There is an <b>enjambment</b>: the sentence goes on in line 8, without any punctuation. “Perfumes” was chosen because perfumes were a luxury, and poets said that the lady’s breath was as sweet as perfume. “Delight” is a pleasant, elegant word… and it prepares the surprise of the next line.</p>
+      </article>
+    </div></section>
+
+    <section class="page page-right scf-page"><div class="scf-in shm-in">
+      <p class="scf-tape">🧱 Scaffolding · oral test, lines 8–14</p>
+      <article class="shm-line">
+        <h3><i>8</i><q>Than in the breath that from my mistress reeks.</q><small>2nd quatrain</small></h3>
+        <p><span class="shm-tr">che nel fiato che esala dalla mia donna.</span> The line completes the <b>comparison</b> of line 7, after the enjambment. There is a <b>repetition</b> of “my mistress” (lines 1, 8 and 12). The line ends with a full stop. “Reeks” has a <b>double meaning</b>: in Shakespeare’s time it meant “comes out, is breathed out”, but today it means “stinks”. For us the line is very funny: the breath of this lady does not smell of roses!</p>
+      </article>
+      <article class="shm-line">
+        <h3><i>9</i><q>I love to hear her speak, yet well I know</q><small>3rd quatrain</small></h3>
+        <p><span class="shm-tr">Amo sentirla parlare, eppure so bene</span> There is an <b>antithesis</b>: “I love … yet …”, and an <b>anaphora</b>: lines 9 and 11 start with “I”. There is an <b>enjambment</b>: “well I know / That music…”. “Yet” was chosen because it turns the sentence: first he says something kind, then something honest. Here we see that he really loves her: he loves her voice, even if it is not perfect.</p>
+      </article>
+      <article class="shm-line">
+        <h3><i>10</i><q>That music hath a far more pleasing sound;</q><small>3rd quatrain</small></h3>
+        <p><span class="shm-tr">che la musica ha un suono molto più piacevole.</span> There is a <b>comparison</b>: “far more pleasing”. There is no enjambment: the line ends with a semicolon. “Hath” is old English for “has”. “Music” was chosen because love poets compared the voice of their lady to music, even to the music of the angels. Shakespeare is honest: her voice is a normal voice, music is better.</p>
+      </article>
+      <article class="shm-line">
+        <h3><i>11</i><q>I grant I never saw a goddess go;</q><small>3rd quatrain</small></h3>
+        <p><span class="shm-tr">Ammetto di non aver mai visto camminare una dea.</span> There is the <b>hyperbole</b> of love poems, the lady as a goddess (like Petrarch’s Laura), but Shakespeare refuses it with <b>irony</b>: he has never seen a goddess walk. There is an <b>anaphora</b> with line 9 (“I …”). There is no enjambment: the line ends with a semicolon. “Go” was chosen because in old English it means “walk”. “I grant” (I admit) sounds like a joke: of course nobody has ever seen a goddess walk.</p>
+      </article>
+      <article class="shm-line">
+        <h3><i>12</i><q>My mistress, when she walks, treads on the ground:</q><small>3rd quatrain</small></h3>
+        <p><span class="shm-tr">La mia donna, quando cammina, pesta il suolo:</span> There is an <b>antithesis</b> with line 11: the goddess (heaven) and the ground (earth). There is a <b>repetition</b> of “my mistress”. There is no enjambment: the line ends with a colon, which announces the final twist. “Treads” was chosen because it means walking heavily: she does not fly or float like a goddess, she is a real woman with her feet on the ground. And she is his “mistress”, the woman who rules his heart: a ruler who treads on the ground, not a goddess! It is the end of the list of “defects”.</p>
+      </article>
+      <article class="shm-line">
+        <h3><i>13</i><q>And yet, by heaven, I think my love as rare</q><small>couplet</small></h3>
+        <p><span class="shm-tr">Eppure, per il cielo, credo che il mio amore sia tanto raro</span> “And yet” is the <b>volta</b>, the twist: everything changes. There is an oath, “by heaven”, and a <b>comparison</b>: “as rare / As any”. There is an <b>enjambment</b> with line 14. “Rare” has a <b>double meaning</b>: “precious” and “unusual, special”. “Heaven” is <b>ironic</b> too: the goddess lives in heaven, his woman walks on the ground, but he swears by heaven that she is special. Here we understand that this is a love poem after all.</p>
+      </article>
+      <article class="shm-line">
+        <h3><i>14</i><q>As any she belied with false compare.</q><small>couplet</small></h3>
+        <p><span class="shm-tr">quanto qualsiasi donna travisata da falsi paragoni.</span> The line completes the <b>comparison</b> of line 13: “as rare as any…”. It ends with a full stop: it is the end of the poem. “Belied” means “misrepresented with lies”; “false compare” means the exaggerated comparisons of the other poets (the sun, coral, snow, roses, music, a goddess); “she” is used as a noun: “any woman”. The <b>irony</b> is complete: the other poets lie, Shakespeare tells the truth, and true love does not need lies. The couplet explains the whole poem.</p>
+      </article>
+    </div></section>
+  </div>
+
+<div class="spread" data-id="shk-rhyme-machine" data-title="Literature: Shakespeare" data-name="Questions · The rhyme machine">
 
     <!-- ============ LEFT PAGE ============ -->
     <section class="page page-left sh shx">
       <span class="shx-kicker abs" style="--x:9.7;--y:3">Sonnet 130 · questions</span>
       <h2 class="shx-h2 abs" style="--x:9.7;--y:5.2">Think <em>about it</em></h2>
       <div class="shx-rule abs" style="--x:9.7;--y:12.6;--w:80.6"></div>
-      <div class="lt-pill abs" style="--x:9.7;--y:15.6"><b>7.11</b> Answer the questions about Sonnet 130</div>
+      <div class="lt-pill abs" style="--x:9.7;--y:15.6"><b>7.18</b> Answer the questions about Sonnet 130</div>
       <ol class="sh-qa abs" style="--x:9.7;--y:20.2;--w:80.6">
         <li><p><i>A.</i>Who is the poem about? What does Shakespeare describe?</p><input class="fill" id="sh711-a" autocomplete="off" aria-label="Answer A"></li>
         <li><p><i>B.</i>Is his mistress perfect, like a goddess? Which line tells you?</p><input class="fill" id="sh711-b" autocomplete="off" aria-label="Answer B"></li>
@@ -10139,7 +10418,7 @@
         <li><p><i>D.</i>What is the twist in the couplet (lines 13–14)?</p><input class="fill" id="sh711-d" autocomplete="off" aria-label="Answer D"></li>
         <li><p><i>E.</i>Why is this poem different from traditional love poems?</p><input class="fill" id="sh711-e" autocomplete="off" aria-label="Answer E"></li>
       </ol>
-      <div class="lt-pill abs" style="--x:9.7;--y:57"><b>7.12</b> Get ready to write: choose a topic and take notes</div>
+      <div class="lt-pill abs" style="--x:9.7;--y:57"><b>7.19</b> Get ready to write: choose a topic and take notes</div>
       <p class="pd-intro abs" style="--x:9.7;--y:61.6;--w:80.6">Choose a topic you care about: a person, a pet, a place, a season, a feeling… You can be romantic, funny or honest like Shakespeare!</p>
       <ol class="sh-frame abs" style="--x:9.7;--y:68;--w:80.6">
         <li><span><b>★</b>My topic</span><input class="fill" id="sh712-0" autocomplete="off" aria-label="My topic"></li>
@@ -10175,7 +10454,7 @@
         <div class="sh-rm-spin"><span class="sh-rm-label">No ideas?</span><button type="button" class="sh-reel" aria-label="Reel 1">?</button><button type="button" class="sh-reel" aria-label="Reel 2">?</button><button type="button" class="sh-reel" aria-label="Reel 3">?</button><button type="button" class="sh-lever" id="shr-spin">SPIN ✦</button></div>
       </div>
 
-      <div class="lt-pill abs" style="--x:8;--y:83.6"><b>7.13</b> Use the machine: write 3 words that rhyme with…</div>
+      <div class="lt-pill abs" style="--x:8;--y:83.6"><b>7.20</b> Use the machine: write 3 words that rhyme with…</div>
       <button class="check abs" type="button" style="--x:80;--y:83.6" data-rhymecheck="shr-713">✓ Check</button>
       <p class="hint-line abs" style="--x:8;--y:88.4">click a box, then click the words in the machine to write them</p>
       <ol class="sh-rlist abs" id="shr-713" style="--x:8;--y:90.6;--w:84">
@@ -10198,23 +10477,24 @@
       <span class="shx-kicker abs" style="--x:9.7;--y:3">Practice</span>
       <h2 class="shx-h2 abs" style="--x:9.7;--y:5.2">Rhyme <em>gym</em></h2>
       <div class="shx-rule abs" style="--x:9.7;--y:12.6;--w:80.6"></div>
-      <div class="lt-pill abs" style="--x:9.7;--y:15.6"><b>7.14</b> Do they rhyme? Say them aloud!</div>
+      <div class="lt-pill abs" style="--x:9.7;--y:15.6"><b>7.21</b> Do they rhyme? Say them aloud!</div>
       <button class="check abs" type="button" style="--x:80;--y:15.6" data-tf="shr-714">✓ Check</button>
       <div class="sh-pairs abs" id="shr-714" style="--x:9.7;--y:20.6;--w:80.6">
         <p><span><i>A.</i>love – dove</span><span class="tf light" id="shr-714-0" data-answer="✓"><button type="button">✓</button><button type="button">✗</button></span></p>
-        <p><span><i>B.</i>love – move</span><span class="tf light" id="shr-714-1" data-answer="✗"><button type="button">✓</button><button type="button">✗</button></span></p>
-        <p><span><i>C.</i>blue – through</span><span class="tf light" id="shr-714-2" data-answer="✓"><button type="button">✓</button><button type="button">✗</button></span></p>
-        <p><span><i>D.</i>home – come</span><span class="tf light" id="shr-714-3" data-answer="✗"><button type="button">✓</button><button type="button">✗</button></span></p>
-        <p><span><i>E.</i>eight – late</span><span class="tf light" id="shr-714-4" data-answer="✓"><button type="button">✓</button><button type="button">✗</button></span></p>
-        <p><span><i>F.</i>good – food</span><span class="tf light" id="shr-714-5" data-answer="✗"><button type="button">✓</button><button type="button">✗</button></span></p>
-        <p><span><i>G.</i>said – red</span><span class="tf light" id="shr-714-6" data-answer="✓"><button type="button">✓</button><button type="button">✗</button></span></p>
-        <p><span><i>H.</i>bear – hear</span><span class="tf light" id="shr-714-7" data-answer="✗"><button type="button">✓</button><button type="button">✗</button></span></p>
-        <p><span><i>I.</i>weigh – day</span><span class="tf light" id="shr-714-8" data-answer="✓"><button type="button">✓</button><button type="button">✗</button></span></p>
-        <p><span><i>J.</i>heard – beard</span><span class="tf light" id="shr-714-9" data-answer="✗"><button type="button">✓</button><button type="button">✗</button></span></p>
+        <p><span><i>B.</i>home – come</span><span class="tf light" id="shr-714-3" data-answer="✗"><button type="button">✓</button><button type="button">✗</button></span></p>
+        <p><span><i>C.</i>love – move</span><span class="tf light" id="shr-714-1" data-answer="✗"><button type="button">✓</button><button type="button">✗</button></span></p>
+        <p><span><i>D.</i>blue – through</span><span class="tf light" id="shr-714-2" data-answer="✓"><button type="button">✓</button><button type="button">✗</button></span></p>
+        <p><span><i>E.</i>good – food</span><span class="tf light" id="shr-714-5" data-answer="✗"><button type="button">✓</button><button type="button">✗</button></span></p>
+        <p><span><i>F.</i>bear – hear</span><span class="tf light" id="shr-714-7" data-answer="✗"><button type="button">✓</button><button type="button">✗</button></span></p>
+        <p><span><i>G.</i>eight – late</span><span class="tf light" id="shr-714-4" data-answer="✓"><button type="button">✓</button><button type="button">✗</button></span></p>
+        <p><span><i>H.</i>heard – beard</span><span class="tf light" id="shr-714-9" data-answer="✗"><button type="button">✓</button><button type="button">✗</button></span></p>
+        <p><span><i>I.</i>said – red</span><span class="tf light" id="shr-714-6" data-answer="✓"><button type="button">✓</button><button type="button">✗</button></span></p>
+        <p><span><i>J.</i>four – our</span><span class="tf light" id="shr-714-11" data-answer="✗"><button type="button">✓</button><button type="button">✗</button></span></p>
         <p><span><i>K.</i>word – bird</span><span class="tf light" id="shr-714-10" data-answer="✓"><button type="button">✓</button><button type="button">✗</button></span></p>
-        <p><span><i>L.</i>four – our</span><span class="tf light" id="shr-714-11" data-answer="✗"><button type="button">✓</button><button type="button">✗</button></span></p>
+        <p><span><i>L.</i>weigh – day</span><span class="tf light" id="shr-714-8" data-answer="✓"><button type="button">✓</button><button type="button">✗</button></span></p>
+      
       </div>
-      <div class="lt-pill abs" style="--x:9.7;--y:50.4"><b>7.15</b> Odd one out: click the word that doesn't rhyme</div>
+      <div class="lt-pill abs" style="--x:9.7;--y:50.4"><b>7.22</b> Odd one out: click the word that doesn't rhyme</div>
       <button class="check abs" type="button" style="--x:80;--y:50.4" data-toggles="shr-715">✓ Check</button>
       <div class="sh-odd abs" id="shr-715" style="--x:9.7;--y:55.6;--w:80.6">
         <p><i>A.</i><span class="chip toggle" id="shr-715-0-0" data-should="0">night</span><span class="chip toggle" id="shr-715-0-1" data-should="0">white</span><span class="chip toggle" id="shr-715-0-2" data-should="1">eight</span><span class="chip toggle" id="shr-715-0-3" data-should="0">bite</span></p>
@@ -10224,7 +10504,7 @@
         <p><i>E.</i><span class="chip toggle" id="shr-715-4-0" data-should="0">bear</span><span class="chip toggle" id="shr-715-4-1" data-should="0">chair</span><span class="chip toggle" id="shr-715-4-2" data-should="1">near</span><span class="chip toggle" id="shr-715-4-3" data-should="0">there</span></p>
         <p><i>F.</i><span class="chip toggle" id="shr-715-5-0" data-should="0">go</span><span class="chip toggle" id="shr-715-5-1" data-should="0">know</span><span class="chip toggle" id="shr-715-5-2" data-should="1">now</span><span class="chip toggle" id="shr-715-5-3" data-should="0">though</span></p>
       </div>
-      <div class="lt-pill abs" style="--x:9.7;--y:72"><b>7.16</b> Finish the rhyme</div>
+      <div class="lt-pill abs" style="--x:9.7;--y:72"><b>7.23</b> Finish the rhyme</div>
       <button class="check abs" type="button" style="--x:80;--y:72" data-rhymecheck="shr-716">✓ Check</button>
       <p class="hint-line abs" style="--x:9.7;--y:76.8">not sure? ask the rhyme machine on p. <span data-page="shk-rhyme-machine:R"></span></p>
       <ol class="sh-couplets abs" id="shr-716" style="--x:9.7;--y:79.4;--w:80.6">
@@ -10246,8 +10526,8 @@
       <figure class="shx-orbit abs" style="--x:79;--y:4.4;--w:13"><span class="shx-orbit-pic"><img data-pic="img/shakespeare/quill" alt="An engraving of a quill"><span class="shx-ph" aria-hidden="true"><i>🪶</i><small>quill</small></span></span><i class="n">✦</i><i class="s">✦</i><i class="e">✦</i><i class="w">✦</i></figure>
       <div class="shx-rule abs" style="--x:8;--y:21.6;--w:84"></div>
 
-      <div class="lt-pill abs" style="--x:8;--y:26.4"><b>7.17</b> Write your own sonnet</div>
-      <p class="pd-intro abs" style="--x:8;--y:30.8;--w:84">Use your notes from 7.12 and the rhyme machine on p. <span data-page="shk-rhyme-machine:R"></span>. Follow the <b>rhyme letters</b> and try to write <b>10 syllables</b> per line (the counter helps you). In the couplet, surprise the reader with a <b>twist</b> or a strong ending.</p>
+      <div class="lt-pill abs" style="--x:8;--y:26.4"><b>7.24</b> Write your own sonnet</div>
+      <p class="pd-intro abs" style="--x:8;--y:30.8;--w:84">Use your notes from 7.19 and the rhyme machine on p. <span data-page="shk-rhyme-machine:R"></span>. Follow the <b>rhyme letters</b> and try to write <b>10 syllables</b> per line (the counter helps you). In the couplet, surprise the reader with a <b>twist</b> or a strong ending.</p>
       <p class="mt-line big abs" style="--x:8;--y:39.6;--w:84"><span>Title</span><input class="fill" id="sh713-title" autocomplete="off" aria-label="Title of your sonnet"></p>
       <ol class="sh-sonnet abs" style="--x:8;--y:45.6;--w:84">
         <li><b data-l="A">A</b><input class="fill" id="sh713-1" autocomplete="off" aria-label="Line 1, rhyme A"><output aria-label="Syllables in line 1"></output></li>
@@ -10266,7 +10546,7 @@
         <li><b data-l="G">G</b><input class="fill" id="sh713-14" autocomplete="off" aria-label="Line 14, rhyme G"><output aria-label="Syllables in line 14"></output></li>
       </ol>
 
-      <div class="lt-pill abs" style="--x:8;--y:117.4"><b>7.18</b> Check your sonnet: click what you did</div>
+      <div class="lt-pill abs" style="--x:8;--y:117.4"><b>7.25</b> Check your sonnet: click what you did</div>
       <p class="sh-chk abs" style="--x:8;--y:122;--w:84"><span class="chip toggle form" id="sh714-0">14 lines</span><span class="chip toggle form" id="sh714-1">10 syllables per line</span><span class="chip toggle form" id="sh714-2">ABAB CDCD EFEF GG</span><span class="chip toggle form" id="sh714-3">a twist or strong ending in the couplet</span><span class="chip toggle" id="sh714-4">simile</span><span class="chip toggle" id="sh714-5">metaphor</span><span class="chip toggle" id="sh714-6">alliteration</span><span class="chip toggle" id="sh714-7">hyperbole</span><span class="chip toggle" id="sh714-8">personification</span><span class="chip toggle" id="sh714-9">repetition</span><span class="chip toggle" id="sh714-10">onomatopoeia</span></p>
 
       <span class="footer abs" style="--x:69;--y:135.4;--w:19.1">Shakespeare</span>

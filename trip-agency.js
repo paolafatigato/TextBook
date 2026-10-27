@@ -266,9 +266,10 @@
     }
   }
   function pop(html, cls) {
+    const box = $('taPops'); if (!box) return;      // a screen without the line (the end of a day, the wait)
     const el = document.createElement('div');
     el.className = `ta-pop ${cls || ''}`; el.innerHTML = html;
-    $('taPops').appendChild(el);
+    box.appendChild(el);
     const r = run; setTimeout(() => { if (r === run) el.remove(); }, 2200);
   }
 
@@ -358,7 +359,8 @@
   /* ---------- the end of a day, of the game ---------- */
   function endDay() {
     phase = 'summary'; cancelAnimationFrame(raf); run++;
-    const rent = RENT[day - 1], avg = today.st.length ? (today.st.reduce((a, b) => a + b, 0) / today.st.length).toFixed(1) : '–';
+    const rent = Math.round(RENT[day - 1] * (net ? .6 : 1)),   // online the customers are shared: a lower rent
+       avg = today.st.length ? (today.st.reduce((a, b) => a + b, 0) / today.st.length).toFixed(1) : '–';
     const before = money;
     money -= rent;
     const broke = money < 0, won = !broke && day === DAYS;

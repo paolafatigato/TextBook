@@ -1272,6 +1272,135 @@ const tileRows = [...document.querySelectorAll('.shx-tiles')].map(tiles => {
 });
 document.getElementById('clearBtn').addEventListener('click', () => setTimeout(() => tileRows.forEach(paint => paint())));
 
+/* ================= colored pens (figures of speech) ================= */
+// [shk-figures] 7.12: choose a pen in .pen-box[data-for], then click the words of .pen-text:
+// each word takes the color of the pen (same pen again, or the rubber: the color goes away).
+
+const penTexts = [...document.querySelectorAll('.pen-box[data-for]')].map(box => {
+  const text = document.getElementById(box.dataset.for);
+  const colors = {};
+  box.querySelectorAll('button[data-pen]').forEach(b => { if (b.dataset.pen) colors[b.dataset.pen] = b.style.getPropertyValue('--pen'); });
+  let pen = box.querySelector('button[data-pen]').dataset.pen;
+  const words = [];
+  text.querySelectorAll('.pen-words').forEach(line => {
+    const parts = line.textContent.split(/(\s+)/);
+    line.textContent = '';
+    parts.forEach(p => {
+      if (!p) return;
+      if (/^\s+$/.test(p)) { line.append(p); return; }
+      const w = document.createElement('span');
+      w.className = 'pw';
+      w.textContent = p;
+      line.append(w);
+      words.push(w);
+    });
+  });
+  const read = () => { try { return JSON.parse(saved[text.id] || '{}'); } catch { return {}; } };
+  const paint = () => {
+    const marks = read();
+    words.forEach((w, i) => {
+      w.classList.toggle('on', !!marks[i]);
+      w.style.setProperty('--pen', marks[i] ? colors[marks[i]] : '');
+    });
+    box.querySelectorAll('button[data-pen]').forEach(b => b.classList.toggle('on', b.dataset.pen === pen));
+  };
+  box.querySelectorAll('button[data-pen]').forEach(b => b.addEventListener('click', () => { pen = b.dataset.pen; paint(); }));
+  words.forEach((w, i) => w.addEventListener('click', () => {
+    const marks = read();
+    if (!pen || marks[i] === pen) delete marks[i]; else marks[i] = pen;
+    saved[text.id] = JSON.stringify(marks);
+    persist();
+    paint();
+  }));
+  paint();
+  return paint;
+});
+
+/* ================= line card (oral test on Sonnet 130) ================= */
+// [shk-one-line] 7.14: pick a line; the card keeps the answers of every line apart.
+// Check: syllables, where the line is, the rhyme and the enjambment.
+
+const SONNET_130 = [
+  { text: 'My mistress’ eyes are nothing like the sun;', pos: 'q1', rh: 3, let: 'A', enj: 'no' },
+  { text: 'Coral is far more red than her lips’ red;', pos: 'q1', rh: 4, let: 'B', enj: 'no' },
+  { text: 'If snow be white, why then her breasts are dun;', pos: 'q1', rh: 1, let: 'A', enj: 'no' },
+  { text: 'If hairs be wires, black wires grow on her head.', pos: 'q1', rh: 2, let: 'B', enj: 'no' },
+  { text: 'I have seen roses damasked, red and white,', pos: 'q2', rh: 7, let: 'C', enj: 'no' },
+  { text: 'But no such roses see I in her cheeks;', pos: 'q2', rh: 8, let: 'D', enj: 'no' },
+  { text: 'And in some perfumes is there more delight', pos: 'q2', rh: 5, let: 'C', enj: 'yes' },
+  { text: 'Than in the breath that from my mistress reeks.', pos: 'q2', rh: 6, let: 'D', enj: 'no' },
+  { text: 'I love to hear her speak, yet well I know', pos: 'q3', rh: 11, let: 'E', enj: 'yes' },
+  { text: 'That music hath a far more pleasing sound;', pos: 'q3', rh: 12, let: 'F', enj: 'no' },
+  { text: 'I grant I never saw a goddess go;', pos: 'q3', rh: 9, let: 'E', enj: 'no' },
+  { text: 'My mistress, when she walks, treads on the ground:', pos: 'q3', rh: 10, let: 'F', enj: 'no' },
+  { text: 'And yet, by heaven, I think my love as rare', pos: 'couplet', rh: 14, let: 'G', enj: 'yes' },
+  { text: 'As any she belied with false compare.', pos: 'couplet', rh: 13, let: 'G', enj: 'no' },
+];
+
+const lineCards = [...document.querySelectorAll('.shl-card')].map(card => {
+  const key = (n, f) => `${card.id}-${n}-${f}`;
+  const fields = [...card.querySelectorAll('[data-field]')];
+  const nums = [...card.querySelectorAll('.shl-n')];
+  let n = Number(saved[card.id + '-line']) || 0;
+
+  function show() {
+    nums.forEach(b => b.classList.toggle('on', Number(b.dataset.n) === n));
+    const line = SONNET_130[n - 1];
+    card.querySelector('.shl-line i').textContent = n ? n : '';
+    card.querySelector('.shl-line q').textContent = line ? line.text : 'Choose a line, or let the dice choose!';
+    card.classList.toggle('empty', !n);
+    fields.forEach(f => {
+      f.classList.remove('ok', 'no');
+      const v = n ? saved[key(n, f.dataset.field)] || '' : '';
+      if (f.matches('input, textarea')) { f.value = v; f.disabled = !n; }
+      else f.querySelectorAll('button').forEach(b => { b.classList.toggle('on', b.dataset.v === v); b.disabled = !n; });
+    });
+  }
+  const choose = k => { n = k; saved[card.id + '-line'] = String(k); persist(); show(); };
+  nums.forEach(b => b.addEventListener('click', () => choose(Number(b.dataset.n))));
+  card.querySelector('.shl-dice').addEventListener('click', () => {
+    let k;
+    do k = 1 + Math.floor(Math.random() * 14); while (k === n);
+    choose(k);
+  });
+  fields.forEach(f => {
+    if (f.matches('input, textarea')) f.addEventListener('input', () => {
+      if (!n) return;
+      saved[key(n, f.dataset.field)] = f.value;
+      f.classList.remove('ok', 'no');
+      persist();
+    });
+    else f.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      if (!n) return;
+      const k = key(n, f.dataset.field);
+      saved[k] = saved[k] === b.dataset.v ? '' : b.dataset.v;
+      persist();
+      show();
+    }));
+  });
+
+  function check() {
+    const line = SONNET_130[n - 1];
+    if (!line) return;
+    const right = { syl: v => /^(10|ten)$/i.test(v.trim()), rh: v => Number(v) === line.rh, let: v => v.trim().toUpperCase() === line.let, pos: v => v === line.pos, enj: v => v === line.enj };
+    fields.forEach(f => {
+      const test = right[f.dataset.field];
+      if (!test) return;
+      const v = saved[key(n, f.dataset.field)] || '';
+      f.classList.remove('ok', 'no');
+      if (v) f.classList.add(test(v) ? 'ok' : 'no');
+    });
+  }
+  document.querySelectorAll(`.check[data-linecard="${card.id}"]`).forEach(b => b.addEventListener('click', check));
+  show();
+  return { reset() { n = 0; show(); } };
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => setTimeout(() => {
+  penTexts.forEach(paint => paint());
+  lineCards.forEach(c => c.reset());
+}));
+
 /* ================= pictures still to come ================= */
 // <img data-pic="img/shakespeare/rose">: tries rose.png, .jpg, .jpeg, .webp.
 // While no file exists, the placeholder next to it stays visible.
@@ -1371,6 +1500,38 @@ else {
     window.open(`${location.pathname}?${q}`, '_blank');
   }));
   window.addEventListener('afterprint', () => document.body.classList.remove('eco-print'));
+}
+
+/* "Save ink": very light backgrounds become white. style.css takes the backgrounds off everything on a page;
+   here are the ones CSS cannot pick by colour: ::before/::after and the fills of the SVG boxes and shapes
+   (not the drawings over the text, .art-top, nor the pictures). After printing everything is as before. */
+{
+  // very light = every channel at least 200 once mixed with the white paper (pale pink, lilac, cream…)
+  const veryLight = css => {
+    const m = css?.match(/rgba?\(([\d.]+)[ ,]+([\d.]+)[ ,]+([\d.]+)(?:[ ,/]+([\d.]+))?/);
+    if (!m) return false;
+    const a = m[4] === undefined ? 1 : +m[4];
+    const rgb = [m[1], m[2], m[3]].map(c => c * a + 255 * (1 - a));
+    return a > 0 && Math.min(...rgb) >= 200 && Math.min(...rgb) < 254;
+  };
+  let undo = [];
+  window.addEventListener('beforeprint', () => {
+    if (!document.body.classList.contains('eco-print')) return;
+    for (const page of document.querySelectorAll('.page')) {
+      if (!page.getClientRects().length) continue; // not printed
+      for (const el of page.querySelectorAll('*')) {
+        if (el instanceof SVGElement) {
+          if (el instanceof SVGSVGElement || el instanceof SVGTextContentElement || el.closest('.art-top')) continue;
+          if (veryLight(getComputedStyle(el).fill)) { const old = el.style.fill; undo.push(() => { el.style.fill = old; }); el.style.fill = '#fff'; }
+          continue;
+        }
+        for (const ps of ['before', 'after']) {
+          if (veryLight(getComputedStyle(el, '::' + ps).backgroundColor)) { el.classList.add('eco-white-' + ps); undo.push(() => el.classList.remove('eco-white-' + ps)); }
+        }
+      }
+    }
+  });
+  window.addEventListener('afterprint', () => { undo.forEach(f => f()); undo = []; });
 }
 
 /* the print copy: show only the pages asked for, add the blank pages, wait for pictures and fonts, print */

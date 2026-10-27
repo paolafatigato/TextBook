@@ -80,14 +80,9 @@
 
 /* ================= 4 · ornaments for the empty space at the bottom of a page ================= */
 // After the layout is done, every page of the chapter (not the dark ones) measures how much free space is left under its content.
-// If there is enough, an ornament is drawn there: a constellation, a garland, a medallion (seed of life) or a cartouche with a proverb.
+// If there is enough, an ornament is drawn there: a constellation, a garland, a medallion (seed of life) or a row of small portraits of the characters and empty arches to draw in.
 // The kind depends on the spread and the side, so neighbouring pages are never the same. The ornaments are only decoration (no clicks).
 (() => {
-  const PROV = {
-    plum: ['Many hands make light work.', 'Actions speak louder than words.', 'Every cloud has a silver lining.'],
-    mustard: ['Knowledge is power.', 'Home is where the heart is.', 'A friend in need is a friend indeed.'],
-    coral: ['Make hay while the sun shines.', 'Bad news travels fast.', 'No pain, no gain.'],
-  };
   const accentOf = el => /wh-(nb|ne|nbe)/.test(el.className) ? 'mustard' : /wh-(wk|wm|ww)/.test(el.className) ? 'coral' : 'plum';
   const SOFT = { plum: 'lilac-light', mustard: 'wheat', coral: 'blush' };
   const hash = s => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
@@ -115,19 +110,45 @@
       use('wh-seed', x, y, s, 'mustard') + use('wh-spark', 3, H / 2 - 2.2, 4.4, a) + use('wh-spark', 78.6, H / 2 - 2.2, 4.4, a) +
       `<circle cx="43" cy="${H / 2}" r="${(s * .09).toFixed(1)}" style="fill:var(--pal-${a})"/>`;
   }
-  function cartouche(H, a, text) {
-    const h = Math.min(H - 2, 15), y = (H - h) / 2;
-    return `<rect x="4" y="${y}" width="78" height="${h}" rx="3" style="fill:var(--pal-white);stroke:var(--pal-${a})" stroke-width=".5"/><rect x="5.4" y="${y + 1.4}" width="75.2" height="${h - 2.8}" rx="2" style="fill:none;stroke:var(--pal-mustard)" stroke-width=".25"/>` +
-      [[4, y], [82, y], [4, y + h], [82, y + h]].map(([cx, cy]) => `<circle cx="${cx}" cy="${cy}" r="1.5" style="fill:var(--pal-cream);stroke:var(--pal-${a});stroke-width:.45"/>`).join('') +
-      `<text x="43" y="${(y + h / 2 + 1.4).toFixed(1)}" text-anchor="middle" style="font:400 4.2px Gloock,serif;fill:var(--pal-night)">${text}</text>` + fl(28, y + h - 3.4, 30, a);
+  // a row of small portraits in arch frames (the drawings of the characters, untouched) and empty arches to draw in
+  const CAST = {
+    plum: ['bishop', 'monk', 'nun', 'bishop'],
+    mustard: ['lord', 'noblewoman', 'squire', 'lord'],
+    coral: ['farmer_m', 'blacksmith', 'craftsman', 'merchant_m', 'innkeeper_m', 'beggar', 'herbalist', 'healer', 'midwife', 'maid', 'spinner', 'farmer_f', 'merchant_f', 'innkeeper_f'],
+  };
+  const PROMPTS = ['Draw a tool', 'Draw a house', 'Draw your own character', 'Draw a plant', 'Draw an animal', 'Draw a castle', 'Draw food', 'Draw a costume'];
+  let clipN = 0;
+  function portraits(H, a, seed, mode) {
+    const h = Math.min(H - 3, 27), w = Math.min(h * .78, 19);
+    const n = Math.max(2, Math.min(5, Math.floor((80 + 5) / (w + 5))));
+    const gap = (86 - n * w) / (n + 1);
+    const pool = [...new Set(CAST[a])], first = seed % pool.length;
+    const y = (H - h) / 2;
+    let out = '';
+    for (let i = 0; i < n; i++) {
+      const x = gap + i * (w + gap), r = w / 2;
+      const arch = `M${x} ${y + h}V${y + r}A${r} ${r} 0 0 1 ${x + w} ${y + r}V${y + h}Z`;
+      const empty = mode === 2 || (mode === 1 && i % 2 === 1) || i >= pool.length;
+      if (empty) {
+        out += `<path d="${arch}" style="fill:var(--pal-white);stroke:var(--pal-${a})" stroke-width=".4" stroke-dasharray="1.2 1"/>` +
+          `<text x="${x + r}" y="${y + h - 2.2}" text-anchor="middle" style="font:700 2.1px Nunito,sans-serif;fill:var(--pal-slate)">${PROMPTS[(seed + i) % PROMPTS.length]}</text>`;
+      } else {
+        const id = 'whc' + (++clipN), who = pool[(first + i) % pool.length], col = i % 2 ? 'mustard' : a;
+        out += `<clipPath id="${id}"><path d="${arch}"/></clipPath><path d="${arch}" style="fill:var(--pal-cream)"/>` +
+          `<circle cx="${x + r}" cy="${y + h - r * .9}" r="${(r * .8).toFixed(1)}" style="fill:var(--pal-${col});opacity:.55"/>` +
+          `<image href="img/witch/${who}.png" x="${x}" y="${y + h - w * 1.02}" width="${w}" height="${w * 1.02}" clip-path="url(#${id})" preserveAspectRatio="xMidYMax meet"/>` +
+          `<path d="${arch}" style="fill:none;stroke:var(--pal-${a})" stroke-width=".5"/>`;
+      }
+    }
+    return out;
   }
-  function build(H, a, seed, text) {
+  function build(H, a, seed) {
     let body;
-    if (H > 70) body = constellation(H * .26, a, seed) + `<g transform="translate(0 ${H * .27})">${medallion(H * .45, a)}</g><g transform="translate(0 ${H * .76})">${cartouche(H * .24, a, text)}</g>`;
-    else if (H > 46) body = medallion(H * .6, a) + `<g transform="translate(0 ${H * .62})">${cartouche(H * .38, a, text)}</g>`;
+    if (H > 70) body = constellation(H * .26, a, seed) + `<g transform="translate(0 ${H * .27})">${medallion(H * .4, a)}</g><g transform="translate(0 ${H * .68})">${portraits(H * .32, a, seed, seed % 3)}</g>`;
+    else if (H > 46) body = medallion(H * .5, a) + `<g transform="translate(0 ${H * .52})">${portraits(H * .48, a, seed, seed % 3)}</g>`;
     else {
       const k = seed % 4;
-      body = k === 0 ? constellation(H, a, seed) : k === 1 ? garland(H, a) : k === 2 || H < 17 ? medallion(H, a) : cartouche(H, a, text);
+      body = k === 0 ? constellation(H, a, seed) : k === 1 ? garland(H, a) : k === 2 || H < 17 ? medallion(H, a) : portraits(H, a, seed, (seed >> 2) % 3);
     }
     return `<svg class="wh-orn-svg" viewBox="0 0 86 ${H.toFixed(1)}" preserveAspectRatio="xMidYMid meet" aria-hidden="true">${body}</svg>`;
   }
@@ -146,11 +167,10 @@
       const top = bottom + 3, H = Math.min(bottom < 20 ? 110 : 60, 129 - top);
       if (H < 12) return;
       const a = accentOf(p), seed = hash(sid + i);
-      const text = PROV[a][seed % PROV[a].length];
       const d = document.createElement('div');
       d.className = 'wh-orn abs';
       d.setAttribute('style', `--x:7;--y:${top.toFixed(1)};--w:86;--h:${H.toFixed(1)}`);
-      d.innerHTML = build(H, a, seed, text);
+      d.innerHTML = build(H, a, seed);
       p.append(d);
     });
   }

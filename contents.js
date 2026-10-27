@@ -204,6 +204,8 @@ const CONTENTS = {
     { title: 'Shakespeare words: unscramble & meanings', color: '#b23a48', pages: ['shk-id-card:L'] },
     { title: 'True or false: Shakespeare\'s life', color: '#b23a48', pages: ['shk-id-card:R'] },
     { title: 'Reading: Sonnet 130', color: '#b23a48', pages: [['shk-sonnet', 'shk-rhyme-machine']] },
+    { title: 'Figures of speech in Sonnet 130', color: '#b23a48', pages: ['shk-figures'] },
+    { title: 'Oral test: one line of Sonnet 130, everything you know', color: '#b23a48', pages: ['shk-one-line'] },
     { title: 'Rhyme scheme & syllables', color: '#b23a48', pages: ['shk-sonnet'] },
     { title: 'The rhyme machine & rhyme gym', color: '#b23a48', pages: [['shk-rhyme-machine:R', 'shk-rhyme-gym']] },
     { title: 'Writing a sonnet', color: '#b23a48', pages: ['shk-rhyme-machine:L', 'shk-rhyme-gym:R'] },
