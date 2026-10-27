@@ -1162,6 +1162,14 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .play.plain p { margin-bottom: 1.9cqw; }
 .play b.hl { position: relative; background: #fdf57a; padding: .3cqw .4cqw .3cqw 0; }
 .play b.hl::before { content: ""; position: absolute; top: 0; bottom: 0; right: 100%; width: 3.3cqw; background: #fdf57a; }
+/* online only (play-voice.js): a click on a word says it, the speaker says the line */
+.play .pv-w { cursor: pointer; border-radius: .3cqw; }
+.play .pv-w:hover { background: rgba(253,115,102,.22); }
+.play .pv-w.pv-on { background: #fdf57a; }
+.play p.pv-on { background: rgba(253,245,122,.45); }
+.play .pv-say { position: absolute; right: -1.8cqw; top: -.1cqw; width: 2.6cqw; height: 2.6cqw; padding: 0; border: 0; border-radius: 50%; background: #fff; box-shadow: 0 0 0 .12cqw #fdd9d3; font-size: 1.3cqw; line-height: 1; cursor: pointer; opacity: .75; }
+.play .pv-say:hover { opacity: 1; background: #fdf57a; }
+@media print { .play .pv-say { display: none !important; } .play .pv-w:hover, .play .pv-on { background: none !important; } }
 .play-art { position: absolute; left: 24.2%; top: 2.55%; width: 53%; height: 106.1%; } /* img/persephone.png is a whole page: this puts the figure in the gap at the fold */
 
 /* ---------- p. 38-39: acting tips, evaluation grid ---------- */
@@ -3538,6 +3546,10 @@ body.not-visible .goto { color: #fff; }
 .scf-why td { height: 7.4cqw; }
 .scf-why-line { padding-top: 1.8cqw; }
 .scf-why.flaws td { height: 6.4cqw; }
+.scf-why-line .arr { flex: none; font: 800 2cqw 'Fredoka', sans-serif; color: #e8820c; }
+.scf-why.big { margin-top: 1.4cqw; }
+.scf-why.big td { height: 14.5cqw; }
+.scf-why.big tr.eg td { height: auto; }
 .scf-why.flaws .arr { width: 3.4cqw; padding: 0; text-align: center; font: 800 2cqw 'Fredoka', sans-serif; color: #e8820c; vertical-align: middle; }
 .scf-h { margin-top: 2cqw; }
 .scf-bank { margin: 2.4cqw 0; }
