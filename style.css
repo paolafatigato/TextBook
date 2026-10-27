@@ -1169,7 +1169,12 @@ textarea.fill.b5-lines { padding: 0 3cqw 0 7.8cqw; font-size: 2.2cqw; line-heigh
 .play p.pv-on { background: rgba(253,245,122,.45); }
 .play .pv-say { position: absolute; right: -1.8cqw; top: -.1cqw; width: 2.6cqw; height: 2.6cqw; padding: 0; border: 0; border-radius: 50%; background: #fff; box-shadow: 0 0 0 .12cqw #fdd9d3; font-size: 1.3cqw; line-height: 1; cursor: pointer; opacity: .75; }
 .play .pv-say:hover { opacity: 1; background: #fdf57a; }
-@media print { .play .pv-say { display: none !important; } .play .pv-w:hover, .play .pv-on { background: none !important; } }
+.pv-turn { font: 700 1.3cqw/1 'Nunito', sans-serif; color: #fff; cursor: pointer; background: #fd7366; border: 0; border-radius: 999px; padding: .55cqw 1.3cqw; box-shadow: 0 .2cqw .6cqw rgba(0,0,0,.15); }
+.pv-turn:hover { background: #ee5f52; }
+.spread[data-id="greek-play"] { transition: transform .6s; }
+.spread.pv-turned { transform: rotate(180deg); }
+.pv-turned .pv-turn { transform: rotate(180deg); } /* the button stays readable */
+@media print { .pv-turn { display: none !important; } .spread.pv-turned { transform: none; } .play .pv-say { display: none !important; } .play .pv-w:hover, .play .pv-on { background: none !important; } }
 .play-art { position: absolute; left: 24.2%; top: 2.55%; width: 53%; height: 106.1%; } /* img/persephone.png is a whole page: this puts the figure in the gap at the fold */
 
 /* ---------- p. 38-39: acting tips, evaluation grid ---------- */

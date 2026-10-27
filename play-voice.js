@@ -90,6 +90,16 @@
     p.append(btn);
   }));
 
+  // the Underworld scenes are printed upside down (the reader turns the book): on screen a button turns the whole spread, drawing included
+  const turn = document.createElement('button');
+  turn.type = 'button';
+  turn.className = 'pv-turn abs';
+  turn.style.cssText = '--x:39.7;--y:20.4';
+  const label = () => { turn.textContent = spread.classList.contains('pv-turned') ? '🔄 Turn the book back' : '🔄 Turn the book around'; };
+  label();
+  turn.addEventListener('click', () => { spread.classList.toggle('pv-turned'); label(); });
+  spread.querySelector('.page-left').append(turn);
+
   spread.addEventListener('click', e => {
     const w = e.target.closest('.pv-w');
     if (!w) return;
