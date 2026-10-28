@@ -22,7 +22,7 @@
 
   function errorText(e) {
     const c = (e && (e.code || e.message)) || '';
-    if (/operation-not-allowed|admin-restricted/.test(c)) return 'Online play is not switched on yet. Ask your teacher!';
+    if (/operation-not-allowed|admin-restricted/.test(c)) return 'You must sign in with your Google account to play the race.';
     if (/permission-denied/.test(c)) return 'The race is not set up yet. Ask your teacher!';
     if (c === 'notfound') return 'There is no race with this code. Check the letters!';
     if (c === 'expired') return 'This race is too old. Ask your teacher for a new code.';
@@ -61,6 +61,7 @@
   let lastSig = '', lastSent = 0;
   let offline = false;
   let startMinutes = ST.defaultMinutes;
+  let rot = 0;          // in the fix phase: which of the wrong exercises comes now (a wrong try sends it to the back)
   let doneT = null;     // looks again at the ranking after Finish
 
   const elapsed = () => (R && R.status === 'run' ? Math.max(0, (R.el || 0) + (Date.now() - R.recvAt)) : R && R.status === 'over' ? (R.el || 0) : 0);
@@ -263,6 +264,13 @@
       role = null; R = null; me = null;
       area.querySelector('#rcJoin').disabled = false;
       msg.textContent = err.code === 'full' ? 'This race is full.' : errorText(err);
+      // not signed in: a button to do it (the book's own sign-in), then try again
+      if (/operation-not-allowed|admin-restricted/.test(err.code || err.message || '') && window.book.signIn) {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'rc-btn'; b.textContent = 'Sign in with Google';
+        b.onclick = () => window.book.signIn();
+        msg.after(b);
+      }
     }
   }
 
@@ -314,7 +322,8 @@
   function questionView() {
     view = 'question';
     const fixing = me.phase === 'fix';
-    const i = fixing ? wrongList()[0] : me.a;
+    const wl = fixing ? wrongList() : [];
+    const i = fixing ? wl[rot % wl.length] : me.a;
     const ex = set[i];
     const T = D.topics[ex.topic], how = T.how ? T.how[ex.t] : '';
     const gap = esc(ex.q).replace('___', '<span class="rc-gap">＿＿＿</span>');
@@ -349,13 +358,16 @@
       return;
     }
     // fixing: now we say if it is right
-    const i = wrongList()[0];
+    const wl = wrongList(), i = wl[rot % wl.length];
     if (C.isRight(set[i], value)) {
-      me.answers[i] = value; pushMe(); kidView();
+      me.answers[i] = value; pushMe();
+      if (wrongList().length) kidView(); else finish();   // everything is right now: you are a finisher, no more clicks
     } else {
       btn?.classList.add('wrong'); if (btn) btn.disabled = true;
       area.querySelector('#rcTry').hidden = false;
       const inp = area.querySelector('#rcAns'); if (inp) { inp.select(); inp.classList.add('shake'); setTimeout(() => inp.classList.remove('shake'), 400); }
+      // the exercise comes back later: the next wrong one is shown now
+      if (wl.length > 1) setTimeout(() => { if (view === 'question' && me.phase === 'fix') { rot++; kidView(); } }, 1100);
     }
   }
 
@@ -375,7 +387,7 @@
     me.t = Math.round(elapsed());
     if (w.length) {
       if (me.phase === 'play') me.mis = w.length;
-      me.phase = 'fix'; pushMe(); kidView();
+      me.phase = 'fix'; rot = 0; pushMe(); kidView();
     } else {
       me.phase = 'done'; me.fin = Math.max(1, me.t); me.doneAt = Date.now(); pushMe(); doneView();
     }
