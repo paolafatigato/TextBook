@@ -7,6 +7,7 @@
 // ___ marks the gap. Capital letters and the final . ! ? do not matter; ’ and ' are the same.
 // `how` = the line under the coloured name of the topic (one for each kind of exercise). In a race the exercises come in groups
 // of 4-8 of the same topic and the same kind, like the exercises of the book.
+// `fromMinutes: 20` = only in the long races (the translation exercises).
 // A new topic = a new key in `topics` (the race takes the same number of exercises from every topic).
 
 (() => {
@@ -79,16 +80,77 @@
       { t: 'type', q: 'the toys of the babies → the ___ toys', a: ["babies'"] },
       { t: 'type', q: 'the dog of my friend (one friend) → my ___ dog', a: ["friend's"] },
     ] },
+    exceptions: { label: 'Saxon genitive: exceptions', color: '#0f9d9a', how: { choice: 'Watch the exceptions: plurals, two owners, things.', type: 'Write the owner with ’s or ’.' }, items: [
+      { t: 'choice', q: "The toys of the children → the ___ toys", o: ["children's","childrens'","childrens"], a: 0 },
+      { t: 'choice', q: "The shoes of the men → the ___ shoes", o: ["men's","mens'","mens"], a: 0 },
+      { t: 'choice', q: "Anna and Luca have one room. → ___ room", o: ["Anna and Luca's","Anna's and Luca's","Annas and Lucas"], a: 0 },
+      { t: 'choice', q: "The team of the women → the ___ team", o: ["women's","womens'","womens"], a: 0 },
+      { t: 'choice', q: "The books of the students → the ___ books", o: ["students'","student's","students"], a: 0 },
+      { t: 'choice', q: "The legs ___ the table are broken.", o: ["of","'s","for"], a: 0 },
+      { t: 'choice', q: "The toy of the baby → the ___ toy", o: ["baby's","babies'","babys"], a: 0 },
+      { t: 'choice', q: "The dresses of the ladies → the ___ dresses", o: ["ladies'","lady's","ladys"], a: 0 },
+      { t: 'choice', q: "Which is right? (a thing, not a person)", o: ["The door of the bathroom is blue.","The bathroom's door is blue.","The bathrooms door is blue."], a: 0 },
+      { t: 'type', q: "the bikes of the children → the ___ bikes", a: ["children's"] },
+      { t: 'type', q: "the hats of the men → the ___ hats", a: ["men's"] },
+      { t: 'type', q: "the cat of Anna and Luca (one cat) → ___ cat", a: ["Anna and Luca's"] },
+      { t: 'type', q: "the room of the women → the ___ room", a: ["women's"] },
+    ] },
+    hisis: { label: 'His or is?', color: '#d98a00', how: { choice: 'Choose his or is.', type: 'Write his or is.' }, items: [
+      { t: 'choice', q: "Tom loves ___ new bike.", o: ["his","is","he's"], a: 0 },
+      { t: 'choice', q: "Tom ___ happy today.", o: ["is","his","he's"], a: 0 },
+      { t: 'choice', q: "This is Luca’s pencil case. It is ___ pencil case.", o: ["his","is","its"], a: 0 },
+      { t: 'choice', q: "My brother ___ 12 years old.", o: ["is","his","its"], a: 0 },
+      { t: 'choice', q: "He ___ a good player.", o: ["is","his","hes"], a: 0 },
+      { t: 'choice', q: "Marco forgot ___ phone.", o: ["his","is","he's"], a: 0 },
+      { t: 'choice', q: "___ he your cousin?", o: ["Is","His","He's"], a: 0 },
+      { t: 'choice', q: "Where ___ the cat?", o: ["is","his","its"], a: 0 },
+      { t: 'choice', q: "My dad has ___ keys.", o: ["his","is","he is"], a: 0 },
+      { t: 'choice', q: "“He’s a doctor” = He ___ a doctor.", o: ["is","his","are"], a: 0 },
+      { t: 'type', q: "Paul ___ from Spain. (is / his)", a: ["is"] },
+      { t: 'type', q: "Paul loves ___ dog. (is / his)", a: ["his"] },
+      { t: 'type', q: "Anna is Paul’s sister. She loves ___ brother. (is / his)", a: ["his"] },
+      { t: 'type', q: "The sky ___ blue. (is / his)", a: ["is"] },
+    ] },
+    youre: { label: 'Your or you’re?', color: '#c2398f', how: { choice: 'Choose your or you’re.', type: 'Write your or you’re.' }, items: [
+      { t: 'choice', q: "___ my best friend.", o: ["You're","Your","Youre"], a: 0 },
+      { t: 'choice', q: "Is this ___ bag, Marta?", o: ["your","you're","yours"], a: 0 },
+      { t: 'choice', q: "___ late for school!", o: ["You're","Your","Youre"], a: 0 },
+      { t: 'choice', q: "What is ___ name?", o: ["your","you're","you"], a: 0 },
+      { t: 'choice', q: "I think ___ right.", o: ["you're","your","youre"], a: 0 },
+      { t: 'choice', q: "Tom, ___ dog is so cute!", o: ["your","you're","you"], a: 0 },
+      { t: 'choice', q: "You're = you ___", o: ["are","is","our"], a: 0 },
+      { t: 'choice', q: "Where are ___ shoes?", o: ["your","you're","you"], a: 0 },
+      { t: 'choice', q: "___ going to the party, right?", o: ["You're","Your","Youre"], a: 0 },
+      { t: 'choice', q: "Please, open ___ books.", o: ["your","you're","you"], a: 0 },
+      { t: 'type', q: "___ very tall! (your / you're)", a: ["you're","you are"] },
+      { t: 'type', q: "Is this ___ phone? (your / you're)", a: ["your"] },
+      { t: 'type', q: "Open ___ notebook, please. (your / you're)", a: ["your"] },
+      { t: 'type', q: "___ my friend. (your / you're)", a: ["you're","you are"] },
+    ] },
+    translate: { label: 'Translate', color: '#5b6ee1', fromMinutes: 20, how: { type: 'Translate into English. Use ’s.' }, items: [
+      { t: 'type', q: "La canzone di Michael Jackson", a: ["Michael Jackson's song"] },
+      { t: 'type', q: "Lo zaino di mio figlio", a: ["My son's backpack","My son's bag","My son's rucksack"] },
+      { t: 'type', q: "Le uniformi degli studenti", a: ["The students' uniforms","Students' uniforms"] },
+      { t: 'type', q: "Il cane di Marta", a: ["Marta's dog"] },
+      { t: 'type', q: "La casa dei miei nonni", a: ["My grandparents' house","My grandparents' home"] },
+      { t: 'type', q: "I giocattoli dei bambini", a: ["The children's toys","Children's toys"] },
+      { t: 'type', q: "La bicicletta di mio fratello", a: ["My brother's bike","My brother's bicycle"] },
+      { t: 'type', q: "Il telefono di Giulia", a: ["Giulia's phone","Giulia's cell phone"] },
+      { t: 'type', q: "Le scarpe delle ragazze", a: ["The girls' shoes","Girls' shoes","The girls' sneakers"] },
+      { t: 'type', q: "La stanza di Anna e Luca", a: ["Anna and Luca's room","Anna and Luca's bedroom"] },
+      { t: 'type', q: "Il gatto di mia sorella", a: ["My sister's cat"] },
+      { t: 'type', q: "La macchina di mio padre", a: ["My father's car","My dad's car"] },
+    ] },
   };
 
   const settings = {
-    perMinute: 2,        // exercises per minute of the race (20 minutes = 40 exercises, 10 per topic)
-    presets: [10, 20, 30],
-    defaultMinutes: 20,
+    perMinute: 2.2,      // exercises per minute: the same number from every topic that is in the race
+    // the three versions. The minutes are only the length it is planned for (the clock just goes forward): they decide how many exercises.
+    presets: [{ name: 'Short', minutes: 10 }, { name: 'Medium', minutes: 15 }, { name: 'Long', minutes: 25 }],
+    defaultMinutes: 15,
     maxPlayers: 60,
     nameMax: 14,
     boardEvery: 4000,    // the teacher's device sends the ranking every 4 seconds
-    maxMinutes: 30,      // the pool has 15 exercises per topic = 60: enough for 30 minutes
   };
 
   const api = { topics, settings };

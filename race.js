@@ -65,7 +65,6 @@
   let doneT = null;     // looks again at the ranking after Finish
 
   const elapsed = () => (R && R.status === 'run' ? Math.max(0, (R.el || 0) + (Date.now() - R.recvAt)) : R && R.status === 'over' ? (R.el || 0) : 0);
-  const limit = () => (R ? R.minutes * 60000 : 0);
   const wrongList = () => set.map((ex, i) => i).filter(i => !C.isRight(set[i], me.answers[i]));
 
   /* ---------- the player's document ---------- */
@@ -126,7 +125,7 @@
         <h2>Make a race</h2>
         <p class="rc-sub">The exercises are about the pronouns, the verb <i>to be</i>, <i>my, your, his…</i> and the <i>’s</i>.</p>
         <div class="rc-mins" role="radiogroup" aria-label="Minutes">
-          ${ST.presets.map(m => `<button type="button" class="rc-min${m === startMinutes ? ' on' : ''}" data-m="${m}"><b>${m}</b> minutes<small>${C.countFor(m)} exercises</small></button>`).join('')}
+          ${ST.presets.map(p => `<button type="button" class="rc-min${p.minutes === startMinutes ? ' on' : ''}" data-m="${p.minutes}"><b>${p.name}</b>about ${p.minutes} minutes<small>${C.countFor(p.minutes)} exercises</small></button>`).join('')}
         </div>
         <button type="button" class="rc-btn go" id="rcMakeGo">Make the race ▶</button>
         <button type="button" class="rc-btn ghost" id="rcBack">‹ Back</button>
@@ -188,7 +187,7 @@
     if (R.status === 'lobby') {
       set$(`<div class="rc-menu">
         <h2>Waiting for the players</h2>${head}
-        <p class="rc-sub">Everybody opens the book, presses <b>Grammar Race</b> and types this code and their name.<br>${R.minutes} minutes · ${R.n} exercises</p>
+        <p class="rc-sub">Everybody opens the book, presses <b>Grammar Race</b> and types this code and their name.<br>about ${R.minutes} minutes · ${R.n} exercises</p>
         <p class="rc-count" id="rcCount"></p>
         <div class="rc-names" id="rcNames"></div>
         <div class="rc-actions">
@@ -295,10 +294,8 @@
   function tick() {
     if (!R) return;
     if (R.status === 'lobby') { clockEl.hidden = true; return; }
-    const left = limit() - elapsed();
-    clockEl.hidden = false;
-    clockEl.classList.toggle('late', left < 0 && R.status === 'run');
-    clockEl.textContent = R.status === 'over' ? '🏁 Race closed' : left >= 0 ? `⏱ ${fmt(left)}` : `⏱ +${fmt(-left)}`;
+    clockEl.hidden = false;   // the time only goes forward
+    clockEl.textContent = R.status === 'over' ? '🏁 Race closed' : `⏱ ${fmt(elapsed())}`;
   }
 
   /* ---------- the player: waiting, playing ---------- */

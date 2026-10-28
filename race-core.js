@@ -17,19 +17,22 @@
     return r;
   };
 
-  const countFor = minutes => Math.max(4, Math.round(minutes * D.settings.perMinute / 4) * 4);   // the same number from every topic
+  // the topics of a race (the translations are only in the long one) and how many exercises each gives
+  const topicsFor = minutes => Object.keys(D.topics).filter(k => !D.topics[k].fromMinutes || minutes >= D.topics[k].fromMinutes);
+  const eachFor = minutes => Math.max(2, Math.round(minutes * D.settings.perMinute / topicsFor(minutes).length));
+  const countFor = minutes => eachFor(minutes) * topicsFor(minutes).length;
 
   // the exercises of a race: the same number from every topic, mixed, with the buttons of a choice already in their order
   // → [{ id, topic, t, q, o?: [words], a: [accepted answers] }]
   function makeSet(seed, minutes) {
     const rng = mulberry(hash(`${seed}:set`));
-    const keys = Object.keys(D.topics);
-    const each = Math.floor(countFor(minutes) / keys.length);
+    const keys = topicsFor(minutes), each = eachFor(minutes);
     const list = [];
     keys.forEach(k => {
       // about one exercise in three is a 'write' one (the pool has 10 'choose' and 5 'write' for every topic)
       const all = D.topics[k].items.map((it, i) => ({ it, id: `${k}${i}` }));
-      const nType = Math.round(each / 3);
+      const hasChoice = all.some(x => x.it.t === 'choice');
+      const nType = !hasChoice ? each : each < 5 ? 0 : Math.round(each / 3);   // a very short race: only 'choose'
       const pick = (t, n) => shuffled(all.filter(x => x.it.t === t), rng).slice(0, n);
       [...pick('type', nType), ...pick('choice', each - nType)].forEach(({ it, id }) => {
         if (it.t === 'choice') list.push({ id, topic: k, t: 'choice', q: it.q, o: shuffled(it.o, rng), a: [it.o[it.a]] });
@@ -40,7 +43,7 @@
   }
 
   // like the book: groups of 4-8 exercises on the same topic and with the same mechanism (choose / write), the groups in a mixed order
-  // (never two of the same topic one after the other, if it can be avoided). Every exercise knows its place: g (group), gi (in the group), gn (size).
+  // (the groups of one topic stay together: first the ones to choose, then the ones to write). Every exercise knows its place: g (group), gi (in the group), gn (size).
   function chunks(arr, rng) {
     const rest = arr.slice(), out = [];
     while (rest.length) {
@@ -51,19 +54,12 @@
     return out;
   }
   function inGroups(list, rng) {
-    let groups = [];
-    Object.keys(D.topics).forEach(k => ['choice', 'type'].forEach(t => {
+    // one block for each topic (its 'choose' groups, then its 'write' groups), the blocks in a mixed order
+    const blocks = Object.keys(D.topics).map(k => ['choice', 'type'].flatMap(t => {
       const items = list.filter(e => e.topic === k && e.t === t);
-      if (items.length) groups.push(...chunks(shuffled(items, rng), rng));
-    }));
-    let best = null;
-    for (let tries = 0; tries < 300; tries++) {
-      const g = shuffled(groups, rng);
-      const clash = g.filter((x, i) => i && x[0].topic === g[i - 1][0].topic).length;
-      if (!best || clash < best.clash) best = { g, clash };
-      if (!clash) break;
-    }
-    groups = best.g;
+      return items.length ? chunks(shuffled(items, rng), rng) : [];
+    })).filter(b => b.length);
+    const groups = shuffled(blocks, rng).flat();
     return groups.flatMap((g, gi) => g.map((e, i) => ({ ...e, g: gi, gi: i, gn: g.length })));
   }
 
