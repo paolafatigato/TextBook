@@ -114,9 +114,9 @@
   const CAST = {
     plum: ['bishop', 'monk', 'nun', 'bishop'],
     mustard: ['lord', 'noblewoman', 'squire', 'lord'],
-    coral: ['farmer_m', 'blacksmith', 'craftsman', 'merchant_m', 'innkeeper_m', 'beggar', 'herbalist', 'healer', 'midwife', 'maid', 'spinner', 'farmer_f', 'merchant_f', 'innkeeper_f'],
+    coral: ['healer_v1', 'blacksmith_v1', 'midwife_v1', 'craftsman_v1', 'innkeeper_f_v1', 'merchant_f_v1', 'farmer_m', 'blacksmith', 'craftsman', 'merchant_m', 'innkeeper_m', 'beggar', 'herbalist', 'healer', 'midwife', 'maid', 'spinner', 'farmer_f', 'merchant_f', 'innkeeper_f'],
   };
-  const PROMPTS = ['Draw a tool', 'Draw a house', 'Draw your own character', 'Draw a plant', 'Draw an animal', 'Draw a castle', 'Draw food', 'Draw a costume'];
+  const PROMPTS = ['Draw a tool', 'Draw a house', 'Draw a person', 'Draw a plant', 'Draw an animal', 'Draw a castle', 'Draw food', 'Draw a costume'];
   let clipN = 0;
   function portraits(H, a, seed, mode) {
     const h = Math.min(H - 3, 27), w = Math.min(h * .78, 19);
