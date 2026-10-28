@@ -5,13 +5,16 @@
   const spread = document.querySelector('.spread[data-id="greek-play"]');
   if (!spread) return;
 
-  // a different pitch for each character, so the lines sound like a cast
-  const PITCH = { persephone: 1.35, demeter: 1.05, hades: .65, zeus: .8 };
+  // the cast: Hades and Zeus have a male voice, each with a pitch of its own (lower if the device has no male voice)
+  const CAST = { persephone: { pitch: 1.35 }, demeter: { pitch: 1.05 }, hades: { male: true, pitch: .85, low: .65 }, zeus: { male: true, pitch: .95, low: .8 } };
   let current = null; // the element being read
 
-  const voice = () => {
-    const all = speechSynthesis.getVoices();
-    return all.find(v => v.lang === 'en-US' && /female|zira|samantha|jenny|aria/i.test(v.name)) || all.find(v => v.lang === 'en-US') || all.find(v => v.lang.startsWith('en'));
+  const MALE = /(?<!fe)male|david|mark|guy|james|george|daniel|alex|fred|ryan|christopher|eric|davis|tony|brian|andrew|roger|steffan/i;
+  const voice = male => {
+    const en = speechSynthesis.getVoices().filter(v => v.lang.replace('_', '-').startsWith('en'));
+    const us = en.filter(v => v.lang.replace('_', '-') === 'en-US');
+    if (male) return us.find(v => MALE.test(v.name)) || en.find(v => MALE.test(v.name)); // none: undefined, the pitch does the job
+    return us.find(v => /female|zira|samantha|jenny|aria/i.test(v.name)) || us[0] || en[0];
   };
   let clip = null; // the recording being played
   const stop = () => {
@@ -22,7 +25,7 @@
     current = null;
   };
   // a line: the recording audio/persephone/Persephone <scene>.<line>.mp3 (a scene is one block of the text) if it is there, otherwise the voice of the browser
-  const sayLine = (p, name, pitch) => {
+  const sayLine = (p, name, who) => {
     const same = current === p;
     stop();
     if (same) return;
@@ -31,18 +34,20 @@
     current = p;
     p.classList.add('pv-on');
     a.onended = () => { if (clip === a) stop(); };
-    a.onerror = () => { if (clip === a) { stop(); say(lineText(p), p, pitch); } }; // no file: the browser voice
+    a.onerror = () => { if (clip === a) { stop(); say(lineText(p), p, who); } }; // no file: the browser voice
     a.play().catch(() => {}); // a missing file ends in onerror
   };
-  const say = (text, el, pitch = 1) => {
+  const say = (text, el, who) => {
     const same = current === el;
     stop();
     if (same) return; // a second click on the same thing stops it
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
-    u.voice = voice() || null;
+    const c = CAST[who] || { pitch: 1 };
+    const v = voice(c.male);
+    u.voice = v || voice(false) || null;
     u.rate = .9;
-    u.pitch = pitch;
+    u.pitch = c.male && !v ? c.low : c.pitch;
     u.onend = u.onerror = () => { if (current === el) { el.classList.remove('pv-on'); current = null; } };
     current = el;
     el.classList.add('pv-on');
@@ -56,6 +61,7 @@
     return copy.textContent.replace(/^[\s:]+/, '').replace(/\s+/g, ' ').trim();
   };
 
+  let last = '';
   spread.querySelectorAll('.play').forEach((scene, s) => scene.querySelectorAll('p').forEach((p, i) => {
     // every word in its own span (the text nodes only, so b and i stay as they are)
     const walker = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
@@ -75,7 +81,9 @@
       node.replaceWith(frag);
     });
 
-    const who = (p.className.match(/who-(\w+)/) || [])[1];
+    // a line without a name goes on with the last speaker
+    const who = p.dataset.speaker = (p.className.match(/who-(?!none)(\w+)/) || [])[1] || last;
+    last = who;
     if (!lineText(p)) return; // only a stage direction: nothing to listen to
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -85,7 +93,7 @@
     btn.textContent = '🔊';
     btn.addEventListener('click', e => {
       e.stopPropagation();
-      sayLine(p, `${s + 1}.${i + 1}`, PITCH[who]);
+      sayLine(p, `${s + 1}.${i + 1}`, who);
     });
     p.append(btn);
   }));
@@ -104,7 +112,7 @@
     const w = e.target.closest('.pv-w');
     if (!w) return;
     const text = w.textContent.replace(/[^\p{L}'’-]/gu, '');
-    if (text) say(text, w, PITCH[(w.closest('p').className.match(/who-(\w+)/) || [])[1]]);
+    if (text) say(text, w, w.closest('p').dataset.speaker);
   });
 
   document.addEventListener('spreadchange', stop);
