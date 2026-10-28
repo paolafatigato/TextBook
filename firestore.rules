@@ -30,6 +30,11 @@ service cloud.firestore {
       allow create: if request.auth != null && code.matches('[A-Z]{4}');
       allow update: if request.auth != null && request.resource.data.host == resource.data.host;
       allow delete: if request.auth != null;
+
+      // Grammar Race: every player writes only their own small document (their id is a long random word)
+      match /players/{pid} {
+        allow read, write: if request.auth != null;
+      }
     }
   }
 }

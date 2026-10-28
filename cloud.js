@@ -286,3 +286,27 @@ book.rooms = {
     return s.exists() ? s.data() : null;
   },
 };
+
+/* ---------- Grammar Race (race.js): many players, one 4-letter code ---------- */
+// The room is the same document duels/<CODE>, made and updated only by the teacher's device (the ranking is in its field `rc`).
+// Every player writes ONLY their own document duels/<CODE>/players/<id>, so 60 children never write the same document;
+// the teacher's device reads them all and sends the ranking to everybody now and then.
+const playerRef = (code, id) => doc(db, 'duels', code, 'players', id);
+const playersRef = code => collection(db, 'duels', code, 'players');
+
+book.race = {
+  // a player (or the teacher) opens the room: it must exist and not be too old
+  async open(code) {
+    await book.rooms.ready();
+    const snap = await getDoc(roomRef(code));
+    if (!snap.exists() || !snap.data().rc) throw roomError('notfound');
+    if (Date.now() - (snap.data().updated || 0) > ROOM_TTL) throw roomError('expired');
+    return snap.data();
+  },
+  setPlayer(code, id, data) {
+    return setDoc(playerRef(code, id), data, { merge: true });
+  },
+  watchPlayers(code, onList, onError) {
+    return onSnapshot(playersRef(code), s => onList(s.docs.map(d => d.data())), onError);
+  },
+};

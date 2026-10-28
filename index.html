@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="grammar-games.css">
   <link rel="stylesheet" href="poker.css">
   <link rel="stylesheet" href="poker-deck.css">
+  <link rel="stylesheet" href="race.css">
 </head>
 <body>
   <nav class="toolbar">
@@ -2324,6 +2325,7 @@
         <svg viewBox="0 0 80 40.5" aria-hidden="true"><g fill="none" stroke="#4a4560" stroke-width=".35" stroke-linecap="round"><path d="M10,0 L10,4.5"/><path d="M30,4.5 L40,4.5"/><path d="M60,0 L60,4.5"/><path d="M60,4.5 L70,4.5"/><path d="M20,4.5 L20,9"/><path d="M20,9 L30,9"/><path d="M30,9 L40,9"/><path d="M50,4.5 L50,9"/><path d="M40,9 L50,9"/><path d="M50,9 L60,9"/><path d="M30,9 L30,13.5"/><path d="M20,13.5 L30,13.5"/><path d="M70,9 L70,13.5"/><path d="M60,13.5 L70,13.5"/><path d="M10,13.5 L10,18"/><path d="M10,18 L20,18"/><path d="M20,18 L30,18"/><path d="M40,13.5 L40,18"/><path d="M50,13.5 L50,18"/><path d="M50,18 L60,18"/><path d="M20,18 L20,22.5"/><path d="M40,18 L40,22.5"/><path d="M30,22.5 L40,22.5"/><path d="M70,18 L70,22.5"/><path d="M60,22.5 L70,22.5"/><path d="M10,22.5 L10,27"/><path d="M10,27 L20,27"/><path d="M20,27 L30,27"/><path d="M40,22.5 L40,27"/><path d="M60,22.5 L60,27"/><path d="M70,27 L80,27"/><path d="M0,31.5 L10,31.5"/><path d="M10,31.5 L20,31.5"/><path d="M30,31.5 L40,31.5"/><path d="M50,27 L50,31.5"/><path d="M40,31.5 L50,31.5"/><path d="M60,27 L60,31.5"/><path d="M0,36 L10,36"/><path d="M20,31.5 L20,36"/><path d="M30,31.5 L30,36"/><path d="M30,36 L40,36"/><path d="M50,31.5 L50,36"/><path d="M60,31.5 L60,36"/><path d="M70,31.5 L70,36"/><path d="M60,36 L60,40.5"/><path d="M10,0 L80,0"/><path d="M0,0 L0,40.5"/><path d="M80,0 L80,40.5"/><path d="M0,40.5 L60,40.5"/><path d="M70,40.5 L80,40.5"/></g></svg>
       </div>
       <span class="mz-label abs" style="--x:69.2;--y:131.9">↓ FINISH</span>
+      <button type="button" class="rc-open-btn abs" data-race-open style="--x:9;--y:132.2">🏁 Grammar Race ▶ play with your class</button>
 
       <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Owners</span>
       <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
@@ -10462,7 +10464,7 @@
     </section>
   </div>
 
-  <div class="spread" data-id="shk-rhyme-gym" data-title="Literature: Shakespeare" data-name="Rhyme gym · Write your sonnet">
+  <div class="spread" data-id="shk-rhyme-gym" data-title="Literature: Shakespeare" data-name="Rhyme gym · Your sonnet: choose a topic">
 
     <!-- ============ LEFT PAGE ============ -->
     <section class="page page-left sh shx">
@@ -10513,39 +10515,294 @@
 
     <!-- ============ RIGHT PAGE ============ -->
     <section class="page page-right sh shx">
-      <span class="shx-kicker abs" style="--x:8;--y:4">Your turn</span>
-      <h1 class="shx-title small abs" style="--x:8;--y:7.2">Write your <em>sonnet</em></h1>
-      <figure class="shx-orbit abs" style="--x:79;--y:4.4;--w:13"><span class="shx-orbit-pic"><img data-pic="img/shakespeare/quill" alt="An engraving of a quill"><span class="shx-ph" aria-hidden="true"><i>🪶</i><small>quill</small></span></span><i class="n">✦</i><i class="s">✦</i><i class="e">✦</i><i class="w">✦</i></figure>
-      <div class="shx-rule abs" style="--x:8;--y:21.6;--w:84"></div>
+      <span class="shx-kicker abs" style="--x:8;--y:3">Your sonnet · the topic</span>
+      <h2 class="shx-h2 abs" style="--x:8;--y:5.2">What will you <em>write about?</em></h2>
+      <div class="shx-rule abs" style="--x:8;--y:12.6;--w:84"></div>
 
-      <div class="lt-pill abs" style="--x:8;--y:26.4"><b>7.24</b> Write your own sonnet</div>
-      <p class="pd-intro abs" style="--x:8;--y:30.8;--w:84">Use your notes from 7.19 and the rhyme machine on p. <span data-page="shk-rhyme-machine:R"></span>. Follow the <b>rhyme letters</b> and try to write <b>10 syllables</b> per line (the counter helps you). In the couplet, surprise the reader with a <b>twist</b> or a strong ending.</p>
-      <p class="mt-line big abs" style="--x:8;--y:39.6;--w:84"><span>Title</span><input class="fill" id="sh713-title" autocomplete="off" aria-label="Title of your sonnet"></p>
-      <ol class="sh-sonnet abs" style="--x:8;--y:45.6;--w:84">
-        <li><b data-l="A">A</b><input class="fill" id="sh713-1" autocomplete="off" aria-label="Line 1, rhyme A"><output aria-label="Syllables in line 1"></output></li>
-        <li><b data-l="B">B</b><input class="fill" id="sh713-2" autocomplete="off" aria-label="Line 2, rhyme B"><output aria-label="Syllables in line 2"></output></li>
-        <li><b data-l="A">A</b><input class="fill" id="sh713-3" autocomplete="off" aria-label="Line 3, rhyme A"><output aria-label="Syllables in line 3"></output></li>
-        <li class="end"><b data-l="B">B</b><input class="fill" id="sh713-4" autocomplete="off" aria-label="Line 4, rhyme B"><output aria-label="Syllables in line 4"></output></li>
-        <li><b data-l="C">C</b><input class="fill" id="sh713-5" autocomplete="off" aria-label="Line 5, rhyme C"><output aria-label="Syllables in line 5"></output></li>
-        <li><b data-l="D">D</b><input class="fill" id="sh713-6" autocomplete="off" aria-label="Line 6, rhyme D"><output aria-label="Syllables in line 6"></output></li>
-        <li><b data-l="C">C</b><input class="fill" id="sh713-7" autocomplete="off" aria-label="Line 7, rhyme C"><output aria-label="Syllables in line 7"></output></li>
-        <li class="end"><b data-l="D">D</b><input class="fill" id="sh713-8" autocomplete="off" aria-label="Line 8, rhyme D"><output aria-label="Syllables in line 8"></output></li>
-        <li><b data-l="E">E</b><input class="fill" id="sh713-9" autocomplete="off" aria-label="Line 9, rhyme E"><output aria-label="Syllables in line 9"></output></li>
-        <li><b data-l="F">F</b><input class="fill" id="sh713-10" autocomplete="off" aria-label="Line 10, rhyme F"><output aria-label="Syllables in line 10"></output></li>
-        <li><b data-l="E">E</b><input class="fill" id="sh713-11" autocomplete="off" aria-label="Line 11, rhyme E"><output aria-label="Syllables in line 11"></output></li>
-        <li class="end"><b data-l="F">F</b><input class="fill" id="sh713-12" autocomplete="off" aria-label="Line 12, rhyme F"><output aria-label="Syllables in line 12"></output></li>
-        <li><b data-l="G">G</b><input class="fill" id="sh713-13" placeholder="the couplet: a twist or a strong ending…" autocomplete="off" aria-label="Line 13, rhyme G"><output aria-label="Syllables in line 13"></output></li>
-        <li><b data-l="G">G</b><input class="fill" id="sh713-14" autocomplete="off" aria-label="Line 14, rhyme G"><output aria-label="Syllables in line 14"></output></li>
-      </ol>
+      <div class="lt-pill abs" style="--x:8;--y:15"><b>7.24</b> Choose your topic: click the ones you like</div>
+      <ul class="sw-tips abs" style="--x:8;--y:19.6;--w:84">
+        <li>Something you know with <b>all five senses</b>: you have seen it, heard it, smelled it, tasted it, touched it.</li>
+        <li>Something with <b>stories</b> behind it: memories, habits, funny moments.</li>
+        <li>Something you love… or love to <b>complain about</b>! A sonnet can be funny, like Sonnet 130.</li>
+      </ul>
+      <p class="sw-chips sw-topics abs" style="--x:8;--y:31.8;--w:84"><span class="chip toggle" id="sw24-0">my mom</span><span class="chip toggle" id="sw24-1">my dad</span><span class="chip toggle" id="sw24-2">my grandma</span><span class="chip toggle" id="sw24-3">my best friend</span><span class="chip toggle" id="sw24-4">my dog</span><span class="chip toggle" id="sw24-5">my cat</span><span class="chip toggle" id="sw24-6">my little brother</span><span class="chip toggle" id="sw24-7">my room</span><span class="chip toggle" id="sw24-8">my town</span><span class="chip toggle" id="sw24-9">the sea</span><span class="chip toggle" id="sw24-10">winter</span><span class="chip toggle" id="sw24-11">summer vacation</span><span class="chip toggle" id="sw24-12">my phone</span><span class="chip toggle" id="sw24-13">volleyball</span><span class="chip toggle" id="sw24-14">soccer</span><span class="chip toggle" id="sw24-15">dance</span><span class="chip toggle" id="sw24-16">pizza</span><span class="chip toggle" id="sw24-17">Monday morning</span><span class="chip toggle" id="sw24-18">the school bus</span><span class="chip toggle" id="sw24-19">Halloween</span><span class="chip toggle" id="sw24-20">my bike</span><span class="chip toggle" id="sw24-21">video games</span></p>
+      <p class="mt-line abs" style="--x:8;--y:44.2;--w:84"><span>My topic</span><input class="fill" id="sw24-topic" autocomplete="off" aria-label="My topic"><span>because</span><input class="fill" id="sw24-why" autocomplete="off" aria-label="Why I chose it"></p>
 
-      <div class="lt-pill abs" style="--x:8;--y:117.4"><b>7.25</b> Check your sonnet: click what you did</div>
-      <p class="sh-chk abs" style="--x:8;--y:122;--w:84"><span class="chip toggle form" id="sh714-0">14 lines</span><span class="chip toggle form" id="sh714-1">10 syllables per line</span><span class="chip toggle form" id="sh714-2">ABAB CDCD EFEF GG</span><span class="chip toggle form" id="sh714-3">a twist or strong ending in the couplet</span><span class="chip toggle" id="sh714-4">simile</span><span class="chip toggle" id="sh714-5">metaphor</span><span class="chip toggle" id="sh714-6">alliteration</span><span class="chip toggle" id="sh714-7">hyperbole</span><span class="chip toggle" id="sh714-8">personification</span><span class="chip toggle" id="sh714-9">repetition</span><span class="chip toggle" id="sh714-10">onomatopoeia</span></p>
+      <div class="lt-pill abs" style="--x:8;--y:51.4"><b>7.25</b> Read some lines on other topics, then write two of yours</div>
+      <div class="sw-cards abs" style="--x:8;--y:56;--w:84">
+        <article><h3><i aria-hidden="true">🏐</i>Volleyball</h3><p>My knee pads smell like cheese left in the sun,<small>smell · simile · funny</small></p><p>the ball, a white moon falling on my hands.<small>sight · metaphor</small></p></article>
+        <article><h3><i aria-hidden="true">🐶</i>My dog</h3><p>His breath is a dragon’s breakfast at dawn,<small>smell · metaphor · funny</small></p><p>his tail, a drum that plays when I come home.<small>sound · metaphor</small></p></article>
+        <article><h3><i aria-hidden="true">👦</i>My little brother</h3><p>He is a tornado wearing socks,<small>sight · metaphor · funny</small></p><p>his sticky hands taste of jam and stolen cake.<small>taste · touch</small></p></article>
+        <article><h3><i aria-hidden="true">📚</i>Monday morning</h3><p>Monday tastes like cold toast and math,<small>taste · simile · funny</small></p><p>my alarm clock screams like a rooster with a cold.<small>sound · simile · hyperbole</small></p></article>
+        <article><h3><i aria-hidden="true">👵</i>My grandma</h3><p>Her kitchen sings with the radio and frying onions,<small>sound · personification</small></p><p>her hands are soft as flour on the table.<small>touch · simile</small></p></article>
+        <article><h3><i aria-hidden="true">🍕</i>Pizza</h3><p>Hot cheese builds a bridge from the plate to my mouth,<small>sight · metaphor</small></p><p>it smells like Saturday night and no homework.<small>smell · simile · funny</small></p></article>
+        <article><h3><i aria-hidden="true">📱</i>My phone</h3><p>It buzzes like a bee that never sleeps,<small>sound · simile</small></p><p>its light is a cold moon on my face at midnight.<small>sight · metaphor</small></p></article>
+        <article><h3><i aria-hidden="true">🌊</i>The sea in winter</h3><p>The waves roar like an old lion that can’t sleep,<small>sound · simile</small></p><p>the wind bites my ears with salty teeth.<small>touch · personification</small></p></article>
+      </div>
+      <p class="mt-line abs" style="--x:8;--y:113.6;--w:84"><span>A serious line</span><input class="fill" id="sw25-serious" autocomplete="off" aria-label="A serious line about my topic"></p>
+      <p class="mt-line abs" style="--x:8;--y:120.6;--w:84"><span>A funny line</span><input class="fill" id="sw25-funny" autocomplete="off" aria-label="A funny line about my topic"></p>
 
       <span class="footer abs" style="--x:69;--y:135.4;--w:19.1">Shakespeare</span>
     </section>
   </div>
 
-  <div class="spread" data-id="rj-verona" data-title="Literature: Romeo &amp; Juliet" data-name="What do you know? · Who's who in Verona">
+    <div class="spread" data-id="shk-sw-plan" data-title="Literature: Shakespeare" data-name="Your sonnet · How it is assessed · All the senses">
+
+    <!-- ============ LEFT PAGE ============ -->
+    <section class="page page-left sh shx">
+      <span class="shx-kicker abs" style="--x:9.7;--y:3">Your sonnet · the project</span>
+      <h2 class="shx-h2 abs" style="--x:9.7;--y:5.2">Your sonnet, <em>step by step</em></h2>
+      <div class="shx-rule abs" style="--x:9.7;--y:12.6;--w:80.6"></div>
+      <p class="pd-intro abs" style="--x:9.7;--y:14.4;--w:80.6">Write a sonnet on a topic <b>you</b> choose: a person, a pet, a place, a season… Put together what you learned about <b>metaphors</b> (p. <span data-page="meta-workshop"></span>) and about <b>Sonnet 130</b>. Your teacher will assess four things:</p>
+      <div class="sw-crit abs" style="--x:9.7;--y:22.6;--w:80.6">
+        <p><b>1</b><span>Grammar &amp; vocabulary</span>Correct English, varied and precise words.</p>
+        <p><b>2</b><span>Completeness</span>All the senses, each one with a figure of speech.</p>
+        <p><b>3</b><span>Coherence</span>Every image has a reason: you can explain why you chose it.</p>
+        <p><b>4</b><span>Originality</span>No clichés: images that only <i>you</i> could write.</p>
+      </div>
+
+      <div class="lt-pill abs" style="--x:9.7;--y:47.6"><b>7.26</b> Completeness: one image for every sense</div>
+      <p class="mt-line abs" style="--x:9.7;--y:51.6;--w:80.6"><span>My topic</span><input class="fill" id="sw-topic" autocomplete="off" aria-label="My topic"></p>
+      <div class="sw-senses abs" style="--x:9.7;--y:57.8;--w:80.6">
+        <p class="sw-senses-head"><span>Sense</span><span>My image</span><span>Figure of speech</span></p>
+        <p><span><i aria-hidden="true">👁️</i><b>Sight</b><small>What does it look like?</small></span><textarea class="fill" id="sw-sense-sight" aria-label="Sight: my image"></textarea><input class="fill" id="sw-sense-sight-fig" placeholder="simile? metaphor?…" autocomplete="off" aria-label="Sight: figure of speech"></p>
+        <p><span><i aria-hidden="true">👂</i><b>Sound</b><small>How does it sound (or might sound)?</small></span><textarea class="fill" id="sw-sense-sound" aria-label="Sound: my image"></textarea><input class="fill" id="sw-sense-sound-fig" placeholder="simile? metaphor?…" autocomplete="off" aria-label="Sound: figure of speech"></p>
+        <p><span><i aria-hidden="true">👃</i><b>Smell</b><small>How does it smell (or might smell)?</small></span><textarea class="fill" id="sw-sense-smell" aria-label="Smell: my image"></textarea><input class="fill" id="sw-sense-smell-fig" placeholder="simile? metaphor?…" autocomplete="off" aria-label="Smell: figure of speech"></p>
+        <p><span><i aria-hidden="true">👅</i><b>Taste</b><small>How does it taste (or might taste)?</small></span><textarea class="fill" id="sw-sense-taste" aria-label="Taste: my image"></textarea><input class="fill" id="sw-sense-taste-fig" placeholder="simile? metaphor?…" autocomplete="off" aria-label="Taste: figure of speech"></p>
+        <p><span><i aria-hidden="true">✋</i><b>Touch</b><small>How does it feel to touch?</small></span><textarea class="fill" id="sw-sense-touch" aria-label="Touch: my image"></textarea><input class="fill" id="sw-sense-touch-fig" placeholder="simile? metaphor?…" autocomplete="off" aria-label="Touch: figure of speech"></p>
+        <p><span><i aria-hidden="true">❤️</i><b>Feeling</b><small>How does it make you feel?</small></span><textarea class="fill" id="sw-sense-feel" aria-label="Feeling: my image"></textarea><input class="fill" id="sw-sense-feel-fig" placeholder="simile? metaphor?…" autocomplete="off" aria-label="Feeling: figure of speech"></p>
+        <p><span><i aria-hidden="true">🏃</i><b>Action</b><small>What is it doing?</small></span><textarea class="fill" id="sw-sense-do" aria-label="Action: my image"></textarea><input class="fill" id="sw-sense-do-fig" placeholder="simile? metaphor?…" autocomplete="off" aria-label="Action: figure of speech"></p>
+      </div>
+
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+
+    <!-- ============ RIGHT PAGE ============ -->
+    <section class="page page-right sh shx">
+      <div class="lt-pill abs" style="--x:8;--y:5"><b>7.27</b> Which sense? Which figure? Click both</div>
+      <button class="check abs" type="button" style="--x:80;--y:5" data-tf="sw27">✓ Check</button>
+      <div class="sw-which abs" id="sw27" style="--x:8;--y:10;--w:84">
+        <div><p><i>A.</i>Her laugh is a kettle whistling on a Sunday morning.</p><span class="opt sw-o" id="sw27-0-s" data-answer="sound"><button type="button">sight</button><button type="button">sound</button><button type="button">smell</button><button type="button">taste</button><button type="button">touch</button></span><span class="opt sw-o" id="sw27-0-f" data-answer="metaphor"><button type="button">simile</button><button type="button">metaphor</button><button type="button">personification</button><button type="button">onomatopoeia</button><button type="button">alliteration</button><button type="button">hyperbole</button></span></div>
+        <div><p><i>B.</i>The kitchen smells like warm bread and Christmas.</p><span class="opt sw-o" id="sw27-1-s" data-answer="smell"><button type="button">sight</button><button type="button">sound</button><button type="button">smell</button><button type="button">taste</button><button type="button">touch</button></span><span class="opt sw-o" id="sw27-1-f" data-answer="simile"><button type="button">simile</button><button type="button">metaphor</button><button type="button">personification</button><button type="button">onomatopoeia</button><button type="button">alliteration</button><button type="button">hyperbole</button></span></div>
+        <div><p><i>C.</i>The streetlights wink at me on my way home.</p><span class="opt sw-o" id="sw27-2-s" data-answer="sight"><button type="button">sight</button><button type="button">sound</button><button type="button">smell</button><button type="button">taste</button><button type="button">touch</button></span><span class="opt sw-o" id="sw27-2-f" data-answer="personification"><button type="button">simile</button><button type="button">metaphor</button><button type="button">personification</button><button type="button">onomatopoeia</button><button type="button">alliteration</button><button type="button">hyperbole</button></span></div>
+        <div><p><i>D.</i>Crack! The ice on the puddle breaks under my boots.</p><span class="opt sw-o" id="sw27-3-s" data-answer="sound"><button type="button">sight</button><button type="button">sound</button><button type="button">smell</button><button type="button">taste</button><button type="button">touch</button></span><span class="opt sw-o" id="sw27-3-f" data-answer="onomatopoeia"><button type="button">simile</button><button type="button">metaphor</button><button type="button">personification</button><button type="button">onomatopoeia</button><button type="button">alliteration</button><button type="button">hyperbole</button></span></div>
+        <div><p><i>E.</i>Grandma’s soup tastes like a hug on a rainy day.</p><span class="opt sw-o" id="sw27-4-s" data-answer="taste"><button type="button">sight</button><button type="button">sound</button><button type="button">smell</button><button type="button">taste</button><button type="button">touch</button></span><span class="opt sw-o" id="sw27-4-f" data-answer="simile"><button type="button">simile</button><button type="button">metaphor</button><button type="button">personification</button><button type="button">onomatopoeia</button><button type="button">alliteration</button><button type="button">hyperbole</button></span></div>
+        <div><p><i>F.</i>Silver snowflakes slide silently from the sky.</p><span class="opt sw-o" id="sw27-5-s" data-answer="sight"><button type="button">sight</button><button type="button">sound</button><button type="button">smell</button><button type="button">taste</button><button type="button">touch</button></span><span class="opt sw-o" id="sw27-5-f" data-answer="alliteration"><button type="button">simile</button><button type="button">metaphor</button><button type="button">personification</button><button type="button">onomatopoeia</button><button type="button">alliteration</button><button type="button">hyperbole</button></span></div>
+        <div><p><i>G.</i>His hands are as rough as the bark of an old oak.</p><span class="opt sw-o" id="sw27-6-s" data-answer="touch"><button type="button">sight</button><button type="button">sound</button><button type="button">smell</button><button type="button">taste</button><button type="button">touch</button></span><span class="opt sw-o" id="sw27-6-f" data-answer="simile"><button type="button">simile</button><button type="button">metaphor</button><button type="button">personification</button><button type="button">onomatopoeia</button><button type="button">alliteration</button><button type="button">hyperbole</button></span></div>
+        <div><p><i>H.</i>On Monday mornings my backpack weighs a ton.</p><span class="opt sw-o" id="sw27-7-s" data-answer="touch"><button type="button">sight</button><button type="button">sound</button><button type="button">smell</button><button type="button">taste</button><button type="button">touch</button></span><span class="opt sw-o" id="sw27-7-f" data-answer="hyperbole"><button type="button">simile</button><button type="button">metaphor</button><button type="button">personification</button><button type="button">onomatopoeia</button><button type="button">alliteration</button><button type="button">hyperbole</button></span></div>
+      </div>
+
+      <div class="lt-pill abs" style="--x:8;--y:70"><b>7.28</b> Upgrade the line: add a sense and a figure of speech</div>
+      <p class="hint-line abs" style="--x:8;--y:74.6">use a different figure every time · e.g. <i>My cat is soft</i> → <i>My cat is a cloud that purrs on my pillow</i></p>
+      <ol class="sw-upgrade roomy abs" style="--x:8;--y:78;--w:84">
+        <li><i>A.</i><span>My dog is soft.</span><input class="fill" id="sw28-0" autocomplete="off" aria-label="My dog is soft. upgraded"></li>
+        <li><i>B.</i><span>The sea is loud.</span><input class="fill" id="sw28-1" autocomplete="off" aria-label="The sea is loud. upgraded"></li>
+        <li><i>C.</i><span>My room smells nice.</span><input class="fill" id="sw28-2" autocomplete="off" aria-label="My room smells nice. upgraded"></li>
+        <li><i>D.</i><span>This pizza is good.</span><input class="fill" id="sw28-3" autocomplete="off" aria-label="This pizza is good. upgraded"></li>
+      </ol>
+
+      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Shakespeare</span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="shk-sw-images" data-title="Literature: Shakespeare" data-name="Your sonnet · Coherence · Originality">
+
+    <!-- ============ LEFT PAGE ============ -->
+    <section class="page page-left sh shx">
+      <span class="shx-kicker abs" style="--x:9.7;--y:3">Your sonnet · coherence</span>
+      <h2 class="shx-h2 abs" style="--x:9.7;--y:5.2">Every image has <em>a story</em></h2>
+      <div class="shx-rule abs" style="--x:9.7;--y:12.6;--w:80.6"></div>
+      <div class="sw-model abs" style="--x:9.7;--y:15;--w:80.6">
+        <p class="good"><span>✓ coherent</span><q>My mom smells like cinnamon on a cold night.</q><em>Why? Every Halloween we bake cinnamon rolls together: it is one of our happiest moments.</em></p>
+        <p class="bad"><span>✗ not coherent</span><q>My mom is a rose.</q><em>Why? “Because roses are beautiful.” It could be anybody’s mom: there is no story, it is a cliché.</em></p>
+      </div>
+
+      <div class="lt-pill abs" style="--x:9.7;--y:40.4"><b>7.29</b> A sonnet about Grandpa: connect each image to its story</div>
+      <button class="check abs" type="button" style="--x:80;--y:40.4" data-match="sw29">✓ Check</button>
+      <div class="match sw-match abs" id="sw29" style="--x:9.7;--y:45.4">
+        <ul class="match-words">
+          <li><button type="button" data-key="radio">Grandpa’s voice is the old radio in his garage.</button></li>
+          <li><button type="button" data-key="orange">His hands smell like oranges in December.</button></li>
+          <li><button type="button" data-key="motor">His laugh is a motorbike that won’t start.</button></li>
+          <li><button type="button" data-key="king">His garden is his second kingdom.</button></li>
+          <li><button type="button" data-key="marble">His eyes are two blue marbles.</button></li>
+        </ul>
+        <ul class="match-defs">
+          <li><button type="button" data-key="motor">His laugh starts slowly, coughs… and then it explodes.</button></li>
+          <li><button type="button" data-key="marble">He has blue eyes and he still plays marbles with me in the park.</button></li>
+          <li><button type="button" data-key="radio">He fixes old radios and listens to the football games while he works.</button></li>
+          <li><button type="button" data-key="king">He spends every afternoon there and gives orders to the tomatoes.</button></li>
+          <li><button type="button" data-key="orange">Every Christmas he peels oranges for all his grandchildren.</button></li>
+        </ul>
+        <svg class="match-lines" aria-hidden="true"></svg>
+      </div>
+
+      <div class="lt-pill abs" style="--x:9.7;--y:86.4"><b>7.30</b> Your images, your stories</div>
+      <div class="sw-stories abs" style="--x:9.7;--y:91;--w:80.6">
+        <p class="sw-stories-head"><span>An image for my sonnet</span><span>The memory or the reason behind it</span></p>
+        <p><textarea class="fill" id="sw30-0-img" aria-label="Image 1"></textarea><textarea class="fill" id="sw30-0-why" aria-label="Image 1: the story"></textarea></p>
+        <p><textarea class="fill" id="sw30-1-img" aria-label="Image 2"></textarea><textarea class="fill" id="sw30-1-why" aria-label="Image 2: the story"></textarea></p>
+        <p><textarea class="fill" id="sw30-2-img" aria-label="Image 3"></textarea><textarea class="fill" id="sw30-2-why" aria-label="Image 3: the story"></textarea></p>
+        <p><textarea class="fill" id="sw30-3-img" aria-label="Image 4"></textarea><textarea class="fill" id="sw30-3-why" aria-label="Image 4: the story"></textarea></p>
+        <p><textarea class="fill" id="sw30-4-img" aria-label="Image 5"></textarea><textarea class="fill" id="sw30-4-why" aria-label="Image 5: the story"></textarea></p>
+      </div>
+
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+
+    <!-- ============ RIGHT PAGE ============ -->
+    <section class="page page-right sh shx">
+      <span class="shx-kicker abs" style="--x:8;--y:3">Your sonnet · originality</span>
+      <h2 class="shx-h2 abs" style="--x:8;--y:5.2">No <em>clichés</em>, please!</h2>
+      <div class="shx-rule abs" style="--x:8;--y:12.6;--w:84"></div>
+      <p class="pd-intro abs" style="--x:8;--y:14.4;--w:84">A <b>cliché</b> is an image used so many times that it is not special any more. Shakespeare made fun of them in Sonnet 130: “My mistress’ eyes are <b>nothing</b> like the sun”!</p>
+
+      <div class="lt-pill abs" style="--x:8;--y:22.4"><b>7.31</b> Spot the clichés: click them</div>
+      <button class="check abs" type="button" style="--x:80;--y:22.4" data-toggles="sw31">✓ Check</button>
+      <p class="sw-chips abs" id="sw31" style="--x:8;--y:27.2;--w:84"><span class="chip toggle" id="sw31-0" data-should="1">her eyes shine like the stars in the night sky</span><span class="chip toggle" id="sw31-1" data-should="0">burnt-toast hair</span><span class="chip toggle" id="sw31-2" data-should="1">a heart of gold</span><span class="chip toggle" id="sw31-3" data-should="0">a voice like the old radio in Grandpa’s garage</span><span class="chip toggle" id="sw31-4" data-should="1">my love is as deep as the ocean</span><span class="chip toggle" id="sw31-5" data-should="0">porch-lamp eyes</span><span class="chip toggle" id="sw31-6" data-should="1">as white as snow</span><span class="chip toggle" id="sw31-7" data-should="0">a laugh like a kettle</span><span class="chip toggle" id="sw31-8" data-should="1">lips as red as cherries</span><span class="chip toggle" id="sw31-9" data-should="0">a smile like the first day of summer vacation</span><span class="chip toggle" id="sw31-10" data-should="1">time flies</span><span class="chip toggle" id="sw31-11" data-should="1">as busy as a bee</span></p>
+
+      <div class="lt-pill abs" style="--x:8;--y:47.4"><b>7.32</b> Refresh the cliché: make it personal</div>
+      <p class="hint-line abs" style="--x:8;--y:52">think of a real place, object or moment · e.g. <i>Her eyes are like stars</i> → <i>Her eyes are the two lamps on our porch, still on when I come home late</i></p>
+      <ol class="sw-upgrade sw-fresh abs" style="--x:8;--y:55.4;--w:84">
+        <li><i>A.</i><span><s>Her eyes are like stars.</s></span><input class="fill" id="sw32-0" autocomplete="off" aria-label="Her eyes are like stars. refreshed"></li>
+        <li><i>B.</i><span><s>He has a heart of gold.</s></span><input class="fill" id="sw32-1" autocomplete="off" aria-label="He has a heart of gold. refreshed"></li>
+        <li><i>C.</i><span><s>Her skin is as white as snow.</s></span><input class="fill" id="sw32-2" autocomplete="off" aria-label="Her skin is as white as snow. refreshed"></li>
+        <li><i>D.</i><span><s>My love is as deep as the ocean.</s></span><input class="fill" id="sw32-3" autocomplete="off" aria-label="My love is as deep as the ocean. refreshed"></li>
+        <li><i>E.</i><span><s>He is as strong as a lion.</s></span><input class="fill" id="sw32-4" autocomplete="off" aria-label="He is as strong as a lion. refreshed"></li>
+      </ol>
+
+      <div class="sw-test abs" style="--x:8;--y:97;--w:84">
+        <b>✦ The originality test</b>
+        <p>Read every line of your sonnet and ask yourself:</p>
+        <ol>
+          <li>Could <b>another student</b> write this line about <b>their</b> mom, dog, city…? → if yes, change it!</li>
+          <li>Have I <b>heard</b> this image before, in songs, films or greeting cards? → if yes, change it!</li>
+          <li>Can I tell the <b>story</b> behind it? → if no, it is not coherent: change it!</li>
+        </ol>
+      </div>
+
+      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Shakespeare</span>
+    </section>
+  </div>
+
+    <div class="spread" data-id="shk-sw-final" data-title="Literature: Shakespeare" data-name="Your sonnet · Final version on paper · Explain your images">
+
+    <!-- ============ LEFT PAGE ============ -->
+    <section class="page page-left sh shx">
+      <span class="shx-kicker abs" style="--x:9.7;--y:3">Your sonnet · final version on paper</span>
+      <h2 class="shx-h2 abs" style="--x:9.7;--y:5.2">On your <em>sheet</em></h2>
+      <div class="shx-rule abs" style="--x:9.7;--y:12.6;--w:80.6"></div>
+      <p class="pd-intro abs" style="--x:9.7;--y:14.4;--w:80.6">You write the final version on a <b>sheet of your notebook</b> and hand it in. Get everything ready in the book first!</p>
+
+      <div class="lt-pill abs" style="--x:9.7;--y:20.6"><b>7.33</b> Plan your rhymes: two words for every letter</div>
+      <div class="sw-rhymeplan abs" style="--x:9.7;--y:25;--w:80.6">
+        <p><b data-l="A">A</b><span>line 1</span><input class="fill" id="sw33-A1" autocomplete="off" aria-label="Rhyme A, line 1"><span>line 3</span><input class="fill" id="sw33-A2" autocomplete="off" aria-label="Rhyme A, line 3"></p>
+        <p><b data-l="B">B</b><span>line 2</span><input class="fill" id="sw33-B1" autocomplete="off" aria-label="Rhyme B, line 2"><span>line 4</span><input class="fill" id="sw33-B2" autocomplete="off" aria-label="Rhyme B, line 4"></p>
+        <p><b data-l="C">C</b><span>line 5</span><input class="fill" id="sw33-C1" autocomplete="off" aria-label="Rhyme C, line 5"><span>line 7</span><input class="fill" id="sw33-C2" autocomplete="off" aria-label="Rhyme C, line 7"></p>
+        <p><b data-l="D">D</b><span>line 6</span><input class="fill" id="sw33-D1" autocomplete="off" aria-label="Rhyme D, line 6"><span>line 8</span><input class="fill" id="sw33-D2" autocomplete="off" aria-label="Rhyme D, line 8"></p>
+        <p><b data-l="E">E</b><span>line 9</span><input class="fill" id="sw33-E1" autocomplete="off" aria-label="Rhyme E, line 9"><span>line 11</span><input class="fill" id="sw33-E2" autocomplete="off" aria-label="Rhyme E, line 11"></p>
+        <p><b data-l="F">F</b><span>line 10</span><input class="fill" id="sw33-F1" autocomplete="off" aria-label="Rhyme F, line 10"><span>line 12</span><input class="fill" id="sw33-F2" autocomplete="off" aria-label="Rhyme F, line 12"></p>
+        <p><b data-l="G">G</b><span>line 13</span><input class="fill" id="sw33-G1" autocomplete="off" aria-label="Rhyme G, line 13"><span>line 14</span><input class="fill" id="sw33-G2" autocomplete="off" aria-label="Rhyme G, line 14"></p>
+      </div>
+      <p class="hint-line abs" style="--x:9.7;--y:59.6">stuck? the rhyme machine is on p. <span data-page="shk-rhyme-machine:R"></span> · sound, not spelling!</p>
+
+      <p class="mt-label abs sw-sheet-label" style="--x:9.7;--y:63.8">How your sheet must look</p>
+      <div class="sw-sheet abs" style="--x:9.7;--y:67.4;--w:80.6" aria-label="A model of the notebook sheet">
+        <p class="sw-sheet-top"><span>Name · Class · Date</span><span>Sonnet</span></p>
+        <p class="sw-sheet-title">“The title of your sonnet”</p>
+        <ol><li><b>A</b><span></span><i>10</i></li><li><b>B</b><span></span><i>10</i></li><li><b>A</b><span></span><i>10</i></li><li class="end"><b>B</b><span></span><i>10</i></li><li><b>C</b><span></span><i>10</i></li><li><b>D</b><span></span><i>10</i></li><li><b>C</b><span></span><i>10</i></li><li class="end"><b>D</b><span></span><i>10</i></li><li><b>E</b><span></span><i>10</i></li><li><b>F</b><span></span><i>10</i></li><li><b>E</b><span></span><i>10</i></li><li class="end"><b>F</b><span></span><i>10</i></li><li><b>G</b><span></span><i>10</i></li><li><b>G</b><span></span><i>10</i></li></ol>
+        <p class="sw-sheet-notes"><span>⟵ rhyme letters</span><span>underline the figures, the sense in the margin: 👁 👂 👃 👅 ✋</span><span>syllables ⟶</span></p>
+      </div>
+
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+
+    <!-- ============ RIGHT PAGE ============ -->
+    <section class="page page-right sh shx">
+      <div class="lt-pill abs" style="--x:8;--y:5"><b>7.34</b> Write it step by step: click every step you finish</div>
+      <ol class="sw-steps abs" style="--x:8;--y:9.6;--w:84">
+        <li><span class="chip toggle" id="sw34-0"><b>1</b>Plan</span><p>your rhyme words (7.33) and your notes: the senses (7.26), the stories (7.30), no clichés (7.32).</p></li>
+        <li><span class="chip toggle" id="sw34-1"><b>2</b>Draft</span><p>in pencil, one quatrain at a time. Use the rhyme machine on p. <span data-page="shk-rhyme-machine:R"></span>.</p></li>
+        <li><span class="chip toggle" id="sw34-2"><b>3</b>Count</span><p>the syllables of every line on your fingers: 10! Write the number in the right margin.</p></li>
+        <li><span class="chip toggle" id="sw34-3"><b>4</b>Read it aloud</span><p>to a partner. Ask: “What did you see, hear, smell, taste, touch?” Change what does not work.</p></li>
+        <li><span class="chip toggle" id="sw34-4"><b>5</b>Copy</span><p>the final version in pen on a clean sheet, like the model: name, title, 14 lines, rhyme letters.</p></li>
+        <li><span class="chip toggle" id="sw34-5"><b>6</b>Mark</span><p>your figures of speech: underline them and write the sense in the left margin (👁 👂 👃 👅 ✋).</p></li>
+        <li><span class="chip toggle" id="sw34-6"><b>7</b>Explain</span><p>on the back of the sheet: the table of your images (7.35).</p></li>
+        <li><span class="chip toggle" id="sw34-7"><b>8</b>Check</span><p>with the list below (7.36), then hand it in!</p></li>
+      </ol>
+
+      <div class="lt-pill abs" style="--x:8;--y:63"><b>7.35</b> On the back of the sheet: explain your images</div>
+      <p class="hint-line abs" style="--x:8;--y:67.6">copy this table on the back, one row for every important image · the “why” is a memory, a habit, a place that is really yours</p>
+      <div class="sw-explain sw-back abs" style="--x:8;--y:70.8;--w:84">
+        <p class="sw-explain-head"><span>Line</span><span>The image</span><span>Sense · figure</span><span>Why I chose it</span></p>
+        <p class="ex"><span>5</span><span>Her hands smell like the cinnamon we roll</span><span>smell · simile</span><span>Every Halloween we bake cinnamon rolls together: it is one of our happiest moments.</span></p>
+        <p class="ex"><span>9</span><span>Her laugh goes “Ha!” and wakes the sleepy cat</span><span>sound · onomatopoeia</span><span>Her laugh is so loud that our cat jumps off the sofa every time.</span></p>
+        <p class="ex blank"><span>…</span><span></span><span></span><span></span></p>
+      </div>
+
+      <div class="lt-pill abs" style="--x:8;--y:91"><b>7.36</b> Before you hand it in: click what you did</div>
+      <div class="sw-final-check abs" style="--x:8;--y:95.6;--w:84">
+        <p><b>Grammar</b><span class="chip toggle" id="sw36-0-0">I checked the verbs</span><span class="chip toggle" id="sw36-0-1">I checked the spelling</span><span class="chip toggle" id="sw36-0-2">I used varied words</span></p>
+        <p><b>Completeness</b><span class="chip toggle" id="sw36-1-0">sight</span><span class="chip toggle" id="sw36-1-1">sound</span><span class="chip toggle" id="sw36-1-2">smell</span><span class="chip toggle" id="sw36-1-3">taste</span><span class="chip toggle" id="sw36-1-4">touch</span><span class="chip toggle" id="sw36-1-5">a feeling</span><span class="chip toggle" id="sw36-1-6">14 lines</span><span class="chip toggle" id="sw36-1-7">ABAB CDCD EFEF GG</span></p>
+        <p><b>Coherence</b><span class="chip toggle" id="sw36-2-0">every image has a story</span><span class="chip toggle" id="sw36-2-1">the table on the back (7.35)</span></p>
+        <p><b>Originality</b><span class="chip toggle" id="sw36-3-0">no clichés</span><span class="chip toggle" id="sw36-3-1">I did the originality test</span><span class="chip toggle" id="sw36-3-2">a twist in the couplet</span></p>
+      </div>
+
+      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Shakespeare</span>
+    </section>
+  </div>
+
+<div class="spread scaffold" data-id="scaf-shk-sw-grid" data-title="Literature: Shakespeare" data-name="Your sonnet · Grading grid · A model sonnet">
+
+    <section class="page page-left scf-page"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · writing a sonnet</p>
+      <h1 class="scf-title">Your sonnet <span>grading grid</span></h1>
+      <p class="scf-sub">The notebook sheet: the sonnet on the front, the explanation of the images on the back (7.35). A proposal: one mark from 4 to 10 for each row, final mark = the average.</p>
+      <table class="shg-grid">
+        <thead><tr><th></th><th>4–5</th><th>6</th><th>7–8</th><th>9–10</th></tr></thead>
+        <tbody>
+          <tr><th>Grammar &amp; vocabulary<small>verbs, spelling, word choice</small></th><td>many mistakes make the meaning unclear</td><td>some mistakes; simple, repeated words</td><td>few mistakes; precise, varied words</td><td>accurate; rich and well-chosen vocabulary</td></tr>
+          <tr><th>Completeness<small>the senses, figures of speech, sonnet form</small></th><td>one or two senses; no figures; not a sonnet</td><td>some senses, few figures; form not complete</td><td>almost all senses with figures; 14 lines, rhyme scheme</td><td>all the senses, varied figures, form complete, a real twist</td></tr>
+          <tr><th>Coherence<small>every image is explained (7.35)</small></th><td>images are not explained or random</td><td>some images explained, in a general way</td><td>images explained with personal reasons</td><td>every image has a clear, personal story; the poem fits together</td></tr>
+          <tr><th>Originality<small>no clichés, personal images</small></th><td>mostly clichés</td><td>some clichés, some personal images</td><td>personal images, very few clichés</td><td>surprising images only this pupil could write</td></tr>
+        </tbody>
+      </table>
+      <p class="shg-final">Grammar ___ · Completeness ___ · Coherence ___ · Originality ___ &nbsp;→&nbsp; <b>Final mark ___</b></p>
+      <p class="scf-note">If you prefer the usual two marks: <b>vocabulary &amp; grammar</b> (row 1) and <b>writing &amp; completeness</b> (the average of rows 2–4).</p>
+      <h2 class="shg-h">How to use the pages <small>three lessons</small></h2>
+      <ol class="scf-steps">
+        <li>The criteria and the senses (p. <span data-page="shk-sw-plan"></span>): 7.26 is the plan, 7.27–7.28 practice.</li>
+        <li>Coherence and clichés (p. <span data-page="shk-sw-images"></span>): read the model on the right page of this scaffolding (the mom sonnet) together, then 7.29–7.32.</li>
+        <li>Final version on paper (p. <span data-page="shk-sw-final"></span>): rhyme plan (7.33), the steps (7.34); they hand in a notebook sheet with the sonnet and, on the back, the table of their images (7.35).</li>
+      </ol>
+    </div></section>
+
+    <section class="page page-right scf-page"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · a model sonnet to read together</p>
+      <table class="shg-key sw-model-key">
+        <thead><tr><th>#</th><th>“My Mom”</th><th>Figure · sense</th><th>The story (coherence)</th></tr></thead>
+        <tbody>
+          <tr><th>1</th><td>My mom is not a rose: she is the bread</td><td>anti-cliché like Sonnet 130 · metaphor · sight / taste</td><td>she bakes bread every Sunday, the house is warm</td></tr>
+          <tr><th>2</th><td>that rises slowly on a winter day;</td><td>image of the bread rising</td><td>she is calm, she takes her time</td></tr>
+          <tr><th>3</th><td>her voice, a radio left on in the shed,</td><td>metaphor · sound</td><td>she always sings with the old radio in the garage</td></tr>
+          <tr class="end"><th>4</th><td>hums songs that chase my bad dreams far away.</td><td>personification · sound</td><td>she sang to me when I had nightmares</td></tr>
+          <tr><th>5</th><td>Her hands smell like the cinnamon we roll</td><td>simile · smell</td><td>we bake cinnamon rolls together every Halloween</td></tr>
+          <tr><th>6</th><td>together every Halloween at night;</td><td>enjambment from line 5</td><td>one of our happiest moments</td></tr>
+          <tr><th>7</th><td>her hugs taste like hot chocolate in a bowl,</td><td>simile · taste</td><td>she makes hot chocolate when I come home cold</td></tr>
+          <tr class="end"><th>8</th><td>her eyes are lamps that wait for me, still bright.</td><td>metaphor · sight</td><td>she waits for me with the porch light on</td></tr>
+          <tr><th>9</th><td>Her laugh goes “Ha!” and wakes the sleepy cat;</td><td>onomatopoeia · sound · personification</td><td>her laugh is really loud: our cat jumps</td></tr>
+          <tr><th>10</th><td>her coat is scratchy hay in early June;</td><td>metaphor · touch</td><td>her old wool coat scratches when she hugs me</td></tr>
+          <tr><th>11</th><td>she rushes out, she never finds her hat,</td><td>action (what is she doing?)</td><td>she is always late in the morning</td></tr>
+          <tr class="end"><th>12</th><td>she sings off-key and always out of tune.</td><td>sound · humor</td><td>funny: she is not a perfect singer</td></tr>
+          <tr><th>13</th><td>She is not perfect: she is loud and late,</td><td>volta · antithesis with the couplet</td><td>honest, like Shakespeare</td></tr>
+          <tr><th>14</th><td>but she’s my home, and home is worth the wait.</td><td>metaphor · twist · feeling</td><td>the message: she is my home</td></tr>
+        </tbody>
+      </table>
+      <p class="scf-note">ABAB CDCD EFEF GG · all five senses + a feeling · first line against the cliché (“not a rose”), like Sonnet 130 · the couplet is the twist.</p>
+    </div></section>
+  </div>
+
+<div class="spread" data-id="rj-verona" data-title="Literature: Romeo &amp; Juliet" data-name="What do you know? · Who's who in Verona">
 
     <!-- ============ LEFT PAGE ============ -->
     <section class="page page-left sh rj rjx">
@@ -17168,6 +17425,9 @@
   <script src="poker-online.js"></script>
   <script src="poker.js"></script>
   <script src="poker-deck.js"></script>
+  <script src="race-data.js"></script>
+  <script src="race-core.js"></script>
+  <script src="race.js"></script>
   <script src="marquee.js"></script>
   <script src="play-voice.js"></script>
   <script src="scaffold.js"></script>
