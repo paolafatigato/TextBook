@@ -71,7 +71,7 @@
   function pushMe() {
     store.set('me', JSON.stringify({ code, rid: R.rid, me }));
     const rem = me.phase === 'fix' ? wrongList().length : 0;
-    raceApi().setPlayer(code, me.id, { id: me.id, rid: R.rid, n: me.n, a: me.a, phase: me.phase, rem, fin: me.fin || 0, mis: me.mis || 0, t: me.t || 0 })
+    return raceApi().setPlayer(code, me.id, { id: me.id, rid: R.rid, n: me.n, a: me.a, phase: me.phase, rem, fin: me.fin || 0, mis: me.mis || 0, t: me.t || 0 })
       .then(() => { if (offline) { offline = false; paintTrack(); } })
       .catch(() => { offline = true; paintTrack(); });
   }
@@ -254,10 +254,13 @@
       set = C.makeSet(R.seed, R.minutes);
       me = back ? { ...saved.me, n: name } : { id: rand(10) + Date.now().toString(36), n: name, answers: [], a: 0, phase: 'play', fin: 0, mis: 0, t: 0 };
       store.set('name', name);
+      offline = false;
+      await pushMe();   // if our name cannot be written (rules, no internet) we must know now, not play alone
+      if (offline) throw Object.assign(new Error('permission-denied'), { code: 'permission-denied' });
       listen();
-      pushMe();
       kidView();
     } catch (err) {
+      role = null; R = null; me = null;
       area.querySelector('#rcJoin').disabled = false;
       msg.textContent = err.code === 'full' ? 'This race is full.' : errorText(err);
     }
@@ -297,7 +300,7 @@
       view = 'lobby'; trackEl.hidden = true;
       const names = (R.board || []).map(r => `<span>${esc(r.n)}</span>`).join('');
       set$(`<div class="rc-menu"><h2>You are in, ${esc(me.n)}!</h2><p class="rc-sub">Waiting for the teacher to start the race…</p>
-        <p class="rc-bigcode">Code <b>${esc(code)}</b></p><p class="rc-count">${R.cnt || 1} player${(R.cnt || 1) > 1 ? 's' : ''} ready</p><div class="rc-names">${names}</div></div>`);
+        <p class="rc-bigcode">Code <b>${esc(code)}</b></p><p class="rc-count">${R.cnt || 0} player${R.cnt === 1 ? '' : 's'} ready</p><div class="rc-names">${names}</div></div>`);
       return;
     }
     tick();
@@ -313,8 +316,10 @@
     const fixing = me.phase === 'fix';
     const i = fixing ? wrongList()[0] : me.a;
     const ex = set[i];
+    const T = D.topics[ex.topic], how = T.how ? T.how[ex.t] : '';
     const gap = esc(ex.q).replace('___', '<span class="rc-gap">＿＿＿</span>');
-    set$(`<div class="rc-card${fixing ? ' fixing' : ''}">
+    set$(`<div class="rc-card${fixing ? ' fixing' : ''}" style="--tc:${T.color}">
+      <div class="rc-topic"><b>${esc(T.label)}</b><span>${esc(how)}</span><em>${ex.gi + 1}/${ex.gn}</em></div>
       ${fixing ? `<p class="rc-fixmsg">✋ Not all right! Fix this one. <b>${wrongList().length}</b> to go.</p>` : ''}
       <p class="rc-num">${fixing ? 'Exercise ' + (i + 1) : `Exercise ${i + 1} of ${R.n}`}</p>
       <p class="rc-q">${gap}</p>

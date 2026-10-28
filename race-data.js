@@ -5,11 +5,13 @@
 //   { t: 'choice', q: 'I ___ 11 years old.', o: ['am', 'is', 'are'], a: 0 }   → tap the right word (a = the place of the right one; the buttons are shuffled)
 //   { t: 'type',   q: 'My cat ___ black. (be)', a: ['is'] }                   → write the word(s); a = every answer that is accepted
 // ___ marks the gap. Capital letters and the final . ! ? do not matter; ’ and ' are the same.
+// `how` = the line under the coloured name of the topic (one for each kind of exercise). In a race the exercises come in groups
+// of 4-8 of the same topic and the same kind, like the exercises of the book.
 // A new topic = a new key in `topics` (the race takes the same number of exercises from every topic).
 
 (() => {
   const topics = {
-    pronouns: { label: 'Pronouns', color: '#3b9ae0', items: [
+    pronouns: { label: 'Subject pronouns', color: '#3b9ae0', how: { choice: 'Choose the pronoun.', type: 'Write the pronoun.' }, items: [
       { t: 'choice', q: 'Anna is my friend. ___ is from Rome.', o: ['She', 'He', 'It'], a: 0 },
       { t: 'choice', q: 'Marco and I are cousins. ___ are in the same class.', o: ['We', 'They', 'You'], a: 0 },
       { t: 'choice', q: 'My brother is 12. ___ is very tall.', o: ['He', 'She', 'It'], a: 0 },
@@ -26,7 +28,7 @@
       { t: 'type', q: 'The table → ___ (one word)', a: ['it'] },
       { t: 'type', q: 'Marta and Giulia → ___ (one word)', a: ['they'] },
     ] },
-    be: { label: 'To be', color: '#8e2de2', items: [
+    be: { label: 'Verb to be', color: '#8e2de2', how: { choice: 'Choose the right form of to be.', type: 'Write the form of to be.' }, items: [
       { t: 'choice', q: 'I ___ 11 years old.', o: ['am', 'is', 'are'], a: 0 },
       { t: 'choice', q: 'My parents ___ at work.', o: ['are', 'is', 'am'], a: 0 },
       { t: 'choice', q: 'Tom ___ happy today.', o: ['is', 'are', 'am'], a: 0 },
@@ -43,7 +45,7 @@
       { t: 'type', q: 'The boys are ready. → ___ the boys ready?', a: ['are'] },
       { t: 'type', q: 'It ___ a cold day. (be)', a: ['is'] },
     ] },
-    possessives: { label: 'My, your, his…', color: '#f05f4b', items: [
+    possessives: { label: 'Possessive adjectives', color: '#f05f4b', how: { choice: 'Choose my, your, his, her, its, our or their.', type: 'Write the possessive adjective.' }, items: [
       { t: 'choice', q: 'I love ___ dog.', o: ['my', 'me', 'mine'], a: 0 },
       { t: 'choice', q: 'Anna loves ___ new phone.', o: ['her', 'his', 'she'], a: 0 },
       { t: 'choice', q: 'Tom and I love ___ school.', o: ['our', 'their', 'my'], a: 0 },
@@ -60,7 +62,7 @@
       { t: 'type', q: 'She → ___ name (one word)', a: ['her'] },
       { t: 'type', q: 'I → ___ bag (one word)', a: ['my'] },
     ] },
-    saxon: { label: 'The ’s', color: '#2e9e4f', items: [
+    saxon: { label: 'Possessive ’s', color: '#2e9e4f', how: { choice: 'Choose the right ’s.', type: 'Write the owner with ’s.' }, items: [
       { t: 'choice', q: 'The book of Anna → ___ book', o: ["Anna's", 'Annas', "Annas'"], a: 0 },
       { t: 'choice', q: 'The cars of my parents → my ___ cars', o: ["parents'", "parent's", 'parents'], a: 0 },
       { t: 'choice', q: 'This is my ___ bike.', o: ["brother's", 'brothers', "brothers's"], a: 0 },

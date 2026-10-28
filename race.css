@@ -124,3 +124,12 @@ html.rc-open { overflow: hidden; scrollbar-gutter: stable; }
 .rc-open-btn { cursor: pointer; border: 0; border-radius: 999px; font: 800 1.6cqw/1 'Nunito', sans-serif; color: #fff; padding: 1.1cqw 2.2cqw; background: #f05f4b; box-shadow: .4cqw .4cqw 0 #1f2a6b; }
 .rc-open-btn:hover { filter: brightness(.94); }
 @media print { .rc-open-btn, .rc-overlay { display: none !important; } }
+
+/* the colored bar on top of every exercise: which topic, what to do, the place in the group of exercises */
+.rc-topic { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; justify-content: center; margin: 0 0 12px; padding: 8px 14px; border-radius: 14px; background: var(--tc); color: #fff; }
+.rc-topic b { font: 700 1.15em 'Fredoka', 'Nunito', sans-serif; text-transform: uppercase; letter-spacing: .04em; }
+.rc-topic span { font-weight: 700; font-size: .9em; }
+.rc-topic em { font-style: normal; font-weight: 800; font-size: .85em; background: rgba(255, 255, 255, .28); border-radius: 999px; padding: 0 10px; }
+.rc-card { --tc: var(--rc-purple); }
+.rc-opt:hover:not(:disabled) { border-color: var(--tc); }
+.rc-gap { border-bottom-color: var(--tc); }

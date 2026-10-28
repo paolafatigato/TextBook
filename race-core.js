@@ -27,12 +27,44 @@
     const each = Math.floor(countFor(minutes) / keys.length);
     const list = [];
     keys.forEach(k => {
-      shuffled(D.topics[k].items.map((it, i) => ({ it, id: `${k}${i}` })), rng).slice(0, each).forEach(({ it, id }) => {
+      // about one exercise in three is a 'write' one (the pool has 10 'choose' and 5 'write' for every topic)
+      const all = D.topics[k].items.map((it, i) => ({ it, id: `${k}${i}` }));
+      const nType = Math.round(each / 3);
+      const pick = (t, n) => shuffled(all.filter(x => x.it.t === t), rng).slice(0, n);
+      [...pick('type', nType), ...pick('choice', each - nType)].forEach(({ it, id }) => {
         if (it.t === 'choice') list.push({ id, topic: k, t: 'choice', q: it.q, o: shuffled(it.o, rng), a: [it.o[it.a]] });
         else list.push({ id, topic: k, t: 'type', q: it.q, a: it.a });
       });
     });
-    return shuffled(list, rng);
+    return inGroups(list, rng);
+  }
+
+  // like the book: groups of 4-8 exercises on the same topic and with the same mechanism (choose / write), the groups in a mixed order
+  // (never two of the same topic one after the other, if it can be avoided). Every exercise knows its place: g (group), gi (in the group), gn (size).
+  function chunks(arr, rng) {
+    const rest = arr.slice(), out = [];
+    while (rest.length) {
+      let n = rest.length <= 8 ? rest.length : 4 + Math.floor(rng() * 4);
+      if (rest.length - n > 0 && rest.length - n < 3) n = rest.length - 3;
+      out.push(rest.splice(0, n));
+    }
+    return out;
+  }
+  function inGroups(list, rng) {
+    let groups = [];
+    Object.keys(D.topics).forEach(k => ['choice', 'type'].forEach(t => {
+      const items = list.filter(e => e.topic === k && e.t === t);
+      if (items.length) groups.push(...chunks(shuffled(items, rng), rng));
+    }));
+    let best = null;
+    for (let tries = 0; tries < 300; tries++) {
+      const g = shuffled(groups, rng);
+      const clash = g.filter((x, i) => i && x[0].topic === g[i - 1][0].topic).length;
+      if (!best || clash < best.clash) best = { g, clash };
+      if (!clash) break;
+    }
+    groups = best.g;
+    return groups.flatMap((g, gi) => g.map((e, i) => ({ ...e, g: gi, gi: i, gn: g.length })));
   }
 
   const clean = s => String(s == null ? '' : s).toLowerCase().replace(/[’‘`´]/g, "'").replace(/[.!?]+$/g, '').replace(/\s+/g, ' ').trim();
