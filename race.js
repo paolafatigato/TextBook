@@ -69,6 +69,7 @@
 
   /* ---------- the player's document ---------- */
   function pushMe() {
+    if (role === 'solo') return Promise.resolve();   // practice race: nothing is sent
     store.set('me', JSON.stringify({ code, rid: R.rid, me }));
     const rem = me.phase === 'fix' ? wrongList().length : 0;
     return raceApi().setPlayer(code, me.id, { id: me.id, rid: R.rid, n: me.n, a: me.a, phase: me.phase, rem, fin: me.fin || 0, mis: me.mis || 0, t: me.t || 0 })
@@ -101,6 +102,7 @@
           <button type="button" class="rc-btn go" id="rcJoin">Join the race ▶</button>
           <p class="rc-msg" id="rcMsg">${esc(msg)}</p>
         </div>
+        <p class="rc-solo"><button type="button" class="rc-btn ghost" id="rcSolo">⏱ Practice race: alone, with your time</button></p>
         <p class="rc-teacher">Teacher? <button type="button" class="rc-link" id="rcMake">Make a race</button>${hosted ? ` · <button type="button" class="rc-link" id="rcResume">Go back to race ${esc(hosted.code)}</button>` : ''}</p>
         <ul class="rc-how">
           <li>Everybody has the same exercises. Answer them one by one.</li>
@@ -113,6 +115,7 @@
     area.querySelectorAll('input').forEach(i => i.addEventListener('keydown', e => { if (e.key === 'Enter') go(); }));
     area.querySelector('#rcCode').addEventListener('input', e => { e.target.value = e.target.value.toUpperCase().replace(/[^A-Z]/g, ''); });
     area.querySelector('#rcMake').onclick = () => hostSetup();
+    area.querySelector('#rcSolo').onclick = soloSetup;
     area.querySelector('#rcResume')?.addEventListener('click', () => resumeHost(hosted));
     (area.querySelector('#rcCode').value ? area.querySelector('#rcName') : area.querySelector('#rcCode')).focus();
   }
@@ -125,7 +128,7 @@
         <h2>Make a race</h2>
         <p class="rc-sub">The exercises are about the pronouns, the verb <i>to be</i>, <i>my, your, his…</i> and the <i>’s</i>.</p>
         <div class="rc-mins" role="radiogroup" aria-label="Minutes">
-          ${ST.presets.map(p => `<button type="button" class="rc-min${p.minutes === startMinutes ? ' on' : ''}" data-m="${p.minutes}"><b>${p.name}</b>about ${p.minutes} minutes<small>${C.countFor(p.minutes)} exercises</small></button>`).join('')}
+          ${ST.presets.map(p => `<button type="button" class="rc-min${p.minutes === startMinutes ? ' on' : ''}" data-m="${p.minutes}"><b>${p.name}</b><small>${C.countFor(p.minutes)} exercises</small></button>`).join('')}
         </div>
         <button type="button" class="rc-btn go" id="rcMakeGo">Make the race ▶</button>
         <button type="button" class="rc-btn ghost" id="rcBack">‹ Back</button>
@@ -145,6 +148,34 @@
         startHost();
       } catch (err) { hostSetup(errorText(err)); }
     };
+  }
+
+  /* ---------- practice race: alone ---------- */
+  function soloSetup() {
+    view = 'setup';
+    const best = m => { try { const b = JSON.parse(store.get('best-' + m)); return b ? `Best: ${fmt(b.time)}` : ''; } catch { return ''; } };
+    set$(`
+      <div class="rc-menu">
+        <h2>Practice race</h2>
+        <p class="rc-sub">Do the exercises alone and see how long you take. Beat your best time!</p>
+        <div class="rc-mins" role="radiogroup" aria-label="Length">
+          ${ST.presets.map(p => `<button type="button" class="rc-min${p.minutes === startMinutes ? ' on' : ''}" data-m="${p.minutes}"><b>${p.name}</b><small>${C.countFor(p.minutes)} exercises ${best(p.minutes)}</small></button>`).join('')}
+        </div>
+        <button type="button" class="rc-btn go" id="rcSoloGo">Start ▶</button>
+        <button type="button" class="rc-btn ghost" id="rcBack">‹ Back</button>
+      </div>`);
+    area.querySelectorAll('.rc-min').forEach(b => b.onclick = () => { startMinutes = +b.dataset.m; area.querySelectorAll('.rc-min').forEach(x => x.classList.toggle('on', x === b)); });
+    area.querySelector('#rcBack').onclick = () => home();
+    area.querySelector('#rcSoloGo').onclick = startSolo;
+  }
+  function startSolo() {
+    teardown();
+    role = 'solo'; code = '';
+    R = { rid: 'solo', minutes: startMinutes, seed: rand(6), n: C.countFor(startMinutes), status: 'run', el: 0, board: [], cnt: 0, recvAt: Date.now() };
+    set = C.makeSet(R.seed, R.minutes);
+    me = { id: 'solo', n: 'You', answers: [], a: 0, phase: 'play', fin: 0, mis: 0, t: 0 };
+    tickT = setInterval(tick, 1000);
+    kidView();
   }
 
   async function resumeHost(h) {
@@ -187,7 +218,7 @@
     if (R.status === 'lobby') {
       set$(`<div class="rc-menu">
         <h2>Waiting for the players</h2>${head}
-        <p class="rc-sub">Everybody opens the book, presses <b>Grammar Race</b> and types this code and their name.<br>about ${R.minutes} minutes · ${R.n} exercises</p>
+        <p class="rc-sub">Everybody opens the book, presses <b>Grammar Race</b> and types this code and their name.<br>${(ST.presets.find(p => p.minutes === R.minutes) || {}).name || ''} race · ${R.n} exercises</p>
         <p class="rc-count" id="rcCount"></p>
         <div class="rc-names" id="rcNames"></div>
         <div class="rc-actions">
@@ -295,7 +326,7 @@
     if (!R) return;
     if (R.status === 'lobby') { clockEl.hidden = true; return; }
     clockEl.hidden = false;   // the time only goes forward
-    clockEl.textContent = R.status === 'over' ? '🏁 Race closed' : `⏱ ${fmt(elapsed())}`;
+    clockEl.textContent = R.status === 'over' ? '🏁 Race closed' : `⏱ ${fmt(role === 'solo' && me && me.fin ? me.fin : elapsed())}`;
   }
 
   /* ---------- the player: waiting, playing ---------- */
@@ -324,25 +355,41 @@
     const ex = set[i];
     const T = D.topics[ex.topic], how = T.how ? T.how[ex.t] : '';
     const gap = esc(ex.q).replace('___', '<span class="rc-gap">＿＿＿</span>');
+    const bad = fixing ? (me.bad && me.bad[i]) || [me.answers[i]] : [];   // what was answered, and is wrong
+    const isBad = o => bad.some(b => C.clean(b) === C.clean(o));
     set$(`<div class="rc-card${fixing ? ' fixing' : ''}" style="--tc:${T.color}">
       <div class="rc-topic"><b>${esc(T.label)}</b><span>${esc(how)}</span><em>${ex.gi + 1}/${ex.gn}</em></div>
-      ${fixing ? `<p class="rc-fixmsg">✋ Not all right! Fix this one. <b>${wrongList().length}</b> to go.</p>` : ''}
+      ${fixing ? `<p class="rc-fixmsg">✋ Fix your mistakes! <b>${wl.length}</b> to go. Your answer is in red.</p>` : ''}
       <p class="rc-num">${fixing ? 'Exercise ' + (i + 1) : `Exercise ${i + 1} of ${R.n}`}</p>
       <p class="rc-q">${gap}</p>
       ${ex.t === 'choice'
-        ? `<div class="rc-opts">${ex.o.map(o => `<button type="button" class="rc-opt" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>`
-        : `<div class="rc-type"><input id="rcAns" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Your answer" placeholder="Write here"><button type="button" class="rc-btn go" id="rcNext">Next ›</button></div>`}
+        ? `<div class="rc-opts">${ex.o.map(o => `<button type="button" class="rc-opt${isBad(o) ? ' wrong' : ''}" data-v="${esc(o)}"${isBad(o) ? ' disabled' : ''}>${esc(o)}</button>`).join('')}</div>`
+        : `${fixing ? `<p class="rc-given">${bad.map(b => `<span>${esc(b)}</span>`).join('')}</p>` : ''}<div class="rc-type"><input id="rcAns" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Your answer" placeholder="Write here"><button type="button" class="rc-btn go" id="rcNext">Next ›</button></div>`}
       <p class="rc-tryagain" id="rcTry" hidden>Not yet. Try again!</p>
     </div>`);
     paintTrack();
+    lockExercise();
     if (ex.t === 'choice') area.querySelectorAll('.rc-opt').forEach(b => b.onclick = () => answer(b.dataset.v, b));
     else {
       const inp = area.querySelector('#rcAns');
       const go = () => answer(inp.value);
       area.querySelector('#rcNext').onclick = go;
       inp.addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
-      inp.focus();
     }
+  }
+
+  // an exercise cannot be answered for the first seconds (ST.minSeconds): read it, think, then answer
+  function lockExercise() {
+    const card = area.querySelector('.rc-card');
+    const controls = [...card.querySelectorAll('.rc-opt:not(.wrong), #rcAns, #rcNext')];
+    controls.forEach(c => { c.disabled = true; });
+    card.classList.add('waiting');
+    setTimeout(() => {
+      if (!card.isConnected) return;   // the screen has changed
+      controls.forEach(c => { c.disabled = false; });
+      card.classList.remove('waiting');
+      card.querySelector('#rcAns')?.focus();
+    }, ST.minSeconds * 1000);
   }
 
   function answer(value, btn) {
@@ -360,7 +407,9 @@
       me.answers[i] = value; pushMe();
       if (wrongList().length) kidView(); else finish();   // everything is right now: you are a finisher, no more clicks
     } else {
+      (me.bad ||= {})[i] = [...((me.bad[i]) || [me.answers[i]]), value];   // every wrong try stays red
       btn?.classList.add('wrong'); if (btn) btn.disabled = true;
+      if (!btn) { const g = area.querySelector('.rc-given') || (area.querySelector('.rc-type').insertAdjacentHTML('beforebegin', '<p class="rc-given"></p>'), area.querySelector('.rc-given')); g.insertAdjacentHTML('beforeend', `<span>${esc(value)}</span>`); }
       area.querySelector('#rcTry').hidden = false;
       const inp = area.querySelector('#rcAns'); if (inp) { inp.select(); inp.classList.add('shake'); setTimeout(() => inp.classList.remove('shake'), 400); }
       // the exercise comes back later: the next wrong one is shown now
@@ -377,6 +426,7 @@
       <button type="button" class="rc-btn go big" id="rcFinish">🏁 Finish</button></div>`);
     paintTrack();
     area.querySelector('#rcFinish').onclick = finish;
+    area.querySelector('#rcFinish').scrollIntoView({ block: 'center' });   // in a low window the button must not stay under the line
   }
 
   function finish() {
@@ -396,6 +446,7 @@
   }
   function doneView() {
     view = 'done';
+    if (role === 'solo') return soloDone();
     const st = standings();
     const place = st.findIndex(p => p.id === me.id) + 1;
     const first = place === 1;
@@ -415,6 +466,21 @@
     paintTrack();
   }
 
+  function soloDone() {
+    clockEl.hidden = false; tick();
+    let prev = null;
+    try { prev = JSON.parse(store.get('best-' + R.minutes)); } catch { /* none */ }
+    const record = !prev || me.fin < prev.time;
+    if (record) store.set('best-' + R.minutes, JSON.stringify({ time: me.fin, mis: me.mis }));
+    set$(`<div class="rc-card rc-done">
+      <h2>${record ? '🏆 New best time!' : '🏁 Finished!'}</h2>
+      <p class="rc-sub">Your time: <b class="rc-time">${fmt(me.fin)}</b> · ${R.n} exercises<br>${me.mis ? `You fixed ${me.mis} mistake${me.mis > 1 ? 's' : ''} on the way.` : 'No mistakes at the first try!'}${!record && prev ? `<br>Your best time: ${fmt(prev.time)}` : ''}</p>
+      <div class="rc-actions"><button type="button" class="rc-btn go" id="rcAgain">Race again ▶</button><button type="button" class="rc-btn ghost" id="rcHome">Back</button></div></div>`);
+    paintTrack();
+    area.querySelector('#rcAgain').onclick = startSolo;
+    area.querySelector('#rcHome').onclick = () => home();
+  }
+
   function overView() {
     view = 'over'; clockEl.hidden = false; tick();
     trackEl.hidden = true;
@@ -429,7 +495,7 @@
 
   /* ---------- the line at the top: the first, who is just before me, me, who is just behind ---------- */
   function paintTrack() {
-    if (role !== 'kid' || !R || R.status !== 'run' || view === 'lobby' || view === 'over') { trackEl.hidden = true; return; }
+    if ((role !== 'kid' && role !== 'solo') || !R || R.status !== 'run' || view === 'lobby' || view === 'over') { trackEl.hidden = true; return; }
     const st = standings(), r = st.findIndex(p => p.id === me.id);
     const lead = st[0], ahead = r > 0 ? st[r - 1] : null, behind = st[r + 1] || null;
     const x = p => Math.min(100, Math.max(0, p.pos / R.n * 100));
@@ -439,15 +505,16 @@
     const special = new Set([lead, ahead, behind].filter(Boolean).map(p => p.id));
     special.add(me.id);
     const chips = [];
-    if (r === 0) chips.push(chip('first me', '🥇', { n: 'You' }, 'first!'));
+    if (role === 'solo') chips.push(chip('me', '👉', { n: 'You' }, me.phase === 'fix' ? `fixing ${wrongList().length}` : `${C.posOf(myRow(), R.n)}/${R.n}`));
+    else if (r === 0) chips.push(chip('first me', '🥇', { n: 'You' }, 'first!'));
     else {
       chips.push(chip('first', '🥇', lead, note(lead)));
       if (ahead && ahead.id !== lead.id) chips.push(chip('ahead', '⬆', ahead, note(ahead)));
       chips.push(chip('me', '👉', { n: 'You', pos: C.posOf(myRow(), R.n) }, `#${r + 1} of ${st.length}`));
     }
-    if (behind) chips.push(chip('behind', '⬇', behind, note(behind)));
+    if (behind && role !== 'solo') chips.push(chip('behind', '⬇', behind, note(behind)));
     trackEl.hidden = false;
-    trackEl.innerHTML = `<div class="rc-line"><span class="rc-end s">START</span><span class="rc-end f">🏁</span>
+    trackEl.innerHTML = `<div class="rc-line"><span class="rc-lend s">START</span><span class="rc-lend f">🏁</span>
       <div class="rc-rail">${st.filter(p => !special.has(p.id)).map(p => dot(p, 'tiny')).join('')}${[lead, ahead, behind].filter((p, i, a) => p && p.id !== me.id && a.indexOf(p) === i).map(p => dot(p, p === lead ? 'lead' : p === ahead ? 'ahead' : 'behind')).join('')}${dot({ ...myRow(), n: me.n, pos: C.posOf(myRow(), R.n) }, 'me')}</div></div>
       <div class="rc-chips">${chips.join('')}${offline ? '<span class="rc-chip off">⚠ offline</span>' : ''}</div>`;
   }
@@ -463,12 +530,14 @@
   function open() {
     overlay.hidden = false;
     document.documentElement.classList.add('rc-open');
+    updateFab();
     if (!role) home();
     box.focus();
   }
   function close() {
     overlay.hidden = true;
     document.documentElement.classList.remove('rc-open');
+    updateFab();
   }
   // the title goes back to the start; the cross hides the pop-up (the race goes on in the background)
   overlay.querySelector('#rcTitle').onclick = () => {
@@ -479,16 +548,46 @@
     }
   };
   overlay.querySelector('#rcClose').onclick = () => {
-    if (role === 'kid' && me && me.phase !== 'done' && R && R.status === 'run' && !confirm('Close the race? You can come back with the same code.')) return;
+    if ((role === 'kid' || role === 'solo') && me && me.phase !== 'done' && R && R.status === 'run' && !confirm(role === 'solo' ? 'Close the practice race? Your time is lost.' : 'Close the race? You can come back with the same code.')) return;
     close();
   };
   document.addEventListener('keydown', e => {
     if (overlay.hidden) return;
     if (e.key === 'Escape') overlay.querySelector('#rcClose').click();
+    // Enter = the green button of the screen (Next, Finish, Race again…), in the box or not
+    if (e.key === 'Enter' && !e.target.closest('button, textarea')) {   // (the boxes' own Enter never arrives: this handler stops the keys)
+      const go = area.querySelector('#rcNext:not(:disabled), #rcFinish, #rcAgain, #rcStart, #rcSoloGo, #rcMakeGo, #rcJoin:not(:disabled)');
+      if (go) { e.preventDefault(); go.click(); }
+    }
     e.stopPropagation(); // the arrows must not turn the pages behind
   }, true);
 
   window.GRAMMAR_RACE = { open, close };
+
+  /* ================= the pop-up outside the page: it opens by itself at the end of the spread, a button opens it again ================= */
+  const HOME_SPREAD = 'own-mistakes';   // the end of p. 39
+  const fab = document.createElement('button');
+  fab.type = 'button'; fab.className = 'rc-fab'; fab.hidden = true;
+  fab.textContent = '🏁 Grammar Race';
+  fab.onclick = open;
+  document.body.append(fab);
+  const onSpread = () => { const s = document.querySelector('.spread.current'); return s && s.dataset.id === HOME_SPREAD ? s : null; };
+  const updateFab = () => { fab.hidden = !overlay.hidden || !onSpread(); };
+  const seenHere = new Set();
+  const atBottom = () => window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4;
+  function check() {
+    updateFab();
+    const s = onSpread();
+    if (!s || !overlay.hidden || seenHere.has(HOME_SPREAD) || document.documentElement.className.match(/(gq|gp)-open/)) return;
+    if (atBottom() && s.getBoundingClientRect().bottom <= window.innerHeight) { seenHere.add(HOME_SPREAD); open(); }
+  }
+  let queued = false;
+  const later = () => { if (queued) return; queued = true; requestAnimationFrame(() => { queued = false; check(); }); };
+  window.addEventListener('scroll', later, { passive: true });
+  window.addEventListener('wheel', e => { if (e.deltaY > 0) later(); }, { passive: true });
+  window.addEventListener('resize', later);
+  document.addEventListener('spreadchange', later);
+  window.addEventListener('load', later);
 
   /* ================= the Games list on the home page, and the button on the page ================= */
   document.addEventListener('click', e => {
@@ -501,7 +600,8 @@
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', '#f05f4b');
-    pill.innerHTML = `<summary>${typeof VS_SIGN === 'string' ? VS_SIGN : ''} Grammar Race <small>1</small></summary><div class="topic-pages"><a href="#p${PAGES.of('own-mistakes:R')}" data-race-open>${typeof VS_SIGN === 'string' ? VS_SIGN : ''} 🏁 Grammar Race</a></div>`;
+    pill.dataset.at = Number(PAGES.of('own-mistakes:R')) + 0.1;   // in the order of the book, but no page link: the race is always in the list
+    pill.innerHTML = `<summary>${typeof VS_SIGN === 'string' ? VS_SIGN : ''} Grammar Race <small>1</small></summary><div class="topic-pages"><a href="#" data-race-open>${typeof VS_SIGN === 'string' ? VS_SIGN : ''} 🏁 Grammar Race</a></div>`;
     list.append(pill);
     document.addEventListener('click', e => { if (!e.target.closest('#gameList')) pill.open = false; });
     list.addEventListener('toggle', e => {

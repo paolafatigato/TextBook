@@ -7,7 +7,8 @@
 // ___ marks the gap. Capital letters and the final . ! ? do not matter; ’ and ' are the same.
 // `how` = the line under the coloured name of the topic (one for each kind of exercise). In a race the exercises come in groups
 // of 4-8 of the same topic and the same kind, like the exercises of the book.
-// `fromMinutes: 20` = only in the long races (the translation exercises).
+// `fromMinutes: 40` = only in the long race (the translation exercises). The 'minutes' of a version are only its size, never shown:
+// they give the number of exercises (perMinute × minutes, the same from every topic).
 // A new topic = a new key in `topics` (the race takes the same number of exercises from every topic).
 
 (() => {
@@ -108,7 +109,7 @@
       { t: 'choice', q: "“He’s a doctor” = He ___ a doctor.", o: ["is","his","are"], a: 0 },
       { t: 'type', q: "Paul ___ from Spain. (is / his)", a: ["is"] },
       { t: 'type', q: "Paul loves ___ dog. (is / his)", a: ["his"] },
-      { t: 'type', q: "Anna is Paul’s sister. She loves ___ brother. (is / his)", a: ["his"] },
+      { t: 'type', q: "Paul is Anna’s brother. He loves ___ sister. (is / his)", a: ["his"] },
       { t: 'type', q: "The sky ___ blue. (is / his)", a: ["is"] },
     ] },
     youre: { label: 'Your or you’re?', color: '#c2398f', how: { choice: 'Choose your or you’re.', type: 'Write your or you’re.' }, items: [
@@ -127,7 +128,7 @@
       { t: 'type', q: "Open ___ notebook, please. (your / you're)", a: ["your"] },
       { t: 'type', q: "___ my friend. (your / you're)", a: ["you're","you are"] },
     ] },
-    translate: { label: 'Translate', color: '#5b6ee1', fromMinutes: 20, how: { type: 'Translate into English. Use ’s.' }, items: [
+    translate: { label: 'Translate', color: '#5b6ee1', fromMinutes: 40, how: { type: 'Translate into English. Use ’s.' }, items: [
       { t: 'type', q: "La canzone di Michael Jackson", a: ["Michael Jackson's song"] },
       { t: 'type', q: "Lo zaino di mio figlio", a: ["My son's backpack","My son's bag","My son's rucksack"] },
       { t: 'type', q: "Le uniformi degli studenti", a: ["The students' uniforms","Students' uniforms"] },
@@ -146,8 +147,9 @@
   const settings = {
     perMinute: 2.2,      // exercises per minute: the same number from every topic that is in the race
     // the three versions. The minutes are only the length it is planned for (the clock just goes forward): they decide how many exercises.
-    presets: [{ name: 'Short', minutes: 10 }, { name: 'Medium', minutes: 15 }, { name: 'Long', minutes: 25 }],
-    defaultMinutes: 15,
+    presets: [{ name: 'Short', minutes: 10 }, { name: 'Medium', minutes: 25 }, { name: 'Long', minutes: 44 }],   // 21 · 56 · 96 exercises
+    defaultMinutes: 25,
+    minSeconds: 1,       // every exercise stays locked for this long: no clicking at random
     maxPlayers: 60,
     nameMax: 14,
     boardEvery: 4000,    // the teacher's device sends the ranking every 4 seconds

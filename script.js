@@ -1925,6 +1925,17 @@ window.addEventListener('load', () => setTimeout(() => {
   });
   const key = p => (p.dataset.at ? Number(p.dataset.at) : Math.min(...[...p.querySelectorAll('a')].map(page)));
   pills.sort((a, b) => key(a) - key(b)).forEach(p => list.append(p));
+  // a pill with only one game has nothing to choose from: a click on it goes straight to the game
+  pills.forEach(p => {
+    const links = p.querySelectorAll('.topic-pages a');
+    if (links.length !== 1) return;
+    p.classList.add('single');
+    // the pill shows the name of the game (with its sign and icon), not the name of the chapter (that is the tooltip)
+    const summary = p.querySelector('summary');
+    summary.title = summary.textContent.replace('⚔', '').trim();
+    summary.innerHTML = links[0].innerHTML;
+    summary.addEventListener('click', e => { e.preventDefault(); links[0].click(); });
+  });
 }, 0));
 
 // game pills on the home page: hide the ones that start on a page students cannot open

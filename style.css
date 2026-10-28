@@ -1838,6 +1838,8 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
   padding: 12px; background: #fff; border-radius: 14px; border-left: 5px solid var(--c); box-shadow: 0 8px 24px rgba(60,40,20,.18);
 }
 @media (prefers-reduced-motion: reduce) { .game-topic summary::after { transition: none; } }
+/* a pill with one game only: no dropdown, a click goes to the game */
+.game-topic.single summary::after, .game-topic.single summary small { display: none; }
 /* the sign of the games with an opponent */
 .vs-sign { display: inline-block; font-size: .9em; line-height: 1; padding: 2px 5px; border-radius: 6px; background: #262626; color: #fff; vertical-align: 1px; }
 .game-topic[open] summary .vs-sign { background: #fff; color: #262626; }
