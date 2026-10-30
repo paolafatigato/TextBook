@@ -5,7 +5,7 @@
 // The points of every power are secret: the pupils only read words ("a strong hit", "the foe loses a turn").
 // The teacher's page (#teacher) shows all the numbers and can run a balance simulation.
 (() => {
-  const E = window.V2A, ROSTER = E.ROSTER;
+  const E = window.V2A, ROSTER = E.ROSTER, HEROES = E.HEROES;
   const app = document.getElementById('app');
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const wait = ms => new Promise(r => setTimeout(r, ms));
@@ -15,6 +15,7 @@
     level: 'normal',       // the computer: easy / normal / hard
     picks: [null, null],   // the kits (seat 0 = player 1, seat 1 = player 2 or the computer)
     who: 0,                // who is choosing now
+    stage: 'villain',      // 'villain' · 'hero' (in Villain vs Computer the player then chooses the challenge)
     sel: null,             // the villain on show in the choosing screen
     g: null, names: ['', ''], log: [], busy: false, first: 0, token: 0,
   };
@@ -37,7 +38,7 @@
         ${pic(k, 'big')}
         <div>
           <h3>${esc(k.name)}</h3>
-          <div class="chips"><span class="chip">${esc(k.role)}</span><span class="chip">${STARS[k.skill]}</span></div>
+          <div class="chips"><span class="chip">${esc(k.role)}</span><span class="chip">${k.hero ? '🦸 real-life challenge' : STARS[k.skill]}</span></div>
           <p style="margin:0">${esc(k.blurb)}</p>
           <p class="says">“${esc(k.says)}”</p>
           ${k.quirk ? `<div class="note"><b>🧩 Quirk:</b> ${esc(k.quirk)}</div>` : ''}
@@ -60,7 +61,7 @@
         <p class="sub">${ROSTER.length} villains made by 2A. Choose one, read its powers and win the duel!</p>
         <div class="modes">
           <button type="button" class="mode" data-act="mode" data-m="2p"><i>🦹 ⚔ 🦹</i><b>Villain vs Villain</b><span>2 players, 1 computer. Each player chooses a villain and you take turns.</span></button>
-          <button type="button" class="mode" data-act="mode" data-m="cpu"><i>🦹 ⚔ 🤖</i><b>Villain vs Computer</b><span>1 player. Your villain fights a villain chosen by the computer.</span></button>
+          <button type="button" class="mode" data-act="mode" data-m="cpu"><i>🦹 ⚔ 🤖</i><b>Villain vs Challenge</b><span>1 player. Your villain fights a hero from real life: the Professor, the Coach, the Stressed Parent…</span></button>
           <button type="button" class="mode" data-act="mode" data-m="demo"><i>🍿</i><b>Watch a duel</b><span>The computer plays both villains. Good for the whole class on the big screen!</span></button>
         </div>
         <div class="levels" role="radiogroup" aria-label="Computer level"><span style="align-self:center;font-weight:800">Computer:</span>
@@ -90,7 +91,7 @@
   /* ================= 1. choose the villains ================= */
 
   function startMode(m) {
-    state.mode = m; state.picks = [null, null]; state.who = 0; state.sel = null;
+    state.mode = m; state.picks = [null, null]; state.who = 0; state.sel = null; state.stage = 'villain';
     if (m === 'demo') {
       const a = ROSTER[Math.floor(Math.random() * ROSTER.length)];
       const b = ROSTER[Math.floor(Math.random() * ROSTER.length)];
@@ -100,24 +101,24 @@
   }
 
   function choose() {
-    const two = state.mode === '2p';
-    const title = two ? `Player ${state.who + 1}: choose your villain` : 'Choose your villain';
-    const sub = two ? (state.who === 0 ? 'Player 2, look away! 🙈 You will choose without seeing this.' : 'Player 1, look away! 🙈') : `The computer is on ${LEVEL_NAME[state.level]} level.`;
+    const two = state.mode === '2p', list = state.stage === 'hero' ? HEROES : ROSTER;
+    const title = state.stage === 'hero' ? 'Choose your challenge' : two ? `Player ${state.who + 1}: choose your villain` : 'Choose your villain';
+    const sub = state.stage === 'hero' ? `Who will your villain fight? The computer is on ${LEVEL_NAME[state.level]} level.` : two ? (state.who === 0 ? 'Player 2, look away! 🙈 You will choose without seeing this.' : 'Player 1, look away! 🙈') : `Then you will meet a challenge from real life.`;
     app.innerHTML = `
       <div class="box">
         <h2 class="h2">${title}</h2>
         <p class="sub">${sub}</p>
         <div class="roster">
-          ${ROSTER.map((k, i) => `
+          ${list.map((k, i) => `
             <button type="button" class="vcard${state.sel === i ? ' on' : ''}" data-act="sel" data-i="${i}" style="--c:${k.color}">
-              ${pic(k)}<b>${esc(k.name)}</b><span class="role">${esc(k.role)}</span><span class="stars">${'★'.repeat(k.skill)}${'☆'.repeat(3 - k.skill)}</span>
+              ${pic(k)}<b>${esc(k.name)}</b><span class="role">${esc(k.role)}</span>${k.hero ? '' : `<span class="stars">${'★'.repeat(k.skill)}${'☆'.repeat(3 - k.skill)}</span>`}
             </button>`).join('')}
         </div>
-        <div id="detail">${state.sel === null ? '<p class="sub">Click a villain to read its file.</p>' : card(ROSTER[state.sel])}</div>
+        <div id="detail">${state.sel === null ? '<p class="sub">Click one to read its file.</p>' : card(list[state.sel])}</div>
         <div class="picked nav">
-          <button type="button" class="btn" data-act="home">◀ Back</button>
-          <button type="button" class="btn" data-act="random">🎲 Random villain</button>
-          <button type="button" class="btn go" data-act="ok" ${state.sel === null ? 'disabled' : ''}>${state.sel === null ? 'Choose a villain' : `I choose ${esc(ROSTER[state.sel].name)} ▶`}</button>
+          <button type="button" class="btn" data-act="${state.stage === 'hero' ? 'backvillain' : 'home'}">◀ Back</button>
+          <button type="button" class="btn" data-act="random">🎲 Random</button>
+          <button type="button" class="btn go" data-act="ok" ${state.sel === null ? 'disabled' : ''}>${state.sel === null ? 'Choose one' : `${state.stage === 'hero' ? 'Fight' : 'I choose'} ${esc(list[state.sel].name)} ▶`}</button>
         </div>
       </div>`;
   }
@@ -125,17 +126,22 @@
   function select(i) {
     state.sel = i;
     app.querySelectorAll('.vcard').forEach((c, j) => c.classList.toggle('on', j === i));
-    document.getElementById('detail').innerHTML = card(ROSTER[i]);
+    const k = (state.stage === 'hero' ? HEROES : ROSTER)[i];
+    document.getElementById('detail').innerHTML = card(k);
     const ok = app.querySelector('[data-act=ok]');
-    ok.disabled = false; ok.textContent = `I choose ${ROSTER[i].name} ▶`;
+    ok.disabled = false; ok.textContent = `${state.stage === 'hero' ? 'Fight' : 'I choose'} ${k.name} ▶`;
     document.getElementById('detail').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
   }
 
   function confirmPick() {
     if (state.sel === null) return;
+    if (state.mode === 'cpu') {
+      if (state.stage === 'villain') { state.picks[0] = ROSTER[state.sel]; state.stage = 'hero'; state.sel = null; choose(); return; }
+      state.picks[1] = HEROES[state.sel]; state.sel = null; state.stage = 'villain';
+      fight(Math.random() < .5 ? 0 : 1); return;
+    }
     state.picks[state.who] = ROSTER[state.sel];
     state.sel = null;
-    if (state.mode === 'cpu') { state.picks[1] = ROSTER[Math.floor(Math.random() * ROSTER.length)]; fight(Math.random() < .5 ? 0 : 1); return; }
     if (state.who === 0) {
       state.who = 1;
       app.innerHTML = `
@@ -195,7 +201,7 @@
     if (f.seal) out.push(`<span class="st bad" title="Forgot how to use ${esc(f.kit.moves[f.seal.i].name)}">🔒 ${esc(f.kit.moves[f.seal.i].name)}</span>`);
     if (f.marks.rage) out.push(`<span class="st bad" title="Anger: at ${E.RAGE_AT} it explodes!">😡 ${f.marks.rage}/${E.RAGE_AT}</span>`);
     if (f.marks.sleepy) out.push(`<span class="st bad" title="Sleepy: at ${E.SLEEP_AT} it falls asleep">😴 ${f.marks.sleepy}/${E.SLEEP_AT}</span>`);
-    if (f.marks.tired) out.push(`<span class="st bad" title="Tired: at ${E.TIRED_AT} it has to rest">🥱 ${f.marks.tired}/${E.TIRED_AT}</span>`);
+    if (f.marks.tired) out.push(f.kit.q.tired === 'hungry' ? `<span class="st bad" title="Hungry: at ${E.TIRED_AT} no more powers until a snack">🍽️ ${f.marks.tired}/${E.TIRED_AT}</span>` : `<span class="st bad" title="Tired: at ${E.TIRED_AT} it has to rest">🥱 ${f.marks.tired}/${E.TIRED_AT}</span>`);
     if (f.kit.q.needsGinger) out.push(`<span class="st ${f.flags.ginger ? 'good' : 'bad'}" title="Without Ginger no powers">🐭 ${f.flags.ginger ? 'Ginger is here' : 'Ginger is away'}</span>`);
     if (f.kit.q.needsWarm) out.push(`<span class="st ${f.flags.warm ? 'good' : 'bad'}" title="No powers before the warm-up">🔥 ${f.flags.warm ? 'Warmed up' : 'Cold legs'}</span>`);
     return out.join('') || '&nbsp;';
@@ -270,9 +276,9 @@
           boost: `The next attack of ${N(e.who)} will be stronger.`, weak: `The next attack of ${N(e.who)} will be weaker.`, confuse: `${N(e.who)} is confused.`,
           skip: `${N(e.who)} will lose a turn.`, selfskip: `${N(e.who)} will lose the next turn.`, dispel: `${N(e.who)} loses all shields and boosts.`, cleanse: `${N(e.who)} feels better.`,
         }[e.s]); break;
-        case 'mark': add(e.name === 'rage' ? `${N(e.who)} gets angrier!` : e.name === 'sleepy' ? `${N(e.who)} gets sleepier!` : e.n < 0 ? `${N(e.who)} is less tired.` : `${N(e.who)} is more tired.`); break;
+        case 'mark': add(e.name === 'rage' ? `${N(e.who)} gets angrier!` : e.name === 'sleepy' ? `${N(e.who)} gets sleepier!` : e.n < 0 ? `${N(e.who)} is ${state.g.f[e.who].kit.q.tired === 'hungry' ? 'less hungry' : 'less tired'}.` : `${N(e.who)} is more tired.`); break;
         case 'asleep': add(`😴 ${N(e.who)} falls asleep!`); break;
-        case 'exhausted': add(`🥱 ${N(e.who)} is exhausted and has to rest!`); break;
+        case 'exhausted': add(state.g.f[e.who].kit.q.tired === 'hungry' ? `🍽️ ${N(e.who)} is too hungry to act!` : `🥱 ${N(e.who)} is exhausted and has to rest!`); break;
         case 'explode': add(`💥 ${N(e.who)} explodes with anger! -${e.dmg} HP`); floats.push([e.who, `-${e.dmg}`, 'dmg']); break;
         case 'sealed': add(`${N(e.who)} forgets how to use <b>${esc(e.name)}</b>!`); break;
         case 'immune': add(`${N(e.who)} has a reminder spoon: nothing is forgotten!`); break;
@@ -394,6 +400,7 @@
           <li>Ogni potere vale in “punti danno”: un turno d’attacco medio vale circa ${E.fxValue({ k: 'guard', p: 1, hits: 1 })}. Esempi: un colpo da 20 = 20; uno scudo al 50% su 2 colpi = 16; saltare un turno ≈ 19; schivata ≈ 18; guarire X ≈ 0,9X; il danno a se stessi si sottrae.</li>
           <li>Poi ogni kit è stato <b>messo a punto con migliaia di duelli simulati</b> (computer contro computer): ogni villain vince tra il 46% e il 56% dei duelli di livello Normal; chi parte per primo vince il 53%, e per questo chi gioca per secondo parte con ${E.SECOND_BONUS} HP in più.</li>
           <li><b>L’ordine conta</b>: un giocatore che ragiona batte uno che sceglie a caso il 91% delle volte (test fatto con <code>node tools/balance.js</code>). Combinazioni principali: Super Sight → colpo forte; stop-tempo → attacco; sbadigli + coperta (sonno 3); Six Seven! + Music Control (rabbia 7 = esplosione); scudo prima del colpo grosso; Honey Bear che “fa dimenticare” il potere appena usato; Four Hands che ruba scudi e boost.</li>
+          <li><b>Le sfide della vita reale</b> (Professor, Coach, Stressed Parent, Little Sibling) sono gli avversari del computer in “Villain vs Challenge”. Sono state bilanciate contro tutti i 15 villain: vincono tra il 45% e il 57% dei duelli (livello Normal) e ognuna ha almeno un villain che la batte facilmente: bisogna sceglierlo con cura.</li>
           <li>Ogni villain è forte contro qualcuno e debole contro qualcun altro (punti deboli: dolce, mente, suono, luce, “aiutanti”). Il livello di difficoltà (★) indica quanto serve pianificare.</li>
         </ul>
         <h2>Simulazione di bilanciamento</h2>
@@ -403,9 +410,9 @@
         <h2>Tutti i poteri e i loro numeri</h2>
         <div class="tbl"><table>
           <tr><th>Villain</th><th>Potere</th><th>Usi</th><th>Effetti</th><th>Valore per uso</th><th>Valore totale</th></tr>
-          ${ROSTER.map(k => {
+          ${[...ROSTER, ...HEROES].map(k => {
             const all = [...k.moves, k.basic];
-            return all.map((m, i) => `<tr>${i === 0 ? `<td rowspan="${all.length}"><b>${esc(k.name)}</b><br>${esc(k.role)}<br>${'★'.repeat(k.skill)}<br><small>Tratto: ${esc(k.quirk || '–')}<br>Punto debole: ${esc(k.weakText || '–')}</small></td>` : ''}
+            return all.map((m, i) => `<tr>${i === 0 ? `<td rowspan="${all.length}"><b>${esc(k.name)}</b><br>${esc(k.role)}<br>${k.hero ? '🦸 sfida' : '★'.repeat(k.skill)}<br><small>Tratto: ${esc(k.quirk || '–')}<br>Punto debole: ${esc(k.weakText || '–')}</small></td>` : ''}
               <td>${esc(m.name)}</td><td class="n">${m.uses === Infinity ? '∞' : m.uses}</td><td>${m.fx.map(fxText).join(' · ')}</td><td class="n">${m.rate}</td><td class="n">${m.uses === Infinity ? '–' : Math.round(m.rate * m.uses)}</td></tr>`).join('')
               + `<tr><td colspan="5" class="n"><b>Totale ${esc(k.name)}</b></td><td class="n"><b>${E.kitRate(k)}</b></td></tr>`;
           }).join('')}
@@ -455,7 +462,8 @@
     const act = b.dataset.act;
     if (act === 'mode') startMode(b.dataset.m);
     else if (act === 'sel') select(+b.dataset.i);
-    else if (act === 'random') { state.sel = Math.floor(Math.random() * ROSTER.length); choose(); }
+    else if (act === 'random') { state.sel = Math.floor(Math.random() * (state.stage === 'hero' ? HEROES : ROSTER).length); choose(); }
+    else if (act === 'backvillain') { state.stage = 'villain'; state.sel = null; choose(); }
     else if (act === 'ok') confirmPick();
     else if (act === 'pass2') choose();
     else if (act === 'attack') { if (!state.busy && isHuman(state.g.cur)) { state.busy = true; doAct(+b.dataset.i); } }

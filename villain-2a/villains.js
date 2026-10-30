@@ -214,13 +214,86 @@
     },
   ];
 
+
+  // The challenges of real life: the heroes the computer plays in "Villain vs Computer".
+  // They are the people who say "no" to a villain: the teacher, the coach, a tired parent, a little sibling.
+  const HEROES = [
+    {
+      id: 'fatigato', name: 'Ms. Fatigato', emoji: '👩‍🏫', img: 'img/fatigato.png', color: '#f06054', role: 'Real-life hero · English teacher', hero: true,
+      blurb: 'Short, with frizzy hair in small braids and 5 university degrees. She is always right and she talks a lot. Her confidence is her power! One day she crashed her skateboard into a science truck and got superpowers.',
+      says: 'Do you want to know about…?',
+      q: { tired: 'hungry' }, quirk: 'Needs to be fed or she cannot use her powers: every power makes her hungrier. At 3 she cannot act until she eats. The Boyfriend’s snack helps!',
+      moves: [
+        M('talk', 'The Endless Talk', 'She talks and talks and talks. Enemies get tired and confused.', 2, ['sound'], [d(6), { k: 'confuse', n: 1 }, { k: 'weak', m: .7, hits: 1 }]),
+        M('ego', 'Ego Shield', 'A shield made of pure confidence. It stops attacks, especially offenses.', 2, [], [{ k: 'guard', p: .7, hits: 1 }]),
+        M('expert', 'Instant Expert', 'She becomes an expert in anything in 5 seconds. She reads one page and knows everything.', 2, [], [{ k: 'boost', m: 1.5, hits: 1 }]),
+        M('book', 'The Big Book', 'The Big Book contains all the facts. It is also very heavy.', 2, ['phys'], [d(17)]),
+        M('pens', 'Rainbow Pens', 'Pens in chromatic order correct every mistake, one after the other.', 3, ['phys'], [d(4, 3)]),
+      ],
+      basic: B('The Boyfriend’s Snack', 'A snack arrives just in time. Tasty and useful.', ['team', 'sweet'], [d(6), { k: 'heal', v: 4 }, { k: 'mark', name: 'tired', n: -1, self: true }]),
+    },
+    {
+      id: 'professor', name: 'The Professor', emoji: '📚', img: null, color: '#3b7dd8', role: 'Real-life hero · school', hero: true,
+      blurb: 'Glasses, a red pen and a very big bag of tests. Every villain meets the Professor sooner or later.',
+      says: 'Open your books. Surprise!',
+      q: {}, weakTag: 'sound', weakText: 'Cannot teach in a noisy room: loud attacks hurt more.',
+      moves: [
+        M('quiz', 'Pop Quiz', 'A surprise test! The foe has no time to think.', 3, ['mind'], [d(18)]),
+        M('pen', 'Red Pen', 'You find every mistake, one after the other.', 2, ['phys'], [d(7, 3)]),
+        M('homework', 'Extra Homework', 'A mountain of homework falls on the foe.', 1, ['mind'], [{ k: 'weak', m: .6, hits: 2 }]),
+        M('detention', 'Detention', 'The foe must stay in class and cannot move.', 2, [], [{ k: 'skip', n: 1 }]),
+      ],
+      basic: B('Stern Look', 'A look over the glasses. It works every time.', ['mind'], [d(8)]),
+    },
+    {
+      id: 'coach', name: 'The Coach', emoji: '🏃', img: null, color: '#e8802b', role: 'Real-life hero · sport', hero: true,
+      blurb: 'A whistle, a stopwatch and a lot of energy. The Coach says: one more lap!',
+      says: 'One more lap! You can do it!',
+      q: {}, weakTag: 'sweet', weakText: 'Hates sweets and junk food: sweet attacks hurt more.',
+      moves: [
+        M('whistle', 'Whistle Blast', 'A very loud whistle makes everyone freeze.', 1, ['sound'], [{ k: 'skip', n: 1 }]),
+        M('sprint', 'Sprint Drill', 'You run at the foe at full speed.', 2, ['phys'], [d(20)]),
+        M('dodge', 'Dodgeball Barrage', 'Three balls fly one after the other.', 3, ['phys'], [d(5, 3)]),
+        M('pep', 'Pep Talk', 'You shout “Believe in yourself!” and feel great.', 2, [], [{ k: 'boost', m: 1.5, hits: 1 }, { k: 'heal', v: 8 }]),
+      ],
+      basic: B('Push-up Push', 'You push the foe like a push-up.', ['phys'], [d(8)]),
+    },
+    {
+      id: 'parent', name: 'The Stressed Parent', emoji: '😩', img: null, color: '#a35bb5', role: 'Real-life hero · home', hero: true,
+      blurb: 'Three bags, one phone and no time. The Stressed Parent cares about you so much that it gets a bit loud.',
+      says: 'Where are your shoes?! We are LATE!',
+      q: {}, weakTag: 'team', weakText: 'Cannot do everything alone: attacks that call friends or helpers hurt more.',
+      moves: [
+        M('nag', 'The Endless Nagging', 'Wash your hands! Tidy your room! Put on your shoes!', 3, ['sound'], [d(5, 3)]),
+        M('grounded', 'You Are Grounded!', 'The foe cannot go anywhere.', 1, [], [{ k: 'skip', n: 1 }]),
+        M('coffee', 'Emergency Coffee', 'A big hot coffee. Now you are almost calm.', 2, ['sweet'], [{ k: 'heal', v: 17 }]),
+        M('hug', 'Hug of Doom', 'A hug so tight that no hit can get through.', 2, [], [{ k: 'guard', p: .7, hits: 1 }]),
+        M('look', 'Tired Sigh', 'A very long sigh and the foe feels guilty.', 2, ['mind'], [d(12), { k: 'weak', m: .7, hits: 1 }]),
+      ],
+      basic: B('Phone Call', 'You answer the phone and shout at the foe by mistake.', ['sound'], [d(8)]),
+    },
+    {
+      id: 'sibling', name: 'The Little Sibling', emoji: '🧸', img: null, color: '#d95f9b', role: 'Real-life hero · family', hero: true,
+      blurb: 'Small, sticky and impossible to stop. The Little Sibling touches your things and nobody ever gets the blame.',
+      says: 'Mine! Give it to me!',
+      q: {}, weakTag: 'dark', weakText: 'Is afraid of the dark: shadow attacks hurt more.',
+      moves: [
+        M('tantrum', 'Tantrum Scream', 'You scream and scream and scream.', 3, ['sound'], [d(18)]),
+        M('hide', 'Hide and Seek', 'You hide behind the sofa. Nobody can find you.', 2, [], [{ k: 'vanish', n: 1 }]),
+        M('sticky', 'Sticky Fingers', 'Jam on the hands, jam on the foe.', 2, ['sweet'], [d(12), { k: 'weak', m: .7, hits: 1 }]),
+        M('puppy', 'Puppy Eyes', 'The foe cannot say no to those eyes.', 2, ['mind'], [{ k: 'skip', n: 1 }]),
+      ],
+      basic: B('Tiny Kick', 'A kick on the leg. It does not hurt much.', ['phys'], [d(8)]),
+    },
+  ];
+
   // how much planning a villain needs (1 = easy to play, 3 = for experts): from the duels of the computer at the easy level
   const SKILL = { goget: 1, kick: 1, dancer: 1, wavy: 1, hands: 1, cactus: 1, skater: 2, mask: 2, explodingball: 2, honey: 2, anxious: 2, lazy: 3, vampire: 3, sixseven: 3, rebel: 3 };
 
   // add the strength of each move, the words that hint at it, and fill the gaps
-  ROSTER.forEach(k => {
+  [...ROSTER, ...HEROES].forEach(k => {
     k.q = k.q || {};
-    k.skill = SKILL[k.id];
+    k.skill = SKILL[k.id] || 0;
     [...k.moves, k.basic].forEach(m => { m.rate = 0; });
     k.moves.filter(m => !m.fx.some(f => f.k === 'randomPower')).forEach(m => { m.rate = E.moveRate(m, k); });
     k.moves.filter(m => m.fx.some(f => f.k === 'randomPower')).forEach(m => { m.rate = E.moveRate(m, k); });
@@ -229,5 +302,6 @@
   });
 
   root.V2A.ROSTER = ROSTER;
+  root.V2A.HEROES = HEROES;
   if (typeof module !== 'undefined') module.exports = ROSTER;
 })(typeof window !== 'undefined' ? window : globalThis);
