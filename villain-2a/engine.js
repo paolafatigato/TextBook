@@ -310,15 +310,15 @@
         case 'vanish': out.push('The next attack misses you completely'); break;
         case 'pierce': out.push('Your next attack cannot be blocked or dodged'); break;
         case 'boost': out.push(fx.m >= 1.6 ? `Your next attack${fx.hits > 1 ? 's are' : ' is'} much stronger` : `Your next attack${fx.hits > 1 ? 's are' : ' is'} a bit stronger`); break;
-        case 'weak': out.push(fx.m <= .5 ? `The foe’s next attack${fx.hits > 1 ? 's are' : ' is'} much weaker` : `The foe’s next attack${fx.hits > 1 ? 's are' : ' is'} weaker`); break;
-        case 'confuse': out.push('The foe’s next attack hurts the foe too'); break;
-        case 'skip': out.push(fx.n > 1 ? `The foe loses ${fx.n} turns` : 'The foe loses a turn'); break;
+        case 'weak': out.push(fx.m <= .5 ? `The enemy’s next attack${fx.hits > 1 ? 's are' : ' is'} much weaker` : `The enemy’s next attack${fx.hits > 1 ? 's are' : ' is'} weaker`); break;
+        case 'confuse': out.push('The enemy’s next attack hurts the enemy too'); break;
+        case 'skip': out.push(fx.n > 1 ? `The enemy loses ${fx.n} turns` : 'The enemy loses a turn'); break;
         case 'selfSkip': out.push('but you lose your next turn'); break;
         case 'haste': out.push('You act again right away'); break;
-        case 'seal': out.push('The foe forgets how to use its last power for a while'); break;
-        case 'dispel': out.push('Wipes away the foe’s shields, boosts and tricks'); break;
-        case 'steal': out.push('You grab the foe’s shields and boosts'); break;
-        case 'mark': out.push(fx.name === 'rage' ? 'The foe gets angrier (too much anger = boom!)' : fx.name === 'sleepy' ? 'The foe gets sleepier (3 yawns = asleep)' : fx.n < 0 ? 'You are less tired' : 'The foe is a bit more marked'); break;
+        case 'seal': out.push('The enemy forgets how to use its last power for a while'); break;
+        case 'dispel': out.push('Wipes away the enemy’s shields, boosts and tricks'); break;
+        case 'steal': out.push('You grab the enemy’s shields and boosts'); break;
+        case 'mark': out.push(fx.name === 'rage' ? 'The enemy gets angrier (too much anger = boom!)' : fx.name === 'sleepy' ? 'The enemy gets sleepier (3 yawns = asleep)' : fx.n < 0 ? 'You are less tired' : 'The enemy is a bit more marked'); break;
         case 'cleanse': out.push('Clears bad effects from you'); break;
         case 'randomPower': out.push('Opens a random page: you use one of your other powers for free'); break;
       }

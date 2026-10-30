@@ -2,7 +2,7 @@
 //
 // Ways to play: villain vs villain on one computer (the two players take turns on the same screen),
 // villain vs the computer (easy / normal / hard), or watch the computer fight itself (#demo).
-// The points of every power are secret: the pupils only read words ("a strong hit", "the foe loses a turn").
+// The points of every power are secret: the pupils only read words ("a strong hit", "the enemy loses a turn").
 // The teacher's page (#teacher) shows all the numbers and can run a balance simulation.
 (() => {
   const E = window.V2A, ROSTER = E.ROSTER, HEROES = E.HEROES;
@@ -73,8 +73,8 @@
             <li>Choose a villain. <b>Read all its powers</b>: they come from the villain files of 2A.</li>
             <li>Every power can be used only a <b>few times</b> (the dots). The <b>basic move</b> is always ready, but it is weak.</li>
             <li>The <b>points are secret</b>! The words tell you how strong a power is: <i>a light hit → a solid hit → a strong hit → a very strong hit → a huge hit</i>.</li>
-            <li><b>The order matters!</b> Use a power to prepare, then strike. Stop the foe, then hit hard. Make the foe sleepy or angry, then watch what happens. Use a shield <i>before</i> the big attack arrives.</li>
-            <li>Every villain has a <b>quirk</b> and often a <b>weak spot</b>. Read the foe’s file and use it!</li>
+            <li><b>The order matters!</b> Use a power to prepare, then strike. Stop the enemy, then hit hard. Make the enemy sleepy or angry, then watch what happens. Use a shield <i>before</i> the big attack arrives.</li>
+            <li>Every villain has a <b>quirk</b> and often a <b>weak spot</b>. Read the enemy’s file and use it!</li>
             <li>The player who goes <b>second</b> gets a few extra HP. At round ${12} the fight becomes <b>sudden death</b>.</li>
           </ol>
           <ul class="legend">
@@ -282,7 +282,7 @@
         case 'explode': add(`💥 ${N(e.who)} explodes with anger! -${e.dmg} HP`); floats.push([e.who, `-${e.dmg}`, 'dmg']); break;
         case 'sealed': add(`${N(e.who)} forgets how to use <b>${esc(e.name)}</b>!`); break;
         case 'immune': add(`${N(e.who)} has a reminder spoon: nothing is forgotten!`); break;
-        case 'stole': add(e.got ? `${N(e.who)} grabs the foe’s tricks!` : 'There is nothing to grab.'); break;
+        case 'stole': add(e.got ? `${N(e.who)} grabs the enemy’s tricks!` : 'There is nothing to grab.'); break;
         case 'overload': add(`${N(e.who)} grabs too much: the ${e.name === 'rage' ? 'anger' : 'sleepiness'} comes too!`); break;
         case 'flag': add(e.name === 'ginger' ? (e.v ? '🐭 Ginger runs back!' : '🐭 Ginger runs away!') : e.v ? `${N(e.who)} is warmed up!` : ''); break;
         case 'skipped': sys(`${N(e.who)} cannot act this turn!`); break;
