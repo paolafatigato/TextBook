@@ -1,3 +1,14 @@
+// The decorative drawings of the garments (img/clothes/art/<name>.png): until one is drawn, a drawing of the dress-up game (img/dress) stands in
+// for it, the same garment when there is one, else the next of the others. Add the file in img/clothes/art and it takes its place.
+const CL_ART_SAME = { tshirt: 't-shirt', sweater: 'oversize-sweater', jeans: 'jeans', gloves: 'gloves', skirt: 'skirt', hat: 'cap', boots: 'combat-boots', sneakers: 'sneakers', shorts: 'shorts', hoodie: 'hoodie' };
+const CL_ART_POOL = ['gym-outfit', 'overalls', 'skirt', 'bell-bottoms', 'jeans', 't-shirt', 'oversize-sweater', 'gloves'];
+let clArtNext = 0;
+function clArtFallback(img) {
+  img.onerror = () => img.remove();
+  const name = (img.getAttribute('src').match(/art\/([a-z0-9-]+)\.png/) || [])[1];
+  img.src = `img/dress/${CL_ART_SAME[name] || CL_ART_POOL[clArtNext++ % CL_ART_POOL.length]}.png`;
+}
+
 // Clothes & Fashion show ([clothes-vocab … clothes-show-crew]): the A-Z counter on [clothes-accessories], the judges' totals on [clothes-auction:R],
 // the fashion show bingo on [clothes-pc-story:R], the sentence builders on [clothes-show-build:R], the voice buttons (listen, record yourself)
 // on the show-training pages and the host cards on [clothes-show-script].

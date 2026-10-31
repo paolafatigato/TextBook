@@ -1,31 +1,39 @@
 // Clothes, "Dress to Impress" ([clothes-dress], [clothes-dress2]): the dress-up game with the model.
 // Left page: spell the word → the piece of clothing is unlocked and can be dragged.
 // Right page: drag it onto the model; click it to make it bigger/smaller, move it up/down (layers) or take it away.
+// A piece on the model can be painted: only the white of the drawing takes the color, the lines stay black.
+// "Print my model" prints the dressed model alone on an A4 sheet.
 // What students do is kept in `saved` (script.js), so "Clear answers" empties it too.
 
 (() => {
-  // w = width on the model, in % of the width of the dress-up area.
+  // w = width on the model, in % of the width of the dress-up area. The drawings of the pieces done so far were drawn on the same
+  // page as the model, so w = pixel width of the piece (after the 50% scale) × 91.4 / 1492 (the model picture is 1492 px high and 91.4% of the area high).
   // The drawing of a piece is img/dress/<name>.png (the name of the word, spaces → "-"), the model is img/dress/doll.png.
   // A drawing that is not there yet shows its emoji (the model: img/dress/doll.svg): add the file with that name and it appears.
   const SETS = [
     {
       id: '1', // [clothes-dress]: a casual day
       items: [
-        { k: 'gym outfit', w: 30, emoji: '🎽' },
-        { k: 'overalls', w: 30, emoji: '👖' },
+        { k: 'gym outfit', w: 51.6, emoji: '🎽' },
+        { k: 'overalls', w: 23.4, emoji: '👖' },
         { k: 'sweatshirt', w: 28, emoji: '👕' },
-        { k: 'oversize sweater', w: 32, emoji: '🧶' },
-        { k: 'hoodie', w: 32, emoji: '🧥' },
-        { k: 'cargo pants', w: 24, emoji: '👖' },
-        { k: 'jeans', w: 24, emoji: '👖' },
-        { k: 'shorts', w: 22, emoji: '🩳' },
-        { k: 'colorful tights', w: 22, emoji: '🧦' },
-        { k: 'sneakers', w: 18, emoji: '👟' },
-        { k: 'combat boots', w: 18, emoji: '🥾' },
-        { k: 'cap', w: 18, emoji: '🧢' },
+        { k: 'oversize sweater', w: 51.2, emoji: '🧶' },
+        { k: 'hoodie', w: 49.8, emoji: '🧥' },
+        { k: 'cargo pants', w: 23.5, emoji: '👖' },
+        { k: 'jeans', w: 23.8, emoji: '👖' },
+        { k: 'shorts', w: 23.9, emoji: '🩳' },
+        { k: 'colorful tights', w: 22.1, emoji: '🧦' },
+        { k: 'sneakers', w: 23.6, emoji: '👟' },
+        { k: 'combat boots', w: 23.9, emoji: '🥾' },
+        { k: 'cap', w: 27.1, emoji: '🧢' },
         { k: 'sunglasses', w: 14, emoji: '🕶️' },
         { k: 'backpack', w: 18, emoji: '🎒' },
-        { k: 'gloves', w: 14, emoji: '🧤' },
+        { k: 'gloves', w: 62.3, emoji: '🧤' },
+        { k: 't-shirt', w: 27, emoji: '👕' },
+        { k: 'skirt', w: 26.2, emoji: '👗' },
+        { k: 'socks', w: 14, emoji: '🧦' },
+        { k: 'scarf', w: 24, emoji: '🧣' },
+        { k: 'raincoat', w: 36, emoji: '🌧️' },
       ],
     },
     {
@@ -46,6 +54,11 @@
         { k: 'top hat', w: 20, emoji: '🎩' },
         { k: 'tie', w: 9, emoji: '🎀' },
         { k: 'wig', w: 22, emoji: '💇' },
+        { k: 'necklace', w: 16, emoji: '📿' },
+        { k: 'earrings', w: 8, emoji: '💎' },
+        { k: 'handbag', w: 18, emoji: '👜' },
+        { k: 'belt', w: 22, emoji: '🥋' },
+        { k: 'bracelet', w: 10, emoji: '⌚' },
       ],
     },
   ];
@@ -54,12 +67,17 @@
   const file = k => k.replace(/ /g, '-');
 
   const KEY = 'dress-up';
+  const COLOR = /^#[0-9a-f]{6}$/i;
+  const PAINTS = ['#ff6b6b', '#ff9f43', '#ffd93d', '#6bcb77', '#4dd0c8', '#4d96ff', '#9b5de5', '#f15bb5', '#a0693b', '#4a4a4a'];
   const blank = () => ({ u: [], 1: [], 2: [] }); // unlocked words, pieces on each model
   let state;
   function load() {
     try { state = { ...blank(), ...JSON.parse(saved[KEY] || '{}') }; } catch { state = blank(); }
     state.u = state.u.filter(k => BY_KEY[k]); // words taken out of the game since the last visit
-    SETS.forEach(set => { state[set.id] = state[set.id].filter(i => BY_KEY[i.k]); });
+    SETS.forEach(set => {
+      state[set.id] = state[set.id].filter(i => BY_KEY[i.k]);
+      state[set.id].forEach(i => { if (!COLOR.test(i.c)) delete i.c; });
+    });
   }
   function store() {
     saved[KEY] = JSON.stringify(state);
@@ -74,13 +92,32 @@
     set.area = $(`du-doll-${set.id}`);
     set.score = $(`du-score-${set.id}`);
     set.reset = $(`du-reset-${set.id}`);
+    set.print = $(`du-print-${set.id}`);
   });
   if (!SETS.every(set => set.cards && set.area)) return;
   const setOf = area => SETS.find(set => set.area === area);
 
+  // Painting = multiplying the picture by a color: white becomes the color, black stays black, the outside stays clear.
+  // An SVG filter does it (drawing on a canvas is blocked when the book is opened from a file).
+  const filters = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  filters.setAttribute('width', '0');
+  filters.setAttribute('height', '0');
+  filters.setAttribute('aria-hidden', 'true');
+  filters.style.position = 'absolute';
+  document.body.append(filters);
+  function tint(c) {
+    const id = `du-tint-${c.slice(1).toLowerCase()}`;
+    if (!filters.querySelector(`#${id}`)) {
+      const [r, g, b] = [1, 3, 5].map(i => (parseInt(c.slice(i, i + 2), 16) / 255).toFixed(3));
+      filters.insertAdjacentHTML('beforeend', `<filter id="${id}" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%"><feColorMatrix type="matrix" values="${r} 0 0 0 0  0 ${g} 0 0 0  0 0 ${b} 0 0  0 0 0 1 0"/></filter>`);
+    }
+    return `url(#${id})`;
+  }
+
   // a picture, or its emoji (a drawing that scales like the others) when the drawing is missing
-  function picture(k, cls) {
+  function picture(k, cls, color) {
     const img = document.createElement('img');
+    if (color) img.style.filter = tint(color);
     img.src = `img/dress/${file(k)}.png`;
     img.alt = k;
     img.draggable = false;
@@ -96,7 +133,7 @@
   /* ================= left page: spell → unlock ================= */
 
   const shuffle = word => {
-    const letters = word.replace(/ /g, '').toUpperCase().split('');
+    const letters = word.replace(/[ -]/g, '').toUpperCase().split('');
     const original = letters.join('');
     if (new Set(letters).size < 2) return letters;
     do {
@@ -108,15 +145,16 @@
     return letters;
   };
 
-  // the first letter of each word is shown; the student types all the letters, no spaces
+  // the first letter of each word is shown; the student types all the letters, no spaces or hyphens
   function tiles(box, word, typed, done) {
     let n = 0;
     box.innerHTML = word.split('').map((ch, i) => {
       if (ch === ' ') return '<i class="gap"></i>';
+      if (ch === '-') return '<i class="dash">-</i>';
       const t = typed[n++];
       if (done) return `<span class="done">${ch}</span>`;
       if (t) return `<span class="typed">${t}</span>`;
-      const given = i === 0 || word[i - 1] === ' ';
+      const given = i === 0 || word[i - 1] === ' ' || word[i - 1] === '-';
       return given ? `<span class="given">${ch}</span>` : '<span>_</span>';
     }).join('');
   }
@@ -148,7 +186,7 @@
     const row = document.createElement('div');
     row.className = 'du-row';
     const inp = document.createElement('input');
-    const letters = o.k.replace(/ /g, '');
+    const letters = o.k.replace(/[ -]/g, '');
     inp.className = 'du-in';
     inp.maxLength = letters.length;
     inp.autocomplete = 'off';
@@ -297,7 +335,13 @@
     <button type="button" data-t="smaller" title="Smaller">➖</button>
     <button type="button" data-t="front" title="Bring to the front">⬆</button>
     <button type="button" data-t="back" title="Send to the back">⬇</button>
-    <button type="button" data-t="remove" title="Take it off">🗑</button>`;
+    <button type="button" data-t="paint" title="Color it">🎨</button>
+    <button type="button" data-t="remove" title="Take it off">🗑</button>
+    <div class="du-colors">
+      <button type="button" data-c="" class="none" title="White, as drawn"></button>
+      ${PAINTS.map(c => `<button type="button" data-c="${c}" style="background:${c}" title="${c}"></button>`).join('')}
+      <label title="Any color"><input type="color" value="#ff6b6b" aria-label="Pick a color"></label>
+    </div>`;
 
   function drawArea(area) {
     area.querySelectorAll('.du-item').forEach(el => el.remove());
@@ -310,7 +354,7 @@
       el.style.top = `${item.y}%`;
       el.style.width = `${item.w}%`;
       el.style.zIndex = 10 + item.z;
-      el.append(picture(item.k));
+      el.append(picture(item.k, '', item.c));
       el.title = item.k;
       movable(area, el, item);
       area.append(el);
@@ -353,6 +397,7 @@
   }
 
   function select(area, item) {
+    if (selected?.item !== item) tools.classList.remove('paint');
     selected = { area, item };
     const i = state[setOf(area).id].indexOf(item);
     area.querySelectorAll('.du-item').forEach(el => el.classList.toggle('selected', +el.dataset.i === i));
@@ -367,6 +412,7 @@
   }
   function unselect() {
     selected = null;
+    tools.classList.remove('paint');
     tools.remove();
     document.querySelectorAll('.du-item.selected').forEach(el => el.classList.remove('selected'));
   }
@@ -375,12 +421,24 @@
   });
 
   tools.addEventListener('pointerdown', e => e.stopPropagation());
+  // paint the selected piece (c = '' → back to the white of the drawing)
+  function paint(c) {
+    const { area, item } = selected;
+    if (c) item.c = c; else delete item.c;
+    const img = area.querySelector(`.du-item[data-i="${state[setOf(area).id].indexOf(item)}"] img`);
+    if (img) img.style.filter = c ? tint(c) : '';
+    store();
+  }
+  tools.querySelector('input').addEventListener('input', e => { if (selected) paint(e.target.value); });
+
   tools.addEventListener('click', e => {
     const b = e.target.closest('button');
     if (!b || !selected) return;
+    if ('c' in b.dataset) { paint(b.dataset.c); return; }
     const { area, item } = selected;
     const items = state[setOf(area).id];
     const t = b.dataset.t;
+    if (t === 'paint') { tools.classList.toggle('paint'); return; }
     if (t === 'bigger' || t === 'smaller') {
       // a little bigger / smaller, around its center
       const el = area.querySelector(`.du-item[data-i="${items.indexOf(item)}"]`);
@@ -396,6 +454,44 @@
     store();
     drawArea(area);
   });
+
+  /* ================= print the model ================= */
+  // The dressed model alone on an A4 sheet, printed from a hidden frame (the book itself is not touched).
+  function printModel(set) {
+    const abs = f => new URL(f, document.baseURI).href;
+    const items = [...state[set.id]].sort((a, b) => a.z - b.z);
+    items.forEach(i => { if (i.c) tint(i.c); });
+    const theme = set.area.closest('.page')?.querySelector('.du-theme')?.lastChild?.textContent || '';
+    const pieces = items.map(i => `<div class="it" style="left:${i.x}%;top:${i.y}%;width:${i.w}%"><img src="${abs(`img/dress/${file(i.k)}.png`)}" alt="${i.k}"${i.c ? ` style="filter:${tint(i.c)}"` : ''}></div>`).join('');
+    const fr = document.createElement('iframe');
+    fr.style.cssText = 'position:fixed;left:-9999px;top:0;width:210mm;height:297mm;border:0';
+    fr.srcdoc = `<!doctype html><html><head><meta charset="utf-8"><title>My model</title><style>
+      @page { size: A4 portrait; margin: 12mm; }
+      body { margin: 0; text-align: center; font-family: 'Nunito', Arial, sans-serif; color: #555; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      h1 { margin: 0 0 1mm; font: 700 28pt 'Fredoka', 'Nunito', Arial, sans-serif; color: #8e2de2; }
+      p { margin: 0 0 5mm; font-size: 13pt; }
+      .area { position: relative; width: 184mm; height: 184mm; margin: 0 auto 6mm; overflow: hidden; border: 1mm solid #dc3394; border-radius: 6mm; background: linear-gradient(#fff6fb 0 82%, #f8d3e8 82% calc(82% + .5mm), #fbe6f1 calc(82% + .5mm)); }
+      .doll { position: absolute; left: 50%; top: 3%; height: 91.4%; transform: translateX(-50%); }
+      .it { position: absolute; }
+      .it img { display: block; width: 100%; height: auto; }
+      .name { text-align: left; margin: 0 4mm; font-size: 13pt; }
+      </style></head><body>
+      <h1>My model</h1><p>${theme}</p>
+      <div class="area"><img class="doll" src="${abs('img/dress/doll.png')}" onerror="this.onerror=null;this.src='${abs('img/dress/doll.svg')}'" alt="">${pieces}</div>
+      <p class="name">Name: ______________________ &nbsp; My model is wearing …</p>
+      ${filters.outerHTML}</body></html>`;
+    const done = () => fr.remove();
+    fr.onload = async () => {
+      const w = fr.contentWindow;
+      await Promise.all([...w.document.images].map(im => (im.complete ? null : new Promise(r => { im.onload = im.onerror = r; }))));
+      w.addEventListener('afterprint', done);
+      setTimeout(done, 5 * 60 * 1000);
+      w.focus();
+      w.print();
+    };
+    document.body.append(fr);
+  }
+  SETS.forEach(set => set.print?.addEventListener('click', () => printModel(set)));
 
   SETS.forEach(set => set.reset?.addEventListener('click', () => {
     state[set.id] = [];
