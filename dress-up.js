@@ -33,7 +33,7 @@
         { k: 'skirt', w: 26.2, emoji: '👗' },
         { k: 'socks', w: 14, emoji: '🧦' },
         { k: 'scarf', w: 24, emoji: '🧣' },
-        { k: 'raincoat', w: 36, emoji: '🌧️' },
+        { k: 'raincoat', w: 57.5, emoji: '🌧️' },
       ],
     },
     {
@@ -68,11 +68,13 @@
 
   const KEY = 'dress-up';
   const COLOR = /^#[0-9a-f]{6}$/i;
+  const BACKGROUNDS = ['#efb5d3', '#ffd6e0', '#ffe3b3', '#fff3a8', '#c9efc3', '#b5e6e3', '#b9d7f5', '#d4c2f2', '#ffffff', '#6b6b78', '#2b2733'];
   const PAINTS = ['#ff6b6b', '#ff9f43', '#ffd93d', '#6bcb77', '#4dd0c8', '#4d96ff', '#9b5de5', '#f15bb5', '#a0693b', '#4a4a4a'];
-  const blank = () => ({ u: [], 1: [], 2: [] }); // unlocked words, pieces on each model
+  const blank = () => ({ u: [], 1: [], 2: [], bg: {} }); // unlocked words, pieces on each model, background color of each
   let state;
   function load() {
     try { state = { ...blank(), ...JSON.parse(saved[KEY] || '{}') }; } catch { state = blank(); }
+    if (!state.bg || typeof state.bg !== 'object') state.bg = {};
     state.u = state.u.filter(k => BY_KEY[k]); // words taken out of the game since the last visit
     SETS.forEach(set => {
       state[set.id] = state[set.id].filter(i => BY_KEY[i.k]);
@@ -93,6 +95,7 @@
     set.score = $(`du-score-${set.id}`);
     set.reset = $(`du-reset-${set.id}`);
     set.print = $(`du-print-${set.id}`);
+    set.bgBtn = $(`du-bg-${set.id}`);
   });
   if (!SETS.every(set => set.cards && set.area)) return;
   const setOf = area => SETS.find(set => set.area === area);
@@ -455,6 +458,32 @@
     drawArea(area);
   });
 
+  /* ================= background of the model ================= */
+  // the pink of the book until a color is chosen
+  const backgroundOf = set => (COLOR.test(state.bg[set.id]) ? state.bg[set.id] : '');
+  function applyBg(set) { set.area.style.background = backgroundOf(set); }
+  function chooseBg(set, c) {
+    if (c) state.bg[set.id] = c; else delete state.bg[set.id];
+    applyBg(set);
+    store();
+  }
+  SETS.forEach(set => {
+    if (!set.bgBtn) return;
+    const pal = document.createElement('div');
+    pal.className = 'du-bgpal abs';
+    pal.hidden = true;
+    pal.style.cssText = set.bgBtn.style.cssText.replace(/--y:[\d.]+/, `--y:${parseFloat(set.bgBtn.style.getPropertyValue('--y')) + 4.4}`);
+    pal.innerHTML = BACKGROUNDS.map((c, i) => `<button type="button" data-c="${i ? c : ''}" style="background:${c}" title="${i ? c : 'Pink, as in the book'}"></button>`).join('') +
+      '<label title="Any color"><input type="color" value="#efb5d3" aria-label="Pick a background color"></label>';
+    set.bgBtn.after(pal);
+    set.bgBtn.addEventListener('click', () => { pal.hidden = !pal.hidden; });
+    pal.addEventListener('click', e => {
+      const b = e.target.closest('button');
+      if (b) chooseBg(set, b.dataset.c);
+    });
+    pal.querySelector('input').addEventListener('input', e => chooseBg(set, e.target.value));
+  });
+
   /* ================= print the model ================= */
   // The dressed model alone on an A4 sheet, printed from a hidden frame (the book itself is not touched).
   function printModel(set) {
@@ -470,7 +499,7 @@
       body { margin: 0; text-align: center; font-family: 'Nunito', Arial, sans-serif; color: #555; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
       h1 { margin: 0 0 1mm; font: 700 28pt 'Fredoka', 'Nunito', Arial, sans-serif; color: #8e2de2; }
       p { margin: 0 0 5mm; font-size: 13pt; }
-      .area { position: relative; width: 184mm; height: 184mm; margin: 0 auto 6mm; overflow: hidden; border: 1mm solid #dc3394; border-radius: 6mm; background: linear-gradient(#fff6fb 0 82%, #f8d3e8 82% calc(82% + .5mm), #fbe6f1 calc(82% + .5mm)); }
+      .area { position: relative; width: 184mm; height: 184mm; margin: 0 auto 6mm; overflow: hidden; border: 1mm solid #dc3394; border-radius: 6mm; background: ${backgroundOf(set) || 'linear-gradient(#efb5d3 0 82%, #d98fba 82% calc(82% + .5mm), #e8a6c9 calc(82% + .5mm))'}; }
       .doll { position: absolute; left: 50%; top: 3%; height: 91.4%; transform: translateX(-50%); }
       .it { position: absolute; }
       .it img { display: block; width: 100%; height: auto; }
@@ -506,6 +535,7 @@
     unselect();
     SETS.forEach(set => {
       drawCards(set);
+      applyBg(set);
       drawArea(set.area);
     });
   }
