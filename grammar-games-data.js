@@ -265,5 +265,72 @@ const SCATCH_DATA=[
     {s:"Today's Monday.",a:'is',why:"Today <b>is</b> Monday ✓ → IS."},
   ];
 
-  return { AP_DATA, SG_ORDER, SG_APOS, SG_TF, SG_FINAL, SUBJECTS, SF_EASY, SF_MED, SF_HARD, QF_DATA, SCATCH_DATA };
+  /* present continuous: the verb, its -ing form, how it is spelled, the sentence (the gap is ___) */
+  const ING_DATA = [
+    ['wear', 'wearing', 'plain', 'Marta is ___ a green coat.'],
+    ['take', 'taking', 'e', 'The photographers are ___ pictures.'],
+    ['run', 'running', 'dbl', 'Look! The dog is ___ on the catwalk.'],
+    ['shop', 'shopping', 'dbl', 'We are ___ for new sneakers.'],
+    ['tie', 'tying', 'ie', 'He is ___ his tie.'],
+    ['smile', 'smiling', 'e', 'The model is ___ at the judges.'],
+    ['dance', 'dancing', 'e', 'They are ___ in the show.'],
+    ['put', 'putting', 'dbl', 'I am ___ on my jacket.'],
+    ['get', 'getting', 'dbl', 'She is ___ ready backstage.'],
+    ['sit', 'sitting', 'dbl', 'The judges are ___ in the front row.'],
+    ['pose', 'posing', 'e', 'Luca is ___ for the camera.'],
+    ['walk', 'walking', 'plain', 'You are ___ very fast!'],
+    ['show', 'showing', 'plain', 'Anna is ___ her new hat.'],
+    ['wave', 'waving', 'e', 'The models are ___ to the audience.'],
+    ['stop', 'stopping', 'dbl', 'The model is ___ at the end of the runway.'],
+    ['lie', 'lying', 'ie', 'The cat is ___ on my scarf.'],
+    ['hold', 'holding', 'plain', 'I am ___ a pair of gloves.'],
+    ['plan', 'planning', 'dbl', 'We are ___ the fashion show.'],
+    ['write', 'writing', 'e', 'The host is ___ the script.'],
+    ['make', 'making', 'e', 'My mom is ___ a costume.'],
+    ['swim', 'swimming', 'dbl', 'Look! They are ___ in their new swimsuits.'],
+    ['try', 'trying', 'plain', 'She is ___ on a pair of boots.'],
+    ['wait', 'waiting', 'plain', 'The assistants are ___ backstage.'],
+    ['look', 'looking', 'plain', 'Everybody is ___ at the winner.'],
+    ['eat', 'eating', 'plain', 'We are ___ lunch in the canteen.'],
+    ['play', 'playing', 'plain', 'The boys are ___ football in the yard.'],
+    ['read', 'reading', 'plain', 'My brother is ___ a funny book.'],
+    ['sing', 'singing', 'plain', 'Listen! Sofia is ___ in the shower.'],
+    ['rain', 'raining', 'plain', 'Take an umbrella! It is ___.'],
+    ['cook', 'cooking', 'plain', 'Dad is ___ pasta for dinner.'],
+    ['listen', 'listening', 'plain', 'I am ___ to my favorite song.'],
+    ['work', 'working', 'plain', 'My mom is ___ at the hospital today.'],
+    ['talk', 'talking', 'plain', 'You are ___ too loudly!'],
+    ['draw', 'drawing', 'plain', 'The students are ___ a map.'],
+    ['ride', 'riding', 'e', 'Look! Tom is ___ his new bike.'],
+    ['drive', 'driving', 'e', 'My uncle is ___ to Rome.'],
+    ['live', 'living', 'e', 'We are ___ in a small town this year.'],
+    ['use', 'using', 'e', 'She is ___ my pencil case.'],
+    ['have', 'having', 'e', 'They are ___ a party in the garden.'],
+    ['come', 'coming', 'e', 'Hurry up! The bus is ___.'],
+    ['bake', 'baking', 'e', 'Grandma is ___ a chocolate cake.'],
+    ['hide', 'hiding', 'e', 'The cat is ___ under the bed.'],
+    ['sleep', 'sleeping', 'plain', 'Shh! The baby is ___.'],
+    ['begin', 'beginning', 'dbl', 'The lesson is ___ now.'],
+    ['chat', 'chatting', 'dbl', 'The girls are ___ on the phone.'],
+    ['jog', 'jogging', 'dbl', 'My dad is ___ in the park.'],
+    ['win', 'winning', 'dbl', 'Our team is ___ the match!'],
+    ['cut', 'cutting', 'dbl', 'I am ___ a piece of paper.'],
+    ['clap', 'clapping', 'dbl', 'The audience is ___ loudly.'],
+    ['die', 'dying', 'ie', 'The flowers are ___ without water.'],
+  ];
+  /* verbs that do not like -ing: the right form is the base form (the two wrong ones are made by the game) */
+  const ING_STATE = [
+    ['like', 'I ___ this coat!'], ['love', 'We ___ your sneakers!'], ['hate', 'They ___ this tie.'],
+    ['want', 'I ___ a red hat.'], ['need', 'You ___ a belt.'], ['know', 'We ___ the answer.'],
+    ['own', 'They ___ a lot of shoes.'], ['have', 'I ___ a blue scarf.'],
+    ['prefer', 'I ___ tea to coffee.'], ['understand', 'We ___ the question.'], ['remember', 'I ___ your name.'],
+    ['believe', 'They ___ in ghosts.'], ['belong', 'These shoes ___ to me.'], ['mean', 'I ___ what I say.'],
+    ['hear', 'I ___ a strange noise.'], ['see', 'We ___ the sea from here.'], ['love', 'You ___ chocolate, right?'],
+    ['want', 'They ___ a new phone.'], ['know', 'I ___ that girl.'], ['need', 'We ___ some help.'],
+  ];
+
+  /* mime cards: emoji, the action, the -ing form (after "Are you …?") */
+  const MIME_DATA = [["🧥","put on a coat","putting on a coat"],["👢","take off boots","taking off boots"],["👔","tie a tie","tying a tie"],["🧵","sew a button","sewing a button"],["🤳","take a selfie","taking a selfie"],["🪞","look in the mirror","looking in the mirror"],["🧳","pack a suitcase","packing a suitcase"],["💃","dance at a party","dancing at a party"],["🧦","look for a sock","looking for a sock"],["🧴","put on makeup","putting on makeup"],["🎩","try on a hat","trying on a hat"],["🚶","walk on the runway","walking on the runway"],["💇","brush your hair","brushing your hair"],["📸","take a photo","taking a photo"],["📝","write notes","writing notes"],["📦","carry a box","carrying a box"],["👋","wave to the audience","waving to the audience"],["👞","polish your shoes","polishing your shoes"],["🎤","sing on stage","singing on stage"],["🕶️","clean your sunglasses","cleaning your sunglasses"],["👕","iron a shirt","ironing a shirt"],["🥤","drink water","drinking water"],["🛍️","carry shopping bags","carrying shopping bags"],["💄","put on lipstick","putting on lipstick"]];
+
+  return { MIME_DATA, ING_DATA, ING_STATE, AP_DATA, SG_ORDER, SG_APOS, SG_TF, SG_FINAL, SUBJECTS, SF_EASY, SF_MED, SF_HARD, QF_DATA, SCATCH_DATA };
 })();

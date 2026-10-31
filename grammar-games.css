@@ -168,6 +168,32 @@ html.gq-open { overflow: hidden; scrollbar-gutter: stable; }
 .gq-reveal .w strong { color: var(--gq-coral); }
 .gq-reveal .r { max-width: 320px; margin-top: 8px; padding: 9px 16px; border-radius: 10px; background: #efdcfb; color: var(--gq-navy); font-size: 14px; }
 
+/* ---------- Acchiappa l'-ing giusto: the sentence on top, the wall of missed forms at the bottom ---------- */
+#gqIngArena { height: clamp(330px, calc(100vh - 290px), 460px); }
+.gq-sent { position: absolute; left: 50%; width: max-content; top: 10px; transform: translateX(-50%); z-index: 2; max-width: calc(100% - 16px); padding: 10px 22px; text-align: center; background: #fff; border: 3px solid var(--gq-purple); border-radius: 14px; font: 700 20px/1.25 'Fredoka', 'Nunito', sans-serif; box-shadow: 0 4px 16px rgba(142, 45, 226, .25); }
+.gq-sent .gap { display: inline-block; min-width: 70px; border-bottom: 3px solid var(--gq-coral); color: var(--gq-coral); }
+.gq-sent .gap.show { color: var(--gq-ok); border-bottom-color: var(--gq-ok); }
+.gq-form { position: absolute; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font: 700 22px 'Fredoka', 'Nunito', sans-serif; cursor: pointer; border: 3px solid rgba(255, 255, 255, .85); box-shadow: 0 4px 14px rgba(31, 42, 107, .25); transition: transform .1s; }
+.gq-form:hover { transform: scale(1.08); }
+.gq-form.exploding { animation: gqBoom .35s forwards; pointer-events: none; }
+.gq-wall { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: flex; flex-wrap: wrap-reverse; align-content: flex-start; }
+.gq-brick { box-sizing: border-box; flex: 0 0 33.333%; height: 56px; display: flex; align-items: center; justify-content: center; background: #8e2de2; border: 3px solid #fff; border-radius: 6px; color: #fff; font: 700 20px 'Fredoka', 'Nunito', sans-serif; animation: gqPop .25s ease-out; }
+.gq-reveal.small .a { font-size: 40px; }
+
+/* ---------- Mime and guess ---------- */
+.gq-mscore { display: flex; justify-content: center; gap: 12px; margin-bottom: 10px; }
+.gq-mscore div { min-width: 120px; padding: 6px 16px; border-radius: 12px; border: 3px solid var(--c); text-align: center; font: 700 16px 'Fredoka', 'Nunito', sans-serif; color: var(--c); opacity: .55; }
+.gq-mscore div.on { opacity: 1; background: var(--c); color: #fff; }
+.gq-mscore b { margin-left: 8px; font-size: 20px; }
+.gq-mstage { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 8px 0; }
+.gq-mcard { width: min(260px, 80%); min-height: 170px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; border-radius: 18px; border: 4px dashed var(--gq-purple); background: #fff; }
+.gq-mcard i { font-style: normal; font-size: 64px; line-height: 1; }
+.gq-mcard b { font: 700 22px 'Fredoka', 'Nunito', sans-serif; color: var(--gq-purple); }
+.gq-mcard.face { border-style: solid; background: #f6e9fd; }
+.gq-mtime { width: min(320px, 90%); height: 10px; border-radius: 6px; background: #e4dcf0; overflow: hidden; }
+.gq-mtime div { height: 100%; background: var(--gq-coral); transition: width 1s linear; }
+.gq-mhint { margin: 0; text-align: center; font-size: 14px; color: var(--gq-dim); }
+
 /* ---------- result ---------- */
 .gq-result { text-align: center; padding: 28px 12px; }
 .gq-result .emo { font-size: 56px; }
@@ -184,6 +210,10 @@ html.gq-open { overflow: hidden; scrollbar-gutter: stable; }
   .gq-big { font-size: 24px; }
   #gqSpeedArena { height: 140px; }
   #gqCatchArena { height: 320px; }
+  #gqIngArena { height: 360px; }
+  .gq-form { font-size: 18px; }
+  .gq-sent { font-size: 16px; padding: 8px 14px; }
+  .gq-brick { font-size: 16px; }
   .gq-ending { width: 60px; height: 60px; font-size: 18px; }
   .gq-target { min-width: 0; padding: 10px 18px; font-size: 18px; }
   .gq-tbl th, .gq-tbl td { padding: 7px 6px; font-size: 13px; }

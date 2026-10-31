@@ -3,7 +3,7 @@
 // Questions and sentences are in grammar-games-data.js.
 
 (() => {
-  const { AP_DATA, SG_ORDER, SG_APOS, SG_TF, SG_FINAL, SUBJECTS, SF_EASY, SF_MED, SF_HARD, QF_DATA, SCATCH_DATA } = GQ_DATA;
+  const { AP_DATA, SG_ORDER, SG_APOS, SG_TF, SG_FINAL, SUBJECTS, SF_EASY, SF_MED, SF_HARD, QF_DATA, SCATCH_DATA, ING_DATA, ING_STATE, MIME_DATA } = GQ_DATA;
 
   // spread (data-id) → the games offered there; from = the first spread the games are about
   const SETS = {
@@ -11,6 +11,8 @@
     'tobe-rules': { title: 'The verb TO BE', games: ['tobe-rule', 'tobe-fire'] },
     'own-saxon': { title: 'The Saxon genitive', games: ['sg-order', 'sg-apos', 'sg-tf', 'sg-final'] },
     'own-three-s': { title: 'The three ’s', games: ['ap-cards', 'ap-fire'] },
+    'clothes-pc-games': { title: 'Present continuous: mime', games: ['mime'] },
+    'clothes-pc-rule': { title: 'Present continuous: -ing', games: ['ing-catch'] },
     'ps-affirmative': { title: 'Present simple: the -s', games: ['s-rule', 's-catch'], poker: true },
   };
   for (const [key, set] of Object.entries(SETS)) {
@@ -28,6 +30,8 @@
     'sg-final': { icon: '🏁', name: 'Final challenge', text: 'Riscrivi 8 frasi con il Saxon genitive (o con of).' },
     'ap-cards': { icon: '🃏', name: 'The three cards', text: 'IS, HAS o possessivo? Scegli la carta giusta, come in classe.' },
     'ap-fire': { icon: '🔥', name: 'Quick Fire', text: 'Stessa sfida, ma hai solo 7 secondi per frase.' },
+    mime: { icon: '🎭', name: 'Mime and guess', text: 'Due squadre: uno mima, gli altri indovinano con “Are you …-ing?”' },
+    'ing-catch': { icon: '🧲', name: "catch-ING", text: 'Tre forme cadono: clicca quella scritta bene. Se sbagli, il muro sale!' },
     's-catch': { icon: '🧲', name: 'Acchiappa il Finale!', text: 'Clicca il finale giusto prima che tocchi terra.' },
   };
 
@@ -174,6 +178,15 @@
     else play(b.dataset.play);
   });
   backBtn.addEventListener('click', showMenu);
+  // a button on a page (data-gq-game="spread-id:game") opens that game
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-gq-game]');
+    if (!b) return;
+    const [key, id] = b.dataset.gqGame.split(':');
+    seen.add(key);
+    open(key);
+    play(id);
+  });
   $('gqClose').addEventListener('click', close);
   fab.addEventListener('click', () => open(currentSet().key));
 
@@ -819,6 +832,235 @@
     cleanup = () => { stop(); clearFalling(); };
   };
 
+
+  /* ---------- present continuous: catch the right -ing; the right form that you miss piles up as a wall ---------- */
+  GAMES['ing-catch'] = () => {
+    setTitle("🧲 catch-ING");
+    const ROUND = 30, FAST = 20, PER_ROW = 3, TILE = 56, TOP = 74; // TOP = the room kept free for the sentence
+    const COLORS = [[PC.I, PCT.I], [PC.you, PCT.you], [PC.he, PCT.he], [PC.it, PCT.it], [PC.they, PCT.they]];
+    const RULES = {
+      plain: 'Di solito basta aggiungere -ing.',
+      e: 'Verbo in -e: togli la e e aggiungi -ing (take → taking).',
+      dbl: 'Una vocale + una consonante: raddoppia la consonante (run → running).',
+      ie: 'Verbo in -ie: ie diventa y (tie → tying).',
+      state: 'Like, love, hate, want, need, know… non vogliono -ing: usa la forma base.',
+    };
+    // wrong spellings of an -ing form
+    const wrongIng = (v, type, good) => {
+      const last = v.slice(-1);
+      const c = {
+        plain: [v + last + 'ing', v.slice(0, -1) + 'ing', v + 'eing', v + 'ng'],
+        e: [v + 'ing', v + 'eing', v.slice(0, -1) + 'ng', v + last + 'ing'],
+        dbl: [v + 'ing', v + 'eing', v.slice(0, -1) + 'ing', v + last + 'eing'],
+        ie: [v + 'ing', v.slice(0, -2) + 'ing', v.slice(0, -2) + 'yeing', v.slice(0, -1) + 'ying'],
+      }[type];
+      return shuffle([...new Set(c)].filter(w => w !== good)).slice(0, 2);
+    };
+    const asItem = ([v, ing, type, s]) => ({ s, good: ing, bad: wrongIng(v, type, ing), type, shown: v + ' → ' + ing });
+    const asState = ([v, s]) => {
+      const bad = v.endsWith('e') ? [v.slice(0, -1) + 'ing', v + 'ing'] : [v + 'ing', v + 's'];
+      return { s, good: v, bad, type: 'state', shown: v + ' (non ' + bad[0] + ')' };
+    };
+    // the first rounds are all -ing, then the verbs that do not take -ing arrive
+    const ings = shuffle(ING_DATA).map(asItem), states = shuffle(ING_STATE).map(asState);
+    const qs = [...ings.slice(0, 8), ...shuffle([...ings.slice(8), ...states])].slice(0, ROUND);
+
+    let qi = 0, score = 0, wall = 0, played = 0;
+    let raf = null, active = false, locked = false, falling = [];
+    setScore(0);
+    setLives(null);
+
+    area.innerHTML = `<div class="gq-card">
+      <p class="gq-instr">Clicca la forma <span>scritta bene</span> prima che tocchi il muro.<br><em>Ogni errore: la forma giusta cade e il muro sale. Se arriva in cima hai perso: arriva a 30 e vinci! Dopo 20 si va più veloci.</em></p>
+      <div class="gq-prog" id="gqProg">${dots(qs.length, 0)}</div>
+      <div class="gq-arena" id="gqIngArena"><div class="gq-sent" id="gqSent"></div><div class="gq-wall" id="gqWall"></div></div></div>`;
+    const arena = $('gqIngArena'), wallEl = $('gqWall');
+
+    const clearFalling = () => { falling.forEach(f => f.el.remove()); falling = []; };
+    const stop = () => { active = false; cancelAnimationFrame(raf); };
+    const progress = () => { $('gqProg').innerHTML = dots(qs.length, qi); };
+    const wallH = () => Math.ceil(wall / PER_ROW) * TILE;
+    const arenaH = () => arena.clientHeight || 380;
+    const fill = (q, word, cls) => { $('gqSent').innerHTML = q.s.replace('___', `<span class="gap ${cls}">${word || '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'}</span>`); };
+
+    function finish() {
+      stop();
+      clearFalling();
+      showResult(score, Math.max(played, score), 'ing-catch');
+    }
+
+    function nextRound() {
+      qi++;
+      played++;
+      if (qi >= qs.length) { finish(); return; }
+      progress();
+      startRound();
+    }
+
+    // the right form that was missed falls on the wall and the wall grows
+    function missed(q) {
+      wall++;
+      const tile = document.createElement('div');
+      tile.className = 'gq-brick';
+      tile.textContent = q.good;
+      wallEl.append(tile);
+      bad();
+      fill(q, q.good, 'show');
+      if (wallH() >= arenaH() - TOP) { played++; wait(finish, 1200); return; }
+      const ov = document.createElement('div');
+      ov.className = 'gq-reveal small';
+      ov.innerHTML = `<div class="t">❌ La forma giusta era:</div><div class="a">${q.good}</div><div class="r">📚 ${q.shown}<br>${RULES[q.type]}</div>`;
+      arena.append(ov);
+      wait(() => { ov.remove(); nextRound(); }, 2400);
+    }
+
+    function startRound() {
+      locked = false;
+      const q = qs[qi];
+      fill(q, '', '');
+      clearFalling();
+      const w = arena.clientWidth || 360;
+      const slot = Math.floor(w / PER_ROW), bw = Math.min(150, slot - 10);
+      const cols = shuffle(COLORS);
+      shuffle([q.good, ...q.bad]).forEach((word, i) => {
+        const el = document.createElement('div');
+        el.className = 'gq-form';
+        el.textContent = word;
+        el.style.background = cols[i][0];
+        el.style.color = cols[i][1];
+        el.style.width = bw + 'px';
+        el.style.left = Math.floor(slot * i + (slot - bw) / 2) + 'px';
+        el.style.top = TOP + 'px';
+        el.addEventListener('click', () => pick(word, el, q));
+        arena.append(el);
+        falling.push({ el, y: TOP, speed: 30 + Math.random() * 10 + qi * 1.6 + Math.max(0, qi - FAST + 1) * 5 });
+      });
+      active = true;
+      let last = performance.now();
+      const loop = now => {
+        if (!active) return;
+        const dt = Math.min((now - last) / 1000, .05);
+        last = now;
+        const floor = arenaH() - wallH() - TILE;
+        for (const f of falling) {
+          f.y += f.speed * dt;
+          f.el.style.top = f.y + 'px';
+          if (f.y >= floor && !locked) {
+            locked = true;
+            stop();
+            clearFalling();
+            missed(q);
+            return;
+          }
+        }
+        raf = requestAnimationFrame(loop);
+      };
+      raf = requestAnimationFrame(loop);
+    }
+
+    function pick(word, el, q) {
+      if (locked) return;
+      locked = true;
+      stop();
+      el.classList.add('exploding');
+      if (word === q.good) {
+        fill(q, word, 'show');
+        score++;
+        setScore(score);
+        good();
+        burstAt(el, el.style.background);
+        wait(() => { clearFalling(); nextRound(); }, 700);
+      } else {
+        wait(() => { clearFalling(); missed(q); }, 400);
+      }
+    }
+
+    startRound();
+    cleanup = () => { stop(); clearFalling(); };
+  };
+
+
+  /* ---------- present continuous: mime and guess (two teams) ---------- */
+  GAMES.mime = () => {
+    setTitle('🎭 Mime and guess');
+    setScore(null);
+    const TURNS = 10, SECONDS = 60;
+    const deck = shuffle(MIME_DATA);
+    const teams = [{ name: 'Team A', pts: 0, c: '#dc3394' }, { name: 'Team B', pts: 0, c: '#4aa8ec' }];
+    let turn = 0, card = null, peek = false, left = SECONDS, timer = null;
+
+    const stopTimer = () => { clearInterval(timer); timer = null; };
+    const board = () => `<div class="gq-mscore">${teams.map((t, i) => `<div class="${i === turn % 2 ? 'on' : ''}" style="--c:${t.c}">${t.name}<b>${t.pts}</b></div>`).join('')}</div>`;
+    const draw = () => { card = deck[turn % deck.length]; };
+    const show = html => { area.innerHTML = `<div class="gq-card">${board()}${html}</div>`; };
+
+    function ready() {
+      stopTimer();
+      if (turn >= TURNS) { end(); return; }
+      const t = teams[turn % 2];
+      show(`<div class="gq-mstage"><p class="gq-instr">Tocca a <span style="color:${t.c}">${t.name}</span> · giro ${turn + 1} / ${TURNS}<br><em>Chi mima prende la carta: gli altri NON guardano lo schermo!</em></p>
+        <button type="button" class="gq-btn" id="gqMTake">🎴 Prendi una carta</button></div>`);
+      $('gqMTake').onclick = mime;
+    }
+
+    function mime() {
+      draw();
+      peek = false;
+      left = SECONDS;
+      paintMime();
+      timer = setInterval(() => {
+        left--;
+        const bar = $('gqMBar'), sec = $('gqMSec');
+        if (bar) bar.style.width = (left / SECONDS * 100) + '%';
+        if (sec) sec.textContent = left + ' s';
+        if (left <= 0) { stopTimer(); result(false); }
+      }, 1000);
+    }
+
+    function paintMime() {
+      show(`<div class="gq-mstage">
+        <div class="gq-mcard ${peek ? 'face' : ''}">${peek ? `<i>${card[0]}</i><b>${card[1]}</b>` : '<i>🎭</i><b>?</b>'}</div>
+        <div class="gq-mtime"><div id="gqMBar" style="width:${left / SECONDS * 100}%"></div></div><p class="gq-mhint"><span id="gqMSec">${left} s</span> · Mima senza parlare! La squadra chiede: <b>“Are you …-ing?”</b></p>
+        <div class="gq-row">
+          <button type="button" class="gq-btn alt" id="gqMPeek">${peek ? '🙈 Nascondi la carta' : '👀 Guarda la carta (solo chi mima)'}</button>
+          <button type="button" class="gq-btn lime" id="gqMOk">✅ Indovinato!</button>
+          <button type="button" class="gq-btn coral" id="gqMSkip">⏭ Un'altra carta</button>
+        </div></div>`);
+      $('gqMPeek').onclick = () => { peek = !peek; paintMime(); };
+      $('gqMOk').onclick = () => { stopTimer(); result(true); };
+      $('gqMSkip').onclick = () => {
+        const i = deck.indexOf(card);
+        card = deck[(i + 1) % deck.length];
+        peek = false;
+        paintMime();
+      };
+    }
+
+    function result(won) {
+      const t = teams[turn % 2];
+      if (won) { t.pts++; good(); } else bad();
+      const q = `Are you ${card[2]}?`;
+      show(`<div class="gq-mstage">
+        <div class="gq-mcard face"><i>${card[0]}</i><b>${card[1]}</b></div>
+        <p class="gq-instr">${won ? `🎉 Punto per <span style="color:${t.c}">${t.name}</span>!` : '⏰ Tempo scaduto! Nessun punto.'}<br><em>Ripetete insieme: “${q}” — “Yes, I am.” · “He / she is ${card[2]}.”</em></p>
+        <div class="gq-row"><button type="button" class="gq-btn alt" id="gqMSay">🔊 Ascolta</button><button type="button" class="gq-btn" id="gqMNext">Avanti →</button></div></div>`);
+      $('gqMSay').onclick = () => speak(`${q} Yes, I am. She is ${card[2]}.`);
+      $('gqMNext').onclick = () => { turn++; ready(); };
+    }
+
+    function end() {
+      const [a, b] = teams;
+      const msg = a.pts === b.pts ? '🤝 Pareggio!' : `🏆 Vince ${a.pts > b.pts ? a.name : b.name}!`;
+      if (a.pts !== b.pts) playWin(); else playOk();
+      area.innerHTML = `<div class="gq-result">${board()}<div class="emo">🎭</div><h3>${msg}</h3>
+        <p class="pts">${a.name} ${a.pts} – ${b.pts} ${b.name}</p>
+        <div class="gq-row"><button type="button" class="gq-btn" data-play="mime">🔄 Rigioca</button><button type="button" class="gq-btn alt" data-menu>🏠 Menu</button></div></div>`;
+    }
+
+    ready();
+    cleanup = stopTimer;
+  };
+
   /* ---------- Saxon genitive: shared helpers ---------- */
   const isMark = t => t === "'s" || t === "'";
   const joinTokens = tokens => tokens.reduce((out, t, i) => (i === 0 ? t : isMark(t) ? out + t : out + ' ' + t), '');
@@ -1171,6 +1413,27 @@
       document.addEventListener('spreadchange', go, { once: true });
       location.hash = a.getAttribute('href');
     }));
+    window.hideClosedGames?.();
+  });
+
+  // the home page: the same game, on the pages of the present continuous
+  window.addEventListener('load', () => {
+    const list = $('gameList');
+    if (!list || typeof PAGES === 'undefined') return;
+    const set = 'clothes-pc-rule', game = 'ing-catch';
+    const pill = document.createElement('details');
+    pill.className = 'game-topic';
+    pill.style.setProperty('--c', '#8e2de2');
+    pill.innerHTML = `<summary>${INFO[game].icon} Present continuous <small>1</small></summary><div class="topic-pages"><a href="#p${PAGES.of(set)}">${INFO[game].icon} ${INFO[game].name}</a></div>`;
+    list.append(pill);
+    pill.querySelector('a').addEventListener('click', e => {
+      e.preventDefault();
+      pill.open = false;
+      const go = () => { seen.add(set); open(set); play(game); };
+      if (location.hash === '#p' + PAGES.of(set)) { go(); return; }
+      document.addEventListener('spreadchange', go, { once: true });
+      location.hash = '#p' + PAGES.of(set);
+    });
     window.hideClosedGames?.();
   });
 
