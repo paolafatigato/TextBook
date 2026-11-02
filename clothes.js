@@ -1,6 +1,6 @@
 // The decorative drawings of the garments (img/clothes/art/<name>.png): until one is drawn, a drawing of the dress-up game (img/dress) stands in
 // for it, the same garment when there is one, else the next of the others. Add the file in img/clothes/art and it takes its place.
-const CL_ART_SAME = { tshirt: 't-shirt', sweater: 'oversize-sweater', jeans: 'jeans', gloves: 'gloves', skirt: 'skirt', hat: 'cap', boots: 'combat-boots', sneakers: 'sneakers', shorts: 'shorts', hoodie: 'hoodie' };
+const CL_ART_SAME = { tshirt: 't-shirt', sweater: 'oversize-sweater', jeans: 'jeans', gloves: 'gloves', skirt: 'skirt', hat: 'cap', boots: 'combat-boots', sneakers: 'sneakers', shorts: 'shorts', hoodie: 'hoodie', sunglasses: 'sunglasses', scarf: 'scarf', socks: 'socks', backpack: 'backpack', bag: 'backpack' };
 const CL_ART_POOL = ['gym-outfit', 'overalls', 'skirt', 'bell-bottoms', 'jeans', 't-shirt', 'oversize-sweater', 'gloves'];
 let clArtNext = 0;
 function clArtFallback(img) {
@@ -17,6 +17,44 @@ function clArtFallback(img) {
 (() => {
   const $ = id => document.getElementById(id);
   const num = v => { const n = parseFloat(String(v).replace(',', '.')); return Number.isFinite(n) ? n : null; };
+
+
+  // [clothes-crossword:R]: the grid. Type a letter and the cursor goes on along the word; Check marks the letters right or wrong.
+  const cwCells = [...document.querySelectorAll('input.cw-c')];
+  const cwAt = (x, y) => cwCells.find(c => +c.dataset.x === x && +c.dataset.y === y);
+  const cwScore = $('cw-score');
+  cwCells.forEach(c => {
+    c.addEventListener('input', () => {
+      c.value = c.value.replace(/[^a-z]/gi, '').slice(-1).toUpperCase();
+      if (cwScore) cwScore.textContent = '';
+      if (!c.value) return;
+      const x = +c.dataset.x, y = +c.dataset.y;
+      (cwAt(x + 1, y) || cwAt(x, y + 1))?.focus();
+    });
+    c.addEventListener('keydown', e => {
+      const x = +c.dataset.x, y = +c.dataset.y;
+      const go = { ArrowRight: [1, 0], ArrowLeft: [-1, 0], ArrowDown: [0, 1], ArrowUp: [0, -1] }[e.key];
+      if (go) { const t = cwAt(x + go[0], y + go[1]); if (t) { e.preventDefault(); e.stopPropagation(); t.focus(); } }
+      else if (e.key === 'Backspace' && !c.value) (cwAt(x - 1, y) || cwAt(x, y - 1))?.focus();
+    });
+    c.addEventListener('focus', () => c.select());
+  });
+  $('cw-check')?.addEventListener('click', () => {
+    let right = 0, filled = 0;
+    cwCells.forEach(c => {
+      c.classList.remove('ok', 'no');
+      if (!c.value.trim()) return;
+      filled++;
+      const ok = c.value.toUpperCase() === c.dataset.l;
+      c.classList.add(ok ? 'ok' : 'no');
+      if (ok) right++;
+    });
+    cwScore.textContent = right === cwCells.length ? '🎉 Perfect! All the letters are right.' : `${right} right · ${filled - right} wrong · ${cwCells.length - filled} still empty`;
+  });
+  $('cw-clear')?.addEventListener('click', () => {
+    cwCells.forEach(c => { c.value = ''; c.classList.remove('ok', 'no'); c.dispatchEvent(new Event('input')); });
+    if (cwScore) cwScore.textContent = '';
+  });
 
   // [clothes-accessories]: how many letters of the alphabet game are filled in
   const abc = [...document.querySelectorAll('.cl-abc')];
