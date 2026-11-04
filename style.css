@@ -111,7 +111,7 @@ body {
 /* ---------- spread & pages ---------- */
 .spread {
   display: none;
-  --w: calc(min(100% - 140px, 1500px) * var(--zoom, 1));
+  --w: calc(420mm * var(--zoom, 1)); /* 100% = two real A4 pages (210mm each) side by side */
   width: var(--w);
   margin: 24px auto 48px;
   break-after: page;
@@ -614,13 +614,13 @@ input.fill.nb-num.no { background: #e53935; color: #fff; }
 
 /* ---------- PAGES 16–17: model book review ---------- */
 /* the drawing has a white background: multiply keeps only its lines */
-.art-top.multiply { mix-blend-mode: multiply; }
+.art-top.multiply { }
 .br-h { font: 700 3.5cqw/1 'Fredoka', 'Nunito', sans-serif; color: #3d8f3d; }
 .br-text { font: 400 2cqw/1.24 'Nunito', sans-serif; color: #444; text-align: justify; }
 .br-text p { margin: 0 0 1.2cqw; }
 .br-green {
   /* above the drawing, multiplied: covers the white halo of the PNG but keeps its black lines */
-  z-index: 4; background: #4b9b48; mix-blend-mode: multiply;
+  z-index: 4; background: #4b9b48;
   clip-path: polygon(41.1cqw 17.3cqw, 84.4cqw 17.3cqw, 84.4cqw 67cqw, 76.5cqw 68cqw, 76.1cqw 69.5cqw, 75.0cqw 71cqw, 73.8cqw 72.5cqw, 74.0cqw 74cqw, 74.0cqw 75.5cqw, 72.0cqw 77cqw, 71.5cqw 78.5cqw, 68.3cqw 80cqw, 68.0cqw 81.5cqw, 65.0cqw 83cqw, 61.9cqw 84.5cqw, 61.2cqw 86cqw, 61.1cqw 87.5cqw, 61.1cqw 89cqw, 61.2cqw 90.5cqw, 61.6cqw 92cqw, 62.0cqw 93.5cqw, 62.8cqw 95cqw, 63.6cqw 96.5cqw, 64.7cqw 98cqw, 66.0cqw 99.5cqw, 67.2cqw 101cqw, 67.2cqw 102.5cqw, 67.6cqw 104cqw, 68.4cqw 105.5cqw, 65.8cqw 107cqw, 66.7cqw 108.5cqw, 66.5cqw 110cqw, 68.1cqw 111.5cqw, 69.2cqw 113cqw, 70.5cqw 114.5cqw, 68.7cqw 116cqw, 67.2cqw 117.5cqw, 66.1cqw 119cqw, 65.1cqw 120.5cqw, 64.5cqw 122cqw, 63cqw 123cqw, 41.1cqw 118cqw);
 }
 .br-comment-h, .br-comment { z-index: 5; }
@@ -3240,6 +3240,21 @@ textarea.fill.cl-lines { height: auto; }
 .cl-cards .cl-card.no { box-shadow: 0 .3cqw 0 #e53935, 0 .6cqw 1.4cqw rgba(200,30,30,.2); border-color: #ef9a9a; }
 .cl-cards input.fill.ok { color: #2e7d32; }
 .cl-cards input.fill.no { color: #c62828; }
+
+/* Clothes p.263-264: cut-out photos on palette frames, some leaving the frame a little */
+.cl-cards:has(.cl-cut) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cl-cards .cl-card.cl-cut { overflow: visible; min-width: 0; }
+.cl-cut .cl-pic { position: relative; display: block; aspect-ratio: 1 / .8; background: var(--pb, #fdf87e); border-radius: 1.8cqw 1.8cqw 0 0; clip-path: inset(-40% -12% 0 -12%); }
+.cl-cut .cl-pic::before { content: ""; position: absolute; left: 50%; top: 52%; width: 62%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: rgba(255,255,255,.26); }
+.cl-cards .cl-cut .cl-pic img { position: absolute; left: 50%; bottom: var(--b, 0%); height: var(--ih, 100%); width: auto; max-width: none; aspect-ratio: auto; object-fit: contain; background: none; transform: translateX(-50%); filter: drop-shadow(0 .5cqw .6cqw rgba(0,0,0,.2)); }
+.cl-cards .cl-cut .cl-pic.cl-flat { overflow: hidden; clip-path: none; }
+.cl-cards .cl-cut .cl-pic.cl-flat img { inset: 0; left: 0; bottom: auto; width: 100%; height: 100%; transform: none; object-fit: cover; filter: none; }
+/* a photo that is cut on one side ends on the frame: flush left / right / top (the cut sides of img/clothes/cut/*.png) */
+.cl-cards .cl-cut .cl-pic.cl-fl img { left: 0; transform: none; }
+.cl-cards .cl-cut .cl-pic.cl-fr img { left: auto; right: 0; transform: none; }
+.cl-cards .cl-cut .cl-pic.cl-ft img { top: var(--t, 0%); bottom: auto; }
+.cl-cards .cl-cut .cl-pic.cl-ft { clip-path: inset(0 -12% 0 -12%); }
+.cl-cut .cl-tag { z-index: 3; box-shadow: 0 0 0 .25cqw #fff; }
 .cl-qa-tight li { min-height: 5cqw; }
 .cl-qa em { color: #8a7a88; font-style: normal; font-size: 1.3cqw; }
 .cl-num-b { color: var(--cl-yel); background: var(--cl-mag); font: 800 1.2cqw/1 'Nunito', sans-serif; padding: .3cqw .8cqw; border-radius: 999px; margin: 0 .6cqw; vertical-align: middle; }
@@ -5168,3 +5183,32 @@ body.toc-open .toc { display: block; }
 .cl-ph li > span { flex: 1; font-size: 1.55cqw; line-height: 1.3; }
 .cl-ph input.fill.cl-ph-n { flex: 0 0 6.4cqw; width: 6.4cqw; height: 4.4cqw; text-align: center; font: 700 2.4cqw/1 'Fredoka', sans-serif; border: .2cqw solid #eec0dc; border-radius: 1cqw; background: #fff; }
 .cl-ph li.ok::after, .cl-ph li.no::after { left: auto; right: -3cqw; bottom: 2.2cqw; }
+
+/* 7.14 check: right / wrong color, figures found */
+.pen-text .pw.on.ok { box-shadow: inset 0 -.3cqw 0 var(--pen), 0 0 0 .16cqw #43a047; }
+.pen-text .pw.on.no { box-shadow: inset 0 -.3cqw 0 var(--pen), 0 0 0 .16cqw #e53935; text-decoration: line-through #e53935; }
+.pen-box button.found::after { content: " ✓"; color: #2e7d32; font-weight: 900; }
+.pen-score { align-self: center; margin-left: auto; font: 800 1.25cqw/1 "Nunito", sans-serif; color: var(--sh); }
+
+/* [shk-one-line] 7.15 + the line card 7.16 on the same page (compact) */
+.shl-steps.compact li { height: 4cqw; grid-template-columns: 3cqw 15cqw 1fr; }
+.shl-steps.compact li > b { width: 2.2cqw; height: 2.2cqw; font-size: 1.1cqw; }
+.shl-steps.compact li > span { font-size: 1.2cqw; }
+.shl-steps.compact li > i { font-size: 1.32cqw; line-height: 1.15; }
+.shl-model.compact { padding: 1cqw 1.8cqw; }
+.shl-model.compact .shl-model-head { margin-bottom: .5cqw !important; padding-bottom: .5cqw; }
+.shl-model.compact .shl-model-head q { font-size: 1.5cqw; }
+.shl-model.compact p { font-size: 1.28cqw; line-height: 1.38; }
+.shl-model.compact sup { width: 1.6cqw; height: 1.6cqw; font-size: .9cqw; }
+.shl-card.compact .shl-pick { gap: .35cqw; margin-bottom: .6cqw; }
+.shl-card.compact .shl-dice { padding: .5cqw 1cqw; font-size: 1.15cqw; }
+.shl-card.compact .shl-n { width: 2.5cqw; height: 2.5cqw; font-size: 1.1cqw; }
+.shl-card.compact .shl-line { min-height: 4.2cqw; margin-bottom: .7cqw; padding: 0 1.4cqw; }
+.shl-card.compact .shl-line i { font-size: 2.2cqw; }
+.shl-card.compact .shl-line q { font-size: 1.65cqw; }
+.shl-card.compact .shl-fields { gap: .55cqw 2.4cqw; }
+.shl-card.compact .shl-fields span:first-child { font-size: .9cqw; }
+.shl-card.compact .shl-fields input.fill { height: 2.6cqw; font-size: 1.6cqw; }
+.shl-card.compact .shl-fields textarea.fill { height: 4.8cqw; font-size: 1.55cqw; line-height: 2.4cqw; background: repeating-linear-gradient(transparent 0 calc(2.4cqw - 1px), var(--hair) calc(2.4cqw - 1px) 2.4cqw); }
+.shl-card.compact #shl-f-msg { height: 2.4cqw; }
+.shl-card.compact .shl-opt button { padding: .35cqw .8cqw; font-size: 1.05cqw; }

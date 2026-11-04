@@ -12,6 +12,7 @@
     'own-saxon': { title: 'The Saxon genitive', games: ['sg-order', 'sg-apos', 'sg-tf', 'sg-final'] },
     'own-three-s': { title: 'The three ’s', games: ['ap-cards', 'ap-fire'] },
     'clothes-pc-games': { title: 'Present continuous: mime', games: ['mime'] },
+    'clothes-vocab': { title: 'Clothes: hangman', games: ['hangman'] },
     'clothes-pc-rule': { title: 'Present continuous: -ing', games: ['ing-catch'] },
     'ps-affirmative': { title: 'Present simple: the -s', games: ['s-rule', 's-catch'], poker: true },
   };
@@ -31,6 +32,7 @@
     'ap-cards': { icon: '🃏', name: 'The three cards', text: 'IS, HAS o possessivo? Scegli la carta giusta, come in classe.' },
     'ap-fire': { icon: '🔥', name: 'Quick Fire', text: 'Stessa sfida, ma hai solo 7 secondi per frase.' },
     mime: { icon: '🎭', name: 'Mime and guess', text: 'Due squadre: uno mima, gli altri indovinano con “Are you …-ing?”' },
+    hangman: { icon: '👕', name: 'Clothes Hangman', text: 'Guess the clothes from the picture. Every mistake takes a piece of clothing off the model: you only have 5 lives!' },
     'ing-catch': { icon: '🧲', name: "catch-ING", text: 'Tre forme cadono: clicca quella scritta bene. Se sbagli, il muro sale!' },
     's-catch': { icon: '🧲', name: 'Acchiappa il Finale!', text: 'Clicca il finale giusto prima che tocchi terra.' },
   };
@@ -1382,6 +1384,179 @@
   GAMES['ap-cards'] = () => apGame('ap-cards', '🃏 The three ’s – the cards', { timed: false });
   GAMES['ap-fire'] = () => apGame('ap-fire', '🔥 The three ’s – Quick Fire', { timed: true });
 
+
+  /* ---------- clothes: hangman. The picture of a garment, the letters of its name; every mistake takes one of the 5 pieces off the model ---------- */
+  // the drawings are img/dress/<name>.png (the ones of Dress to Impress; the word, lower case, spaces -> "-"); until a drawing exists the emoji stands in for it.
+  // The model is img/dress/doll.png with the 5 pieces on top of it, placed in % of the picture
+  const HANGMAN_WORDS = [
+    { img: 'img/dress/backpack.png', word: 'BACKPACK', type: 'Accessory', emoji: '🎒' },
+    { img: 'img/dress/bell-bottoms.png', word: 'BELL-BOTTOMS', type: 'Bottom', emoji: '👖' },
+    { img: 'img/dress/cap.png', word: 'CAP', type: 'Accessory', emoji: '🧢' },
+    { img: 'img/dress/cargo-pants.png', word: 'CARGO PANTS', type: 'Bottom', emoji: '👖' },
+    { img: 'img/dress/colorful-tights.png', word: 'TIGHTS', type: 'Bottom', emoji: '🧦' },
+    { img: 'img/dress/combat-boots.png', word: 'COMBAT BOOTS', type: 'Shoes', emoji: '🥾' },
+    { img: 'img/dress/gloves.png', word: 'GLOVES', type: 'Accessory', emoji: '🧤' },
+    { img: 'img/dress/gym-outfit.png', word: 'GYM OUTFIT', type: 'Outfit', emoji: '🎽' },
+    { img: 'img/dress/hoodie.png', word: 'HOODIE', type: 'Top', emoji: '🧥' },
+    { img: 'img/dress/jeans.png', word: 'JEANS', type: 'Bottom', emoji: '👖' },
+    { img: 'img/dress/overalls.png', word: 'OVERALLS', type: 'Bottom', emoji: '👖' },
+    { img: 'img/dress/oversize-sweater.png', word: 'SWEATER', type: 'Top', emoji: '🧶' },
+    { img: 'img/dress/raincoat.png', word: 'RAINCOAT', type: 'Top', emoji: '🌧️' },
+    { img: 'img/dress/scarf.png', word: 'SCARF', type: 'Accessory', emoji: '🧣' },
+    { img: 'img/dress/shorts.png', word: 'SHORTS', type: 'Bottom', emoji: '🩳' },
+    { img: 'img/dress/skirt.png', word: 'SKIRT', type: 'Bottom', emoji: '👗' },
+    { img: 'img/dress/sneakers.png', word: 'SNEAKERS', type: 'Shoes', emoji: '👟' },
+    { img: 'img/dress/socks.png', word: 'SOCKS', type: 'Accessory', emoji: '🧦' },
+    { img: 'img/dress/sunglasses.png', word: 'SUNGLASSES', type: 'Accessory', emoji: '🕶️' },
+    { img: 'img/dress/sweatshirt.png', word: 'SWEATSHIRT', type: 'Top', emoji: '👕' },
+    { img: 'img/dress/t-shirt.png', word: 'T-SHIRT', type: 'Top', emoji: '👕' },
+    { img: 'img/dress/fancy-jacket.png', word: 'JACKET', type: 'Top', emoji: '🧥' },
+    { img: 'img/dress/vest.png', word: 'VEST', type: 'Top', emoji: '🦺' },
+    { img: 'img/dress/colorful-coat.png', word: 'COAT', type: 'Top', emoji: '🧥' },
+    { img: 'img/dress/fur-coat.png', word: 'FUR COAT', type: 'Top', emoji: '🐻' },
+    { img: 'img/dress/shirt.png', word: 'SHIRT', type: 'Top', emoji: '👔' },
+    { img: 'img/dress/dress.png', word: 'DRESS', type: 'Outfit', emoji: '👗' },
+    { img: 'img/dress/suit-pants.png', word: 'SUIT PANTS', type: 'Bottom', emoji: '👖' },
+    { img: 'img/dress/maxi-skirt.png', word: 'MAXI SKIRT', type: 'Bottom', emoji: '👘' },
+    { img: 'img/dress/loafers.png', word: 'LOAFERS', type: 'Shoes', emoji: '👞' },
+    { img: 'img/dress/cowboy-boots.png', word: 'COWBOY BOOTS', type: 'Shoes', emoji: '🤠' },
+    { img: 'img/dress/high-heels.png', word: 'HIGH HEELS', type: 'Shoes', emoji: '👠' },
+    { img: 'img/dress/top-hat.png', word: 'TOP HAT', type: 'Accessory', emoji: '🎩' },
+    { img: 'img/dress/tie.png', word: 'TIE', type: 'Accessory', emoji: '👔' },
+    { img: 'img/dress/wig.png', word: 'WIG', type: 'Accessory', emoji: '💇' },
+    { img: 'img/dress/necklace.png', word: 'NECKLACE', type: 'Accessory', emoji: '📿' },
+    { img: 'img/dress/earrings.png', word: 'EARRINGS', type: 'Accessory', emoji: '💎' },
+    { img: 'img/dress/handbag.png', word: 'HANDBAG', type: 'Accessory', emoji: '👜' },
+    { img: 'img/dress/belt.png', word: 'BELT', type: 'Accessory', emoji: '🥋' },
+    { img: 'img/dress/bracelet.png', word: 'BRACELET', type: 'Accessory', emoji: '⌚' },
+    { img: 'img/dress/pajamas.png', word: 'PAJAMAS', type: 'Outfit', emoji: '😴' },
+    { img: 'img/dress/swimsuit.png', word: 'SWIMSUIT', type: 'Outfit', emoji: '🩱' },
+    { img: 'img/dress/bikini.png', word: 'BIKINI', type: 'Outfit', emoji: '👙' },
+    { img: 'img/dress/swim-trunks.png', word: 'SWIM TRUNKS', type: 'Bottom', emoji: '🩳' },
+    { img: 'img/dress/tracksuit.png', word: 'TRACKSUIT', type: 'Outfit', emoji: '🏃' },
+    { img: 'img/dress/suit.png', word: 'SUIT', type: 'Outfit', emoji: '🤵' },
+    { img: 'img/dress/uniform.png', word: 'UNIFORM', type: 'Outfit', emoji: '👮' },
+    { img: 'img/dress/apron.png', word: 'APRON', type: 'Outfit', emoji: '👩‍🍳' },
+    { img: 'img/dress/cardigan.png', word: 'CARDIGAN', type: 'Top', emoji: '🧶' },
+    { img: 'img/dress/blouse.png', word: 'BLOUSE', type: 'Top', emoji: '👚' },
+    { img: 'img/dress/polo-shirt.png', word: 'POLO SHIRT', type: 'Top', emoji: '👕' },
+    { img: 'img/dress/turtleneck.png', word: 'TURTLENECK', type: 'Top', emoji: '🧥' },
+    { img: 'img/dress/fleece.png', word: 'FLEECE', type: 'Top', emoji: '🧥' },
+    { img: 'img/dress/leggings.png', word: 'LEGGINGS', type: 'Bottom', emoji: '🦵' },
+    { img: 'img/dress/slippers.png', word: 'SLIPPERS', type: 'Shoes', emoji: '🥿' },
+    { img: 'img/dress/sandals.png', word: 'SANDALS', type: 'Shoes', emoji: '👡' },
+    { img: 'img/dress/flip-flops.png', word: 'FLIP FLOPS', type: 'Shoes', emoji: '🩴' },
+    { img: 'img/dress/boots.png', word: 'BOOTS', type: 'Shoes', emoji: '🥾' },
+    { img: 'img/dress/hat.png', word: 'HAT', type: 'Accessory', emoji: '👒' },
+    { img: 'img/dress/beanie.png', word: 'BEANIE', type: 'Accessory', emoji: '🧶' },
+    { img: 'img/dress/mittens.png', word: 'MITTENS', type: 'Accessory', emoji: '🧤' },
+    { img: 'img/dress/bow-tie.png', word: 'BOW TIE', type: 'Accessory', emoji: '🎀' },
+    { img: 'img/dress/glasses.png', word: 'GLASSES', type: 'Accessory', emoji: '👓' },
+    { img: 'img/dress/headband.png', word: 'HEADBAND', type: 'Accessory', emoji: '🎀' },
+    { img: 'img/dress/scrunchie.png', word: 'SCRUNCHIE', type: 'Accessory', emoji: '⭕' },
+    { img: 'img/dress/watch.png', word: 'WATCH', type: 'Accessory', emoji: '⌚' },
+    { img: 'img/dress/ring.png', word: 'RING', type: 'Accessory', emoji: '💍' },
+    { img: 'img/dress/umbrella.png', word: 'UMBRELLA', type: 'Accessory', emoji: '☂️' },
+    { img: 'img/dress/wallet.png', word: 'WALLET', type: 'Accessory', emoji: '👛' },
+    { img: 'img/dress/suspenders.png', word: 'SUSPENDERS', type: 'Accessory', emoji: '🩲' },
+  ];
+  const HANGMAN_MODEL = `<div class="gh-model" role="img" aria-label="The model wearing a cap, a scarf, a sweater, jeans and shoes"><img class="gh-doll" src="img/dress/doll.png" alt=""><img class="gh-p" data-g="3" src="img/dress/jeans.png" alt="" style="left:46.7%;top:67.7%;width:26.8%"><img class="gh-p" data-g="4" src="img/dress/sneakers.png" alt="" style="left:46.7%;top:87.8%;width:27.6%"><img class="gh-p" data-g="2" src="img/dress/oversize-sweater.png" alt="" style="left:45.5%;top:46.2%;width:58.5%"><img class="gh-p" data-g="1" src="img/dress/scarf.png" alt="" style="left:44.3%;top:37.5%;width:16.3%"><img class="gh-p" data-g="0" src="img/dress/cap.png" alt="" style="left:38.2%;top:14.4%;width:29.3%"></div>`;
+  GAMES.hangman = () => {
+    setTitle('👕 Clothes Hangman');
+    const LIVES = 5, ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    const words = shuffle(HANGMAN_WORDS);
+    let qi = 0, lost = 0, solved = 0, guessed = [], locked = false;
+    setScore(0);
+    setLives(LIVES, LIVES);
+
+    area.innerHTML = `<div class="gq-card">
+      <p class="gq-instr">Look at the picture and <span>find the name of the clothes</span>, letter by letter.<br><em>Every mistake takes a piece of clothing off the model. You have 5 lives for the whole game: they do not come back with the next word! 👕</em></p>
+      <div class="gh-play"><div class="gh-side">${HANGMAN_MODEL}</div>
+        <div class="gh-main"><div class="gh-type" id="ghType"></div><img class="gh-pic" id="ghPic" alt="The clothes to guess"><div class="gh-emoji" id="ghEmoji" hidden></div>
+          <div class="gh-blanks" id="ghBlanks" aria-live="polite"></div><div class="gh-letters" id="ghLetters"></div>
+          <div class="gh-msg" id="ghMsg" aria-live="polite"></div>
+          <button type="button" class="gq-btn alt" id="ghHintBtn">💡 Hint</button><div class="gh-hint" id="ghHint"></div></div></div></div>`;
+    const pieces = [...area.querySelectorAll('.gh-p')];
+    const q = () => words[qi];
+    const done = () => q().word.split('').every(c => !/[A-Z]/.test(c) || guessed.includes(c));
+
+    function draw() {
+      $('ghBlanks').innerHTML = q().word.split('').map(l => l === ' ' ? '<span class="gap">&nbsp;</span>' : l === '-' ? '<span>-</span>' : `<span>${guessed.includes(l) ? l : '_'}</span>`).join('');
+      $('ghLetters').innerHTML = ALPHABET.map(l => `<button type="button" data-l="${l}" class="${guessed.includes(l) && !q().word.includes(l) ? 'bad' : ''}" ${guessed.includes(l) || locked ? 'disabled' : ''}>${l}</button>`).join('');
+      pieces.forEach(p => p.classList.toggle('off', +p.dataset.g < lost));
+      setLives(LIVES - lost, LIVES);
+      setScore(solved);
+    }
+    function load() {
+      guessed = [];
+      locked = false;
+      $('ghType').textContent = q().type;
+      const pic = $('ghPic'), emo = $('ghEmoji');
+      pic.hidden = false;
+      emo.hidden = true;
+      pic.onerror = () => { pic.hidden = true; emo.textContent = q().emoji; emo.hidden = false; }; // no drawing yet: the emoji
+      pic.src = q().img;
+      $('ghHint').textContent = '';
+      say('ghMsg', '', '');
+      draw();
+    }
+
+    // the lives are over (win = false) or all the clothes are guessed: how many did you guess?
+    function result(win) {
+      const n = solved;
+      const comment = win ? 'You guessed them all!' : n >= 10 ? 'What a memory! 🏆' : n >= 5 ? 'Not bad! Try again to beat your record 💪' : 'Study the clothes and try again! 📚';
+      area.innerHTML = `<div class="gq-result gh-result">
+        <div class="gh-side">${HANGMAN_MODEL}</div>
+        <h3>${win ? 'Well done! The model is still dressed! 🎉' : 'Game over! The model has no clothes left 😱'}</h3>
+        <p class="pts">${win ? `You guessed all ${words.length} clothes` : `You guessed ${n} ${n === 1 ? 'piece of clothing' : 'pieces of clothing'} before losing your last life`}</p>
+        <p>${comment}</p>
+        <div class="gq-row"><button type="button" class="gq-btn" data-play="hangman">🔄 Play again</button><button type="button" class="gq-btn alt" data-menu>🏠 Menu</button></div></div>`;
+      area.querySelectorAll('.gh-p').forEach(p => p.classList.toggle('off', +p.dataset.g < lost));
+      setLives(null);
+      if (win) playWin(); else playFail();
+    }
+
+    function guess(l) {
+      if (locked || guessed.includes(l)) return;
+      guessed.push(l);
+      if (!q().word.includes(l)) {
+        lost++;
+        bad();
+        if (lost >= LIVES) {
+          locked = true;
+          draw();
+          say('ghMsg', 'no', `😱 It was: ${q().word}`);
+          wait(() => result(false), 2200);
+          return;
+        }
+      } else if (done()) {
+        locked = true;
+        solved++;
+        good();
+        draw();
+        say('ghMsg', 'ok', `🎉 ${q().word}`);
+        wait(() => { if (qi < words.length - 1) { qi++; load(); } else result(true); }, 1300);
+        return;
+      }
+      draw();
+    }
+
+    $('ghLetters').addEventListener('click', e => {
+      const b = e.target.closest('button[data-l]');
+      if (b && !b.disabled) guess(b.dataset.l);
+    });
+    $('ghHintBtn').addEventListener('click', () => { const h = $('ghHint'); h.textContent = h.textContent ? '' : `It starts with ${q().word[0]}`; });
+    // the keyboard plays the game
+    const onKey = e => {
+      if (modal.hidden || e.ctrlKey || e.metaKey || e.altKey || !$('ghLetters')) return;
+      const k = e.key.toUpperCase();
+      if (/^[A-Z]$/.test(k)) { e.preventDefault(); guess(k); }
+    };
+    window.addEventListener('keydown', onKey, true);
+    cleanup = () => window.removeEventListener('keydown', onKey, true);
+    load();
+  };
+
   // These drills are about the pages they follow, so they are NOT on the home page: they pop up at the end of
   // their spread (and the button on the page opens them). Only the real games are on the Games list of the home page
   // (script.js puts the pills in the order of the book): here "Acchiappa il Finale!", the arcade of the present simple.
@@ -1425,6 +1600,27 @@
     pill.className = 'game-topic';
     pill.style.setProperty('--c', '#8e2de2');
     pill.innerHTML = `<summary>${INFO[game].icon} Present continuous <small>1</small></summary><div class="topic-pages"><a href="#p${PAGES.of(set)}">${INFO[game].icon} ${INFO[game].name}</a></div>`;
+    list.append(pill);
+    pill.querySelector('a').addEventListener('click', e => {
+      e.preventDefault();
+      pill.open = false;
+      const go = () => { seen.add(set); open(set); play(game); };
+      if (location.hash === '#p' + PAGES.of(set)) { go(); return; }
+      document.addEventListener('spreadchange', go, { once: true });
+      location.hash = '#p' + PAGES.of(set);
+    });
+    window.hideClosedGames?.();
+  });
+
+  // the home page: the clothes hangman, on the vocabulary page of the clothes
+  window.addEventListener('load', () => {
+    const list = $('gameList');
+    if (!list || typeof PAGES === 'undefined') return;
+    const set = 'clothes-vocab', game = 'hangman';
+    const pill = document.createElement('details');
+    pill.className = 'game-topic';
+    pill.style.setProperty('--c', '#dc3394');
+    pill.innerHTML = `<summary>${INFO[game].icon} Clothes <small>1</small></summary><div class="topic-pages"><a href="#p${PAGES.of(set)}">${INFO[game].icon} ${INFO[game].name}</a></div>`;
     list.append(pill);
     pill.querySelector('a').addEventListener('click', e => {
       e.preventDefault();

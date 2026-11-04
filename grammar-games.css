@@ -263,3 +263,35 @@ html.gq-open { overflow: hidden; scrollbar-gutter: stable; }
 }
 
 .gq-hl { color: var(--gq-purple); font-size: 1.25em; }
+
+/* Clothes hangman [clothes-vocab]: the model (the doll of Dress to Impress) and the word */
+.gh-play { display: flex; gap: 16px; align-items: flex-start; }
+.gh-side { flex: 0 0 170px; }
+.gh-main { flex: 1; min-width: 0; text-align: center; }
+.gh-model { position: relative; width: 100%; aspect-ratio: 1230 / 1492; border-radius: 16px; background: #ffd6e0; overflow: hidden; }
+.gh-model img { position: absolute; display: block; }
+.gh-model .gh-doll { inset: 0; width: 100%; height: 100%; }
+.gh-model .gh-p { transform: translate(-50%, -50%); transition: transform .55s ease-in, opacity .55s ease-in; }
+.gh-model .gh-p.off { transform: translate(-50%, 60%) rotate(14deg); opacity: 0; }
+.gh-type { font: 800 13px 'Nunito', sans-serif; letter-spacing: 1px; text-transform: uppercase; color: var(--gq-blue); }
+.gh-pic { display: block; height: 120px; max-width: 100%; margin: 6px auto; object-fit: contain; }
+.gh-blanks { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; min-height: 40px; margin: 6px 0 10px; font: 800 28px/1.3 'Nunito', sans-serif; color: var(--gq-lilac); }
+.gh-blanks span { min-width: .8em; }
+.gh-blanks span.gap { min-width: 1em; }
+.gh-letters { display: grid; grid-template-columns: repeat(auto-fit, minmax(36px, 1fr)); gap: 6px; }
+.gh-letters button { padding: 8px 0; border: 0; border-radius: 6px; background: #697eb7; color: #fff; font: 800 16px/1 'Nunito', sans-serif; cursor: pointer; transition: transform .15s, background .2s; }
+.gh-letters button:hover:not(:disabled) { background: var(--gq-purple); transform: scale(1.06); }
+.gh-letters button:disabled { background: #d9d9e4; color: #fff; cursor: default; }
+.gh-letters button.bad:disabled { background: #f2b3ad; }
+.gh-msg { min-height: 1.5em; margin: 10px 0 2px; font-weight: 800; font-size: 17px; }
+.gh-msg .ok { color: var(--gq-ok); }
+.gh-msg .no { color: var(--gq-fail); }
+.gh-hint { min-height: 1.4em; margin-top: 4px; font-weight: 700; color: var(--gq-purple); }
+.gh-result .gh-side { width: 150px; margin: 0 auto 8px; }
+@media (max-width: 600px) {
+  .gh-play { flex-direction: column; align-items: center; }
+  .gh-side { flex-basis: auto; width: 130px; }
+  .gh-letters { grid-template-columns: repeat(7, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { .gh-model .gh-p { transition: none; } }
+.gh-emoji { font-size: 84px; line-height: 120px; height: 120px; margin: 6px 0; }

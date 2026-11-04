@@ -1273,7 +1273,7 @@ const tileRows = [...document.querySelectorAll('.shx-tiles')].map(tiles => {
 document.getElementById('clearBtn').addEventListener('click', () => setTimeout(() => tileRows.forEach(paint => paint())));
 
 /* ================= colored pens (figures of speech) ================= */
-// [shk-figures] 7.12: choose a pen in .pen-box[data-for], then click the words of .pen-text:
+// [shk-figures] 7.14: choose a pen in .pen-box[data-for], then click the words of .pen-text:
 // each word takes the color of the pen (same pen again, or the rubber: the color goes away).
 
 const penTexts = [...document.querySelectorAll('.pen-box[data-for]')].map(box => {
@@ -1305,15 +1305,51 @@ const penTexts = [...document.querySelectorAll('.pen-box[data-for]')].map(box =>
     box.querySelectorAll('button[data-pen]').forEach(b => b.classList.toggle('on', b.dataset.pen === pen));
   };
   box.querySelectorAll('button[data-pen]').forEach(b => b.addEventListener('click', () => { pen = b.dataset.pen; paint(); }));
+  const score = document.getElementById(text.id + '-score');
+  const clearCheck = () => {
+    words.forEach(w => w.classList.remove('ok', 'no'));
+    box.querySelectorAll('button[data-pen]').forEach(b => b.classList.remove('found'));
+    if (score) score.textContent = '';
+  };
   words.forEach((w, i) => w.addEventListener('click', () => {
     const marks = read();
     if (!pen || marks[i] === pen) delete marks[i]; else marks[i] = pen;
     saved[text.id] = JSON.stringify(marks);
     persist();
+    clearCheck();
     paint();
   }));
+
+  // Check: every line says which figures it has (data-figs) and which words have a double meaning (data-pun).
+  // Anaphora is right only on the first words of a line, enjambment only on the last one.
+  const clean = s => s.toLowerCase().replace(/[^a-z]/g, '');
+  const rightPen = (w, p) => {
+    const li = w.closest('li');
+    if (!li || !(li.dataset.figs || '').split(' ').includes(p)) return false;
+    const row = [...li.querySelectorAll('.pw')];
+    const at = row.indexOf(w);
+    if (p === 'anaphora') return at < 2;
+    if (p === 'enjambment') return at === row.length - 1;
+    if (p === 'pun') return (li.dataset.pun || '').split(' ').includes(clean(w.textContent));
+    return true;
+  };
+  function check() {
+    clearCheck();
+    const marks = read();
+    const found = new Set();
+    words.forEach((w, i) => {
+      if (!marks[i]) return;
+      const ok = rightPen(w, marks[i]);
+      w.classList.add(ok ? 'ok' : 'no');
+      if (ok) found.add(marks[i]);
+    });
+    box.querySelectorAll('button[data-pen]').forEach(b => b.classList.toggle('found', found.has(b.dataset.pen)));
+    const all = Object.keys(colors).length;
+    if (score) score.textContent = `${found.size} / ${all} figures found` + (found.size === all ? ' 🎉' : '');
+  }
+  document.querySelectorAll(`.check[data-pens="${text.id}"]`).forEach(b => b.addEventListener('click', check));
   paint();
-  return paint;
+  return () => { clearCheck(); paint(); };
 });
 
 /* ================= line card (oral test on Sonnet 130) ================= */
@@ -1425,7 +1461,7 @@ document.querySelectorAll('img[data-pic]').forEach(img => {
   const setZoom = z => {
     zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, Math.round(z * 100) / 100));
     document.documentElement.style.setProperty('--zoom', zoom);
-    document.body.classList.toggle('zoomed', zoom > 1);
+    document.body.classList.toggle('zoomed', zoom >= 1);
     level.textContent = Math.round(zoom * 100) + '%';
     try { localStorage.setItem('zoom', zoom); } catch (e) {}
   };

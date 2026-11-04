@@ -529,10 +529,12 @@
     },
 
     rhymematch() {
+      // each word gets its own picture on the face (the pig stays on the back only)
+      const ICON = { sheep: '🐑', sleep: '😴', goat: '🐐', coat: '🧥', pig: '🐷', big: '🐘', hen: '🐔', ten: '🔟', cow: '🐄', now: '⏰', hay: '🌾', day: '☀️', night: '🌙', light: '💡', free: '🕊️', tree: '🌳' };
       const cards = shuffle(DATA.rhymes.flatMap(([a, b], k) => [{ k, t: a }, { k, t: b }]));
       let open = [], found = 0, moves = 0;
       area.innerHTML = `<div class="gq-card"><p class="gq-instr">Turn two cards: the two words <em>rhyme</em>!</p>
-        <div class="rj-mem">${cards.map((c, n) => `<button type="button" class="rj-card" data-n="${n}"><span>${esc(c.t)}</span></button>`).join('')}</div>
+        <div class="rj-mem">${cards.map((c, n) => `<button type="button" class="rj-card" data-n="${n}"><span>${ICON[c.t] ? `<i style="display:block;font-style:normal;font-size:24px;line-height:1.1">${ICON[c.t]}</i>` : ''}${esc(c.t)}</span></button>`).join('')}</div>
         <p class="gq-fb" id="owFb">Moves: 0</p></div>`;
       const btns = [...area.querySelectorAll('.rj-card')];
       btns.forEach(b => b.addEventListener('click', () => {
