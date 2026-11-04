@@ -640,6 +640,27 @@
 .ow .am-grid .tick.on { background: var(--ow-o); border-color: var(--ow-o); color: #fff; }
 
 /* ---------- the song, the contest and the anthem project ([af-beasts … af-anthem2]) ---------- */
+/* a gap that is checked: the colours of style.css lose against ".ow .dd-slot", so they are said again here */
+.ow .dd-slot.ok { border-bottom-color: #43a047; background: #eaf6ec; }
+.ow .dd-slot.no { border-bottom-color: #e53935; background: #fdeceb; }
+.ow .dd-slot.ok .dd-chip { background: #43a047; color: #fff; box-shadow: none; }
+.ow .dd-slot.no .dd-chip { background: #e53935; color: #fff; box-shadow: none; }
+
+/* a place for a picture the teacher draws: the file name is shown until the picture is there */
+.am-pic { z-index: 2; margin: 0; overflow: hidden; border: .25cqw dashed var(--ow-steel); border-radius: 1cqw; background: #fffdf8; }
+.am-pic.has-pic { border: 0; border-radius: 0; background: #fff; }
+.am-pic img[data-pic] { object-fit: contain; filter: none; }
+.am-pic .ow-ph i { font-size: 4.4cqw; }
+.am-pic .ow-ph small { font-size: 1.1cqw; }
+
+/* the colouring clues, in three levels */
+.am-levelhead { z-index: 2; display: flex; align-items: center; gap: 1.2cqw; margin: 0; font: 400 1.9cqw/1 var(--ow-head); }
+.am-levelhead em { font: 400 1.25cqw/1 var(--ow-type); font-style: normal; color: var(--ow-steel); }
+.am-levelhead b { color: var(--ow-o); letter-spacing: .2em; }
+.am-colours { z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: .6cqw; margin: 0; }
+.am-colours small { margin-right: .6cqw; font: var(--ow-label); letter-spacing: .22em; text-transform: uppercase; color: var(--ow-steel); }
+.am-colours span { padding: .5cqw 1.1cqw; border-radius: 999px; font: 400 1.2cqw/1 var(--ow-type); box-shadow: inset 0 0 0 .12cqw var(--ow-ink); background: var(--ow-card); }
+.am-colours span::before { content: ""; display: inline-block; width: 1cqw; height: 1cqw; margin-right: .6cqw; border-radius: 50%; background: var(--k); box-shadow: 0 0 0 .1cqw var(--ow-ink); vertical-align: -.1cqw; }
 .am-song { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2cqw; padding: 2cqw 2.2cqw 1.4cqw; background: #fffdf8; box-shadow: 0 .6cqw 1.4cqw rgba(80,55,30,.14); }
 .am-song div { padding-left: 1.2cqw; border-left: .35cqw solid var(--ow-o); }
 .am-song b { display: block; margin-bottom: .5cqw; font: 800 1cqw/1 'Nunito', sans-serif; letter-spacing: .18em; text-transform: uppercase; color: var(--ow-o); }
@@ -694,7 +715,7 @@
 .am-tip { z-index: 2; margin: 0; padding: 1.2cqw 1.6cqw; background: var(--ow-card); box-shadow: inset .5cqw 0 0 var(--ow-o); font: 400 1.35cqw/1.4 'Nunito', sans-serif; color: #4a433c; }
 .am-tip b { margin-right: .8cqw; font: 800 1.05cqw/1 'Nunito', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--ow-o); }
 .am-chk { z-index: 2; list-style: none; margin: 0; padding: 0; }
-.am-chk li { display: flex; align-items: center; gap: 1.6cqw; height: 4.8cqw; border-bottom: .12cqw solid var(--ow-line); font: 700 1.45cqw/1.2 'Nunito', sans-serif; color: #3d3731; }
+.am-chk li { display: flex; align-items: center; gap: 1.6cqw; min-height: 4.8cqw; border-bottom: .12cqw solid var(--ow-line); font: 700 1.45cqw/1.2 'Nunito', sans-serif; color: #3d3731; }
 .ow .am-chk .tick { flex: none; width: 3cqw; height: 3cqw; border: .14cqw solid var(--ow-ink); background: transparent; color: transparent; font-size: 1.5cqw; }
 .ow .am-chk .tick.on { background: var(--ow-o); border-color: var(--ow-o); color: #fff; }
 .am-rate { z-index: 2; }

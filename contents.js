@@ -315,6 +315,7 @@ const CONTENTS = {
     { title: 'Major’s dream (Chapter 1): before reading & version A2', color: '#9a8550', pages: ['af-major'] },
     { title: 'Major’s dream: version B1 & the original', color: '#9a8550', pages: ['af-major2'] },
     { title: 'Major’s dream: compare the three levels & level up!', color: '#9a8550', pages: ['af-major3'] },
+    { title: 'Colour the meeting: follow the clues (three levels)', color: '#9a8550', pages: ['af-meeting'] },
     { title: 'Beasts of England: easy version (A2), the original & rhyme hunt', color: '#9a8550', pages: ['af-beasts'] },
     { title: 'Anthem contest: team, message, rhymes & sentence frames', color: '#e3b505', pages: ['af-anthem:L'] },
     { title: 'Anthem contest: write your anthem (verse, chorus, verse)', color: '#e3b505', pages: ['af-anthem:R'] },
