@@ -80,6 +80,8 @@ const CONTENTS = {
       title: 'For the teacher',
       teacher: true,
       chapters: [
+        // scripts to read aloud for the guided meditations in class (meditation-chapter.css)
+        { title: 'Guided meditations', start: 'med-1', color: '#4aa8ec' },
         // folders that only list pages that are inside the chapters, in the order of the book
         // (collect: which spreads, as a CSS selector; withChapter: the name of their chapter is shown too)
         { title: 'Scaffolding', collect: '.scaffold:not(.test)', withChapter: true, color: '#e0a800' },
@@ -310,6 +312,9 @@ const CONTENTS = {
     { title: 'Past simple or past continuous? (when / while)', color: '#262626', pages: ['author-case:R'] },
     { title: 'Writing a biography', color: '#262626', pages: ['author-case:R'] },
     { title: 'Animal Farm: summary & quiz (which animal are you?)', color: '#9a8550', pages: ['af-quiz'] },
+    { title: 'Major’s dream (Chapter 1): before reading & version A2', color: '#9a8550', pages: ['af-major'] },
+    { title: 'Major’s dream: version B1 & the original', color: '#9a8550', pages: ['af-major2'] },
+    { title: 'Major’s dream: compare the three levels & level up!', color: '#9a8550', pages: ['af-major3'] },
     { title: 'Animal Farm: symbolism & history', color: '#9a8550', pages: ['af-symbolism:L'] },
     { title: 'Animal Farm: the Seven Commandments', color: '#9a8550', pages: ['af-symbolism:R'] },
     { title: 'Your rules: class commandments', color: '#e3b505', pages: ['af-rules:L'] },
