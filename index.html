@@ -26,6 +26,7 @@
   <link rel="stylesheet" href="emotions-chapter.css">
   <link rel="stylesheet" href="teach-chapter.css">
   <link rel="stylesheet" href="photos-chapter.css">
+  <link rel="stylesheet" href="wordrace.css">
   <link rel="stylesheet" href="trip-chapter.css">
   <link rel="stylesheet" href="trip-agency.css">
   <link rel="stylesheet" href="witch-chapter.css">
@@ -11967,17 +11968,15 @@
     </section>
   </div>
 
-  <!-- Scaffolding: paper-doll clothes to print, cut out and dress the model (drawings used as they are) -->
-  <div class="spread scaffold" data-id="scaf-clothes-paper" data-title="Clothes &amp; Fashion show" data-name="Paper clothes to cut out · Dress the model">
+  <!-- Printouts: paper-doll clothes to print, cut out and dress the model (drawings used as they are) -->
+  <div class="spread printout" data-id="print-clothes-paper" data-title="Clothes &amp; Fashion show" data-name="Paper clothes to cut out · Dress the model">
 
     <section class="page page-left scf-page"><div class="scf-in" style="padding:2cqw 3cqw 0;display:flex;flex-direction:column;align-items:center;overflow:hidden">
       <img src="img/clothes/paper-clothes-1.png" alt="Paper clothes to cut out: coats, tights, scarf, overalls, T-shirt, sweater, raincoat, tracksuit and socks" style="display:block;height:128cqw;width:auto;max-width:100%">
-      <p class="scf-tape" style="margin:1cqw 0 0">🧱 Scaffolding · print, cut out and dress the model</p>
     </div></section>
 
     <section class="page page-right scf-page"><div class="scf-in" style="padding:2cqw 3cqw 0;display:flex;flex-direction:column;align-items:center;overflow:hidden">
       <img src="img/clothes/paper-clothes-2.png" alt="The paper model with skirt, trousers, cargo pants, shorts, cap, gloves, hoodie, sweatshirt and boots to cut out" style="display:block;height:128cqw;width:auto;max-width:100%">
-      <p class="scf-tape" style="margin:1cqw 0 0">🧱 Scaffolding · print, cut out and dress the model</p>
     </div></section>
   </div>
 
@@ -13527,6 +13526,11 @@
         <p class="pg"><a data-page="dp-model">Model</a> · <a data-page="dp-write">Write</a> · <a data-page="dp-speak">Speak</a></p>
         <ul><li>Read the colored model, fill, reorder and correct. Write with help (kitchen), then alone (beach). Pairs: one speaks, one ticks the steps and gives two stars and a wish. Then the oral exam.</li></ul>
       </article>
+      <article class="dp-les" style="--c:var(--pal-coral)">
+        <h2><i>★</i> Class activity: Photo words <small>any lesson</small></h2>
+        <p class="pg"><a href="#s=scaf-dp-wordrace">Open Photo words</a></p>
+        <ul><li>Seven photos to flip through, each with a 5-minute timer: pupils write nouns, adjectives and -ing verbs in their notebooks. Then “Reveal bonus”: random words worth 2 or 3 points.</li></ul>
+      </article>
 
     </div></section>
     <section class="page page-right scf-page dp-scf"><div class="scf-in">
@@ -13592,6 +13596,38 @@
       </ol>
 
     </div></section>
+  </div>
+
+  <!-- Teacher only: Photo words. A photo + 5-minute timer, then "Reveal bonus" draws random 2- and 3-point words (wordrace.js). Put more photos in img/wordrace/ and in PHOTOS. -->
+  <div class="spread scaffold" data-id="scaf-dp-wordrace" data-title="Describing photos" data-name="Photo words · 5-minute timer · Describing photos">
+    <section class="page page-left scf-page wr-left"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · class activity</p>
+      <div class="wr-photo-wrap">
+        <img src="img/wordrace/festival.jpg" alt="">
+        <button class="wr-arrow prev" type="button" aria-label="Previous photo">‹</button>
+        <button class="wr-arrow next" type="button" aria-label="Next photo">›</button>
+        <span class="wr-count">1 / 7</span><small>🔍 tap the photo to enlarge</small>
+      </div>
+      <div class="wr-thumbs"></div>
+      <p class="wr-task">Write as many words as you can about this photo!</p>
+      <ul class="wr-rules">
+        <li><i>1</i><span>Nouns, adjectives and <b>-ing</b> verbs, in your <b>notebook</b>.</span></li>
+        <li><i>5</i><span>You have <b>five minutes</b>. Quiet writing!</span></li>
+        <li><i>★</i><span>Every word you can see is worth <b>1 point</b>. Some <b>bonus words</b> are worth <b>2 or 3</b>!</span></li>
+      </ul>
+    </div></section>
+    <section class="page page-right scf-page wr-right"><div class="scf-in">
+      <p class="scf-tape">🧱 Teacher only</p>
+      <div class="wr-clock"><div class="wr-time">5:00</div><div class="wr-bar"><i></i></div></div>
+      <div class="wr-btns">
+        <button class="wr-b go wr-start" type="button">▶ Start</button>
+        <button class="wr-b wr-reset" type="button">↺ 5:00</button>
+      </div>
+      <button class="wr-b wr-reveal" type="button">⭐ Reveal bonus</button>
+      <div class="wr-bonus" aria-live="polite"></div>
+      <p class="wr-note">Pupils add up: <b>1 point</b> for each word in the photo, <b>2 or 3</b> for the bonus words above. The bonus words change every round.</p>
+      <button class="wr-b ghost wr-new" type="button">New words</button>
+    </div><div class="wr-zoom"><img alt=""></div></section>
   </div>
 
   <!-- ################################ 3rd YEAR (terza media) ################################ -->
@@ -18822,6 +18858,7 @@
   <script src="marquee.js"></script>
   <script src="play-voice.js"></script>
   <script src="scaffold.js"></script>
+  <script src="wordrace.js"></script>
   <script type="module" src="cloud.js"></script>
   <script type="module" src="assign.js"></script>
 </body>

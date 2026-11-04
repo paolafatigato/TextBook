@@ -2,7 +2,7 @@
 // No page numbers here: a chapter starts at the spread named in `start` (its data-id in index.html)
 // and goes on until the next chapter starts. The numbers are counted by pages.js.
 // Tests and scaffolding are inside the chapters (teacher only, no page numbers, see pages.js):
-// the `collect` folders of "For the teacher" list them all in one place.
+// the `collect` folders of "Scaffolding" and "Tests" (one per school year) list them all in one place.
 // A chapter without `start` is not written yet: only the teacher sees it, as "coming soon".
 // When its first spread is in index.html, add `start: '<its data-id>'`.
 // zoom (optional) enlarges the drawing inside its circle, e.g. 1.5.
@@ -82,20 +82,35 @@ const CONTENTS = {
       chapters: [
         // scripts to read aloud for the guided meditations in class (meditation-chapter.css)
         { title: 'Guided meditations', start: 'med-1', color: '#4aa8ec' },
-        // folders that only list pages that are inside the chapters, in the order of the book
-        // (collect: which spreads, as a CSS selector; withChapter: the name of their chapter is shown too)
-        { title: 'Scaffolding', collect: '.scaffold:not(.test)', withChapter: true, color: '#e0a800' },
-        { title: 'Tests: pronouns & to be', collect: '[data-folder="tests-pronouns"]', color: '#e3b505' },
-        { title: 'Tests: emotions', collect: '[data-folder="tests-emotions"]', color: '#de3796' },
-        { title: 'Tests: clothes & present continuous', collect: '[data-folder="tests-clothes"]', color: '#dc3394' },
-        { title: 'Tests: summer homework', collect: '[data-folder="tests-summer"]', color: '#f5a53b' },
-        { title: 'Tests: jobs & CVs', collect: '[data-folder="tests-jobs"]', color: '#e8820c' },
         // printable exit tickets: 24 different slips per topic
         { title: 'Exit tickets', start: 'exit-persephone1', color: '#fd7366' },
         // job cards to print for the forehead game (jobs-forehead:R)
         { title: 'Job cards (forehead game)', start: 'jobcards-1', color: '#1f2a6b' },
         // the Grammar Poker deck: choose the cards, see them, print them (poker-deck.js)
         { title: 'Poker deck (Grammar Poker)', start: 'pokerdeck-1', color: '#8e2de2' },
+      ],
+    },
+    // Scaffolding and tests: two groups, each with one folder per school year, in the order of the book.
+    // The folders only list pages that are inside the chapters (collect: which spreads, as a CSS selector;
+    // year: 0, 1, 2 = only the chapters of that year; withChapter: the name of their chapter is shown too)
+    {
+      title: 'Scaffolding',
+      teacher: true,
+      badge: '🧱',
+      chapters: [
+        { title: 'Scaffolding · 1st year', collect: '.scaffold:not(.test)', year: 0, withChapter: true, color: '#f05f4b' },
+        { title: 'Scaffolding · 2nd year', collect: '.scaffold:not(.test)', year: 1, withChapter: true, color: '#3aa04a' },
+        { title: 'Scaffolding · 3rd year', collect: '.scaffold:not(.test)', year: 2, withChapter: true, color: '#4aa8ec' },
+      ],
+    },
+    {
+      title: 'Tests',
+      teacher: true,
+      badge: '📝',
+      chapters: [
+        { title: 'Tests · 1st year', collect: '.test', year: 0, withChapter: true, color: '#f05f4b' },
+        { title: 'Tests · 2nd year', collect: '.test', year: 1, withChapter: true, color: '#3aa04a' },
+        { title: 'Tests · 3rd year', collect: '.test', year: 2, withChapter: true, color: '#4aa8ec' },
       ],
     },
     {

@@ -62,6 +62,7 @@ window.book = {
     spreads.splice(0, spreads.length, ...document.querySelectorAll('.spread'));
     countPages();
     placeChapters();
+    numberScaffolds();
     refreshAccess();
     if (home.hidden) show(Math.max(0, spreads.findIndex(s => s.dataset.id === id)));
   },
@@ -106,7 +107,11 @@ function placeChapters() {
     .sort((x, y) => x.at - y.at);
   started.forEach(({ ch, at }, k) => { ch.items = spreads.slice(at, started[k + 1]?.at ?? spreads.length); });
   // a folder that collects spreads from inside the chapters (e.g. all the scaffolding), in the order of the book
-  CHAPTERS.filter(ch => ch.collect).forEach(ch => { ch.items = spreads.filter(s => s.matches(ch.collect)); });
+  // (year: 0, 1, 2 keeps only the spreads of the chapters of that school year, still in the order of the book)
+  CHAPTERS.filter(ch => ch.collect).forEach(ch => {
+    const own = ch.year == null ? null : new Set(PARTS[ch.year].chapters.filter(c => !c.collect).flatMap(c => c.items));
+    ch.items = spreads.filter(s => s.matches(ch.collect) && (!own || own.has(s)));
+  });
   // a spread belongs to its chapter in the book, not to the folder that lists it too
   chapterOf.clear();
   CHAPTERS.forEach(ch => ch.items.forEach(s => { if (!chapterOf.has(s)) chapterOf.set(s, ch); }));
@@ -115,12 +120,24 @@ placeChapters();
 // the materials for the teacher: students never see them, whatever is ticked
 // scaffolding (pages.js): teacher-only spreads inside the chapters, with no page numbers
 const isScaffold = s => s.classList.contains('scaffold');
+// printouts: sheets to print and cut out, shown to students like a book page (when ticked) but with no page number
+const isPrintout = s => s.classList.contains('printout');
+const isUnnumbered = s => isScaffold(s) || isPrintout(s);
+// scaffolding and tests (teacher only) have a number from 1000 up, in the order of the book: type it in the
+// page box to open it. No page of the book can have such a number, so it can't be mixed up with one.
+const SCAFFOLD_FIRST = 1000;
+const scaffoldNo = new Map();
+function numberScaffolds() {
+  scaffoldNo.clear();
+  spreads.filter(isScaffold).forEach((s, k) => scaffoldNo.set(s, SCAFFOLD_FIRST + k));
+}
+numberScaffolds();
 const teacherOnly = s => isScaffold(s) || !!chapterOf.get(s)?.teacher;
 // a link to a spread: by its first page, or by its name for scaffolding (its pages have no number)
-const hrefOf = s => (isScaffold(s) ? `#s=${s.dataset.id}` : `#p${pagesOf(s)[0]}`);
+const hrefOf = s => (isUnnumbered(s) ? `#s=${s.dataset.id}` : `#p${pagesOf(s)[0]}`);
 // the tests are scaffolding too (class "scaffold test"), with their own sign
 const isTest = s => s.classList.contains('test');
-const scaffoldSign = s => (isTest(s) ? '📝' : '🧱');
+const scaffoldSign = s => (isTest(s) ? '📝' : isPrintout(s) ? '🖨️' : '🧱');
 
 // students only get the spreads the teacher made visible
 const isVisible = s => visibleSpreads.has(s.dataset.id) && !teacherOnly(s);
@@ -139,7 +156,7 @@ function show(index) {
   document.body.classList.remove('at-home');
   spreads.forEach((s, i) => s.classList.toggle('current', i === current));
   const [first] = pagesOf(spreads[current]);
-  pageInput.value = isScaffold(spreads[current]) ? '' : first;
+  pageInput.value = isUnnumbered(spreads[current]) ? (scaffoldNo.get(spreads[current]) ?? '') : first;
   paintDesk();
   prevBtn.disabled = visibleFrom(current - 1, -1) < 0;
   nextBtn.disabled = visibleFrom(current + 1, 1) < 0;
@@ -160,10 +177,12 @@ function paintDesk() {
   document.body.classList.toggle('teacher-only', mine);
   document.body.classList.toggle('not-visible', closed);
   document.body.classList.toggle('in-test', !!s && isTest(s)); // tests: coral toolbar
+  document.body.classList.toggle('in-printout', !!s && isPrintout(s)); // printouts: magenta toolbar
   if (!s) return;
   const title = s.dataset.title;
-  spreadTitle.textContent = isTest(s) ? `📝 Test · ${s.dataset.name || title}`
-    : isScaffold(s) ? `🧱 Scaffolding · ${title}`
+  spreadTitle.textContent = isPrintout(s) ? `🖨️ Printouts · ${s.dataset.name || title}`
+    : isTest(s) ? `📝 Test ${scaffoldNo.get(s)} · ${s.dataset.name || title}`
+    : isScaffold(s) ? `🧱 Scaffolding ${scaffoldNo.get(s)} · ${title}`
     : mine ? `🔒 For the teacher · ${title}`
     : closed ? `🙈 Not visible to students · ${title}`
     : title;
@@ -171,10 +190,17 @@ function paintDesk() {
 
 function goToPage(n) {
   if (!Number.isFinite(n)) return;
+  // 1000 and up: scaffolding or a test (only the teacher can open them; otherwise nothing happens)
+  if (n >= SCAFFOLD_FIRST) {
+    const i = spreads.findIndex(s => scaffoldNo.get(s) === n);
+    if (i >= 0 && canSee(spreads[i])) show(i);
+    else if (home.hidden) show(current); // put the box back as it was
+    return;
+  }
   // the spread holding page n if the reader can open it, otherwise the closest one they can open
   let best = -1, bestDist = Infinity;
   spreads.forEach((s, i) => {
-    if (!canSee(s) || isScaffold(s)) return;
+    if (!canSee(s) || isUnnumbered(s)) return;
     const [a, b] = pagesOf(s);
     const dist = n < a ? a - n : n > b ? n - b : 0;
     if (dist < bestDist) { best = i; bestDist = dist; }
@@ -208,7 +234,7 @@ async function route() {
       await Promise.race([userReady, new Promise(r => setTimeout(r, 6000))]);
       if (location.hash !== hash) return;
     }
-    if (spread && isScaffold(spread)) { show(spreads.indexOf(spread)); return; }
+    if (spread && isUnnumbered(spread)) { show(spreads.indexOf(spread)); return; }
     goToPage(PAGES.of(s[1]));
     // on a narrow screen the right page is under the left one: scroll down to it
     const [left, right] = spread?.querySelectorAll(':scope > .page') || [];
@@ -220,7 +246,7 @@ async function route() {
   if (m) {
     // the exact page may be one only the teacher sees: wait for the sign-in before choosing the closest one
     const n = parseFloat(m[1]);
-    const exact = spreads.find(sp => !isScaffold(sp) && pagesOf(sp)[0] <= n && n <= pagesOf(sp)[1]);
+    const exact = spreads.find(sp => !isUnnumbered(sp) && pagesOf(sp)[0] <= n && n <= pagesOf(sp)[1]);
     if (exact && !canSee(exact)) {
       const hash = location.hash;
       await Promise.race([userReady, new Promise(r => setTimeout(r, 6000))]);
@@ -234,6 +260,7 @@ window.addEventListener('hashchange', route);
 const step = dir => { const i = visibleFrom(current + dir, dir); if (i >= 0) show(i); };
 prevBtn.addEventListener('click', () => step(-1));
 nextBtn.addEventListener('click', () => step(1));
+document.getElementById('gotoForm').noValidate = true; // 1000+ is above the last page (max) but is allowed
 document.getElementById('gotoForm').addEventListener('submit', e => {
   e.preventDefault();
   goToPage(parseFloat(pageInput.value));
@@ -1494,7 +1521,7 @@ else {
       // the chapters with their pages: choosing one writes its pages in "from … to"
       // (scaffolding and tests have no page numbers: they are printed one spread at a time)
       chapter.innerHTML = '<option value="">… or choose a chapter</option>' + CHAPTERS
-        .map(ch => ch.items.filter(s => canSee(s) && !isScaffold(s)))
+        .map(ch => ch.items.filter(s => canSee(s) && !isUnnumbered(s)))
         .map((items, i) => items.length ? `<option value="${pagesOf(items[0])[0]}-${pagesOf(items.at(-1)).at(-1)}">${esc(CHAPTERS[i].title)} (p. ${pagesOf(items[0])[0]}–${pagesOf(items.at(-1)).at(-1)})</option>` : '')
         .join('');
       // every time: the two pages open now are chosen (or "Pages … to …" on the contents page)
@@ -1516,7 +1543,7 @@ else {
     const blank = document.getElementById('ppBlank').checked;
     // the two pages open now, with the answers: printed right here
     // (scaffolding too: its pages have no number, so the print copy could not find them)
-    if (!isTeacher() || (range() === 'spread' && (!blank || isScaffold(spreads[current])))) {
+    if (!isTeacher() || (range() === 'spread' && (!blank || isUnnumbered(spreads[current])))) {
       pp.close();
       document.body.classList.toggle('eco-print', eco);
       setTimeout(() => window.print(), 50);
@@ -1697,12 +1724,15 @@ const scaffoldName = (s, ch) => {
   return ch?.withChapter && own && own !== ch ? `${own.title} · ${name}` : name;
 };
 
+// the number of a scaffolding spread has the color of the chapter it belongs to in the book
+const scaffoldColor = s => { const c = chapterOf.get(s)?.color; return c ? ` style="color:${esc(c)}"` : ''; };
+
 function chapterCard(ch) {
   const color = esc(ch.color || '#f05f4b');
   const pic = ch.image ? `<span class="chapter-pic"><img src="${esc(ch.image)}" alt=""${ch.zoom ? ` style="--zoom:${+ch.zoom}${ch.dy ? `;--dy:${+ch.dy}%` : ""}"` : ''}></span>` : '';
   // not written yet: only the teacher sees it, to have the plan of the year in view
   if (!ch.items.length) {
-    return isTeacher() ? `
+    return isTeacher() && !ch.collect ? `
       <article class="chapter chapter-soon" style="--c:${color}">
         <div class="chapter-cover">${pic}<span class="chapter-pages">coming soon</span><h3>${esc(ch.title)}</h3></div>
       </article>` : '';
@@ -1710,7 +1740,7 @@ function chapterCard(ch) {
   const inside = ch.items.filter(canSee);
   if (!inside.length) return ''; // nothing opened in this chapter yet
   const links = inside.map(s => {
-    if (isScaffold(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}"><b>${scaffoldSign(s)}</b> ${esc(scaffoldName(s, ch))}</a></li>`;
+    if (isUnnumbered(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}"><b${scaffoldColor(s)}>${scaffoldNo.get(s) ?? scaffoldSign(s)}</b> ${esc(scaffoldName(s, ch))}</a></li>`;
     const [a, b] = pagesOf(s);
     const c = ch.linkColors && ch.linkColors[s.dataset.id];
     return `<li${c ? ` style="--c:${esc(c)}"` : ''}>${pageLink(a, b, s.dataset.name || '')}</li>`;
@@ -1777,7 +1807,7 @@ function renderToc() {
         <details class="toc-ch" data-ch="${esc(ch.title)}" style="--c:${esc(ch.color || '#f05f4b')}"${tocChaptersOpen.has(ch.title) ? ' open' : ''}>
           <summary><i class="toc-dot"></i><span>${esc(ch.title)}</span><small>${ch.collect ? inside.length : `${a}–${b}`}</small></summary>
           <ul>${inside.map(s => {
-            if (isScaffold(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}"><b>${scaffoldSign(s)}</b><span>${esc(scaffoldName(s, ch))}</span></a></li>`;
+            if (isUnnumbered(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}"${isVisible(s) || teacherOnly(s) ? '' : ' class="off" title="Hidden from students"'}><b${scaffoldColor(s)}>${scaffoldNo.get(s) ?? scaffoldSign(s)}</b><span>${esc(scaffoldName(s, ch))}</span></a></li>`;
             const [x, y] = pagesOf(s);
             const off = isVisible(s) || teacherOnly(s) ? '' : ' class="off" title="Hidden from students"';
             return `<li><a href="#p${x}" data-id="${esc(s.dataset.id)}"${off}><b>${x}–${y}</b><span>${esc(s.dataset.name || s.dataset.title || '')}</span></a></li>`;
@@ -1786,7 +1816,7 @@ function renderToc() {
       }).join('');
       if (!chapters.trim()) return '';
       const color = part.teacher ? '#1f2a6b' : YEAR_COLORS[pi % YEAR_COLORS.length];
-      const badge = part.teacher ? '🔒' : pi + 1;
+      const badge = part.badge || (part.teacher ? '🔒' : pi + 1);
       const [title, sub] = part.title.split(' · ');
       return `
       <details class="toc-year${part.teacher ? ' teacher' : ''}" data-year="${esc(part.title)}" style="--y:${color}"${tocYearsClosed.has(part.title) ? '' : ' open'}>
@@ -1904,7 +1934,7 @@ function updateContinueLink() {
   if (!link.hidden) {
     const [last] = pagesOf(spread);
     link.href = hrefOf(spread);
-    link.textContent = isScaffold(spread) ? `Continue from ${spread.dataset.name || 'where you were'} →` : `Continue from page ${last} →`;
+    link.textContent = isUnnumbered(spread) ? `Continue from ${spread.dataset.name || 'where you were'} →` : `Continue from page ${last} →`;
   }
 }
 
@@ -2008,7 +2038,7 @@ function buildPanel() {
       <legend><label><input type="checkbox" class="tp-all" data-g="${gi}"> <b>${esc(g.title)}</b></label></legend>
       ${g.items.map(s => `
         <label class="tp-page"><input type="checkbox" class="tp-one" data-g="${gi}" value="${esc(s.dataset.id)}">
-          <b>${range(...pagesOf(s))}</b> ${esc(s.dataset.name || s.dataset.title || '')}</label>`).join('')}
+          <b>${isPrintout(s) ? '🖨️' : range(...pagesOf(s))}</b> ${esc(s.dataset.name || s.dataset.title || '')}</label>`).join('')}
     </fieldset>`).join('') + '<p class="tp-help">🔒 The materials for the teacher (tests, exit tickets, cards to print) are never shown to students.</p>';
   syncPanel();
 }

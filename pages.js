@@ -32,7 +32,8 @@ const PAGES = (() => {
       const id = s.dataset.id;
       if (!id) console.error('A spread has no data-id:', s);
       else if (byId.has(id)) console.error(`Two spreads are called "${id}"`);
-      if (s.classList.contains('scaffold')) { s.dataset.pages = `${n - 1}-${n - 1}`; byId.set(id, s); continue; }
+      // printouts (class "printout") are not counted either, but students can see them (script.js)
+      if (s.classList.contains('scaffold') || s.classList.contains('printout')) { s.dataset.pages = `${n - 1}-${n - 1}`; byId.set(id, s); continue; }
       const pages = [...s.querySelectorAll(':scope > .page')];
       const first = n;
       pages.forEach(p => {

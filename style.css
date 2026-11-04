@@ -3744,6 +3744,10 @@ body.teacher-only .toolbar button, body.teacher-only .home-btn { border-color: #
 body.in-test .toolbar { background: var(--coral); border-bottom-color: #c94535; }
 body.in-test .toolbar button, body.in-test .home-btn { border-color: #c94535; }
 body.in-test .goto, body.in-test .toolbar-title { color: #fff; }
+/* printouts (class "printout": sheets to print and cut out, no page number, students can see them) → magenta toolbar */
+body.in-printout .toolbar { background: #dc3394; border-bottom-color: #b02577; }
+body.in-printout .toolbar button, body.in-printout .home-btn { border-color: #b02577; }
+body.in-printout .goto, body.in-printout .toolbar-title { color: #fff; }
 /* a page of the book that students cannot see yet (not ticked in the panel) → grey striped desk, grey toolbar */
 body.not-visible { background: #b9b9c0 repeating-linear-gradient(135deg, transparent 0 22px, rgba(255,255,255,.28) 22px 44px); }
 body.not-visible .toolbar { background: #8d8d97; border-bottom-color: #6f6f79; }
