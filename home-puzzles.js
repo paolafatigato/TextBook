@@ -16,6 +16,11 @@ window.addEventListener('load', () => {
     { title: 'Orwell', color: '#262626', games: [
       ['🎯 Who am I?', 'af-rules', () => window.ORWELL_GAMES?.open('who')],
       ['🃏 Memory: Farm &amp; history', 'af-rules', () => window.ORWELL_GAMES?.open('memory')],
+      ['🎰 Silly sentence machine', 'af-anthem', () => window.ORWELL_GAMES?.open('silly')],
+      ['🎤 Rhyme time', 'af-beasts', () => window.ORWELL_GAMES?.open('couplets')],
+      ['🔔 Rhyme or not?', 'af-beasts', () => window.ORWELL_GAMES?.open('rhymeyn')],
+      ['🃏 Rhyme match', 'af-anthem', () => window.ORWELL_GAMES?.open('rhymematch')],
+      ['🎼 Anthem puzzle', 'af-beasts', () => window.ORWELL_GAMES?.open('verses')],
     ] },
   ];
   pills.forEach(({ title, color, games }) => {

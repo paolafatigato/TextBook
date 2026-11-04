@@ -107,6 +107,55 @@
     scramble: { icon: '🔤', name: 'Word scramble', text: 'Put the letters in the right order.' },
     hangman: { icon: '🎡', name: 'Hangman', text: 'Find the word before you lose your hearts.' },
   };
+  // the anthem project ([af-beasts … af-anthem2]): rhymes and funny sentences, things that do not work on paper
+  Object.assign(DATA, {
+    // [pair, do they rhyme?]
+    rhymeyn: [
+      ['sheep / sleep', true], ['night / light', true], ['pig / pink', false], ['farm / arm', true], ['hen / ten', true],
+      ['cow / cat', false], ['hay / day', true], ['goat / coat', true], ['horse / house', false], ['song / strong', true],
+      ['free / tree', true], ['barn / bed', false], ['sing / ring', true], ['moon / spoon', true], ['hands / lands', true],
+      ['hat / hot', false], ['sun / fun', true], ['rain / pain', true], ['wheat / wet', false], ['food / good', false],
+    ],
+    // [first line, second line with ___, the rhyming word, other words]
+    couplets: [
+      ['We work all day and sing all night,', 'Our future is happy and ___', 'bright', ['sad', 'small']],
+      ['Sing it loud and sing it strong,', 'Sing our happy farm ___', 'song', ['tune', 'day']],
+      ['Pigs and horses, hens and sheep,', 'We are free and safe to ___', 'sleep', ['run', 'eat']],
+      ['One day soon the farmer will go,', 'And the green fields will be ours, you ___', 'know', ['see', 'hear']],
+      ['No more whips and no more pain,', 'We will play in sun and ___', 'rain', ['snow', 'mud']],
+      ['Come and listen, clap your hands,', 'Animals of every ___', 'land', ['place', 'farm']],
+      ['The cows are happy in the sun,', 'We all work and we have ___', 'fun', ['food', 'rest']],
+      ['The pigeons fly up in the sky,', 'Free and happy, flying ___', 'high', ['low', 'away']],
+      ['Clover, wheat and sweet green hay,', 'Will be ours some happy ___', 'day', ['night', 'year']],
+      ['Boxer works from dawn till night,', 'He is kind and his heart is ___', 'light', ['big', 'strong']],
+      ['Together we are strong and free,', 'Come and sing along with ___', 'me', ['you', 'us']],
+      ['The farm is ours, the sun is high,', 'Together we can touch the ___', 'sky', ['hay', 'sea']],
+    ],
+    // pairs of rhyming words for the memory game
+    rhymes: [
+      ['sheep', 'sleep'], ['goat', 'coat'], ['pig', 'big'], ['hen', 'ten'], ['cow', 'now'], ['hay', 'day'], ['night', 'light'], ['free', 'tree'],
+    ],
+    // the verses of the easy version of "Beasts of England", line by line
+    verses: [
+      ['Animals of every land,', 'Come and listen, clap your hands.', 'I have news for you today:', 'A better time is on its way!'],
+      ['One day soon the farmer will go,', 'And the green fields will be ours, you know.', 'No more whips and no more pain,', 'We will play in sun and rain.'],
+      ['Sing it loud and sing it strong,', 'Sing our happy farm song!', 'Pigs and horses, hens and sheep,', 'We are free and safe to sleep!'],
+    ],
+    // the four reels of the silly sentence machine
+    reels: [
+      ['The fat pig', 'A sleepy sheep', 'Boxer the horse', 'The grumpy donkey', 'Three noisy hens', 'Mr Jones', 'Squealer', 'The cat'],
+      ['dances with', 'sings to', 'hides from', 'tickles', 'paints', 'chases', 'kisses', 'steals'],
+      ['a hairy tomato', 'the farmer’s socks', 'a purple windmill', 'a giant carrot', 'Napoleon’s hat', 'an angry apple', 'a bag of sugar', 'a dancing spoon'],
+      ['in the mud', 'at midnight', 'on the roof', 'under the barn', 'in the bath', 'on Sugarcandy Mountain', 'with a trumpet', 'in the rain'],
+    ],
+  });
+  Object.assign(INFO, {
+    couplets: { icon: '🎤', name: 'Rhyme time', text: 'Finish the song: which word rhymes?' },
+    rhymeyn: { icon: '🔔', name: 'Rhyme or not?', text: 'Do the two words rhyme? Be quick!' },
+    rhymematch: { icon: '🃏', name: 'Rhyme match', text: 'Find the pairs of words that rhyme.' },
+    verses: { icon: '🎼', name: 'Anthem puzzle', text: 'Put the lines of the song in order.' },
+    silly: { icon: '🎰', name: 'Silly sentence machine', text: 'Spin, lock, laugh and read it aloud!' },
+  });
   const ORDER = Object.keys(INFO).filter(id => id !== 'life'); // "life" tells the answers of the game: only from [author-case:R]
 
   const $ = id => document.getElementById(id);
@@ -453,6 +502,156 @@
     },
   };
 
+  // the anthem project: games for rhymes and funny lines
+  Object.assign(GAMES, {
+    rhymeyn: () => quickFire('rhymeyn', DATA.rhymeyn, 'RHYME', 'NO RHYME'),
+
+    couplets() {
+      const qs = shuffle(DATA.couplets).slice(0, 8);
+      let i = 0, score = 0;
+      const next = () => {
+        if (i === qs.length) return end(score, qs.length, 'couplets');
+        const [first, second, right, others] = qs[i];
+        area.innerHTML = `<div class="gq-card">
+          <div class="gq-count">${i + 1} / ${qs.length}</div>
+          <p class="gq-instr">Choose the word that <em>rhymes</em>.</p>
+          <p class="am-couplet">${esc(first)}</p>
+          <div class="gq-gapline">${esc(second).replace('___', '<span class="gq-gap" id="owGap">?</span>')}</div>
+          <div class="gq-choices">${shuffle([right, ...others]).map(o => `<button type="button" class="gq-choice" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>
+          <p class="gq-fb" id="owFb"></p></div>`;
+        const buttons = [...area.querySelectorAll('.gq-choice')];
+        buttons.forEach(b => b.addEventListener('click', () => {
+          $('owGap').textContent = right;
+          if (judge(buttons, b, right, $('owFb'), 'It rhymes!', () => { i++; next(); })) setScore(++score);
+        }));
+      };
+      next();
+    },
+
+    rhymematch() {
+      const cards = shuffle(DATA.rhymes.flatMap(([a, b], k) => [{ k, t: a }, { k, t: b }]));
+      let open = [], found = 0, moves = 0;
+      area.innerHTML = `<div class="gq-card"><p class="gq-instr">Turn two cards: the two words <em>rhyme</em>!</p>
+        <div class="rj-mem">${cards.map((c, n) => `<button type="button" class="rj-card" data-n="${n}"><span>${esc(c.t)}</span></button>`).join('')}</div>
+        <p class="gq-fb" id="owFb">Moves: 0</p></div>`;
+      const btns = [...area.querySelectorAll('.rj-card')];
+      btns.forEach(b => b.addEventListener('click', () => {
+        if (open.length === 2 || b.classList.contains('up')) return;
+        b.classList.add('up');
+        open.push(b);
+        if (open.length < 2) return;
+        moves++;
+        $('owFb').textContent = `Moves: ${moves}`;
+        const [x, y] = open.map(o => cards[o.dataset.n]);
+        if (x.k === y.k) {
+          open.forEach(o => o.classList.add('done'));
+          open = [];
+          setScore(++found);
+          if (found === DATA.rhymes.length) later(() => end(found, found, 'rhymematch', `<br>in <span>${moves}</span> moves (the best is ${found})`), 700);
+        } else later(() => { open.forEach(o => o.classList.remove('up')); open = []; }, 1000);
+      }));
+    },
+
+    verses() {
+      const vs = shuffle(DATA.verses);
+      let i = 0, score = 0;
+      const next = () => {
+        if (i === vs.length) return end(score, vs.length, 'verses');
+        const lines = vs[i];
+        let tiles;
+        do tiles = shuffle(lines.map((l, n) => ({ l, n }))); while (tiles.every((t, n) => t.n === n));
+        let typed = [];
+        area.innerHTML = `<div class="gq-card" style="text-align:center">
+          <div class="gq-count">${i + 1} / ${vs.length}</div>
+          <p class="gq-instr">Click the lines in the right order: <em>the rhymes will help you!</em></p>
+          <ol class="am-lines" id="owLine"></ol>
+          <div class="am-tiles" id="owTiles">${tiles.map((t, n) => `<button type="button" class="gq-chip" data-n="${n}">${esc(t.l)}</button>`).join('')}</div>
+          <div class="gq-row"><button type="button" class="gq-btn alt" id="owDel">⌫ Back</button><button type="button" class="gq-btn alt" id="owSkip">Skip</button></div>
+          <p class="gq-fb" id="owFb"></p></div>`;
+        const chips = [...area.querySelectorAll('#owTiles .gq-chip')];
+        const paint = () => {
+          $('owLine').innerHTML = typed.map(k => `<li>${esc(tiles[k].l)}</li>`).join('');
+          chips.forEach((ch, n) => { ch.disabled = typed.includes(n); });
+        };
+        const finish = ok => {
+          chips.forEach(ch => { ch.disabled = true; });
+          $('owDel').disabled = $('owSkip').disabled = true;
+          if (!ok) $('owLine').innerHTML = lines.map(l => `<li>${esc(l)}</li>`).join('');
+          $('owFb').innerHTML = ok ? '<span class="ok">✓ Well done! Sing it!</span>' : '<span class="no">This is the right order.</span>';
+          if (ok) setScore(++score);
+          later(() => { i++; next(); }, ok ? 1400 : 2800);
+        };
+        chips.forEach((ch, n) => ch.addEventListener('click', () => {
+          typed.push(n);
+          paint();
+          if (typed.length < lines.length) return;
+          if (typed.every((k, p) => tiles[k].n === p)) finish(true);
+          else {
+            $('owFb').innerHTML = '<span class="warn">Not quite… try again!</span>';
+            later(() => { typed = []; paint(); $('owFb').textContent = ''; }, 900);
+          }
+        }));
+        $('owDel').addEventListener('click', () => { typed.pop(); paint(); });
+        $('owSkip').addEventListener('click', () => finish(false));
+        paint();
+      };
+      next();
+    },
+
+    // four reels: lock the words you like, spin the others, keep the funniest sentences for your anthem
+    silly() {
+      const pick = r => Math.floor(Math.random() * DATA.reels[r].length);
+      const now = DATA.reels.map((_, r) => pick(r));
+      const locked = [false, false, false, false];
+      const kept = [];
+      let spinning = false;
+      area.innerHTML = `<div class="gq-card" style="text-align:center">
+        <p class="gq-instr">Press <em>Spin</em>. Click a word to <em>lock</em> it 🔒, then spin the others!</p>
+        <div class="am-reels" id="owReels">${DATA.reels.map((_, r) => `<button type="button" class="am-reel" data-r="${r}"></button>`).join('')}</div>
+        <p class="am-sentence" id="owSentence"></p>
+        <div class="gq-row">
+          <button type="button" class="gq-btn coral" id="owSpin">🎰 Spin!</button>
+          <button type="button" class="gq-btn alt" id="owSay">🔊 Read it aloud</button>
+          <button type="button" class="gq-btn lime" id="owKeep">⭐ Keep it</button>
+        </div>
+        <p class="gq-fb" id="owFb">Keep your funniest sentences: they can go in your anthem!</p>
+        <ol class="am-kept" id="owKept"></ol></div>`;
+      const reels = [...area.querySelectorAll('.am-reel')];
+      const sentence = () => `${DATA.reels.map((w, r) => w[now[r]]).join(' ')}.`;
+      const paint = () => {
+        reels.forEach((b, r) => { b.textContent = DATA.reels[r][now[r]]; b.classList.toggle('locked', locked[r]); });
+        $('owSentence').textContent = sentence();
+      };
+      const spin = () => {
+        if (spinning || locked.every(Boolean)) return;
+        spinning = true;
+        let n = 0;
+        every(() => {
+          now.forEach((_, r) => { if (!locked[r]) now[r] = pick(r); });
+          paint();
+          if (++n >= 9) { stop(); spinning = false; }
+        }, 90);
+      };
+      reels.forEach((b, r) => b.addEventListener('click', () => { if (spinning) return; locked[r] = !locked[r]; paint(); }));
+      $('owSpin').addEventListener('click', spin);
+      $('owSay').addEventListener('click', () => {
+        if (!window.speechSynthesis) return;
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(sentence());
+        u.lang = 'en-GB';
+        speechSynthesis.speak(u);
+      });
+      $('owKeep').addEventListener('click', () => {
+        if (spinning || kept.includes(sentence())) return;
+        kept.push(sentence());
+        setScore(kept.length);
+        $('owKept').innerHTML = kept.map(s => `<li>${esc(s)}</li>`).join('');
+        $('owFb').innerHTML = '<span class="ok">⭐ Kept! Write it in your notebook.</span>';
+      });
+      spin();
+    },
+  });
+
   area.addEventListener('click', e => {
     const b = e.target.closest('[data-play], [data-menu]');
     if (!b) return;
@@ -512,6 +711,24 @@
     };
     quiz.addEventListener('click', () => setTimeout(paint)); // after script.js has saved the answer
     $('clearBtn').addEventListener('click', () => setTimeout(paint));
+    paint();
+  }
+
+  /* ---------- [af-anthem2:L]: the style prompt for Suno, built from the chosen words ---------- */
+  const prompt = $('hy6');
+  if (prompt) {
+    const out = $('hy6-out');
+    const part = (id, fallback) => saved[id] || fallback;
+    const paint = () => {
+      out.value = `A ${part('hy6-style', '…')} song for a group of students, ${part('hy6-mood', '…')} mood, ${part('hy6-tempo', '…')} tempo, ${part('hy6-voice', 'a group choir')} singing together, with a catchy chorus that everybody can sing. English lyrics.`;
+    };
+    prompt.addEventListener('click', () => setTimeout(paint)); // after script.js has saved the choice
+    $('clearBtn').addEventListener('click', () => setTimeout(paint));
+    $('hy6-copy').addEventListener('click', async () => {
+      const b = $('hy6-copy');
+      try { await navigator.clipboard.writeText(out.value); b.textContent = '✓ Copied'; } catch { out.select(); b.textContent = 'Press Ctrl+C'; }
+      setTimeout(() => { b.textContent = '⧉ Copy'; }, 1600);
+    });
     paint();
   }
 

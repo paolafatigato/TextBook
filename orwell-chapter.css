@@ -638,3 +638,80 @@
 .am-grid p.head { height: 3cqw; border-bottom: .14cqw solid var(--ow-ink); font: var(--ow-label); letter-spacing: .14em; text-transform: uppercase; }
 .ow .am-grid .tick { flex: none; width: 2.8cqw; height: 2.8cqw; border: .14cqw solid var(--ow-ink); background: transparent; color: transparent; font-size: 1.4cqw; }
 .ow .am-grid .tick.on { background: var(--ow-o); border-color: var(--ow-o); color: #fff; }
+
+/* ---------- the song, the contest and the anthem project ([af-beasts … af-anthem2]) ---------- */
+.am-song { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2cqw; padding: 2cqw 2.2cqw 1.4cqw; background: #fffdf8; box-shadow: 0 .6cqw 1.4cqw rgba(80,55,30,.14); }
+.am-song div { padding-left: 1.2cqw; border-left: .35cqw solid var(--ow-o); }
+.am-song b { display: block; margin-bottom: .5cqw; font: 800 1cqw/1 'Nunito', sans-serif; letter-spacing: .18em; text-transform: uppercase; color: var(--ow-o); }
+.am-song p { margin: 0 0 .9cqw; font: 400 1.6cqw/1.55 'Nunito', sans-serif; color: #2b2723; }
+/* the song as a cloze: the gaps sit in the lines, the word box is below */
+.am-song .dd-slot { display: inline-flex; vertical-align: middle; width: 6.8cqw; height: 2.6cqw; margin: 0 .1cqw; }
+.am-song .dd-slot .dd-chip { padding: 0 .8cqw; font-size: 1.15cqw; }
+.am-cloze .dd-bank { margin-top: 2.6cqw; }
+.am-quote.wide q { font-size: 2.1cqw; line-height: 1.5; }
+
+.am-prize { z-index: 2; padding: 2cqw 2.6cqw 1.6cqw; background: var(--ow-ink); color: #f3ecdf; box-shadow: 0 .8cqw 1.6cqw rgba(80,55,30,.2); }
+.am-prize h3 { margin: 0 0 1cqw; font: 400 2.6cqw/1 var(--ow-head); letter-spacing: .06em; text-transform: uppercase; color: #fff; }
+.am-prize ol { margin: 0; padding: 0 0 0 3cqw; font: 400 1.45cqw/1.4 'Nunito', sans-serif; }
+.am-prize li { margin-bottom: .5cqw; }
+.am-prize li::marker { color: var(--ow-o2); font-weight: 800; }
+.am-prize b { color: var(--ow-o2); }
+.am-prize p { display: flex; align-items: flex-end; gap: 1cqw; margin: .8cqw 0 0; font: 800 1.2cqw/1 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.am-prize input.fill { flex: 1; height: 3.2cqw; color: #fff; font: 400 1.9cqw/1 'Patrick Hand', cursive; border-bottom: .12cqw dashed rgba(255,255,255,.45); }
+
+.am-team { z-index: 2; display: flex; align-items: flex-end; gap: 1.4cqw; margin: 0; }
+.am-team span { font: 800 1.15cqw/2.4 'Nunito', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--ow-steel); white-space: nowrap; }
+.am-team input.fill { flex: 1; height: 3.6cqw; border-bottom: .13cqw solid var(--ow-line); font-size: 1.9cqw; }
+.am-roles { z-index: 2; list-style: none; margin: 0; padding: 0; }
+.am-roles li { display: grid; grid-template-columns: 26cqw 1fr; align-items: end; height: 4.2cqw; border-bottom: .12cqw solid var(--ow-line); }
+.am-roles li > span { display: flex; align-items: center; gap: 1cqw; padding-bottom: .7cqw; font: 700 1.45cqw/1 'Nunito', sans-serif; }
+.am-roles li > span i { font-style: normal; font-size: 1.8cqw; filter: grayscale(1) sepia(.5); }
+.am-roles input.fill, .am-rows input.fill { height: 3.4cqw; font-size: 1.8cqw; }
+.am-rows input.fill { border-bottom: .13cqw solid var(--ow-line); }
+.am-bank { z-index: 2; display: flex; flex-wrap: wrap; gap: .6cqw; margin: 0; }
+.am-bank span { padding: .5cqw 1.1cqw; border-radius: 999px; background: var(--ow-card); box-shadow: inset 0 0 0 .12cqw var(--ow-ink); font: 400 1.2cqw/1 var(--ow-type); }
+.am-rows { z-index: 2; list-style: none; margin: 0; padding: 0; }
+.am-rows li { display: grid; grid-template-columns: 1fr 3cqw 1fr 1fr; column-gap: 1.2cqw; align-items: end; height: 4.4cqw; }
+.am-rows b { text-align: center; font: 400 1.8cqw/2 var(--ow-head); color: var(--ow-o); }
+.am-frames li { min-height: 5.2cqw; }
+.am-frames li > span { line-height: 2; }
+.ow .am-frames input.fill.blank.wide { width: 15cqw; }
+.am-lyrics { z-index: 2; display: grid; row-gap: .8cqw; }
+.am-lyrics h4 { margin: 0 0 .2cqw; font: 400 1.9cqw/1 var(--ow-head); color: var(--ow-ink); }
+.am-lyrics .chorus h4 { color: var(--ow-o); }
+.am-lyrics label { display: flex; align-items: flex-end; gap: 1cqw; }
+.am-lyrics label i { flex: 0 0 2.2cqw; padding-bottom: .5cqw; font: 700 1.1cqw/1 var(--ow-mono); font-style: normal; color: var(--ow-steel); }
+.am-lyrics input.fill { height: 3.7cqw; border-bottom: .13cqw solid var(--ow-line); font-size: 1.8cqw; }
+.am-how { z-index: 2; margin: 0; padding: 0 0 0 4cqw; font: 400 1.75cqw/1.35 'Nunito', sans-serif; color: #3d3731; }
+.am-how li { margin-bottom: 1.2cqw; padding-left: .6cqw; }
+.am-how li::marker { font: 400 1.9cqw var(--ow-head); color: var(--ow-o); }
+.am-prompt { z-index: 2; display: grid; row-gap: .9cqw; }
+.am-prompt p { display: grid; grid-template-columns: 9cqw 1fr; align-items: center; margin: 0; }
+.am-prompt p b { font: 800 1.1cqw/1 'Nunito', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--ow-steel); }
+.am-prompt .opt.pick { display: flex; flex-wrap: wrap; width: fit-content; border-radius: 1.6cqw; }
+.am-prompt textarea { height: 10.4cqw; padding: 1cqw 1.4cqw; border: 0; border-radius: .6cqw; resize: none; background: #fffdf8; box-shadow: inset 0 0 0 .13cqw var(--ow-ink); font: 400 1.4cqw/1.45 var(--ow-type); color: var(--ow-ink); }
+.am-prompt .check { justify-self: end; margin-top: -.2cqw; }
+.am-tip { z-index: 2; margin: 0; padding: 1.2cqw 1.6cqw; background: var(--ow-card); box-shadow: inset .5cqw 0 0 var(--ow-o); font: 400 1.35cqw/1.4 'Nunito', sans-serif; color: #4a433c; }
+.am-tip b { margin-right: .8cqw; font: 800 1.05cqw/1 'Nunito', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--ow-o); }
+.am-chk { z-index: 2; list-style: none; margin: 0; padding: 0; }
+.am-chk li { display: flex; align-items: center; gap: 1.6cqw; height: 4.8cqw; border-bottom: .12cqw solid var(--ow-line); font: 700 1.45cqw/1.2 'Nunito', sans-serif; color: #3d3731; }
+.ow .am-chk .tick { flex: none; width: 3cqw; height: 3cqw; border: .14cqw solid var(--ow-ink); background: transparent; color: transparent; font-size: 1.5cqw; }
+.ow .am-chk .tick.on { background: var(--ow-o); border-color: var(--ow-o); color: #fff; }
+.am-rate { z-index: 2; }
+.am-rate p { display: flex; align-items: center; justify-content: space-between; height: 5.6cqw; margin: 0; border-bottom: .12cqw solid var(--ow-line); font: 700 1.45cqw/1.2 'Nunito', sans-serif; color: #3d3731; }
+.am-rate .opt.pick button { width: 3.4cqw; padding: 0; text-align: center; }
+
+/* the pop-up games of the anthem project */
+.ow-modal .am-couplet { margin: 6px 0 0; text-align: center; font: 700 21px/1.4 'Nunito', sans-serif; }
+.ow-modal .am-lines { min-height: 128px; margin: 10px auto; padding: 0; max-width: 520px; list-style: none; text-align: center; font: 700 19px/1.55 'Nunito', sans-serif; }
+.ow-modal .am-lines li { border-bottom: 2px dotted #e2d5bf; }
+.ow-modal .am-tiles { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 12px 0; }
+.ow-modal .am-tiles .gq-chip { width: 100%; max-width: 520px; }
+.ow-modal .am-tiles .gq-chip:disabled { opacity: .3; cursor: default; transform: none; }
+.ow-modal .am-reels { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 8px 0 14px; }
+.ow-modal .am-reel { min-height: 68px; padding: 8px 12px; border: 0; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 2px #e2d5bf; font: 800 19px/1.2 'Nunito', sans-serif; color: #2b2723; cursor: pointer; }
+.ow-modal .am-reel.locked { background: #ffe3dc; box-shadow: inset 0 0 0 3px #ee6054; }
+.ow-modal .am-reel.locked::after { content: " 🔒"; }
+.ow-modal .am-sentence { min-height: 64px; margin: 0 0 6px; font: 400 25px/1.3 'Gloock', Georgia, serif; color: #2b2723; }
+.ow-modal .am-kept { margin: 12px auto 0; padding-left: 26px; max-width: 520px; text-align: left; font: 700 16px/1.6 'Nunito', sans-serif; color: #4a433c; }
+.ow-modal .rj-card.up { color: #2b2723; }
