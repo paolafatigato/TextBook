@@ -295,3 +295,22 @@ textarea.fill.hb-ta.sm { min-height: 10cqw; font-size: 1.8cqw; }
 .hb-chips .toggle { padding: .6cqw 1.5cqw; border-radius: 999px; background: var(--pal-white); border: .2cqw solid var(--hb-a); font: 700 1.6cqw/1 'Fredoka', sans-serif; color: var(--hb-a); cursor: pointer; }
 .hb-chips .toggle:hover { background: var(--hb-soft-c); }
 .hb-chips .toggle.on { background: var(--hb-a); color: var(--pal-white); }
+
+/* ---- illustration frames: empty until the PNG (img/habits/…) is added; then only the picture shows ---- */
+.hb-fr { z-index: 3; margin: 0; position: absolute; overflow: hidden; display: grid; place-items: center; text-align: center; border: .3cqw solid var(--hb-a); background: var(--hb-soft-c); print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.hb-fr.arch { border-radius: 50cqw 50cqw 1.4cqw 1.4cqw; }
+.hb-fr.circ { border-radius: 50%; }
+.hb-fr.caps { border-radius: 10cqw; background: var(--hb-soft-b); }
+.hb-fr img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.hb-fr figcaption { position: relative; padding: 0 2.4cqw; font: 700 1.45cqw/1.25 'Fredoka', sans-serif; color: var(--hb-a); }
+.hb-fr figcaption small { display: block; margin-top: .4cqw; font: 600 1cqw/1.2 'Nunito', sans-serif; color: var(--hb-mute); }
+.hb-fr::before { content: ""; position: absolute; inset: 1cqw; border: .2cqw dashed color-mix(in srgb, var(--hb-a) 45%, transparent); border-radius: inherit; }
+.hb-fr.arch::before { border-radius: 50cqw 50cqw .6cqw .6cqw; }
+.hb-fr:has(img)::before, .hb-fr:has(img) figcaption { display: none; }
+
+/* cover: the 6 stops in two columns under the big illustration */
+.hb-steps.two { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4cqw 1.6cqw; }
+.hb-steps.two li { grid-template-columns: 5.2cqw 1fr auto; gap: 1.1cqw; margin-left: 0; padding: .6cqw 1.2cqw .6cqw .6cqw; }
+.hb-steps.two li::before { width: 5.2cqw; height: 5.2cqw; font-size: 2.8cqw; }
+.hb-steps.two b { font-size: 1.85cqw; }
+.hb-steps.two small { font-size: 1.05cqw; padding: .45cqw .9cqw; }

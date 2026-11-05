@@ -126,12 +126,25 @@ const isUnnumbered = s => isScaffold(s) || isPrintout(s);
 // scaffolding and tests (teacher only) have a number from 1000 up, in the order of the book: type it in the
 // page box to open it. No page of the book can have such a number, so it can't be mixed up with one.
 const SCAFFOLD_FIRST = 1000;
-const scaffoldNo = new Map();
+// each page counts, as in the book: a spread with a left and a right page takes two numbers (1040–1041)
+const scaffoldNo = new Map(); // spread → its first number
+const scaffoldLast = new Map(); // spread → its last number
 function numberScaffolds() {
   scaffoldNo.clear();
-  spreads.filter(isScaffold).forEach((s, k) => scaffoldNo.set(s, SCAFFOLD_FIRST + k));
+  scaffoldLast.clear();
+  let n = SCAFFOLD_FIRST;
+  spreads.filter(isScaffold).forEach(s => {
+    const pages = s.querySelectorAll(':scope > .page').length || 1;
+    scaffoldNo.set(s, n);
+    scaffoldLast.set(s, n + pages - 1);
+    n += pages;
+  });
 }
 numberScaffolds();
+const scaffoldRange = s => {
+  const a = scaffoldNo.get(s), b = scaffoldLast.get(s);
+  return a == null ? '' : a === b ? `${a}` : `${a}–${b}`;
+};
 const teacherOnly = s => isScaffold(s) || !!chapterOf.get(s)?.teacher;
 // a link to a spread: by its first page, or by its name for scaffolding (its pages have no number)
 const hrefOf = s => (isUnnumbered(s) ? `#s=${s.dataset.id}` : `#p${pagesOf(s)[0]}`);
@@ -181,8 +194,8 @@ function paintDesk() {
   if (!s) return;
   const title = s.dataset.title;
   spreadTitle.textContent = isPrintout(s) ? `🖨️ Printouts · ${s.dataset.name || title}`
-    : isTest(s) ? `📝 Test ${scaffoldNo.get(s)} · ${s.dataset.name || title}`
-    : isScaffold(s) ? `🧱 Scaffolding ${scaffoldNo.get(s)} · ${title}`
+    : isTest(s) ? `📝 Test ${scaffoldRange(s)} · ${s.dataset.name || title}`
+    : isScaffold(s) ? `🧱 Scaffolding ${scaffoldRange(s)} · ${title}`
     : mine ? `🔒 For the teacher · ${title}`
     : closed ? `🙈 Not visible to students · ${title}`
     : title;
@@ -192,8 +205,13 @@ function goToPage(n) {
   if (!Number.isFinite(n)) return;
   // 1000 and up: scaffolding or a test (only the teacher can open them; otherwise nothing happens)
   if (n >= SCAFFOLD_FIRST) {
-    const i = spreads.findIndex(s => scaffoldNo.get(s) === n);
-    if (i >= 0 && canSee(spreads[i])) show(i);
+    const i = spreads.findIndex(s => scaffoldNo.get(s) <= n && n <= scaffoldLast.get(s));
+    if (i >= 0 && canSee(spreads[i])) {
+      show(i);
+      // the right page of the spread: on a narrow screen it is under the left one, scroll down to it
+      const [left, right] = spreads[i].querySelectorAll(':scope > .page');
+      if (n > scaffoldNo.get(spreads[i]) && right && right.getBoundingClientRect().top >= left.getBoundingClientRect().bottom - 1) right.scrollIntoView();
+    }
     else if (home.hidden) show(current); // put the box back as it was
     return;
   }
@@ -1794,7 +1812,7 @@ function chapterCard(ch) {
   const inside = ch.items.filter(canSee);
   if (!inside.length) return ''; // nothing opened in this chapter yet
   const links = inside.map(s => {
-    if (isUnnumbered(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}"><b${scaffoldColor(s)}>${scaffoldNo.get(s) ?? scaffoldSign(s)}</b> ${esc(scaffoldName(s, ch))}</a></li>`;
+    if (isUnnumbered(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}"><b${scaffoldColor(s)}>${scaffoldRange(s) || scaffoldSign(s)}</b> ${esc(scaffoldName(s, ch))}</a></li>`;
     const [a, b] = pagesOf(s);
     const c = ch.linkColors && ch.linkColors[s.dataset.id];
     return `<li${c ? ` style="--c:${esc(c)}"` : ''}>${pageLink(a, b, s.dataset.name || '')}</li>`;
@@ -1847,15 +1865,14 @@ const YEAR_COLORS = ['#f05f4b', '#3aa04a', '#4aa8ec'];
 
 // In the index, scaffolding spreads of the same topic (data-group in index.html, same chapter, one after the
 // other) are one entry with a small number for each, not one button each.
-// → a list of spreads, or of arrays (a group of 2 or more)
+// → a list of spreads, or of arrays (a group, even of one spread)
 function tocEntries(list) {
   const out = [];
   list.forEach(s => {
     const g = isScaffold(s) && s.dataset.group;
     const last = out.at(-1);
     if (g && Array.isArray(last) && last[0].dataset.group === g && chapterOf.get(last[0]) === chapterOf.get(s)) last.push(s);
-    else if (g && out.length && !Array.isArray(last) && last.dataset.group === g && chapterOf.get(last) === chapterOf.get(s)) out[out.length - 1] = [last, s];
-    else out.push(s);
+    else out.push(g ? [s] : s);
   });
   return out;
 }
@@ -1863,8 +1880,13 @@ function tocEntries(list) {
 function tocGroup(group, ch) {
   const own = chapterOf.get(group[0]);
   const name = ch?.withChapter && own && own !== ch ? `${own.title} · ${group[0].dataset.group}` : group[0].dataset.group;
-  const chips = group.map(s => `<a class="sg-chip${isVisible(s) || teacherOnly(s) ? '' : ' off'}" href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}" title="${esc(s.dataset.name || '')}"><b${scaffoldColor(s)}>${scaffoldNo.get(s) ?? scaffoldSign(s)}</b></a>`).join('');
-  return `<li class="scaffold-group"><span class="sg-name">${esc(name)}</span><span class="sg-chips">${chips}</span></li>`;
+  // one entry for the whole group: it opens the first page, the arrows go on from there
+  const s = group[0];
+  const a = scaffoldNo.get(s), b = scaffoldLast.get(group.at(-1));
+  const range = a == null ? scaffoldSign(s) : a === b ? `${a}` : `${a}–${b}`;
+  const ids = group.map(x => x.dataset.id).join(" ");
+  const off = group.some(x => isVisible(x) || teacherOnly(x)) ? "" : ' class="off" title="Hidden from students"';
+  return `<li class="scaffold-link"><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}" data-ids="${esc(ids)}"${off}><b${scaffoldColor(s)}>${range}</b><span>${esc(name)}</span></a></li>`;
 }
 
 function renderToc() {
@@ -1885,7 +1907,7 @@ function renderToc() {
           <ul>${tocEntries(inside).map(entry => {
             if (Array.isArray(entry)) return tocGroup(entry, ch);
             const s = entry;
-            if (isUnnumbered(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}"${isVisible(s) || teacherOnly(s) ? '' : ' class="off" title="Hidden from students"'}><b${scaffoldColor(s)}>${scaffoldNo.get(s) ?? scaffoldSign(s)}</b><span>${esc(scaffoldName(s, ch))}</span></a></li>`;
+            if (isUnnumbered(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}"${isVisible(s) || teacherOnly(s) ? '' : ' class="off" title="Hidden from students"'}><b${scaffoldColor(s)}>${scaffoldRange(s) || scaffoldSign(s)}</b><span>${esc(scaffoldName(s, ch))}</span></a></li>`;
             const [x, y] = pagesOf(s);
             const off = isVisible(s) || teacherOnly(s) ? '' : ' class="off" title="Hidden from students"';
             return `<li><a href="#p${x}" data-id="${esc(s.dataset.id)}"${off}><b>${x}–${y}</b><span>${esc(s.dataset.name || s.dataset.title || '')}</span></a></li>`;
@@ -1933,7 +1955,7 @@ toc.addEventListener('toggle', e => {
 function markToc() {
   const id = home.hidden ? spreads[current]?.dataset.id : null;
   toc.querySelectorAll('.here').forEach(el => el.classList.remove('here'));
-  const a = id && toc.querySelector(`a[data-id="${CSS.escape(id)}"]`);
+  const a = id && toc.querySelector(`a[data-id="${CSS.escape(id)}"], a[data-ids~="${CSS.escape(id)}"]`);
   if (!a) return;
   a.classList.add('here');
   const ch = a.closest('.toc-ch');
@@ -2165,6 +2187,14 @@ teacherBtn.addEventListener('click', () => {
   if (!panel.querySelector('.tp-one')) buildPanel();
   panel.querySelector('.tp-status').textContent = '';
   panel.showModal();
+  // on a page of the book: the list scrolls to that page, so it can be shown or hidden at once
+  panel.querySelectorAll('.tp-here').forEach(l => l.classList.remove('tp-here'));
+  const id = home.hidden ? spreads[current]?.dataset.id : null;
+  const box = id && [...panel.querySelectorAll('.tp-one')].find(c => c.value === id);
+  if (box) {
+    box.closest('.tp-page').classList.add('tp-here');
+    box.closest('.tp-page').scrollIntoView({ block: 'center' });
+  }
 });
 
 /* ================= start ================= */
