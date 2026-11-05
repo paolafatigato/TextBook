@@ -107,7 +107,7 @@
     scramble: { icon: '🔤', name: 'Word scramble', text: 'Put the letters in the right order.' },
     hangman: { icon: '🎡', name: 'Hangman', text: 'Find the word before you lose your hearts.' },
   };
-  // the anthem project ([af-beasts … af-anthem2]): rhymes and funny sentences, things that do not work on paper
+  // the anthem project ([af-beasts, af-anthem]): rhymes and funny sentences, things that do not work on paper
   Object.assign(DATA, {
     // [pair, do they rhyme?]
     rhymeyn: [
@@ -716,7 +716,7 @@
     paint();
   }
 
-  /* ---------- [af-anthem2:L]: the style prompt for Suno, built from the chosen words ---------- */
+  /* ---------- [af-anthem:L]: the style prompt for Suno, built from the chosen words ---------- */
   const prompt = $('hy6');
   if (prompt) {
     const out = $('hy6-out');

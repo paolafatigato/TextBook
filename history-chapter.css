@@ -1,0 +1,284 @@
+@charset "UTF-8";
+/* ======================================================================
+   CLIL History in the Daily routine ([ps-clil-wulf … ps-clil-write], end of Present Simple).
+   One boy (Wulf, a Longobard) and one girl (Aemilia, a Roman) and their days.
+   Rules that never change in this chapter, so the pages feel like one set:
+   - two sides, two colors: LONGOBARDS = green + lime on cream, ROMANS = coral on blush.
+     Exercise pages are lime (both sides together), the texts are always on a dark charcoal page.
+   - the same pieces on every page: a dark "HISTORY" pill, a small side label, an exercise
+     pill (number in the color of the side), a woven band (plait = Longobards, Greek key = Romans),
+     ✦ sparkles, white cards with a soft shadow.
+   - titles Fredoka, text Nunito, notes Patrick Hand (as in the rest of the book).
+   Only the book palette (--pal-*): no hex colors here. Class prefix lr-.
+   ====================================================================== */
+.lr-page {
+  --c: var(--pal-green);        /* main color of the side */
+  --c-d: var(--pal-forest);     /* small text and borders */
+  --a: var(--pal-lime);         /* accent (on dark pages) */
+  --bg: var(--pal-cream);
+  --soft: var(--pal-pale-lime);
+  --card: color-mix(in srgb, var(--pal-white) 62%, var(--bg));
+  background: var(--bg); color: var(--pal-charcoal);
+  font-family: 'Nunito', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+}
+.lr-page.rm { --c: var(--pal-coral); --c-d: var(--pal-brown); --a: var(--pal-coral); --bg: var(--pal-blush); --soft: var(--pal-rose-white); }
+.lr-page.both { --c: var(--pal-charcoal); --c-d: var(--pal-slate); --soft: var(--pal-ivory); }
+.lr-page.mix { --bg: var(--pal-lime); --soft: var(--pal-ivory); --card: var(--pal-white); }
+.lr-page.paper { --bg: var(--pal-white); }
+.lr-page.dark { --bg: var(--pal-charcoal); --card: color-mix(in srgb, var(--pal-white) 8%, var(--pal-charcoal)); color: var(--pal-ivory); }
+.lr-page .pageno { color: color-mix(in srgb, var(--c-d) 70%, var(--bg)); }
+.lr-page.dark .pageno { color: var(--pal-cool-grey); }
+.lr-page .footer { font: 600 1.7cqw/1 'Nunito', sans-serif; color: var(--pal-slate); white-space: nowrap; }
+.lr-page.dark .footer { color: var(--pal-cool-grey); }
+
+/* ---------- woven bands: plait (Longobards) and Greek key (Romans) ---------- */
+.lr-band { z-index: 2; height: 2.4cqw; background: var(--c); opacity: .85;
+  -webkit-mask: var(--m) 0 0 / 4.8cqw 2.4cqw repeat-x; mask: var(--m) 0 0 / 4.8cqw 2.4cqw repeat-x; }
+.lr-band, .lr-page { --plait: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12' viewBox='0 0 24 12'%3E%3Cpath d='M0 6C6-2 6-2 12 6S18 14 24 6' fill='none' stroke='black' stroke-width='2.2'/%3E%3Cpath d='M0 6C6 14 6 14 12 6S18-2 24 6' fill='none' stroke='black' stroke-width='2.2'/%3E%3C/svg%3E");
+  --key: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12' viewBox='0 0 24 12'%3E%3Cpath d='M0 11H4V2H20V9H10V5.5H14M20 11H24' fill='none' stroke='black' stroke-width='1.8'/%3E%3C/svg%3E"); }
+.lr-band.lb { --m: var(--plait); }
+.lr-band.rm { --m: var(--key); }
+
+/* ---------- small pieces ---------- */
+.lr-kick { z-index: 4; padding: .8cqw 2cqw; border-radius: 999px; white-space: nowrap; background: var(--pal-charcoal); color: var(--pal-white);
+  font: 800 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+.lr-side { z-index: 4; padding: .7cqw 1.8cqw; border-radius: 999px; white-space: nowrap; background: var(--c); color: var(--pal-white);
+  font: 800 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+.lr-page.rm .lr-side { color: var(--pal-night); }
+.lr-hero { z-index: 3; font: 700 9cqw/.95 'Fredoka', 'Nunito', sans-serif; color: var(--c); letter-spacing: -.01em; }
+.lr-hero small { display: block; margin-top: 1cqw; font: 400 3cqw/1.1 'Patrick Hand', cursive; letter-spacing: 0; color: var(--c-d); }
+.lr-hero.sm { font-size: 6.6cqw; }
+.lr-spark { z-index: 3; pointer-events: none; font: 400 calc(var(--s, 3) * 1cqw)/1 'Nunito', sans-serif; color: var(--c); }
+.lr-note { font: 400 1.9cqw/1.3 'Patrick Hand', cursive; color: var(--c-d); }
+.lr-chips { display: flex; flex-wrap: wrap; gap: 1cqw; margin: 0; padding: 0; list-style: none; }
+.lr-chips li { padding: .7cqw 1.5cqw; border-radius: 999px; background: var(--card); border: .2cqw solid var(--c); font: 700 1.5cqw/1 'Nunito', sans-serif; color: var(--c-d); }
+.lr-page .check { background: var(--pal-charcoal); font-size: 1.3cqw; }
+.lr-page .check:hover { background: var(--c-d); }
+.lr-page.dark .check { background: var(--a); color: var(--pal-night); }
+
+/* exercise pill: number in the color of the side, title in grey */
+.lr-task { z-index: 3; display: inline-flex; align-items: center; gap: 1cqw; padding: .55cqw 1.7cqw .55cqw .8cqw; border-radius: 999px; white-space: nowrap;
+  background: color-mix(in srgb, var(--pal-charcoal) 8%, transparent); color: var(--pal-slate); font: 700 1.55cqw/1 'Nunito', sans-serif; }
+.lr-task b { display: grid; place-items: center; min-width: 4.4cqw; height: 3cqw; padding: 0 1cqw; border-radius: 999px; background: var(--c); color: var(--pal-white); font: 800 1.45cqw/1 'Nunito', sans-serif; }
+.lr-page.rm .lr-task b, .lr-task.rm b { background: var(--pal-coral); color: var(--pal-night); }
+.lr-task.lb b { background: var(--pal-green); color: var(--pal-white); }
+.lr-task small { margin-left: .4cqw; font: 400 1.7cqw/1 'Patrick Hand', cursive; color: var(--c-d); }
+
+/* white card with a soft shadow */
+.lr-card { z-index: 3; box-sizing: border-box; background: var(--card); border-radius: 1.6cqw; padding: 2.2cqw 2.4cqw;
+  box-shadow: 0 .5cqw 1.8cqw color-mix(in srgb, var(--pal-night) 16%, transparent); }
+.lr-card h2 { margin: 0 0 1.2cqw; font: 700 3.3cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--c); }
+.lr-card .lr-how { margin: 0 0 1.4cqw; font: 400 1.75cqw/1.25 'Patrick Hand', cursive; color: var(--c-d); }
+
+/* ---------- the photo that crosses both pages (Wulf / Aemilia) ---------- */
+.lr-photo { position: absolute; top: 0; z-index: 1; width: 69cqw; height: 100%; overflow: hidden;
+  background: repeating-linear-gradient(135deg, var(--pal-charcoal) 0 2cqw, color-mix(in srgb, var(--pal-white) 6%, var(--pal-charcoal)) 2cqw 4cqw); }
+.lr-photo.l { left: 65cqw; }
+.lr-photo.r { left: -35cqw; }
+.lr-photo.r::after { content: attr(data-slot); position: absolute; left: 38cqw; top: 50%; width: 26cqw; transform: translateY(-50%);
+  font: 400 1.7cqw/1.3 'Patrick Hand', cursive; color: var(--pal-cool-grey); }
+.lr-photo img { position: relative; display: block; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); }
+
+/* ---------- the routine card ---------- */
+.lr-rows { display: grid; gap: 1.2cqw; }
+.lr-row { display: grid; grid-template-columns: 17cqw 1fr; align-items: start; gap: 1cqw; padding: .9cqw 1.4cqw; background: var(--pal-white);
+  border: .18cqw solid color-mix(in srgb, var(--c) 45%, transparent); border-radius: 1cqw; }
+.lr-row b { padding-top: .6cqw; font: 800 1.35cqw/1.1 'Nunito', sans-serif; letter-spacing: .03em; text-transform: uppercase; color: var(--pal-charcoal); }
+.lr-row textarea.fill { height: 6.8cqw; font-size: 1.9cqw; line-height: 1.22; padding: .2cqw .4cqw; }
+.lr-row textarea.fill::placeholder { color: color-mix(in srgb, var(--pal-slate) 55%, transparent); }
+.lr-row .ex { margin: 0; padding: .1cqw .4cqw; font: 400 2.1cqw/1.25 'Scritturapaola', 'Patrick Hand', cursive; color: var(--ink); }
+.lr-row.example { background: color-mix(in srgb, var(--a) 22%, var(--pal-white)); }
+.lr-page.rm .lr-row.example { background: var(--pal-rose-white); }
+.lr-tip { z-index: 3; display: flex; gap: 1.6cqw; align-items: center; box-sizing: border-box; padding: 1.4cqw 2cqw; border-radius: 1.4cqw; border: .25cqw dashed var(--c);
+  font: 600 1.6cqw/1.35 'Nunito', sans-serif; color: var(--c-d); }
+.lr-tip i { font: 400 3.4cqw/1 'Nunito', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
+.lr-tip b { color: var(--pal-charcoal); }
+
+/* ---------- the reading page (dark) ---------- */
+.lr-read { z-index: 3; }
+.lr-read h2 { margin: 0 0 2.2cqw; font: 700 3.6cqw/1.05 'Fredoka', 'Nunito', sans-serif; color: var(--a); }
+.lr-read p { margin: 0 0 1.5cqw; font: 400 1.72cqw/1.5 'Nunito', sans-serif; color: var(--pal-ivory); }
+.lr-read mark { background: none; color: var(--a); font-weight: 800; }
+.lr-fact { z-index: 3; box-sizing: border-box; display: flex; gap: 1.6cqw; align-items: flex-start; padding: 1.8cqw 2.2cqw; border-radius: 1.4cqw;
+  background: var(--card); border-left: .9cqw solid var(--a); font: 400 1.5cqw/1.4 'Nunito', sans-serif; color: var(--pal-ivory); }
+.lr-fact i { font: 400 3cqw/1 'Nunito', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
+.lr-fact b { color: var(--a); }
+
+/* ---------- 4.29 match the phrase ---------- */
+.lr-match { display: grid; grid-template-columns: 36cqw 1fr; gap: 2cqw; }
+.lr-match ol { margin: 0; padding: 0; list-style: none; display: grid; gap: .8cqw; }
+.lr-match li { display: flex; align-items: center; gap: 1cqw; min-height: 3.6cqw; font: 600 1.45cqw/1.25 'Nunito', sans-serif; color: var(--pal-slate); }
+.lr-match .ph li { font: 800 1.55cqw/1 'Nunito', sans-serif; letter-spacing: .02em; text-transform: uppercase; color: var(--pal-green); }
+.lr-match .ph li i { width: 2.2cqw; font: 800 1.35cqw/1 'Nunito', sans-serif; font-style: normal; color: var(--pal-cool-grey); }
+.lr-match .ph li span { flex: 1; }
+.lr-match .ph li input.fill { flex: 0 0 4.6cqw; width: 4.6cqw; height: 3cqw; text-align: center; font-size: 2cqw; border: .18cqw solid var(--pal-lime); border-radius: .8cqw; background: var(--pal-white); }
+.lr-match .ph li.ok input.fill { border-color: var(--pal-green); }
+.lr-match .mn li i { flex: 0 0 2.2cqw; font: 800 1.2cqw/1 'Nunito', sans-serif; font-style: normal; color: var(--pal-purple); }
+
+/* ---------- 4.30 the table ---------- */
+.lr-tab { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; overflow: hidden; border-radius: 1.4cqw; font: 400 1.42cqw/1.38 'Nunito', sans-serif; }
+.lr-tab th, .lr-tab td { padding: 1cqw 1.3cqw; vertical-align: middle; text-align: left; }
+.lr-tab thead th { background: var(--pal-charcoal); font: 700 1.75cqw/1 'Fredoka', 'Nunito', sans-serif; }
+.lr-tab thead th:first-child { width: 14cqw; color: var(--pal-cool-grey); }
+.lr-tab thead th.r { color: var(--pal-coral); }
+.lr-tab thead th.l { color: var(--pal-lime); }
+.lr-tab tbody th { background: var(--pal-charcoal); color: var(--pal-white); font: 700 1.5cqw/1.2 'Nunito', sans-serif; border-top: .15cqw solid color-mix(in srgb, var(--pal-white) 14%, var(--pal-charcoal)); }
+.lr-tab td.r { background: var(--pal-rose-white); }
+.lr-tab td.l { background: var(--pal-pale-lime); }
+.lr-tab td { border-top: .15cqw solid var(--pal-white); }
+.lr-tab input.fill { display: inline-block; width: 9.4cqw; height: 2.2cqw; margin: 0 .2cqw; padding: 0 .3cqw; vertical-align: baseline; font-size: 1.7cqw; text-align: center; border-bottom: .2cqw solid var(--pal-slate); }
+.lr-tab input.fill.ok { border-bottom-color: var(--pal-green) !important; }
+.lr-bank { display: flex; flex-wrap: wrap; gap: .9cqw 2.6cqw; justify-content: center; margin: 0; padding: 1.2cqw 2cqw; list-style: none; border-radius: 1.2cqw; background: var(--pal-white); }
+.lr-bank li { font: 800 1.55cqw/1 'Nunito', sans-serif; color: var(--pal-slate); }
+.lr-bank li:nth-child(3n+1) { color: var(--pal-green); }
+.lr-bank li:nth-child(3n+2) { color: var(--pal-coral); }
+.lr-bank li:nth-child(3n) { color: var(--pal-purple); }
+
+/* ---------- drawing frame (campfire) ---------- */
+.lr-frame { z-index: 3; box-sizing: border-box; padding: 1.2cqw; background: var(--pal-lime); }
+.lr-frame img { display: block; width: 100%; background: var(--pal-white); }
+.lr-cap { font: 400 2cqw/1.2 'Patrick Hand', cursive; color: var(--pal-slate); }
+
+/* ---------- numbered / lined lists ---------- */
+.lr-ord { margin: 0; padding: 0; list-style: none; display: grid; gap: 1.3cqw; }
+.lr-ord li { display: flex; align-items: center; gap: 1.2cqw; font: 400 1.6cqw/1.25 'Nunito', sans-serif; }
+.lr-ord li input.fill { flex: 0 0 4.4cqw; width: 4.4cqw; height: 3cqw; text-align: center; font-size: 2cqw; border: .18cqw solid var(--pal-lime); border-radius: .8cqw; background: var(--pal-white); }
+.lr-ord li.ok input.fill { border-color: var(--pal-green); }
+.lr-ord li.no input.fill { border-color: var(--pal-coral); }
+.lr-lines { display: grid; gap: .2cqw; }
+.lr-lines label { display: flex; align-items: flex-end; gap: 1cqw; font: 800 1.45cqw/1 'Nunito', sans-serif; color: var(--c-d); }
+.lr-lines label span { flex: 0 0 auto; padding-bottom: .5cqw; }
+.lr-lines input.fill { height: 4.4cqw; border-bottom: .15cqw solid var(--pal-cool-grey); font-size: 2cqw; }
+
+/* ---------- choice buttons (opt): same look everywhere ---------- */
+.lr-page .opt { display: inline-flex; flex: 0 0 auto; gap: .5cqw; padding: .3cqw; border-radius: 999px; background: color-mix(in srgb, var(--pal-charcoal) 8%, transparent); vertical-align: middle; }
+.lr-page .opt button { padding: .6cqw 1.3cqw; border: 0; border-radius: 999px; background: none; cursor: pointer; font: 700 1.35cqw/1 'Nunito', sans-serif; color: var(--pal-slate); }
+.lr-page .opt button.on { background: var(--pal-charcoal); color: var(--pal-white); }
+.lr-page .opt.ok { box-shadow: 0 0 0 .3cqw var(--pal-green); }
+.lr-page .opt.no { box-shadow: 0 0 0 .3cqw var(--pal-coral); }
+.lr-page .tf { display: inline-flex; gap: .5cqw; padding: .3cqw; background: color-mix(in srgb, var(--pal-charcoal) 8%, transparent); }
+.lr-page .tf button { background: none; color: var(--pal-slate); padding: .6cqw 1.5cqw; border-radius: 999px; font: 800 1.35cqw/1 'Nunito', sans-serif; border: 0; cursor: pointer; }
+.lr-page .tf button.on { background: var(--pal-charcoal); color: var(--pal-white); box-shadow: none; }
+.lr-page .tf.ok { box-shadow: 0 0 0 .3cqw var(--pal-green); }
+.lr-page .tf.no { box-shadow: 0 0 0 .3cqw var(--pal-coral); }
+.lr-qs { margin: 0; padding: 0; list-style: none; display: grid; gap: 1.1cqw; counter-reset: lq; }
+.lr-qs li { counter-increment: lq; display: flex; align-items: center; justify-content: space-between; gap: 1.6cqw; font: 400 1.6cqw/1.25 'Nunito', sans-serif; }
+.lr-qs li > span:first-child::before { content: counter(lq) "  "; font-weight: 800; color: var(--c); }
+
+/* ---------- timeline ---------- */
+.lr-time { position: relative; margin: 0; padding: 0 0 0 7cqw; list-style: none; display: grid; gap: 1.8cqw; }
+.lr-time::before { content: ""; position: absolute; left: 2.5cqw; top: 1cqw; bottom: 1cqw; width: .5cqw; border-radius: 1cqw; background: color-mix(in srgb, var(--pal-charcoal) 18%, transparent); }
+.lr-time li { position: relative; font: 400 1.78cqw/1.3 'Nunito', sans-serif; }
+.lr-time li::before { content: ""; position: absolute; left: -5.1cqw; top: .5cqw; width: 2.2cqw; height: 2.2cqw; border-radius: 50%; background: var(--dot, var(--pal-charcoal)); border: .5cqw solid var(--bg); box-sizing: border-box; box-shadow: 0 0 0 .2cqw var(--dot, var(--pal-charcoal)); }
+.lr-time b { display: block; font: 700 2.4cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--dot, var(--pal-charcoal)); }
+.lr-time li.r { --dot: var(--pal-coral); }
+.lr-time li.l { --dot: var(--pal-green); }
+.lr-time li.me { padding: .5cqw 1.2cqw; margin-left: -.4cqw; border-radius: 1cqw; background: var(--pal-white); }
+.lr-time li.me i { font-style: normal; font-family: 'Nunito', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
+.lr-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4cqw; }
+.lr-vc h2 { font-size: 2.8cqw; }
+.lr-vc.l h2 { color: var(--pal-green); }
+.lr-vc.r h2 { color: var(--pal-coral); }
+.lr-vc ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 1cqw; }
+.lr-vc li { display: grid; grid-template-columns: 3cqw 1fr; gap: 1cqw; font: 400 1.42cqw/1.3 'Nunito', sans-serif; }
+.lr-vc li i { font: 400 2.4cqw/1 'Nunito', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
+.lr-vc li b { display: block; font-size: 1.15cqw; letter-spacing: .1em; text-transform: uppercase; color: var(--pal-slate); }
+
+/* ---------- grammar rules ---------- */
+.lr-rule { z-index: 3; box-sizing: border-box; padding: 1.8cqw 2.2cqw; border-radius: 1.4cqw; background: var(--pal-white); border-left: 1.1cqw solid var(--rc, var(--pal-green)); font: 400 1.72cqw/1.42 'Nunito', sans-serif; }
+.lr-rule h3 { margin: 0 0 .9cqw; font: 700 2.5cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--pal-charcoal); }
+.lr-rule h3 small { margin-left: 1cqw; font: 400 1.8cqw/1 'Patrick Hand', cursive; color: var(--pal-slate); }
+.lr-rule p { margin: 0 0 .5cqw; }
+.lr-rule b { color: var(--pal-charcoal); }
+.lr-rule em { font-style: normal; font-weight: 800; color: var(--rc, var(--pal-green)); }
+.lr-rule.r { --rc: var(--pal-coral); }
+.lr-rule.p { --rc: var(--pal-purple); }
+.lr-rule.m { --rc: var(--pal-mustard); }
+.lr-forms { display: flex; flex-wrap: wrap; gap: .8cqw 1cqw; margin: .6cqw 0 .4cqw; }
+.lr-forms span { padding: .5cqw 1.2cqw; border-radius: 999px; background: color-mix(in srgb, var(--rc, var(--pal-green)) 22%, var(--pal-white)); font: 700 1.6cqw/1 'Nunito', sans-serif; color: var(--pal-charcoal); }
+.lr-forms span i { font-style: normal; color: var(--pal-slate); font-weight: 400; }
+.lr-gaps { margin: 0; padding: 0; list-style: none; display: grid; gap: 1.2cqw; counter-reset: lg; }
+.lr-gaps li { counter-increment: lg; display: flex; align-items: baseline; flex-wrap: wrap; gap: .4cqw .8cqw; font: 400 1.6cqw/1.4 'Nunito', sans-serif; }
+.lr-gaps li::before { content: counter(lg); font-weight: 800; color: var(--c); }
+.lr-gaps input.fill { display: inline-block; width: 16cqw; height: 2.6cqw; font-size: 1.9cqw; border-bottom: .2cqw solid var(--pal-slate); text-align: center; }
+.lr-gaps input.fill.wide { width: 34cqw; }
+.lr-gaps li.ok input.fill { border-bottom-color: var(--pal-green); }
+.lr-gaps li.no input.fill { border-bottom-color: var(--pal-coral); }
+.lr-gaps .cue { font: 400 1.65cqw/1 'Patrick Hand', cursive; color: var(--pal-slate); }
+.lr-gaps .cue::before { content: "("; } .lr-gaps .cue::after { content: ")"; }
+.lr-gaps li.two { display: grid; grid-template-columns: 2.4cqw 1fr; align-items: baseline; }
+.lr-gaps li.two > div { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5cqw 1cqw; }
+.lr-gaps li.two > div > .cue { flex: 0 0 100%; }
+.lr-sp { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4cqw 2cqw; }
+.lr-sp li { display: flex; align-items: baseline; gap: .8cqw; font: 800 1.6cqw/1 'Nunito', sans-serif; color: var(--pal-charcoal); }
+.lr-sp li i { font-style: normal; color: var(--pal-cool-grey); }
+.lr-sp input.fill { flex: 1; height: 2.8cqw; font-size: 1.9cqw; border-bottom: .2cqw solid var(--pal-slate); }
+.lr-sp li.ok input.fill { border-bottom-color: var(--pal-green); }
+.lr-sp li.no input.fill { border-bottom-color: var(--pal-coral); }
+
+/* ---------- board game ---------- */
+.lr-board { z-index: 2; box-sizing: border-box; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.3cqw; padding: 2.4cqw; border-radius: 2cqw; background: var(--pal-white); }
+.lr-sq { position: relative; display: grid; align-content: center; justify-items: center; gap: .6cqw; box-sizing: border-box; height: 14.6cqw; padding: 1cqw .8cqw; border-radius: 1.2cqw; text-align: center;
+  background: var(--sq); color: var(--sqt); font: 700 1.3cqw/1.15 'Nunito', sans-serif; }
+.lr-sq i { font: 400 3.6cqw/1 'Nunito', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
+.lr-sq b { position: absolute; left: .8cqw; top: .7cqw; font: 800 1.1cqw/1 'Nunito', sans-serif; opacity: .75; }
+.lr-sq.l { --sq: var(--pal-pale-lime); --sqt: var(--pal-forest); }
+.lr-sq.r { --sq: var(--pal-blush); --sqt: var(--pal-brown); }
+.lr-sq.x { --sq: var(--pal-mustard); --sqt: var(--pal-night); }
+.lr-sq.go { --sq: var(--pal-charcoal); --sqt: var(--pal-white); }
+.lr-sq.go i { font-size: 2.6cqw; }
+.lr-sq em { position: absolute; right: -1.15cqw; top: 50%; z-index: 2; transform: translateY(-50%); font: 800 1.6cqw/1 'Nunito', sans-serif; font-style: normal; color: var(--pal-charcoal); }
+.lr-sq em.d { right: auto; left: 50%; top: auto; bottom: -1.35cqw; transform: translateX(-50%); }
+.lr-sq em.w { right: auto; left: -1.15cqw; }
+.lr-legend { display: flex; gap: 2cqw; flex-wrap: wrap; font: 700 1.5cqw/1 'Nunito', sans-serif; color: var(--pal-slate); }
+.lr-legend span { display: inline-flex; align-items: center; gap: .8cqw; }
+.lr-legend span::before { content: ""; width: 2.4cqw; height: 2.4cqw; border-radius: .6cqw; background: var(--sq); }
+.lr-legend .l { --sq: var(--pal-green); } .lr-legend .r { --sq: var(--pal-coral); } .lr-legend .x { --sq: var(--pal-mustard); }
+.lr-steps { margin: 0; padding: 0; list-style: none; counter-reset: ls; display: grid; gap: 1.1cqw; }
+.lr-steps li { counter-increment: ls; position: relative; padding-left: 4.4cqw; font: 400 1.6cqw/1.35 'Nunito', sans-serif; }
+.lr-steps li::before { content: counter(ls); position: absolute; left: 0; top: -.2cqw; display: grid; place-items: center; width: 3cqw; height: 3cqw; border-radius: 50%; background: var(--c); color: var(--pal-white); font: 800 1.4cqw/1 'Nunito', sans-serif; }
+.lr-page.rm .lr-steps li::before { color: var(--pal-night); }
+.lr-frames { margin: 0; padding: 0; list-style: none; display: grid; gap: .8cqw; }
+.lr-frames li { padding: .8cqw 1.4cqw; border-radius: 999px; background: var(--pal-white); font: 400 1.55cqw/1.25 'Nunito', sans-serif; color: var(--pal-slate); }
+.lr-frames b { color: var(--pal-charcoal); }
+.lr-roles { display: grid; grid-template-columns: 1fr 1fr; gap: 2cqw; }
+.lr-roles .lr-card { padding: 1.8cqw; }
+.lr-roles h3 { margin: 0 0 1cqw; font: 700 2.4cqw/1 'Fredoka', 'Nunito', sans-serif; }
+.lr-roles .a h3 { color: var(--pal-coral); }
+.lr-roles .b h3 { color: var(--pal-green); }
+.lr-roles ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .7cqw; font: 400 1.45cqw/1.3 'Nunito', sans-serif; }
+.lr-roles li b { color: var(--pal-charcoal); }
+.lr-qcards { display: flex; flex-wrap: wrap; gap: 1cqw; margin: 0; padding: 0; list-style: none; }
+.lr-qcards li { padding: .9cqw 1.6cqw; border-radius: 1cqw; border: .2cqw dashed var(--pal-slate); font: 700 1.45cqw/1.2 'Nunito', sans-serif; color: var(--pal-charcoal); }
+
+/* ---------- Venn, writing, self-check ---------- */
+.lr-venn { position: relative; z-index: 2; height: 60cqw; }
+.lr-venn .c { position: absolute; top: 0; box-sizing: border-box; width: 56cqw; height: 56cqw; border-radius: 50%; mix-blend-mode: multiply; }
+.lr-venn .c.r { left: 0; background: var(--pal-blush); border: .35cqw solid var(--pal-coral); }
+.lr-venn .c.l { right: 0; background: var(--pal-pale-lime); border: .35cqw solid var(--pal-green); }
+.lr-venn h3 { position: absolute; z-index: 3; top: -7.6cqw; width: 22cqw; margin: 0; text-align: center; font: 700 2.4cqw/1 'Fredoka', 'Nunito', sans-serif; }
+.lr-venn h3 small { display: block; margin-top: .5cqw; font: 400 1.6cqw/1 'Patrick Hand', cursive; color: var(--pal-slate); }
+.lr-venn .t { position: absolute; z-index: 3; margin: 0; padding: 0; list-style: none; display: grid; gap: 1.2cqw; }
+.lr-venn .t input.fill { height: 3.4cqw; border-bottom: .15cqw solid var(--pal-slate); font-size: 1.8cqw; }
+.lr-paper { z-index: 2; box-sizing: border-box; border-radius: 1.2cqw; background: var(--pal-white);
+  background-image: repeating-linear-gradient(transparent 0 4.3cqw, var(--pal-pale-lime) 4.3cqw 4.5cqw); background-position: 0 3.6cqw; }
+.lr-paper textarea.fill { font-size: 2cqw; line-height: 4.5cqw; padding: .2cqw 2cqw; }
+.lr-check { margin: 0; padding: 0; list-style: none; display: grid; gap: 1cqw; }
+.lr-check li { display: flex; align-items: center; gap: 1.2cqw; font: 400 1.55cqw/1.3 'Nunito', sans-serif; }
+.lr-check .tick { flex: 0 0 3cqw; width: 3cqw; height: 3cqw; border-radius: .8cqw; border: .2cqw solid var(--c); background: var(--pal-white); color: transparent; font: 800 1.8cqw/1 'Nunito', sans-serif; cursor: pointer; }
+.lr-check .tick.on { background: var(--c); color: var(--pal-white); }
+.lr-page.rm .lr-check .tick.on { color: var(--pal-night); }
+
+/* ---------- ❓ grammar squares + printable grammar cards ---------- */
+.lr-sq.q { --sq: var(--pal-purple); --sqt: var(--pal-white); }
+.lr-sq.q i { font-size: 4.4cqw; }
+.lr-legend .q { --sq: var(--pal-purple); }
+.lr-gcards { z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 2cqw; }
+.lr-gcard { position: relative; box-sizing: border-box; height: 17.6cqw; padding: 3.6cqw 2.4cqw 1.6cqw; border: .3cqw dashed var(--pal-slate); border-radius: 1.6cqw; background: var(--pal-white); }
+.lr-gcard .n { position: absolute; right: 1.6cqw; top: 1.2cqw; font: 800 1.2cqw/1 'Nunito', sans-serif; color: var(--pal-cool-grey); }
+.lr-gcard .k { position: absolute; left: 1.6cqw; top: 1.2cqw; padding: .5cqw 1.3cqw; border-radius: 999px; background: var(--pal-purple); color: var(--pal-white); font: 800 1.1cqw/1 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.lr-gcard p { margin: 0; font: 600 2.15cqw/1.85 'Nunito', sans-serif; color: var(--pal-charcoal); }
+.lr-gcard input.fill { display: inline-block; width: 13cqw; height: 2.4cqw; margin: 0 .3cqw; font-size: 2cqw; text-align: center; border-bottom: .2cqw solid var(--pal-slate); }
+.lr-gcard input.fill.ok { border-bottom-color: var(--pal-green) !important; }
+.lr-vc input.fill { display: inline-block; width: 11cqw; height: 2cqw; margin: 0 .3cqw; padding: 0; font-size: 1.7cqw; text-align: center; vertical-align: baseline; border-bottom: .2cqw solid var(--pal-slate); }
+.lr-vc input.fill.ok { border-bottom-color: var(--pal-green) !important; }
