@@ -19,7 +19,7 @@ function clArtFallback(img) {
   const num = v => { const n = parseFloat(String(v).replace(',', '.')); return Number.isFinite(n) ? n : null; };
 
 
-  // [clothes-crossword:R]: the grid. Type a letter and the cursor goes on along the word; Check marks the letters right or wrong.
+  // [clothes-wearing:R]: the grid. Type a letter and the cursor goes on along the word; Check marks the letters right or wrong.
   const cwCells = [...document.querySelectorAll('input.cw-c')];
   const cwAt = (x, y) => cwCells.find(c => +c.dataset.x === x && +c.dataset.y === y);
   const cwScore = $('cw-score');
@@ -55,6 +55,9 @@ function clArtFallback(img) {
     cwCells.forEach(c => { c.value = ''; c.classList.remove('ok', 'no'); c.dispatchEvent(new Event('input')); });
     if (cwScore) cwScore.textContent = '';
   });
+
+  // [clothes-wearing:R]: click a picture of the crossword (digital book only) to see its word; click again to hide it
+  document.querySelectorAll('.cw-pic').forEach(p => p.addEventListener('click', () => p.classList.toggle('show')));
 
   // [clothes-accessories]: how many letters of the alphabet game are filled in
   const abc = [...document.querySelectorAll('.cl-abc')];

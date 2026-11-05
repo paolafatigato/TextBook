@@ -1577,12 +1577,59 @@ else {
     const rgb = [m[1], m[2], m[3]].map(c => c * a + 255 * (1 - a));
     return a > 0 && Math.min(...rgb) >= 200 && Math.min(...rgb) < 254;
   };
+  // writing lines and grids drawn as a background (repeating, or with sharp edges): they stay, in grey
+  const GREY = 'rgb(138, 138, 138)';
+  const lines = img => {
+    if (img === 'none' || img.includes('url(') || !/gradient\(/.test(img)) return null;
+    // a soft fade (from one colour to another) is a decoration, not a line
+    const sharp = /repeating-/.test(img) || /(-?[\d.]+(?:px|%))\s*,\s*[^,()]*\([^()]*\)\s+\1/.test(img) || /rgba?\([^()]*\)\s+(-?[\d.]+(?:px|%))\s+\1/.test(img);
+    return sharp ? img.replace(/rgba?\([^()]*\)/g, c => (/,\s*0\)$|\/\s*0\)$/.test(c) ? c : GREY)) : null;
+  };
+  const visible = c => { const m = c.match(/rgba?\(([\d.]+)[ ,]+([\d.]+)[ ,]+([\d.]+)(?:[ ,/]+([\d.]+))?/); return !!m && (m[4] === undefined || +m[4] > 0.05) && !(m[1] > 250 && m[2] > 250 && m[3] > 250); };
+  const hasBorder = cs => ['Top', 'Right', 'Bottom', 'Left'].some(s => parseFloat(cs[`border${s}Width`]) > 0 && cs[`border${s}Style`] !== 'none' && visible(cs[`border${s}Color`]));
+  // these already have their own grey lines in style.css (and the chapter CSS files)
+  const OWN_LINES = '.paper-lined, .lined-box textarea.fill, textarea.fill[class*="lines"], .pd-bonus textarea, .grid-box, .bs-box, .paper-grid, .jb-paper-box, .su-grid';
+
   let undo = [];
   window.addEventListener('beforeprint', () => {
     if (!document.body.classList.contains('eco-print')) return;
+    // the colours as they are on screen (the save-ink rules are off while measuring)
+    document.body.classList.remove('eco-print');
+    const changes = [];
     for (const page of document.querySelectorAll('.page')) {
       if (!page.getClientRects().length) continue; // not printed
+      const pr = page.getBoundingClientRect();
       for (const el of page.querySelectorAll('*')) {
+        if (!(el instanceof SVGElement) && !(el instanceof HTMLImageElement) && !el.closest('.art, .page-bg')) {
+          const cs = getComputedStyle(el);
+          if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+          const r = el.getBoundingClientRect();
+          if (r.width < 6 || r.height < 6) continue;
+          const lined = !el.matches(OWN_LINES) && lines(cs.backgroundImage);
+          if (lined) {
+            changes.push([el, 'background-image', lined]);
+            // "background: none" in the save-ink rules resets these too
+            ['background-size', 'background-position', 'background-repeat', 'background-origin', 'background-clip']
+              .forEach(p => changes.push([el, p, cs.getPropertyValue(p)]));
+          }
+          // a box (a coloured area or a shadow around something) without a border of its own: a thin grey frame.
+          // Not the coloured bands and columns of the page (they touch its edge), nor what is already lined.
+          const edge = pr.width * 0.015;
+          const band = r.left - pr.left < edge || pr.right - r.right < edge || r.top - pr.top < edge || pr.bottom - r.bottom < edge;
+          // a white box on a coloured background (it would vanish once the background is white) counts too
+          const whiteOnColour = () => /^rgba?\(25[1-5],\s*25[1-5],\s*25[1-5](,\s*(1|0?\.[1-9]\d*))?\)$/.test(cs.backgroundColor) && (() => {
+            for (let a = el.parentElement; a && a !== page.parentElement; a = a.parentElement) {
+              const bg = getComputedStyle(a).backgroundColor;
+              if (visible(bg)) return true;
+              if (/^rgba?\(25[1-5],\s*25[1-5],\s*25[1-5]/.test(bg)) return false;
+            }
+            return false;
+          })();
+          const box = (visible(cs.backgroundColor) || (cs.backgroundImage !== 'none' && !lined) || cs.boxShadow !== 'none' || whiteOnColour())
+            && !hasBorder(cs) && !lined && !el.matches(OWN_LINES) && !band
+            && r.width * r.height < pr.width * pr.height * 0.4;
+          if (box) changes.push([el, 'box-shadow', `inset 0 0 0 max(1px, .12cqw) ${GREY}`]);
+        }
         if (el instanceof SVGElement) {
           if (el instanceof SVGSVGElement || el instanceof SVGTextContentElement || el.closest('.art-top')) continue;
           if (veryLight(getComputedStyle(el).fill)) { const old = el.style.fill; undo.push(() => { el.style.fill = old; }); el.style.fill = '#fff'; }
@@ -1593,6 +1640,13 @@ else {
         }
       }
     }
+    // written after measuring, so one change never alters what the next one measures
+    changes.forEach(([el, prop, value]) => {
+      const [old, prio] = [el.style.getPropertyValue(prop), el.style.getPropertyPriority(prop)];
+      el.style.setProperty(prop, value, 'important'); // stronger than the save-ink rules
+      undo.push(() => el.style.setProperty(prop, old, prio));
+    });
+    document.body.classList.add('eco-print');
   });
   window.addEventListener('afterprint', () => { undo.forEach(f => f()); undo = []; });
 }
@@ -1791,6 +1845,28 @@ const tocChaptersOpen = new Set();
 // each year has a color of the book: coral, green, blue; the teacher's materials are navy
 const YEAR_COLORS = ['#f05f4b', '#3aa04a', '#4aa8ec'];
 
+// In the index, scaffolding spreads of the same topic (data-group in index.html, same chapter, one after the
+// other) are one entry with a small number for each, not one button each.
+// → a list of spreads, or of arrays (a group of 2 or more)
+function tocEntries(list) {
+  const out = [];
+  list.forEach(s => {
+    const g = isScaffold(s) && s.dataset.group;
+    const last = out.at(-1);
+    if (g && Array.isArray(last) && last[0].dataset.group === g && chapterOf.get(last[0]) === chapterOf.get(s)) last.push(s);
+    else if (g && out.length && !Array.isArray(last) && last.dataset.group === g && chapterOf.get(last) === chapterOf.get(s)) out[out.length - 1] = [last, s];
+    else out.push(s);
+  });
+  return out;
+}
+
+function tocGroup(group, ch) {
+  const own = chapterOf.get(group[0]);
+  const name = ch?.withChapter && own && own !== ch ? `${own.title} · ${group[0].dataset.group}` : group[0].dataset.group;
+  const chips = group.map(s => `<a class="sg-chip${isVisible(s) || teacherOnly(s) ? '' : ' off'}" href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}" title="${esc(s.dataset.name || '')}"><b${scaffoldColor(s)}>${scaffoldNo.get(s) ?? scaffoldSign(s)}</b></a>`).join('');
+  return `<li class="scaffold-group"><span class="sg-name">${esc(name)}</span><span class="sg-chips">${chips}</span></li>`;
+}
+
 function renderToc() {
   toc.innerHTML = `
     <div class="toc-head">
@@ -1806,7 +1882,9 @@ function renderToc() {
         return `
         <details class="toc-ch" data-ch="${esc(ch.title)}" style="--c:${esc(ch.color || '#f05f4b')}"${tocChaptersOpen.has(ch.title) ? ' open' : ''}>
           <summary><i class="toc-dot"></i><span>${esc(ch.title)}</span><small>${ch.collect ? inside.length : `${a}–${b}`}</small></summary>
-          <ul>${inside.map(s => {
+          <ul>${tocEntries(inside).map(entry => {
+            if (Array.isArray(entry)) return tocGroup(entry, ch);
+            const s = entry;
             if (isUnnumbered(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}"${isVisible(s) || teacherOnly(s) ? '' : ' class="off" title="Hidden from students"'}><b${scaffoldColor(s)}>${scaffoldNo.get(s) ?? scaffoldSign(s)}</b><span>${esc(scaffoldName(s, ch))}</span></a></li>`;
             const [x, y] = pagesOf(s);
             const off = isVisible(s) || teacherOnly(s) ? '' : ' class="off" title="Hidden from students"';

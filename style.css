@@ -4541,6 +4541,12 @@ body.toc-open .toc { display: block; }
 .toc-ch a:hover { background: color-mix(in srgb, var(--c) 10%, #fff); color: #2f2a36; }
 .toc-ch a.here { background: var(--c); color: #fff; box-shadow: 0 3px 10px color-mix(in srgb, var(--c) 35%, transparent); }
 .toc-ch a.here b { color: #fff; }
+/* scaffolding of the same topic: one entry, a small number for each page */
+.toc-ch li.scaffold-group { padding: 5px 8px; }
+.toc-ch .sg-name { display: block; font: 600 13px/1.3 'Nunito', sans-serif; color: #5b5563; }
+.toc-ch .sg-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.toc-ch a.sg-chip { padding: 2px 8px; border: 1.5px solid color-mix(in srgb, var(--c) 35%, transparent); border-radius: 99px; }
+.toc-ch a.sg-chip b { min-width: 0; }
 .toc-ch a.off:not(.here) { opacity: .5; } /* hidden from students (the teacher sees it lighter) */
 
 /* wide screen: the index takes its place on the left and the book moves over */
@@ -5216,3 +5222,63 @@ body.toc-open .toc { display: block; }
 .shl-card.compact .shl-fields textarea.fill { height: 4.8cqw; font-size: 1.55cqw; line-height: 2.4cqw; background: repeating-linear-gradient(transparent 0 calc(2.4cqw - 1px), var(--hair) calc(2.4cqw - 1px) 2.4cqw); }
 .shl-card.compact #shl-f-msg { height: 2.4cqw; }
 .shl-card.compact .shl-opt button { padding: .35cqw .8cqw; font-size: 1.05cqw; }
+
+/* Clothes: fashion facts and the one-page crossword [clothes-wearing] */
+.cl-fact { display: flex; gap: 2cqw; align-items: center; box-sizing: border-box; height: 28cqw; background: #fff; border: .3cqw solid var(--c); border-radius: 2.4cqw; padding: 1.1cqw; box-shadow: .5cqw .5cqw 0 var(--c); }
+.cl-fpic { flex: 0 0 21cqw; align-self: stretch; position: relative; overflow: hidden; background: var(--pb); border-radius: 1.6cqw; }
+.cl-fpic::before { content: ""; position: absolute; left: 50%; top: 50%; width: 70%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; background: rgba(255,255,255,.28); }
+.cl-fpic img { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: auto; height: auto; max-width: 86%; max-height: 90%; filter: drop-shadow(0 .4cqw .5cqw rgba(0,0,0,.2)); }
+.cl-ftxt { flex: 1; min-width: 0; }
+.cl-fact h3 { margin: 0 0 .5cqw; font: 700 2.1cqw/1 'Fredoka', sans-serif; color: var(--c); }
+.cl-fact p { margin: 0 0 .6cqw; font: 400 1.5cqw/1.34 'Nunito', sans-serif; color: #333; }
+.cl-fact p b { color: var(--c); }
+.cl-ftask { background: #f7f3fb; border-radius: 1.4cqw; padding: .7cqw 1.2cqw .8cqw; display: flex; flex-direction: column; align-items: flex-start; gap: .2cqw; }
+.cl-ftask p { margin: 0; font: 700 1.45cqw/1.5 'Nunito', sans-serif; color: #3b2a4a; display: flex; align-items: center; gap: 1.2cqw; flex-wrap: wrap; }
+.cl-ftask p.q { display: block; }
+.cl-ftask input.fill.blank { height: 2.6cqw; font-size: 1.6cqw; }
+.cl-ftask input.fill:not(.blank) { width: 100%; height: 2.8cqw; font-size: 1.6cqw; }
+.cl-ftask .check { align-self: flex-end; margin-top: -2.6cqw; }
+.cl-ftask#cl-f2 .check, .cl-ftask#cl-f1 .check { margin-top: 0; }
+.cl-ftask#cl-f1 { flex-direction: row; align-items: center; justify-content: space-between; }
+.cl-ftask#cl-f1 p { display: block; flex: 1; }
+.cl-ftask#cl-f2 p { width: 100%; justify-content: space-between; }
+
+.cw-grid.cw-sm .cw-cell i { font-size: .95cqw; left: .25cqw; top: .1cqw; }
+.cw-grid.cw-sm .cw-cell input.cw-c { font-size: 2.7cqw; padding-top: .4cqw; }
+.cw-grid.cw-sm .cw-cell { border-width: .14cqw; margin: -.07cqw; }
+.cw-side { display: grid; grid-auto-rows: 9.8cqw; gap: .55cqw; }
+.cw-pic { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0; background: #fff; border: .15cqw solid #f3c6e0; border-radius: 1.6cqw; box-shadow: 0 .25cqw 0 var(--cl-teal); cursor: pointer; font: inherit; overflow: hidden; }
+.cw-pic b { position: absolute; left: .4cqw; top: .4cqw; width: 2.6cqw; height: 2.6cqw; border-radius: 50%; background: var(--cl-mag); color: #fff; display: grid; place-items: center; font: 700 1.4cqw/1 'Fredoka', sans-serif; }
+.cw-pic .cw-e { font-size: 5.2cqw; line-height: 1.1; }
+.cw-pic em { font: 800 1.05cqw/1 'Nunito', sans-serif; font-style: normal; color: var(--cl-mag); letter-spacing: .04em; }
+/* the word: only when a pupil clicks the picture in the digital book; never on paper */
+.cw-pic .cw-w { display: none; position: absolute; left: 0; right: 0; bottom: 0; padding: .45cqw 0 .4cqw; text-decoration: none; text-align: center; background: var(--cl-mag); color: #fff; font: 800 1.35cqw/1 'Nunito', sans-serif; letter-spacing: .06em; }
+.cw-pic.show .cw-w { display: block; }
+.cw-pic.show em { visibility: hidden; }
+.cw-bank2 { display: grid; grid-template-columns: 1fr 1fr; gap: .7cqw 2.4cqw; }
+.cw-bank2 p:nth-child(3) { grid-column: 1 / -1; }
+@media print { .cw-pic .cw-w { display: none !important; } .cw-dig { display: none; } }
+
+/* four compact fact boxes + the "think and talk" cards */
+.cl-fact.sm { height: 17.2cqw; padding: .9cqw; gap: 1.6cqw; box-shadow: .4cqw .4cqw 0 var(--c); }
+.cl-fact.sm .cl-fpic { flex-basis: 15cqw; }
+.cl-fact.sm h3 { font-size: 1.9cqw; margin-bottom: .3cqw; }
+.cl-fact.sm p { font-size: 1.38cqw; line-height: 1.3; margin-bottom: .4cqw; }
+.cl-fact.sm .cl-ftask { padding: .45cqw 1cqw .5cqw; }
+.cl-fact.sm .cl-ftask p { font-size: 1.38cqw; line-height: 1.45; }
+.cl-fact.sm .cl-ftask input.fill.blank, .cl-fact.sm .cl-ftask input.fill:not(.blank) { height: 2.3cqw; font-size: 1.5cqw; }
+.cl-fact.sm .cl-ftask .check { margin-top: 0; }
+.cl-ftask.row { flex-direction: row; align-items: center; justify-content: space-between; width: 100%; box-sizing: border-box; }
+.cl-ftask.row .tfs { flex: 1; }
+.cl-ftask.row .tfs p { width: 100%; justify-content: space-between; }
+.cl-ftask#cl-f1 { width: 100%; box-sizing: border-box; }
+.cl-ftask#cl-f3 { width: 100%; box-sizing: border-box; }
+.cl-think { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5cqw; }
+.cl-think label { display: flex; flex-direction: column; gap: .3cqw; box-sizing: border-box; height: 11.4cqw; background: #fceaf4; border-radius: 1.6cqw; padding: .8cqw 1.2cqw .6cqw; }
+.cl-think span { font: 800 1.3cqw/1.25 'Nunito', sans-serif; color: var(--cl-mag); }
+.cl-think input.fill { margin-top: auto; height: 2.6cqw; font-size: 1.5cqw; }
+.cl-think input.fill { border-bottom: .14cqw solid #e0a3c8; height: 3.2cqw; }
+/* scaffolded jobs test with word lists [scaf-jobs-test-b3]: the words to circle are in the box, so smaller type and shorter lines */
+.sct-guide.words p { font-size: 1.55cqw; line-height: 1.5; }
+.sct-guide.words i { --lh: 4.2cqw; height: calc(2 * var(--lh)); }
+.sct-guide.words.big i { height: calc(3 * var(--lh)); }
