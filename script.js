@@ -1859,7 +1859,9 @@ const tocPlace = () => (home.hidden ? 'pages' : 'home');
 
 // which years and chapters are open: kept when the index is built again (login, visible pages)
 let tocYearsClosed = new Set();
-try { tocYearsClosed = new Set(JSON.parse(localStorage.getItem('toc-years-closed')) || []); } catch { /* ignore */ }
+// by default every year is closed (the list of the closed ones is saved under a new name, so it starts from here)
+tocYearsClosed = new Set(PARTS.map(p => p.title));
+try { const saved = JSON.parse(localStorage.getItem('toc-years-closed-3')); if (saved) tocYearsClosed = new Set(saved); } catch { /* ignore */ }
 const tocChaptersOpen = new Set();
 
 // each year has a color of the book: coral, green, blue; the teacher's materials are navy
@@ -1969,7 +1971,7 @@ toc.addEventListener('toggle', e => {
   const d = e.target;
   if (d.dataset.year) {
     if (d.open) tocYearsClosed.delete(d.dataset.year); else tocYearsClosed.add(d.dataset.year);
-    try { localStorage.setItem('toc-years-closed', JSON.stringify([...tocYearsClosed])); } catch { /* ignore */ }
+    try { localStorage.setItem('toc-years-closed-3', JSON.stringify([...tocYearsClosed])); } catch { /* ignore */ }
   } else if (d.dataset.ch) {
     if (d.open) tocChaptersOpen.add(d.dataset.ch); else tocChaptersOpen.delete(d.dataset.ch);
   }
@@ -1986,8 +1988,8 @@ function markToc() {
   const year = a.closest('.toc-year');
   ch.classList.add('here');
   year.classList.add('here');
-  if (!year.open) year.open = true;
-  if (!ch.open) ch.open = true;
+  // (the year and chapter of the open page are not opened: the index stays as the reader left it, closed at first)
+  if (!a.offsetParent) return;
   // keep it in view inside the index, without moving the page
   const r = a.getBoundingClientRect(), t = toc.getBoundingClientRect();
   if (r.top < t.top + 40 || r.bottom > t.bottom - 10) toc.scrollTop += r.top - t.top - t.height / 3;

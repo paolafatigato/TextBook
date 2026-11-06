@@ -213,3 +213,15 @@ textarea.fill.dp-ta { display: block; width: 100%; height: auto; min-height: 16c
 .dp-list > li > .dp-order { flex: 0 0 3.6cqw; }
 .dp-list > li:has(> .dp-order) { align-items: center; padding-left: 0; min-height: 0; }
 .dp-list > li:has(> .dp-order)::before { display: none; }
+
+/* ---- worksheet "What you see is what you write" ---- */
+.dp-wbox { background: var(--pal-white); border: .3cqw solid var(--c); border-radius: 2cqw; box-shadow: .5cqw .5cqw 0 var(--c); padding: 3.4cqw 1.4cqw 1.2cqw; box-sizing: border-box; height: calc(var(--h) * 1cqw); }
+.dp-wbox.v { --c: var(--pal-coral); } .dp-wbox.n { --c: var(--pal-blue); } .dp-wbox.a { --c: var(--pal-forest); } .dp-wbox.s { --c: var(--pal-plum); }
+.dp-wlabel { position: absolute; left: 1.4cqw; top: -2cqw; display: flex; align-items: baseline; gap: .8cqw; padding: .5cqw 1.8cqw; border-radius: 999px; background: var(--c); color: var(--pal-white); font: 700 2.2cqw/1 'Fredoka', sans-serif; }
+.dp-wbox.v .dp-wlabel { color: var(--pal-night); }
+.dp-wlabel small { font: 700 1.1cqw/1 'Nunito', sans-serif; letter-spacing: .08em; text-transform: uppercase; opacity: .9; }
+textarea.fill.dp-ta.dp-wta { border: 0; background: repeating-linear-gradient(transparent 0 3.2cqw, color-mix(in srgb, var(--c) 35%, transparent) 3.2cqw 3.35cqw); height: 100%; min-height: 0; padding: 0 .4cqw; line-height: 3.35cqw; }
+.dp-wsent { list-style: none; margin: 0; padding: 0; counter-reset: ws; display: flex; flex-direction: column; gap: 5.5cqw; }
+.dp-wsent li { counter-increment: ws; position: relative; padding-left: 3.6cqw; }
+.dp-wsent li::before { content: counter(ws); position: absolute; left: 0; top: .2cqw; width: 2.8cqw; height: 2.8cqw; border-radius: 50%; background: var(--pal-plum); color: var(--pal-white); display: grid; place-items: center; font: 700 1.5cqw/1 'Fredoka', sans-serif; }
+.dp-wsent input.fill { width: 100%; height: 3.2cqw; font-size: 1.9cqw; border-bottom: .15cqw solid var(--pal-plum); text-align: left; }

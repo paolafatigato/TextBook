@@ -1661,6 +1661,23 @@ input.fill.rj-cap.bottom { top: 32.1cqw; }
 .rj-tr input.fill { height: 3.4cqw; font-size: 1.7cqw; border-right: .14cqw solid #f3eef5; }
 .rj-diff p { grid-template-columns: 1fr 1fr; column-gap: 1.6cqw; }
 
+/* soundtrack project (rj-playlist): model card + playlist sheet */
+.rjp-model { z-index: 2; padding: 1.4cqw 2cqw 1.6cqw; background: var(--sh-cream); border: .25cqw dashed var(--sh); border-radius: 1.6cqw; font: 400 1.5cqw/1.45 'Nunito', sans-serif; color: #444; }
+.rjp-model .rjp-row { display: flex; gap: 1.4cqw; align-items: baseline; margin: 0; }
+.rjp-model .rjp-row > span { flex: 0 0 11cqw; font: 800 1.1cqw/1 'Nunito', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--sh); }
+.rjp-model .rjp-row > em { font: 500 2.2cqw/1.2 'Caveat', cursive; font-style: normal; color: #333; }
+.rjp-model .rjp-ex { font: 500 2.1cqw/1.25 'Caveat', cursive; color: #333; }
+.rjp-model mark { padding: 0 .5cqw; border-radius: .6cqw; background: #ffe58a; color: #333; }
+.rjp-steps { z-index: 2; display: flex; gap: 1cqw; margin: 0; font: 700 1.25cqw/1.2 'Nunito', sans-serif; color: var(--sh); }
+.rjp-steps span { flex: 1; padding: .6cqw 1cqw; border-radius: 999px; background: var(--sh-soft); text-align: center; }
+.rjp-themes { z-index: 2; display: flex; flex-wrap: wrap; gap: .8cqw; margin: 0; }
+.rjp-themes span { padding: .55cqw 1.3cqw; border-radius: 999px; background: var(--sh-cream); font: 700 1.3cqw/1 'Nunito', sans-serif; color: var(--sh); box-shadow: inset 0 0 0 .14cqw #f2b8c4; }
+.rjp-track { z-index: 2; padding: 1.1cqw 1.8cqw 0; border-left: .6cqw solid var(--sh); background: var(--sh-cream); border-radius: 0 1.6cqw 1.6cqw 0; }
+.rjp-track.opt-track { border-left-color: #e0902c; }
+.rjp-track .rjp-no { margin: 0; font: 800 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .18em; text-transform: uppercase; color: var(--sh); }
+.rjp-track textarea.fill.mt-lines { display: block; width: 100%; height: 12.6cqw; box-sizing: border-box; background-color: transparent; }
+.rjp-track .mt-line { height: 4.2cqw; }
+
 /* the games pop-up in the colours of Romeo & Juliet */
 .gq-overlay.rj-modal { --gq-purple: #d6334f; --gq-coral: #e0902c; --gq-lilac: #f7a8b8; --gq-card: #fff1f3; background: rgba(80, 10, 30, .55); }
 .rj-modal .gq-top { border-bottom-color: #fde3ea; }
