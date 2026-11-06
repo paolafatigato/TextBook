@@ -366,7 +366,7 @@
   $('jfClose').addEventListener('click', close);
   modal.addEventListener('click', e => { if (e.target === modal) close(); });
   document.querySelectorAll('.jf-open').forEach(b => b.addEventListener('click', open));
-  window.JOB_FLAG = { open }; // also started from "Games for the teacher" on the home page (teacher-games.js)
+  window.JOB_FLAG = { open, JOBS, PARTS, right, cap }; // also started from "Games for the teacher" on the home page (teacher-games.js)
 
   // while the pop-up is open the arrow keys must not turn the book's pages
   document.addEventListener('keydown', e => {

@@ -22,13 +22,22 @@
       ['They invite you → They invite …', 'you'], ['Look at the cat! → Look at …!', 'it'], ['Anna loves Marco and Luca → Anna loves …', 'them'], ['Listen to me! (Listen to I)', 'me'],
       ['Give the book to Tom → Give … the book', 'him'], ['Ask the teacher → Ask …', 'her'], ['Wait for Sara and me → Wait for …', 'us'], ['I miss my friends → I miss …', 'them'] ] },
     { id: 'poss', icon: '🎒', color: '#8fb82e', title: 'Possessive adjectives', hint: 'my · your · his · her · its · our · their', items: [
-      ['(I) … book', 'my'], ['(you) … pen', 'your'], ['(he) … bike', 'his'], ['(she) … bag', 'her'], ['(we) … teacher', 'our'], ['(they) … house', 'their'],
-      ['(the dog) … ball', 'its'], ['(Tom and Anna) … cat', 'their'], ['(my sister) … room', 'her'], ['(my brother and I) … dog', 'our'], ['(Marco) … phone', 'his'], ['(you and Luca) … homework', 'your'] ] },
-    { id: 'be', icon: '🅱️', color: '#4aa8ec', title: 'To be', hint: 'am · is · are (and the short forms)', items: [
+      ['I have a dog → … dog', 'my dog'], ['You have a bike → … bike', 'your bike'], ['He has a cat → … cat', 'his cat'], ['She has a phone → … phone', 'her phone'],
+      ['We have a car → … car', 'our car'], ['They have a house → … house', 'their house'], ['The dog has a bone → … bone', 'its bone'], ['I have two sisters → … sisters', 'my sisters'],
+      ['You have a new teacher → … teacher', 'your teacher'], ['He has a red bag → … bag', 'his bag'], ['She has two brothers → … brothers', 'her brothers'], ['We have a big garden → … garden', 'our garden'],
+      ['They have a small boat → … boat', 'their boat'], ['The bird has a nest → … nest', 'its nest'], ['I have a blue pen → … pen', 'my pen'], ['You have a funny friend → … friend', 'your friend'],
+      ['My brother and I are the owners of the dog: it is … dog', 'our'], ['Tom and Anna are the owners of the cat: it is … cat', 'their'], ['Marco is the owner of the bike: it is … bike', 'his'], ['Sara is the owner of the bag: it is … bag', 'her'],
+      ['I am the owner of the book: it is … book', 'my'], ['You are the owner of the pen: it is … pen', 'your'], ['You and Luca are the owners of the house: it is … house', 'your'], ['The dog is the owner of the ball: it is … ball', 'its'],
+      ['My mom and dad are the owners of the shop: it is … shop', 'their'], ['Giulia and I are the owners of the cat: it is … cat', 'our'], ['Mr. Rossi is the owner of the restaurant: it is … restaurant', 'his'], ['Ms. Fatigato is the owner of the laptop: it is … laptop', 'her'],
+      ['This is my sister. … name is Anna.', 'Her'], ['This is my brother. … name is Luca.', 'His'], ['These are my friends. … names are Sam and Eli.', 'Their'], ['We are in class 2B. … classroom is big.', 'Our'],
+      ['I love dogs. … dog is called Rex.', 'My'], ['Do you like pizza? What is … favorite?', 'your'], ['The cat is hungry. … bowl is empty.', 'Its'], ['Tom and I are friends. … friendship is important.', 'Our'],
+      ['Anna and Sara are twins. … birthday is in May.', 'Their'], ['Marco is a pilot. … plane is big.', 'His'], ['Is this … pencil case? (to a boy, talking to him)', 'your'], ['Giulia loves music. … favorite singer is Billie.', 'Her'],
+      ['The teachers are late. … bus is in the traffic.', 'Their'], ['I am Italian. … country is beautiful.', 'My'], ['What is … name? (asking a friend)', 'your'], ['The sun shines. … light is warm.', 'Its'] ] },
+    { id: 'be', noFlag: true, icon: '🅱️', color: '#4aa8ec', title: 'To be', hint: 'am · is · are (and the short forms)', items: [
       ['I … Italian.', 'am'], ['She … my friend.', 'is'], ['They … at school.', 'are'], ['We … tired.', 'are'], ['He … a doctor.', 'is'], ['You … late!', 'are'],
       ['The cat … on the sofa.', 'is'], ['My parents … at work.', 'are'], ['It … a big dog.', 'is'], ['Tom and I … in class 2B.', 'are'],
       ['negative: I … hungry. (not)', "am not / I'm not"], ['negative: She … tall. (not)', "isn't / is not"], ['negative: They … ready. (not)', "aren't / are not"] ] },
-    { id: 'ps3', icon: '🏃', color: '#3aa04a', title: 'Present simple: he / she / it', hint: 'Say the verb with the right ending.', items: [
+    { id: 'ps3', noFlag: true, icon: '🏃', color: '#3aa04a', title: 'Present simple: he / she / it', hint: 'Say the verb with the right ending.', items: [
       ['he (play)', 'plays'], ['she (watch)', 'watches'], ['it (go)', 'goes'], ['Tom (study)', 'studies'], ['my mom (have)', 'has'], ['the dog (eat)', 'eats'],
       ['she (do)', 'does'], ['he (wash)', 'washes'], ['Anna (fly)', 'flies'], ['it (need)', 'needs'], ['he (teach)', 'teaches'], ['my dad (cook)', 'cooks'],
       ['she (try)', 'tries'], ['the baby (cry)', 'cries'], ['he (fix)', 'fixes'] ] },
@@ -42,9 +51,13 @@
       ['big', 'small'], ['hot', 'cold'], ['fast', 'slow'], ['early', 'late'], ['happy', 'sad'], ['old', 'young / new'], ['open', 'closed'], ['easy', 'difficult'],
       ['full', 'empty'], ['clean', 'dirty'], ['cheap', 'expensive'], ['strong', 'weak'], ['tall', 'short'], ['dark', 'light'], ['right', 'wrong'], ['noisy', 'quiet'] ] },
     { id: 'jobs', icon: '👩‍🔧', color: '#d6334f', title: 'Jobs', hint: 'Say the job.', items: [
-      ['treats sick animals', 'a vet'], ['repairs cars', 'a mechanic'], ['teaches children', 'a teacher'], ['cooks in a restaurant', 'a chef'], ['flies a plane', 'a pilot'],
-      ['puts out fires', 'a firefighter'], ['cuts your hair', 'a hairdresser'], ['takes care of sick people', 'a nurse'], ['builds houses', 'a builder'], ['catches thieves', 'a police officer'],
-      ['grows food on a farm', 'a farmer'], ['writes articles for a newspaper', 'a journalist'], ['makes bread', 'a baker'], ['paints pictures', 'an artist'] ] },
+      ['treats sick animals', 'a vet'], ['repairs cars', 'a mechanic'], ['teaches children', 'a teacher'], ['cooks in a restaurant', 'a chef'], ['flies a plane', 'a pilot'], ['puts out fires', 'a firefighter'], ['cuts your hair', 'a hairdresser'], ['takes care of sick people in a hospital', 'a nurse'], ['builds houses', 'a builder'], ['catches thieves', 'a police officer'], ['grows food on a farm', 'a farmer'], ['writes articles for a newspaper', 'a journalist'], ['makes bread and cakes', 'a baker'], ['paints pictures', 'an artist'], ['looks after your teeth', 'a dentist'], ['brings you food at the table', 'a waiter'], ['designs bridges and machines', 'an engineer'], ['drives a bus', 'a bus driver'], ['fixes the pipes in your house', 'a plumber'], ['fixes the lights and the wires', 'an electrician'], ['sells things in a shop', 'a shop assistant'], ['works with computers and writes code', 'a programmer'], ['takes photos', 'a photographer'], ['plays music in a band', 'a musician'], ['acts in films and plays', 'an actor'], ['helps people in court', 'a lawyer'], ['studies the stars and planets', 'an astronomer'], ['makes clothes', 'a tailor'], ['looks after money in a bank', 'a bank clerk'], ['delivers letters and parcels', 'a postman'], ['plays soccer for a team', 'a soccer player'], ['trains athletes', 'a coach'], ['works in a lab and does experiments', 'a scientist'], ['cleans the streets', 'a street cleaner'], ['draws buildings and houses', 'an architect'], ['serves coffee in a café', 'a barista'], ['looks after children when parents work', 'a babysitter'], ['catches fish at sea', 'a fisherman'], ['translates from one language to another', 'a translator'], ['flies in space', 'an astronaut'] ] },
+    // Jobs & CVs "level 2" of the Job Flag Game (jobs-describe.js): a job + a part to say something about. Only in the flag game.
+    { id: 'jobtalk', flag: true, icon: '👷', color: '#e8820c', title: 'Jobs & CVs: talk about the job', hint: 'Say a sentence about the job.',
+      get items() {
+        const J = window.JOB_FLAG; if (!J) return [];
+        return J.JOBS.flatMap(job => J.PARTS.map(p => [`${job.pic} ${job.a}: ${p.q}`, `${p.start(job).replace('…', '')} ${J.right(job, p.k)}.`]));
+      } },
     { id: 'prep', icon: '📍', color: '#12a4a4', title: 'Prepositions of place', hint: 'in · on · under · next to · behind · between…', items: [
       ['The cat is … the box. (inside)', 'in'], ['The book is … the table. (on top)', 'on'], ['The ball is … the chair. (below)', 'under'], ['The school is … the bank and the shop.', 'between'],
       ['I sit … my best friend. (at the side)', 'next to'], ['The garden is … the house. (at the back)', 'behind'], ['The picture is … the sofa. (up high)', 'above'], ['The teacher is … the class. (face to face)', 'in front of'],
@@ -53,6 +66,21 @@
       ['tall', 'taller'], ['big', 'bigger'], ['good', 'better'], ['bad', 'worse'], ['happy', 'happier'], ['interesting', 'more interesting'], ['far', 'farther'],
       ['easy', 'easier'], ['expensive', 'more expensive'], ['hot', 'hotter'], ['funny', 'funnier'], ['beautiful', 'more beautiful'], ['small', 'smaller'], ['difficult', 'more difficult'] ] },
   ];
+
+  // more cards (🇮🇹 = the pupil translates from Italian)
+  const more = (id, cards) => DECKS.find(d => d.id === id).items.push(...cards);
+  more('subj', [
+    ['my mother', 'she'], ['the girls', 'they'], ['Tom, Anna and I', 'we'], ['the book', 'it'], ['your uncle', 'he'], ['the students', 'they'], ['Anna, you and Marco', 'you'], ['Mr. Brown', 'he'], ['my parents and I', 'we'], ['the weather', 'it'], ['Ms. Fatigato and Mr. Rossi', 'they'], ['the baby (a girl)', 'she'], ['the baby (a boy)', 'he'], ['the shoes', 'they'], ['the city', 'it'], ['you and I', 'we'], ['🇮🇹 lui', 'he'], ['🇮🇹 lei', 'she'], ['🇮🇹 noi', 'we'], ['🇮🇹 loro', 'they'], ['🇮🇹 io', 'I'], ['🇮🇹 tu', 'you'], ['🇮🇹 voi', 'you'], ['🇮🇹 esso (il cane)', 'it'], ['🇮🇹 Lei è un’insegnante. → … is a teacher.', 'she'], ['🇮🇹 Loro sono stanchi. → … are tired.', 'they'], ['🇮🇹 Noi abitiamo a Napoli. → … live in Naples.', 'we'], ['🇮🇹 Lui ha un cane. → … has a dog.', 'he'], ['🇮🇹 Piove. → … is raining.', 'it'], ['🇮🇹 Io sono italiana. → … am Italian.', 'I'], ['past: Yesterday Tom played soccer. … was happy.', 'he'], ['past: Last night my sister and I watched a movie. … loved it.', 'we'], ['past: Anna and Sara went shopping. … bought a dress.', 'they'], ['past: I called Maria, but … didn’t answer.', 'she'], ['past: We saw a big dog. … was very friendly.', 'it'], ['past: Where were Luca and Giulia? … were at the cinema.', 'they'] ]);
+  more('obj', [
+    ['She loves Tom → She loves …', 'him'], ['I know Anna → I know …', 'her'], ['They help the old man → They help …', 'him'], ['He calls my sister and me → He calls …', 'us'], ['Look at the stars! → Look at …!', 'them'], ['Tell Anna the story → Tell … the story', 'her'], ['I see you and Marco → I see …', 'you'], ['Wait for Tom and Anna → Wait for …', 'them'], ['Talk to the teacher → Talk to …', 'her'], ['Come with Luca and me → Come with …', 'us'], ['Pass me the ball → Pass … the ball (to Tom)', 'him'], ['She hates spiders → She hates …', 'them'], ['I love my dog → I love …', 'it'], ['Dad drives my brother → Dad drives …', 'him'], ['Take the keys → Take …', 'them'], ['🇮🇹 Lo vedo. (Tom) → I see …', 'him'], ['🇮🇹 La conosco. (Anna) → I know …', 'her'], ['🇮🇹 Parlo con loro. → I talk to …', 'them'], ['🇮🇹 Ci chiama. → He calls …', 'us'], ['🇮🇹 Mi aiuti? → Can you help …?', 'me'], ['🇮🇹 Ti amo. → I love …', 'you'], ['🇮🇹 Dallo a lui. → Give it to …', 'him'], ['🇮🇹 Vieni con noi! → Come with …!', 'us'], ['🇮🇹 Guardala! (la foto) → Look at …!', 'it'], ['🇮🇹 Chiamali! (i ragazzi) → Call …!', 'them'], ['past: Yesterday I met Tom and I invited … to my party.', 'him'], ['past: We saw Anna and gave … a present.', 'her'], ['past: The teacher called Luca and me and told … the news.', 'us'], ['past: I found your keys and gave … to your mom.', 'them'], ['past: She didn’t like the movie, so she left … early. (the cinema)', 'it'], ['past: They asked me and I helped …', 'them'] ]);
+  more('past', [
+    ['do', 'did'], ['say', 'said'], ['get', 'got'], ['find', 'found'], ['leave', 'left'], ['meet', 'met'], ['read (pronounced “red”)', 'read'], ['sleep', 'slept'], ['tell', 'told'], ['understand', 'understood'], ['win', 'won'], ['lose', 'lost'], ['forget', 'forgot'], ['feel', 'felt'], ['hear', 'heard'], ['send', 'sent'], ['wear', 'wore'], ['begin', 'began'], ['break', 'broke'], ['drive', 'drove'], ['fly', 'flew'], ['sing', 'sang'], ['steal', 'stole'], ['wake up', 'woke up'], ['pay', 'paid'], ['sell', 'sold'], ['stand', 'stood'], ['fall', 'fell'], ['🇮🇹 andai → I … (go)', 'went'], ['🇮🇹 mangiò → she … (eat)', 'ate'], ['🇮🇹 vedemmo → we … (see)', 'saw'], ['🇮🇹 comprarono → they … (buy)', 'bought'], ['🇮🇹 scrissi → I … (write)', 'wrote'], ['🇮🇹 ebbe → he … (have)', 'had'], ['🇮🇹 dissero → they … (say)', 'said'], ['🇮🇹 presi → I … (take)', 'took'], ['🇮🇹 vinse → she … (win)', 'won'], ['🇮🇹 persi → I … (lose)', 'lost'], ['Yesterday I … pizza. (eat)', 'ate'], ['Last summer we … to Spain. (go)', 'went'], ['She … a letter to her friend. (write)', 'wrote'], ['They … a new car last year. (buy)', 'bought'], ['He … his keys. (lose)', 'lost'] ]);
+
+  // the topics in the order they are taught at school (1st year → 3rd year)
+  ['subj', 'obj', 'poss', 'be', 'ps3', 'plur', 'opp', 'prep', 'comp', 'past', 'jobs', 'jobtalk']
+    .forEach((id, i) => { DECKS.find(d => d.id === id).order = i; });
+  DECKS.sort((a, b) => a.order - b.order);
+
   const TOPICS = [
     ['🍕', 'Food and drinks'], ['🐾', 'Animals'], ['👕', 'Clothes'], ['🎒', 'Things in your school bag'], ['⚽', 'Sports and hobbies'], ['👨‍👩‍👧', 'Family members'],
     ['🌍', 'Countries and nationalities'], ['🏠', 'Rooms and furniture'], ['🕐', 'Things you do every day (verbs)'], ['💼', 'Jobs'], ['🎨', 'Colors and adjectives'],
@@ -136,12 +164,11 @@
     area.innerHTML = `<div class="tg-card">
       <p class="tg-intro">${intro}</p>
       <p class="tg-label">Choose a topic <small>(or more than one: they get mixed)</small></p>
-      <div class="tg-decks">${DECKS.map(d => `<button type="button" class="tg-deck" data-d="${d.id}" style="--c:${d.color}"><span>${d.icon}</span>${esc(d.title)}<small>${d.items.length} cards</small></button>`).join('')}${extra ? `<button type="button" class="tg-deck" data-launch="1" style="--c:#e8820c"><span>👷</span>Jobs &amp; CVs: describe the job<small>level 1–2 · own screen</small></button>` : ''}</div>
+      <div class="tg-decks">${DECKS.filter(d => (extra ? !d.noFlag : !d.flag)).map(d => `<button type="button" class="tg-deck" data-d="${d.id}" style="--c:${d.color}"><span>${d.icon}</span>${esc(d.title)}<small>${d.items.length} cards</small></button>`).join('')}</div>
       <div class="tg-row"><button type="button" class="tg-btn" id="tgDeckGo" disabled>Choose a topic first</button></div></div>`;
     const go = $('tgDeckGo');
     area.onclick = e => {
       const b = e.target.closest('.tg-deck');
-      if (b && b.dataset.launch) { window.JOB_FLAG?.open(); return; } // the Job Flag Game of chapter Jobs & CVs
       if (b) {
         const id = b.dataset.d;
         chosen.has(id) ? chosen.delete(id) : chosen.add(id);
@@ -204,14 +231,14 @@
     const play = decks => {
       openGame('🅰️ Four corners', { scored: true, onBack: start });
       const cards = decks.flatMap(d => d.items.map(([q, a]) => ({ q, a, d })));
-      const pool = [...new Set(cards.map(c => c.a))];
+      const pool = [...new Map(cards.map(c => [c.a.toLowerCase(), c.a])).values()];
       const nextCard = bag(cards);
       const COL = ['#f05f4b', '#4aa8ec', '#3aa04a', '#f9b11a'];
       let r;
       const next = () => {
         const c = nextCard();
         // wrong choices come from the other answers of the same topic(s), never the same word
-        const wrong = shuffle(pool.filter(x => x !== c.a && !c.a.split(' / ').includes(x))).slice(0, 3);
+        const wrong = shuffle(pool.filter(x => x.toLowerCase() !== c.a.toLowerCase() && !c.a.split(' / ').includes(x))).slice(0, 3);
         r = { c, opts: shuffle([c.a, ...wrong]), show: false, point: false };
         paint();
       };
@@ -243,12 +270,12 @@
     const play = decks => {
       openGame('👋 Slap the word', { scored: true, onBack: start });
       const cards = decks.flatMap(d => d.items.map(([q, a]) => ({ q, a, d })));
-      const pool = [...new Set(cards.map(c => c.a))];
+      const pool = [...new Map(cards.map(c => [c.a.toLowerCase(), c.a])).values()];
       const nextCard = bag(cards);
       let r;
       const next = () => {
         const c = nextCard();
-        const wrong = shuffle(pool.filter(x => x !== c.a && !c.a.split(' / ').includes(x))).slice(0, 5);
+        const wrong = shuffle(pool.filter(x => x.toLowerCase() !== c.a.toLowerCase() && !c.a.split(' / ').includes(x))).slice(0, 5);
         r = { c, opts: shuffle([c.a, ...wrong]), clue: false, reveal: false, point: false };
         paint();
       };
@@ -382,6 +409,10 @@
     { g: 'Vocabulary', icon: '🍕', color: '#3aa04a', title: 'Food', words: ['a pizza', 'a sandwich', 'spaghetti', 'a salad', 'ice cream', 'a hamburger', 'cheese', 'a cookie', 'soup', 'an egg', 'rice', 'a banana', 'chocolate', 'pancakes'] },
     { g: 'Vocabulary', icon: '🌍', color: '#4aa8ec', title: 'Countries & places', words: ['Italy', 'Spain', 'Japan', 'Egypt', 'Brazil', 'Canada', 'Australia', 'London', 'New York', 'a hospital', 'a library', 'a museum', 'a bakery', 'a bank', 'a park'] },
   ];
+  // the topics in the order they are taught at school (1st year → 3rd year)
+  const HOT_ORDER = ['Greek mythology', 'Alice in Wonderland', 'Matilda & Coraline', 'Romeo & Juliet', 'Shakespeare & sonnets', 'Figures of speech', 'Animal Farm', '1984',
+    'Countries & places', 'Animals', 'Home', 'Sports & hobbies', 'Emotions', 'Clothes', 'Food', 'Jobs'];
+  HOT.sort((a, b) => HOT_ORDER.indexOf(a.title) - HOT_ORDER.indexOf(b.title));
 
   function hotGame() {
     score.a = score.b = 0;
@@ -516,13 +547,13 @@
 
   /* ---------- the tiles: they are in the "For the teacher" part of the home page (script.js renderHome), before the guided meditations ---------- */
   const ENTRIES = [
+    { icon: '🧰', title: 'Class tools', color: '#1f2a6b', text: 'Who goes next? · groups · timer · scoreboard.', run: toolsGame },
     { icon: '🔥', title: 'Hot seat', color: '#d6334f', text: 'A pupil guesses the word the class explains: literature of the book and vocabulary, you choose the topics.', run: hotGame },
     { icon: '🚩', title: 'Flag game', color: '#f05f4b', text: 'Bandierina: two teams, a number, a card on the board. Pronouns, to be, verbs, jobs…', run: flagGame },
     { icon: '🏀', title: 'Paper basket', color: '#8e2de2', text: 'The class writes the answer on a paper, crumples it and shoots: verb paradigms, words and phrases to translate, at every level.', run: basketGame },
     { icon: '🅰️', title: 'Four corners', color: '#3aa04a', text: 'A question and A-B-C-D: the class walks to the right corner of the room.', run: cornersGame },
     { icon: '👋', title: 'Slap the word', color: '#4aa8ec', text: 'Six words on the board, two players: slap the right one first!', run: slapGame },
     { icon: '⏱', title: 'Beat the clock', color: '#f9b11a', text: 'A topic and 30 seconds: how many words can your team say?', run: clockGame },
-    { icon: '🧰', title: 'Class tools', color: '#1f2a6b', text: 'Who goes next? · groups · timer · scoreboard.', run: toolsGame },
     { icon: '🏁', title: 'Grammar Race', color: '#8e2de2', text: 'Timed race for the whole class: needs the pupils’ own devices.', run: () => window.GRAMMAR_RACE?.open?.() },
   ];
   function menu() {

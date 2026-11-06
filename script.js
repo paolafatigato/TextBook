@@ -1865,13 +1865,13 @@ const tocChaptersOpen = new Set();
 // each year has a color of the book: coral, green, blue; the teacher's materials are navy
 const YEAR_COLORS = ['#f05f4b', '#3aa04a', '#4aa8ec'];
 
-// In the index, scaffolding spreads of the same topic (data-group in index.html, same chapter, one after the
-// other) are one entry with a small number for each, not one button each.
+// In the index, the spreads of the same topic (data-group in index.html, same chapter, one after the other)
+// are one entry with the range of their pages, not one button each. It opens the first one, the arrows go on.
 // → a list of spreads, or of arrays (a group, even of one spread)
 function tocEntries(list) {
   const out = [];
   list.forEach(s => {
-    const g = isScaffold(s) && s.dataset.group;
+    const g = s.dataset.group;
     const last = out.at(-1);
     if (g && Array.isArray(last) && last[0].dataset.group === g && chapterOf.get(last[0]) === chapterOf.get(s)) last.push(s);
     else out.push(g ? [s] : s);
@@ -1882,14 +1882,18 @@ function tocEntries(list) {
 function tocGroup(group, ch) {
   const own = chapterOf.get(group[0]);
   const name = ch?.withChapter && own && own !== ch ? `${own.title} · ${group[0].dataset.group}` : group[0].dataset.group;
-  // one entry for the whole group: it opens the first page, the arrows go on from there
   const s = group[0];
-  const a = scaffoldNo.get(s), b = scaffoldLast.get(group.at(-1));
-  const range = a == null ? scaffoldSign(s) : a === b ? `${a}` : `${a}–${b}`;
-  const ids = group.map(x => x.dataset.id).join(" ");
-  const off = group.some(x => isVisible(x) || teacherOnly(x)) ? "" : ' class="off" title="Hidden from students"';
-  return `<li class="scaffold-link"><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}" data-ids="${esc(ids)}"${off}><b${scaffoldColor(s)}>${range}</b><span>${esc(name)}</span></a></li>`;
+  // the range: scaffolding has its numbers from 1000, the pages of the book their own (a printout has none)
+  const numbered = group.filter(x => !isUnnumbered(x));
+  const scaf = group.filter(isScaffold);
+  const range = numbered.length ? range2(pagesOf(numbered[0])[0], pagesOf(numbered.at(-1))[1])
+    : scaf.length ? range2(scaffoldNo.get(scaf[0]), scaffoldLast.get(scaf.at(-1))) : scaffoldSign(s);
+  const ids = group.map(x => x.dataset.id).join(' ');
+  const off = group.some(x => isVisible(x) || teacherOnly(x)) ? '' : ' class="off" title="Hidden from students"';
+  const mark = isScaffold(s) ? ' class="scaffold-link"' : '';
+  return `<li${mark}><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}" data-ids="${esc(ids)}"${off}><b${isScaffold(s) ? scaffoldColor(s) : ''}>${range}</b><span>${esc(name)}</span></a></li>`;
 }
+const range2 = (a, b) => (a === b ? `${a}` : `${a}–${b}`);
 
 function renderToc() {
   toc.innerHTML = `

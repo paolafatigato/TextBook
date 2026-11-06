@@ -85,8 +85,9 @@ const CONTENTS = {
         { title: 'Guided meditations', start: 'med-1', color: '#4aa8ec' },
         // printable exit tickets: 24 different slips per topic
         { title: 'Exit tickets', start: 'exit-persephone1', color: '#fd7366' },
-        // job cards to print for the forehead game (jobs-forehead:R)
-        { title: 'Job cards (forehead game)', start: 'jobcards-1', color: '#1f2a6b' },
+        // cards to print for the forehead game (jobs-forehead:R): job cards now; animal cards and character cards
+        // go after the job cards in index.html (before pokerdeck-1), each set with its own data-group
+        { title: 'Forehead game', start: 'jobcards-1', color: '#1f2a6b' },
         // the Grammar Poker deck: choose the cards, see them, print them (poker-deck.js)
         { title: 'Poker deck (Grammar Poker)', start: 'pokerdeck-1', color: '#8e2de2' },
       ],
