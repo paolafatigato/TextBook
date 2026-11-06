@@ -1,59 +1,55 @@
 // Games for the teacher (home page, only when the teacher is signed in).
 // Played from the whiteboard (LIM) or from the teacher's phone: nothing for the pupils to open, no login, works offline.
 // The teacher is the "game master": she clicks, the class plays out loud, on the floor, at the board.
-//   🚩 Flag game (bandierina) · 🅰️ Four corners · 👋 Slap the word · ⏱ Beat the clock · 🧰 Class tools
+//   🏀 Paper basket (data: basket-data.js) · 🚩 Flag game (bandierina) · 🅰️ Four corners · 👋 Slap the word · ⏱ Beat the clock · 🧰 Class tools
 // plus the two games that already exist (Job Flag Game, Grammar Race).
 // To add cards: add a pair ['question', 'answer'] to a deck below. To add a deck: add an object to DECKS.
 (() => {
   const $ = id => document.getElementById(id);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const shuffle = a => { const r = [...a]; for (let i = r.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [r[i], r[j]] = [r[j], r[i]]; } return r; };
-  // the dots of the school years: coral = 1st, green = 2nd, blue = 3rd (the colors of the book)
-  const YEARS = [['1st', '#f05f4b'], ['2nd', '#3aa04a'], ['3rd', '#4aa8ec']];
-  const dots = ys => `<span class="tg-dots">${[...new Set(ys)].sort().map(y => `<i style="background:${YEARS[y][1]}" title="${YEARS[y][0]} year"></i>`).join('')}</span>`;
-  const yearsOf = list => list.flatMap(x => x.y);
   // a bag: every card comes once before any comes again
   const bag = list => { let q = []; return () => { if (!q.length) q = shuffle(list); return q.pop(); }; };
 
   /* ---------- the decks: [what the board shows, the answer] ---------- */
   const DECKS = [
-    { id: 'subj', y: [0], icon: '🙋', color: '#f05f4b', title: 'Subject pronouns', hint: 'Say the pronoun that replaces the words.', items: [
+    { id: 'subj', icon: '🙋', color: '#f05f4b', title: 'Subject pronouns', hint: 'Say the pronoun that replaces the words.', items: [
       ['Mary', 'she'], ['Tom and I', 'we'], ['the cat', 'it'], ['my brother', 'he'], ['you and Anna', 'you'], ['the teachers', 'they'],
       ['Ms. Fatigato', 'she'], ['the boys', 'they'], ['my sister and I', 'we'], ['the table', 'it'], ['Marco and Luca', 'they'], ['your dad', 'he'],
       ['the dogs', 'they'], ['Sara and you', 'you'], ['the window', 'it'], ['Giulia and I', 'we'] ] },
-    { id: 'obj', y: [0], icon: '🎯', color: '#e0902c', title: 'Object pronouns', hint: 'Say the pronoun for the underlined idea: I love ___.', items: [
+    { id: 'obj', icon: '🎯', color: '#e0902c', title: 'Object pronouns', hint: 'Say the pronoun for the underlined idea: I love ___.', items: [
       ['I like Tom → I like …', 'him'], ['She calls Anna → She calls …', 'her'], ['We see the dogs → We see …', 'them'], ['He helps my sister and me → He helps …', 'us'],
       ['They invite you → They invite …', 'you'], ['Look at the cat! → Look at …!', 'it'], ['Anna loves Marco and Luca → Anna loves …', 'them'], ['Listen to me! (Listen to I)', 'me'],
       ['Give the book to Tom → Give … the book', 'him'], ['Ask the teacher → Ask …', 'her'], ['Wait for Sara and me → Wait for …', 'us'], ['I miss my friends → I miss …', 'them'] ] },
-    { id: 'poss', y: [0], icon: '🎒', color: '#8fb82e', title: 'Possessive adjectives', hint: 'my · your · his · her · its · our · their', items: [
+    { id: 'poss', icon: '🎒', color: '#8fb82e', title: 'Possessive adjectives', hint: 'my · your · his · her · its · our · their', items: [
       ['(I) … book', 'my'], ['(you) … pen', 'your'], ['(he) … bike', 'his'], ['(she) … bag', 'her'], ['(we) … teacher', 'our'], ['(they) … house', 'their'],
       ['(the dog) … ball', 'its'], ['(Tom and Anna) … cat', 'their'], ['(my sister) … room', 'her'], ['(my brother and I) … dog', 'our'], ['(Marco) … phone', 'his'], ['(you and Luca) … homework', 'your'] ] },
-    { id: 'be', y: [0], icon: '🅱️', color: '#4aa8ec', title: 'To be', hint: 'am · is · are (and the short forms)', items: [
+    { id: 'be', icon: '🅱️', color: '#4aa8ec', title: 'To be', hint: 'am · is · are (and the short forms)', items: [
       ['I … Italian.', 'am'], ['She … my friend.', 'is'], ['They … at school.', 'are'], ['We … tired.', 'are'], ['He … a doctor.', 'is'], ['You … late!', 'are'],
       ['The cat … on the sofa.', 'is'], ['My parents … at work.', 'are'], ['It … a big dog.', 'is'], ['Tom and I … in class 2B.', 'are'],
       ['negative: I … hungry. (not)', "am not / I'm not"], ['negative: She … tall. (not)', "isn't / is not"], ['negative: They … ready. (not)', "aren't / are not"] ] },
-    { id: 'ps3', y: [0], icon: '🏃', color: '#3aa04a', title: 'Present simple: he / she / it', hint: 'Say the verb with the right ending.', items: [
+    { id: 'ps3', icon: '🏃', color: '#3aa04a', title: 'Present simple: he / she / it', hint: 'Say the verb with the right ending.', items: [
       ['he (play)', 'plays'], ['she (watch)', 'watches'], ['it (go)', 'goes'], ['Tom (study)', 'studies'], ['my mom (have)', 'has'], ['the dog (eat)', 'eats'],
       ['she (do)', 'does'], ['he (wash)', 'washes'], ['Anna (fly)', 'flies'], ['it (need)', 'needs'], ['he (teach)', 'teaches'], ['my dad (cook)', 'cooks'],
       ['she (try)', 'tries'], ['the baby (cry)', 'cries'], ['he (fix)', 'fixes'] ] },
-    { id: 'plur', y: [0], icon: '👶', color: '#c35fb4', title: 'Plurals', hint: 'Say the plural.', items: [
+    { id: 'plur', icon: '👶', color: '#c35fb4', title: 'Plurals', hint: 'Say the plural.', items: [
       ['child', 'children'], ['man', 'men'], ['woman', 'women'], ['foot', 'feet'], ['tooth', 'teeth'], ['mouse', 'mice'], ['sheep', 'sheep'], ['box', 'boxes'],
       ['baby', 'babies'], ['knife', 'knives'], ['bus', 'buses'], ['city', 'cities'], ['person', 'people'], ['potato', 'potatoes'], ['fish', 'fish'], ['watch', 'watches'] ] },
-    { id: 'past', y: [1], icon: '⏪', color: '#1f2a6b', title: 'Irregular past', hint: 'Say the past simple.', items: [
+    { id: 'past', icon: '⏪', color: '#1f2a6b', title: 'Irregular past', hint: 'Say the past simple.', items: [
       ['go', 'went'], ['see', 'saw'], ['eat', 'ate'], ['buy', 'bought'], ['have', 'had'], ['make', 'made'], ['take', 'took'], ['write', 'wrote'], ['come', 'came'],
       ['drink', 'drank'], ['think', 'thought'], ['know', 'knew'], ['give', 'gave'], ['sit', 'sat'], ['swim', 'swam'], ['bring', 'brought'], ['speak', 'spoke'], ['run', 'ran'] ] },
-    { id: 'opp', y: [0], icon: '↔️', color: '#f9b11a', title: 'Opposites', hint: 'Say the opposite.', items: [
+    { id: 'opp', icon: '↔️', color: '#f9b11a', title: 'Opposites', hint: 'Say the opposite.', items: [
       ['big', 'small'], ['hot', 'cold'], ['fast', 'slow'], ['early', 'late'], ['happy', 'sad'], ['old', 'young / new'], ['open', 'closed'], ['easy', 'difficult'],
       ['full', 'empty'], ['clean', 'dirty'], ['cheap', 'expensive'], ['strong', 'weak'], ['tall', 'short'], ['dark', 'light'], ['right', 'wrong'], ['noisy', 'quiet'] ] },
-    { id: 'jobs', y: [2], icon: '👩‍🔧', color: '#d6334f', title: 'Jobs', hint: 'Say the job.', items: [
+    { id: 'jobs', icon: '👩‍🔧', color: '#d6334f', title: 'Jobs', hint: 'Say the job.', items: [
       ['treats sick animals', 'a vet'], ['repairs cars', 'a mechanic'], ['teaches children', 'a teacher'], ['cooks in a restaurant', 'a chef'], ['flies a plane', 'a pilot'],
       ['puts out fires', 'a firefighter'], ['cuts your hair', 'a hairdresser'], ['takes care of sick people', 'a nurse'], ['builds houses', 'a builder'], ['catches thieves', 'a police officer'],
       ['grows food on a farm', 'a farmer'], ['writes articles for a newspaper', 'a journalist'], ['makes bread', 'a baker'], ['paints pictures', 'an artist'] ] },
-    { id: 'prep', y: [0,1], icon: '📍', color: '#12a4a4', title: 'Prepositions of place', hint: 'in · on · under · next to · behind · between…', items: [
+    { id: 'prep', icon: '📍', color: '#12a4a4', title: 'Prepositions of place', hint: 'in · on · under · next to · behind · between…', items: [
       ['The cat is … the box. (inside)', 'in'], ['The book is … the table. (on top)', 'on'], ['The ball is … the chair. (below)', 'under'], ['The school is … the bank and the shop.', 'between'],
       ['I sit … my best friend. (at the side)', 'next to'], ['The garden is … the house. (at the back)', 'behind'], ['The picture is … the sofa. (up high)', 'above'], ['The teacher is … the class. (face to face)', 'in front of'],
       ['The bus stop is … the school. (opposite)', 'opposite'], ['Italy is … France and Slovenia.', 'between'] ] },
-    { id: 'comp', y: [1], icon: '⚖️', color: '#e0584a', title: 'Comparatives', hint: 'Say the comparative.', items: [
+    { id: 'comp', icon: '⚖️', color: '#e0584a', title: 'Comparatives', hint: 'Say the comparative.', items: [
       ['tall', 'taller'], ['big', 'bigger'], ['good', 'better'], ['bad', 'worse'], ['happy', 'happier'], ['interesting', 'more interesting'], ['far', 'farther'],
       ['easy', 'easier'], ['expensive', 'more expensive'], ['hot', 'hotter'], ['funny', 'funnier'], ['beautiful', 'more beautiful'], ['small', 'smaller'], ['difficult', 'more difficult'] ] },
   ];
@@ -140,7 +136,7 @@
     area.innerHTML = `<div class="tg-card">
       <p class="tg-intro">${intro}</p>
       <p class="tg-label">Choose a topic <small>(or more than one: they get mixed)</small></p>
-      <div class="tg-decks">${DECKS.map(d => `<button type="button" class="tg-deck" data-d="${d.id}" style="--c:${d.color}"><span>${d.icon}</span>${esc(d.title)}${dots(d.y)}<small>${d.items.length} cards</small></button>`).join('')}${extra ? `<button type="button" class="tg-deck" data-launch="1" style="--c:#e8820c"><span>👷</span>Jobs &amp; CVs: describe the job${dots([2])}<small>level 1–2 · own screen</small></button>` : ''}</div>
+      <div class="tg-decks">${DECKS.map(d => `<button type="button" class="tg-deck" data-d="${d.id}" style="--c:${d.color}"><span>${d.icon}</span>${esc(d.title)}<small>${d.items.length} cards</small></button>`).join('')}${extra ? `<button type="button" class="tg-deck" data-launch="1" style="--c:#e8820c"><span>👷</span>Jobs &amp; CVs: describe the job<small>level 1–2 · own screen</small></button>` : ''}</div>
       <div class="tg-row"><button type="button" class="tg-btn" id="tgDeckGo" disabled>Choose a topic first</button></div></div>`;
     const go = $('tgDeckGo');
     area.onclick = e => {
@@ -368,23 +364,23 @@
   /* ---------- 🔥 hot seat: topics of the book (literature) and of the vocabulary ---------- */
   const HOT = [
     // literature of the book
-    { g: 'Literature', icon: '⚡', color: '#fe7366', y: [0], title: 'Greek mythology', words: ['Zeus', 'Hades', 'Persephone', 'Demeter', 'Poseidon', 'Athena', 'Apollo', 'Hermes', 'Aphrodite', 'Hera', 'Circe', 'Odysseus', 'Medusa', 'Mount Olympus', 'the Underworld', 'a pomegranate', 'Cerberus', 'Dionysus', 'a god', 'a goddess'] },
-    { g: 'Literature', icon: '🐇', color: '#c97df6', y: [0], title: 'Alice in Wonderland', words: ['Alice', 'the White Rabbit', 'the Cheshire Cat', 'the Mad Hatter', 'the Queen of Hearts', 'the Caterpillar', 'the March Hare', 'the Dormouse', 'the Dodo', 'a tea party', 'the rabbit hole', '“Drink me”', 'croquet', 'a pocket watch', 'the Looking-Glass', 'Wonderland'] },
-    { g: 'Literature', icon: '🌹', color: '#d6334f', y: [1], title: 'Romeo & Juliet', words: ['Romeo', 'Juliet', 'Tybalt', 'Mercutio', 'Benvolio', 'the Nurse', 'Friar Laurence', 'Verona', 'the Montagues', 'the Capulets', 'the balcony', 'poison', 'a masked ball', 'a feud', 'a sword', 'a tomb', 'a secret wedding'] },
-    { g: 'Literature', icon: '🖋️', color: '#b23a48', y: [1], title: 'Shakespeare & sonnets', words: ['William Shakespeare', 'a sonnet', 'the Globe Theatre', 'Hamlet', 'Macbeth', 'a quill', 'a metaphor', 'a simile', 'a rhyme', 'a couplet', 'Stratford-upon-Avon', 'a play', 'an actor', 'a stage', 'a comedy', 'a tragedy', 'a poet', 'a verse'] },
-    { g: 'Literature', icon: '🐷', color: '#262626', y: [2], title: 'Animal Farm', words: ['Napoleon', 'Snowball', 'Boxer', 'Squealer', 'Old Major', 'Clover', 'Benjamin', 'Mollie', 'Mr. Jones', 'the windmill', 'Manor Farm', 'Beasts of England', 'the Seven Commandments', 'the Rebellion', 'the dogs', 'the sheep', 'Moses the raven', 'a pig', 'a farm'] },
-    { g: 'Literature', icon: '👁️', color: '#7a1f2b', y: [2], title: '1984', words: ['Big Brother', 'Winston', 'Julia', 'Newspeak', 'a telescreen', 'Room 101', 'the Thought Police', 'the Ministry of Truth', 'Oceania', 'doublethink', 'a diary', 'a rebel'] },
-    { g: 'Literature', icon: '📚', color: '#e0902c', y: [0], title: 'Matilda & Coraline', words: ['Matilda', 'Miss Honey', 'Miss Trunchbull', 'Mr. Wormwood', 'the Chokey', 'a library', 'Coraline', 'the Other Mother', 'button eyes', 'the little door', 'the black cat', 'Wybie', 'a stone with a hole', 'a doll'] },
-    { g: 'Literature', icon: '🎭', color: '#7b3fc4', y: [1], title: 'Figures of speech', words: ['a metaphor', 'a simile', 'personification', 'hyperbole', 'alliteration', 'an idiom', 'a rhyme', 'a syllable', 'a stanza', 'a poem', 'a poet', 'a symbol', 'irony', 'a contrast'] },
+    { g: 'Literature', icon: '⚡', color: '#fe7366', title: 'Greek mythology', words: ['Zeus', 'Hades', 'Persephone', 'Demeter', 'Poseidon', 'Athena', 'Apollo', 'Hermes', 'Aphrodite', 'Hera', 'Circe', 'Odysseus', 'Medusa', 'Mount Olympus', 'the Underworld', 'a pomegranate', 'Cerberus', 'Dionysus', 'a god', 'a goddess'] },
+    { g: 'Literature', icon: '🐇', color: '#c97df6', title: 'Alice in Wonderland', words: ['Alice', 'the White Rabbit', 'the Cheshire Cat', 'the Mad Hatter', 'the Queen of Hearts', 'the Caterpillar', 'the March Hare', 'the Dormouse', 'the Dodo', 'a tea party', 'the rabbit hole', '“Drink me”', 'croquet', 'a pocket watch', 'the Looking-Glass', 'Wonderland'] },
+    { g: 'Literature', icon: '🌹', color: '#d6334f', title: 'Romeo & Juliet', words: ['Romeo', 'Juliet', 'Tybalt', 'Mercutio', 'Benvolio', 'the Nurse', 'Friar Laurence', 'Verona', 'the Montagues', 'the Capulets', 'the balcony', 'poison', 'a masked ball', 'a feud', 'a sword', 'a tomb', 'a secret wedding'] },
+    { g: 'Literature', icon: '🖋️', color: '#b23a48', title: 'Shakespeare & sonnets', words: ['William Shakespeare', 'a sonnet', 'the Globe Theatre', 'Hamlet', 'Macbeth', 'a quill', 'a metaphor', 'a simile', 'a rhyme', 'a couplet', 'Stratford-upon-Avon', 'a play', 'an actor', 'a stage', 'a comedy', 'a tragedy', 'a poet', 'a verse'] },
+    { g: 'Literature', icon: '🐷', color: '#262626', title: 'Animal Farm', words: ['Napoleon', 'Snowball', 'Boxer', 'Squealer', 'Old Major', 'Clover', 'Benjamin', 'Mollie', 'Mr. Jones', 'the windmill', 'Manor Farm', 'Beasts of England', 'the Seven Commandments', 'the Rebellion', 'the dogs', 'the sheep', 'Moses the raven', 'a pig', 'a farm'] },
+    { g: 'Literature', icon: '👁️', color: '#7a1f2b', title: '1984', words: ['Big Brother', 'Winston', 'Julia', 'Newspeak', 'a telescreen', 'Room 101', 'the Thought Police', 'the Ministry of Truth', 'Oceania', 'doublethink', 'a diary', 'a rebel'] },
+    { g: 'Literature', icon: '📚', color: '#e0902c', title: 'Matilda & Coraline', words: ['Matilda', 'Miss Honey', 'Miss Trunchbull', 'Mr. Wormwood', 'the Chokey', 'a library', 'Coraline', 'the Other Mother', 'button eyes', 'the little door', 'the black cat', 'Wybie', 'a stone with a hole', 'a doll'] },
+    { g: 'Literature', icon: '🎭', color: '#7b3fc4', title: 'Figures of speech', words: ['a metaphor', 'a simile', 'personification', 'hyperbole', 'alliteration', 'an idiom', 'a rhyme', 'a syllable', 'a stanza', 'a poem', 'a poet', 'a symbol', 'irony', 'a contrast'] },
     // vocabulary
-    { g: 'Vocabulary', icon: '👩‍🔧', color: '#e8820c', y: [2], title: 'Jobs', words: ['a vet', 'a mechanic', 'a teacher', 'a chef', 'a pilot', 'a firefighter', 'a hairdresser', 'a nurse', 'a builder', 'a police officer', 'a farmer', 'a journalist', 'a baker', 'an artist', 'a doctor', 'a dentist', 'a waiter', 'an engineer'] },
-    { g: 'Vocabulary', icon: '🐾', color: '#8fb82e', y: [0,1], title: 'Animals', words: ['a hedgehog', 'a flamingo', 'a seahorse', 'an octopus', 'a rhino', 'a squirrel', 'a penguin', 'a giraffe', 'a bat', 'a snail', 'a goat', 'a duck', 'a shark', 'a butterfly', 'a camel', 'a kangaroo'] },
-    { g: 'Vocabulary', icon: '👕', color: '#dc3394', y: [1], title: 'Clothes', words: ['a sweater', 'a scarf', 'boots', 'a jacket', 'a skirt', 'a hat', 'sneakers', 'a dress', 'jeans', 'a belt', 'gloves', 'a raincoat', 'pajamas', 'a tie', 'a backpack'] },
-    { g: 'Vocabulary', icon: '⚽', color: '#f06054', y: [0], title: 'Sports & hobbies', words: ['volleyball', 'swimming', 'skiing', 'dancing', 'chess', 'painting', 'cooking', 'cycling', 'basketball', 'gymnastics', 'reading', 'photography', 'karate', 'surfing', 'knitting', 'gaming'] },
-    { g: 'Vocabulary', icon: '😀', color: '#de3796', y: [0], title: 'Emotions', words: ['happy', 'angry', 'nervous', 'jealous', 'proud', 'embarrassed', 'bored', 'excited', 'lonely', 'worried', 'surprised', 'scared', 'disappointed', 'relaxed'] },
-    { g: 'Vocabulary', icon: '🏠', color: '#c9de3c', y: [0], title: 'Home', words: ['a sofa', 'a fridge', 'a wardrobe', 'a bathtub', 'a mirror', 'a carpet', 'a lamp', 'a shelf', 'a microwave', 'a staircase', 'a balcony', 'a curtain', 'a pillow', 'a cupboard'] },
-    { g: 'Vocabulary', icon: '🍕', color: '#3aa04a', y: [1], title: 'Food', words: ['a pizza', 'a sandwich', 'spaghetti', 'a salad', 'ice cream', 'a hamburger', 'cheese', 'a cookie', 'soup', 'an egg', 'rice', 'a banana', 'chocolate', 'pancakes'] },
-    { g: 'Vocabulary', icon: '🌍', color: '#4aa8ec', y: [0], title: 'Countries & places', words: ['Italy', 'Spain', 'Japan', 'Egypt', 'Brazil', 'Canada', 'Australia', 'London', 'New York', 'a hospital', 'a library', 'a museum', 'a bakery', 'a bank', 'a park'] },
+    { g: 'Vocabulary', icon: '👩‍🔧', color: '#e8820c', title: 'Jobs', words: ['a vet', 'a mechanic', 'a teacher', 'a chef', 'a pilot', 'a firefighter', 'a hairdresser', 'a nurse', 'a builder', 'a police officer', 'a farmer', 'a journalist', 'a baker', 'an artist', 'a doctor', 'a dentist', 'a waiter', 'an engineer'] },
+    { g: 'Vocabulary', icon: '🐾', color: '#8fb82e', title: 'Animals', words: ['a hedgehog', 'a flamingo', 'a seahorse', 'an octopus', 'a rhino', 'a squirrel', 'a penguin', 'a giraffe', 'a bat', 'a snail', 'a goat', 'a duck', 'a shark', 'a butterfly', 'a camel', 'a kangaroo'] },
+    { g: 'Vocabulary', icon: '👕', color: '#dc3394', title: 'Clothes', words: ['a sweater', 'a scarf', 'boots', 'a jacket', 'a skirt', 'a hat', 'sneakers', 'a dress', 'jeans', 'a belt', 'gloves', 'a raincoat', 'pajamas', 'a tie', 'a backpack'] },
+    { g: 'Vocabulary', icon: '⚽', color: '#f06054', title: 'Sports & hobbies', words: ['volleyball', 'swimming', 'skiing', 'dancing', 'chess', 'painting', 'cooking', 'cycling', 'basketball', 'gymnastics', 'reading', 'photography', 'karate', 'surfing', 'knitting', 'gaming'] },
+    { g: 'Vocabulary', icon: '😀', color: '#de3796', title: 'Emotions', words: ['happy', 'angry', 'nervous', 'jealous', 'proud', 'embarrassed', 'bored', 'excited', 'lonely', 'worried', 'surprised', 'scared', 'disappointed', 'relaxed'] },
+    { g: 'Vocabulary', icon: '🏠', color: '#c9de3c', title: 'Home', words: ['a sofa', 'a fridge', 'a wardrobe', 'a bathtub', 'a mirror', 'a carpet', 'a lamp', 'a shelf', 'a microwave', 'a staircase', 'a balcony', 'a curtain', 'a pillow', 'a cupboard'] },
+    { g: 'Vocabulary', icon: '🍕', color: '#3aa04a', title: 'Food', words: ['a pizza', 'a sandwich', 'spaghetti', 'a salad', 'ice cream', 'a hamburger', 'cheese', 'a cookie', 'soup', 'an egg', 'rice', 'a banana', 'chocolate', 'pancakes'] },
+    { g: 'Vocabulary', icon: '🌍', color: '#4aa8ec', title: 'Countries & places', words: ['Italy', 'Spain', 'Japan', 'Egypt', 'Brazil', 'Canada', 'Australia', 'London', 'New York', 'a hospital', 'a library', 'a museum', 'a bakery', 'a bank', 'a park'] },
   ];
 
   function hotGame() {
@@ -394,7 +390,7 @@
     const setup = () => {
       openGame('🔥 Hot seat', { scored: true, onBack: menu });
       const section = g => `<p class="tg-label">${g === 'Literature' ? '📖 Literature in the book' : '🔤 Vocabulary'}</p>
-        <div class="tg-decks">${HOT.map((t, i) => t.g === g ? `<button type="button" class="tg-deck${chosen.has(i) ? ' on' : ''}" data-h="${i}" style="--c:${t.color}"><span>${t.icon}</span>${esc(t.title)}${dots(t.y)}<small>${t.words.length} words</small></button>` : '').join('')}</div>`;
+        <div class="tg-decks">${HOT.map((t, i) => t.g === g ? `<button type="button" class="tg-deck${chosen.has(i) ? ' on' : ''}" data-h="${i}" style="--c:${t.color}"><span>${t.icon}</span>${esc(t.title)}<small>${t.words.length} words</small></button>` : '').join('')}</div>`;
       area.innerHTML = `<div class="tg-card">
         <p class="tg-intro">One pupil sits on the <b>hot seat</b>, <b>with their back to the board</b>. The board shows a word: the class explains it <b>without saying it</b> (no translating, no spelling). The pupil guesses!</p>
         ${section('Literature')}${section('Vocabulary')}
@@ -450,28 +446,97 @@
     setup();
   }
 
+  /* ---------- 🏀 paper basket: write on a slip of paper, crumple it, shoot! (data: basket-data.js) ---------- */
+  function basketGame() {
+    score.a = score.b = 0;
+    const SETS = window.BASKET_SETS || [];
+    const KINDS = ['Paradigms', 'Words IT → EN', 'Words EN → IT', 'Phrases IT → EN'];
+    const start = () => {
+      openGame('🏀 Paper basket', { onBack: menu });
+      const chosen = new Set();
+      const kinds = [...new Set(SETS.map(s => s.kind))].sort((a, b) => KINDS.indexOf(a) - KINDS.indexOf(b));
+      area.innerHTML = `<div class="tg-card">
+        <p class="tg-intro">The board shows a question. <b>Every pupil writes the answer on a slip of paper</b>, crumples it and <b>shoots it into the basket</b> (a bin, a box…) before the time is over! Check the papers with the answer, then give a point to the team.</p>
+        <p class="tg-label">Choose a set <small>(or more than one: they get mixed)</small></p>
+        ${kinds.map(k => `<p class="tg-label">${esc(k)}</p><div class="tg-decks">${SETS.filter(s => s.kind === k).map(s => `<button type="button" class="tg-deck" data-d="${s.id}" style="--c:${s.color}"><span>${s.icon}</span>${esc(s.title)}<small>${s.items.length} cards · ${s.secs} s</small></button>`).join('')}</div>`).join('')}
+        <div class="tg-row"><button type="button" class="tg-btn" id="tgDeckGo" disabled>Choose a set first</button></div></div>`;
+      const go = $('tgDeckGo');
+      area.onclick = e => {
+        const b = e.target.closest('.tg-deck');
+        if (b) {
+          const id = b.dataset.d;
+          chosen.has(id) ? chosen.delete(id) : chosen.add(id);
+          b.classList.toggle('on', chosen.has(id));
+          go.disabled = !chosen.size;
+          go.textContent = chosen.size ? `▶ Play (${chosen.size} set${chosen.size > 1 ? 's' : ''})` : 'Choose a set first';
+        } else if (e.target === go && chosen.size) play(SETS.filter(s => chosen.has(s.id)));
+      };
+    };
+    const play = sets => {
+      openGame('🏀 Paper basket', { scored: true, onBack: start });
+      const cards = sets.flatMap(s => s.items.map(([q, a, pill, fam]) => ({ q, a, pill, fam, s })));
+      const nextCard = bag(cards);
+      let r, left = 0, timer = null;
+      cleanup = () => { clearInterval(timer); timer = null; };
+      const next = () => {
+        const c = nextCard();
+        r = { c, state: 'write', show: false, point: false };
+        left = c.s.secs;
+        clearInterval(timer); timer = setInterval(tick, 1000);
+        paint();
+      };
+      const tick = () => {
+        left--;
+        if (left <= 0) { left = 0; clearInterval(timer); timer = null; r.state = 'shoot'; beep(); }
+        paint();
+      };
+      const paint = () => {
+        const c = r.c, writing = r.state === 'write';
+        area.innerHTML = `<div class="tg-round">
+          <p class="tg-deckname" style="--c:${c.s.color}">${c.s.icon} ${esc(c.pill || c.s.hint)}</p>
+          <p class="tg-prompt${c.q.length > 28 ? ' long' : ''}">${esc(c.q)}</p>
+          <p class="tg-clock sm${writing && left <= 5 ? ' hot' : ''}${r.state === 'shoot' ? ' over' : ''}">${writing ? left : '🏀 Shoot!'}</p>
+          <p class="tg-help">${writing ? '✍️ Write the answer on your paper…' : 'Paper down, crumple it and shoot it into the basket!'}${writing && c.fam && left <= 8 ? `<br><b>${esc(c.fam)}</b>` : ''}</p>
+          <p class="tg-answer">${r.show ? '💡 ' + esc(c.a) : '<button type="button" class="tg-link" data-act="show">💡 Show the answer</button>'}</p>
+          ${pointButtons(r.point)}
+          <div class="tg-row"><button type="button" class="tg-btn alt" data-act="skip">⏭ Skip</button><button type="button" class="tg-btn go" data-act="next">Next question ▶</button></div>
+          <p class="tg-foot"><button type="button" class="tg-link" data-act="reset">↺ new game (scores to 0)</button></p></div>`;
+      };
+      area.onclick = e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.t) { givePoint(b.dataset.t, r); paint(); }
+        else if (b.dataset.act === 'show') { r.show = true; clearInterval(timer); timer = null; if (r.state === 'write') r.state = 'shoot'; paint(); }
+        else if (b.dataset.act === 'next' || b.dataset.act === 'skip') next();
+        else if (b.dataset.act === 'reset') { score.a = score.b = 0; paintScore(); next(); }
+      };
+      next();
+    };
+    start();
+  }
+
   /* ---------- the tiles: they are in the "For the teacher" part of the home page (script.js renderHome), before the guided meditations ---------- */
   const ENTRIES = [
-    { icon: '🔥', get y() { return yearsOf(HOT); }, title: 'Hot seat', color: '#d6334f', text: 'A pupil guesses the word the class explains: literature of the book and vocabulary, you choose the topics.', run: hotGame },
-    { icon: '🚩', get y() { return [...yearsOf(DECKS), 2]; }, title: 'Flag game', color: '#f05f4b', text: 'Bandierina: two teams, a number, a card on the board. Pronouns, to be, verbs, jobs…', run: flagGame },
-    { icon: '🅰️', get y() { return yearsOf(DECKS); }, title: 'Four corners', color: '#3aa04a', text: 'A question and A-B-C-D: the class walks to the right corner of the room.', run: cornersGame },
-    { icon: '👋', get y() { return yearsOf(DECKS); }, title: 'Slap the word', color: '#4aa8ec', text: 'Six words on the board, two players: slap the right one first!', run: slapGame },
-    { icon: '⏱', get y() { return [0, 1, 2]; }, title: 'Beat the clock', color: '#f9b11a', text: 'A topic and 30 seconds: how many words can your team say?', run: clockGame },
-    { icon: '🧰', get y() { return [0, 1, 2]; }, title: 'Class tools', color: '#1f2a6b', text: 'Who goes next? · groups · timer · scoreboard.', run: toolsGame },
-    { icon: '🏁', get y() { return [0, 1, 2]; }, title: 'Grammar Race', color: '#8e2de2', text: 'Timed race for the whole class: needs the pupils’ own devices.', run: () => window.GRAMMAR_RACE?.open?.() },
+    { icon: '🔥', title: 'Hot seat', color: '#d6334f', text: 'A pupil guesses the word the class explains: literature of the book and vocabulary, you choose the topics.', run: hotGame },
+    { icon: '🚩', title: 'Flag game', color: '#f05f4b', text: 'Bandierina: two teams, a number, a card on the board. Pronouns, to be, verbs, jobs…', run: flagGame },
+    { icon: '🏀', title: 'Paper basket', color: '#8e2de2', text: 'The class writes the answer on a paper, crumples it and shoots: verb paradigms, words and phrases to translate, at every level.', run: basketGame },
+    { icon: '🅰️', title: 'Four corners', color: '#3aa04a', text: 'A question and A-B-C-D: the class walks to the right corner of the room.', run: cornersGame },
+    { icon: '👋', title: 'Slap the word', color: '#4aa8ec', text: 'Six words on the board, two players: slap the right one first!', run: slapGame },
+    { icon: '⏱', title: 'Beat the clock', color: '#f9b11a', text: 'A topic and 30 seconds: how many words can your team say?', run: clockGame },
+    { icon: '🧰', title: 'Class tools', color: '#1f2a6b', text: 'Who goes next? · groups · timer · scoreboard.', run: toolsGame },
+    { icon: '🏁', title: 'Grammar Race', color: '#8e2de2', text: 'Timed race for the whole class: needs the pupils’ own devices.', run: () => window.GRAMMAR_RACE?.open?.() },
   ];
   function menu() {
     stop();
     close();
   }
   // HTML of the tiles for the home page: a small heading, the games, a heading for the materials that follow
-  const tiles = () => `<h4 class="tg-sub">🎮 Games for the teacher <small>whiteboard (LIM) or phone · no pupil devices needed</small><small class="tg-legend">${YEARS.map(([n, c]) => `<i style="background:${c}"></i>${n} year`).join(' ')}</small></h4>
-    <div class="tg-pills">${ENTRIES.map((g, i) => `<button type="button" class="tg-tile" data-i="${i}" style="--c:${g.color}" title="${esc(g.text.replace(/&amp;/g, '&'))}">${g.icon} ${esc(g.title)}${dots(g.y)}</button>`).join('')}</div>
+  const tiles = () => `<h4 class="tg-sub">🎮 Games for the teacher <small>whiteboard (LIM) or phone · no pupil devices needed</small></h4>
+    <div class="tg-pills">${ENTRIES.map((g, i) => `<button type="button" class="tg-tile" data-i="${i}" style="--c:${g.color}" title="${esc(g.text.replace(/&amp;/g, '&'))}">${g.icon} ${esc(g.title)}</button>`).join('')}</div>
     <h4 class="tg-sub">📄 Materials</h4>`;
   // the entry of the index on the left: a folder with the games inside
   const toc = open => `<details class="toc-ch" data-ch="Games for the teacher" style="--c:#d6334f"${open ? ' open' : ''}>
     <summary><i class="toc-dot"></i><span>Games for the teacher</span><small>${ENTRIES.length}</small></summary>
-    <ul>${ENTRIES.map((g, i) => `<li><a href="#" data-tg="${i}"><b>${g.icon}</b><span>${esc(g.title)}</span>${dots(g.y)}</a></li>`).join('')}</ul></details>`;
+    <ul>${ENTRIES.map((g, i) => `<li><a href="#" data-tg="${i}"><b>${g.icon}</b><span>${esc(g.title)}</span></a></li>`).join('')}</ul></details>`;
   document.addEventListener('click', e => {
     const l = e.target.closest('a[data-tg]');
     if (l) { e.preventDefault(); ENTRIES[+l.dataset.tg]?.run(); return; }

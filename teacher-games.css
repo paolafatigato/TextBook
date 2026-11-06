@@ -131,12 +131,3 @@
 /* the "Games" entry of the index on the left */
 .toc-games { display: block; margin: 0 0 8px; padding: 10px 14px; border-radius: 14px; font: 700 16px 'Fredoka', 'Nunito', sans-serif; color: #d6334f; text-decoration: none; }
 .toc-games:hover { background: #fde8ec; }
-
-/* dots of the school years: coral 1st, green 2nd, blue 3rd */
-.tg-dots { display: inline-flex; gap: 3px; margin-left: 2px; vertical-align: middle; }
-.tg-dots i, .tg-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
-.tg-legend { margin-left: 14px; }
-.tg-legend i { margin: 0 3px 0 8px; vertical-align: -1px; }
-.tg-deck .tg-dots { margin: 2px 0 0; }
-.tg-tile:hover .tg-dots i { box-shadow: 0 0 0 2px #fff; }
-.toc-ch a .tg-dots { flex: none; margin-left: auto; }
