@@ -1838,7 +1838,9 @@ function renderHome() {
   // one block per school year (and the teacher's materials): a heading, then its chapters
   document.getElementById('chapterGrid').innerHTML = PARTS.map(part => {
     const cards = part.chapters.map(chapterCard).join('');
-    return cards.trim() ? `<h3 class="part-h${part.teacher ? ' teacher' : ''}">${esc(part.title)}</h3>${cards}` : '';
+    // "Games for the teacher" (teacher-games.js) come first in the teacher's part, before the guided meditations
+    const games = part.title === 'For the teacher' && isTeacher() && window.TEACHER_GAMES ? window.TEACHER_GAMES.tiles() : '';
+    return (cards + games).trim() ? `<h3 class="part-h${part.teacher ? ' teacher' : ''}">${esc(part.title)}</h3>${games}${cards}` : '';
   }).join('');
 
   renderTopics();

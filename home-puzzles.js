@@ -21,8 +21,12 @@ window.addEventListener('load', () => {
       ['🔔 Rhyme or not?', 'af-beasts', () => window.ORWELL_GAMES?.open('rhymeyn')],
       ['🃏 Rhyme match', 'af-anthem', () => window.ORWELL_GAMES?.open('rhymematch')],
       ['🎼 Anthem puzzle', 'af-beasts', () => window.ORWELL_GAMES?.open('verses')],
+      ['🐷 Animal Farm Cards', 'af-rules', openFarmCards],
     ] },
   ];
+  // Animal Farm Cards (folder farm-cards/): the card game vs Robo, in a new browser tab
+  function openFarmCards() { window.open('farm-cards/index.html', '_blank'); }
+  openFarmCards.direct = true; // opens at once on the click (a tab opened later would be blocked by the browser)
   pills.forEach(({ title, color, games }) => {
     const pill = document.createElement('details');
     pill.className = 'game-topic';
@@ -37,6 +41,7 @@ window.addEventListener('load', () => {
       a.addEventListener('click', e => {
         e.preventDefault();
         pill.open = false;
+        if (run.direct) { run(); return; }
         if (location.hash === a.getAttribute('href')) { run(); return; }
         document.addEventListener('spreadchange', run, { once: true });
         location.hash = a.getAttribute('href');

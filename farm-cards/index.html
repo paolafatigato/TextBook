@@ -6,7 +6,7 @@
   <title>Animal Farm Cards</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Nunito:wght@400;600;700;800&family=Caveat:wght@500;700&family=Special+Elite&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%90%B7%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -16,7 +16,7 @@
   <section id="lobby" class="screen active">
     <div class="lobby-box">
       <h1 class="logo">Animal Farm<span>Cards</span></h1>
-      <p class="tagline">16 characters. 8 cards each. One farm.</p>
+      <p class="tagline">Grow grain. Buy friends. Take the farm.</p>
       <button class="btn btn-gold" data-action="start">Play vs Robo</button>
       <button class="btn" data-action="rules">Read the rules</button>
       <button class="btn btn-ghost" data-action="gallery">See all 16 cards</button>
@@ -38,6 +38,7 @@
       <div class="board" id="board">
         <div id="oppBar" class="player-bar opp"></div>
         <div id="oppField" class="field opp-field"></div>
+        <div class="market-wrap"><div class="market-title">The Market <small>buy one card per turn</small></div><div id="market" class="market"></div></div>
         <div class="center-bar">
           <div id="prompt" class="prompt"></div>
           <button id="cancelBtn" class="btn btn-small" data-action="cancelPick" hidden>Cancel</button>
@@ -45,7 +46,6 @@
         </div>
         <div id="myField" class="field my-field"></div>
         <div id="myBar" class="player-bar me"></div>
-        <div id="myHand" class="hand"></div>
       </div>
       <aside class="side">
         <div id="preview" class="preview"></div>
