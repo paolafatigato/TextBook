@@ -1896,7 +1896,8 @@ function renderToc() {
     <div class="toc-head">
       <span class="toc-title">Index</span>
       <button type="button" class="toc-close" aria-label="Close the index" title="Close">✕</button>
-    </div>`
+    </div>
+    <a class="toc-games" href="#home" data-goto="gamesHead">🎮 Games</a>`
     + PARTS.map((part, pi) => {
       const chapters = part.chapters.map(ch => {
         const inside = ch.items.filter(canSee);
@@ -1916,14 +1917,16 @@ function renderToc() {
           }).join('')}</ul>
         </details>`;
       }).join('');
-      if (!chapters.trim()) return '';
+      // "Games for the teacher" (teacher-games.js): the first entry of the teacher's part
+      const games = part.title === 'For the teacher' && isTeacher() && window.TEACHER_GAMES ? window.TEACHER_GAMES.toc(tocChaptersOpen.has('Games for the teacher')) : '';
+      if (!(games + chapters).trim()) return '';
       const color = part.teacher ? '#1f2a6b' : YEAR_COLORS[pi % YEAR_COLORS.length];
       const badge = part.badge || (part.teacher ? '🔒' : pi + 1);
       const [title, sub] = part.title.split(' · ');
       return `
       <details class="toc-year${part.teacher ? ' teacher' : ''}" data-year="${esc(part.title)}" style="--y:${color}"${tocYearsClosed.has(part.title) ? '' : ' open'}>
         <summary><b class="toc-badge">${badge}</b><span>${esc(title)}${sub ? `<small>${esc(sub)}</small>` : ''}</span></summary>
-        <div class="toc-chs">${chapters}</div>
+        <div class="toc-chs">${games}${chapters}</div>
       </details>`;
     }).join('');
   markToc();
@@ -1931,10 +1934,25 @@ function renderToc() {
 
 // on the home page, a click on a chapter in the index also scrolls to its card
 toc.addEventListener('click', e => {
+  const go = e.target.closest('[data-goto]'); // "Games": back to the home page and down to the games
+  if (go) {
+    e.preventDefault();
+    if (home.hidden) location.hash = '#home';
+    setTimeout(() => document.getElementById(go.dataset.goto)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), home.hidden ? 120 : 0);
+    return;
+  }
+  // a year (1st year, For the teacher…): the home page scrolls to its heading
+  const yearSum = e.target.closest('.toc-year > summary');
+  if (yearSum && !home.hidden) {
+    const t = yearSum.parentElement.dataset.year;
+    [...document.querySelectorAll('#chapterGrid .part-h')].find(h => h.textContent.trim() === t)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
   const sum = e.target.closest('.toc-ch > summary');
   if (!sum || home.hidden) return; // only on the home page
   const title = sum.parentElement.dataset.ch;
-  const card = [...document.querySelectorAll('#chapterGrid .chapter[data-ch]')].find(a => a.dataset.ch === title);
+  // "Games for the teacher" is not a card: it scrolls to its pills
+  const card = title === 'Games for the teacher' ? document.querySelector('#chapterGrid .tg-sub') : [...document.querySelectorAll('#chapterGrid .chapter[data-ch]')].find(a => a.dataset.ch === title);
   if (!card) return;
   card.scrollIntoView({ behavior: 'smooth', block: 'start' });
   card.classList.remove('flash');
