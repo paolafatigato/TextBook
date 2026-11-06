@@ -1,0 +1,259 @@
+/* ============================================================
+   PRESENT SIMPLE chapter — graphic polish + extra practice
+   Spreads: ps-affirmative, ps-negative, ps-extra-spelling, ps-extra-reading,
+            ps-conversation-game, ps-practice.
+   Everything is scoped to .ps-page (a class on the <section>s of this chapter),
+   so nothing leaks into the other chapters. The palette is the book's own:
+   lilac #c97df6 · purple #8e2de2 · lime #dfee6a / #c9de3c · coral #fa6e5f.
+   ============================================================ */
+
+.ps-page {
+  --psx-lilac: #c97df6;
+  --psx-purple: #8e2de2;
+  --psx-soft: #f7effd;
+  --psx-lime: #dfee6a;
+  --psx-lime-dk: #c9de3c;
+  --psx-coral: #fa6e5f;
+  --psx-ink: #3a2a4d;
+}
+
+/* ---------- exercise pills: the number becomes a little badge ---------- */
+.ps-page .lt-pill {
+  display: inline-flex; align-items: center; gap: .9cqw;
+  padding: .42cqw 1.6cqw .42cqw .45cqw;
+  background: #f3e6fd; color: #7a35c4; font-weight: 800;
+  box-shadow: 0 .3cqw 0 rgba(142, 45, 226, .10);
+}
+.ps-page .lt-pill b {
+  display: inline-grid; place-items: center; margin: 0;
+  min-width: 3.2cqw; height: 2.6cqw; padding: 0 .9cqw; border-radius: 999px;
+  background: var(--psx-purple); color: #fff; font: 800 1.2cqw/1 'Nunito', sans-serif;
+}
+.ps-page .lt-pill.lime-num b { background: var(--psx-lime-dk); color: #38470a; }
+.ps-page .lt-pill.coral-num b { background: var(--psx-coral); color: #fff; }
+.ps-page .lt-pill.white { background: #fff; }
+
+/* ---------- grammar tables: rounded cards with a soft shadow ---------- */
+.ps-page .ps-card {
+  border-radius: 1.6cqw; overflow: hidden;
+  box-shadow: 0 .8cqw 2cqw rgba(142, 45, 226, .16), 0 0 0 .18cqw rgba(201, 125, 246, .25);
+}
+.ps-page .ps-card h3 { font-size: 2.7cqw; padding: 1.15cqw 1.8cqw; border-left-width: 1.4cqw; }
+.ps-page .ps-card table { font-size: 1.5cqw; }
+.ps-page .ps-card th { background: linear-gradient(90deg, #cf9af4, #c27af0); letter-spacing: .02em; }
+.ps-page .ps-card td { padding: .45cqw 1.6cqw; }
+.ps-page .ps-card tbody tr:not(.hl3):not(.hl-purple):not(.hl-coral):nth-child(even) { background: #faf5fe; }
+.ps-page .ps-card tr.hl3 td:first-child { font-weight: 800; }
+.ps-page .ps-card tr.hl3 { background: linear-gradient(90deg, #e6f27f, #dfee6a); }
+.ps-page .ps-card tr.hl-purple { background: linear-gradient(90deg, #8e2de2, #a447ec); }
+.ps-page .ps-card tr.hl-coral { background: linear-gradient(90deg, #fa6e5f, #fb8576); }
+
+/* ---------- the pale block behind the title: a dotted texture ---------- */
+.ps-page .ps-block {
+  background:
+    radial-gradient(circle, #e3cbf8 .22cqw, transparent .3cqw) 0 0 / 2.4cqw 2.4cqw,
+    #f7effd;
+  border-radius: 0 0 2.4cqw 0;
+}
+.ps-spark { position: absolute; z-index: 3; pointer-events: none; font-family: 'Fredoka', 'Nunito', sans-serif; line-height: 1; }
+.ps-spark.lime { color: var(--psx-lime-dk); }
+.ps-spark.purple { color: var(--psx-purple); }
+.ps-spark.coral { color: var(--psx-coral); }
+.ps-spark.lilac { color: var(--psx-lilac); }
+.ps-dots { position: absolute; z-index: 1; pointer-events: none; opacity: .9;
+  background: radial-gradient(circle, currentColor .28cqw, transparent .36cqw) 0 0 / 1.9cqw 1.9cqw; }
+
+/* ---------- "tip" cards (remember!, spelling) ---------- */
+.psx-note {
+  z-index: 3; box-sizing: border-box; background: #fff; border-radius: 1.2cqw;
+  padding: 1.1cqw 1.6cqw 1.2cqw 2.2cqw; position: absolute;
+  font: 400 1.5cqw/1.35 'Nunito', sans-serif; color: var(--psx-ink);
+  box-shadow: 0 .5cqw 1.4cqw rgba(60, 30, 100, .10), inset 0 0 0 .16cqw rgba(201, 125, 246, .28);
+}
+.psx-note::before { content: ""; position: absolute; left: .7cqw; top: 1cqw; bottom: 1cqw; width: .6cqw; border-radius: 1cqw; background: var(--bar, var(--psx-lilac)); }
+.psx-note h5 { margin: 0 0 .45cqw; font: 700 1.9cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--bar, var(--psx-purple)); }
+.psx-note p { margin: 0; }
+.psx-note .ok, .psx-note .bad { display: inline-block; margin-right: 1.6cqw; font-weight: 700; }
+.psx-note .ok::before { content: "✓ "; color: #3f9b46; font-weight: 800; }
+.psx-note .bad::before { content: "✗ "; color: #e0483a; font-weight: 800; }
+.psx-note .bad { color: #8a7d97; text-decoration: line-through #e0483a .14cqw; }
+.psx-note b { color: var(--bar, var(--psx-purple)); }
+
+/* the four spelling chips under the Affirmative table */
+.psx-chips { position: absolute; z-index: 3; display: grid; grid-template-columns: 1fr 1fr; gap: .9cqw; }
+.psx-chips > div {
+  display: flex; flex-direction: column; justify-content: center; gap: .25cqw;
+  padding: .55cqw 1.1cqw; border-radius: 1.1cqw; background: #fff;
+  font: 600 1.3cqw/1.2 'Nunito', sans-serif; color: var(--psx-ink);
+  box-shadow: 0 .35cqw .9cqw rgba(60, 30, 100, .10);
+  border-top: .5cqw solid var(--c, var(--psx-lime-dk));
+}
+.psx-chips b { font: 700 1.7cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--c-dk, #6f8200); }
+.psx-chips i { font-style: normal; color: #7a6c8a; }
+
+/* ---------- adverbs of frequency: rounder chips, tidier rule box ---------- */
+.ps-page .chip.adv { background: #fff; box-shadow: inset 0 0 0 .18cqw #d9b4f7; color: #6a3aa5; font-weight: 700; }
+.ps-page .chip.adv:hover { background: #f1e3fc; }
+.ps-page .rule-46 { border-radius: 1.6cqw; background: #f6eefc; box-shadow: inset .9cqw 0 0 var(--psx-lime-dk); padding-left: 3.6cqw; }
+.ps-page .adv-title { color: var(--psx-purple); }
+
+/* the "When to use it" word gets a lime underline */
+.ps-page .ps-when { text-decoration: underline; text-decoration-color: var(--psx-lime); text-decoration-thickness: .9cqw; text-underline-offset: .3cqw; text-decoration-skip-ink: none; }
+
+/* ---------- practice spread ---------- */
+.ps-page.pr-page .pr-box { box-shadow: 0 .6cqw 1.8cqw rgba(142, 45, 226, .12); }
+.ps-page.pr-page .pr-box h4 { padding-bottom: 1cqw; border-bottom: .22cqw dotted #e2c8f8; }
+
+/* ============================================================
+   EXTRA PRACTICE spreads (ps-extra-spelling / ps-extra-reading)
+   ============================================================ */
+.psx-bg-lime { background: var(--psx-lime); z-index: 0; }
+.psx-title { margin: 0; font: 700 5.6cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--psx-purple); letter-spacing: -.01em; z-index: 3; }
+.psx-title em { font-style: normal; color: var(--psx-lilac); }
+.psx-sub { margin: 0; font: 400 1.9cqw/1.3 'Nunito', sans-serif; color: #7a6c8a; z-index: 3; }
+.psx-tag { z-index: 3; font: 800 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .08em; color: var(--psx-purple); background: #fff; padding: .7cqw 1.6cqw; border-radius: 999px; }
+.psx-swash { z-index: 2; height: 1.8cqw; border-radius: 999px; background: var(--psx-lime); transform: rotate(-1.2deg); }
+
+/* the three spelling rule cards */
+.psx-rule {
+  position: absolute; z-index: 3; box-sizing: border-box; border-radius: 1.6cqw; overflow: hidden; background: #fff;
+  box-shadow: 0 .7cqw 1.8cqw rgba(60, 30, 100, .12);
+}
+.psx-rule .top { display: flex; align-items: baseline; justify-content: space-between; padding: 1.1cqw 1.5cqw .9cqw; background: var(--c); color: var(--ct, #fff); }
+.psx-rule .top b { font: 700 3.4cqw/1 'Fredoka', 'Nunito', sans-serif; }
+.psx-rule .top span { font: 800 1.1cqw/1.2 'Nunito', sans-serif; letter-spacing: .05em; text-transform: uppercase; text-align: right; opacity: .92; }
+.psx-rule ul { list-style: none; margin: 0; padding: 1cqw 1.5cqw 1.2cqw; font: 400 1.55cqw/1.6 'Nunito', sans-serif; color: var(--psx-ink); }
+.psx-rule li i { font-style: normal; color: #9a8cab; }
+.psx-rule li b { font-weight: 800; color: var(--c-dk, var(--c)); }
+.psx-rule .tip { margin: 0; padding: .7cqw 1.5cqw .9cqw; border-top: .16cqw dashed #e3d3f3; font: italic 400 1.2cqw/1.3 'Nunito', sans-serif; color: #8a7d97; }
+
+/* exercise lists */
+.psx-list { list-style: none; margin: 0; padding: 0; counter-reset: n; font: 400 1.7cqw/1.2 'Nunito', sans-serif; color: #333; }
+.psx-list > li { counter-increment: n; display: flex; align-items: flex-end; gap: .9cqw; min-height: 4.3cqw; padding-bottom: .15cqw; }
+.psx-list > li::before { content: counter(n) "."; flex: 0 0 2.4cqw; padding-bottom: .5cqw; font: 700 1.3cqw/1 'Nunito', sans-serif; color: #b48ad8; }
+.psx-list > li > span { white-space: nowrap; padding-bottom: .5cqw; }
+.psx-list > li > span.wrap { white-space: normal; flex: 1; line-height: 1.35; padding-bottom: .4cqw; }
+.psx-list input.fill { flex: 1; min-width: 5cqw; height: 2.8cqw; font-size: 1.8cqw; border-bottom: .14cqw solid #cbbfdc; }
+.psx-list input.fill.blank { flex: 0 0 8cqw; width: 8cqw; border-bottom: .16cqw solid #8a7d97; text-align: center; }
+.psx-list input.fill.wide { flex: 1 1 18cqw; }
+.psx-list > li.ok { box-shadow: inset 0 -.25cqw 0 #43a047; }
+.psx-list > li.no { box-shadow: inset 0 -.25cqw 0 #e53935; }
+.psx-list.two { display: grid; grid-template-columns: 1fr 1fr; column-gap: 3.2cqw; }
+.psx-list.tall > li { min-height: 5.1cqw; }
+.psx-list.stack > li { flex-wrap: wrap; row-gap: .1cqw; min-height: 8.6cqw; }
+.psx-list.stack > li > span.wrap { flex: 1 0 calc(100% - 3.3cqw); padding-bottom: 0; }
+.psx-list.stack > li > input.fill { flex: 1 0 calc(100% - 3.3cqw); margin-left: 3.3cqw; }
+
+/* a white card that holds an exercise */
+.psx-card {
+  position: absolute; z-index: 2; box-sizing: border-box; background: #fff; border-radius: 1.8cqw;
+  box-shadow: 0 .7cqw 1.9cqw rgba(60, 30, 100, .10), inset 0 0 0 .16cqw rgba(201, 125, 246, .28);
+  padding: 2.4cqw 2.4cqw 1.2cqw;
+}
+.psx-card.soft { background: var(--psx-soft); box-shadow: none; }
+.psx-card.bar::before { content: ""; position: absolute; left: 0; top: 2cqw; bottom: 2cqw; width: .9cqw; border-radius: 0 1cqw 1cqw 0; background: var(--bar, var(--psx-lilac)); }
+
+/* choose-the-spelling pills */
+.psx-pick { list-style: none; margin: 0; padding: 0; counter-reset: n; font: 400 1.6cqw/1.3 'Nunito', sans-serif; color: #333; }
+.psx-pick li { counter-increment: n; display: grid; grid-template-columns: 2.2cqw 1fr; align-items: center; row-gap: .5cqw; min-height: 6.2cqw; }
+.psx-pick li::before { content: counter(n) "."; font: 700 1.3cqw/1 'Nunito', sans-serif; color: #b48ad8; }
+.psx-pick li .opt { grid-column: 2; }
+.psx-pick .opt { display: inline-flex; gap: .6cqw; padding: .3cqw; border-radius: 999px; background: #f3e6fd; width: max-content; }
+.psx-pick .opt button { height: 2.5cqw; padding: 0 1.3cqw; border-radius: 999px; font: 700 1.45cqw/1 'Nunito', sans-serif; color: #7b3fc4; }
+.psx-pick .opt button:hover { background: #e7d0fa; }
+.psx-pick .opt button.on { background: var(--psx-purple); color: #fff; }
+
+/* true / false pills */
+.psx-tf { list-style: none; margin: 0; padding: 0; counter-reset: n; font: 400 1.6cqw/1.25 'Nunito', sans-serif; color: #333; }
+.psx-tf li { counter-increment: n; display: flex; align-items: center; gap: 1cqw; min-height: 4.4cqw; }
+.psx-tf li::before { content: counter(n) "."; flex: 0 0 2.2cqw; font: 700 1.3cqw/1 'Nunito', sans-serif; color: #b48ad8; }
+.psx-tf li > span:first-of-type { flex: 1; }
+.psx-tf .opt { display: inline-flex; gap: .5cqw; padding: .3cqw; border-radius: 999px; background: #f3e6fd; flex: 0 0 auto; }
+.psx-tf .opt button { width: 3.2cqw; height: 2.5cqw; padding: 0; border-radius: 999px; font: 800 1.4cqw/1 'Nunito', sans-serif; color: #7b3fc4; }
+.psx-tf .opt button:hover { background: #e7d0fa; }
+.psx-tf .opt button.on { background: var(--psx-purple); color: #fff; }
+
+/* reading card */
+.psx-read {
+  position: absolute; z-index: 3; box-sizing: border-box; border-radius: 2cqw; padding: 3.2cqw 3.4cqw 3cqw;
+  background: #fff; font: 400 1.75cqw/1.6 'Nunito', sans-serif; color: #3a2a4d;
+  box-shadow: 0 .9cqw 2.4cqw rgba(60, 30, 100, .14), inset 0 0 0 .2cqw rgba(201, 125, 246, .35);
+}
+.psx-read p { margin: 0; }
+.psx-read .who { display: flex; align-items: center; gap: 1.6cqw; margin-bottom: 1.4cqw; }
+.psx-read .who .av { flex: 0 0 7cqw; height: 7cqw; border-radius: 50%; display: grid; place-items: center; background: var(--psx-lime); color: var(--psx-purple); font: 700 4cqw/1 'Fredoka', sans-serif; box-shadow: 0 0 0 .7cqw #fff, 0 0 0 1cqw var(--psx-lilac); }
+.psx-read .who h3 { margin: 0; font: 700 3cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--psx-purple); }
+.psx-read .who small { display: block; margin-top: .5cqw; font: 700 1.2cqw/1 'Nunito', sans-serif; letter-spacing: .08em; color: #a58bc4; text-transform: uppercase; }
+.psx-read mark { background: linear-gradient(transparent 58%, #dfee6a 58%); color: inherit; padding: 0 .15cqw; }
+
+/* "find someone who" survey table */
+.psx-find { list-style: none; margin: 0; padding: 0; counter-reset: n; font: 400 1.6cqw/1.2 'Nunito', sans-serif; color: #333; }
+.psx-find li { counter-increment: n; display: grid; grid-template-columns: 2.6cqw 1fr 15cqw; align-items: end; column-gap: 1cqw; min-height: 4.7cqw; }
+.psx-find li::before { content: counter(n) "."; padding-bottom: .5cqw; font: 700 1.3cqw/1 'Nunito', sans-serif; color: #b48ad8; }
+.psx-find li > span { padding-bottom: .5cqw; }
+.psx-find li > span em { font-style: normal; font-weight: 800; color: var(--psx-purple); }
+.psx-find input.fill { height: 2.8cqw; font-size: 1.8cqw; border-bottom: .14cqw dashed #cbbfdc; }
+.psx-find-head { display: grid; grid-template-columns: 2.6cqw 1fr 15cqw; column-gap: 1cqw; margin-bottom: .6cqw; font: 800 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .08em; color: #a58bc4; text-transform: uppercase; }
+.psx-find-head span:nth-child(2) { grid-column: 2; }
+
+/* question builder: cue → question, then the partner's answer */
+.psx-q { list-style: none; margin: 0; padding: 0; counter-reset: n; font: 400 1.6cqw/1.2 'Nunito', sans-serif; color: #333; }
+.psx-q li { counter-increment: n; display: grid; grid-template-columns: 2.4cqw 1fr; row-gap: .1cqw; padding: .5cqw 0 .8cqw; border-bottom: .12cqw dotted #e2d6ee; }
+.psx-q li::before { content: counter(n) "."; grid-row: 1 / span 2; font: 700 1.3cqw/1.5 'Nunito', sans-serif; color: #b48ad8; }
+.psx-q li > span { color: #7a6c8a; font-style: italic; }
+.psx-q input.fill { height: 2.6cqw; font-size: 1.75cqw; border-bottom: .14cqw solid #cbbfdc; }
+.psx-q input.fill.partner { font-size: 1.6cqw; border-bottom-style: dashed; color: #6a3aa5; }
+.psx-q li.ok { box-shadow: inset 0 -.25cqw 0 #43a047; }
+.psx-q li.no { box-shadow: inset 0 -.25cqw 0 #e53935; }
+
+/* about my friend: sentence starters */
+.psx-write { list-style: none; margin: 0; padding: 0; font: 400 1.6cqw/1.2 'Nunito', sans-serif; color: #333; }
+.psx-write li { display: flex; align-items: flex-end; gap: .8cqw; min-height: 4.6cqw; }
+.psx-write li > b { flex: 0 0 auto; padding-bottom: .5cqw; font: 800 1.5cqw/1 'Nunito', sans-serif; color: var(--psx-purple); white-space: nowrap; }
+.psx-write input.fill { flex: 1; height: 2.8cqw; font-size: 1.8cqw; border-bottom: .14cqw solid #cbbfdc; }
+
+/* ============================================================
+   CONVERSATION GAME — decoration only (the board itself is untouched)
+   Everything here sits on top of the white paper, never on a square,
+   and ignores the mouse, so the dice and the tokens keep working.
+   ============================================================ */
+.cg-deco { position: absolute; z-index: 1; pointer-events: none; }
+.cg-bubble {
+  position: absolute; z-index: 1; pointer-events: none; box-sizing: border-box;
+  padding: 1cqw 1.8cqw; border-radius: 2.4cqw; font: 700 1.9cqw/1.15 'Fredoka', 'Nunito', sans-serif;
+  color: #3a2a4d; background: #efdcfb; box-shadow: 0 .5cqw 1.2cqw rgba(60, 30, 100, .12);
+}
+.cg-bubble::after { content: ""; position: absolute; bottom: -1.2cqw; left: 3cqw; border: 1.1cqw solid transparent; border-top-color: inherit; border-bottom: 0; border-left-width: .4cqw; border-right-width: 1.6cqw; }
+.cg-bubble.lime { background: var(--psx-lime, #dfee6a); border-top-color: var(--psx-lime, #dfee6a); }
+.cg-bubble.lilac { background: #efdcfb; border-top-color: #efdcfb; }
+.cg-bubble.coral { background: #fdd3cc; border-top-color: #fdd3cc; }
+.cg-bubble.right::after { left: auto; right: 3cqw; border-left-width: 1.6cqw; border-right-width: .4cqw; }
+.cg-star { position: absolute; z-index: 1; pointer-events: none; font-family: 'Fredoka', 'Nunito', sans-serif; line-height: 1; }
+.cg-tag {
+  position: absolute; z-index: 1; pointer-events: none; padding: .8cqw 1.8cqw; border-radius: 999px;
+  font: 700 1.9cqw/1 'Fredoka', 'Nunito', sans-serif; background: #8e2de2; color: #fff;
+  box-shadow: 0 .5cqw 1.2cqw rgba(142, 45, 226, .3);
+}
+.cg-die { position: absolute; z-index: 1; pointer-events: none; width: 8cqw; height: 8cqw; border-radius: 1.8cqw; background: #fff; transform: rotate(-12deg);
+  box-shadow: 0 .6cqw 1.4cqw rgba(60, 30, 100, .22), inset 0 0 0 .3cqw #8e2de2; }
+.cg-die i { position: absolute; width: 1.5cqw; height: 1.5cqw; border-radius: 50%; background: #8e2de2; }
+.cg-die i:nth-child(1) { left: 1.4cqw; top: 1.4cqw; } .cg-die i:nth-child(2) { right: 1.4cqw; top: 1.4cqw; }
+.cg-die i:nth-child(3) { left: 3.25cqw; top: 3.25cqw; background: #fa6e5f; }
+.cg-die i:nth-child(4) { left: 1.4cqw; bottom: 1.4cqw; } .cg-die i:nth-child(5) { right: 1.4cqw; bottom: 1.4cqw; }
+.cg-die.three { width: 6cqw; height: 6cqw; border-radius: 1.4cqw; transform: rotate(14deg); box-shadow: 0 .6cqw 1.4cqw rgba(60, 30, 100, .22), inset 0 0 0 .3cqw #c9de3c; }
+.cg-die.three i { width: 1.2cqw; height: 1.2cqw; background: #c9de3c; }
+.cg-die.three i:nth-child(1) { left: .9cqw; top: .9cqw; } .cg-die.three i:nth-child(2) { left: 2.4cqw; top: 2.4cqw; right: auto; background: #8e2de2; } .cg-die.three i:nth-child(3) { right: .9cqw; bottom: .9cqw; left: auto; top: auto; }
+@media print { .cg-die, .cg-deco, .cg-bubble, .cg-star, .cg-tag { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+
+/* perfect day: four question cards in a row + hourly timeline */
+.psx-chips.four { grid-template-columns: repeat(4, 1fr); }
+.psx-chips.four > div { padding: .9cqw 1.2cqw 1cqw; }
+.psx-time { list-style: none; margin: 0; padding: 0 0 0 2.4cqw; position: absolute; z-index: 2; box-sizing: border-box; }
+.psx-time::before { content: ''; position: absolute; left: 6.1cqw; top: 1.5cqw; bottom: 1.5cqw; width: .3cqw; border-radius: 1cqw; background: #e3cbf8; }
+.psx-time li { position: relative; display: flex; align-items: flex-end; gap: 2.4cqw; height: 5.1cqw; }
+.psx-time li b { flex: 0 0 8.4cqw; align-self: center; margin-left: -1.6cqw; padding: .4cqw 0; border-radius: 999px; text-align: center; font: 800 1.35cqw/1 'Nunito', sans-serif; color: #fff; background: var(--psx-purple); position: relative; z-index: 1; }
+.psx-time li:nth-child(3n+2) b { background: var(--psx-lilac); }
+.psx-time li:nth-child(3n) b { background: var(--psx-lime-dk); color: #38470a; }
+.psx-time input.fill { flex: 1; height: 2.8cqw; margin-bottom: .5cqw; font-size: 1.8cqw; border-bottom: .14cqw solid #cbbfdc; }
+
+.psx-time.big li { height: 6cqw; }

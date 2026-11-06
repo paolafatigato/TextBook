@@ -201,3 +201,7 @@
 .tg-check .tg-btn { padding: 8px 20px; font-size: 18px; }
 .tg-check .ok { color: #1d9e75; font-weight: 800; } .tg-check .no { color: #d85a30; font-weight: 800; }
 .tg-wh-words { columns: 4 100px; text-align: center; }
+
+.tg-wh-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.tg-ph-arrow2 { flex: none; width: 52px; height: 52px; padding: 0 0 5px; border: 0; border-radius: 50%; background: #1f2a6b; color: #fff; font: 700 34px/1 'Fredoka', sans-serif; cursor: pointer; }
+.tg-ph-arrow2:hover { background: #f05f4b; }

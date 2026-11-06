@@ -25,6 +25,7 @@ const CONTENTS = {
         { title: 'Literature: Greek mythology', start: 'greek-gods', color: '#fe7366', image: 'img/hades-p34.png' },
         { title: 'Owners', start: 'own-adjectives', color: '#8fb82e', image: 'img/goat-p28.png' },
         { title: 'Present Simple', start: 'ps-affirmative', color: '#c97df6', image: 'img/game-p34.png', zoom: 1.8 },
+        { title: 'Daily routine', start: 'ps-routine-pictures', color: '#fa6e5f' },
         { title: 'Home', start: 'home-coraline', color: '#c9de3c', image: 'img/home/sofa.png' },
         {
           title: 'Literature: Alice',
@@ -90,6 +91,8 @@ const CONTENTS = {
         { title: 'Forehead game', start: 'jobcards-1', color: '#1f2a6b' },
         // the Grammar Poker deck: choose the cards, see them, print them (poker-deck.js)
         { title: 'Poker deck (Grammar Poker)', start: 'pokerdeck-1', color: '#8e2de2' },
+        // "find someone who…" bingo cards to print, one per page: Classroom (20), Holiday (12), Fashion show (4)
+        { title: 'Bingo (to print)', start: 'bingo-class-1', color: '#d1a07f' },
       ],
     },
     // Scaffolding and tests: two groups, each with one folder per school year, in the order of the book.
@@ -140,8 +143,11 @@ const CONTENTS = {
     { title: 'Animals: guess who (what am I?)', color: '#c9de3c', pages: ['own-animals-guess:L'] },
     { title: 'Animals: draw it from memory', color: '#c9de3c', pages: ['own-animals-guess:R'] },
     { title: '’s: is, has or possessive?', color: '#4aa8ec', pages: ['own-three-s'] },
-    { title: 'Present simple', color: '#c97df6', pages: [['ps-affirmative', 'ps-negative'], ['ps-practice', 'ps-routine-linking']] },
-    { title: 'Adverbs of frequency', color: '#8e2de2', pages: ['ps-affirmative:R', 'ps-routine-linking:L'] },
+    { title: 'Present simple', color: '#c97df6', pages: [['ps-affirmative', 'ps-extra-reading'], ['ps-practice', 'ps-routine-linking']] },
+    { title: 'Adverbs of frequency', color: '#8e2de2', pages: ['ps-affirmative:R', 'ps-extra-spelling:R', 'ps-routine-linking:L'] },
+    { title: 'Spelling: he / she / it + s, es, ies', color: '#c9de3c', pages: ['ps-extra-spelling:L'] },
+    { title: 'Reading: Auggie (Wonder) · true or false (extra practice)', color: '#8e2de2', pages: ['ps-extra-reading:L'] },
+    { title: 'My perfect day: timeline and writing', color: '#c9de3c', pages: ['ps-extra-reading:R'] },
     { title: 'Conversation game', color: '#fa6e5f', pages: ['ps-conversation-game'] },
     { title: 'Oral test: self-assessment', color: '#8e2de2', pages: ['ps-practice:R'] },
     { title: 'Daily routine: vocabulary & parts of the day', color: '#c97df6', pages: ['ps-routine-pictures'] },

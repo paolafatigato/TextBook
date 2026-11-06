@@ -560,7 +560,6 @@
       const p = PHOTOS[photo];
       area.innerHTML = '<div class="tg-ph"><div class="tg-ph-left">' +
         '<div class="tg-ph-pic"><img src="' + p.src + '" alt=""><button type="button" class="tg-ph-arrow prev" data-go="-1" aria-label="Previous photo">‹</button><button type="button" class="tg-ph-arrow next" data-go="1" aria-label="Next photo">›</button><span>' + (photo + 1) + ' / ' + PHOTOS.length + '</span></div>' +
-        '<div class="tg-ph-thumbs">' + PHOTOS.map((q, i) => '<button type="button" data-ph="' + i + '" class="' + (i === photo ? 'on' : '') + '"><img src="' + q.src + '" alt=""></button>').join('') + '</div>' +
         '<p class="tg-ph-task">Write as many words as you can about this photo!</p>' +
         '<p class="tg-help">Nouns, adjectives and <b>-ing</b> verbs, in the notebook. Every word you can see is worth <b>1 point</b>; the <b>bonus words</b> are worth 2 or 3.</p></div>' +
         '<div class="tg-ph-right"><div class="tg-ph-clock" id="tgPhClock"><div id="tgPhTime">5:00</div><div class="tg-ph-bar"><i id="tgPhBar"></i></div></div>' +
@@ -620,34 +619,24 @@
 
   function wheelGame() {
     score.a = score.b = 0;
-    let secs = 180;
-    const start = () => {
+    let secs = 180, idx = 0;
+    const play = () => {
+      const wh = WHEELS[idx];
       openGame('🎡 Word wheel', { scored: true, onBack: menu });
-      area.innerHTML = '<div class="tg-card"><p class="tg-intro">The board shows <b>letters in a circle</b>. In the time you have, each team writes <b>words of 3 letters or more</b>: every word must have the <b>middle letter</b>, and each letter can be used <b>once</b>. The team with <b>more real words</b> wins! Somewhere there is a long word with all the letters…</p>' +
-        '<p class="tg-label">Choose a wheel</p><div class="tg-decks">' +
-        WHEELS.map((w, i) => '<button type="button" class="tg-deck" data-w="' + i + '" style="--c:#12a4a4"><span>🎡</span>Wheel ' + (i + 1) + '<small>' + (w.ring.length + 1) + ' letters · middle: ' + w.mid + '</small></button>').join('') +
-        '</div><p class="tg-foot">Time <button type="button" data-s="120" class="' + (secs === 120 ? 'on' : '') + '">2 min</button><button type="button" data-s="180" class="' + (secs === 180 ? 'on' : '') + '">3 min</button><button type="button" data-s="300" class="' + (secs === 300 ? 'on' : '') + '">5 min</button></p></div>';
-      area.onclick = e => {
-        const b = e.target.closest('button'); if (!b) return;
-        if (b.dataset.s) { secs = +b.dataset.s; start(); } else if (b.dataset.w) play(WHEELS[+b.dataset.w]);
-      };
-    };
-    const play = wh => {
-      openGame('🎡 Word wheel', { scored: true, onBack: start });
       let left = secs, state = 'ready', timer = null, show = false, a = 0, b = 0, ring = shuffle(wh.ring.split('')), tilt = ring.map(() => Math.round((Math.random() - .5) * 40)), check = null;
       cleanup = () => { clearInterval(timer); timer = null; };
       const mmss = t => Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
       const wheel = () => {
         const n = ring.length;
-        return '<div class="tg-wh">' + ring.map((ch, i) => {
+        return '<div class="tg-wh-row"><button type="button" class="tg-ph-arrow2" data-go="-1" aria-label="Previous wheel">‹</button><div class="tg-wh">' + ring.map((ch, i) => {
           const t = i / n * 2 * Math.PI;
           return '<b style="left:' + (50 + 41 * Math.sin(t)).toFixed(1) + '%;top:' + (50 - 41 * Math.cos(t)).toFixed(1) + '%;transform:translate(-50%,-50%) rotate(' + tilt[i] + 'deg)">' + ch + '</b>';
-        }).join('') + '<b class="mid">' + wh.mid + '</b></div>';
+        }).join('') + '<b class="mid">' + wh.mid + '</b></div><button type="button" class="tg-ph-arrow2" data-go="1" aria-label="Next wheel">›</button></div><p class="tg-help">Wheel ' + (idx + 1) + ' / ' + WHEELS.length + '</p>';
       };
       const paint = () => {
         const clock = '<p class="tg-clock sm' + (state === 'run' && left <= 10 ? ' hot' : '') + (state === 'over' ? ' over' : '') + '">' + (state === 'over' ? 'Time!' : mmss(left)) + '</p>';
         let ctl = '';
-        if (state === 'ready') ctl = '<div class="tg-row"><button type="button" class="tg-btn go" data-act="go">▶ Start (' + mmss(secs) + ')</button><button type="button" class="tg-btn alt" data-act="shuffle">🔀 Shuffle the letters</button></div>';
+        if (state === 'ready') ctl = '<div class="tg-row"><button type="button" class="tg-btn go" data-act="go">▶ Start (' + mmss(secs) + ')</button><button type="button" class="tg-btn alt" data-act="shuffle">🔀 Shuffle the letters</button></div><p class="tg-foot">Time <button type="button" data-s="120" class="' + (secs === 120 ? 'on' : '') + '">2 min</button><button type="button" data-s="180" class="' + (secs === 180 ? 'on' : '') + '">3 min</button><button type="button" data-s="300" class="' + (secs === 300 ? 'on' : '') + '">5 min</button></p>';
         else if (state === 'run') ctl = '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="stop">■ Stop</button></div><p class="tg-help">Words of 3+ letters with the <b>middle letter</b>. Only real words count!</p>';
         else ctl = '<p class="tg-help">Check the papers: count only <b>real words</b> made with the letters.</p>' +
           '<div class="tg-count2"><div class="a"><b>Team A</b><p><button type="button" data-d="a-1">−</button><span>' + a + '</span><button type="button" data-d="a1">+1</button></p></div>' +
@@ -662,6 +651,8 @@
       area.onclick = e => {
         const t = e.target.closest('button'); if (!t || t.type === 'submit') return;
         const d = t.dataset;
+        if (d.go) { idx = (idx + +d.go + WHEELS.length) % WHEELS.length; play(); return; }
+        if (d.s) { secs = +d.s; play(); return; }
         if (d.act === 'go') { state = 'run'; left = secs; clearInterval(timer); timer = setInterval(tick, 1000); }
         else if (d.act === 'shuffle') { ring = shuffle(ring); tilt = ring.map(() => Math.round((Math.random() - .5) * 40)); }
         else if (d.act === 'stop') { clearInterval(timer); timer = null; state = 'over'; }
@@ -674,7 +665,7 @@
       };
       paint();
     };
-    start();
+    play();
   }
 
   /* ---------- 🔥 hot seat: topics of the book (literature) and of the vocabulary ---------- */
