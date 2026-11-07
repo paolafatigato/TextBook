@@ -81,10 +81,11 @@
 .pb-post .av { flex: none; width: 5.6cqw; height: 5.6cqw; border-radius: 50%; background: var(--pb-b); color: var(--pal-night); display: grid; place-items: center; font: 700 3cqw/1 'Fredoka', sans-serif; }
 .pb-post b { display: block; font: 800 1.5cqw/1.2 'Nunito', sans-serif; color: var(--pb-a); }
 .pb-post p { margin: .5cqw 0 0; font: 600 1.6cqw/1.45 'Nunito', sans-serif; color: var(--pb-ink); }
-.pb-poem { position: relative; background: var(--pb-c); border: .25cqw solid var(--pb-a); border-radius: .8cqw; padding: 2.8cqw 4cqw 1.8cqw; transform: rotate(-.9deg); box-shadow: .5cqw .7cqw 0 color-mix(in srgb, var(--pb-a) 22%, transparent); z-index: 3; box-sizing: border-box; }
+.pb-poem { position: relative; background: var(--pb-c); border: .25cqw solid var(--pb-a); border-radius: .8cqw; padding: 2.5cqw 4cqw 1.6cqw; transform: rotate(-.9deg); box-shadow: .5cqw .7cqw 0 color-mix(in srgb, var(--pb-a) 22%, transparent); z-index: 3; box-sizing: border-box; }
 .pb-poem::before { content: ""; position: absolute; left: 50%; top: -1.6cqw; width: 11cqw; height: 3cqw; margin-left: -5.5cqw; background: var(--pb-b); transform: rotate(2deg); opacity: .92; }
-.pb-poem h3 { margin: 0 0 .8cqw; font: 700 3cqw/1 'Fredoka', sans-serif; color: var(--pb-a); text-align: center; }
-.pb-poem p { margin: 0 0 1.2cqw; font: italic 700 1.62cqw/1.42 'Nunito', sans-serif; color: var(--pal-night); }
+.pb-poem h3 { margin: 0 0 .6cqw; font: 700 2.7cqw/1 'Fredoka', sans-serif; color: var(--pb-a); text-align: center; }
+.pb-poem p { margin: 0 0 1cqw; font: italic 700 1.45cqw/1.36 'Nunito', sans-serif; color: var(--pal-night); }
+.pb-poem p { text-align: center; }
 .pb-poem p:last-child { margin-bottom: 0; }
 .pb-note { background: var(--pb-soft-a); border-left: .9cqw solid var(--pb-a); border-radius: 0 1.4cqw 1.4cqw 0; padding: 1.5cqw 2.2cqw; font: 500 1.6cqw/1.5 'Nunito', sans-serif; color: var(--pb-ink); z-index: 3; }
 .pb-bubble { position: absolute; z-index: 4; margin: 0; background: var(--pb-c); color: var(--pb-a); border: .3cqw solid var(--pb-a); border-radius: 2.4cqw; padding: 1.1cqw 1.8cqw; font: 700 2.1cqw/1.1 'Fredoka', sans-serif; text-align: center; box-sizing: border-box; }
@@ -101,7 +102,12 @@
 .pb .pb-pop .cl img { clip-path: inset(calc(var(--by0) * 100%) calc((1 - var(--bx1)) * 100%) calc((1 - var(--by1)) * 100%) calc(var(--bx0) * 100%)); }
 .pb .pb-pop img.out { clip-path: inset(calc(var(--by0) * 100%) calc((1 - var(--bx1)) * 100%) calc((1 - var(--fy) - .12 / var(--z)) * 100%) calc(var(--bx0) * 100%)); }
 
-/* the poem in three columns (one stanza each) */
+/* small caption under the poem (the post it comes from) */
+.pb-cap { margin: 0; font: 500 1.2cqw/1.4 'Nunito', sans-serif; color: var(--pb-mute); }
+.pb-cap b { font-weight: 800; color: var(--pb-a); }
+.pb .letter-list.order.wide li > span:not(.ink) { flex: 0 0 47cqw; }
+
+/* (the poem used to be in three columns, one stanza each) */
 .pb-poem.three { padding: 2.2cqw 3cqw 1.6cqw; }
 .pb-poem.three h3 { margin-bottom: 1cqw; }
 .pb-poem.three .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4cqw; }
