@@ -708,6 +708,15 @@ input.fill.nb-num.no { background: #e53935; color: #fff; }
 
 /* ---------- PAGES 22–23: to be ---------- */
 .page.tb-page { background: #c97df6; }
+/* poem "They" + explanation + exercise instructions on the pronouns opener */
+.they-poem { background: #fff; border-radius: 1.6cqw; border: .2cqw solid #e3dcef; box-shadow: 0 .4cqw 1.4cqw rgba(60,0,90,.12); padding: 2cqw 3cqw 1.6cqw; z-index: 3; }
+.they-poem h3 { margin: 0 0 1.2cqw; font: 700 2.8cqw/1 'Fredoka', 'Nunito', sans-serif; text-align: center; color: #2b2b2b; }
+.they-poem p { margin: 0 0 1.5cqw; font: italic 600 1.65cqw/1.5 'Nunito', sans-serif; color: #333; }
+.they-poem p.src { margin: 1cqw 0 0; font: 500 1.2cqw/1.4 'Nunito', sans-serif; font-style: normal; color: #777; text-align: center; }
+.they-note { background: #e8f3fd; border-left: .8cqw solid #4aa8ec; border-radius: 0 1.2cqw 1.2cqw 0; padding: 1.6cqw 2.2cqw; font: 400 1.55cqw/1.5 'Nunito', sans-serif; color: #333; z-index: 3; }
+.they-note b.they { color: #e5533d; }
+.pr-instr { margin: 0; font: 700 1.6cqw/1.4 'Nunito', sans-serif; color: #2b2b2b; }
+.pr-instr .blue-badge { margin-right: 1cqw; vertical-align: middle; }
 .tb-card { background: #fff; padding: 2.2cqw 3.2cqw 2cqw; box-shadow: 0 .4cqw 1.2cqw rgba(60,0,90,.15); }
 .tb-card h3 {
   position: relative; margin: 0 0 1.6cqw; padding-left: 1.6cqw;

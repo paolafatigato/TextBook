@@ -1,0 +1,173 @@
+/* ---------- Pronouns & To Be: [tobe-intro, tobe-pronouns, tobe-verb, tobe-rules, tobe-test] ---------- */
+/* Look: a friendly, bold workbook (the references: the "They" post and poem, the deer who holds a skull, the cow who points at itself,
+   the pronoun doodles, the wave band of the old rules page).
+   The three colors of the chapter are deep blue (--pb-a), coral (--pb-b) and lemon (--pb-c);
+   everything else is white, cream, night/charcoal or a soft mix of the three.
+   Pieces that come back now and then, never on every page: the wave band, the sticker circle (a crop of the doodles),
+   the speech bubble, the post card of the opener, the colored am / is / are tiles, offset shadows on cards.
+   Small text is always blue, charcoal or "coral ink" (coral darkened with night): plain coral and lemon are only fills or big type.
+   White line drawings sit on blue or coral. Class prefix pb- (short names clash with style.css). */
+.pb {
+  --pb-a: var(--pal-blue);          /* deep blue: titles, outlines, buttons, dark pages */
+  --pb-b: var(--pal-coral);         /* coral: circles, bubbles, highlights */
+  --pb-c: var(--pal-lemon);         /* lemon: bands, stickers, notes */
+  --pb-b-ink: color-mix(in srgb, var(--pal-coral) 60%, var(--pal-night));
+  --pb-ink: var(--pal-charcoal);
+  --pb-mute: var(--pal-slate);
+  --pb-soft-a: color-mix(in srgb, var(--pal-blue) 9%, var(--pal-white));
+  --pb-soft-b: color-mix(in srgb, var(--pal-coral) 15%, var(--pal-white));
+  --pb-soft-c: color-mix(in srgb, var(--pal-lemon) 50%, var(--pal-white));
+  background: var(--pal-white); color: var(--pb-ink);
+}
+.pb.cream { background: var(--pal-cream); }
+.pb.blue { background: var(--pb-a); color: var(--pal-white); }
+.pb .page-bg, .pb .pb-tint { z-index: 0; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+/* ---- type ---- */
+.pb-kick { margin: 0; font: 800 1.35cqw/1 'Nunito', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--pb-a); }
+.pb-kick.light { color: var(--pb-c); }
+.pb-kick.coral { color: var(--pb-b-ink); }
+.pb-h { margin: 0; font: 700 6cqw/1.02 'Fredoka', 'Nunito', sans-serif; color: var(--pb-a); }
+.pb-h.light { color: var(--pal-white); }
+.pb-h.lemon { color: var(--pb-c); }
+.pb-h.nw { white-space: nowrap; }
+.pb-h.small { font-size: 4.2cqw; }
+.pb-h em { font-style: normal; padding: 0 .6cqw; margin: 0 -.3cqw; background: linear-gradient(transparent 60%, var(--pb-c) 60%, var(--pb-c) 94%, transparent 94%); }
+.pb-h.light em, .pb-h.lemon em { background: none; color: var(--pb-c); }
+.pb-p { margin: 0; font: 500 1.72cqw/1.5 'Nunito', sans-serif; }
+.pb-p b { font-weight: 800; }
+.pb-p.light { color: var(--pal-white); } .pb-p.light b { color: var(--pb-c); }
+.pb-hand { margin: 0; font: 500 3.2cqw/1 'Caveat', cursive; color: var(--pb-b-ink); transform: rotate(-6deg); }
+.pb-hand.light { color: var(--pb-c); }
+.pb-hand.white { color: var(--pal-white); }
+.pb-foot { font: 800 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--pb-mute); }
+.pb.blue .pb-foot, .pb-foot.light { color: var(--pal-white); }
+.pb .pageno { font: 700 2.2cqw/1 'Fredoka', sans-serif; color: var(--pb-a); }
+.pb.blue .pageno, .pb .pageno.light { color: var(--pal-white); }
+.pb .unit-vert { background: rgba(255,255,255,.2); color: var(--pal-white); }
+
+/* ---- exercise header: number chip + instruction (three chip colors, pill and square variants) ---- */
+.pb-ex { display: flex; align-items: center; gap: 1.1cqw; margin: 0; font: 600 1.75cqw/1.2 'Nunito', sans-serif; color: var(--pb-ink); }
+.pb-ex > i { flex: none; display: grid; place-items: center; min-width: 3.9cqw; height: 3.9cqw; padding: 0 1cqw; box-sizing: border-box; border-radius: 999px; background: var(--pb-a); color: var(--pal-white); font: 700 1.7cqw/1 'Fredoka', sans-serif; font-style: normal; }
+.pb-ex.coral > i { background: var(--pb-b); color: var(--pal-night); }
+.pb-ex.lemon > i { background: var(--pb-c); color: var(--pb-a); box-shadow: inset 0 0 0 .22cqw var(--pb-a); }
+.pb-ex.sq > i { border-radius: 1cqw; }
+.pb-ex b { font-weight: 800; color: var(--pb-a); }
+.pb-ex small { font: 600 1.35cqw/1 'Nunito', sans-serif; color: var(--pb-mute); }
+.pb-ex.pill { padding: .5cqw 2cqw .5cqw .5cqw; border-radius: 999px; background: var(--pal-white); border: .25cqw solid var(--pb-a); box-shadow: .45cqw .45cqw 0 var(--c, var(--pb-c)); width: max-content; max-width: 100%; box-sizing: border-box; }
+.pb-ex.light { color: var(--pal-white); } .pb-ex.light b { color: var(--pb-c); }
+
+/* ---- Check button ---- */
+.pb .check { font: 800 1.45cqw/1 'Nunito', sans-serif; letter-spacing: .02em; color: var(--pal-white); background: var(--pb-a); border: 0; border-radius: 999px; padding: 1cqw 2cqw; box-shadow: .35cqw .35cqw 0 var(--pb-c); }
+.pb .check:hover { background: color-mix(in srgb, var(--pb-a) 82%, var(--pal-white)); }
+.pb .check:active { transform: translate(.2cqw, .2cqw); box-shadow: .15cqw .15cqw 0 var(--pb-c); }
+
+/* ---- written answers: the pupils' ink stays, the lines take the chapter blue ---- */
+.pb input.fill:not(.ok):not(.no) { border-bottom-color: color-mix(in srgb, var(--pb-a) 38%, var(--pal-white)); }
+.pb input.fill:focus { background: color-mix(in srgb, var(--pb-c) 55%, transparent); }
+
+/* ---- pronoun / verb colors ---- */
+.pb .pn-navy, .pb .pn-blue, .pb .match .pn-navy, .pb .match .pn-blue { color: var(--pb-a); }
+.pb .pn-red, .pb .match .pn-red { color: var(--pb-b-ink); }
+.pb .vb-am { color: var(--pb-a); }
+.pb .vb-is { color: var(--pb-b-ink); }
+.pb .vb-are { color: var(--pb-ink); background: var(--pb-c); border-radius: .6cqw; padding: 0 .5cqw; }
+
+/* ---- cards, post, poem, notes ---- */
+.pb-card { background: var(--pal-white); border: .25cqw solid var(--pb-a); border-radius: 1.8cqw; box-shadow: .6cqw .6cqw 0 var(--c, var(--pb-c)); z-index: 1; box-sizing: border-box; }
+.pb-card.soft-a { background: var(--pb-soft-a); } .pb-card.soft-b { background: var(--pb-soft-b); } .pb-card.soft-c { background: var(--pb-soft-c); }
+.pb-tint { position: absolute; z-index: 1; border-radius: 2cqw; box-sizing: border-box; }
+.pb-post { display: flex; gap: 1.6cqw; align-items: flex-start; padding: 1.7cqw 2.2cqw; background: var(--pal-white); border: .25cqw solid var(--pb-a); border-radius: 1.8cqw; box-shadow: .6cqw .6cqw 0 var(--pb-b); z-index: 3; box-sizing: border-box; }
+.pb-post .av { flex: none; width: 5.6cqw; height: 5.6cqw; border-radius: 50%; background: var(--pb-b); color: var(--pal-night); display: grid; place-items: center; font: 700 3cqw/1 'Fredoka', sans-serif; }
+.pb-post b { display: block; font: 800 1.5cqw/1.2 'Nunito', sans-serif; color: var(--pb-a); }
+.pb-post p { margin: .5cqw 0 0; font: 600 1.6cqw/1.45 'Nunito', sans-serif; color: var(--pb-ink); }
+.pb-poem { position: relative; background: var(--pb-c); border: .25cqw solid var(--pb-a); border-radius: .8cqw; padding: 2.8cqw 4cqw 1.8cqw; transform: rotate(-.9deg); box-shadow: .5cqw .7cqw 0 color-mix(in srgb, var(--pb-a) 22%, transparent); z-index: 3; box-sizing: border-box; }
+.pb-poem::before { content: ""; position: absolute; left: 50%; top: -1.6cqw; width: 11cqw; height: 3cqw; margin-left: -5.5cqw; background: var(--pb-b); transform: rotate(2deg); opacity: .92; }
+.pb-poem h3 { margin: 0 0 .8cqw; font: 700 3cqw/1 'Fredoka', sans-serif; color: var(--pb-a); text-align: center; }
+.pb-poem p { margin: 0 0 1.2cqw; font: italic 700 1.62cqw/1.42 'Nunito', sans-serif; color: var(--pal-night); }
+.pb-poem p:last-child { margin-bottom: 0; }
+.pb-note { background: var(--pb-soft-a); border-left: .9cqw solid var(--pb-a); border-radius: 0 1.4cqw 1.4cqw 0; padding: 1.5cqw 2.2cqw; font: 500 1.6cqw/1.5 'Nunito', sans-serif; color: var(--pb-ink); z-index: 3; }
+.pb-bubble { position: absolute; z-index: 4; margin: 0; background: var(--pb-c); color: var(--pb-a); border: .3cqw solid var(--pb-a); border-radius: 2.4cqw; padding: 1.1cqw 1.8cqw; font: 700 2.1cqw/1.1 'Fredoka', sans-serif; text-align: center; box-sizing: border-box; }
+.pb-bubble::after { content: ""; position: absolute; left: var(--tx, 70%); bottom: -1.35cqw; width: 2.2cqw; height: 2.2cqw; background: var(--pb-c); border-right: .3cqw solid var(--pb-a); border-bottom: .3cqw solid var(--pb-a); transform: rotate(45deg) skew(8deg, 8deg); }
+
+/* sticker: a doodle on a round disc. The figure is centred in its box, the disc sits low in the box (.76 of the box, bottom aligned),
+   so the head pops out of the disc at the top. Three layers: the disc, the doodle cut by the disc, the upper half of the same doodle uncut.
+   --z size of the sheet in boxes, --fx/--fy centre of the figure on the sheet, --bx0 --bx1 --by0 --by1 the box of the figure on the sheet. */
+.pb-pop { --d: 10.8cqw; --z: 2.7; --fx: .28; --fy: .68; --bx0: 0; --bx1: 1; --by0: 0; --by1: 1; position: relative; display: block; flex: none; width: var(--d); height: var(--d); }
+.pb-pop .disc { position: absolute; left: 12%; top: 24%; width: 76%; height: 76%; border-radius: 50%; background: var(--bg, var(--pb-b)); box-sizing: border-box; }
+.pb-pop.ring .disc { border: .6cqw solid var(--pal-white); box-shadow: .5cqw .6cqw 0 color-mix(in srgb, var(--pal-night) 20%, transparent); }
+.pb-pop .cl { position: absolute; inset: 0; clip-path: circle(calc(var(--d) * .38) at 50% calc(var(--d) * .62)); }
+.pb .pb-pop img { position: absolute; max-width: none; width: calc(var(--d) * var(--z)); left: calc(var(--d) * (.5 - var(--z) * var(--fx))); top: calc(var(--d) * (.5 - var(--z) * var(--fy))); pointer-events: none; }
+.pb .pb-pop .cl img { clip-path: inset(calc(var(--by0) * 100%) calc((1 - var(--bx1)) * 100%) calc((1 - var(--by1)) * 100%) calc(var(--bx0) * 100%)); }
+.pb .pb-pop img.out { clip-path: inset(calc(var(--by0) * 100%) calc((1 - var(--bx1)) * 100%) calc((1 - var(--fy) - .12 / var(--z)) * 100%) calc(var(--bx0) * 100%)); }
+
+/* the poem in three columns (one stanza each) */
+.pb-poem.three { padding: 2.2cqw 3cqw 1.6cqw; }
+.pb-poem.three h3 { margin-bottom: 1cqw; }
+.pb-poem.three .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4cqw; }
+.pb-poem.three p { margin: 0; font-size: 1.45cqw; line-height: 1.5; }
+
+/* how to use they */
+.pb-they { padding: 1.7cqw 2.6cqw 1.5cqw; }
+.pb-they h4 { margin: 0 0 .8cqw; font: 700 2.1cqw/1.1 'Fredoka', sans-serif; color: var(--pb-a); }
+.pb-they ul { list-style: none; margin: 0; padding: 0; }
+.pb-they li { font: 600 1.5cqw/1.75 'Nunito', sans-serif; color: var(--pb-ink); }
+.pb-they li b, .pb-they p b:first-child + b { color: var(--pb-b-ink); }
+.pb-they li small { font: 600 1.3cqw/1 'Nunito', sans-serif; color: var(--pb-mute); }
+.pb-they p { margin: .6cqw 0 0; font: 600 1.5cqw/1.5 'Nunito', sans-serif; color: var(--pb-a); }
+
+/* short questions with a line (comprehension) */
+.pb-qs { list-style: none; margin: 0; padding: 0; }
+.pb-qs li { display: flex; align-items: flex-end; gap: 1cqw; height: 4.7cqw; font: 500 1.62cqw/1.2 'Nunito', sans-serif; color: var(--pb-ink); }
+.pb-qs li span { flex: 0 0 auto; padding-bottom: .35cqw; }
+.pb-qs input.fill { flex: 1 1 14cqw; height: 2.8cqw; }
+
+/* am / is / are tiles */
+.pb-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6cqw; }
+.pb-tile { padding: 1.5cqw 1.6cqw 1.3cqw; border-radius: 1.8cqw; text-align: center; border: .25cqw solid var(--pb-a); }
+.pb-tile b { display: block; font: 700 5.6cqw/1 'Fredoka', sans-serif; }
+.pb-tile span { display: block; margin-top: .5cqw; font: 800 1.45cqw/1.2 'Nunito', sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+.pb-tile.am { background: var(--pb-a); color: var(--pal-white); }
+.pb-tile.is { background: var(--pb-b); color: var(--pal-night); }
+.pb-tile.are { background: var(--pb-c); color: var(--pb-a); }
+
+/* ---- the matching game (2.1) ---- */
+.pb .match.pron li { height: 4.9cqw; }
+.pb .match.pron .match-words { width: 15cqw; }
+.pb .match.pron .match-words button { font-size: 2cqw; }
+.pb .match.pron .match-defs button { font-size: 1.62cqw; color: var(--pb-ink); }
+.pb .match.pron .match-lines line { stroke: var(--pb-a); stroke-width: 1.6; }
+.pb .match.pron .match-lines line.ok { stroke: #2e7d32; stroke-width: 2; }
+.pb .match.pron .match-lines line.no { stroke: #c62828; stroke-width: 2; }
+.pb .match button.linked-w::after, .pb .match button.linked-d::before { background: var(--pb-a); }
+.pb .match button.selected { outline-color: var(--pb-b); }
+
+/* ---- lists ---- */
+.pb .letter-list li > i { color: var(--pb-b-ink); font-size: 1.55cqw; }
+.pb .letter-list, .pb .tb-list, .pb .rule-fix, .pb .tobe-rows, .pb .num-lines, .pb .two-col { color: var(--pb-ink); }
+.pb .rule-fix li { font-size: 1.68cqw; }
+.pb .tb-list li::marker { color: var(--pb-b-ink); font-weight: 800; }
+.pb .hint-line { color: var(--pb-b-ink); font-weight: 700; font-size: 1.35cqw; }
+.pb .tobe-rows li { font-size: 1.62cqw; color: var(--pb-ink); }
+.pb .tobe-rows li > b:first-child, .pb .tobe-rows li > b:nth-child(2) { font-size: 1.9cqw; }
+
+/* ---- the rules cards ---- */
+.pb .tb-card { background: var(--pal-white); border: .25cqw solid var(--pb-a); border-radius: 1.8cqw; box-shadow: .6cqw .6cqw 0 var(--accent); padding: 2cqw 3cqw 1.8cqw; box-sizing: border-box; z-index: 3; }
+.pb .tb-card h3 { color: var(--pb-a); }
+.pb .tb-card h3::before { background: var(--accent); width: .9cqw; border-radius: .5cqw; }
+.pb .tb-card th { background: var(--pb-a); color: var(--pal-white); }
+.pb .tb-card th:first-child { border-radius: .8cqw 0 0 0; } .pb .tb-card th:last-child { border-radius: 0 .8cqw 0 0; }
+.pb .tb-card tbody tr:nth-child(odd) { background: var(--pb-soft-a); }
+.pb .tb-card td { color: var(--pb-ink); }
+.pb .tb-card td b { color: var(--pb-b-ink); }
+.pb .tb-card td i { color: var(--pb-a); }
+
+/* ---- test practice page: same pills as the chapter ---- */
+.pb .yl-pill, .pb .lt-pill, .pb .lav-pill { background: var(--pb-soft-c); color: var(--pb-a); border: .2cqw solid var(--pb-a); }
+.pb .yl-pill b, .pb .lt-pill b, .pb .lav-pill b { color: var(--pb-b-ink); opacity: 1; }
+.pb .pill-line { background: var(--pb-a); height: .25cqw; }
+.pb .num-lines li > span:first-child, .pb .two-col .n { color: var(--pb-b-ink); font-weight: 800; }
+
+@media print {
+  .pb, .pb * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}

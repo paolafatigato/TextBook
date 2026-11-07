@@ -21,7 +21,7 @@ const CONTENTS = {
       chapters: [
         { title: 'Getting to know each other', start: 'gk-guess', color: '#f05f4b', image: 'img/ms-fatigato.png' },
         { title: 'Classroom Bank', start: 'bank-intro', color: '#8e2de2', image: 'img/bank-bird.png' },
-        { title: 'Pronouns & To Be', start: 'tobe-intro', color: '#4aa8ec', image: 'img/tobe-p18.png' },
+        { title: 'Pronouns & To Be', start: 'tobe-intro', color: '#0b4e87', image: 'img/tobe-p18.png' },
         { title: 'Literature: Greek mythology', start: 'greek-gods', color: '#fe7366', image: 'img/hades-p34.png' },
         { title: 'Owners', start: 'own-adjectives', color: '#8fb82e', image: 'img/goat-p28.png' },
         { title: 'Present Simple', start: 'ps-affirmative', color: '#c97df6', image: 'img/game-p34.png', zoom: 1.8 },
@@ -130,7 +130,7 @@ const CONTENTS = {
   ],
 
   topics: [
-    { title: 'Verb to be', color: '#7b3fc4', pages: ['gk-guess', 'tobe-intro', ['tobe-rules', 'tobe-test'], 'own-adjectives'] },
+    { title: 'Verb to be', color: '#7b3fc4', pages: ['gk-guess', 'tobe-verb', ['tobe-rules', 'tobe-test'], 'own-adjectives'] },
     { title: 'Subject pronouns', color: '#4aa8ec', pages: [['tobe-intro', 'tobe-pronouns']] },
     { title: 'Yes/no questions', color: '#f05f4b', pages: ['gk-guess'] },
     { title: 'Money vocabulary', color: '#3aa04a', pages: ['bank-intro'] },

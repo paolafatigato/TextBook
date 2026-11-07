@@ -282,3 +282,43 @@
 .lr-gcard input.fill.ok { border-bottom-color: var(--pal-green) !important; }
 .lr-vc input.fill { display: inline-block; width: 11cqw; height: 2cqw; margin: 0 .3cqw; padding: 0; font-size: 1.7cqw; text-align: center; vertical-align: baseline; border-bottom: .2cqw solid var(--pal-slate); }
 .lr-vc input.fill.ok { border-bottom-color: var(--pal-green) !important; }
+
+/* ---------- the winding road of the race (one drawing over the spread, each page shows its half) ---------- */
+.lr-road { z-index: 1; }
+.lr-road svg { overflow: hidden; }
+.lr-road .back { fill: none; stroke: var(--pal-white); stroke-width: 16.8; stroke-linejoin: round; stroke-linecap: butt; }
+.lr-road .segs polyline { fill: none; stroke-width: 15; stroke-linejoin: round; stroke-linecap: butt; }
+.lr-road .labs text { text-anchor: middle; font-family: 'Nunito', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; }
+.lr-road .labs .n { font-weight: 800; font-size: 1.25px; opacity: .7; }
+.lr-road .labs .e { font-size: 4.2px; dominant-baseline: central; }
+.lr-road .labs .t { font-weight: 700; font-size: 1.15px; }
+.lr-dec { z-index: 2; pointer-events: none; font: 400 calc(var(--s) * 1cqw)/1 'Nunito', 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; transform: rotate(var(--r, 0deg)); }
+.lr-legend.v { flex-direction: column; flex-wrap: nowrap; gap: 1.4cqw; }
+.lr-steps-s { gap: .9cqw; }
+.lr-steps-s li { font-size: 1.45cqw; line-height: 1.3; padding-left: 3.8cqw; }
+.lr-steps-s li::before { width: 2.6cqw; height: 2.6cqw; font-size: 1.2cqw; }
+
+/* ---------- the race on the computer: controls, tokens, windows ---------- */
+.lr-ctl { z-index: 4; }
+.lr-ctl-row { display: flex; flex-wrap: wrap; align-items: center; gap: .8cqw; }
+.lr-b { font: 800 1.25cqw/1 'Nunito', sans-serif; color: var(--pal-white); background: var(--pal-charcoal); border: 0; border-radius: 999px; padding: .7cqw 1.4cqw; cursor: pointer; }
+.lr-b:hover { background: var(--pal-purple); }
+.lr-b.alt { background: var(--pal-white); color: var(--pal-charcoal); box-shadow: inset 0 0 0 .2cqw var(--pal-charcoal); }
+.lr-b.alt:hover { background: var(--pal-pale-lime); }
+.lr-b.go { background: var(--pal-purple); }
+.lr-b[hidden] { display: none; }
+.lr-face { min-width: 4cqw; font: 700 2.4cqw/1 'Fredoka', 'Nunito', sans-serif; color: var(--pal-purple); }
+.lr-face.roll { animation: dice .45s ease-out; }
+.lr-turn { margin: .9cqw 0 0; font: 700 1.4cqw/1.25 'Nunito', sans-serif; color: var(--pal-charcoal); }
+.lr-road.own .segs polyline { cursor: pointer; }
+.lr-road.own .segs polyline:hover { filter: brightness(.9); stroke-width: 15.6; }
+.lr-tokens { pointer-events: none; }
+.lr-tokens text { font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif; }
+.lr-disc { fill: var(--pal-white); fill-opacity: .88; stroke: var(--pal-charcoal); stroke-width: .25; }
+.lr-disc.cur { stroke: var(--pal-purple); stroke-width: .7; }
+.lr-gm-s { line-height: 1.9; }
+.lr-gm-gap { width: 130px; margin: 0 4px; padding: 2px 6px; font: 700 18px 'Nunito', sans-serif; text-align: center; border: 0; border-bottom: 3px solid #8e2de2; background: #f6eefc; outline: none; }
+.lr-gm-gap.ok { border-bottom-color: #2e9e4f; color: #1f7a3a; }
+.lr-gm-gap.no { border-bottom-color: #d6453d; color: #b3342d; }
+.lr-gm-s b { color: #8e2de2; }
+@media print { .lr-ctl, .lr-tokens { display: none; } }
