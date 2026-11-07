@@ -7,8 +7,8 @@
 
   // spread (data-id) → the games offered there; from = the first spread the games are about
   const SETS = {
-    'tobe-pronouns': { title: 'Subject pronouns', from: 'tobe-intro', games: ['speed', 'subject'] },
-    'tobe-rules': { title: 'The verb TO BE', games: ['tobe-rule', 'tobe-fire'] },
+    'tobe-pronouns': { title: 'Subject pronouns', from: 'tobe-intro', games: ['speed', 'subject'], theme: 'pb' },
+    'tobe-rules': { title: 'The verb TO BE', games: ['tobe-rule', 'tobe-fire'], theme: 'pb' },
     'own-saxon': { title: 'The Saxon genitive', games: ['sg-order', 'sg-apos', 'sg-tf', 'sg-final'] },
     'own-three-s': { title: 'The three ’s', games: ['ap-cards', 'ap-fire'] },
     'clothes-pc-games': { title: 'Present continuous: mime', games: ['mime'] },
@@ -226,7 +226,9 @@
   const seen = new Set(); // sets that already popped up by themselves
 
   function updateFab() {
-    fab.hidden = !modal.hidden || !currentSet();
+    const cur = currentSet();
+    fab.hidden = !modal.hidden || !cur;
+    fab.dataset.theme = cur ? (SETS[cur.key].theme || '') : ''; // a chapter can give the button its own colors (see grammar-games.css)
   }
 
   // the student has scrolled to the very end of the page, below the last page of the spread
@@ -261,7 +263,7 @@
   GAMES.speed = () => {
     setTitle('⚡ Speed Clicker');
     const subjects = shuffle(SUBJECTS);
-    let subIdx = 0, score = 0, attempts = 0, speed = 130, lives = 5, elapsed = 0;
+    let subIdx = 0, score = 0, attempts = 0, speed = 80, lives = 5, elapsed = 0; // starts slow: 80 px/s is the 1.0x of the counter
     let raf = null, timer = null, active = false, bubbles = [];
     let curr = subjects[0];
     setLives(lives, 5);
@@ -301,8 +303,8 @@
         setScore(score);
         good();
         burstAt(el, PC[p]);
-        speed = Math.min(speed + 8, 440);
-        $('gqSpeedX').textContent = (speed / 130).toFixed(1);
+        speed = Math.min(speed + (score <= 5 ? 4 : 8), 440); // the first five turns speed up gently
+        $('gqSpeedX').textContent = (speed / 80).toFixed(1);
         curr = subjects[++subIdx % subjects.length];
         $('gqSpeedWord').textContent = `${curr.emoji} ${curr.word} → ?`;
         spawn();

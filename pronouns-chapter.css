@@ -8,7 +8,7 @@
    Small text is always blue, charcoal or "coral ink" (coral darkened with night): plain coral and lemon are only fills or big type.
    White line drawings sit on blue or coral. Class prefix pb- (short names clash with style.css). */
 .pb {
-  --pb-a: var(--pal-blue);          /* deep blue: titles, outlines, buttons, dark pages */
+  --pb-a: var(--pal-blue);          /* deep blue: titles, outlines, buttons, dark pages (pal-sky was tried: too light for text) */
   --pb-b: var(--pal-coral);         /* coral: circles, bubbles, highlights */
   --pb-c: var(--pal-lemon);         /* lemon: bands, stickers, notes */
   --pb-b-ink: color-mix(in srgb, var(--pal-coral) 60%, var(--pal-night));
@@ -141,6 +141,12 @@
 .pb .match.pron .match-lines line.no { stroke: #c62828; stroke-width: 2; }
 .pb .match button.linked-w::after, .pb .match button.linked-d::before { background: var(--pb-a); }
 .pb .match button.selected { outline-color: var(--pb-b); }
+
+/* ---- 2.11: the pronoun and verb columns sit on the blue band that comes from the left page ---- */
+.pb .tobe-rows.on-blue li > b:first-child { color: var(--pal-white); }
+.pb .tobe-rows.on-blue .vb-am { color: var(--pal-white); }
+.pb .tobe-rows.on-blue .vb-is { color: var(--pal-salmon); }
+.pb .tobe-rows.on-blue li > span { margin-left: 1.4cqw; }
 
 /* ---- lists ---- */
 .pb .letter-list li > i { color: var(--pb-b-ink); font-size: 1.55cqw; }

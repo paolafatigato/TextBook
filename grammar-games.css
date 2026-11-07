@@ -9,6 +9,14 @@
 }
 .gq-fab:hover { background: #7a3fa3; }
 .gq-fab[hidden] { display: none; }
+/* Pronouns & To Be (pronouns-chapter.css): same look as the chapter's Check buttons (pal-blue, white text, lemon offset shadow) */
+.gq-fab[data-theme="pb"] {
+  font: 700 17px 'Fredoka', 'Nunito', sans-serif; color: var(--pal-white); background: var(--pal-blue);
+  border: 0; padding: 10px 20px; box-shadow: 4px 4px 0 var(--pal-lemon);
+  transition: transform .12s, box-shadow .12s, background .12s;
+}
+.gq-fab[data-theme="pb"]:hover { background: color-mix(in srgb, var(--pal-blue) 82%, var(--pal-white)); }
+.gq-fab[data-theme="pb"]:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--pal-lemon); }
 
 html.gq-open { overflow: hidden; scrollbar-gutter: stable; }
 
