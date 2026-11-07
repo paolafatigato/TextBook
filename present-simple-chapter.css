@@ -257,3 +257,25 @@
 .psx-time input.fill { flex: 1; height: 2.8cqw; margin-bottom: .5cqw; font-size: 1.8cqw; border-bottom: .14cqw solid #cbbfdc; }
 
 .psx-time.big li { height: 6cqw; }
+
+/* the two -s games, under p. 52 */
+.psx-play { display: flex; align-items: center; gap: 1.4cqw; padding: 1cqw 1.6cqw; border-radius: 999px; background: var(--psx-soft); box-shadow: inset 0 0 0 .18cqw rgba(201, 125, 246, .35); box-sizing: border-box; }
+.psx-play span { font: 800 1.2cqw/1 'Nunito', sans-serif; letter-spacing: .08em; text-transform: uppercase; color: #a58bc4; }
+.psx-play button { font: 800 1.45cqw/1 'Nunito', sans-serif; color: #fff; background: var(--psx-purple); border: 0; border-radius: 999px; padding: .8cqw 1.8cqw; cursor: pointer; }
+.psx-play button:nth-of-type(2) { background: var(--psx-coral); }
+.psx-play button:hover { filter: brightness(.92); }
+@media print { .psx-play { display: none; } }
+
+#psx-e6 li { min-height: var(--tfh, 4.4cqw); }
+
+/* image slots: a dashed frame that shows its label until the picture file exists */
+.psx-photo { position: relative; overflow: hidden; box-sizing: border-box; display: grid; place-items: center; background: #fff; border: .35cqw dashed #c97df6; z-index: 3; }
+.psx-photo em { font: 700 1.3cqw/1 'Nunito', sans-serif; font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: #b48ad8; }
+.psx-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.psx-photo.has { border-style: solid; border-color: #fff; }
+.psx-photo.has em { display: none; }
+.psx-photo.round { border-radius: 50%; }
+.psx-read .who .av.psx-photo { flex: 0 0 10.5cqw; width: 10.5cqw; height: 10.5cqw; background: #fff; border: .35cqw dashed #c97df6; box-shadow: none; color: inherit; }
+.psx-read .who .av.psx-photo.has { border: .8cqw solid #fff; box-shadow: 0 0 0 .4cqw #c97df6; }
+.psx-photo.frame { border-radius: 1.4cqw; transform: rotate(3deg); box-shadow: 0 .6cqw 1.6cqw rgba(60, 30, 100, .2); }
+.psx-photo.frame.has { border: .8cqw solid #fff; }

@@ -14,7 +14,8 @@
     'clothes-pc-games': { title: 'Present continuous: mime', games: ['mime'] },
     'clothes-vocab': { title: 'Clothes: hangman', games: ['hangman'] },
     'clothes-pc-rule': { title: 'Present continuous: -ing', games: ['ing-catch'] },
-    'ps-affirmative': { title: 'Present simple: the -s', games: ['s-rule', 's-catch'], poker: true },
+    // the -s games sit under p. 52 (the spelling page: he / she / it + s, es, ies); `from` keeps the intro "pp. 48–53"
+    'ps-extra-spelling': { title: 'Present simple: the -s', from: 'ps-affirmative', games: ['s-rule', 's-catch'], poker: true },
   };
   for (const [key, set] of Object.entries(SETS)) {
     set.intro = `pp. ${PAGES.of(set.from || key)}–${PAGES.end(key)} · Scegli un gioco!`;
@@ -24,7 +25,7 @@
     subject: { icon: '🎯', name: 'Subject Hunter', text: 'Trova il soggetto della frase e scegli il pronome.' },
     'tobe-rule': { icon: '📋', name: 'La Regola', text: 'Completa la tabella di TO BE.' },
     'tobe-fire': { icon: '🔥', name: 'Quick Fire', text: 'am, is o are? Hai 6 secondi per rispondere.' },
-    's-rule': { icon: '📋', name: 'La Regola', text: 'Come cambia il verbo con HE / SHE / IT: +s, +es, +ies.' },
+    's-rule': { icon: '📋', name: 'The -S Rule', text: 'Come cambia il verbo con HE / SHE / IT: +s, +es, +ies.' },
     'sg-order': { icon: '🧩', name: 'Word order', text: "Metti in ordine possessore + 's + oggetto." },
     'sg-apos': { icon: '✍️', name: 'The apostrophe', text: "Tocca il punto giusto per l'apostrofo: cousin's o cousins'?" },
     'sg-tf': { icon: '🤔', name: 'Correct or wrong?', text: "'s per persone e animali, OF per le cose." },
@@ -34,7 +35,7 @@
     mime: { icon: '🎭', name: 'Mime and guess', text: 'Due squadre: uno mima, gli altri indovinano con “Are you …-ing?”' },
     hangman: { icon: '👕', name: 'Clothes Hangman', text: 'Guess the clothes from the picture. Every mistake takes a piece of clothing off the model: you only have 5 lives!' },
     'ing-catch': { icon: '🧲', name: "catch-ING", text: 'Tre forme cadono: clicca quella scritta bene. Se sbagli, il muro sale!' },
-    's-catch': { icon: '🧲', name: 'Acchiappa il Finale!', text: 'Clicca il finale giusto prima che tocchi terra.' },
+    's-catch': { icon: '🧲', name: 'Catch the Ending!', text: 'Clicca il finale giusto prima che tocchi terra.' },
   };
 
   // one color per pronoun, all from the book's palette
@@ -649,7 +650,7 @@
 
   /* ---------- present simple: the -s rule ---------- */
   GAMES['s-rule'] = () => {
-    setTitle('📋 La -S – La Regola');
+    setTitle('📋 The -S Rule');
     const rules = [
       { ending: 'la maggior parte dei verbi', examples: 'play → plays,  read → reads', ans: '+s' },
       { ending: '-sh, -ch, -o, -x, -ss', examples: 'watch → watches,  go → goes', ans: '+es' },
@@ -721,7 +722,7 @@
 
   /* ---------- present simple: catch the right ending before it falls ---------- */
   GAMES['s-catch'] = () => {
-    setTitle('🧲 Acchiappa il Finale!');
+    setTitle('🧲 Catch the Ending!');
     const ROUND = 12;
     let qs = shuffle(SCATCH_DATA).slice(0, ROUND);
     let qi = 0, score = 0, lives = 5, played = 0;
@@ -1559,11 +1560,11 @@
 
   // These drills are about the pages they follow, so they are NOT on the home page: they pop up at the end of
   // their spread (and the button on the page opens them). Only the real games are on the Games list of the home page
-  // (script.js puts the pills in the order of the book): here "Acchiappa il Finale!", the arcade of the present simple.
+  // (script.js puts the pills in the order of the book): here "Catch the Ending!", the arcade of the present simple.
   window.addEventListener('load', () => {
     const list = $('gameList');
     if (!list || typeof PAGES === 'undefined') return;
-    const set = 'ps-affirmative', game = 's-catch';
+    const set = 'ps-extra-spelling', game = 's-catch';
     const pill = document.createElement('details');
     pill.className = 'game-topic';
     pill.style.setProperty('--c', '#c97df6'); // the color of the topic on the home page

@@ -474,31 +474,191 @@
       const paint = () => {
         const clock = '<p class="tg-clock sm' + (state === 'run' && left <= 10 ? ' hot' : '') + (state === 'over' ? ' over' : '') + '">' + (state === 'over' ? 'Time!' : mmss(left)) + '</p>';
         let ctl = '';
-        if (state === 'ready') ctl = '<div class="tg-row"><button type="button" class="tg-btn go" data-act="go">▶ Start (' + mmss(secs) + ')</button></div><p class="tg-help">Write on paper or on the board: <b>prefix + root + suffix</b> and what it means.</p>';
-        else if (state === 'run') ctl = '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="stop">■ Stop</button></div><p class="tg-help">Write words <b>with their meaning</b>. Only real words count!</p>';
-        else ctl = '<p class="tg-help">Check the papers: count only <b>real words with the right meaning</b>.</p>' +
+        if (state === 'ready') ctl = '<div class="tg-sjbar"><i></i><button type="button" class="tg-btn go" data-act="go">▶ Start (' + mmss(secs) + ')</button><span class="tg-pr"><button type="button" class="tg-pr-btn" aria-label="Print">🖨</button><span class="tg-pr-menu"><button type="button" data-act="print1">Print this cloud</button><button type="button" data-act="printall">Print all (' + CLOUDS.length + ')</button></span></span></div><p class="tg-foot">Time <button type="button" data-s="120" class="' + (secs === 120 ? 'on' : '') + '">2 min</button><button type="button" data-s="180" class="' + (secs === 180 ? 'on' : '') + '">3 min</button><button type="button" data-s="300" class="' + (secs === 300 ? 'on' : '') + '">5 min</button></p>';
+        else if (state === 'run') ctl = '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="stop">■ Stop</button></div><p class="tg-help">Words of 3+ letters with the <b>middle letter</b>. Only real words count!</p>';
+        else ctl = '<p class="tg-help">Check the papers: count only <b>real words</b> made with the letters.</p>' +
           '<div class="tg-count2"><div class="a"><b>Team A</b><p><button type="button" data-d="a-1">−</button><span>' + a + '</span><button type="button" data-d="a1">+1</button></p></div>' +
           '<div class="b"><b>Team B</b><p><button type="button" data-d="b-1">−</button><span>' + b + '</span><button type="button" data-d="b1">+1</button></p></div></div>' +
+          '<form class="tg-check" data-act="check"><input id="tgWord" autocomplete="off" placeholder="Check a word…" aria-label="Check a word"><button type="submit" class="tg-btn alt">Check</button>' + (check ? '<span class="' + (check.ok ? 'ok' : 'no') + '">' + (check.ok ? '✔ ' + esc(check.w) + ': the letters are right' : '✖ ' + esc(check.w) + ': not with these letters') + '</span>' : '') + '</form>' +
           '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="reveal">' + (show ? 'Hide' : '👀 Show') + ' example words</button><button type="button" class="tg-btn go" data-act="bank">✔ Winner: ' + (a === b ? 'draw' : a > b ? 'Team A' : 'Team B') + ' · add to scores</button></div>' +
-          (show ? '<ul class="tg-mx-words">' + m.words.map(([w, d]) => '<li><b>' + esc(w) + '</b> ' + esc(d) + '</li>').join('') + '</ul>' : '');
-        area.innerHTML = '<div class="tg-round tg-mxbox">' + matrix() + clock + ctl + '</div>';
+          (show ? '<p class="tg-help">The long word: <b>' + wh.big + '</b></p><ul class="tg-mx-words tg-wh-words">' + wh.words.map(w => '<li>' + esc(w) + '</li>').join('') + '</ul>' : '');
+        area.innerHTML = '<div class="tg-round">' + wheel() + clock + ctl + '</div>';
       };
       const tick = () => { left--; if (left <= 0) { left = 0; clearInterval(timer); timer = null; state = 'over'; beep(); } paint(); };
+      area.onsubmit = e => { e.preventDefault(); const w = $('tgWord').value.trim(); if (w) { check = { w, ok: wheelOk(w, wh) }; paint(); $('tgWord').focus(); } };
       area.onclick = e => {
-        const t = e.target.closest('button'); if (!t) return;
+        const t = e.target.closest('button'); if (!t || t.type === 'submit') return;
         const d = t.dataset;
+        if (d.go) { idx = (idx + +d.go + WHEELS.length) % WHEELS.length; play(); return; }
+        if (d.s) { secs = +d.s; play(); return; }
         if (d.act === 'go') { state = 'run'; left = secs; clearInterval(timer); timer = setInterval(tick, 1000); }
+        else if (d.act === 'shuffle') { ring = shuffle(ring); tilt = ring.map(() => Math.round((Math.random() - .5) * 40)); }
         else if (d.act === 'stop') { clearInterval(timer); timer = null; state = 'over'; }
         else if (d.act === 'reveal') show = !show;
         else if (d.act === 'bank') {
           if (a > b) score.a++; else if (b > a) score.b++; else { score.a++; score.b++; }
-          paintScore(); state = 'ready'; left = secs; a = b = 0; show = false;
+          paintScore(); state = 'ready'; left = secs; a = b = 0; show = false; check = null; ring = shuffle(ring); tilt = ring.map(() => Math.round((Math.random() - .5) * 40));
         } else if (d.d) { const k = d.d[0], v = +d.d.slice(1); if (k === 'a') a = Math.max(0, a + v); else b = Math.max(0, b + v); }
         paint();
       };
       paint();
     };
-    start();
+    play();
+  }
+
+
+  /* ---------- 🧩 sentence maker: a cloud of words, timed; the team with more correct sentences wins ---------- */
+  // To add a cloud: add { name, words: 'a string of words separated by spaces' } (a word can be used once in each sentence)
+  const CLOUDS = [
+    { name: 'Clothes and things', words: 'are at these we I have find you don\'t that he see can make she they is in look between wear on behind a under elephant her many be this careful shirt the it jeans an your trousers hat his how these dress and chair you dogs' },
+    { name: 'Daily routine', words: 'I you we they he she like likes play plays get gets up at in the morning every day never always often my his her mother brother school football breakfast lunch watch TV do does not don\'t doesn\'t go goes to with and friends home' },
+    { name: 'Past simple', words: 'yesterday I we they he she went was were did not didn\'t to the at in on with my friend friends cinema park saw ate played watched bought a an last night weekend pizza film new and then after before' },
+    { name: 'Present continuous', words: 'I am you are he is she is we are they are not eating drinking playing reading watching listening wearing sleeping now at the in my your his her friend sister dog pizza music book TV today and but because' },
+    { name: 'Comparatives', words: 'is are than taller shorter bigger smaller faster slower older younger more less beautiful expensive interesting difficult easy my your his her brother sister car bike house city dog cat the a an very much not as' },
+    { name: 'Have to and can', words: 'I you we they he she have has don\'t doesn\'t to can can\'t must mustn\'t do clean cook study help wear speak swim drive wake up early every day at home school my your the a homework dishes uniform English now' },
+    { name: 'Future plans', words: 'I you we they he she am are is going to will not tomorrow next week summer holiday weekend visit travel buy play meet study sea mountains friends family city the a my your in on with and because maybe' },
+    { name: 'School and jobs', words: 'my father mother teacher doctor nurse farmer cook works at in a hospital school restaurant farm the he she is are does do not wants to be because loves helps children people patients every day and they students I' },
+    { name: 'Food and drinks', words: 'I you we they he she like likes love loves hate hates eat eats drink drinks want wants for breakfast lunch dinner pizza pasta apple milk water chocolate cheese some any a an the and but do does don\'t doesn\'t not every day' },
+  ];
+  const SJ_FONTS = ["'Fredoka',sans-serif", "'Nunito',sans-serif", 'Georgia,serif', "Impact,'Arial Narrow',sans-serif", "'Courier New',monospace", "'Brush Script MT',cursive", "'Trebuchet MS',sans-serif"];
+
+  // the look of every word is fixed for each cloud (it is not random at every redraw)
+  function cloudWords(i, scale) {
+    let seed = i * 977 + 13;
+    const rnd = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    return shuffle(CLOUDS[i].words.split(' ')).map(w => {
+      const f = SJ_FONTS[Math.floor(rnd() * SJ_FONTS.length)], sz = (20 + Math.floor(rnd() * 22)) * (scale || 1), rot = Math.round((rnd() - .5) * 36);
+      const cap = rnd() < .2, wt = rnd() < .5 ? 800 : 500, it = rnd() < .2 ? 'italic' : 'normal';
+      return '<span style="font:' + it + ' ' + wt + ' ' + sz + 'px ' + f + ';transform:rotate(' + rot + 'deg)">' + esc(cap ? w.toUpperCase() : w) + '</span>';
+    }).join('');
+  }
+  // printable sheets, one cloud per page (all the clouds or only one)
+  function printClouds(only) {
+    const w = window.open('', '_blank'); if (!w) { alert('Allow pop-ups to print.'); return; }
+    const list = only == null ? CLOUDS.map((c, i) => i) : [only];
+    w.document.write('<!doctype html><meta charset="utf-8"><title>Sentence maker</title><style>' +
+      'body{margin:0;font-family:Nunito,Arial,sans-serif}.pg{page-break-after:always;padding:14mm;box-sizing:border-box;min-height:100vh}' +
+      'h1{font-size:22px;margin:0 0 4mm}.cl{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 20px;border:3px solid #222;border-radius:14px;padding:12mm 8mm;min-height:110mm}' +
+      '.cl span{display:inline-block;line-height:1.1}.ln{border-bottom:1px solid #555;height:9mm}p{margin:4mm 0 0;font-size:14px}</style>' +
+      list.map(i => '<div class="pg"><h1>🧩 How many sentences can you make? <small>(' + esc(CLOUDS[i].name) + ')</small></h1><div class="cl">' + cloudWords(i, 1.1) + '</div><p>Write your sentences. Each word can be used once in a sentence.</p>' + '<div class="ln"></div>'.repeat(8) + '</div>').join('') +
+      '</body>');
+    w.document.close(); w.focus(); setTimeout(() => w.print(), 400);
+  }
+
+  function sentenceGame() {
+    score.a = score.b = 0;
+    let secs = 180, idx = 0;
+    const play = () => {
+      openGame('🧩 Sentence maker', { scored: true, onBack: menu });
+      const cl = CLOUDS[idx];
+      let left = secs, state = 'ready', timer = null, a = 0, b = 0;
+      // the look of each word is fixed for this cloud (not random at every redraw)
+      const words = cloudWords(idx);
+      cleanup = () => { clearInterval(timer); timer = null; };
+      const mmss = t => Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
+      const paint = () => {
+        const clock = '<p class="tg-clock sm' + (state === 'run' && left <= 10 ? ' hot' : '') + (state === 'over' ? ' over' : '') + '">' + (state === 'over' ? 'Time!' : mmss(left)) + '</p>';
+        let ctl = '';
+        if (state === 'ready') ctl = '<div class="tg-row"><button type="button" class="tg-btn go" data-act="go">▶ Start (' + mmss(secs) + ')</button><button type="button" class="tg-btn alt" data-act="print1">🖨 Print this cloud</button><button type="button" class="tg-btn alt" data-act="printall">🖨 Print all (' + CLOUDS.length + ')</button></div><p class="tg-foot">Time <button type="button" data-s="120" class="' + (secs === 120 ? 'on' : '') + '">2 min</button><button type="button" data-s="180" class="' + (secs === 180 ? 'on' : '') + '">3 min</button><button type="button" data-s="300" class="' + (secs === 300 ? 'on' : '') + '">5 min</button></p>';
+        else if (state === 'run') ctl = '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="stop">■ Stop</button></div>';
+        else ctl = '<p class="tg-help">Read the sentences aloud. Count only <b>correct</b> sentences (words can be used once in a sentence).</p>' +
+          '<div class="tg-count2"><div class="a"><b>Team A</b><p><button type="button" data-d="a-1">−</button><span>' + a + '</span><button type="button" data-d="a1">+1</button></p></div>' +
+          '<div class="b"><b>Team B</b><p><button type="button" data-d="b-1">−</button><span>' + b + '</span><button type="button" data-d="b1">+1</button></p></div></div>' +
+          '<div class="tg-row"><button type="button" class="tg-btn go" data-act="bank">✔ Winner: ' + (a === b ? 'draw' : a > b ? 'Team A' : 'Team B') + ' · add to scores</button></div>';
+        area.innerHTML = '<div class="tg-round"><div class="tg-wh-row"><button type="button" class="tg-ph-arrow2" data-go="-1" aria-label="Previous cloud">‹</button><div class="tg-sj' + (state === 'ready' ? ' hide' : '') + '">' + (state === 'ready' ? '<p>Ready? The words appear when you press Start.</p>' : words) + '</div><button type="button" class="tg-ph-arrow2" data-go="1" aria-label="Next cloud">›</button></div>' +
+          '<p class="tg-help">Cloud ' + (idx + 1) + ' / ' + CLOUDS.length + ' · ' + esc(cl.name) + '</p>' + clock +
+          (state === 'run' ? '<p class="tg-help">How many sentences can you make? Write them in the notebook!</p>' : '') + ctl + '</div>';
+      };
+      const tick = () => { left--; if (left <= 0) { left = 0; clearInterval(timer); timer = null; state = 'over'; beep(); } paint(); };
+      area.onclick = e => {
+        const t = e.target.closest('button'); if (!t) return;
+        const d = t.dataset;
+        if (d.go) { idx = (idx + +d.go + CLOUDS.length) % CLOUDS.length; play(); return; }
+        if (d.s) { secs = +d.s; play(); return; }
+        if (d.act === 'print1') { printClouds(idx); return; }
+        if (d.act === 'printall') { printClouds(); return; }
+        if (d.act === 'go') { state = 'run'; left = secs; clearInterval(timer); timer = setInterval(tick, 1000); }
+        else if (d.act === 'stop') { clearInterval(timer); timer = null; state = 'over'; }
+        else if (d.act === 'bank') {
+          if (a > b) score.a++; else if (b > a) score.b++; else { score.a++; score.b++; }
+          paintScore(); state = 'ready'; left = secs; a = b = 0;
+        } else if (d.d) { const k = d.d[0], v = +d.d.slice(1); if (k === 'a') a = Math.max(0, a + v); else b = Math.max(0, b + v); }
+        paint();
+      };
+      paint();
+    };
+    play();
+  }
+
+
+  /* ---------- 🎡 word wheel: letters in a circle, words with the middle letter; the team with more words wins ---------- */
+  // ring = the outer letters, mid = the middle letter, big = the long word hidden in the letters (shown at the end),
+  // words = examples for the teacher (every one is made only from the letters and has the middle letter)
+  const WHEELS = [
+    { big: 'CLIMATE', ring: 'CLIMTE', mid: 'A', words: 'ace act aim ail ale ate cat cam eat mat mac tea tam lac acme mail male meal mate meat team tame tail tale late teal calm clam claim metal camel malice email mica malt climate'.split(' ') },
+    { big: 'TEACHER', ring: 'TEHCER', mid: 'A', words: 'tea eat ate ear era are art rat tar car arc ace act cat hat hate heat hare hear heart earth ache each reach teach cheat chart trace crate react cater create eater reheat hater cheater teacher'.split(' ') },
+    { big: 'CHRISTMAS', ring: 'CTRHSIM', mid: 'A', words: 'art arc air rat tar car cat chat cast cash mat mash mast harm hams chart charm march match chair stair trash starch chasm smart marsh charts charms'.split(' ') },
+    { big: 'HOLIDAYS', ring: 'HOLIDYS', mid: 'A', words: 'aid ail aids ash lad lay day has hay say sad lady dash hail halo hails also daily dial dials sail slay soda dais lash days holidays'.split(' ') },
+    { big: 'ADVENTURE', ring: 'DVENTURE', mid: 'A', words: 'and ant art are ate ear eat era ran rat tan tar tea date dare dear read near neat tear aunt tuna trade tread nature avenue adventure'.split(' ') },
+    { big: 'BIRTHDAY', ring: 'BIRTHDY', mid: 'A', words: 'bad bar bat day had hat hay ray art air aid bait bard dairy bath bay birthday hairy hard dray yard'.split(' ') },
+  ];
+  // can this word be made from the letters (each letter once, the middle letter inside)?
+  const wheelOk = (w, wh) => {
+    w = w.toUpperCase().replace(/[^A-Z]/g, '');
+    if (w.length < 3 || !w.includes(wh.mid)) return false;
+    const pool = (wh.ring + wh.mid).split('');
+    return [...w].every(ch => { const i = pool.indexOf(ch); if (i < 0) return false; pool.splice(i, 1); return true; });
+  };
+
+  function wheelGame() {
+    score.a = score.b = 0;
+    let secs = 180, idx = 0;
+    const play = () => {
+      const wh = WHEELS[idx];
+      openGame('🎡 Word wheel', { scored: true, onBack: menu });
+      let left = secs, state = 'ready', timer = null, show = false, a = 0, b = 0, ring = shuffle(wh.ring.split('')), tilt = ring.map(() => Math.round((Math.random() - .5) * 40)), check = null;
+      cleanup = () => { clearInterval(timer); timer = null; };
+      const mmss = t => Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
+      const wheel = () => {
+        const n = ring.length;
+        return '<div class="tg-wh-row"><button type="button" class="tg-ph-arrow2" data-go="-1" aria-label="Previous wheel">‹</button><div class="tg-wh">' + ring.map((ch, i) => {
+          const t = i / n * 2 * Math.PI;
+          return '<b style="left:' + (50 + 41 * Math.sin(t)).toFixed(1) + '%;top:' + (50 - 41 * Math.cos(t)).toFixed(1) + '%;transform:translate(-50%,-50%) rotate(' + tilt[i] + 'deg)">' + ch + '</b>';
+        }).join('') + '<b class="mid">' + wh.mid + '</b></div><button type="button" class="tg-ph-arrow2" data-go="1" aria-label="Next wheel">›</button></div><p class="tg-help">Wheel ' + (idx + 1) + ' / ' + WHEELS.length + '</p>';
+      };
+      const paint = () => {
+        const clock = '<p class="tg-clock sm' + (state === 'run' && left <= 10 ? ' hot' : '') + (state === 'over' ? ' over' : '') + '">' + (state === 'over' ? 'Time!' : mmss(left)) + '</p>';
+        let ctl = '';
+        if (state === 'ready') ctl = '<div class="tg-row"><button type="button" class="tg-btn go" data-act="go">▶ Start (' + mmss(secs) + ')</button><button type="button" class="tg-btn alt" data-act="shuffle">🔀 Shuffle the letters</button></div><p class="tg-foot">Time <button type="button" data-s="120" class="' + (secs === 120 ? 'on' : '') + '">2 min</button><button type="button" data-s="180" class="' + (secs === 180 ? 'on' : '') + '">3 min</button><button type="button" data-s="300" class="' + (secs === 300 ? 'on' : '') + '">5 min</button></p>';
+        else if (state === 'run') ctl = '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="stop">■ Stop</button></div><p class="tg-help">Words of 3+ letters with the <b>middle letter</b>. Only real words count!</p>';
+        else ctl = '<p class="tg-help">Check the papers: count only <b>real words</b> made with the letters.</p>' +
+          '<div class="tg-count2"><div class="a"><b>Team A</b><p><button type="button" data-d="a-1">−</button><span>' + a + '</span><button type="button" data-d="a1">+1</button></p></div>' +
+          '<div class="b"><b>Team B</b><p><button type="button" data-d="b-1">−</button><span>' + b + '</span><button type="button" data-d="b1">+1</button></p></div></div>' +
+          '<form class="tg-check" data-act="check"><input id="tgWord" autocomplete="off" placeholder="Check a word…" aria-label="Check a word"><button type="submit" class="tg-btn alt">Check</button>' + (check ? '<span class="' + (check.ok ? 'ok' : 'no') + '">' + (check.ok ? '✔ ' + esc(check.w) + ': the letters are right' : '✖ ' + esc(check.w) + ': not with these letters') + '</span>' : '') + '</form>' +
+          '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="reveal">' + (show ? 'Hide' : '👀 Show') + ' example words</button><button type="button" class="tg-btn go" data-act="bank">✔ Winner: ' + (a === b ? 'draw' : a > b ? 'Team A' : 'Team B') + ' · add to scores</button></div>' +
+          (show ? '<p class="tg-help">The long word: <b>' + wh.big + '</b></p><ul class="tg-mx-words tg-wh-words">' + wh.words.map(w => '<li>' + esc(w) + '</li>').join('') + '</ul>' : '');
+        area.innerHTML = '<div class="tg-round">' + wheel() + clock + ctl + '</div>';
+      };
+      const tick = () => { left--; if (left <= 0) { left = 0; clearInterval(timer); timer = null; state = 'over'; beep(); } paint(); };
+      area.onsubmit = e => { e.preventDefault(); const w = $('tgWord').value.trim(); if (w) { check = { w, ok: wheelOk(w, wh) }; paint(); $('tgWord').focus(); } };
+      area.onclick = e => {
+        const t = e.target.closest('button'); if (!t || t.type === 'submit') return;
+        const d = t.dataset;
+        if (d.go) { idx = (idx + +d.go + WHEELS.length) % WHEELS.length; play(); return; }
+        if (d.s) { secs = +d.s; play(); return; }
+        if (d.act === 'go') { state = 'run'; left = secs; clearInterval(timer); timer = setInterval(tick, 1000); }
+        else if (d.act === 'shuffle') { ring = shuffle(ring); tilt = ring.map(() => Math.round((Math.random() - .5) * 40)); }
+        else if (d.act === 'stop') { clearInterval(timer); timer = null; state = 'over'; }
+        else if (d.act === 'reveal') show = !show;
+        else if (d.act === 'bank') {
+          if (a > b) score.a++; else if (b > a) score.b++; else { score.a++; score.b++; }
+          paintScore(); state = 'ready'; left = secs; a = b = 0; show = false; check = null; ring = shuffle(ring); tilt = ring.map(() => Math.round((Math.random() - .5) * 40));
+        } else if (d.d) { const k = d.d[0], v = +d.d.slice(1); if (k === 'a') a = Math.max(0, a + v); else b = Math.max(0, b + v); }
+        paint();
+      };
+      paint();
+    };
+    play();
   }
 
 
@@ -595,77 +755,6 @@
       } else if (d.act === 'new') show(photo);
     };
     paint();
-  }
-
-
-  /* ---------- 🎡 word wheel: letters in a circle, words with the middle letter; the team with more words wins ---------- */
-  // ring = the outer letters, mid = the middle letter, big = the long word hidden in the letters (shown at the end),
-  // words = examples for the teacher (every one is made only from the letters and has the middle letter)
-  const WHEELS = [
-    { big: 'CLIMATE', ring: 'CLIMTE', mid: 'A', words: 'ace act aim ail ale ate cat cam eat mat mac tea tam lac acme mail male meal mate meat team tame tail tale late teal calm clam claim metal camel malice email mica malt climate'.split(' ') },
-    { big: 'TEACHER', ring: 'TEHCER', mid: 'A', words: 'tea eat ate ear era are art rat tar car arc ace act cat hat hate heat hare hear heart earth ache each reach teach cheat chart trace crate react cater create eater reheat hater cheater teacher'.split(' ') },
-    { big: 'CHRISTMAS', ring: 'CTRHSIM', mid: 'A', words: 'art arc air rat tar car cat chat cast cash mat mash mast harm hams chart charm march match chair stair trash starch chasm smart marsh charts charms'.split(' ') },
-    { big: 'HOLIDAYS', ring: 'HOLIDYS', mid: 'A', words: 'aid ail aids ash lad lay day has hay say sad lady dash hail halo hails also daily dial dials sail slay soda dais lash days holidays'.split(' ') },
-    { big: 'ADVENTURE', ring: 'DVENTURE', mid: 'A', words: 'and ant art are ate ear eat era ran rat tan tar tea date dare dear read near neat tear aunt tuna trade tread nature avenue adventure'.split(' ') },
-    { big: 'BIRTHDAY', ring: 'BIRTHDY', mid: 'A', words: 'bad bar bat day had hat hay ray art air aid bait bard dairy bath bay birthday hairy hard dray yard'.split(' ') },
-  ];
-  // can this word be made from the letters (each letter once, the middle letter inside)?
-  const wheelOk = (w, wh) => {
-    w = w.toUpperCase().replace(/[^A-Z]/g, '');
-    if (w.length < 3 || !w.includes(wh.mid)) return false;
-    const pool = (wh.ring + wh.mid).split('');
-    return [...w].every(ch => { const i = pool.indexOf(ch); if (i < 0) return false; pool.splice(i, 1); return true; });
-  };
-
-  function wheelGame() {
-    score.a = score.b = 0;
-    let secs = 180, idx = 0;
-    const play = () => {
-      const wh = WHEELS[idx];
-      openGame('🎡 Word wheel', { scored: true, onBack: menu });
-      let left = secs, state = 'ready', timer = null, show = false, a = 0, b = 0, ring = shuffle(wh.ring.split('')), tilt = ring.map(() => Math.round((Math.random() - .5) * 40)), check = null;
-      cleanup = () => { clearInterval(timer); timer = null; };
-      const mmss = t => Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
-      const wheel = () => {
-        const n = ring.length;
-        return '<div class="tg-wh-row"><button type="button" class="tg-ph-arrow2" data-go="-1" aria-label="Previous wheel">‹</button><div class="tg-wh">' + ring.map((ch, i) => {
-          const t = i / n * 2 * Math.PI;
-          return '<b style="left:' + (50 + 41 * Math.sin(t)).toFixed(1) + '%;top:' + (50 - 41 * Math.cos(t)).toFixed(1) + '%;transform:translate(-50%,-50%) rotate(' + tilt[i] + 'deg)">' + ch + '</b>';
-        }).join('') + '<b class="mid">' + wh.mid + '</b></div><button type="button" class="tg-ph-arrow2" data-go="1" aria-label="Next wheel">›</button></div><p class="tg-help">Wheel ' + (idx + 1) + ' / ' + WHEELS.length + '</p>';
-      };
-      const paint = () => {
-        const clock = '<p class="tg-clock sm' + (state === 'run' && left <= 10 ? ' hot' : '') + (state === 'over' ? ' over' : '') + '">' + (state === 'over' ? 'Time!' : mmss(left)) + '</p>';
-        let ctl = '';
-        if (state === 'ready') ctl = '<div class="tg-row"><button type="button" class="tg-btn go" data-act="go">▶ Start (' + mmss(secs) + ')</button><button type="button" class="tg-btn alt" data-act="shuffle">🔀 Shuffle the letters</button></div><p class="tg-foot">Time <button type="button" data-s="120" class="' + (secs === 120 ? 'on' : '') + '">2 min</button><button type="button" data-s="180" class="' + (secs === 180 ? 'on' : '') + '">3 min</button><button type="button" data-s="300" class="' + (secs === 300 ? 'on' : '') + '">5 min</button></p>';
-        else if (state === 'run') ctl = '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="stop">■ Stop</button></div><p class="tg-help">Words of 3+ letters with the <b>middle letter</b>. Only real words count!</p>';
-        else ctl = '<p class="tg-help">Check the papers: count only <b>real words</b> made with the letters.</p>' +
-          '<div class="tg-count2"><div class="a"><b>Team A</b><p><button type="button" data-d="a-1">−</button><span>' + a + '</span><button type="button" data-d="a1">+1</button></p></div>' +
-          '<div class="b"><b>Team B</b><p><button type="button" data-d="b-1">−</button><span>' + b + '</span><button type="button" data-d="b1">+1</button></p></div></div>' +
-          '<form class="tg-check" data-act="check"><input id="tgWord" autocomplete="off" placeholder="Check a word…" aria-label="Check a word"><button type="submit" class="tg-btn alt">Check</button>' + (check ? '<span class="' + (check.ok ? 'ok' : 'no') + '">' + (check.ok ? '✔ ' + esc(check.w) + ': the letters are right' : '✖ ' + esc(check.w) + ': not with these letters') + '</span>' : '') + '</form>' +
-          '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="reveal">' + (show ? 'Hide' : '👀 Show') + ' example words</button><button type="button" class="tg-btn go" data-act="bank">✔ Winner: ' + (a === b ? 'draw' : a > b ? 'Team A' : 'Team B') + ' · add to scores</button></div>' +
-          (show ? '<p class="tg-help">The long word: <b>' + wh.big + '</b></p><ul class="tg-mx-words tg-wh-words">' + wh.words.map(w => '<li>' + esc(w) + '</li>').join('') + '</ul>' : '');
-        area.innerHTML = '<div class="tg-round">' + wheel() + clock + ctl + '</div>';
-      };
-      const tick = () => { left--; if (left <= 0) { left = 0; clearInterval(timer); timer = null; state = 'over'; beep(); } paint(); };
-      area.onsubmit = e => { e.preventDefault(); const w = $('tgWord').value.trim(); if (w) { check = { w, ok: wheelOk(w, wh) }; paint(); $('tgWord').focus(); } };
-      area.onclick = e => {
-        const t = e.target.closest('button'); if (!t || t.type === 'submit') return;
-        const d = t.dataset;
-        if (d.go) { idx = (idx + +d.go + WHEELS.length) % WHEELS.length; play(); return; }
-        if (d.s) { secs = +d.s; play(); return; }
-        if (d.act === 'go') { state = 'run'; left = secs; clearInterval(timer); timer = setInterval(tick, 1000); }
-        else if (d.act === 'shuffle') { ring = shuffle(ring); tilt = ring.map(() => Math.round((Math.random() - .5) * 40)); }
-        else if (d.act === 'stop') { clearInterval(timer); timer = null; state = 'over'; }
-        else if (d.act === 'reveal') show = !show;
-        else if (d.act === 'bank') {
-          if (a > b) score.a++; else if (b > a) score.b++; else { score.a++; score.b++; }
-          paintScore(); state = 'ready'; left = secs; a = b = 0; show = false; check = null; ring = shuffle(ring); tilt = ring.map(() => Math.round((Math.random() - .5) * 40));
-        } else if (d.d) { const k = d.d[0], v = +d.d.slice(1); if (k === 'a') a = Math.max(0, a + v); else b = Math.max(0, b + v); }
-        paint();
-      };
-      paint();
-    };
-    play();
   }
 
   /* ---------- 🔥 hot seat: topics of the book (literature) and of the vocabulary ---------- */
@@ -836,6 +925,7 @@
     { icon: '⏱', title: 'Beat the clock', color: '#f9b11a', text: 'A topic and 30 seconds: how many words can your team say?', run: clockGame },
     { icon: '🧩', title: 'Word matrix', color: '#8e2de2', text: 'A root with prefixes and suffixes: which team writes more real words, with their meaning?', run: matrixGame },
     { icon: '🎡', title: 'Word wheel', color: '#12a4a4', text: 'Letters in a circle: which team finds more words with the middle letter?', run: wheelGame },
+    { icon: '🧩', title: 'Sentence maker', color: '#7a5cc9', text: 'A cloud of words: which team makes more correct sentences in the time?', run: sentenceGame },
     { icon: '📷', title: 'Photo words', color: '#46d9c0', text: 'A photo and 5 minutes: write words about it. Then bonus words worth 2 or 3 points.', run: photoGame },
     { icon: '🏁', title: 'Grammar Race', color: '#8e2de2', text: 'Timed race for the whole class: needs the pupils’ own devices.', run: () => window.GRAMMAR_RACE?.open?.() },
   ];
