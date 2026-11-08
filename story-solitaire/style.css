@@ -66,7 +66,9 @@ button { font-family: inherit; }
 }
 .pile.stock .card.back { cursor: pointer; }
 .card.sel { transform: translateY(-4px); box-shadow: 0 0 0 3px #ffd76a, 0 8px 14px rgba(0,0,0,.45); z-index: 100 !important; }
-.card.good { box-shadow: 0 0 0 3px #ffd76a, 0 0 16px 4px rgba(255,215,106,.95); }
+.card.r0 { box-shadow: 0 0 0 3px #ffd76a, 0 0 16px 4px rgba(255,215,106,.95); }
+.card.r1 { box-shadow: 0 0 0 3px #7ff3ff, 0 0 16px 4px rgba(90,225,245,.95); }
+.card.r2 { box-shadow: 0 0 0 3px #ff9bd8, 0 0 16px 4px rgba(255,120,200,.9); }
 .card.hint, .pile.hint, .col.hint { animation: pulse .7s ease-in-out 4; box-shadow: 0 0 0 4px #fff, 0 0 20px 8px #ffd76a; }
 .card.shake, .pile.shake, .col.shake { animation: shake .3s; }
 .card.dragging { opacity: .5; }
@@ -106,7 +108,8 @@ button { font-family: inherit; }
 body.lvl-easy .card .tx { font-size: 1.55em; line-height: 1.15; text-align: center; padding-top: 2px; }
 body.lvl-easy .card .em { font-size: 1.1em; }
 body.lvl-medium .card .tx { font-size: 1.12em; }
-.card.good.sel { box-shadow: 0 0 0 3px #fff, 0 0 18px 6px #ffd76a, 0 8px 14px rgba(0,0,0,.45); }
+.card.good.sel { box-shadow: 0 0 0 3px #fff, 0 0 18px 6px #fff, 0 8px 14px rgba(0,0,0,.45); }
 .story .told { margin: 0; font-size: 14px; line-height: 1.45; font-weight: 600; }
 .story .told.big { font-size: 20px; line-height: 1.5; }
 .pile.found .card { cursor: zoom-in; }
+.story .src { margin: 8px 0 0; font-size: 13px; font-weight: 700; color: #7a4a00; background: #fff1c9; border-radius: 8px; padding: 6px 10px; }

@@ -48,7 +48,7 @@
     found: ['ANIMAL', 'THING', 'THINGPL', 'FOOD', 'VEHICLE'], heard: ['SOUND', 'ANIMAL'], saw: ['ANIMAL', 'THING', 'THINGPL', 'FOOD', 'VEHICLE'],
     took: ['VEHICLE', 'THING', 'THINGPL', 'FOOD', 'ANIMAL'], got: ['THING', 'THINGPL', 'ANIMAL', 'FOOD', 'VEHICLE'], drank: ['FOOD'], pulled: ['THING', 'THINGPL'],
   };
-  const NAMES = new Set(['Captain', 'Detective', 'Professor', 'Grandpa', 'Grandma', 'Zara', 'Tom', 'Oscar', 'Ella', 'Leo', 'Nina', 'Dan', 'Maria', 'Emma', 'Peanut', 'Zoe', 'Dylan', 'Lily', 'Kenji']);
+  const NAMES = new Set(['Captain', 'Detective', 'Professor', 'Grandpa', 'Grandma', 'Zara', 'Tom', 'Oscar', 'Ella', 'Leo', 'Nina', 'Dan', 'Maria', 'Emma', 'Peanut', 'Zoe', 'Dylan', 'Lily', 'Kenji', 'Alice', 'Scrooge', 'Doctor', 'Hyde', 'Sir', 'Holmes', 'Montresor', 'Legrand']);
   const NAME_OK = ['NP', 'CLn', 'CLc', 'V', 'VBE', 'VBEPL', 'VI', 'CL2'];
 
   const endS = t => /[.!?][”"]?$/.test(t);
@@ -108,7 +108,7 @@
   }
 
   STORIES.forEach(s => {
-    const toks = SPEC[s.id].split(' ');
+    const toks = (SPEC[s.id] || s.specStr).split(' ');
     if (toks.length !== 10) console.error('grammar.js: story', s.id, 'has', toks.length, 'tokens');
     s.spec = toks.map((t, i) => parse(t, s.sets.medium[i]));
   });

@@ -79,7 +79,7 @@
   // ------------------------------------------------------------ drawing
   const card = (c, o = {}) => {
     const g = games[E.story(c)];
-    return `<div class="card c${E.story(c)}${o.cut ? ' cut' : ''}${o.sel ? ' sel' : ''}${o.good ? ' good' : ''}" data-c="${c}"${o.i !== undefined ? ` data-i="${o.i}"` : ''}
+    return `<div class="card c${E.story(c)}${o.cut ? ' cut' : ''}${o.sel ? ' sel' : ''}${o.good !== undefined ? ' good r' + o.good : ''}" data-c="${c}"${o.i !== undefined ? ` data-i="${o.i}"` : ''}
       ${o.top !== undefined ? `style="top:${o.top}px;z-index:${o.z || 1}"` : ''} draggable="true"><i class="em">${g.emoji}</i><span class="tx">${esc(g.lines[E.beat(c) - 1])}</span></div>`;
   };
   const back = (top, z) => `<div class="card back" style="top:${top || 0}px;z-index:${z || 1}"></div>`;
@@ -104,14 +104,21 @@
     for (let c = 0; c < E.COLS; c++) {
       const col = S.tab[c];
       let y = 0, inner = '';
-      // two neighbors that are in the right story order (top = first, bottom = next) get a golden frame
-      const good = new Set();
-      for (let i = S.hid[c]; i < col.length - 1; i++) if (E.story(col[i]) === E.story(col[i + 1]) && E.beat(col[i + 1]) === E.beat(col[i]) + 1) { good.add(i); good.add(i + 1); }
+      // groups of cards in the right story order (top = first, bottom = next) glow; every group has its own colour,
+      // so two good groups put one after the other can't be mistaken for one good pile
+      const good = new Map();
+      for (let i = S.hid[c], run = 0; i < col.length - 1; i++) {
+        if (E.story(col[i]) === E.story(col[i + 1]) && E.beat(col[i + 1]) === E.beat(col[i]) + 1) {
+          let j = i; while (j < col.length - 1 && E.story(col[j]) === E.story(col[j + 1]) && E.beat(col[j + 1]) === E.beat(col[j]) + 1) j++;
+          for (let k = i; k <= j; k++) good.set(k, run % 3);
+          run++; i = j;
+        }
+      }
       col.forEach((x, i) => {
         if (i < S.hid[c]) { inner += back(y, i + 1); y += dim.down; return; }
         const last = i === col.length - 1;
         const isSel = sel && sel.t === 't' && sel.col === c && i >= sel.idx;
-        inner += card(x, { i, top: y, z: i + 1, cut: !last, sel: isSel, good: good.has(i) });
+        inner += card(x, { i, top: y, z: i + 1, cut: !last, sel: isSel, good: good.get(i) });
         y += last ? 0 : dim.strip;
       });
       const height = col.length ? y + dim.ch : dim.ch;
@@ -128,11 +135,14 @@
     read(sel ? (sel.t === 'w' ? S.waste[S.waste.length - 1] : S.tab[sel.col][sel.idx]) : null);
   }
 
+  // a story that comes from a book sends the pupils to the original
+  const srcLine = g => g.source ? `<p class="src">📖 Inspired by <b>“${esc(g.source.book)}”</b> by ${esc(g.source.author)}. Read the original!</p>` : '';
+
   // what is on a story pile so far, as a text
   const told = (g, n) => g.lines.slice(0, n).join(' ') + (n < E.N ? ' …' : '');
   function showStory(i) {
     const g = games[i], n = S.found[i];
-    $('modalBox').innerHTML = `<h2>${g.emoji} ${esc(g.title)} <small style="font:700 15px Nunito">${n}/${E.N}</small></h2><div class="story c${i}"><p class="told big">${esc(told(g, n))}</p></div><div class="row"><button class="btn btn-main" data-action="close">Back to the table</button></div>`;
+    $('modalBox').innerHTML = `<h2>${g.emoji} ${esc(g.title)} <small style="font:700 15px Nunito">${n}/${E.N}</small></h2><div class="story c${i}"><p class="told big">${esc(told(g, n))}</p>${srcLine(g)}</div><div class="row"><button class="btn btn-main" data-action="close">Back to the table</button></div>`;
     $('modal').hidden = false;
   }
 
@@ -140,7 +150,7 @@
     $('drawerBody').innerHTML = games.map((g, i) => {
       const n = S.found[i];
       return `<div class="story c${i}"><h3>${g.emoji} ${esc(g.title)} <small>${n}/${E.N}</small></h3>
-        ${n ? `<p class="told">${esc(told(g, n))}</p>` : '<div class="empty">Waiting for the first card…</div>'}</div>`;
+        ${n ? `<p class="told">${esc(told(g, n))}</p>${n === E.N ? srcLine(g) : ''}` : '<div class="empty">Waiting for the first card…</div>'}</div>`;
     }).join('');
   }
 
@@ -273,8 +283,8 @@
       <p>Four short stories got mixed up in the cards. Each story has its own <span class="chip c0">color</span> and emoji. Put every sentence back in the right order to <b>clear the table</b>!</p>
       <ul>
         <li><b>The story piles</b> (top right): build each story from its <b>first</b> sentence to its <b>last</b>. The empty spaces show which stories are in this deal.</li>
-        <li><b>The columns:</b> put a sentence next to the one that comes <b>right before or right after it</b> in the same story. When two cards are in the right order from <b>top to bottom</b>, they get a <b>golden frame</b> ✨. A group with a golden frame goes to its story pile <b>all together</b>, if its first card is the next one the pile needs. Otherwise only the card at the bottom can go; so you can stack cards just to read them, and take them apart again.</li>
-        <li><b>Try them together:</b> two cards that make good English together can be put on top of each other, even from different stories (<i>At lunch, Anna</i> + <i>built a time machine.</i>). Remember: after a <b>full stop</b> comes a <b>capital letter</b>; after a comma (or nothing) a <b>small letter</b>, unless it is a name. A group of cards that shines moves together. It is only temporary: the golden frame shines only when they are in the right order of their <i>own</i> story.</li>
+        <li><b>The columns read from top to bottom, like a text.</b> Put a card <b>under</b> the card that comes right <b>before</b> it in the story. When cards are in the right order they get a <b>glowing frame</b> ✨. Every group has its own glow color: if two groups next to each other have different colors, they are not in the right order together!</li>
+        <li><b>Try them together:</b> a card can also go under a card of <i>another</i> story if the two make good English one after the other (<i>At lunch, Anna</i> + <i>built a time machine.</i>). Remember: after a <b>full stop</b> comes a <b>capital letter</b>; after a comma (or nothing) a <b>small letter</b>, unless it is a name. It is only temporary: the glow only shines when the cards are in the right order of their <i>own</i> story. A group that glows moves together, and goes to its story pile if its first card is the next one the pile needs.</li>
         <li>You can move a whole group of cards together. When you uncover a face-down card, it turns over.</li>
         <li>An <b>empty column</b> takes any sentence (or group).</li>
         <li>Click the <b>stock</b> (top left) to draw a sentence. When it is empty, click it again to turn the cards over.</li>
@@ -288,7 +298,7 @@
   function showWin() {
     $('modalBox').innerHTML = `<h2>🎉 Table cleared in ${moves} moves!</h2>
       <p>You put all the stories back together. Read them once more:</p>
-      ${games.map((g, i) => `<div class="story c${i}"><h3>${g.emoji} ${esc(g.title)}</h3><p style="margin:0;font-weight:600">${esc(g.lines.join(' '))}</p></div>`).join('')}
+      ${games.map((g, i) => `<div class="story c${i}"><h3>${g.emoji} ${esc(g.title)}</h3><p style="margin:0;font-weight:600">${esc(g.lines.join(' '))}</p>${srcLine(g)}</div>`).join('')}
       <div class="row"><button class="btn btn-main" data-action="new">Play with new stories</button><button class="btn" data-action="close">Close</button></div>`;
     $('modal').hidden = false;
   }

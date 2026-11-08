@@ -20,9 +20,9 @@
   const beat = c => (c % N) + 1;
   const cfg = { EMPTY_ANY: true, compat: null };   // compat(x, y): extra pairs that may be built on the columns (easy level)
 
-  // x goes next to y on a column: a sentence that comes right before or right after it in the same story (the right order reads top to bottom,
-  // but the other way is allowed too: only the bottom card can go to its pile), or - easy level - two words that fit together in either order
-  const canOnCard = (x, y) => (story(x) === story(y) && Math.abs(beat(x) - beat(y)) === 1) || (cfg.compat !== null && (cfg.compat(x, y) || cfg.compat(y, x)));   // x goes under y
+  // x goes UNDER y on a column, so a column reads from top to bottom like a text: y must come right before x, in the same story
+  // (the next sentence) or - with cfg.compat - because the two cards make good English together, even from different stories
+  const canOnCard = (x, y) => (story(x) === story(y) && beat(y) + 1 === beat(x)) || (cfg.compat !== null && cfg.compat(y, x));
   const canOnEmpty = x => cfg.EMPTY_ANY || beat(x) === N;
 
   function shuffle(a, rnd) {
