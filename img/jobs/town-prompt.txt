@@ -1,0 +1,20 @@
+PROMPT FOR GEMINI (aspect ratio 1:1, save the result as img/jobs/town.png)
+
+Create a hugely detailed black-and-white line-art illustration in the style of a "Where's Waldo?" / "Where's Wally?" search-and-find book, for teenage English learners. A busy small town seen from above at an angle (bird's-eye view), packed edge to edge with tiny people at work, with a crowded main square in the middle and streets, shops and rooftops all around. Pure black ink outlines on a pure white background, NO colour, NO grey shading, NO filled black areas, NO gradients, NO text, NO letters, NO speech bubbles. Clean, even, medium-thin lines, big enough shapes to be coloured in with coloured pencils. Friendly cartoon style, funny little scenes, hundreds of small details, no empty space.
+
+The town is full of workers doing their jobs: a nurse, doctors, a dentist, a firefighter with a helmet next to a fire truck, a police officer, a baker with a tall chef hat outside a bakery, a chef, waiters carrying trays of drinks outside a cafe, a mechanic in work trousers repairing a car in a garage, a hairdresser in an apron in a salon window, a farmer in big boots with a tractor at the edge of town, a mail carrier with a big bag on a bicycle, a street cleaner with a broom, a vet with a dog on a leash outside a clinic, a builder on a ladder at a building site with a crane, an ice-cream seller with a cart, a teacher with schoolchildren, a librarian, a taxi driver, a bus driver, a pilot walking with a suitcase, a lifeguard at a small pool, a gardener, a window cleaner, a painter, a photographer, a musician, a market with fruit sellers, a farmer's market, a delivery person, a tailor, a shoe shop, a pharmacy, a hotel, a school, a hospital, a train station.
+
+These 12 things MUST be clearly visible, each ONCE, as clearly separate, easy-to-colour shapes with a clearly closed outline (large white areas):
+1. the nurse's shoes
+2. the mechanic's trousers
+3. the baker's hat
+4. the firefighter's helmet
+5. the farmer's boots
+6. the hairdresser's apron
+7. the mail carrier's bag
+8. the street cleaner's broom
+9. the vet's dog leash
+10. the waiter's tray of drinks
+11. the builder's ladder
+12. the ice-cream seller's cart
+Do not hide them, but place them far apart from each other, in different corners of the picture, among many other people and objects. Add some funny hidden extras (a cat on a roof, a person asleep on a bench, a dog stealing a sausage) without making the 12 items unclear.

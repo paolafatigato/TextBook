@@ -75,6 +75,8 @@ const CONTENTS = {
         { title: 'Music', color: '#dc3394' },
         { title: 'INVALSI practice', color: '#e3b505' },
         { title: 'Exam practice', color: '#262626' },
+        // the last pages of the pupils' book: writing challenges, one per page (writing-challenges.css)
+        { title: 'Writing challenges', start: 'wc-intro', color: '#e8c547' },
       ],
     },
     {
@@ -91,6 +93,8 @@ const CONTENTS = {
         { title: 'Forehead game', start: 'jobcards-1', color: '#1f2a6b' },
         // the Grammar Poker deck: choose the cards, see them, print them (poker-deck.js)
         { title: 'Poker deck (Grammar Poker)', start: 'pokerdeck-1', color: '#8e2de2' },
+        // Bullshit: the cards with the facts (from the Bullshit♠️ site) to choose and print (bullshit-deck.js)
+        { title: 'Bullshit cards', start: 'bsdeck-1', color: '#1a4a2e' },
         // "find someone who…" bingo cards to print, one per page: Classroom (20), Holiday (12), Fashion show (4)
         { title: 'Bingo (to print)', start: 'bingo-class-1', color: '#d1a07f' },
       ],
@@ -142,6 +146,8 @@ const CONTENTS = {
     { title: 'Have / have got: do you have…?', color: '#c9de3c', pages: ['own-animals-have'] },
     { title: 'Animals: guess who (what am I?)', color: '#c9de3c', pages: ['own-animals-guess:L'] },
     { title: 'Animals: draw it from memory', color: '#c9de3c', pages: ['own-animals-guess:R'] },
+    { title: 'Animal verbs: clam up, chicken out, rat on…', color: '#c9de3c', pages: ['own-idioms:L'] },
+    { title: 'Animal idioms: busy as a bee, when pigs fly…', color: '#c9de3c', pages: ['own-idioms:R'] },
     { title: '’s: is, has or possessive?', color: '#4aa8ec', pages: ['own-three-s'] },
     { title: 'Present simple', color: '#c97df6', pages: [['ps-affirmative', 'ps-extra-reading'], ['ps-practice', 'ps-routine-linking']] },
     { title: 'Adverbs of frequency', color: '#8e2de2', pages: ['ps-affirmative:R', 'ps-extra-spelling:R', 'ps-routine-linking:L'] },
@@ -289,6 +295,7 @@ const CONTENTS = {
     { title: 'Describing jobs: the job cards', color: '#e8820c', pages: [['jobs-stereotypes:R', 'jobs-forehead']] },
     { title: 'Questions with do I / am I', color: '#e8820c', pages: ['jobs-forehead'] },
     { title: 'Who am I? The forehead game', color: '#e8820c', pages: ['jobs-forehead:R', ['jobcards-1', 'jobcards-3']] },
+    { title: 'Job riddles: guess the job, describe a job in a silly way', color: '#e8820c', pages: ['jobs-riddles'] },
     { title: 'Jobs games', color: '#e8820c', pages: ['jobs-vocab:L', 'jobs-stereotypes:L', 'jobs-cv-model:R', 'jobs-my-cv:R'] },
     { title: 'Future: will, be going to, present continuous', color: '#8e2de2', pages: [['fut-intro', 'fut-which-sort']] },
     { title: 'Talk about your plans & predictions', color: '#8e2de2', pages: ['fut-intro:R'] },
@@ -318,6 +325,7 @@ const CONTENTS = {
     { title: 'Should / shouldn’t: asking for and giving advice', color: '#ffa59d', pages: [['hb-advice', 'hb-advice2:L']] },
     { title: 'Writing: Dear Coach (a letter of advice)', color: '#c97ff7', pages: ['hb-advice2:R'] },
     { title: 'Project: my habit plan & the 14-day chain', color: '#073226', pages: ['hb-project'] },
+    { title: 'Writing challenges: a chaotic notebook (random person, Roses are red, seven deadly sins…)', color: '#e8c547', pages: [['wc-intro', 'wc-12']] },
     { title: 'Clothes vocabulary: tops, bottoms & outfits', color: '#dc3394', pages: ['clothes-vocab'] },
     { title: 'Accessories, shoes & fabrics', color: '#f5a53b', pages: ['clothes-accessories:L'] },
     { title: 'The alphabet game (clothes)', color: '#dc3394', pages: ['clothes-accessories:L'] },

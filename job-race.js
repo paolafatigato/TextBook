@@ -9,7 +9,7 @@
 // (money, free time, family time, fame…). Then they choose a job and 4 of its 6 reasons ("It makes a lot
 // of money", "You can become famous"…). In the race each player plays one reason per turn: it gives
 // happiness, and more happiness when the player cares about it (more hearts). First to 100 wins.
-// The first player starts from the hearts of 9.26 in the book ([jobs-career:L]), if they used 12 or fewer.
+// The first player starts from the hearts of 9.29 in the book ([jobs-career:L]), if they used 12 or fewer.
 //
 //   - a reason can be played only a few times (the pips); "An ordinary day" can always be played
 //   - dream reasons (fame, a fortune…) are a gamble: most times a little frustration, sometimes a HUGE joy.
@@ -922,7 +922,7 @@
   const heartsLeft = () => HEARTS - Object.values(draft.hearts).reduce((t, n) => t + n, 0);
   const heartRow = n => '❤️'.repeat(n) || '<i class="jr-zero">–</i>';
 
-  // the hearts of 9.26 in the book ([jobs-career:L]): each value is an .opt with the buttons 1 2 3 4
+  // the hearts of 9.29 in the book ([jobs-career:L]): each value is an .opt with the buttons 1 2 3 4
   function bookHearts() {
     const hearts = {};
     let total = 0;
@@ -968,7 +968,7 @@
     const p = humans > 1 ? `Player ${maker + 1}` : 'Your';
     screen.innerHTML = `
       <h2 class="jr-title">${humans > 1 ? `${p}: your Me card` : 'Your Me card'}</h2>
-      <p class="jr-sub">${draft.fromBook ? `These are your hearts from exercise 9.26! You can still change them.` : `What makes you happy in a job? Give your <b>${HEARTS} hearts</b> (up to ${MAX_H} for one thing).`}</p>
+      <p class="jr-sub">${draft.fromBook ? `These are your hearts from exercise 9.29! You can still change them.` : `What makes you happy in a job? Give your <b>${HEARTS} hearts</b> (up to ${MAX_H} for one thing).`}</p>
       <label class="jr-name">My name <input type="text" maxlength="18" autocomplete="off" value="${esc(draft.name)}" placeholder="e.g. Maya"></label>
       <div class="jr-avs">${AVATARS.map(a => `<button type="button" class="jr-av${a === draft.avatar ? ' on' : ''}" data-act="avatar" data-a="${a}" aria-label="Picture ${a}">${a}</button>`).join('')}</div>
       <div class="jr-values">${VALUES.map(v => `
@@ -1069,7 +1069,7 @@
   function newDraft() {
     const used = made.map(m => m.avatar);
     const free = AVATARS.filter(a => !used.includes(a));
-    // the first player starts from the hearts of 9.26 in the book (if they are not more than 12)
+    // the first player starts from the hearts of 9.29 in the book (if they are not more than 12)
     const book = maker === 0 ? bookHearts() : null;
     draft = { name: '', avatar: free[Math.floor(Math.random() * Math.min(free.length, 10))], hearts: book && book.total <= HEARTS ? book.hearts : {}, job: '', picks: [], fromBook: !!book && book.total > 0 && book.total <= HEARTS };
   }
@@ -1284,7 +1284,7 @@
         <ol class="jr-rank">${rank.map(p => `<li>${p.avatar} <b>${esc(p.name)}</b> · ${JOB[p.job].icon} ${JOB[p.job].name} · ${Math.min(p.joy, GOAL)} 😊</li>`).join('')}</ol>
         <div class="jr-why"><b>✏️ Now say it in English!</b> Your best reasons in this race:
           ${human.map(p => `<p>${p.avatar} <i>${esc(sentence(p))}</i></p>`).join('')}
-          <small>Is it true for you too? Use it in exercise 9.36!</small>
+          <small>Is it true for you too? Use it in exercise 9.39!</small>
         </div>
         <button type="button" class="jr-btn go" data-act="again">Race again with the same jobs 🏁</button>
         <button type="button" class="jr-btn" data-act="modes">New game</button>
@@ -2041,7 +2041,7 @@
   // a button with data-game="match" opens Make Them Happy!, the others the Happy Job Race
   document.querySelectorAll('.jr-start').forEach(b => b.addEventListener('click', () => open(b.dataset.game)));
 
-  /* ================= 9.26 in the book: how many hearts are used ================= */
+  /* ================= 9.29 in the book: how many hearts are used ================= */
   // script.js saves and paints the hearts (they are .opt); here we only count them
   const sheet = document.getElementById('jb917'), counter = document.getElementById('jb917-count');
   function countHearts() {

@@ -146,6 +146,16 @@
 .an-bank p.r b { color: #6a4fa0; }
 
 .an-paper { border-radius: 1.2cqw; background-color: #f9f3fe; }
+/* A5: invent a creature */
+.an-ideas { display: flex; align-items: center; gap: 1.4cqw; }
+.an-ideas span { font: 800 1.4cqw/1 'Nunito', sans-serif; color: var(--an-navy); white-space: nowrap; }
+.an-ideas em {
+  padding: .9cqw 1.6cqw; border-radius: 999px; background: #fff; box-shadow: var(--an-shadow);
+  font: normal 600 1.4cqw/1.1 'Patrick Hand', cursive; color: var(--an-navy);
+}
+.an-hint { font: 600 1.3cqw/1.3 'Nunito', sans-serif; color: #8a85a0; }
+.an-draw { border: .25cqw dashed #cdb6ea; display: grid; place-items: center; }
+.an-draw span { font: 600 1.4cqw/1 'Nunito', sans-serif; color: #b8a6d3; }
 .an-paper textarea.fill {
   padding: 0 1.2cqw; font: 400 1.9cqw/3.1cqw 'Patrick Hand', cursive; border-radius: 1.2cqw;
   background: repeating-linear-gradient(transparent 0 calc(3.1cqw - .13cqw), #d8c3ef calc(3.1cqw - .13cqw) 3.1cqw);
@@ -216,3 +226,46 @@
 .an-game .cards span:nth-child(2) { transform: rotate(1deg); }
 .an-game .cards span:nth-child(3) { transform: rotate(5deg); font-size: 1.05cqw; text-align: center; padding: 0 .3cqw; }
 .an-game p { margin: 0; font: 400 1.4cqw/1.5 'Nunito', sans-serif; color: var(--an-ink); }
+
+/* ---------- [own-idioms-verbs, own-idioms-sayings]: animal verbs and idioms ---------- */
+/* picture ↔ meaning: the left button is a big emoji pair and the phrase */
+.match.an-idiom li { height: 7.1cqw; }
+.match.an-idiom .match-words { width: 44cqw; }
+.match.an-idiom button { white-space: normal; text-align: left; line-height: 1.2; }
+.match.an-idiom .match-words button {
+  display: flex; align-items: center; gap: 1.2cqw; width: 35cqw; padding: .5cqw 1cqw;
+  background: #fff; box-shadow: var(--an-shadow); border-radius: 1.4cqw; font-size: 1.8cqw; font-weight: 800; color: var(--an-navy);
+}
+.match.an-idiom .match-words em { flex: none; font: normal 400 3.3cqw/1 var(--an-emoji); min-width: 10cqw; text-align: center; }
+.match.an-idiom .match-defs button {
+  max-width: 38cqw; padding: .4cqw .6cqw; background: none; border-radius: .6cqw; font-size: 1.65cqw; font-weight: 600; color: #444;
+}
+.match.an-idiom .match-words button::after { background: var(--an-lilac-mid); }
+.match.an-idiom .match-defs button::before { background: var(--an-lilac-mid); }
+.match.an-idiom button.linked-w::after, .match.an-idiom button.linked-d::before { background: var(--an-purple); }
+.match.an-idiom .match-lines line { stroke: var(--an-purple); stroke-width: 1.8; }
+.match.an-idiom .match-lines line.ok { stroke: #43a047; }
+.match.an-idiom .match-lines line.no { stroke: #e53935; }
+.match.an-idiom.sm li { height: 5.6cqw; }
+.match.an-idiom.sm .match-words button { padding: .3cqw 1cqw; font-size: 1.5cqw; }
+.match.an-idiom.sm .match-words em { font-size: 2.6cqw; min-width: 9cqw; }
+.match.an-idiom.sm .match-defs button { font-size: 1.55cqw; }
+
+/* the word box */
+.id-bank { display: flex; flex-wrap: wrap; gap: .8cqw 1cqw; padding: 1.1cqw 1.4cqw; border-radius: 1.6cqw; background: var(--an-lilac); }
+.id-bank span { padding: .35cqw 1.1cqw; border-radius: 999px; background: #fff; box-shadow: 0 .2cqw .6cqw rgba(31, 42, 107, .12); font: 800 1.4cqw/1.3 'Nunito', sans-serif; color: var(--an-navy); }
+.an-idl li { min-height: 6.4cqw; }
+#an-idg2 li { min-height: 5.6cqw; }
+.an-idl li > span:not(.ink) { flex: 1; }
+.an-idl input.fill.blank { display: inline-block; width: 12cqw; height: 2.5cqw; vertical-align: baseline; margin: 0 .4cqw; }
+.an-idl li { font-size: 1.75cqw; }
+
+.id-why { padding: 1.3cqw 1.8cqw; border-radius: 1.6cqw; background: #fff; box-shadow: var(--an-shadow); border-left: .7cqw solid var(--an-lime-d); }
+.id-why p { margin: 0 0 .7cqw; font: 400 1.55cqw/1.65 'Nunito', sans-serif; color: var(--an-ink); }
+.id-why b { font-weight: 800; color: var(--an-navy); }
+.id-why .id-note { color: #6b6780; }
+.id-why input.fill { width: 100%; height: 2.8cqw; border-bottom: .14cqw solid var(--an-line); font-size: 1.9cqw; }
+.id-own .an-row { margin: 0 0 1.6cqw; }
+.id-mini { padding: 1cqw 1.6cqw; border-radius: 1.4cqw; background: var(--an-pink); font: 400 1.55cqw/1.5 'Nunito', sans-serif; color: var(--an-ink); }
+.id-mini b { color: var(--an-coral); }
+.id-draw canvas { aspect-ratio: 10 / 7; }

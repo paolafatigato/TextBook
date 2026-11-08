@@ -1534,7 +1534,9 @@ else {
 
   document.getElementById('printBtn').addEventListener('click', () => {
     what.hidden = !isTeacher();
-    [from, to].forEach(inp => { inp.min = firstPage; inp.max = lastPage; });
+    // up to the last number of the scaffolding (1000 and up), not just the last page of the book
+    const top = Math.max(lastPage, ...scaffoldLast.values());
+    [from, to].forEach(inp => { inp.min = firstPage; inp.max = top; });
     if (isTeacher()) {
       // the chapters with their pages: choosing one writes its pages in "from … to"
       // (scaffolding and tests have no page numbers: they are printed one spread at a time)
@@ -1546,7 +1548,8 @@ else {
       radio('spread').disabled = !atSpread();
       radio(atSpread() ? 'spread' : 'range').checked = true;
       chapter.value = '';
-      if (atSpread()) [from.value, to.value] = [pagesOf(spreads[current])[0], pagesOf(spreads[current]).at(-1)];
+      const open = spreads[current];
+      if (atSpread()) [from.value, to.value] = isScaffold(open) ? [scaffoldNo.get(open), scaffoldLast.get(open)] : [pagesOf(open)[0], pagesOf(open).at(-1)];
     }
     pp.showModal();
   });
@@ -1681,17 +1684,22 @@ if (isPrintCopy) (async () => {
   // who is signed in decides which pages can be printed (cloud.js; at most a few seconds)
   await Promise.race([userReady, new Promise(r => setTimeout(r, 6000))]);
   const a = Number(PRINT_JOB.get('from')), z = Number(PRINT_JOB.get('to'));
+  // the number of a page: its page of the book, or for scaffolding and tests its number from 1000 up
+  const printNo = p => {
+    const s = p.closest('.spread');
+    return isScaffold(s) ? scaffoldNo.get(s) + [...s.querySelectorAll(':scope > .page')].indexOf(p) : +p.dataset.page;
+  };
   const pages = spreads.filter(canSee)
     .flatMap(s => [...s.querySelectorAll(':scope > .page')])
-    .filter(p => +p.dataset.page >= a && +p.dataset.page <= z);
+    .filter(p => printNo(p) >= a && printNo(p) <= z);
   if (!pages.length) { note.textContent = 'There are no pages to print here.'; return; }
 
   const blankSheet = () => Object.assign(document.createElement('div'), { className: 'print-pad' });
   let sheets = 0;
-  const startSide = +pages[0].dataset.page % 2; // the first page is always on the front of the first sheet
+  const startSide = printNo(pages[0]) % 2; // the first page is always on the front of the first sheet
   pages.forEach(p => {
     // double-sided: the pages keep their sides as in the book (a blank one only where a page is missing)
-    if (PRINT_JOB.has('duplex') && sheets % 2 !== (+p.dataset.page - startSide) % 2) { p.before(blankSheet()); sheets++; }
+    if (PRINT_JOB.has('duplex') && sheets % 2 !== (printNo(p) - startSide) % 2) { p.before(blankSheet()); sheets++; }
     p.classList.add('print-on');
     p.closest('.spread').classList.add('print-on');
     sheets++;

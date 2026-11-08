@@ -74,7 +74,7 @@ const V5_IDS = [
   'alice-reading', 'alice-there-is', 'alice-comparisons', 'alice-yoga', 'alice-society', 'shk-meet',
   'shk-id-card', 'shk-sonnet', 'shk-rhyme-machine', 'shk-rhyme-gym', 'rj-verona', 'rj-fight', 'rj-party',
   'rj-kiss', 'rj-balcony', 'rj-rehearsal', 'jobs-reading', 'jobs-story', 'jobs-vocab', 'jobs-stereotypes',
-  'jobs-forehead', 'jobs-career', 'jobs-cv-model', 'jobs-my-cv', 'fut-intro', 'fut-will-teller',
+  'jobs-forehead', 'jobs-riddles', 'jobs-career', 'jobs-cv-model', 'jobs-my-cv', 'fut-intro', 'fut-will-teller',
   'fut-will-analysis', 'fut-will-sentences', 'fut-will-dice', 'fut-going-to', 'fut-going-to-questions',
   'fut-present-cont', 'fut-which-rules', 'fut-which-practice', 'fut-which-sort', 'test-pron-a', 'test-pron-b',
   'test-pron-c', 'test-clothes-a1', 'test-clothes-a2', 'test-clothes-b1', 'test-clothes-b2', 'test-clothes-c1',
