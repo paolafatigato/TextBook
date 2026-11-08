@@ -1,0 +1,42 @@
+/* Forehead writing (For the teacher > Forehead writing): two cards on each page to cut out and stick on a partner's forehead.
+   Per level (--c = colour, --bg = card background): A1 / A2 / B1, 4 pairs each. The font is bigger when the text is shorter. */
+.fw-page { background: #fff; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.fw-in { position: absolute; inset: 0; padding: 4.4cqw 5cqw 0; display: flex; flex-direction: column; font-family: 'Nunito', 'Roboto', sans-serif; color: #2b2b2b; }
+
+/* cards */
+.fw-head { margin: 0 0 1.6cqw; font: 400 3.2cqw/1 'Nunito', sans-serif; color: var(--c); }
+.fw-head b { font-weight: 800; }
+.fw-card { position: relative; box-sizing: border-box; height: 56cqw; border: .9cqw solid var(--c); border-radius: 3cqw; background: var(--bg); padding: 3.6cqw 4.4cqw; display: flex; align-items: center; }
+.fw-card p { margin: 0; font-weight: 700; line-height: 1.32; text-align: left; }
+.fw-a1 .fw-card p { font-size: 5.1cqw; }
+.fw-a2 .fw-card p { font-size: 4.25cqw; }
+.fw-b1 .fw-card p { font-size: 3.7cqw; line-height: 1.3; }
+.fw-tag { position: absolute; top: -.9cqw; left: -.9cqw; width: 7cqw; height: 7cqw; border-radius: 3cqw 0 3cqw 0; background: var(--c); color: #fff; font: 800 4.2cqw/7cqw 'Nunito', sans-serif; text-align: center; }
+.fw-cut { margin: 1.4cqw 0; font: 400 3cqw/1 'Nunito', sans-serif; color: #9a9a9a; white-space: nowrap; overflow: hidden; text-align: center; }
+
+/* intro pages */
+.fw-rules { padding-top: 5cqw; }
+.fw-tape { margin: 0 0 3cqw; align-self: flex-start; padding: 1cqw 2.6cqw; background: #ffe58a; font: 800 2.9cqw/1 'Nunito', sans-serif; color: #5a4400; transform: rotate(-1.4deg); }
+.fw-title { margin: 0 0 3cqw; font: 400 11cqw/1 'Playfair Display', serif; color: #2b2b2b; }
+.fw-title span { font-style: italic; color: #d9782b; }
+.fw-sub { margin: 0 0 4cqw; font: 700 3.7cqw/1.4 'Nunito', sans-serif; }
+.fw-steps { margin: 0; padding: 0 0 0 5.4cqw; font: 400 3.5cqw/1.4 'Nunito', sans-serif; }
+.fw-steps li { margin-bottom: 2.4cqw; padding-left: 1cqw; }
+.fw-steps li::marker { font-weight: 800; color: #d9782b; }
+.fw-h2 { margin: 0 0 3cqw; font: 400 7cqw/1.1 'Playfair Display', serif; }
+.fw-levels, .fw-ideas { margin: 0 0 6cqw; padding: 0; list-style: none; font: 400 3.5cqw/1.4 'Nunito', sans-serif; }
+.fw-levels li { margin-bottom: 2.4cqw; padding: 2.2cqw 3cqw; border-left: 1.6cqw solid var(--c); background: #f6f6f6; }
+.fw-levels b { color: var(--c); font-weight: 800; }
+.fw-ideas li { margin-bottom: 2.4cqw; padding-left: 4cqw; position: relative; }
+.fw-ideas li::before { content: "✏️"; position: absolute; left: 0; top: 0; font-size: 3cqw; }
+
+/* authentic texts: a source line under each card; poems keep their lines; font size by text length (fw-p1..p3 poems, fw-t1..t2 prose) */
+.fw-au .fw-card { height: 56cqw; }
+.fw-src { margin: 1cqw 0 0; font: 400 italic 2.7cqw/1.1 'Nunito', sans-serif; color: #777; }
+.fw-au .fw-cut { margin: .6cqw 0; }
+.fw-t1 .fw-card p { font-size: 3.7cqw; }
+.fw-t2 .fw-card p { font-size: 3.3cqw; line-height: 1.32; }
+.fw-p1 .fw-card p { font-size: 3.85cqw; line-height: 1.27; }
+.fw-p2 .fw-card p { font-size: 3.3cqw; line-height: 1.36; }
+.fw-p3 .fw-card p { font-size: 2.95cqw; line-height: 1.4; font-weight: 600; white-space: nowrap; }
+.fw-p3 .fw-card, .fw-t2 .fw-card { padding-top: 6cqw; padding-bottom: 2cqw; }

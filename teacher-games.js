@@ -663,49 +663,50 @@
 
 
   /* ---------- 📷 photo words (it was a scaffolding spread of Describing photos): a photo + 5 minutes, then bonus words ---------- */
-  // Every word that is really in the photo is worth 1 point; "Reveal bonus" draws 2 words worth 3 points and 4 worth 2 points.
+  // Every word that is really in the photo is worth 1 point. "Reveal bonus" draws 7 words and shows them in random order:
+  // one worth 5 and one worth 4 (both from `hard`: difficult words), two worth 3 and three worth 2 (from `easy`: normal words).
   // To add a photo: copy the image into img/wordrace/ and add an entry to PHOTOS (w = word, alt = also accepted).
-  const PHOTOS = [ // p3 = rarer or harder words (3 points), p2 = medium words (2 points)
+  const PHOTOS = [
     {
       src: 'img/wordrace/festival.jpg', title: 'The festival',
-      p3: [ { w: 'nurse' }, { w: 'costume', alt: 'uniform' }, { w: 'bucket hat' }, { w: 'mustache', alt: 'moustache' }, { w: 'tattoo' }, { w: 'fan' }, { w: 'afro' }, { w: 'heart' }, { w: 'peace sign', alt: 'victory sign' }, { w: 'festival', alt: 'concert' }, { w: 'fanny pack', alt: 'belt bag; bum bag' }, { w: 'bracelet', alt: 'wristband' }, { w: 'bun' }, { w: 'cross', alt: 'red cross' } ],
-      p2: [ { w: 'cap' }, { w: 'sunglasses', alt: 'glasses' }, { w: 'beard' }, { w: 'beer', alt: 'cup' }, { w: 'watch' }, { w: 'necklace' }, { w: 'earrings', alt: 'earring' }, { w: 'bag', alt: 'backpack' }, { w: 'jeans' }, { w: 'belt' }, { w: 'phone' }, { w: 'T-shirt', alt: 'shirt' }, { w: 'jacket' }, { w: 'curly' }, { w: 'blonde' }, { w: 'crowd' }, { w: 'dancing' }, { w: 'smiling' }, { w: 'laughing' }, { w: 'drinking' }, { w: 'holding' }, { w: 'waving', alt: 'raising arms' }, { w: 'sunny' }, { w: 'crowded' }, { w: 'happy' }, { w: 'hair' }, { w: 'arms' }, { w: 'people' }, { w: 'man' }, { w: 'woman' } ],
+      hard: [ { w: 'nurse' }, { w: 'costume', alt: 'uniform' }, { w: 'bucket hat' }, { w: 'mustache', alt: 'moustache' }, { w: 'tattoo' }, { w: 'afro' }, { w: 'peace sign', alt: 'victory sign' }, { w: 'fanny pack', alt: 'belt bag; bum bag' }, { w: 'bracelet', alt: 'wristband' }, { w: 'bun' }, { w: 'hand fan', alt: 'fan' } ],
+      easy: [ { w: 'heart' }, { w: 'festival', alt: 'concert' }, { w: 'cap' }, { w: 'sunglasses', alt: 'glasses' }, { w: 'beard' }, { w: 'beer', alt: 'cup' }, { w: 'watch' }, { w: 'necklace' }, { w: 'earrings', alt: 'earring' }, { w: 'bag', alt: 'backpack' }, { w: 'jeans' }, { w: 'belt' }, { w: 'phone' }, { w: 'T-shirt', alt: 'shirt' }, { w: 'jacket' }, { w: 'curly' }, { w: 'blonde' }, { w: 'crowd' }, { w: 'dancing' }, { w: 'smiling' }, { w: 'laughing' }, { w: 'drinking' }, { w: 'holding' }, { w: 'waving', alt: 'raising arms' }, { w: 'sunny' }, { w: 'happy' }, { w: 'hair' }, { w: 'arms' }, { w: 'people' }, { w: 'man' }, { w: 'woman' } ],
     },
     {
       src: 'img/wordrace/street-vendor.jpg', title: 'The street',
-      p3: [ { w: 'conical hat', alt: 'straw hat' }, { w: 'vendor', alt: 'seller' }, { w: 'basket' }, { w: 'scooter', alt: 'motorbike' }, { w: 'helmet' }, { w: 'traffic' }, { w: 'plastic bag' }, { w: 'handlebars' }, { w: 'sandals' }, { w: 'ponytail' }, { w: 'awning' }, { w: 'market' }, { w: 'oranges', alt: 'tangerines' } ],
-      p2: [ { w: 'bike', alt: 'bicycle' }, { w: 'fruit' }, { w: 'hat' }, { w: 'shirt' }, { w: 'pants', alt: 'trousers' }, { w: 'bag' }, { w: 'motorcycle' }, { w: 'street', alt: 'road' }, { w: 'walking' }, { w: 'pushing' }, { w: 'riding' }, { w: 'carrying' }, { w: 'selling' }, { w: 'wheel' }, { w: 'tree' }, { w: 'people' }, { w: 'woman' }, { w: 'man' }, { w: 'red' }, { w: 'green' }, { w: 'busy' }, { w: 'crowded' }, { w: 'city' }, { w: 'sign' }, { w: 'orange' }, { w: 'yellow' } ],
+      hard: [ { w: 'conical hat', alt: 'straw hat' }, { w: 'vendor', alt: 'seller' }, { w: 'scooter', alt: 'motorbike' }, { w: 'handlebars' }, { w: 'awning' }, { w: 'ponytail' }, { w: 'traffic' }, { w: 'spokes', alt: 'wheel spokes' } ],
+      easy: [ { w: 'bike', alt: 'bicycle' }, { w: 'fruit' }, { w: 'hat' }, { w: 'shirt' }, { w: 'pants', alt: 'trousers' }, { w: 'bag' }, { w: 'plastic bag' }, { w: 'basket' }, { w: 'helmet' }, { w: 'sandals' }, { w: 'motorcycle' }, { w: 'street', alt: 'road' }, { w: 'walking' }, { w: 'pushing' }, { w: 'riding' }, { w: 'carrying' }, { w: 'selling' }, { w: 'wheel' }, { w: 'tree' }, { w: 'people' }, { w: 'woman' }, { w: 'man' }, { w: 'red' }, { w: 'green' }, { w: 'busy' }, { w: 'crowded' }, { w: 'city' }, { w: 'sign' }, { w: 'orange', alt: 'oranges; tangerines' }, { w: 'yellow' }, { w: 'market' } ],
     },
     {
       src: 'img/wordrace/school-kids.jpg', title: 'The school',
-      p3: [ { w: 'uniform' }, { w: 'hijab', alt: 'headscarf' }, { w: 'backpack' }, { w: 'skirt' }, { w: 'pointing' }, { w: 'trophies', alt: 'cups; awards' }, { w: 'flower', alt: 'orchid' }, { w: 'badge' }, { w: 'shorts' }, { w: 'balcony' }, { w: 'courtyard', alt: 'school yard' }, { w: 'linking arms', alt: 'arm in arm' }, { w: 'display case', alt: 'cabinet' }, { w: 'socks' } ],
-      p2: [ { w: 'children', alt: 'kids' }, { w: 'girl' }, { w: 'girls' }, { w: 'boy' }, { w: 'school' }, { w: 'smiling' }, { w: 'laughing' }, { w: 'walking' }, { w: 'looking' }, { w: 'shirt' }, { w: 'white' }, { w: 'red' }, { w: 'blue' }, { w: 'building' }, { w: 'wall' }, { w: 'friends' }, { w: 'happy' }, { w: 'hair' }, { w: 'bag' }, { w: 'shoes' }, { w: 'together' }, { w: 'tiles' }, { w: 'plants' } ],
+      hard: [ { w: 'hijab', alt: 'headscarf' }, { w: 'trophies', alt: 'cups; awards' }, { w: 'orchid' }, { w: 'badge' }, { w: 'balcony' }, { w: 'courtyard', alt: 'school yard' }, { w: 'linking arms', alt: 'arm in arm' }, { w: 'display case', alt: 'cabinet' } ],
+      easy: [ { w: 'uniform' }, { w: 'backpack' }, { w: 'skirt' }, { w: 'shorts' }, { w: 'flower' }, { w: 'socks' }, { w: 'children', alt: 'kids' }, { w: 'girl' }, { w: 'boy' }, { w: 'school' }, { w: 'smiling' }, { w: 'laughing' }, { w: 'walking' }, { w: 'pointing' }, { w: 'looking' }, { w: 'shirt' }, { w: 'white' }, { w: 'red' }, { w: 'blue' }, { w: 'building' }, { w: 'wall' }, { w: 'friends' }, { w: 'happy' }, { w: 'hair' }, { w: 'bag' }, { w: 'shoes' }, { w: 'together' }, { w: 'plants' } ],
     },
     {
       src: 'img/wordrace/restaurant.jpg', title: 'The restaurant',
-      p3: [ { w: 'napkin' }, { w: 'bracelet' }, { w: 'ring' }, { w: 'cucumber' }, { w: 'carrot' }, { w: 'lemon' }, { w: 'olives' }, { w: 'leaves', alt: 'lettuce' }, { w: 'wine' }, { w: 'fork' }, { w: 'bowl' }, { w: 'wooden table', alt: 'wood' }, { w: 'sleeve' }, { w: 'vegetables' } ],
-      p2: [ { w: 'salad' }, { w: 'plate' }, { w: 'glass' }, { w: 'eating' }, { w: 'food' }, { w: 'table' }, { w: 'hand' }, { w: 'women', alt: 'girls' }, { w: 'friends' }, { w: 'drinking' }, { w: 'holding' }, { w: 'red' }, { w: 'green' }, { w: 'white' }, { w: 'healthy' }, { w: 'delicious' }, { w: 'restaurant' }, { w: 'knife' }, { w: 'hair' }, { w: 'lunch', alt: 'dinner' }, { w: 'orange' }, { w: 'tasting' } ],
+      hard: [ { w: 'napkin' }, { w: 'bracelet' }, { w: 'cucumber' }, { w: 'olives' }, { w: 'lettuce', alt: 'leaves' }, { w: 'sleeve' }, { w: 'ring' }, { w: 'carrot' }, { w: 'cutlery' } ],
+      easy: [ { w: 'salad' }, { w: 'plate' }, { w: 'glass' }, { w: 'bowl' }, { w: 'fork' }, { w: 'knife' }, { w: 'wine' }, { w: 'lemon' }, { w: 'vegetables' }, { w: 'eating' }, { w: 'food' }, { w: 'table' }, { w: 'hand' }, { w: 'women', alt: 'girls' }, { w: 'friends' }, { w: 'drinking' }, { w: 'holding' }, { w: 'red' }, { w: 'green' }, { w: 'white' }, { w: 'healthy' }, { w: 'delicious' }, { w: 'restaurant' }, { w: 'hair' }, { w: 'lunch', alt: 'dinner' }, { w: 'orange' } ],
     },
     {
       src: 'img/wordrace/hotel.jpg', title: 'The hotel',
-      p3: [ { w: 'receptionist', alt: 'reception' }, { w: 'snowboard' }, { w: 'goggles' }, { w: 'helmet' }, { w: 'waistcoat', alt: 'vest' }, { w: 'bow tie' }, { w: 'lamp', alt: 'light bulb' }, { w: 'clock' }, { w: 'flowers' }, { w: 'parka', alt: 'coat; fur hood' }, { w: 'beard' }, { w: 'ponytail' }, { w: 'sign' }, { w: 'desk' }, { w: 'plant' }, { w: 'guest', alt: 'tourist' } ],
-      p2: [ { w: 'man' }, { w: 'woman' }, { w: 'coat' }, { w: 'jacket' }, { w: 'smiling' }, { w: 'talking' }, { w: 'pointing' }, { w: 'standing' }, { w: 'working' }, { w: 'light' }, { w: 'black' }, { w: 'white' }, { w: 'blue' }, { w: 'wall' }, { w: 'door' }, { w: 'books' }, { w: 'hotel' }, { w: 'hair' }, { w: 'hand' }, { w: 'people' }, { w: 'sports', alt: 'skiing' } ],
+      hard: [ { w: 'receptionist', alt: 'reception' }, { w: 'snowboard' }, { w: 'goggles' }, { w: 'waistcoat', alt: 'vest' }, { w: 'bow tie' }, { w: 'parka', alt: 'coat; fur hood' }, { w: 'ponytail' }, { w: 'lobby' }, { w: 'guest', alt: 'tourist' } ],
+      easy: [ { w: 'man' }, { w: 'woman' }, { w: 'coat' }, { w: 'jacket' }, { w: 'helmet' }, { w: 'beard' }, { w: 'smiling' }, { w: 'talking' }, { w: 'pointing' }, { w: 'standing' }, { w: 'working' }, { w: 'light' }, { w: 'lamp', alt: 'light bulb' }, { w: 'clock' }, { w: 'flowers' }, { w: 'plant' }, { w: 'desk' }, { w: 'sign' }, { w: 'black' }, { w: 'white' }, { w: 'blue' }, { w: 'wall' }, { w: 'door' }, { w: 'books' }, { w: 'hotel' }, { w: 'hair' }, { w: 'hand' }, { w: 'people' } ],
     },
     {
       src: 'img/wordrace/fashion-show.jpg', title: 'The fashion show',
-      p3: [ { w: 'runway', alt: 'catwalk' }, { w: 'model' }, { w: 'dress' }, { w: 'audience' }, { w: 'spotlights', alt: 'lights' }, { w: 'screen' }, { w: 'handbag', alt: 'bag' }, { w: 'belt' }, { w: 'sleeves' }, { w: 'reflection' }, { w: 'camera' }, { w: 'stage' }, { w: 'fashion' }, { w: 'high heels', alt: 'shoes' }, { w: 'scarf' }, { w: 'glasses' } ],
-      p2: [ { w: 'woman' }, { w: 'people' }, { w: 'red' }, { w: 'long' }, { w: 'night' }, { w: 'dark' }, { w: 'sitting' }, { w: 'standing' }, { w: 'walking' }, { w: 'watching' }, { w: 'taking photos' }, { w: 'phone' }, { w: 'smiling' }, { w: 'trees' }, { w: 'building' }, { w: 'black' }, { w: 'blue' }, { w: 'big' }, { w: 'beautiful' }, { w: 'photographer' } ],
+      hard: [ { w: 'runway', alt: 'catwalk' }, { w: 'audience' }, { w: 'spotlights', alt: 'lights' }, { w: 'handbag' }, { w: 'sleeves' }, { w: 'reflection' }, { w: 'high heels', alt: 'shoes' }, { w: 'photographer' }, { w: 'designer' } ],
+      easy: [ { w: 'model' }, { w: 'dress' }, { w: 'woman' }, { w: 'people' }, { w: 'red' }, { w: 'long' }, { w: 'night' }, { w: 'dark' }, { w: 'sitting' }, { w: 'standing' }, { w: 'walking' }, { w: 'watching' }, { w: 'taking photos' }, { w: 'phone' }, { w: 'smiling' }, { w: 'trees' }, { w: 'building' }, { w: 'black' }, { w: 'blue' }, { w: 'big' }, { w: 'beautiful' }, { w: 'screen' }, { w: 'stage' }, { w: 'fashion' }, { w: 'camera' }, { w: 'belt' }, { w: 'glasses' }, { w: 'scarf' } ],
     },
     {
       src: 'img/wordrace/cafe.jpg', title: 'The cafe',
-      p3: [ { w: 'laptop' }, { w: 'headphones' }, { w: 'saucer' }, { w: 'tattoo' }, { w: 'notebook' }, { w: 'pendant lamp', alt: 'lamp' }, { w: 'hanging plants', alt: 'plants' }, { w: 'menu' }, { w: 'poster' }, { w: 'sweatshirt' }, { w: 'bench', alt: 'bench seat' }, { w: 'window', alt: 'big window' }, { w: 'curly' } ],
-      p2: [ { w: 'cafe', alt: 'coffee shop' }, { w: 'coffee' }, { w: 'table' }, { w: 'chair' }, { w: 'cup' }, { w: 'plant' }, { w: 'phone' }, { w: 'reading' }, { w: 'working' }, { w: 'typing' }, { w: 'sitting' }, { w: 'drinking' }, { w: 'holding' }, { w: 'wearing' }, { w: 'sunny' }, { w: 'book' }, { w: 'woman' }, { w: 'man' }, { w: 'girl' }, { w: 'glasses' }, { w: 'hair' }, { w: 'light' }, { w: 'shirt' }, { w: 'people' }, { w: 'relaxed' }, { w: 'quiet' } ],
+      hard: [ { w: 'headphones' }, { w: 'saucer' }, { w: 'tattoo' }, { w: 'sweatshirt' }, { w: 'pendant lamp', alt: 'lamp' }, { w: 'hanging plants', alt: 'plants' }, { w: 'poster' }, { w: 'notebook' }, { w: 'sunlight' } ],
+      easy: [ { w: 'laptop' }, { w: 'cafe', alt: 'coffee shop' }, { w: 'coffee' }, { w: 'table' }, { w: 'chair' }, { w: 'cup' }, { w: 'plant' }, { w: 'phone' }, { w: 'reading' }, { w: 'working' }, { w: 'typing' }, { w: 'sitting' }, { w: 'drinking' }, { w: 'holding' }, { w: 'wearing' }, { w: 'sunny' }, { w: 'book' }, { w: 'woman' }, { w: 'man' }, { w: 'girl' }, { w: 'glasses' }, { w: 'hair' }, { w: 'light' }, { w: 'shirt' }, { w: 'people' }, { w: 'relaxed' }, { w: 'quiet' }, { w: 'window' }, { w: 'menu' }, { w: 'curly' } ],
     },
   ];
 
   function photoGame() {
     openGame('📷 Photo words', { onBack: menu });
-    const SECONDS = 300, N3 = 2, N2 = 4;
+    const SECONDS = 300;
     let photo = 0, left = SECONDS, endAt = 0, timer = 0, revealed = false, cards = [];
     cleanup = () => { clearInterval(timer); timer = 0; };
     const fmt = t => Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0');
@@ -721,7 +722,7 @@
       area.innerHTML = '<div class="tg-ph"><div class="tg-ph-left">' +
         '<div class="tg-ph-pic"><img src="' + p.src + '" alt=""><button type="button" class="tg-ph-arrow prev" data-go="-1" aria-label="Previous photo">‹</button><button type="button" class="tg-ph-arrow next" data-go="1" aria-label="Next photo">›</button><span>' + (photo + 1) + ' / ' + PHOTOS.length + '</span></div>' +
         '<p class="tg-ph-task">Write as many words as you can about this photo!</p>' +
-        '<p class="tg-help">Nouns, adjectives and <b>-ing</b> verbs, in the notebook. Every word you can see is worth <b>1 point</b>; the <b>bonus words</b> are worth 2 or 3.</p></div>' +
+        '<p class="tg-help">Nouns, adjectives and <b>-ing</b> verbs, in the notebook. Every word you can see is worth <b>1 point</b>; the <b>bonus words</b> are worth 2, 3, 4 or even 5!</p></div>' +
         '<div class="tg-ph-right"><div class="tg-ph-clock" id="tgPhClock"><div id="tgPhTime">5:00</div><div class="tg-ph-bar"><i id="tgPhBar"></i></div></div>' +
         '<div class="tg-row" style="margin-top:0"><button type="button" class="tg-btn go" id="tgPhStart" data-act="start">' + (timer ? '⏸ Pause' : left === SECONDS ? '▶ Start' : left === 0 ? '▶ Start' : '▶ Continue') + '</button><button type="button" class="tg-btn alt" data-act="reset">↺ 5:00</button></div>' +
         '<button type="button" class="tg-btn tg-ph-reveal" id="tgPhReveal" data-act="reveal"' + (revealed ? ' disabled' : '') + '>⭐ Reveal bonus</button>' +
@@ -750,7 +751,8 @@
       else if (d.act === 'reset') { stopClock(); left = SECONDS; paint(); }
       else if (d.act === 'reveal' && !revealed) {
         revealed = true; const p = PHOTOS[photo];
-        cards = [...pick(p.p3, N3).map(x => ({ ...x, pts: 3 })), ...pick(p.p2, N2).map(x => ({ ...x, pts: 2 }))];
+        const hard = pick(p.hard, 2), easy = pick(p.easy, 5); // 5 and 4 from the hard words, 3-3-2-2-2 from the easy ones
+        cards = shuffle([{ ...hard[0], pts: 5 }, { ...hard[1], pts: 4 }, ...easy.map((x, i) => ({ ...x, pts: i < 2 ? 3 : 2 }))]);
         paint();
       } else if (d.act === 'new') show(photo);
     };
@@ -914,19 +916,194 @@
     start();
   }
 
+  /* ---------- 🖼️ board race: printable A4 sheets with 12 pictures (data: board-data.js) ----------
+     Two sheets per game (team A and team B): same topic, same level, same 12 words, but in a different order.
+     The pupils look at their sheet, run to the board and write the word in the box with the same position/number. */
+  function boardGame() {
+    const SETS = window.BOARD_SETS || [];
+    let topic = null, level = 0; // level: 0 = 1 (easy), 1 = 2 (harder), 2 = mixed
+    let sheets = null, withKey = true;
+    const LEVELS = [['1', 'Level 1', 'easy words'], ['2', 'Level 2', 'harder words'], ['1+2', 'Mixed', '6 + 6 words']];
+    const pick = () => {
+      const s = SETS.find(x => x.id === topic);
+      const words = level === 2 ? [...shuffle(s.levels[0]).slice(0, 6), ...shuffle(s.levels[1]).slice(0, 6)] : s.levels[level];
+      return { s, a: shuffle(words), b: shuffle(words) };
+    };
+    const sheetHTML = (team, s, cells) => `<section class="br-sheet" style="--c:${s.color}">
+        <header><b class="br-team ${team.toLowerCase()}">${team}</b><div><h2>${esc(s.title)}</h2><p>Board race · ${esc(LEVELS[level][1])}</p></div><span class="br-ico">${s.icon}</span></header>
+        <p class="br-how">Look at the pictures. Run to the board and write the word in the box with the <b>same number</b>. Spell it right!</p>
+        <div class="br-grid">${cells.map(([e, w], i) => `<div><i>${i + 1}</i><span>${e}</span></div>`).join('')}</div>
+        <footer>Team ${team} · 12 words · 1 point for every word spelled correctly</footer></section>`;
+    const keyHTML = (s, a, b) => `<section class="br-sheet br-key" style="--c:${s.color}">
+        <header><b class="br-team k">✓</b><div><h2>Answer key</h2><p>${esc(s.title)} · ${esc(LEVELS[level][1])} · only for the teacher</p></div><span class="br-ico">${s.icon}</span></header>
+        ${[['A', a], ['B', b]].map(([t, c]) => `<h3><b class="br-team ${t.toLowerCase()} sm">${t}</b> Team ${t}</h3><div class="br-grid keyg">${c.map(([e, w], i) => `<div><i>${i + 1}</i><span>${e}</span><u>${esc(w)}</u></div>`).join('')}</div>`).join('')}
+        <footer>On the board: draw two tables, 3 columns × 4 rows, one for each team, with the same numbers.</footer></section>`;
+    const start = () => {
+      openGame('🖼️ Board race', { onBack: menu });
+      area.innerHTML = `<div class="tg-card">
+        <p class="tg-intro">Two printed A4 sheets, one for each team, with <b>12 pictures</b> in a table. A pupil looks at the sheet, <b>runs to the board</b> and writes the word in the box with the <b>same number</b>. The teams have the same words in a different order.</p>
+        <p class="tg-label">Choose a topic</p>
+        <div class="tg-decks">${SETS.map(s => `<button type="button" class="tg-deck${topic === s.id ? ' on' : ''}" data-top="${s.id}" style="--c:${s.color}"><span>${s.icon}</span>${esc(s.title)}<small>2 levels · 12 + 12 pictures</small></button>`).join('')}</div>
+        <p class="tg-label">Choose a level</p>
+        <div class="tg-row" style="margin-top:0">${LEVELS.map(([, n, d], i) => `<button type="button" class="tg-btn alt${level === i ? ' sel' : ''}" data-lv="${i}">${n}<small style="display:block;font:600 12px Nunito,sans-serif">${d}</small></button>`).join('')}</div>
+        <div class="tg-row"><button type="button" class="tg-btn go" id="brMake"${topic ? '' : ' disabled'}>${topic ? '🖨️ Make the sheets' : 'Choose a topic first'}</button></div></div>`;
+      area.onclick = e => {
+        const t = e.target.closest('[data-top]'), l = e.target.closest('[data-lv]');
+        if (t) { topic = t.dataset.top; start(); }
+        else if (l) { level = +l.dataset.lv; start(); }
+        else if (e.target.id === 'brMake' && topic) show(pick());
+      };
+    };
+    const printNow = (key) => {
+      let box = $('brPrint');
+      if (!box) { box = document.createElement('div'); box.id = 'brPrint'; document.body.appendChild(box); }
+      box.innerHTML = sheets.html + (key ? sheets.key : '');
+      document.body.classList.add('br-printing');
+      window.addEventListener('afterprint', () => document.body.classList.remove('br-printing'), { once: true });
+      setTimeout(() => window.print(), 50);
+    };
+    const show = g => {
+      openGame('🖼️ Board race · ' + esc(g.s.title) + ' · ' + esc(LEVELS[level][1]), { onBack: start });
+      sheets = { html: sheetHTML('A', g.s, g.a) + sheetHTML('B', g.s, g.b), key: keyHTML(g.s, g.a, g.b) };
+      area.innerHTML = `<div class="br-prev">${sheets.html}${sheets.key}</div>
+        <div class="tg-row">
+          <button type="button" class="tg-btn go" data-act="print2">🖨️ Print the 2 sheets</button>
+          <button type="button" class="tg-btn" data-act="print3">🖨️ 2 sheets + answer key</button>
+          <button type="button" class="tg-btn alt" data-act="again">🔀 Shuffle again</button></div>
+        <p class="tg-help" style="text-align:center">A4 portrait · 3 pages: team A, team B, answer key (teacher). On the board draw two 3 × 4 tables with the numbers 1–12.</p>`;
+      area.onclick = e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.act === 'print2') printNow(false);
+        else if (b.dataset.act === 'print3') printNow(true);
+        else if (b.dataset.act === 'again') show(pick());
+      };
+    };
+    start();
+  }
+
+  /* ---------- ✏️ draw blind (data: draw-data.js) ----------
+     A card has two words: an easy one (1 point) and a hard one (2 points). A pupil chooses one, draws it on the board
+     WITHOUT LOOKING and the team guesses. Two ways to play: the card on the teacher's phone (shown to the drawer only)
+     or printed cards (8 per A4 page, to cut). The teacher can also type her own pairs (kept in the browser). */
+  function drawGame() {
+    const SETS = window.DRAW_SETS || [];
+    const chosen = new Set();
+    let custom = '';
+    try { custom = localStorage.getItem('tg-draw-custom') || ''; } catch { /* ignore */ }
+    const parseCustom = txt => txt.split('\n').map(l => l.split(/[\/;|,]/).map(x => x.trim()).filter(Boolean)).filter(p => p.length >= 2).map(p => [p[0], p[1]]);
+    const poolOf = () => [...SETS.filter(s => chosen.has(s.id)).flatMap(s => s.cards), ...(chosen.has('custom') ? parseCustom(custom) : [])];
+    const start = () => {
+      openGame('✏️ Draw blind', { onBack: menu });
+      const n = poolOf().length;
+      area.innerHTML = `<div class="tg-card">
+        <p class="tg-intro">Every card has <b>two words</b>: an <b class="dr-e">easy</b> one (<b>1 point</b>) and a <b class="dr-h">hard</b> one (<b>2 points</b>). A pupil chooses one and <b>draws it on the board without looking</b>; the team has to guess it!</p>
+        <p class="tg-label">Choose the topics <small>(or more than one: they get mixed)</small></p>
+        <div class="tg-decks">${SETS.map(s => `<button type="button" class="tg-deck${chosen.has(s.id) ? ' on' : ''}" data-top="${s.id}" style="--c:${s.color}"><span>${s.icon}</span>${esc(s.title)}<small>${s.cards.length} cards</small></button>`).join('')}
+          <button type="button" class="tg-deck${chosen.has('custom') ? ' on' : ''}" data-top="custom" style="--c:#8e2de2"><span>✍️</span>My own words<small>${parseCustom(custom).length} cards</small></button></div>
+        <div class="dr-custom"${chosen.has('custom') ? '' : ' hidden'}>
+          <p class="tg-help">Write one card per line: <b>easy word / hard word</b></p>
+          <textarea id="drCustom" rows="5" placeholder="cat / hedgehog&#10;bed / wardrobe">${esc(custom)}</textarea></div>
+        <div class="tg-row"><button type="button" class="tg-btn go" data-act="phone"${n ? '' : ' disabled'}>${n ? '📱 Play with the phone' : 'Choose a topic first'}</button>
+          <button type="button" class="tg-btn alt" data-act="print"${n ? '' : ' disabled'}>🖨️ Printable cards</button></div></div>`;
+      area.oninput = e => { if (e.target.id === 'drCustom') { custom = e.target.value; try { localStorage.setItem('tg-draw-custom', custom); } catch { /* ignore */ } } };
+      area.onclick = e => {
+        const t = e.target.closest('[data-top]');
+        if (t) { chosen.has(t.dataset.top) ? chosen.delete(t.dataset.top) : chosen.add(t.dataset.top); start(); return; }
+        const a = e.target.closest('[data-act]')?.dataset.act;
+        if (a === 'phone') play(poolOf());
+        else if (a === 'print') printCards(poolOf());
+      };
+    };
+    /* --- the card on the phone --- */
+    function play(pool) {
+      score.a = score.b = 0;
+      openGame('✏️ Draw blind', { scored: true, onBack: start });
+      const next = bag(pool);
+      let card = next(), swap = false, secs = 60, left = secs, timer = null, state = 'card', pts = 0, word = '';
+      cleanup = () => { clearInterval(timer); timer = null; };
+      const paint = () => {
+        const [e, h] = swap ? [card[1], card[0]] : card;
+        if (state === 'card') {
+          area.innerHTML = `<div class="tg-round dr-round">
+            <p class="tg-help"><b>Only the drawer looks!</b> Choose a word: tap it and the clock starts.</p>
+            <div class="dr-pick">
+              <button type="button" class="dr-w e" data-w="1"><small>1 point · easy</small>${esc(e)}</button>
+              <button type="button" class="dr-w h" data-w="2"><small>2 points · hard</small>${esc(h)}</button></div>
+            <div class="tg-row"><button type="button" class="tg-btn alt" data-act="new">🔀 Other card</button></div>
+            <p class="tg-foot">Drawing time <button type="button" data-s="30" class="${secs === 30 ? 'on' : ''}">30 s</button><button type="button" data-s="60" class="${secs === 60 ? 'on' : ''}">60 s</button><button type="button" data-s="90" class="${secs === 90 ? 'on' : ''}">90 s</button></p></div>`;
+        } else {
+          const over = state === 'over', reveal = state === 'show';
+          area.innerHTML = `<div class="tg-round dr-round">
+            <p class="tg-clock sm${!over && !reveal && left <= 10 ? ' hot' : ''}${over ? ' over' : ''}">${over ? 'Time!' : left}</p>
+            <p class="tg-help">${reveal ? `The word was: <b class="dr-ans">${esc(word)}</b>` : '✏️ <b>Draw without looking!</b> The team guesses out loud.'}</p>
+            <div class="tg-row"><button type="button" class="tg-btn alt" data-act="reveal"${reveal ? ' disabled' : ''}>💡 Show the word</button>${!over && !reveal ? '<button type="button" class="tg-btn alt" data-act="stop">■ Stop</button>' : ''}</div>
+            <p class="tg-label" style="margin-top:14px">Who guessed it? <small>(${pts} point${pts > 1 ? 's' : ''})</small></p>
+            <div class="tg-pts"><button type="button" class="tg-pt a" data-t="a">+${pts} Team A</button><button type="button" class="tg-pt b" data-t="b">+${pts} Team B</button></div>
+            <div class="tg-row"><button type="button" class="tg-btn go" data-act="next">Next card ▶</button></div></div>`;
+        }
+      };
+      const tick = () => { left--; if (left <= 0) { left = 0; clearInterval(timer); timer = null; state = 'over'; beep(); } paint(); };
+      area.onclick = e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.w) { pts = +b.dataset.w; word = pts === 1 ? (swap ? card[1] : card[0]) : (swap ? card[0] : card[1]); state = 'draw'; left = secs; clearInterval(timer); timer = setInterval(tick, 1000); }
+        else if (b.dataset.s) { secs = +b.dataset.s; left = secs; }
+        else if (b.dataset.t) { score[b.dataset.t] += pts; paintScore(); clearInterval(timer); timer = null; card = next(); swap = Math.random() < .5; state = 'card'; }
+        else if (b.dataset.act === 'new') { card = next(); swap = Math.random() < .5; }
+        else if (b.dataset.act === 'reveal') { clearInterval(timer); timer = null; state = 'show'; }
+        else if (b.dataset.act === 'stop') { clearInterval(timer); timer = null; state = 'over'; }
+        else if (b.dataset.act === 'next') { clearInterval(timer); timer = null; card = next(); swap = Math.random() < .5; state = 'card'; }
+        paint();
+      };
+      swap = Math.random() < .5;
+      paint();
+    }
+    /* --- printable cards: 8 per A4 page (2 x 4), to cut --- */
+    function printCards(pool) {
+      let pages = 2, cards = [];
+      const deal = () => { const next = bag(pool); cards = Array.from({ length: pages * 8 }, () => next()); };
+      const cardHTML = c => `<div class="dr-card"><div class="dr-half e"><i>1</i><b>${esc(c[0])}</b><small>easy · 1 point</small></div><div class="dr-half h"><i>2</i><b>${esc(c[1])}</b><small>hard · 2 points</small></div></div>`;
+      const pagesHTML = () => Array.from({ length: pages }, (_, p) => `<section class="dr-page">${cards.slice(p * 8, p * 8 + 8).map(cardHTML).join('')}</section>`).join('');
+      const show = () => {
+        openGame('✏️ Draw blind · printable cards', { onBack: start });
+        area.innerHTML = `<div class="dr-prev">${pagesHTML()}</div>
+          <div class="tg-row"><button type="button" class="tg-btn go" data-act="print">🖨️ Print ${pages} page${pages > 1 ? 's' : ''}</button>
+            <button type="button" class="tg-btn alt" data-act="again">🔀 Other cards</button>
+            ${[1, 2, 3, 4].map(n => `<button type="button" class="tg-btn alt${pages === n ? ' sel' : ''}" data-n="${n}">${n} page${n > 1 ? 's' : ''}</button>`).join('')}</div>
+          <p class="tg-help" style="text-align:center">A4 portrait · 8 cards per page: cut along the dotted lines. The drawer reads the card, chooses one word and draws it without looking.</p>`;
+        area.onclick = e => {
+          const b = e.target.closest('button'); if (!b) return;
+          if (b.dataset.n) { pages = +b.dataset.n; deal(); show(); }
+          else if (b.dataset.act === 'again') { deal(); show(); }
+          else if (b.dataset.act === 'print') {
+            let box = $('drPrint');
+            if (!box) { box = document.createElement('div'); box.id = 'drPrint'; document.body.appendChild(box); }
+            box.innerHTML = pagesHTML();
+            document.body.classList.add('dr-printing');
+            window.addEventListener('afterprint', () => document.body.classList.remove('dr-printing'), { once: true });
+            setTimeout(() => window.print(), 50);
+          }
+        };
+      };
+      deal(); show();
+    }
+    start();
+  }
+
   /* ---------- the tiles: they are in the "For the teacher" part of the home page (script.js renderHome), before the guided meditations ---------- */
   const ENTRIES = [
     { icon: '🧰', title: 'Class tools', color: '#1f2a6b', text: 'Who goes next? · groups · timer · scoreboard.', run: toolsGame },
     { icon: '🔥', title: 'Hot seat', color: '#d6334f', text: 'A pupil guesses the word the class explains: literature of the book and vocabulary, you choose the topics.', run: hotGame },
     { icon: '🚩', title: 'Flag game', color: '#f05f4b', text: 'Bandierina: two teams, a number, a card on the board. Pronouns, to be, verbs, jobs…', run: flagGame },
     { icon: '🏀', title: 'Paper basket', color: '#8e2de2', text: 'The class writes the answer on a paper, crumples it and shoots: verb paradigms, words and phrases to translate, at every level.', run: basketGame },
+    { icon: '🖼️', title: 'Board race', color: '#f05f4b', text: 'Two printable A4 sheets with 12 pictures: pupils run to the board and write the word in the right box. School things, clothes, jobs, animals… in 2 levels.', run: boardGame },
+    { icon: '✏️', title: 'Draw blind', color: '#2f9e6f', text: 'Draw without looking, the team guesses. Every card has an easy word (1 point) and a hard one (2 points): on your phone or printed. Topics: home, body, clothes, jobs… or your own words.', run: drawGame },
     { icon: '🅰️', title: 'Four corners', color: '#3aa04a', text: 'A question and A-B-C-D: the class walks to the right corner of the room.', run: cornersGame },
     { icon: '👋', title: 'Slap the word', color: '#4aa8ec', text: 'Six words on the board, two players: slap the right one first!', run: slapGame },
     { icon: '⏱', title: 'Beat the clock', color: '#f9b11a', text: 'A topic and 30 seconds: how many words can your team say?', run: clockGame },
     { icon: '🧩', title: 'Word matrix', color: '#8e2de2', text: 'A root with prefixes and suffixes: which team writes more real words, with their meaning?', run: matrixGame },
     { icon: '🎡', title: 'Word wheel', color: '#12a4a4', text: 'Letters in a circle: which team finds more words with the middle letter?', run: wheelGame },
     { icon: '🧩', title: 'Sentence maker', color: '#7a5cc9', text: 'A cloud of words: which team makes more correct sentences in the time?', run: sentenceGame },
-    { icon: '📷', title: 'Photo words', color: '#46d9c0', text: 'A photo and 5 minutes: write words about it. Then bonus words worth 2 or 3 points.', run: photoGame },
+    { icon: '📷', title: 'Photo words', color: '#46d9c0', text: 'A photo and 5 minutes: write words about it. Then 7 bonus words worth 2, 3, 4 or 5 points.', run: photoGame },
     { icon: '🏁', title: 'Grammar Race', color: '#8e2de2', text: 'Timed race for the whole class: needs the pupils’ own devices.', run: () => window.GRAMMAR_RACE?.open?.() },
   ];
   function menu() {

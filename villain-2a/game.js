@@ -62,7 +62,6 @@
         <div class="modes">
           <button type="button" class="mode" data-act="mode" data-m="2p"><i>🦹 ⚔ 🦹</i><b>Villain vs Villain</b><span>2 players, 1 computer. Each player chooses a villain and you take turns.</span></button>
           <button type="button" class="mode" data-act="mode" data-m="cpu"><i>🦹 ⚔ 🤖</i><b>Villain vs Challenge</b><span>1 player. Your villain fights a hero from real life: the Professor, the Coach, the Stressed Parent…</span></button>
-          <button type="button" class="mode" data-act="mode" data-m="demo"><i>🍿</i><b>Watch a duel</b><span>The computer plays both villains. Good for the whole class on the big screen!</span></button>
         </div>
         <div class="levels" role="radiogroup" aria-label="Computer level"><span style="align-self:center;font-weight:800">Computer:</span>
           ${['easy', 'normal', 'hard'].map(l => `<label><input type="radio" name="lv" value="${l}" ${state.level === l ? 'checked' : ''}>${LEVEL_NAME[l]}</label>`).join('')}
@@ -477,7 +476,6 @@
 
   const route = () => {
     if (location.hash === '#teacher') teacher();
-    else if (location.hash === '#demo') startMode('demo');
     else home();
   };
   window.addEventListener('hashchange', route);

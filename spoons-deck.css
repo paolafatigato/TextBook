@@ -1,0 +1,47 @@
+/* Spoons: the cards to print (spoons-deck.js). Teacher only.
+   The sheets, the controls and the print window are the ones of the Grammar Poker deck (poker-deck.css);
+   here only the cards (they use .pd-card) and the lists of words. Everything inside a card is in cqw. */
+
+.sd-sheet[data-size="small"] .pd-card { --cw: 47; --ch: 66; }
+.sd-card .pd-g { font-size: 13cqw; }
+.sd-card .pd-w { color: var(--c); }
+.sd-card.plain { --c: #1f2a6b; }
+
+/* the back */
+.sd-card.back { background: linear-gradient(145deg, #1f2a6b, #2f6fd6); box-shadow: inset 0 0 0 calc(var(--mm) * .3) #1f2a6b; }
+.sd-card.back::before { border-color: rgba(255, 255, 255, .85); }
+.sd-bk { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5cqw; color: #fff; }
+.sd-bk b { font: 400 46cqw/1 'Segoe UI Emoji', 'Apple Color Emoji', sans-serif; transform: rotate(-35deg); }
+.sd-bk span { font: 700 14cqw/1 'Fredoka', 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+
+/* page 1 */
+.sd-cats { display: flex; flex-wrap: wrap; gap: .9cqw; margin-bottom: 1.2cqw; }
+.sd-cats button {
+  font: 800 1.8cqw/1.2 'Nunito', sans-serif; padding: .7cqw 1.4cqw; border-radius: 999px; cursor: pointer;
+  border: .3cqw solid var(--c); background: #fff; color: var(--c);
+}
+.sd-cats button small { font-weight: 400; opacity: .75; }
+.sd-cats button.on { background: var(--c); color: #fff; }
+.sd-note { font-size: 1.6cqw; color: #777; }
+
+/* page 2: the rules */
+.sd-rules { margin: 0 0 1.4cqw; padding-left: 3cqw; }
+.sd-rules li { margin-bottom: .9cqw; }
+.sd-rules b { color: var(--navy); }
+.sd-ex { margin: 0 0 1.2cqw; padding: 1.2cqw 1.8cqw; border-radius: 1.2cqw; background: #eef2f8; }
+.sd-ex i { display: inline-block; margin: .2cqw .3cqw .2cqw 0; padding: .1cqw 1cqw; border-radius: 999px; background: #fff; border: .3cqw solid var(--c); color: var(--c); font: 800 1.8cqw 'Fredoka', sans-serif; }
+
+/* page 3: the words */
+.sd-list { margin-bottom: 2cqw; }
+.sd-list h3 { margin: 0 0 .8cqw; padding-bottom: .3cqw; border-bottom: .3cqw solid var(--c); font: 700 2.6cqw 'Fredoka', sans-serif; color: var(--c); }
+.sd-list h3 small { font: 400 1.6cqw 'Nunito', sans-serif; color: #777; }
+.sd-list div { display: flex; flex-wrap: wrap; gap: .8cqw; }
+.sd-list button {
+  padding: .5cqw 1.5cqw; border-radius: 999px; border: .3cqw solid var(--c); background: #fff; color: var(--c);
+  font: 700 2.1cqw/1.2 'Fredoka', sans-serif; cursor: pointer;
+}
+.sd-list button small { font: 700 1.2cqw 'Nunito', sans-serif; color: #999; }
+.sd-list button:hover { background: color-mix(in srgb, var(--c) 12%, #fff); }
+.sd-list button.out { border-color: #ccc; color: #bbb; }
+.sd-list button.off { text-decoration: line-through; }
+.sd-list button.out:not(.off) { cursor: help; }

@@ -103,8 +103,12 @@ const CONTENTS = {
         { title: 'Poker deck (Grammar Poker)', start: 'pokerdeck-1', color: '#8e2de2' },
         // Bullshit: the cards with the facts (from the Bullshit♠️ site) to choose and print (bullshit-deck.js)
         { title: 'Bullshit cards', start: 'bsdeck-1', color: '#1a4a2e' },
+        // Spoons: cards with words (adjectives, verbs, nouns, adverbs, little words) to choose and print (spoons-deck.js)
+        { title: 'Spoons (word cards)', start: 'spoons-1', color: '#2f6fd6' },
         // "find someone who…" bingo cards to print, one per page: Classroom (20), Holiday (12), Fashion show (4)
         { title: 'Bingo (to print)', start: 'bingo-class-1', color: '#d1a07f' },
+        // pair writing: texts to stick on the partner's forehead, A1 / A2 / B1, 4 pairs per level (forehead-writing.css)
+        { title: 'Forehead writing', start: 'fw-intro', color: '#d9782b' },
       ],
     },
     // Scaffolding and tests: two groups, each with one folder per school year, in the order of the book.
@@ -183,6 +187,7 @@ const CONTENTS = {
     { title: 'Rooms of the house: decorate the house', color: '#4b924d', pages: ['home-vocab:R'] },
     { title: 'Room missions (prepositions game)', color: '#3d9a3d', pages: [['home-prepositions:R', 'home-missions']] },
     { title: 'Reading: Coraline', color: '#c9de3c', pages: ['home-coraline'] },
+    { title: "A genius's bedroom: describe your room and a character's room", color: '#c9de3c', pages: ['home-bedroom'] },
     { title: 'Describing photos: the 6-step lens (Cambridge speaking)', color: '#46d9c0', pages: [['dp-intro', 'dp-speak']] },
     { title: 'Photos: the big picture, weather and time', color: '#46d9c0', pages: ['dp-where'] },
     { title: 'There is / There are: what I can see', color: '#46d9c0', pages: ['dp-there'] },
@@ -340,7 +345,7 @@ const CONTENTS = {
     { title: 'Should / shouldn’t: asking for and giving advice', color: '#ffa59d', pages: [['hb-advice', 'hb-advice2:L']] },
     { title: 'Writing: Dear Coach (a letter of advice)', color: '#c97ff7', pages: ['hb-advice2:R'] },
     { title: 'Project: my habit plan & the 14-day chain', color: '#073226', pages: ['hb-project'] },
-    { title: 'Writing challenges: a chaotic notebook (random person, Roses are red, seven deadly sins…)', color: '#e8c547', pages: [['wc-intro', 'wc-16']] },
+    { title: 'Writing challenges: a chaotic notebook (random person, Roses are red, seven deadly sins…)', color: '#e8c547', pages: [['wc-intro', 'wc-17']] },
     { title: 'Clothes vocabulary: tops, bottoms & outfits', color: '#dc3394', pages: ['clothes-vocab'] },
     { title: 'Accessories, shoes & fabrics', color: '#f5a53b', pages: ['clothes-accessories:L'] },
     { title: 'The alphabet game (clothes)', color: '#dc3394', pages: ['clothes-accessories:L'] },

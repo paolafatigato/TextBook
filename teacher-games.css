@@ -184,8 +184,12 @@
 .tg-ph-reveal { background: #0a0010; color: #46d9c0; }
 .tg-ph-reveal.ready { background: #f05f4b; color: #0a0010; animation: tg-pulse 1s infinite; }
 .tg-ph-bonus { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.tg-ph-card { position: relative; padding: 12px 8px; border-radius: 14px; text-align: center; background: #46d9c0; color: #0a0010; animation: tg-pop .5s cubic-bezier(.3, 1.5, .5, 1) backwards; }
-.tg-ph-card.p3 { background: #f05f4b; }
+.tg-ph-card { position: relative; padding: 12px 8px; border-radius: 14px; text-align: center; background: #e2ebb2; color: #0a0010; animation: tg-pop .5s cubic-bezier(.3, 1.5, .5, 1) backwards; }
+.tg-ph-card.p5 { background: #f05f4b; }
+.tg-ph-card.p4 { background: #e8c547; }
+.tg-ph-card.p3 { background: #46d9c0; }
+.tg-ph-card.p2 { background: #e2ebb2; }
+.tg-ph-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .tg-ph-card b { display: block; font: 700 clamp(20px, 2.6vw, 30px)/1.1 'Fredoka', sans-serif; }
 .tg-ph-card small { display: block; margin-top: 2px; font: 600 12px 'Nunito', sans-serif; opacity: .8; }
 .tg-ph-card em { position: absolute; top: -8px; right: -6px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #0a0010; color: #fff; font: 700 16px 'Fredoka', sans-serif; font-style: normal; }
@@ -223,3 +227,65 @@
 .tg-wh-row { display: flex; align-items: center; justify-content: center; gap: 12px; }
 .tg-ph-arrow2 { flex: none; width: 52px; height: 52px; padding: 0 0 5px; border: 0; border-radius: 50%; background: #1f2a6b; color: #fff; font: 700 34px/1 'Fredoka', sans-serif; cursor: pointer; }
 .tg-ph-arrow2:hover { background: #f05f4b; }
+
+/* ---------- 🖼️ Board race: A4 sheets (mm, so that the screen preview and the paper are the same) ---------- */
+.br-sheet { --c: #f05f4b; box-sizing: border-box; width: 210mm; height: 297mm; padding: 12mm 14mm 10mm; display: flex; flex-direction: column; gap: 5mm; background: #fff; color: #1f2a6b; font-family: 'Nunito', sans-serif; }
+.br-sheet header { display: flex; align-items: center; gap: 6mm; }
+.br-sheet header div { flex: 1; }
+.br-sheet h2 { margin: 0; font: 700 11mm/1 'Fredoka', 'Nunito', sans-serif; color: var(--c); }
+.br-sheet header p { margin: 1mm 0 0; font: 800 4mm/1 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #5f6592; }
+.br-ico { font-size: 14mm; line-height: 1; }
+.br-team { display: grid; place-items: center; width: 17mm; height: 17mm; border-radius: 50%; color: #fff; font: 700 11mm/1 'Fredoka', sans-serif; background: #1d9e75; }
+.br-team.b { background: #d85a30; }
+.br-team.k { background: #1f2a6b; }
+.br-team.sm { display: inline-grid; width: 7mm; height: 7mm; font-size: 4.6mm; vertical-align: middle; }
+.br-how { margin: 0; padding: 2.5mm 4mm; border-radius: 3mm; background: color-mix(in srgb, var(--c) 14%, #fff); font: 700 4.2mm/1.35 'Nunito', sans-serif; }
+.br-grid { flex: 1; min-height: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 1fr); border: .8mm solid var(--c); border-radius: 3mm; overflow: hidden; }
+.br-grid > div { position: relative; display: grid; place-items: center; border: .3mm solid var(--c); }
+.br-grid i { position: absolute; top: 1.5mm; left: 2.5mm; font: 700 5mm/1 'Fredoka', sans-serif; font-style: normal; color: var(--c); }
+.br-grid span { font-size: 30mm; line-height: 1; }
+.br-sheet footer { text-align: center; font: 700 3.6mm/1 'Nunito', sans-serif; color: #5f6592; }
+/* answer key: two small tables */
+.br-key h3 { margin: 0; font: 700 5mm/1 'Fredoka', sans-serif; }
+.br-grid.keyg { flex: 1; }
+.br-grid.keyg span { font-size: 11mm; margin-top: -3mm; }
+.br-grid.keyg u { position: absolute; bottom: 1.5mm; left: 0; right: 0; text-align: center; text-decoration: none; font: 800 4mm/1 'Nunito', sans-serif; }
+/* the preview: small copies of the sheets, side by side */
+.br-prev { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.br-prev .br-sheet { zoom: .4; box-shadow: 0 0 0 2px rgba(31, 42, 107, .2), 0 6px 20px rgba(0, 0, 0, .15); }
+/* on paper: only the sheets, one for each page */
+#brPrint { display: none; }
+@media print {
+  body.br-printing > :not(#brPrint) { display: none !important; }
+  body.br-printing #brPrint { display: block; }
+  body.br-printing .br-sheet { zoom: 1; break-after: page; box-shadow: none; }
+  body.br-printing .br-sheet:last-child { break-after: auto; }
+}
+
+/* ---------- ✏️ Draw blind: the card on the phone + printable cards (8 per A4 page) ---------- */
+.dr-e { color: #1d9e75; } .dr-h { color: #e0584a; }
+.dr-custom textarea { box-sizing: border-box; width: 100%; padding: 10px 12px; border: 3px solid var(--line); border-radius: 12px; font: 700 17px/1.5 'Nunito', sans-serif; color: var(--navy); }
+.dr-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 10px 0; }
+.dr-w { display: grid; place-items: center; align-content: center; gap: 6px; min-height: clamp(150px, 34vh, 280px); padding: 12px; border: 5px solid; border-radius: 22px; background: #fff; font: 700 clamp(28px, 6.5vw, 62px)/1.1 'Fredoka', sans-serif; cursor: pointer; overflow-wrap: anywhere; }
+.dr-w small { font: 800 clamp(12px, 2vw, 17px) 'Nunito', sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+.dr-w.e { color: #1d9e75; background: #e3f7ec; } .dr-w.h { color: #e0584a; background: #fde7e3; }
+.dr-w:active { transform: scale(.97); }
+.dr-ans { font: 700 1.5em 'Fredoka', sans-serif; color: var(--navy); }
+@media (max-width: 560px) { .dr-pick { grid-template-columns: 1fr; } .dr-w { min-height: 120px; } }
+.dr-page { box-sizing: border-box; width: 210mm; height: 297mm; padding: 12mm 15mm; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 1fr); background: #fff; font-family: 'Nunito', sans-serif; }
+.dr-card { display: grid; grid-template-rows: 1fr 1fr; border: .3mm dashed #8a90b8; color: #1f2a6b; }
+.dr-half { position: relative; display: grid; place-items: center; align-content: center; gap: 1mm; padding: 2mm 4mm; text-align: center; }
+.dr-half.e { background: #e3f7ec; border-bottom: .3mm solid #fff; } .dr-half.h { background: #fde7e3; }
+.dr-half i { position: absolute; top: 2mm; left: 3mm; display: grid; place-items: center; width: 6mm; height: 6mm; border-radius: 50%; color: #fff; font: 700 4mm/1 'Fredoka', sans-serif; font-style: normal; }
+.dr-half.e i { background: #1d9e75; } .dr-half.h i { background: #e0584a; }
+.dr-half b { font: 700 7mm/1.1 'Fredoka', sans-serif; }
+.dr-half small { font: 800 2.6mm/1 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #5f6592; }
+.dr-prev { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.dr-prev .dr-page { zoom: .4; box-shadow: 0 0 0 2px rgba(31, 42, 107, .2), 0 6px 20px rgba(0, 0, 0, .15); }
+#drPrint { display: none; }
+@media print {
+  body.dr-printing > :not(#drPrint) { display: none !important; }
+  body.dr-printing #drPrint { display: block; }
+  body.dr-printing .dr-page { zoom: 1; break-after: page; box-shadow: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body.dr-printing .dr-page:last-child { break-after: auto; }
+}

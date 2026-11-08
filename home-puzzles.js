@@ -48,6 +48,13 @@ window.addEventListener('load', () => {
       });
     });
   });
+  // Story Solitaire (folder story-solitaire/): a solitaire where the cards are sentences of stories; a link to the page, in a new tab, no page of its own
+  const solitaire = document.createElement('details');
+  solitaire.className = 'game-topic';
+  solitaire.style.setProperty('--c', '#3e8e4b');
+  solitaire.innerHTML = '<summary>Story Solitaire <small>1</small></summary><div class="topic-pages"><a href="story-solitaire/index.html" target="_blank" rel="noopener">🃏 Story Solitaire</a></div>';
+  list.append(solitaire);
+  document.addEventListener('click', e => { if (!e.target.closest('#gameList')) solitaire.open = false; });
   list.addEventListener('toggle', e => {
     if (e.target.open) list.querySelectorAll('.game-topic').forEach(o => { if (o !== e.target) o.open = false; });
   }, true);

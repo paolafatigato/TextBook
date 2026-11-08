@@ -2434,143 +2434,7 @@ textarea.fill.mt-lines { padding: 0 1cqw; font-size: 2cqw; line-height: 4.2cqw; 
 @media (prefers-reduced-motion: reduce) { .pg-avatar, .pg-pins span, .pg-letters button { transition: none; } }
 @media print { .pg-play, .pg-overlay { display: none !important; } }
 
-/* ================= Home (pp. 50-53): vocabulary, house, prepositions ================= */
-.hm-title { font-size: 6.2cqw; color: #3d9a3d; }
-.hm-house-emoji { font-size: 9cqw; line-height: 1; transform: rotate(8deg); }
-.hm-intro, .hm-help { font: 400 1.45cqw/1.35 'Nunito', sans-serif; color: #555; }
-.hm-help { font-size: 1.3cqw; color: #888; }
-.hm-green { color: #43a047; }
-.hm-score { font: 800 1.4cqw/1 'Nunito', sans-serif; color: #3d9a3d; text-align: right; }
-
-/* p. 50: the cards */
-.hm-cards { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1cqw; }
-.hm-card {
-  position: relative; display: flex; flex-direction: column; gap: .5cqw;
-  padding: .7cqw; height: 14.7cqw; border-radius: 1.4cqw;
-  background: #f6f9dc; border: .25cqw solid #dfee6a;
-}
-.hm-card.unlocked { background: #4b924d; border-color: #3d7a3f; }
-.hm-card.pop { animation: hm-pop .35s cubic-bezier(.175,.885,.32,1.275); }
-@keyframes hm-pop { from { transform: scale(.86); } to { transform: scale(1); } }
-.hm-pic {
-  position: relative; flex: 0 0 7cqw; display: flex; align-items: center; justify-content: center;
-  background: #fff; border-radius: 1cqw; overflow: hidden;
-}
-.hm-pic { gap: .3cqw; }
-.hm-model { flex: 1 1 0; min-width: 0; height: 100%; display: flex; align-items: center; justify-content: center; border-radius: .8cqw; }
-.hm-model + .hm-model { border-left: .15cqw dashed #e4e9b8; }
-.hm-model img { max-width: 92%; max-height: 92%; object-fit: contain; }
-.hm-card:not(.unlocked) .hm-pic img, .hm-card:not(.unlocked) .hm-pic .hm-emoji { filter: grayscale(1); opacity: .55; }
-.hm-lock { position: absolute; right: .4cqw; bottom: .3cqw; font-size: 1.4cqw; }
-.hm-emoji { font-size: 5cqw; line-height: 1; }
-.hm-grab { cursor: grab; touch-action: none; user-select: none; }
-.hm-card.unlocked .hm-model:hover { outline: .3cqw solid #dfee6a; outline-offset: -.3cqw; }
-.hm-tiles { display: flex; flex-wrap: nowrap; justify-content: center; gap: .1cqw; height: 2.2cqw; align-items: flex-end; }
-.hm-tiles span {
-  min-width: .95cqw; text-align: center; border-bottom: .18cqw solid #c9d93a;
-  font: 700 1.25cqw/1 'Fredoka', 'Nunito', sans-serif; color: #b6b6b6;
-}
-.hm-tiles span.given { color: #9aa42a; }
-.hm-tiles span.typed { color: #3d9a3d; border-color: #3d9a3d; }
-.hm-tiles span.done { color: #fff; border-color: #dfee6a; }
-.hm-tiles i.gap { width: .5cqw; }
-.hm-row { display: flex; gap: .5cqw; height: 2.6cqw; }
-.hm-in {
-  flex: 1; min-width: 0; text-align: center; letter-spacing: .12em; text-transform: uppercase;
-  font: 700 1.25cqw/1 'Fredoka', 'Nunito', sans-serif; color: #3d9a3d;
-  border: .18cqw solid #c9d93a; border-radius: .7cqw; background: #fff; outline: none;
-}
-.hm-in:focus { border-color: #3d9a3d; }
-.hm-in.ok { border-color: #43a047; background: #e8f5e9; }
-.hm-hint { flex: 0 0 3cqw; padding: 0; border: .18cqw solid #c9d93a; border-radius: .7cqw; background: #dfee6a; font-size: 1.4cqw; cursor: pointer; }
-.hm-hint.on, .hm-hint:hover { background: #ff9b85; border-color: #ee6054; }
-.hm-scramble {
-  position: absolute; z-index: 20; left: -.5cqw; right: -.5cqw; top: calc(100% - .4cqw);
-  display: flex; flex-wrap: wrap; justify-content: center; gap: .4cqw;
-  padding: .8cqw; background: #fff; border: .2cqw solid #dfee6a; border-radius: 1cqw;
-  box-shadow: 0 .6cqw 1.6cqw rgba(0,0,0,.18);
-}
-.hm-scramble[hidden] { display: none; }
-.hm-scramble button {
-  min-width: 2.6cqw; height: 2.8cqw; padding: 0 .4cqw; cursor: pointer;
-  font: 700 1.5cqw/1 'Fredoka', 'Nunito', sans-serif; color: #3d9a3d;
-  background: #f9eedc; border: .18cqw solid #3d9a3d; border-radius: .6cqw; box-shadow: 0 .2cqw 0 #3d9a3d;
-}
-.hm-scramble button:hover:not(:disabled) { background: #dfee6a; }
-.hm-scramble button:disabled { opacity: .3; cursor: default; box-shadow: none; }
-.hm-scramble button.back { background: #ff9b85; color: #fff; border-color: #ee6054; box-shadow: 0 .2cqw 0 #ee6054; }
-.hm-status { font: 800 1.2cqw/1 'Nunito', sans-serif; color: #fff; text-align: center; margin-top: auto; }
-
-/* dragging */
-.hm-ghost { position: fixed; z-index: 200; width: 90px; height: 90px; transform: translate(-50%, -50%); pointer-events: none; opacity: .8; display: flex; align-items: center; justify-content: center; }
-.hm-ghost img { max-width: 100%; max-height: 100%; object-fit: contain; }
-.hm-ghost .hm-emoji { font-size: 60px; }
-.hm-drop.over { outline: .4cqw dashed #4b924d; outline-offset: .3cqw; }
-.hm-item { position: absolute; cursor: grab; touch-action: none; user-select: none; filter: drop-shadow(.1cqw .4cqw .4cqw rgba(0,0,0,.18)); }
-.hm-item:active { cursor: grabbing; }
-.hm-item img { display: block; width: 100%; height: auto; pointer-events: none; }
-.hm-item .hm-emoji { display: block; text-align: center; font-size: 4cqw; }
-.hm-item.selected { outline: .25cqw dashed #ee6054; outline-offset: .2cqw; }
-.hm-tools {
-  position: absolute; z-index: 400; transform: translate(-50%, -115%); display: flex; gap: .3cqw;
-  padding: .4cqw; background: #8d3bb7; border-radius: 1cqw; box-shadow: 0 .4cqw 1.2cqw rgba(0,0,0,.25);
-}
-.hm-tools button { width: 3.2cqw; height: 3.2cqw; padding: 0; border: 0; border-radius: .7cqw; background: #e2b4ff; font-size: 1.5cqw; cursor: pointer; }
-.hm-tools button:hover { background: #dfee6a; }
-
-/* p. 51: the house */
-.hm-house { aspect-ratio: 1600 / 1186; }
-.hm-house-bg { display: block; width: 100%; height: 100%; pointer-events: none; user-select: none; }
-.hm-room {
-  position: absolute; z-index: 300; left: calc(var(--rx) * 1%); top: calc(var(--ry) * 1%);
-  width: 20% !important; height: 3cqw; font-size: 1.9cqw;
-  background: rgba(255,255,255,.85) !important; border-bottom: .15cqw dashed #9aa42a !important;
-}
-
-/* p. 52: prepositions */
-.hm-preps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1.6cqw 1.2cqw; }
-.hm-preps li { display: flex; flex-direction: column; align-items: center; gap: .5cqw; }
-.hm-preps img, .hm-missing { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: contain; border-radius: 1cqw; background: #f6f9dc; }
-.hm-missing {
-  display: flex; align-items: center; justify-content: center; text-align: center;
-  border: .2cqw dashed #c9d93a; font: 700 1.2cqw/1.1 'Nunito', sans-serif; color: #9aa42a;
-}
-.hm-preps b { font: 800 1.6cqw/1 'Nunito', sans-serif; color: #3d9a3d; }
-.hm-preps input.fill { height: 2.8cqw; text-align: center; font-size: 1.9cqw; border-bottom: .14cqw solid #b9b6d3; }
-.hm-watch { padding: 1.4cqw 2cqw; border-radius: 1.4cqw; }
-.hm-watch p { font: 400 1.45cqw/1.5 'Nunito', sans-serif; color: #333; font-style: normal; }
-.hm-watch p b { color: #3d7a3f; }
-.prep-list.hm-tight li { min-height: 4.4cqw; padding-top: .8cqw; }
-
-/* p. 53: room missions */
-.hm-reset { background: #8bbd3f; }
-.hm-reset:hover { background: #6f9e2c; }
-.hm-palette { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: .6cqw; }
-.hm-chip {
-  display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: .3cqw;
-  height: 10cqw; padding: .5cqw; background: #f6f9dc; border: .2cqw solid #dfee6a; border-radius: 1cqw;
-}
-.hm-chip img { width: 100%; height: 6.6cqw; object-fit: contain; pointer-events: none; }
-.hm-chip .hm-emoji { font-size: 4cqw; }
-.hm-chip span:last-child { font: 700 1.1cqw/1 'Nunito', sans-serif; color: #3d9a3d; }
-.hm-chip.used { opacity: .4; }
-.hm-chip:hover { border-color: #4b924d; }
-.hm-room-box {
-  aspect-ratio: 1.6; overflow: hidden; border: .35cqw solid #c9d93a; border-radius: 1.4cqw;
-  background: linear-gradient(#fbf8ec 0 74%, #c9d93a 74% calc(74% + .3cqw), #f1ead2 calc(74% + .3cqw));
-}
-.hm-missions { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: .7cqw 2cqw; font: 400 1.5cqw/1.2 'Nunito', sans-serif; color: #444; }
-.hm-missions li { display: flex; align-items: center; gap: 1cqw; min-height: 4cqw; padding: .4cqw 1cqw; border-radius: 1cqw; background: #f6f6f6; transition: background .25s; }
-.hm-missions li > i { flex: 0 0 2.4cqw; height: 2.4cqw; border-radius: 50%; border: .2cqw solid #c9d93a; background: #fff; font: 800 1.4cqw/2cqw 'Nunito', sans-serif; font-style: normal; text-align: center; color: #fff; }
-.hm-missions li b { color: #3d9a3d; }
-.hm-missions li.ok { background: #dff3d6; }
-.hm-missions li.ok > i { background: #43a047; border-color: #43a047; }
-.hm-missions li.tip { background: #fff1d6; }
-.hm-missions li small { display: block; margin-top: .2cqw; font: 700 1.2cqw/1.1 'Nunito', sans-serif; color: #e07a1f; }
-.hm-missions li.hm-done { grid-column: 1 / -1; justify-content: center; background: none; font-weight: 800; color: #3d9a3d; }
-textarea.fill.hm-lines { padding: 0 1cqw; font-size: 2.1cqw; line-height: 4.5cqw; background: repeating-linear-gradient(transparent 0 calc(4.5cqw - 1px), #b9b6d3 calc(4.5cqw - 1px) 4.5cqw); }
-
-@media print { .hm-hint, .hm-scramble, .hm-tools, .hm-reset, .hm-help { display: none !important; } }
+/* Home: see home-chapter.css */
 
 /* ---------- PAGES 138–147: Jobs & CVs ----------
    A modern CV look: navy headlines, a big yellow circle, arches, dot patterns, graph paper,
@@ -3764,11 +3628,11 @@ textarea.fill.vl-lines { padding: 0 .8cqw; font-size: 2cqw; line-height: 3.9cqw;
 
 /* ---------- scaffolding: teacher-only spreads with no page numbers (pages.js), e.g. [scaf-jobs-stories] ---------- */
 /* the desk and the toolbar say who can see the open spread (script.js, paintDesk):
-   teacher only (scaffolding, tests, "For the teacher") → dark blue desk, yellow toolbar */
+   teacher only (scaffolding, tests, "For the teacher") → dark blue desk, lilac toolbar */
 body.teacher-only { background: #2f3d55 repeating-linear-gradient(135deg, transparent 0 28px, rgba(255,255,255,.035) 28px 56px); }
-body.teacher-only .toolbar { background: #ffc93c; border-bottom-color: #e0a800; }
+body.teacher-only .toolbar { background: #cdb9f2; border-bottom-color: #a68ad8; }
 body.teacher-only .toolbar-title { color: #1f2a6b; }
-body.teacher-only .toolbar button, body.teacher-only .home-btn { border-color: #e0a800; }
+body.teacher-only .toolbar button, body.teacher-only .home-btn { border-color: #a68ad8; }
 /* the tests (scaffold test) are teacher only too, with a coral toolbar */
 body.in-test .toolbar { background: var(--coral); border-bottom-color: #c94535; }
 body.in-test .toolbar button, body.in-test .home-btn { border-color: #c94535; }
@@ -4551,7 +4415,7 @@ body.toc-open .toc { display: block; }
   box-shadow: 0 3px 8px color-mix(in srgb, var(--y) 35%, transparent);
 }
 .toc-year.teacher .toc-badge { font-size: 13px; }
-.toc-year.grad { --y: #de3796; }
+.toc-year.grad { --y: #de3796 !important; } /* the color is also set inline by the script: this wins */
 .toc-year.grad .toc-badge { background: linear-gradient(135deg, #c97df6, #de3796 55%, #c9de3c); box-shadow: 0 3px 8px rgba(222,55,150,.35); }
 .toc-year.grad .toc-dot { background: linear-gradient(135deg, #c97df6, #de3796 55%, #c9de3c); }
 .toc-chs { padding: 0 6px 8px; }
@@ -5372,3 +5236,18 @@ body.toc-open .toc { display: block; }
 .jb-hang .jb-slot { flex: none; width: 15cqw; height: 15cqw; }
 .jb-hang small { margin-top: auto; font: 600 1.2cqw/1.2 'Nunito', sans-serif; color: var(--navy); }
 .jb-wide { z-index: 3; margin: 0; font: 400 10cqw/1 "Quicksand", "Nunito", sans-serif; letter-spacing: .3em; white-space: nowrap; color: var(--navy); }
+
+/* Weird questions: small boxes with a bizarre "this or that" question, added where a page has room.
+   Colours come from --odd-c (accent) and --odd-bg; positions use the usual --x/--y/--w. */
+.odd { --odd-c: #dc3394; --odd-bg: #fff; box-sizing: border-box; display: flex; align-items: center; gap: 2cqw; padding: 1.2cqw 2cqw; background: var(--odd-bg); border: .35cqw dashed var(--odd-c); border-radius: 2.2cqw; transform: rotate(-.6deg); }
+.odd-badge { flex: none; width: 5.6cqw; height: 5.6cqw; border-radius: 50%; background: var(--odd-c); display: grid; place-items: center; font-size: 3.2cqw; line-height: 1; }
+.odd-text { flex: 1 1 0; min-width: 0; }
+.odd-tag { display: block; font: 800 1.1cqw/1 'Nunito', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--odd-c); margin-bottom: .5cqw; }
+.odd-q { margin: 0; font: 800 1.9cqw/1.2 'Fredoka', 'Nunito', sans-serif; color: #2b1a2e; }
+.odd-q em { font-style: normal; color: var(--odd-c); }
+.odd-hint { margin: .5cqw 0 0; font: 600 1.15cqw/1.2 'Nunito', sans-serif; color: #6b5a6e; }
+/* the picture: a crop of the teacher's sketch (when the final drawing arrives, drop the .odd-crop class) */
+.odd-pic { flex: none; width: 38cqw; align-self: stretch; position: relative; overflow: hidden; border-radius: 1.2cqw; background: #fff; }
+.odd-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.odd-pic.odd-crop img { inset: auto; left: -5.95%; top: -177.4%; width: 116.9%; height: 286%; object-fit: fill; }
+.odd-pic.odd-crop { align-self: center; aspect-ratio: 420 / 93; }

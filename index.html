@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="routine-chapter.css">
   <link rel="stylesheet" href="present-simple-chapter.css">
   <link rel="stylesheet" href="bingo-print.css">
+  <link rel="stylesheet" href="forehead-writing.css">
   <link rel="stylesheet" href="history-chapter.css">
   <link rel="stylesheet" href="orwell-chapter.css">
   <link rel="stylesheet" href="summer-chapter.css">
@@ -32,6 +33,7 @@
   <link rel="stylesheet" href="trip-chapter.css">
   <link rel="stylesheet" href="habits-chapter.css">
   <link rel="stylesheet" href="dating-chapter.css">
+  <link rel="stylesheet" href="home-chapter.css">
   <link rel="stylesheet" href="writing-challenges.css">
   <link rel="stylesheet" href="pronouns-chapter.css">
   <link rel="stylesheet" href="trip-agency.css">
@@ -43,6 +45,7 @@
   <link rel="stylesheet" href="poker.css">
   <link rel="stylesheet" href="poker-deck.css">
   <link rel="stylesheet" href="bullshit-deck.css">
+  <link rel="stylesheet" href="spoons-deck.css">
   <link rel="stylesheet" href="meditation-chapter.css">
   <link rel="stylesheet" href="race.css?v=13">
   <link rel="stylesheet" href="teacher-games.css">
@@ -4164,30 +4167,37 @@
   </div>
   <!-- ===== end CLIL History ===== -->
 
-  <div class="spread" data-id="home-coraline" data-title="Home" data-name="Reading: Coraline · Prepositions">
+  <!-- ============ HOME (home-chapter.css, home-game.js): home-coraline, home-vocab, home-prepositions, home-missions, home-bedroom.
+       Three colors: green / lime / salmon (--hm-a/b/c). Every page has its own composition. ============ -->
 
-    <!-- ============ LEFT PAGE ============ -->
-    <section class="page page-left">
-      <button class="check abs" type="button" style="--x:82;--y:12.6" data-tf="cor-tf">✓ Check</button>
-      <ol class="cor-tf abs" id="cor-tf" style="--x:17;--y:12.6;--w:62">
-        <li><i>A.</i><span>Coraline found the door a long time after they moved in.</span><span class="tf lime" id="ctf-a" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
-        <li><i>B.</i><span>The house had an attic and a cellar.</span><span class="tf lime" id="ctf-b" data-answer="T"><button type="button">T</button><button type="button">F</button></span></li>
-        <li><i>C.</i><span>Coraline's family owned the whole house.</span><span class="tf lime" id="ctf-c" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
-        <li><i>D.</i><span>Miss Spink and Miss Forcible lived above Coraline.</span><span class="tf lime" id="ctf-d" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
-        <li><i>E.</i><span>Miss Spink calls Coraline by the wrong name.</span><span class="tf lime" id="ctf-e" data-answer="T"><button type="button">T</button><button type="button">F</button></span></li>
-        <li><i>F.</i><span>The old man upstairs is training a dog circus.</span><span class="tf lime" id="ctf-f" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
+  <div class="spread" data-id="home-coraline" data-title="Home" data-name="Reading: Coraline · Prepositions">
+    <!-- Left: lime scalloped band, true/false cards, questions, prepositions. Right: the book's standard first page (unchanged). -->
+    <section class="page page-left hmc">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-ivory)"/><g style="fill:var(--pal-lime)"><rect x="0" y="0" width="100" height="8"/><circle cx="3.6" cy="8" r="3.6"/><circle cx="10.8" cy="8" r="3.6"/><circle cx="18" cy="8" r="3.6"/><circle cx="25.2" cy="8" r="3.6"/><circle cx="32.4" cy="8" r="3.6"/><circle cx="39.6" cy="8" r="3.6"/><circle cx="46.8" cy="8" r="3.6"/><circle cx="54" cy="8" r="3.6"/><circle cx="61.2" cy="8" r="3.6"/><circle cx="68.4" cy="8" r="3.6"/><circle cx="75.6" cy="8" r="3.6"/><circle cx="82.8" cy="8" r="3.6"/><circle cx="90" cy="8" r="3.6"/><circle cx="97.2" cy="8" r="3.6"/></g><circle cx="0" cy="141.42" r="18" style="fill:var(--pal-blush)"/><circle cx="0" cy="141.42" r="9" style="fill:var(--pal-green)"/></svg>
+      <p class="hmc-kick abs" style="--x:9.7;--y:3.2">Home · Reading</p>
+
+      <div class="hmc-pill abs" style="--x:9.7;--y:11.2"><i class="n">✓</i> True or false?</div>
+      <button class="check abs" type="button" style="--x:80;--y:11.8" data-tf="cor-tf">✓ Check</button>
+      <ol class="hmc-tfrows abs" id="cor-tf" style="--x:9.7;--y:17;--w:82">
+        <li><i>A.</i><span>Coraline found the door a long time after they moved in.</span><span class="tf" id="ctf-a" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
+        <li><i>B.</i><span>The house had an attic and a cellar.</span><span class="tf" id="ctf-b" data-answer="T"><button type="button">T</button><button type="button">F</button></span></li>
+        <li><i>C.</i><span>Coraline's family owned the whole house.</span><span class="tf" id="ctf-c" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
+        <li><i>D.</i><span>Miss Spink and Miss Forcible lived above Coraline.</span><span class="tf" id="ctf-d" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
+        <li><i>E.</i><span>Miss Spink calls Coraline by the wrong name.</span><span class="tf" id="ctf-e" data-answer="T"><button type="button">T</button><button type="button">F</button></span></li>
+        <li><i>F.</i><span>The old man upstairs is training a dog circus.</span><span class="tf" id="ctf-f" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
       </ol>
 
-      <ol class="cor-q abs" style="--x:17;--y:47.6;--w:74">
+      <div class="hmc-pill abs" style="--x:9.7;--y:50;--c:var(--pal-salmon)"><i class="n">?</i> Answer the questions</div>
+      <ol class="cor-q abs" style="--x:9.7;--y:56;--w:82">
         <li><i>A.</i><label for="cq-a">How many families live in the house? Who are they?</label><input class="fill" id="cq-a" autocomplete="off"></li>
         <li><i>B.</i><label for="cq-b">What did Miss Spink and Miss Forcible do in the past?</label><input class="fill" id="cq-b" autocomplete="off"></li>
         <li><i>C.</i><label for="cq-c">Why does Coraline correct Miss Spink?</label><input class="fill" id="cq-c" autocomplete="off"></li>
       </ol>
 
-      <span class="lime-badge abs" style="--x:10.2;--y:79.6">4.5</span>
-      <p class="prep-bank abs" style="--x:17.8;--y:79.8">in · on · under · next to · in front of · between · opposite · above · below</p>
-      <button class="check abs" type="button" style="--x:82;--y:84.4" data-list="prep45">✓ Check</button>
-      <ol class="prep-list abs" id="prep45" style="--x:11.9;--y:85.6;--w:84">
+      <div class="hmc-pill abs" style="--x:9.7;--y:79"><i class="n">4.5</i> Complete with a preposition</div>
+      <button class="check abs" type="button" style="--x:80;--y:79.6" data-list="prep45">✓ Check</button>
+      <p class="hmc-bank abs" style="--x:9.7;--y:84.4;--w:82"><span>in</span><span>on</span><span>under</span><span>next to</span><span>in front of</span><span>between</span><span>opposite</span><span>above</span><span>below</span></p>
+      <ol class="prep-list abs" id="prep45" style="--x:11.9;--y:92.2;--w:80">
         <li>Coraline's flat is <input class="fill blank" id="pp-1" data-given="" data-answer="below|under" autocomplete="off" aria-label="1 blank"> the old man's.</li>
         <li>There are no monsters <input class="fill blank" id="pp-2" data-given="" data-answer="under" autocomplete="off" aria-label="2 blank"> your bed, you can relax!</li>
         <li>The mirror is <input class="fill blank" id="pp-3" data-given="" data-answer="on" autocomplete="off" aria-label="3 blank"> the wall, in the hallway.</li>
@@ -4202,7 +4212,6 @@
       <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
     </section>
 
-    <!-- ============ RIGHT PAGE ============ -->
     <section class="page page-right">
       <p class="first-page abs" style="--x:60;--y:2.6;--w:36">First page.</p>
       <div class="hr lime abs" style="--x:30;--y:6.4;--w:70"></div>
@@ -4223,37 +4232,43 @@
   </div>
 
   <div class="spread" data-id="home-vocab" data-title="Home" data-name="Home vocabulary · Decorate the house">
-
-    <!-- ============ LEFT PAGE ============ -->
-    <section class="page page-left">
-      <h1 class="big-title left hm-title abs" style="--x:8;--y:4">Home sweet home</h1>
-      <span class="hm-house-emoji abs" style="--x:80;--y:2.4" aria-hidden="true">🏠</span>
-      <div class="lt-pill lime-num abs" style="--x:8;--y:12.4"><b>4.6</b> Write the word to unlock the object 🔓</div>
-      <p class="hm-intro abs" style="--x:8;--y:16.8;--w:84">Type the word, or press 💡 to see its letters. An unlocked object can go into your house on the next page!</p>
-      <div class="hm-cards abs" id="hm-cards" style="--x:8;--y:21.2;--w:84"></div>
-      <span class="hm-score abs" id="hm-score" style="--x:60;--y:12.8;--w:32"></span>
+    <!-- Left: cream, big title and a house that fills up; 30 cards. Right: soft lime, the white house frame with a picket fence, which room is it? -->
+    <section class="page page-left hmc cream">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)"/><circle cx="90" cy="10" r="19" style="fill:var(--pal-lime)"/><circle cx="90" cy="10" r="10" style="fill:var(--pal-pale-lime)"/><circle cx="0" cy="141.42" r="14" style="fill:var(--pal-blush)"/></svg>
+      <p class="hmc-kick abs" style="--x:8;--y:3.2">Home · Vocabulary</p>
+      <h1 class="hmc-h big abs" style="--x:8;--y:6.4;--w:72">Home <em>sweet</em> home</h1>
+      <!-- a little house (the object count is the score) -->
+      <div class="deco abs" style="--x:80;--y:3.4;--w:15;height:14cqw;z-index:1"><svg viewBox="0 0 15 14" aria-hidden="true"><rect x="2.5" y="6.5" width="10" height="7" style="fill:var(--pal-white);stroke:var(--pal-forest)" stroke-width=".5"/><path d="M1 7 L7.5 1.2 L14 7 Z" style="fill:var(--pal-salmon);stroke:var(--pal-forest)" stroke-width=".5" stroke-linejoin="round"/><rect x="9.6" y="2" width="1.6" height="3" style="fill:var(--pal-salmon);stroke:var(--pal-forest)" stroke-width=".4"/><path d="M5 13.5 V9.6 A1.4 1.4 0 0 1 8 9.6 V13.5 Z" style="fill:var(--pal-green);stroke:var(--pal-forest)" stroke-width=".4"/><rect x="9" y="8.6" width="2.4" height="2.4" style="fill:var(--pal-lime);stroke:var(--pal-forest)" stroke-width=".4"/></svg></div>
+      <div class="hmc-pill abs" style="--x:8;--y:16.6"><i class="n">4.6</i> Write the word to unlock the object 🔓</div>
+      <span class="hm-score abs" id="hm-score" style="--x:68;--y:18.2;--w:25"></span>
+      <p class="hm-intro abs" style="--x:8;--y:22;--w:84">Type the word, or press 💡 to see its letters. An unlocked object can go into your house on the next page!</p>
+      <div class="hm-cards abs" id="hm-cards" style="--x:8;--y:28.6;--w:84"></div>
 
       <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
     </section>
 
-    <!-- ============ RIGHT PAGE ============ -->
-    <section class="page page-right">
-      <div class="lt-pill lime-num abs" style="--x:6;--y:4"><b>4.7</b> Decorate the house! Name the rooms and drag your objects in</div>
-      <p class="prep-bank abs" style="--x:6;--y:9.4;--w:88">bedroom · bathroom · kitchen · living room · dining room · study · hallway</p>
+    <section class="page page-right hmc lime">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-pale-lime)"/><circle cx="0" cy="0" r="13" style="fill:var(--pal-lime)"/><circle cx="0" cy="0" r="6" style="fill:var(--pal-green)"/></svg>
+      <div class="hmc-pill abs" style="--x:6;--y:4;--c:var(--pal-salmon)"><i class="n">4.7</i> Decorate the house! Name the rooms and drag your objects in</div>
+      <p class="hmc-bank abs" style="--x:6;--y:10.4;--w:88"><span>bedroom</span><span>bathroom</span><span>kitchen</span><span>living room</span><span>dining room</span><span>study</span><span>hallway</span></p>
 
-      <div class="hm-drop hm-house abs" id="hm-house" style="--x:4;--y:13.4;--w:92" data-zone="h">
-        <img class="hm-house-bg" src="img/home/house.png" alt="A house with five empty rooms">
-        <input class="fill hm-room" id="hm-room-1" style="--rx:9;--ry:26.5" autocomplete="off" aria-label="Room 1, top left">
-        <input class="fill hm-room" id="hm-room-2" style="--rx:53;--ry:26.2" autocomplete="off" aria-label="Room 2, top right">
-        <input class="fill hm-room" id="hm-room-3" style="--rx:9;--ry:48.4" autocomplete="off" aria-label="Room 3, middle left">
-        <input class="fill hm-room" id="hm-room-4" style="--rx:44;--ry:48.2" autocomplete="off" aria-label="Room 4, middle right">
-        <input class="fill hm-room" id="hm-room-5" style="--rx:9;--ry:70.4" autocomplete="off" aria-label="Room 5, ground floor">
+      <div class="hmc-housebox abs" style="--x:6;--y:18.6;--w:88">
+        <div class="hm-drop hm-house" id="hm-house" data-zone="h">
+          <img class="hm-house-bg" src="img/home/house.png" alt="A house with five empty rooms">
+          <input class="fill hm-room" id="hm-room-1" style="--rx:9;--ry:26.5" autocomplete="off" aria-label="Room 1, top left">
+          <input class="fill hm-room" id="hm-room-2" style="--rx:53;--ry:26.2" autocomplete="off" aria-label="Room 2, top right">
+          <input class="fill hm-room" id="hm-room-3" style="--rx:9;--ry:48.4" autocomplete="off" aria-label="Room 3, middle left">
+          <input class="fill hm-room" id="hm-room-4" style="--rx:44;--ry:48.2" autocomplete="off" aria-label="Room 4, middle right">
+          <input class="fill hm-room" id="hm-room-5" style="--rx:9;--ry:70.4" autocomplete="off" aria-label="Room 5, ground floor">
+        </div>
       </div>
-      <p class="hm-help abs" style="--x:6;--y:82.4;--w:88">Click an object in the house to make it bigger ➕ or smaller ➖, bring it to the front ⬆ or to the back ⬇, or take it away 🗑.</p>
+      <!-- picket fence under the house -->
+      <div class="deco abs" style="--x:6;--y:87.4;--w:88;height:4.2cqw;z-index:1"><svg viewBox="0 0 88 4.2" preserveAspectRatio="none" aria-hidden="true"><g style="fill:var(--pal-white);stroke:var(--pal-forest)" stroke-width=".25"><path d="M0 1.6 H88 M0 3.2 H88" fill="none"/><path d="M.5 4.2 V1 L1.6 -.1 L2.7 1 V4.2 Z"/><path d="M5.2 4.2 V1 L6.3 -.1 L7.4 1 V4.2 Z"/><path d="M9.9 4.2 V1 L11 -.1 L12.1 1 V4.2 Z"/><path d="M14.6 4.2 V1 L15.7 -.1 L16.8 1 V4.2 Z"/><path d="M19.3 4.2 V1 L20.4 -.1 L21.5 1 V4.2 Z"/><path d="M24 4.2 V1 L25.1 -.1 L26.2 1 V4.2 Z"/><path d="M28.7 4.2 V1 L29.8 -.1 L30.9 1 V4.2 Z"/><path d="M33.4 4.2 V1 L34.5 -.1 L35.6 1 V4.2 Z"/><path d="M38.1 4.2 V1 L39.2 -.1 L40.3 1 V4.2 Z"/><path d="M42.8 4.2 V1 L43.9 -.1 L45 1 V4.2 Z"/><path d="M47.5 4.2 V1 L48.6 -.1 L49.7 1 V4.2 Z"/><path d="M52.2 4.2 V1 L53.3 -.1 L54.4 1 V4.2 Z"/><path d="M56.9 4.2 V1 L58 -.1 L59.1 1 V4.2 Z"/><path d="M61.6 4.2 V1 L62.7 -.1 L63.8 1 V4.2 Z"/><path d="M66.3 4.2 V1 L67.4 -.1 L68.5 1 V4.2 Z"/><path d="M71 4.2 V1 L72.1 -.1 L73.2 1 V4.2 Z"/><path d="M75.7 4.2 V1 L76.8 -.1 L77.9 1 V4.2 Z"/><path d="M80.4 4.2 V1 L81.5 -.1 L82.6 1 V4.2 Z"/><path d="M85.1 4.2 V1 L86.2 -.1 L87.3 1 V4.2 Z"/></g></svg></div>
+      <p class="hm-help abs" style="--x:6;--y:93.4;--w:88">Click an object in the house to make it bigger ➕ or smaller ➖, bring it to the front ⬆ or to the back ⬇, or take it away 🗑.</p>
 
-      <div class="lt-pill lime-num abs" style="--x:6;--y:88"><b>4.8</b> Which room is it?</div>
-      <button class="check abs" type="button" style="--x:80;--y:88" data-list="hm-rooms">✓ Check</button>
-      <ol class="prep-list abs" id="hm-rooms" style="--x:8;--y:92.6;--w:86">
+      <div class="hmc-pill abs" style="--x:6;--y:101"><i class="n">4.8</i> Which room is it?</div>
+      <button class="check abs" type="button" style="--x:80;--y:101.6" data-list="hm-rooms">✓ Check</button>
+      <ol class="prep-list hm-tight abs" id="hm-rooms" style="--x:8;--y:107.4;--w:86">
         <li>I sleep in the <input class="fill blank" id="hmr-1" data-given="" data-answer="bedroom" autocomplete="off" aria-label="1 blank">.</li>
         <li>We cook dinner in the <input class="fill blank" id="hmr-2" data-given="" data-answer="kitchen" autocomplete="off" aria-label="2 blank">.</li>
         <li>I have a shower in the <input class="fill blank" id="hmr-3" data-given="" data-answer="bathroom" autocomplete="off" aria-label="3 blank">.</li>
@@ -4267,14 +4282,15 @@
   </div>
 
   <div class="spread" data-id="home-prepositions" data-group="Prepositions of place &amp; room missions" data-title="Home" data-name="Prepositions of place · Room missions">
-
-    <!-- ============ LEFT PAGE ============ -->
-    <section class="page page-left">
-      <h1 class="big-title left hm-title abs" style="--x:8;--y:4">Prepositions<br>of place</h1>
-      <div class="lt-pill lime-num abs" style="--x:8;--y:19"><b>4.9</b> Look and translate into Italian</div>
+    <!-- Left: white, slanted salmon roof, ten picture cards, the "watch out" drop bubble. Right: bedroom mission (striped wall), palette on top. -->
+    <section class="page page-left hmc white">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-white)"/><path d="M0 0 H100 V9 L0 24 Z" style="fill:var(--pal-salmon)"/><path d="M0 0 H100 V3.6 L0 18.6 Z" style="fill:var(--pal-blush)"/><rect x="84" y="0" width="5" height="11" style="fill:var(--pal-green)"/><rect x="83" y="9" width="7" height="2.2" style="fill:var(--pal-forest)"/></svg>
+      <p class="hmc-kick abs" style="--x:8;--y:3.2">Home · Grammar</p>
+      <h1 class="hmc-h abs" style="--x:8;--y:6.4;--w:72">Prepositions<br>of <em>place</em></h1>
+      <div class="hmc-pill abs" style="--x:8;--y:23.6"><i class="n">4.9</i> Look and translate into Italian</div>
 
       <!-- drawings: img/home/prep-*.png (an empty frame is shown until the file exists) -->
-      <ul class="hm-preps abs" style="--x:8;--y:24;--w:84">
+      <ul class="hm-preps abs" style="--x:8;--y:29.6;--w:84">
         <li><img src="img/home/prep-in.png" alt="The cat is in the box" data-missing="IN"><b>in</b><input class="fill" id="hmp-in" autocomplete="off" aria-label="in, in Italian"></li>
         <li><img src="img/home/prep-on.png" alt="The bird is on the box" data-missing="ON"><b>on</b><input class="fill" id="hmp-on" autocomplete="off" aria-label="on, in Italian"></li>
         <li><img src="img/home/prep-above.png" alt="The bird is above the box" data-missing="ABOVE"><b>above</b><input class="fill" id="hmp-above" autocomplete="off" aria-label="above, in Italian"></li>
@@ -4287,16 +4303,16 @@
         <li><img src="img/home/prep-opposite.png" alt="Two animals sit opposite each other at a table" data-missing="OPPOSITE"><b>opposite</b><input class="fill" id="hmp-opposite" autocomplete="off" aria-label="opposite, in Italian"></li>
       </ul>
 
-      <div class="rule-box lime hm-watch abs" style="--x:8;--y:67;--w:84">
+      <div class="hmc-watch abs" style="--x:8;--y:69.4;--w:84">
         <h4>⚠️ Watch out!</h4>
         <p><b>in front of</b> ≠ <b>opposite</b>: opposite = face to face, on the other side (of a table, of the street…)</p>
         <p><b>on</b> ≠ <b>above</b>: on = touching it &nbsp;·&nbsp; above = higher up, NOT touching</p>
         <p><b>under</b> ≠ <b>below</b>: under = covered by it &nbsp;·&nbsp; below = lower down</p>
       </div>
 
-      <div class="lt-pill lime-num abs" style="--x:8;--y:88"><b>4.10</b> Complete with the right preposition</div>
-      <button class="check abs" type="button" style="--x:80;--y:88" data-list="hm-prep-ex">✓ Check</button>
-      <ol class="prep-list hm-tight abs" id="hm-prep-ex" style="--x:10;--y:92;--w:84">
+      <div class="hmc-pill abs" style="--x:8;--y:90.6;--c:var(--pal-salmon)"><i class="n">4.10</i> Complete with the right preposition</div>
+      <button class="check abs" type="button" style="--x:80;--y:91.2" data-list="hm-prep-ex">✓ Check</button>
+      <ol class="prep-list hm-tight abs" id="hm-prep-ex" style="--x:10;--y:96.4;--w:84">
         <li>The cat is sleeping <input class="fill blank" id="hmx-1" data-given="" data-answer="under" autocomplete="off" aria-label="1 blank"> the bed. It's dark there!</li>
         <li>Put the milk back <input class="fill blank" id="hmx-2" data-given="" data-answer="in" autocomplete="off" aria-label="2 blank"> the fridge, please.</li>
         <li>The clock is <input class="fill blank" id="hmx-3a" data-given="" data-answer="on" autocomplete="off" aria-label="3 first blank"> the wall, <input class="fill blank" id="hmx-3b" data-given="" data-answer="above" autocomplete="off" aria-label="3 second blank"> the sofa.</li>
@@ -4310,56 +4326,130 @@
       <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
     </section>
 
-    <!-- ============ RIGHT PAGE ============ -->
-    <section class="page page-right">
-      <div class="lt-pill lime-num abs" style="--x:6;--y:4"><b>4.11</b> Room missions 🕵️ · Drag the objects into the room</div>
-      <button class="check hm-reset abs" type="button" style="--x:80;--y:4" id="hm-room-reset">↺ Empty the room</button>
-      <p class="hm-intro abs" style="--x:6;--y:9;--w:88">Read the missions and put each object in the right place. A mission turns <b class="hm-green">green</b> when it is done!</p>
-      <div class="hm-palette abs" id="hm-palette" style="--x:6;--y:14;--w:88"></div>
+    <section class="page page-right hmc cream">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)"/><circle cx="100" cy="0" r="26" style="fill:var(--pal-pale-lime)"/><circle cx="100" cy="0" r="15" style="fill:var(--pal-lime)"/><circle cx="100" cy="0" r="6" style="fill:var(--pal-salmon)"/></svg>
+      <div class="hmc-pill abs" style="--x:6;--y:4"><i class="n">4.11</i> Room missions 🕵️ · The bedroom</div>
+      <button class="check hm-reset abs" type="button" style="--x:78;--y:4.6" id="hm-room-reset">↺ Empty the room</button>
+      <p class="hm-intro abs" style="--x:6;--y:10.6;--w:88">Read the missions and put each object in the right place. A mission turns <b class="hm-green">green</b> when it is done!</p>
+      <div class="hm-palette abs" id="hm-palette" style="--x:6;--y:16.2;--w:88"></div>
 
-      <div class="hm-drop hm-room-box abs" id="hm-room" style="--x:6;--y:25.6;--w:88" data-zone="r"></div>
+      <div class="hm-drop hm-room-box stripes abs" id="hm-room" style="--x:6;--y:28.6;--w:88;--c:var(--pal-salmon)" data-zone="r"></div>
 
-      <ol class="hm-missions abs" id="hm-missions" style="--x:6;--y:83;--w:88"></ol>
+      <ol class="hm-missions abs" id="hm-missions" style="--x:6;--y:86.6;--w:88"></ol>
 
-      <div class="lt-pill lime-num abs" style="--x:6;--y:113"><b>4.12</b> Now describe YOUR bedroom with 4 prepositions</div>
-      <textarea class="fill hm-lines abs" id="hm-describe" style="--x:6;--y:117.4;--w:88;--h:13.6" aria-label="Describe your bedroom"></textarea>
+      <div class="hmc-pill abs" style="--x:6;--y:113.4;--c:var(--pal-salmon)"><i class="n">4.12</i> Now describe YOUR bedroom with 4 prepositions</div>
+      <textarea class="fill hm-lines abs" id="hm-describe" style="--x:6;--y:118.6;--w:88;--h:13.5" aria-label="Describe your bedroom"></textarea>
 
       <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Home</span>
     </section>
   </div>
 
   <div class="spread" data-id="home-missions" data-group="Prepositions of place &amp; room missions" data-title="Home" data-name="Room missions: living room · kitchen">
+    <!-- 90–91 in continuity: same background and scalloped band, rooms/toolboxes/missions at the same heights and sizes, floors on the same line; only the wall changes. -->
+    <section class="page page-left hmc lime">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-pale-lime)"/><g style="fill:var(--pal-green)"><rect x="0" y="0" width="100" height="4"/><circle cx="3.6" cy="4" r="3.6"/><circle cx="10.8" cy="4" r="3.6"/><circle cx="18.0" cy="4" r="3.6"/><circle cx="25.2" cy="4" r="3.6"/><circle cx="32.4" cy="4" r="3.6"/><circle cx="39.6" cy="4" r="3.6"/><circle cx="46.8" cy="4" r="3.6"/><circle cx="54.0" cy="4" r="3.6"/><circle cx="61.2" cy="4" r="3.6"/><circle cx="68.4" cy="4" r="3.6"/><circle cx="75.6" cy="4" r="3.6"/><circle cx="82.8" cy="4" r="3.6"/><circle cx="90.0" cy="4" r="3.6"/><circle cx="97.2" cy="4" r="3.6"/></g></svg>
+      <div class="hmc-pill abs" style="--x:8;--y:9;--c:var(--pal-salmon)"><i class="n">4.13</i> Room missions 🛋️ · The living room</div>
+      <button class="check hm-reset abs" type="button" style="--x:78;--y:9.6" id="hm-room-l-reset">↺ Empty the room</button>
+      <p class="hm-intro abs" style="--x:8;--y:15;--w:84">Read the missions and put each object in the right place. A mission turns <b class="hm-green">green</b> when it is done!</p>
 
-    <!-- ============ LEFT PAGE ============ -->
-    <section class="page page-left">
-      <div class="lt-pill lime-num abs" style="--x:6;--y:4"><b>4.13</b> Room missions 🛋️ · The living room</div>
-      <button class="check hm-reset abs" type="button" style="--x:80;--y:4" id="hm-room-l-reset">↺ Empty the room</button>
-      <p class="hm-intro abs" style="--x:6;--y:9;--w:88">Read the missions and put each object in the right place. A mission turns <b class="hm-green">green</b> when it is done!</p>
-      <div class="hm-palette abs" id="hm-palette-l" style="--x:6;--y:14;--w:88"></div>
+      <div class="hm-drop hm-room-box wall-a abs" id="hm-room-l" style="--x:8;--y:20.2;--w:84;--c:var(--pal-salmon)"></div>
 
-      <div class="hm-drop hm-room-box abs" id="hm-room-l" style="--x:6;--y:25.6;--w:88"></div>
+      <div class="hmc-toolbox abs" style="--x:8;--y:75.6;--w:84"><div class="hm-palette" id="hm-palette-l"></div></div>
 
-      <ol class="hm-missions abs" id="hm-missions-l" style="--x:6;--y:83;--w:88"></ol>
+      <ol class="hm-missions abs" id="hm-missions-l" style="--x:8;--y:90;--w:84"></ol>
 
-      <div class="lt-pill lime-num abs" style="--x:6;--y:113"><b>4.14</b> Now describe YOUR living room with 4 prepositions</div>
-      <textarea class="fill hm-lines abs" id="hm-describe-l" style="--x:6;--y:117.4;--w:88;--h:13.6" aria-label="Describe your living room"></textarea>
+      <div class="hmc-pill abs" style="--x:8;--y:115.2;--c:var(--pal-salmon)"><i class="n">4.14</i> Now describe YOUR living room with 4 prepositions</div>
+      <textarea class="fill hm-lines abs" id="hm-describe-l" style="--x:8;--y:120.6;--w:84;--h:13" aria-label="Describe your living room"></textarea>
 
       <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
     </section>
 
-    <!-- ============ RIGHT PAGE ============ -->
-    <section class="page page-right">
-      <div class="lt-pill lime-num abs" style="--x:6;--y:4"><b>4.15</b> Room missions 🍳 · The kitchen</div>
-      <button class="check hm-reset abs" type="button" style="--x:80;--y:4" id="hm-room-k-reset">↺ Empty the room</button>
-      <p class="hm-intro abs" style="--x:6;--y:9;--w:88">Read the missions and put each object in the right place. A mission turns <b class="hm-green">green</b> when it is done!</p>
-      <div class="hm-palette abs" id="hm-palette-k" style="--x:6;--y:14;--w:88"></div>
+    <section class="page page-right hmc lime">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-pale-lime)"/><g style="fill:var(--pal-green)"><rect x="0" y="0" width="100" height="4"/><circle cx="3.6" cy="4" r="3.6"/><circle cx="10.8" cy="4" r="3.6"/><circle cx="18.0" cy="4" r="3.6"/><circle cx="25.2" cy="4" r="3.6"/><circle cx="32.4" cy="4" r="3.6"/><circle cx="39.6" cy="4" r="3.6"/><circle cx="46.8" cy="4" r="3.6"/><circle cx="54.0" cy="4" r="3.6"/><circle cx="61.2" cy="4" r="3.6"/><circle cx="68.4" cy="4" r="3.6"/><circle cx="75.6" cy="4" r="3.6"/><circle cx="82.8" cy="4" r="3.6"/><circle cx="90.0" cy="4" r="3.6"/><circle cx="97.2" cy="4" r="3.6"/></g></svg>
+      <div class="hmc-pill abs" style="--x:8;--y:9;--c:var(--pal-salmon)"><i class="n">4.15</i> Room missions 🍳 · The kitchen</div>
+      <button class="check hm-reset abs" type="button" style="--x:78;--y:9.6" id="hm-room-k-reset">↺ Empty the room</button>
+      <p class="hm-intro abs" style="--x:8;--y:15;--w:84">Read the missions and put each object in the right place. A mission turns <b class="hm-green">green</b> when it is done!</p>
 
-      <div class="hm-drop hm-room-box abs" id="hm-room-k" style="--x:6;--y:25.6;--w:88"></div>
+      <div class="hm-drop hm-room-box wall-b abs" id="hm-room-k" style="--x:8;--y:20.2;--w:84;--c:var(--pal-salmon)"></div>
 
-      <ol class="hm-missions abs" id="hm-missions-k" style="--x:6;--y:83;--w:88"></ol>
+      <div class="hmc-toolbox abs" style="--x:8;--y:75.6;--w:84"><div class="hm-palette" id="hm-palette-k"></div></div>
 
-      <div class="lt-pill lime-num abs" style="--x:6;--y:113"><b>4.16</b> Now describe YOUR kitchen with 4 prepositions</div>
-      <textarea class="fill hm-lines abs" id="hm-describe-k" style="--x:6;--y:117.4;--w:88;--h:13.6" aria-label="Describe your kitchen"></textarea>
+      <ol class="hm-missions abs" id="hm-missions-k" style="--x:8;--y:90;--w:84"></ol>
+
+      <div class="hmc-pill abs" style="--x:8;--y:115.2;--c:var(--pal-salmon)"><i class="n">4.16</i> Now describe YOUR kitchen with 4 prepositions</div>
+      <textarea class="fill hm-lines abs" id="hm-describe-k" style="--x:8;--y:120.6;--w:84;--h:13" aria-label="Describe your kitchen"></textarea>
+
+      <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Home</span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="home-bedroom" data-title="Home" data-name="A genius's bedroom · Your bedroom · A character's bedroom">
+    <!-- Left: cream, the post with a taped polaroid, true/false, prepositions. Right: ivory, my bedroom, a character's bedroom in a dark card. -->
+    <section class="page page-left hmc cream">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-cream)"/><circle cx="0" cy="0" r="22" style="fill:var(--pal-pale-lime)"/><circle cx="0" cy="0" r="12" style="fill:var(--pal-lime)"/><circle cx="100" cy="141.42" r="16" style="fill:var(--pal-blush)"/></svg>
+      <p class="hmc-kick abs" style="--x:8;--y:4">Home · Describing a room</p>
+      <h1 class="hmc-h abs" style="--x:8;--y:7.4;--w:84">A genius's <em>bedroom</em></h1>
+
+      <div class="hmc-tweet abs" style="--x:8;--y:19.4;--w:84;grid-template-columns:1fr 33cqw">
+        <div class="hmc-tw-text">
+          <div class="hmc-tw-head"><span class="hmc-tw-av" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="4.6" style="fill:var(--pal-lime)"/><path d="M3 22 C3 16 7 13.5 12 13.5 S21 16 21 22 Z" style="fill:var(--pal-lime)"/></svg></span><div><b>fermion</b><span>@angryfermion</span></div></div>
+          <p>I just visited a physics PhD student at Harvard University.</p>
+          <p>One of the smartest people in the world.</p>
+          <p>Here's their bedroom:</p>
+        </div>
+        <figure class="hmc-polaroid"><img src="img/home/phd-bedroom.png" alt="A bedroom: a gray mattress on a dark carpet, a plaid shirt on the sheet, a long branch on the floor"><figcaption>a genius's bedroom</figcaption></figure>
+      </div>
+
+      <div class="hmc-pill abs" style="--x:8;--y:64.4"><i class="n">4.17</i> Read the post and look at the photo. True or False?</div>
+      <button class="check abs" type="button" style="--x:82;--y:65.2" data-tf="bd-tf">✓ Check</button>
+      <ol class="hmc-tfrows abs" id="bd-tf" style="--x:8;--y:70.8;--w:84">
+        <li><i>A.</i><span>The student studies at Harvard University.</span><span class="tf" id="bdtf-a" data-answer="T"><button type="button">T</button><button type="button">F</button></span></li>
+        <li><i>B.</i><span>The bed has a wooden frame.</span><span class="tf" id="bdtf-b" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
+        <li><i>C.</i><span>There is a pillow on the mattress.</span><span class="tf" id="bdtf-c" data-answer="T"><button type="button">T</button><button type="button">F</button></span></li>
+        <li><i>D.</i><span>There is a long branch on the carpet.</span><span class="tf" id="bdtf-d" data-answer="T"><button type="button">T</button><button type="button">F</button></span></li>
+        <li><i>E.</i><span>The curtains are red.</span><span class="tf" id="bdtf-e" data-answer="F"><button type="button">T</button><button type="button">F</button></span></li>
+      </ol>
+
+      <div class="hmc-pill abs" style="--x:8;--y:98.4;--c:var(--pal-salmon)"><i class="n">4.18</i> Complete with a preposition</div>
+      <button class="check abs" type="button" style="--x:82;--y:99.2" data-list="bd-prep">✓ Check</button>
+      <p class="hmc-bank lime abs" style="--x:8;--y:104.4;--w:84"><span>on</span><span>next to</span><span>above</span><span>under</span></p>
+      <ol class="prep-list hm-tight abs" id="bd-prep" style="--x:10;--y:111;--w:84">
+        <li>The mattress is <input class="fill blank" id="bdp-1" data-given="" data-answer="on" autocomplete="off" aria-label="1 blank"> the floor.</li>
+        <li>The pillow is <input class="fill blank" id="bdp-2" data-given="" data-answer="on" autocomplete="off" aria-label="2 blank"> the mattress.</li>
+        <li>The long branch is <input class="fill blank" id="bdp-3" data-given="" data-answer="next to" autocomplete="off" aria-label="3 blank"> the bed.</li>
+        <li>The gray clothes are <input class="fill blank" id="bdp-4" data-given="" data-answer="next to" autocomplete="off" aria-label="4 blank"> the mattress, on the carpet.</li>
+        <li>The curtains are <input class="fill blank" id="bdp-5" data-given="" data-answer="above|behind" autocomplete="off" aria-label="5 blank"> the bed, on the wall.</li>
+      </ol>
+
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+
+    <section class="page page-right hmc">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-ivory)"/><circle cx="100" cy="0" r="14" style="fill:var(--pal-blush)"/><circle cx="100" cy="0" r="7" style="fill:var(--pal-salmon)"/></svg>
+      <div class="hmc-pill abs" style="--x:6;--y:4"><i class="n">4.19</i> Tidy or messy? Answer about YOUR bedroom</div>
+      <p class="hmc-bank abs" style="--x:6;--y:10.6;--w:88"><span>bed</span><span>mattress</span><span>wardrobe</span><span>desk</span><span>shelf</span><span>carpet</span><span>rug</span><span>curtains</span><span>pillow</span><span>poster</span><span>lamp</span><span>mess</span></p>
+      <ol class="cor-q abs" style="--x:6;--y:26;--w:88">
+        <li><i>A.</i><label for="bdq-a">Is your bedroom tidy or messy? Why?</label><input class="fill" id="bdq-a" autocomplete="off"></li>
+        <li><i>B.</i><label for="bdq-b">What is there on your bed, and what is there under it?</label><input class="fill" id="bdq-b" autocomplete="off"></li>
+        <li><i>C.</i><label for="bdq-c">What is the most unusual thing in your room?</label><input class="fill" id="bdq-c" autocomplete="off"></li>
+        <li><i>D.</i><label for="bdq-d">Where do you do your homework: in your bedroom or in another room?</label><input class="fill" id="bdq-d" autocomplete="off"></li>
+      </ol>
+
+      <div class="odd abs" style="--x:6;--y:57.2;--w:88;--odd-c:#e0624c;--odd-bg:#fff7f4">
+        <span class="odd-badge" aria-hidden="true">🦀</span>
+        <div class="odd-text"><span class="odd-tag">Weird question</span><p class="odd-q">If a hermit crab loses its shell, is it <em>naked</em> or <em>homeless</em>?</p></div>
+      </div>
+
+      <div class="hmc-pill abs" style="--x:6;--y:68;--c:var(--pal-salmon)"><i class="n">4.20</i> Describe YOUR bedroom: 5 sentences</div>
+      <p class="hm-intro abs" style="--x:6;--y:73.8;--w:88">Use <b>there is / there are</b>, 3 prepositions of place and 2 adjectives (tidy, messy, small, big, dark, cozy…).</p>
+      <textarea class="fill hm-lines abs" id="bd-describe" style="--x:6;--y:79.6;--w:88;--h:22.5" aria-label="Describe your bedroom"></textarea>
+
+      <div class="hmc-pill abs" style="--x:6;--y:105"><i class="n">4.21</i> A character's bedroom. Write it on your notebook</div>
+      <div class="hmc-dark-card abs" style="--x:6;--y:111.2;--w:88">
+        <p><b>Choose a character you know</b> from a book, a movie, a cartoon or a series: <i>Coraline · Harry Potter · Sherlock Holmes · Spider-Man · Elsa · Matilda · Alice…</i></p>
+        <p>Describe their bedroom in 8–10 lines: <b>What is there?</b> Where are the things? What does the room say about the character? Start: <i>“This is … 's bedroom. There is…”</i></p>
+        <p style="margin:0">Don't write the name! Read your text to a classmate: can they guess the character?</p>
+      </div>
 
       <span class="footer abs" style="--x:69;--y:133.4;--w:19.1">Home</span>
     </section>
@@ -12867,6 +12957,11 @@
         <li><i>K.</i><span>This is <b>LUCY</b>. She has very long curly brown hair and a necklace with a heart. She is wearing a green cardigan over a white top.</span><input class="fill cl-ph-n" id="cl-ph-K" maxlength="2" inputmode="numeric" data-given="" data-answer="8" autocomplete="off" aria-label="K: number of Lucy"></li>
         <li><i>L.</i><span>This is <b>BEN</b>. He is wearing a red cap turned backwards and a gray sweatshirt. He is standing with his arms crossed.</span><input class="fill cl-ph-n" id="cl-ph-L" maxlength="2" inputmode="numeric" data-given="" data-answer="5" autocomplete="off" aria-label="L: number of Ben"></li>
       </ol>
+      <div class="odd abs" style="--x:5.2;--y:99;--w:89.6;--odd-c:#dc3394">
+        <span class="odd-badge" aria-hidden="true">🐶</span>
+        <div class="odd-text"><span class="odd-tag">Weird question</span><p class="odd-q">If a dog wore pants, would he wear them <em>like this</em> or <em>like this</em>?</p><p class="odd-hint">Choose with a partner. Why?</p></div>
+        <div class="odd-pic odd-crop"><img src="img/clothes/weird-dog.png" alt="Two sketches of a dog wearing blue pants: on the back legs only, or on the front legs only" loading="lazy"></div>
+      </div>
       <div class="cl-pill abs" style="--x:5.2;--y:112.6"><b>13.3</b> Describe Ms. Fatigato</div>
       <textarea class="fill cl-lines abs" id="cl-ph-teacher" style="--x:5.2;--y:118.4;--w:89.6;height:13cqw" aria-label="Describe Ms. Fatigato: her hair, her face and her clothes"></textarea>
       <span class="footer abs" style="--x:64;--y:133.4;--w:30">Clothes &amp; Fashion show</span>
@@ -14444,7 +14539,7 @@
       <article class="dp-les" style="--c:var(--pal-coral)">
         <h2><i>★</i> Class activity: Photo words <small>any lesson</small></h2>
         <p class="pg"><a href="#" data-tg-game="Photo words">Open Photo words</a> <small>(Games for the teacher)</small></p>
-        <ul><li>Seven photos to flip through, each with a 5-minute timer (on the board): pupils write nouns, adjectives and -ing verbs in their notebooks. Then “Reveal bonus”: random words worth 2 or 3 points.</li></ul>
+        <ul><li>Seven photos to flip through, each with a 5-minute timer (on the board): pupils write nouns, adjectives and -ing verbs in their notebooks. Then “Reveal bonus”: seven random words worth 5, 4, 3, 3, 2, 2 and 2 points.</li></ul>
       </article>
 
     </div></section>
@@ -20900,6 +20995,36 @@
     </section>
   </div>
 
+  <!-- Challenges 25-26: story outlines with holes (noun/verb/adjective/adverb), pupils ask a partner for words. One prompt = one page -->
+  <div class="spread" data-id="wc-17" data-title="Writing challenges" data-name="Writing challenges 25-26: Stories with holes">
+    <section class="page page-left wc" style="--wc-c:var(--pal-salmon)">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-ivory)"/><rect x="0" y="0" width="100" height="23" style="fill:var(--pal-salmon)"/><circle cx="100" cy="0" r="14" style="fill:var(--pal-white);opacity:.35"/></svg>
+      <p class="wc-kick abs" style="--x:7;--y:4.6">Writing challenge 25</p>
+      <h1 class="wc-h abs" style="--x:7;--y:8;--w:72">The strange visitor</h1>
+      <span class="wc-emoji abs" style="--x:80;--y:5.2" aria-hidden="true">🚪</span>
+      <p class="wc-use abs" style="--x:7;--y:17.6;--w:86">Try to use: <b>past simple · adjectives · adverbs</b></p>
+      <div class="wc-flow abs" style="--x:7;--y:26;--w:86;--h:104;--g:1.2cqw">
+        <div class="wc-cmd"><small>Your challenge</small><p>This story has <b>holes</b>. Do <b>not</b> read it first! Ask your partner for the words, write each one <b>on the line</b>, then <b>read the story aloud</b>.</p></div>
+        <div class="wc-scaf"><small>How to ask your partner (no peeking at the story!)</small><ul><li><b>Noun:</b> “Give me a noun, a <u>thing</u>. The funniest ones are the ones no one is expecting.”</li><li><b>Verb:</b> “Give me a verb, something you can do. Make it dramatic and ridiculous.”</li><li><b>Adjective:</b> “Give me a describing word. Make it sound interesting and surprising.”</li><li><b>Adverb:</b> “Give me a word that says <u>how</u> you do something: slowly, … ”</li></ul></div>
+        <div class="wc-story">One <span class="wc-ml"><input class="fill" id="wc-ch25-1" autocomplete="off" aria-label="adjective 1"><i>adjective</i></span> morning, I opened the front door and found a <span class="wc-ml"><input class="fill" id="wc-ch25-2" autocomplete="off" aria-label="noun (a thing) 2"><i>noun (a thing)</i></span> on my doorstep. It was wearing a <span class="wc-ml"><input class="fill" id="wc-ch25-3" autocomplete="off" aria-label="noun (a thing) 3"><i>noun (a thing)</i></span> and it looked <span class="wc-ml"><input class="fill" id="wc-ch25-4" autocomplete="off" aria-label="adjective 4"><i>adjective</i></span>. “Please help me!” it said <span class="wc-ml"><input class="fill" id="wc-ch25-5" autocomplete="off" aria-label="adverb 5"><i>adverb</i></span>. “I have to <span class="wc-ml"><input class="fill" id="wc-ch25-6" autocomplete="off" aria-label="verb 6"><i>verb</i></span> before my mom comes home!” I didn’t know what to do, so I started to <span class="wc-ml"><input class="fill" id="wc-ch25-7" autocomplete="off" aria-label="verb 7"><i>verb</i></span> <span class="wc-ml"><input class="fill" id="wc-ch25-8" autocomplete="off" aria-label="adverb 8"><i>adverb</i></span>. Suddenly the <span class="wc-ml"><input class="fill" id="wc-ch25-9" autocomplete="off" aria-label="noun (a thing) 9"><i>noun (a thing)</i></span> began to <span class="wc-ml"><input class="fill" id="wc-ch25-10" autocomplete="off" aria-label="verb 10"><i>verb</i></span> too. We made a <span class="wc-ml"><input class="fill" id="wc-ch25-11" autocomplete="off" aria-label="adjective 11"><i>adjective</i></span> plan: first we <span class="wc-ml"><input class="fill" id="wc-ch25-12" autocomplete="off" aria-label="verb 12"><i>verb</i></span> the <span class="wc-ml"><input class="fill" id="wc-ch25-13" autocomplete="off" aria-label="noun (a thing) 13"><i>noun (a thing)</i></span>, then we ran to the <span class="wc-ml"><input class="fill" id="wc-ch25-14" autocomplete="off" aria-label="noun (a thing) 14"><i>noun (a thing)</i></span> and shouted “<span class="wc-ml"><input class="fill" id="wc-ch25-15" autocomplete="off" aria-label="verb 15"><i>verb</i></span>!” as <span class="wc-ml"><input class="fill" id="wc-ch25-16" autocomplete="off" aria-label="adverb 16"><i>adverb</i></span> as we could. My neighbor looked out of her window with a <span class="wc-ml"><input class="fill" id="wc-ch25-17" autocomplete="off" aria-label="adjective 17"><i>adjective</i></span> face and said, “What a <span class="wc-ml"><input class="fill" id="wc-ch25-18" autocomplete="off" aria-label="adjective 18"><i>adjective</i></span> <span class="wc-ml"><input class="fill" id="wc-ch25-19" autocomplete="off" aria-label="noun (a thing) 19"><i>noun (a thing)</i></span>!” In the end, the visitor gave me a <span class="wc-ml"><input class="fill" id="wc-ch25-20" autocomplete="off" aria-label="noun (a thing) 20"><i>noun (a thing)</i></span> and promised to come back every <span class="wc-ml"><input class="fill" id="wc-ch25-21" autocomplete="off" aria-label="noun (a thing) 21"><i>noun (a thing)</i></span>. I <span class="wc-ml"><input class="fill" id="wc-ch25-22" autocomplete="off" aria-label="adverb 22"><i>adverb</i></span> closed the door. It was the most <span class="wc-ml"><input class="fill" id="wc-ch25-23" autocomplete="off" aria-label="adjective 23"><i>adjective</i></span> day of my life.</div>
+      </div>
+      <span class="pageno abs" style="--x:7;--y:134.2"></span><span class="footer wc-foot abs" style="--x:13.5;--y:134.4;--w:40">Writing challenges</span>
+    </section>
+    <section class="page page-right wc" style="--wc-c:var(--pal-aqua)">
+      <svg class="page-bg" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="141.42" style="fill:var(--pal-ivory)"/><rect x="0" y="0" width="100" height="23" style="fill:var(--pal-aqua)"/><circle cx="0" cy="0" r="14" style="fill:var(--pal-white);opacity:.35"/></svg>
+      <p class="wc-kick abs" style="--x:7;--y:4.6">Writing challenge 26</p>
+      <h1 class="wc-h abs" style="--x:7;--y:8;--w:72">The school trip</h1>
+      <span class="wc-emoji abs" style="--x:80;--y:5.2" aria-hidden="true">🚌</span>
+      <p class="wc-use abs" style="--x:7;--y:17.6;--w:86">Try to use: <b>past simple · adverbs · ordering events</b></p>
+      <div class="wc-flow abs" style="--x:7;--y:26;--w:86;--h:104;--g:1.2cqw">
+        <div class="wc-cmd"><small>Your challenge</small><p>Another story with holes. This time ask <b>a different partner</b>. Fill the lines, then <b>read it aloud</b> to the class.</p></div>
+        <div class="wc-scaf"><small>Now read it aloud!</small><ul><li>Which sentence is the funniest? Why?</li><li>Swap roles: your partner asks <b>you</b> for the words.</li></ul></div>
+        <div class="wc-story" style="font-size:2.5cqw;line-height:4.4cqw">Last Friday our class went on a trip to a <span class="wc-ml"><input class="fill" id="wc-ch26-1" autocomplete="off" aria-label="adjective 1"><i>adjective</i></span> <span class="wc-ml"><input class="fill" id="wc-ch26-2" autocomplete="off" aria-label="noun (a thing) 2"><i>noun (a thing)</i></span>. Our teacher told us to <span class="wc-ml"><input class="fill" id="wc-ch26-3" autocomplete="off" aria-label="verb 3"><i>verb</i></span> in a straight line, but nobody listened. Suddenly a <span class="wc-ml"><input class="fill" id="wc-ch26-4" autocomplete="off" aria-label="adjective 4"><i>adjective</i></span> <span class="wc-ml"><input class="fill" id="wc-ch26-5" autocomplete="off" aria-label="noun (a thing) 5"><i>noun (a thing)</i></span> ran past us, and everybody started to <span class="wc-ml"><input class="fill" id="wc-ch26-6" autocomplete="off" aria-label="verb 6"><i>verb</i></span> <span class="wc-ml"><input class="fill" id="wc-ch26-7" autocomplete="off" aria-label="adverb 7"><i>adverb</i></span>. I tried to <span class="wc-ml"><input class="fill" id="wc-ch26-8" autocomplete="off" aria-label="verb 8"><i>verb</i></span>, but my <span class="wc-ml"><input class="fill" id="wc-ch26-9" autocomplete="off" aria-label="noun (a thing) 9"><i>noun (a thing)</i></span> was stuck! The bus driver, a very <span class="wc-ml"><input class="fill" id="wc-ch26-10" autocomplete="off" aria-label="adjective 10"><i>adjective</i></span> man, shouted “<span class="wc-ml"><input class="fill" id="wc-ch26-11" autocomplete="off" aria-label="verb 11"><i>verb</i></span> at once!” and threw a <span class="wc-ml"><input class="fill" id="wc-ch26-12" autocomplete="off" aria-label="noun (a thing) 12"><i>noun (a thing)</i></span> out of the window. My best friend <span class="wc-ml"><input class="fill" id="wc-ch26-13" autocomplete="off" aria-label="adverb 13"><i>adverb</i></span> picked up a <span class="wc-ml"><input class="fill" id="wc-ch26-14" autocomplete="off" aria-label="noun (a thing) 14"><i>noun (a thing)</i></span> and began to <span class="wc-ml"><input class="fill" id="wc-ch26-15" autocomplete="off" aria-label="verb 15"><i>verb</i></span>. At lunch we ate a <span class="wc-ml"><input class="fill" id="wc-ch26-16" autocomplete="off" aria-label="adjective 16"><i>adjective</i></span> <span class="wc-ml"><input class="fill" id="wc-ch26-17" autocomplete="off" aria-label="noun (a thing) 17"><i>noun (a thing)</i></span> with a lot of <span class="wc-ml"><input class="fill" id="wc-ch26-18" autocomplete="off" aria-label="noun (a thing) 18"><i>noun (a thing)</i></span>, and it tasted <span class="wc-ml"><input class="fill" id="wc-ch26-19" autocomplete="off" aria-label="adjective 19"><i>adjective</i></span>. In the end, we all went home <span class="wc-ml"><input class="fill" id="wc-ch26-20" autocomplete="off" aria-label="adverb 20"><i>adverb</i></span> and we never wanted to see a <span class="wc-ml"><input class="fill" id="wc-ch26-21" autocomplete="off" aria-label="noun (a thing) 21"><i>noun (a thing)</i></span> again.</div>
+      </div>
+      <span class="footer wc-foot abs" style="--x:46.5;--y:134.4;--w:40;text-align:right">Writing challenges</span><span class="pageno abs" style="--x:90;--y:134.2"></span>
+    </section>
+  </div>
+
   <!-- ============ /WRITING CHALLENGES ============ -->
 
   <!-- ################################ TEACHER MATERIALS (never shown to students) ################################ -->
@@ -21354,6 +21479,42 @@
     </section>
   </div>
 
+  <!-- ============ Spoons: word cards to make and print (teacher only; spoons-deck.js, words in spoons-cards.js) ============ -->
+  <div class="spread" data-id="spoons-1" data-group="Spoons" data-folder="spoons-deck" data-title="Spoons" data-name="Spoons: make the deck and print it">
+    <section class="page page-left pd-page"><div class="pd-in">
+      <p class="scf-tape">🔒 For the teacher · Spoons</p>
+      <h1 class="scf-title">Spoons <span>🥄</span></h1>
+      <p class="scf-sub">Every player holds 4 cards. Choose the words, look at the cards on the next pages and print them.</p>
+      <div class="pd-controls"></div></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right pd-page"><div class="pd-in"><div class="pd-prev"></div></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="spoons-2" data-group="Spoons" data-folder="spoons-deck" data-title="Spoons" data-name="Spoons: how to play · the words">
+    <section class="page page-left pd-page"><div class="pd-in">
+      <h2>How to play</h2>
+      <ol class="sd-rules">
+        <li>Groups of <b>4–8 players</b> sit round a table. Put <b>one spoon less than the players</b> (or a pencil, an eraser…) in the middle.</li>
+        <li>Each player gets <b>4 cards</b>. The rest is the pile.</li>
+        <li>The dealer picks a card from the pile: keep it (and throw away one of yours) or <b>pass</b> it. Each player picks from the player on the right and passes to the left, all together and quickly. The last player puts the cards in a discard pile.</li>
+        <li>You win a set with <b>4 of a kind</b>, or with <b>a sentence that makes sense</b>: you may add <i>-s, -ed, -ing</i> to a verb and <i>-s</i> to a noun.</li>
+        <li>Take a spoon <b>quietly</b>, without a word. Whoever sees it must take one too, <b>as fast as possible</b>!</li>
+        <li>The player who is left <b>without a spoon loses a point</b>.</li>
+        <li>The <b>first</b> player who took a spoon <b>explains the set</b>: “four adjectives” or the sentence, read aloud. If it is wrong, that player loses the point instead.</li>
+      </ol>
+      <div class="sd-ex" style="--c:#e8503c"><b>4 of a kind:</b> <i>happy</i> <i>tiny</i> <i>old</i> <i>kind</i> = four adjectives</div>
+      <div class="sd-ex" style="--c:#2f6fd6"><b>A sentence:</b> <i>we</i> <i>cook</i> <i>pizza</i> <i>quickly</i> = <i>We cook pizza quickly.</i></div>
+      <p class="sd-note">There are no articles (a, an, the): there are too few of them. The 5 kinds of word have 12 cards each, so every kind of set is equally likely.</p>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </div></section>
+    <section class="page page-right pd-page"><div class="pd-in"><p class="sd-note">Click a word to take it out or put it back. Gray = not in the deck.</p><div data-words="adj verb noun adv fun"></div></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
   <!-- ============ Bingo sheets to print (For the teacher): one card on each page ============ -->
 
   <div class="spread" data-id="bingo-class-1" data-group="Bingo: Classroom" data-folder="bingo" data-title="Bingo" data-name="Classroom bingo 1–2 · find someone who…">
@@ -21644,6 +21805,338 @@
     </section>
   </div>
 
+  <!-- ============ Forehead writing (For the teacher): texts to cut and stick on a partner's forehead, 4 pairs per level (forehead-writing.css) ============ -->
+
+  <div class="spread" data-id="fw-intro" data-group="Forehead writing" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing · how it works">
+    <section class="page page-left fw-page"><div class="fw-in fw-rules">
+      <p class="fw-tape">🔒 For the teacher · Writing in pairs</p>
+      <h1 class="fw-title">Forehead <span>writing</span></h1>
+      <p class="fw-sub">Print a page, cut the two cards and stick one on the forehead of each pupil. Pupil A reads B’s forehead and writes the text, then they swap.</p>
+      <ol class="fw-steps">
+        <li><b>Pairs.</b> The two texts on a page have the same level and the same length (± 3 words), so nobody has an advantage.</li>
+        <li><b>Stick.</b> The card goes on the forehead (tape or a headband), with the writing facing the partner. Pupils sit face to face.</li>
+        <li><b>Write.</b> Look, remember, write. The writer cannot touch the card and the wearer stays still.</li>
+        <li><b>Race.</b> Start the timer when everybody is ready: the pair that finishes both texts first, with no mistakes, wins.</li>
+        <li><b>Check.</b> Compare with the card: one point off for every wrong or missing word and for every spelling mistake.</li>
+      </ol></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page"><div class="fw-in fw-rules">
+      <h2 class="fw-h2">Levels and texts</h2>
+      <ul class="fw-levels">
+        <li style="--c:#2f9e6b"><b>A1</b> · 30–35 words · present simple, there is/are, numbers, daily life</li>
+        <li style="--c:#2f77c4"><b>A2</b> · 44–48 words · past simple, going to, can, facts and short stories</li>
+        <li style="--c:#d9782b"><b>B1</b> · 61–66 words · present perfect, relative clauses, opinions and facts</li>
+        <li style="--c:#1f8a8a"><b>Alice</b> · 45–73 words · 4 pairs from Alice in Wonderland and Through the Looking-Glass (prose, dialogues, Jabberwocky)</li>
+        <li style="--c:#c27a0e"><b>Children’s books</b> · 45–61 words · 4 pairs: Peter Pan, The Secret Garden, The Jungle Book, Oz, Wind in the Willows, Peter Rabbit, Black Beauty, Anne of Green Gables</li>
+        <li style="--c:#b23a6b"><b>Poems</b> · 43–70 words · 6 pairs: Shakespeare (sonnets 18, 116, 29, 73, Macbeth, Puck) and love poems (Burns, Shelley, Dickinson, Byron, E. Barrett Browning, Rossetti)</li>
+        <li style="--c:#4a4aa8"><b>Rhymes and difficult poems</b> · 39–64 words · 4 pairs: Blake, Wordsworth, Tennyson, Lear, Twinkle Twinkle, Stevenson</li>
+        <li style="--c:#777"><b>All authentic texts</b> are public domain (authors dead for more than 70 years) and keep their original spelling.</li>
+      </ul>
+      <h2 class="fw-h2">Ideas to change the game</h2>
+      <ul class="fw-ideas">
+        <li>Only three looks: the writer can check the card three times, not more.</li>
+        <li>Silent version: no talking at all, the wearer can only nod or shake their head when the writer shows a sentence.</li>
+        <li>Pairs of different levels: a pupil who needs support gets an A1 text and writes it while the partner writes a B1 text.</li>
+        <li>Swap partners after each round and keep the best time of the class on the board.</li>
+      </ul></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-a1-1" data-group="Forehead writing: A1" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing A1 · pairs 1–2">
+    <section class="page page-left fw-page" style="--c:#2f9e6b;--bg:#e6f5ed"><div class="fw-in fw-cards fw-a1">
+      <p class="fw-head"><b>A1</b> · Forehead writing · pair 1</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>My name is Luna and I have a very big cat. His name is Pepper. He is black and he has green eyes. He sleeps on my bed and he eats three fish every day.</p></div>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>My name is Max and I have a very small dog. Her name is Coco. She is white and she has brown ears. She sleeps in my shoe and she eats two apples every day.</p></div></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#2f9e6b;--bg:#e6f5ed"><div class="fw-in fw-cards fw-a1">
+      <p class="fw-head"><b>A1</b> · Forehead writing · pair 2</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>On Saturday I go to the market with my mom. We buy tomatoes, cheese and bread. There are four red apples in the bag, but my brother eats them all!</p></div>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>On Sunday I go to the park with my dad. We take a ball, water and snacks. There are five tall trees near the lake, but my sister climbs them all!</p></div></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-a1-2" data-group="Forehead writing: A1" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing A1 · pairs 3–4">
+    <section class="page page-left fw-page" style="--c:#2f9e6b;--bg:#e6f5ed"><div class="fw-in fw-cards fw-a1">
+      <p class="fw-head"><b>A1</b> · Forehead writing · pair 3</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>Zog is a robot from planet Mars. He is two meters tall and he has three arms. He likes pizza, music and soccer. His best friend is a green frog called Bob.</p></div>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Zia is a monster from planet Venus. She is three meters tall and she has two heads. She likes soup, dancing and chess. Her best friend is a purple snail called Tom.</p></div></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#2f9e6b;--bg:#e6f5ed"><div class="fw-in fw-cards fw-a1">
+      <p class="fw-head"><b>A1</b> · Forehead writing · pair 4</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>My birthday is on March 14th. I am twelve years old. I have a party at home with ten friends. We eat a big chocolate cake and we play games until nine o’clock.</p></div>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>My vacation starts on August 2nd. I am at the sea with my family for fifteen days. We have a small apartment near the beach and we swim every morning until eleven o’clock.</p></div></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-a2-1" data-group="Forehead writing: A2" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing A2 · pairs 1–2">
+    <section class="page page-left fw-page" style="--c:#2f77c4;--bg:#e6f0fa"><div class="fw-in fw-cards fw-a2">
+      <p class="fw-head"><b>A2</b> · Forehead writing · pair 1</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>Last summer my cousin and I visited Edinburgh. We climbed the castle hill, but it was raining and we were very cold. In the evening we ate fish and chips in a small café, and then we walked back to the hotel under one big umbrella.</p></div>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Last winter my uncle and I visited Dublin. We walked along the river, but it was snowing and we were very hungry. In the afternoon we drank hot chocolate in a tiny store, and then we took a bus back to the hostel with big suitcases.</p></div></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#2f77c4;--bg:#e6f0fa"><div class="fw-in fw-cards fw-a2">
+      <p class="fw-head"><b>A2</b> · Forehead writing · pair 2</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>An octopus has three hearts and blue blood. It can change color in a second, and it can squeeze through a hole as small as a coin. Octopuses are not stupid: scientists say they are smarter than many other sea animals, and some of them can open jars!</p></div>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>An elephant has big ears and a very long, strong nose. It can smell water from many miles away, and it can hear sounds that people cannot hear. Elephants are not forgetful: scientists say they remember their friends for many years, and some of them can even paint!</p></div></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-a2-2" data-group="Forehead writing: A2" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing A2 · pairs 3–4">
+    <section class="page page-left fw-page" style="--c:#2f77c4;--bg:#e6f0fa"><div class="fw-in fw-cards fw-a2">
+      <p class="fw-head"><b>A2</b> · Forehead writing · pair 3</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>Yesterday I was late for school because my bike had a flat tire. I ran to the bus stop, but the bus was already gone. Finally my neighbor gave me a ride in his old red van, and I arrived just before the bell.</p></div>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Yesterday I was nervous about my test because I forgot my notebook at home. I looked in my bag, but the notebook was definitely gone. Finally my classmate gave me some paper and his best pen, and I wrote my answers before the bell.</p></div></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#2f77c4;--bg:#e6f0fa"><div class="fw-in fw-cards fw-a2">
+      <p class="fw-head"><b>A2</b> · Forehead writing · pair 4</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>Next summer my family is going to travel across Italy by train. First we are going to visit Rome, then Naples, and finally Palermo. My sister wants to eat ice cream every day, but I am going to spend all my money on postcards.</p></div>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Next winter my class is going to travel across Austria by bus. First we are going to visit Vienna, then Salzburg, and finally Innsbruck. My friend wants to ski every single day, but I am going to spend all my time in the café.</p></div></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-b1-1" data-group="Forehead writing: B1" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing B1 · pairs 1–2">
+    <section class="page page-left fw-page" style="--c:#d9782b;--bg:#fcefe2"><div class="fw-in fw-cards fw-b1">
+      <p class="fw-head"><b>B1</b> · Forehead writing · pair 1</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>Scientists have discovered that cats sleep for about fifteen hours a day, which is more than twice as long as humans. However, a cat that lives outside, hunting for food, usually sleeps less than one that lives in a warm apartment. If you watch a sleeping cat carefully, you may notice that its whiskers move, because it is probably dreaming about chasing a mouse.</p></div>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Researchers have found that dogs understand about two hundred different words, which is more than most two-year-old children. However, a dog that works with people, helping them every day, usually learns faster than one that stays alone at home. If you speak to a dog kindly, you may notice that its ears turn toward you, because it is probably trying to understand your voice.</p></div></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#d9782b;--bg:#fcefe2"><div class="fw-in fw-cards fw-b1">
+      <p class="fw-head"><b>B1</b> · Forehead writing · pair 2</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>When Clara found a wallet on the train, she could have kept the money, but she decided to look for the owner. Inside there was a library card and a photo of a little girl with a bright red balloon. After two days she discovered that the wallet belonged to her own grandfather, who had been looking for it since March.</p></div>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>When Omar found a puppy in the park, he could have walked away, but he decided to look for the family. Around its neck there was a small tag and a note with a funny nickname and a phone number. After two hours he discovered that the puppy belonged to his own teacher, who had been looking for it since lunchtime.</p></div></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-b1-2" data-group="Forehead writing: B1" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing B1 · pairs 3–4">
+    <section class="page page-left fw-page" style="--c:#d9782b;--bg:#fcefe2"><div class="fw-in fw-cards fw-b1">
+      <p class="fw-head"><b>B1</b> · Forehead writing · pair 3</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>Some people believe that students should not use phones at school, because they get distracted and forget to talk to each other. Others argue that phones are very useful tools, especially if a teacher wants to check a word quickly. Personally, I think the best solution is to keep them in a bag during lessons and to use them only at lunch.</p></div>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Some people believe that students should not wear a uniform at school, because they lose their personal style and cannot show who they are. Others argue that a uniform is a useful rule, especially if some students cannot afford expensive clothes. Personally, I think the best solution is to choose one color for everybody and to leave the rest to each student.</p></div></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#d9782b;--bg:#fcefe2"><div class="fw-in fw-cards fw-b1">
+      <p class="fw-head"><b>B1</b> · Forehead writing · pair 4</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>Venice is built on more than one hundred small islands, and there are no cars in the old town. If you want to go from one place to another, you have to walk, take a boat or use one of the four hundred bridges. Because the sea is rising, the city is sinking a little each year, so engineers have built huge gates to protect it.</p></div>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Amsterdam has more than one hundred and fifty canals, and there are more bicycles than people in the old town. If you want to go from one place to another, you have to ride a bike, take a boat or use one of the fifteen hundred bridges. Because the ground is soft, many old houses lean a little, so builders put long wooden poles under them.</p></div></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <!-- ============ Forehead writing: authentic texts (all public domain: the authors died more than 70 years ago). Groups: Alice, Children's books, Poems (Shakespeare + love poems), Rhymes and difficult poems ============ -->
+
+  <div class="spread" data-id="fw-alice-1" data-group="Forehead writing: Alice" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing, Alice in Wonderland · pairs 1–2">
+    <section class="page page-left fw-page" style="--c:#1f8a8a;--bg:#e3f4f4"><div class="fw-in fw-cards fw-au fw-t1">
+      <p class="fw-head"><b>B1</b> · Alice in Wonderland · pair 1</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, “and what is the use of a book,” thought Alice “without pictures or conversations?”</p></div>
+      <p class="fw-src">Lewis Carroll, Alice’s Adventures in Wonderland (1865)</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>One thing was certain, that the white kitten had had nothing to do with it—it was the black kitten’s fault entirely. For the white kitten had been having its face washed by the old cat for a quarter of an hour (and bearing it pretty well, considering); so you see that it couldn’t have had any hand in the mischief.</p></div>
+      <p class="fw-src">Lewis Carroll, Through the Looking-Glass (1871)</p></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#1f8a8a;--bg:#e3f4f4"><div class="fw-in fw-cards fw-au fw-t1">
+      <p class="fw-head"><b>B1</b> · Alice in Wonderland · pair 2</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>“Would you tell me, please, which way I ought to go from here?” “That depends a good deal on where you want to get to,” said the Cat. “I don’t much care where—” said Alice. “Then it doesn’t matter which way you go,” said the Cat.</p></div>
+      <p class="fw-src">Lewis Carroll, Alice’s Adventures in Wonderland (1865), Alice and the Cheshire Cat</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>“When I use a word,” Humpty Dumpty said, “it means just what I choose it to mean—neither more nor less.” “The question is,” said Alice, “whether you can make words mean so many different things.” “The question is,” said Humpty Dumpty, “which is to be master—that’s all.”</p></div>
+      <p class="fw-src">Lewis Carroll, Through the Looking-Glass (1871), Humpty Dumpty</p></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-alice-2" data-group="Forehead writing: Alice" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing, Alice in Wonderland · pairs 3–4">
+    <section class="page page-left fw-page" style="--c:#1f8a8a;--bg:#e3f4f4"><div class="fw-in fw-cards fw-au fw-p2">
+      <p class="fw-head"><b>B2</b> · Alice in Wonderland · pair 3</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>’Twas brillig, and the slithy toves<br>Did gyre and gimble in the wabe:<br>All mimsy were the borogoves,<br>And the mome raths outgrabe.<br>“Beware the Jabberwock, my son!<br>The jaws that bite, the claws that catch!<br>Beware the Jubjub bird, and shun<br>The frumious Bandersnatch!”</p></div>
+      <p class="fw-src">Lewis Carroll, Through the Looking-Glass (1871), “Jabberwocky”</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>The sun was shining on the sea,<br>Shining with all his might:<br>He did his very best to make<br>The billows smooth and bright—<br>And this was odd, because it was<br>The middle of the night.<br>The moon was shining sulkily,<br>Because she thought the sun</p></div>
+      <p class="fw-src">Lewis Carroll, Through the Looking-Glass (1871), “The Walrus and the Carpenter”</p></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#1f8a8a;--bg:#e3f4f4"><div class="fw-in fw-cards fw-au fw-t2">
+      <p class="fw-head"><b>B2</b> · Alice in Wonderland · pair 4</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>There was a table set out under a tree in front of the house, and the March Hare and the Hatter were having tea at it: a Dormouse was sitting between them, fast asleep, and the other two were using it as a cushion, resting their elbows on it, and talking over its head. “Very uncomfortable for the Dormouse,” thought Alice; “only, as it’s asleep, I suppose it doesn’t mind.”</p></div>
+      <p class="fw-src">Lewis Carroll, Alice’s Adventures in Wonderland (1865), the Mad Tea-Party</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>“I can’t believe that!” said Alice. “Can’t you?” the Queen said in a pitying tone. “Try again: draw a long breath, and shut your eyes.” Alice laughed. “There’s no use trying,” she said: “one can’t believe impossible things.” “I daresay you haven’t had much practice,” said the Queen. “When I was your age, I always did it for half-an-hour a day. Why, sometimes I’ve believed as many as six impossible things before breakfast.”</p></div>
+      <p class="fw-src">Lewis Carroll, Through the Looking-Glass (1871), Alice and the White Queen</p></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-kids-1" data-group="Forehead writing: Children’s books" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing, Children’s books · pairs 1–2">
+    <section class="page page-left fw-page" style="--c:#c27a0e;--bg:#fdf1dc"><div class="fw-in fw-cards fw-au fw-t1">
+      <p class="fw-head"><b>B1</b> · Children’s books · pair 1</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>All children, except one, grow up. They soon know that they will grow up, and the way Wendy knew was this. One day when she was two years old she was playing in a garden, and she plucked another flower and ran with it to her mother.</p></div>
+      <p class="fw-src">J. M. Barrie, Peter Pan (1911)</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>When Mary Lennox was sent to Misselthwaite Manor to live with her uncle everybody said she was the most disagreeable-looking child ever seen. It was true, too. She had a little thin face and a little thin body, thin light hair and a sour expression.</p></div>
+      <p class="fw-src">Frances Hodgson Burnett, The Secret Garden (1911)</p></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#c27a0e;--bg:#fdf1dc"><div class="fw-in fw-cards fw-au fw-t1">
+      <p class="fw-head"><b>B1</b> · Children’s books · pair 2</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>It was seven o’clock of a very warm evening in the Seeonee hills when Father Wolf woke up from his day’s rest, scratched himself, yawned, and spread out his paws one after the other to get rid of the sleepy feeling in their tips. Mother Wolf lay with her big gray nose dropped across her four tumbling, squealing cubs.</p></div>
+      <p class="fw-src">Rudyard Kipling, The Jungle Book (1894), Mowgli’s story begins</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Dorothy lived in the midst of the great Kansas prairies, with Uncle Henry, who was a farmer, and Aunt Em, who was the farmer’s wife. Their house was small, for the lumber to build it had to be carried by wagon many miles. There were four walls, a floor and a roof, which made one room.</p></div>
+      <p class="fw-src">L. Frank Baum, The Wonderful Wizard of Oz (1900)</p></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-kids-2" data-group="Forehead writing: Children’s books" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing, Children’s books · pairs 3–4">
+    <section class="page page-left fw-page" style="--c:#c27a0e;--bg:#fdf1dc"><div class="fw-in fw-cards fw-au fw-t1">
+      <p class="fw-head"><b>B1</b> · Children’s books · pair 3</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>The Mole had been working very hard all the morning, spring-cleaning his little home. First with brooms, then with dusters; then on ladders and steps and chairs, with a brush and a pail of whitewash; till he had dust in his throat and eyes, and splashes of whitewash all over his black fur, and an aching back.</p></div>
+      <p class="fw-src">Kenneth Grahame, The Wind in the Willows (1908)</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Once upon a time there were four little Rabbits, and their names were—Flopsy, Mopsy, Cotton-tail, and Peter. They lived with their Mother in a sand-bank, underneath the root of a very big fir-tree. “Now my dears,” said old Mrs. Rabbit one morning, “you may go into the fields or down the lane, but don’t go into Mr. McGregor’s garden.”</p></div>
+      <p class="fw-src">Beatrix Potter, The Tale of Peter Rabbit (1902)</p></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#c27a0e;--bg:#fdf1dc"><div class="fw-in fw-cards fw-au fw-t1">
+      <p class="fw-head"><b>B2</b> · Children’s books · pair 4</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>The first place that I can well remember was a large pleasant meadow with a pond of clear water in it. Some shady trees leaned over it, and rushes and water-lilies grew at the deep end. Over the hedge on one side we looked into a ploughed field, and on the other we looked over a gate at our master’s house.</p></div>
+      <p class="fw-src">Anna Sewell, Black Beauty (1877)</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Mrs. Rachel Lynde lived just where the Avonlea main road dipped down into a little hollow, fringed with alders and ladies’ eardrops and traversed by a brook. That brook had its source away back in the woods of the old Cuthbert place; it was reputed to be an intricate, headlong brook in its earlier course through those woods.</p></div>
+      <p class="fw-src">L. M. Montgomery, Anne of Green Gables (1908)</p></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-poems-1" data-group="Forehead writing: Poems" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing, Poems: Shakespeare and love poems · pairs 1–2">
+    <section class="page page-left fw-page" style="--c:#b23a6b;--bg:#fbe9f1"><div class="fw-in fw-cards fw-au fw-p3">
+      <p class="fw-head"><b>B2</b> · Poems: Shakespeare and love poems · pair 1</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>Shall I compare thee to a summer’s day?<br>Thou art more lovely and more temperate:<br>Rough winds do shake the darling buds of May,<br>And summer’s lease hath all too short a date;<br>Sometime too hot the eye of heaven shines,<br>And often is his gold complexion dimm’d;<br>And every fair from fair sometime declines,<br>By chance or nature’s changing course untrimm’d;</p></div>
+      <p class="fw-src">William Shakespeare, Sonnet 18 (1609)</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Let me not to the marriage of true minds<br>Admit impediments. Love is not love<br>Which alters when it alteration finds,<br>Or bends with the remover to remove:<br>O no! it is an ever-fixed mark<br>That looks on tempests and is never shaken;<br>It is the star to every wandering bark,<br>Whose worth’s unknown, although his height be taken.</p></div>
+      <p class="fw-src">William Shakespeare, Sonnet 116 (1609)</p></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#b23a6b;--bg:#fbe9f1"><div class="fw-in fw-cards fw-au fw-p3">
+      <p class="fw-head"><b>B2</b> · Poems: Shakespeare and love poems · pair 2</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>When, in disgrace with fortune and men’s eyes,<br>I all alone beweep my outcast state,<br>And trouble deaf heaven with my bootless cries,<br>And look upon myself and curse my fate,<br>Wishing me like to one more rich in hope,<br>Featured like him, like him with friends possess’d,<br>Desiring this man’s art and that man’s scope,<br>With what I most enjoy contented least;<br>Yet in these thoughts myself almost despising,</p></div>
+      <p class="fw-src">William Shakespeare, Sonnet 29 (1609)</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>That time of year thou mayst in me behold<br>When yellow leaves, or none, or few, do hang<br>Upon those boughs which shake against the cold,<br>Bare ruin’d choirs, where late the sweet birds sang.<br>In me thou see’st the twilight of such day<br>As after sunset fadeth in the west,<br>Which by and by black night doth take away,<br>Death’s second self, that seals up all in rest.</p></div>
+      <p class="fw-src">William Shakespeare, Sonnet 73 (1609)</p></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-poems-2" data-group="Forehead writing: Poems" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing, Poems: Shakespeare and love poems · pairs 3–4">
+    <section class="page page-left fw-page" style="--c:#b23a6b;--bg:#fbe9f1"><div class="fw-in fw-cards fw-au fw-p1">
+      <p class="fw-head"><b>B2</b> · Poems: Shakespeare and love poems · pair 3</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>Double, double toil and trouble;<br>Fire burn, and cauldron bubble.<br>Fillet of a fenny snake,<br>In the cauldron boil and bake;<br>Eye of newt and toe of frog,<br>Wool of bat and tongue of dog,<br>Adder’s fork and blind-worm’s sting,<br>Lizard’s leg and howlet’s wing,</p></div>
+      <p class="fw-src">William Shakespeare, Macbeth (about 1606), the witches</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>If we shadows have offended,<br>Think but this, and all is mended,<br>That you have but slumber’d here<br>While these visions did appear.<br>And this weak and idle theme,<br>No more yielding but a dream,<br>Gentles, do not reprehend:<br>If you pardon, we will mend.</p></div>
+      <p class="fw-src">William Shakespeare, A Midsummer Night’s Dream (about 1595), Puck</p></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#b23a6b;--bg:#fbe9f1"><div class="fw-in fw-cards fw-au fw-p2">
+      <p class="fw-head"><b>B1</b> · Poems: Shakespeare and love poems · pair 4</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>O my Luve’s like a red, red rose,<br>That’s newly sprung in June:<br>O my Luve’s like the melodie<br>That’s sweetly play’d in tune.<br>As fair art thou, my bonnie lass,<br>So deep in luve am I:<br>And I will luve thee still, my dear,<br>Till a’ the seas gang dry.</p></div>
+      <p class="fw-src">Robert Burns, “A Red, Red Rose” (1794)</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>She walks in beauty, like the night<br>Of cloudless climes and starry skies;<br>And all that’s best of dark and bright<br>Meet in her aspect and her eyes;<br>Thus mellow’d to that tender light<br>Which heaven to gaudy day denies.<br>One shade the more, one ray the less,<br>Had half impair’d the nameless grace</p></div>
+      <p class="fw-src">Lord Byron, “She Walks in Beauty” (1814)</p></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-poems-3" data-group="Forehead writing: Poems" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing, Poems: Shakespeare and love poems · pairs 5–6">
+    <section class="page page-left fw-page" style="--c:#b23a6b;--bg:#fbe9f1"><div class="fw-in fw-cards fw-au fw-p1">
+      <p class="fw-head"><b>B2</b> · Poems: Shakespeare and love poems · pair 5</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>The fountains mingle with the river<br>And the rivers with the ocean,<br>The winds of Heaven mix for ever<br>With a sweet emotion;<br>Nothing in the world is single;<br>All things by a law divine<br>In one spirit meet and mingle.<br>Why not I with thine?</p></div>
+      <p class="fw-src">Percy Bysshe Shelley, “Love’s Philosophy” (1819)</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Heart, we will forget him!<br>You and I, to-night!<br>You may forget the warmth he gave,<br>I will forget the light.<br>When you have done, pray tell me,<br>That I my thoughts may dim;<br>Haste! lest while you’re lagging,<br>I may remember him!</p></div>
+      <p class="fw-src">Emily Dickinson, “Heart, we will forget him” (written about 1860)</p></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#b23a6b;--bg:#fbe9f1"><div class="fw-in fw-cards fw-au fw-p3">
+      <p class="fw-head"><b>B2</b> · Poems: Shakespeare and love poems · pair 6</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>How do I love thee? Let me count the ways.<br>I love thee to the depth and breadth and height<br>My soul can reach, when feeling out of sight<br>For the ends of being and ideal grace.<br>I love thee to the level of every day’s<br>Most quiet need, by sun and candle-light.<br>I love thee freely, as men strive for Right;</p></div>
+      <p class="fw-src">Elizabeth Barrett Browning, “Sonnet 43” (1850)</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Remember me when I am gone away,<br>Gone far away into the silent land;<br>When you can no more hold me by the hand,<br>Nor I half turn to go yet turning stay.<br>Remember me when no more day by day<br>You tell me of our future that you plann’d:<br>Only remember me; you understand<br>It will be late to counsel then or pray.</p></div>
+      <p class="fw-src">Christina Rossetti, “Remember” (1862)</p></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-hard-1" data-group="Forehead writing: Rhymes and difficult poems" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing, Rhymes and difficult poems · pairs 1–2">
+    <section class="page page-left fw-page" style="--c:#4a4aa8;--bg:#ebebfa"><div class="fw-in fw-cards fw-au fw-p1">
+      <p class="fw-head"><b>B2</b> · Rhymes and difficult poems · pair 1</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>Little Lamb, who made thee?<br>Dost thou know who made thee,<br>Gave thee life, and bid thee feed<br>By the stream and o’er the mead;<br>Gave thee clothing of delight,<br>Softest clothing, woolly, bright;<br>Gave thee such a tender voice,<br>Making all the vales rejoice?</p></div>
+      <p class="fw-src">William Blake, “The Lamb” (1789)</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>Tyger Tyger, burning bright,<br>In the forests of the night;<br>What immortal hand or eye,<br>Could frame thy fearful symmetry?<br>In what distant deeps or skies<br>Burnt the fire of thine eyes?<br>On what wings dare he aspire?<br>What the hand dare seize the fire?</p></div>
+      <p class="fw-src">William Blake, “The Tyger” (1794)</p></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#4a4aa8;--bg:#ebebfa"><div class="fw-in fw-cards fw-au fw-p2">
+      <p class="fw-head"><b>B1</b> · Rhymes and difficult poems · pair 2</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>I wandered lonely as a cloud<br>That floats on high o’er vales and hills,<br>When all at once I saw a crowd,<br>A host, of golden daffodils;<br>Beside the lake, beneath the trees,<br>Fluttering and dancing in the breeze.</p></div>
+      <p class="fw-src">William Wordsworth, “I Wandered Lonely as a Cloud” (1807)</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>He clasps the crag with crooked hands;<br>Close to the sun in lonely lands,<br>Ring’d with the azure world, he stands.<br>The wrinkled sea beneath him crawls;<br>He watches from his mountain walls,<br>And like a thunderbolt he falls.</p></div>
+      <p class="fw-src">Alfred Tennyson, “The Eagle” (1851)</p></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
+  <div class="spread" data-id="fw-hard-2" data-group="Forehead writing: Rhymes and difficult poems" data-folder="forehead-writing" data-title="Forehead writing" data-name="Forehead writing, Rhymes and difficult poems · pairs 3–4">
+    <section class="page page-left fw-page" style="--c:#4a4aa8;--bg:#ebebfa"><div class="fw-in fw-cards fw-au fw-p3">
+      <p class="fw-head"><b>B1</b> · Rhymes and difficult poems · pair 3</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>The Owl and the Pussy-cat went to sea<br>In a beautiful pea-green boat,<br>They took some honey, and plenty of money,<br>Wrapped up in a five-pound note.<br>The Owl looked up to the stars above,<br>And sang to a small guitar,<br>“O lovely Pussy! O Pussy, my love,<br>What a beautiful Pussy you are,<br>You are,<br>You are!<br>What a beautiful Pussy you are!”</p></div>
+      <p class="fw-src">Edward Lear, “The Owl and the Pussy-cat” (1871)</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>They went to sea in a Sieve, they did,<br>In a Sieve they went to sea:<br>In spite of all their friends could say,<br>On a winter’s morn, on a stormy day,<br>In a Sieve they went to sea!<br>And when the Sieve turned round and round,<br>And every one cried, ‘You’ll all be drowned!’<br>They called aloud, ‘Our Sieve ain’t big,</p></div>
+      <p class="fw-src">Edward Lear, “The Jumblies” (1871)</p></div>
+      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+    </section>
+    <section class="page page-right fw-page" style="--c:#4a4aa8;--bg:#ebebfa"><div class="fw-in fw-cards fw-au fw-p3">
+      <p class="fw-head"><b>A2</b> · Rhymes and difficult poems · pair 4</p>
+      <div class="fw-card"><span class="fw-tag">A</span><p>Twinkle, twinkle, little star,<br>How I wonder what you are!<br>Up above the world so high,<br>Like a diamond in the sky.<br>When the blazing sun is gone,<br>When he nothing shines upon,<br>Then you show your little light,<br>Twinkle, twinkle, all the night.<br>Then the traveller in the dark</p></div>
+      <p class="fw-src">Jane Taylor, “The Star” (1806), known as “Twinkle, Twinkle, Little Star”</p>
+      <p class="fw-cut">✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</p>
+      <div class="fw-card"><span class="fw-tag">B</span><p>I have a little shadow that goes in and out with me,<br>And what can be the use of him is more than I can see.<br>He is very, very like me from the heels up to the head;<br>And I see him jump before me, when I jump into my bed.</p></div>
+      <p class="fw-src">Robert Louis Stevenson, “My Shadow” (1885)</p></div>
+      <span class="pageno abs" style="--x:88.5;--y:134.2"></span>
+    </section>
+  </div>
+
   </main>
 
   <!-- conversation game (ps-conversation-game): token choice and question cards -->
@@ -21742,10 +22235,14 @@
   <script src="poker-deck.js"></script>
   <script src="bullshit-cards.js"></script>
   <script src="bullshit-deck.js"></script>
+  <script src="spoons-cards.js"></script>
+  <script src="spoons-deck.js"></script>
   <script src="race-data.js?v=13"></script>
   <script src="race-core.js?v=13"></script>
   <script src="race.js?v=13"></script>
   <script src="basket-data.js"></script>
+  <script src="board-data.js"></script>
+  <script src="draw-data.js"></script>
   <script src="teacher-games.js"></script>
   <script src="marquee.js"></script>
   <script src="play-voice.js"></script>

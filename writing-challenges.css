@@ -129,3 +129,9 @@ textarea.fill.wc-dcv-ta { flex: none; height: 14.6cqw; resize: none; padding: .2
 .wc-rd li input.wc-line { flex: none; width: 5.5cqw; text-align: center; }
 .wc-hint { font-weight: 400 !important; color: var(--pal-slate); }
 input.fill.wc-line { display: block; width: 100%; height: 4cqw; font: 2cqw 'Patrick Hand', cursive; border-bottom: .15cqw solid var(--pal-night); padding: 0 .4cqw; }
+
+/* Stories with holes (ch. 25-26): inline blanks with the word class written under the line */
+.wc-story { flex: none; background: var(--pal-white); border: .25cqw solid var(--pal-night); border-radius: 2cqw; padding: 1.6cqw 2.2cqw 1.8cqw; font: 600 2.2cqw/3.9cqw 'Nunito', sans-serif; color: var(--pal-night); }
+.wc-ml { display: inline-flex; flex-direction: column; align-items: center; vertical-align: bottom; margin: 0 .5cqw; line-height: 1; }
+.wc-ml input.fill { width: 15cqw; height: 3.3cqw; text-align: center; font: 2.1cqw 'Patrick Hand', cursive; border-bottom: .15cqw solid var(--pal-night); padding: 0 .3cqw; }
+.wc-ml i { font: 700 1.1cqw/1.2 'Nunito', sans-serif; font-style: normal; text-transform: uppercase; letter-spacing: .1em; color: var(--pal-slate); margin-top: .2cqw; }
