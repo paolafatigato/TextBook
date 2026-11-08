@@ -1783,6 +1783,8 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
 .chapter-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
 /* one heading per school year, across the whole grid */
 .part-h { grid-column: 1 / -1; margin: 18px 0 0; padding-bottom: 6px; border-bottom: 2px solid #e8e0d6; font: 700 22px 'Fredoka', 'Nunito', sans-serif; color: #555; }
+.part-h.grad { border-bottom: 4px solid transparent; border-image: linear-gradient(90deg, #c97df6, #de3796, #c9de3c) 1; color: #de3796; }
+.chapter.grad .chapter-cover { background: linear-gradient(135deg, #c97df6 0%, #de3796 55%, #c9de3c 100%); }
 .part-h:first-child { margin-top: 0; }
 .part-h.teacher::before { content: '🔒 '; }
 /* a chapter not written yet (only the teacher sees it) */
@@ -4549,6 +4551,9 @@ body.toc-open .toc { display: block; }
   box-shadow: 0 3px 8px color-mix(in srgb, var(--y) 35%, transparent);
 }
 .toc-year.teacher .toc-badge { font-size: 13px; }
+.toc-year.grad { --y: #de3796; }
+.toc-year.grad .toc-badge { background: linear-gradient(135deg, #c97df6, #de3796 55%, #c9de3c); box-shadow: 0 3px 8px rgba(222,55,150,.35); }
+.toc-year.grad .toc-dot { background: linear-gradient(135deg, #c97df6, #de3796 55%, #c9de3c); }
 .toc-chs { padding: 0 6px 8px; }
 
 /* a chapter */
@@ -5357,3 +5362,13 @@ body.toc-open .toc { display: block; }
 .jb-dq li { counter-increment: jbq; margin-bottom: .8cqw; font: 600 1.5cqw/1.3 'Nunito', sans-serif; color: var(--navy); }
 .jb-dq li::before { content: counter(jbq) ". "; color: var(--jb-red); font-weight: 800; }
 .jb-dq input.fill { display: block; height: 4.4cqw; font-size: 1.7cqw; border-bottom: .14cqw solid #ddd3c0; }
+
+/* Jobs & CVs headers inspired by CV templates: round photo, hanging pill, spaced capitals */
+.jb-circ { z-index: 2; aspect-ratio: 1; display: flex; padding: 1.6cqw; border-radius: 50%; background: var(--jb-sun); }
+.jb-circ .jb-slot { flex: 1; }
+.jb-hang-line { z-index: 2; width: .25cqw; background: var(--navy); }
+.jb-hang { z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 1cqw; padding: 2.6cqw 1.6cqw 2cqw; border-radius: 999px; background: var(--jb-sun); text-align: center; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.jb-hang b { font: 800 1.3cqw/1.3 'Nunito', sans-serif; letter-spacing: .3em; color: var(--navy); }
+.jb-hang .jb-slot { flex: none; width: 15cqw; height: 15cqw; }
+.jb-hang small { margin-top: auto; font: 600 1.2cqw/1.2 'Nunito', sans-serif; color: var(--navy); }
+.jb-wide { z-index: 3; margin: 0; font: 400 10cqw/1 "Quicksand", "Nunito", sans-serif; letter-spacing: .3em; white-space: nowrap; color: var(--navy); }

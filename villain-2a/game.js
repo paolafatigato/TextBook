@@ -1,4 +1,4 @@
-// Villain 2A: the screens. The rules are in engine.js, the villains in villains.js.
+// Villain 2A & 2B: the screens. The rules are in engine.js, the villains in villains.js.
 //
 // Ways to play: villain vs villain on one computer (the two players take turns on the same screen),
 // villain vs the computer (easy / normal / hard), or watch the computer fight itself (#demo).
@@ -57,8 +57,8 @@
     state.token++; state.g = null;
     app.innerHTML = `
       <div class="box">
-        <h1 class="title">VILLAIN 2A<small>the villains of our class · duel!</small></h1>
-        <p class="sub">${ROSTER.length} villains made by 2A. Choose one, read its powers and win the duel!</p>
+        <h1 class="title">VILLAIN 2A & 2B<small>the villains of our classes · duel!</small></h1>
+        <p class="sub">${ROSTER.length} villains made by 2A and 2B. Choose one, read its powers and win the duel!</p>
         <div class="modes">
           <button type="button" class="mode" data-act="mode" data-m="2p"><i>🦹 ⚔ 🦹</i><b>Villain vs Villain</b><span>2 players, 1 computer. Each player chooses a villain and you take turns.</span></button>
           <button type="button" class="mode" data-act="mode" data-m="cpu"><i>🦹 ⚔ 🤖</i><b>Villain vs Challenge</b><span>1 player. Your villain fights a hero from real life: the Professor, the Coach, the Stressed Parent…</span></button>
@@ -70,7 +70,7 @@
         <div class="how">
           <h3>How to play</h3>
           <ol>
-            <li>Choose a villain. <b>Read all its powers</b>: they come from the villain files of 2A.</li>
+            <li>Choose a villain. <b>Read all its powers</b>: they come from the villain files of 2A and 2B.</li>
             <li>Every power can be used only a <b>few times</b> (the dots). The <b>basic move</b> is always ready, but it is weak.</li>
             <li>The <b>points are secret</b>! The words tell you how strong a power is: <i>a light hit → a solid hit → a strong hit → a very strong hit → a huge hit</i>.</li>
             <li><b>The order matters!</b> Use a power to prepare, then strike. Stop the enemy, then hit hard. Make the enemy sleepy or angry, then watch what happens. Use a shield <i>before</i> the big attack arrives.</li>
@@ -400,7 +400,7 @@
           <li>Ogni potere vale in “punti danno”: un turno d’attacco medio vale circa ${E.fxValue({ k: 'guard', p: 1, hits: 1 })}. Esempi: un colpo da 20 = 20; uno scudo al 50% su 2 colpi = 16; saltare un turno ≈ 19; schivata ≈ 18; guarire X ≈ 0,9X; il danno a se stessi si sottrae.</li>
           <li>Poi ogni kit è stato <b>messo a punto con migliaia di duelli simulati</b> (computer contro computer): ogni villain vince tra il 46% e il 56% dei duelli di livello Normal; chi parte per primo vince il 53%, e per questo chi gioca per secondo parte con ${E.SECOND_BONUS} HP in più.</li>
           <li><b>L’ordine conta</b>: un giocatore che ragiona batte uno che sceglie a caso il 91% delle volte (test fatto con <code>node tools/balance.js</code>). Combinazioni principali: Super Sight → colpo forte; stop-tempo → attacco; sbadigli + coperta (sonno 3); Six Seven! + Music Control (rabbia 7 = esplosione); scudo prima del colpo grosso; Honey Bear che “fa dimenticare” il potere appena usato; Four Hands che ruba scudi e boost.</li>
-          <li><b>Le sfide della vita reale</b> (Professor, Coach, Stressed Parent, Little Sibling) sono gli avversari del computer in “Villain vs Challenge”. Sono state bilanciate contro tutti i 15 villain: vincono tra il 45% e il 57% dei duelli (livello Normal) e ognuna ha almeno un villain che la batte facilmente: bisogna sceglierlo con cura.</li>
+          <li><b>Le sfide della vita reale</b> (Professor, Coach, Stressed Parent, Little Sibling) sono gli avversari del computer in “Villain vs Challenge”. Sono state bilanciate contro tutti i 24 villain: vincono tra il 45% e il 57% dei duelli (livello Normal) e ognuna ha almeno un villain che la batte facilmente: bisogna sceglierlo con cura.</li>
           <li>Ogni villain è forte contro qualcuno e debole contro qualcun altro (punti deboli: dolce, mente, suono, luce, “aiutanti”). Il livello di difficoltà (★) indica quanto serve pianificare.</li>
         </ul>
         <h2>Simulazione di bilanciamento</h2>

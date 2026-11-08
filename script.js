@@ -95,7 +95,7 @@ const home = document.getElementById('home');
 /* chapters (contents.js): each one goes from its `start` spread to the start of the next one */
 const PARTS = (typeof CONTENTS === 'undefined' ? [] : CONTENTS.parts || []).map(part => ({
   ...part,
-  chapters: part.chapters.map(ch => ({ ...ch, teacher: !!part.teacher, items: [] })),
+  chapters: part.chapters.map(ch => ({ ...ch, teacher: !!part.teacher, gradient: !!part.gradient, items: [] })),
 }));
 const CHAPTERS = PARTS.flatMap(p => p.chapters);
 const chapterOf = new Map();
@@ -1827,7 +1827,7 @@ function chapterCard(ch) {
   });
   const off = !ch.teacher && !inside.some(isVisible);
   return `
-    <article class="chapter${off ? ' off' : ''}" data-ch="${esc(ch.title)}" style="--c:${color}">
+    <article class="chapter${off ? ' off' : ''}${ch.gradient ? ' grad' : ''}" data-ch="${esc(ch.title)}" style="--c:${color}">
       <a class="chapter-cover" href="${hrefOf(inside[0])}">
         ${pic}
         <span class="chapter-pages">${ch.collect ? 'inside the chapters' : range(pagesOf(ch.items[0])[0], pagesOf(ch.items.at(-1))[1])}</span>
@@ -1848,7 +1848,7 @@ function renderHome() {
     const cards = part.chapters.map(chapterCard).join('');
     // "Games for the teacher" (teacher-games.js) come first in the teacher's part, before the guided meditations
     const games = part.title === 'For the teacher' && isTeacher() && window.TEACHER_GAMES ? window.TEACHER_GAMES.tiles() : '';
-    return (cards + games).trim() ? `<h3 class="part-h${part.teacher ? ' teacher' : ''}">${esc(part.title)}</h3>${games}${cards}` : '';
+    return (cards + games).trim() ? `<h3 class="part-h${part.teacher ? ' teacher' : ''}${part.gradient ? ' grad' : ''}">${esc(part.title)}</h3>${games}${cards}` : '';
   }).join('');
 
   renderTopics();
@@ -1938,7 +1938,7 @@ function renderToc() {
       const badge = part.badge || (part.teacher ? '🔒' : pi + 1);
       const [title, sub] = part.title.split(' · ');
       return `
-      <details class="toc-year${part.teacher ? ' teacher' : ''}" data-year="${esc(part.title)}" style="--y:${color}"${tocYearsClosed.has(part.title) ? '' : ' open'}>
+      <details class="toc-year${part.teacher ? ' teacher' : ''}${part.gradient ? ' grad' : ''}" data-year="${esc(part.title)}" style="--y:${color}"${tocYearsClosed.has(part.title) ? '' : ' open'}>
         <summary><b class="toc-badge">${badge}</b><span>${esc(title)}${sub ? `<small>${esc(sub)}</small>` : ''}</span></summary>
         <div class="toc-chs">${games}${chapters}</div>
       </details>`;

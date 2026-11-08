@@ -1,4 +1,4 @@
-// Villain 2A: the 15 villains made by the pupils of 2A. Only the villains' names are used (never the pupils' names).
+// Villain 2A & 2B: the 24 villains made by the pupils of 2A and 2B. Only the villains' names are used (never the pupils' names).
 //
 // Every villain comes from a villain file: powers, equipment, main attack, weakness and motto are the pupil's own.
 // The numbers (fx) are the teacher's balance work; see engine.js for what each effect does and how a move is rated.
@@ -20,7 +20,7 @@
       says: 'I become a bad man to defeat the evil man.',
       q: { immuneBasic: true }, quirk: 'Forehead Mark: punches and basic attacks hardly hurt him. But his own headbutt is harmless!',
       moves: [
-        M('fire', 'Dragon’s Fire', 'A dragon made of flames flies out of your hands.', 2, ['fire'], [d(22)]),
+        M('fire', 'Dragon’s Fire', 'A dragon made of flames flies out of your hands.', 2, ['fire'], [d(24)]),
         M('knives', 'Knife Flurry', 'You throw your two knives again and again.', 2, ['phys'], [d(6, 3)]),
         M('time', 'Powers of Time', 'You stop the clock. Nobody moves but you.', 1, ['time'], [{ k: 'skip', n: 1 }]),
         M('galaxy', 'The Galaxy', 'You pull a whole galaxy down on the enemy. Even you feel the pull.', 1, ['cosmic'], [d(28), { k: 'recoil', v: 10 }]),
@@ -113,7 +113,7 @@
       moves: [
         M('silence', 'The Awkward Silence', 'You become so shy that everyone feels awkward.', 1, ['mind'], [d(6), { k: 'skip', n: 1 }]),
         M('ray', 'Forgetful Ray', 'The enemy forgets why it is fighting.', 2, ['mind'], [d(8), { k: 'weak', m: .5, hits: 1 }]),
-        M('wave', 'Distraction Wave', 'Everyone is distracted and confused.', 2, ['mind'], [d(11), { k: 'confuse', n: 1 }]),
+        M('wave', 'Distraction Wave', 'Everyone is distracted and confused.', 2, ['mind'], [d(10), { k: 'confuse', n: 1 }]),
         M('shield', 'Invisibility Shield', 'When you feel embarrassed, you become invisible.', 2, [], [{ k: 'vanish', n: 1 }]),
         M('book', 'The Confidence Book', 'A magic book gives you powers, but you are too indecisive to choose the page.', 1, [], [{ k: 'randomPower' }]),
       ],
@@ -166,7 +166,7 @@
       says: 'Now I try it!',
       q: { needsGinger: true }, quirk: 'Without the little mouse Ginger there are no powers. A very big hit scares Ginger away. A volleyball serve calls Ginger back.',
       moves: [
-        M('spike', 'Volleyball Spike', 'You jump and spike the ball at the enemy.', 3, ['phys'], [d(15)]),
+        M('spike', 'Volleyball Spike', 'You jump and spike the ball at the enemy.', 3, ['phys'], [d(13)]),
         M('lightning', 'Lightning Shield', 'A bolt of lightning blinds the enemy and protects you.', 2, ['light'], [{ k: 'guard', p: .5, hits: 1 }, { k: 'weak', m: .5, hits: 1 }]),
         M('electro', 'Electrocute', 'You electrocute the enemy. It gets confused.', 2, ['light'], [d(16), { k: 'confuse', n: 1 }]),
         M('expert', 'Instant Expert', 'You become an animal in 2 seconds.', 1, [], [{ k: 'boost', m: 1.6, hits: 2 }]),
@@ -180,7 +180,7 @@
       q: { needsWarm: true }, quirk: 'Needs to warm up the legs: no powers until the warm-up stretch is done.',
       moves: [
         M('tutu', 'Tutu Shield', 'The tutu makes an invisible bubble around you.', 2, [], [{ k: 'guard', p: .9, hits: 1 }]),
-        M('spin', 'The Spin Attack', 'You spin like a top and leave the enemy confused.', 3, ['phys'], [d(18), { k: 'confuse', n: 1 }]),
+        M('spin', 'The Spin Attack', 'You spin like a top and leave the enemy confused.', 3, ['phys'], [d(14), { k: 'confuse', n: 1 }]),
         M('extension', 'Rubber-Band Kick', 'Your legs stretch like a rubber band. The enemy is stunned for a moment.', 1, ['phys'], [d(16), { k: 'skip', n: 1 }]),
         M('crown', 'Precious Crown', 'The crown helps you focus.', 2, [], [{ k: 'boost', m: 1.6, hits: 1 }]),
       ],
@@ -211,6 +211,130 @@
         M('glasses', 'Special Glasses', 'Your special glasses show you where to hit.', 2, [], [{ k: 'pierce', n: 1 }, { k: 'boost', m: 1.5, hits: 1 }]),
       ],
       basic: B('Bike Ram', 'You ride your bike into the enemy.', ['phys'], [d(8)]),
+    },
+    {
+      id: 'punchhead', name: 'Punch Head', emoji: '🥊', img: 'img/punchhead.jpg', color: '#e0558a', role: 'Dancer & fighter',
+      blurb: 'Tall, with long curly hair, a big ribbon, a tutu and pointe shoes. A blue and purple meteorite struck her in the dance school. Everybody thought she was dead, but she came back stronger.',
+      says: 'Never give up your dreams.',
+      q: {}, weakTag: 'cute', weakText: 'Cats! When she sees a cat she runs to pet it: cute and furry attacks hurt more.',
+      moves: [
+        M('punch', 'Punch Head', 'Your head becomes hard as metal and you hit the enemy.', 2, ['phys'], [d(20)]),
+        M('talk', 'Talk to Me', 'Everyone stops to talk to you, as if hypnotized.', 1, ['mind'], [{ k: 'skip', n: 1 }]),
+        M('fireworks', 'Fireworks', 'When you are angry, you throw fireworks from your arms.', 3, ['fire'], [d(5, 3)]),
+        M('pods', 'Airpods Shield', 'Your airpods act as a shield for you.', 2, [], [{ k: 'guard', p: .7, hits: 1 }]),
+        M('sword', 'Silver Ring Sword', 'Your silver ring turns into a sword.', 2, ['phys'], [d(15)]),
+      ],
+      basic: B('Dance Shoe Kick', 'Your dance shoes let you fly. You kick the enemy from above.', ['phys'], [d(8)]),
+    },
+    {
+      id: 'wordstorm', name: 'Word Storm', emoji: '📝', img: 'img/wordstorm.jpg', color: '#3d5fc4', role: 'Mind games',
+      blurb: 'A very tall witch with long shiny hair in a high ponytail. Her mind is very disorganized. One day she fell asleep and woke up with all the information in her head in a state of disarray.',
+      says: 'Speak because someone has given you a voice to use.',
+      q: { lowConf: true }, quirk: 'Insecure: below half of the HP, Word Storm stops believing in herself and hits weaker.',
+      moves: [
+        M('storm', 'Word Storm', 'A storm of words flies at the enemy, one after the other.', 3, ['sound'], [d(6, 3)]),
+        M('mayhem', 'Mayhem Mind', 'Your messy thoughts spread around. The enemy is confused.', 2, ['mind'], [d(8), { k: 'confuse', n: 1 }]),
+        M('panic', 'Panic Pulse', 'A pulse of panic makes the enemy’s next attacks weaker.', 2, ['mind'], [d(6), { k: 'weak', m: .6, hits: 2 }]),
+        M('overthink', 'Overthink Sense', 'The enemy thinks too much and forgets its last power.', 2, ['mind'], [d(8), { k: 'seal', n: 2 }]),
+      ],
+      basic: B('Pen Jab', 'You write something sharp with your pen and paper.', ['phys'], [d(8)]),
+    },
+    {
+      id: 'inventor', name: 'Young Inventor', emoji: '🧪', img: 'img/inventor.jpg', color: '#4a5560', role: 'Time-freezer',
+      blurb: 'A young inventor in a black suit and a white gas mask. During a science test his lab blew up. His DNA mixed with an electric fish and now he can freeze time.',
+      says: 'I can freeze time whenever I want.',
+      q: { tired: true }, quirk: 'Uses his powers too many times and loses his sense of the present: every power makes him more tired. At 3 he has to rest and loses a turn. Checking the watch helps!',
+      moves: [
+        M('freeze', 'Freeze Time', 'You freeze time whenever you want. Nobody moves but you.', 2, ['time'], [{ k: 'skip', n: 1 }]),
+        M('lab', 'Lab Explosion', 'Your lab blows up, and the enemy is in the middle.', 1, ['fire'], [d(24)]),
+        M('fish', 'Electric Fish DNA', 'The electric fish inside you gives the enemy a big shock.', 3, ['light'], [d(15), { k: 'confuse', n: 1 }]),
+        M('mask', 'Gas Mask', 'Your gas mask stops the worst of the attack.', 2, [], [{ k: 'guard', p: .6, hits: 2 }]),
+      ],
+      basic: B('Check the Watch', 'Your watch tells you to return to the present. You rest a little.', ['time'], [d(6), { k: 'mark', name: 'tired', n: -1, self: true }]),
+    },
+    {
+      id: 'karol', name: 'Karol the Wiener Dog', emoji: '🐕', img: 'img/karol.jpg', color: '#9a5a48', role: 'Curls & faces',
+      blurb: 'A girl who fell into a puddle that turned her into her pet, a wiener dog. She has a long muzzle, a big nose and curly hair that gets tangled easily. She is chatty and messy.',
+      says: 'Every curl has a surprise.',
+      q: { needsWarm: true }, quirk: 'Needs to do her hair: no powers until the hair brushing is done.',
+      moves: [
+        M('face', 'The Face Shift', 'You make weird, funny faces. The enemy gets distracted.', 3, ['mind'], [d(9), { k: 'weak', m: .6, hits: 1 }]),
+        M('curl', 'Curl Capture', 'You wrap the enemy with your hair.', 2, ['phys'], [d(11), { k: 'skip', n: 1 }]),
+        M('words', 'Words Shield', 'Every word you say becomes a magical bubble that traps the enemy.', 2, ['magic'], [d(10), { k: 'guard', p: .5, hits: 1 }]),
+        M('squishy', 'Squishy', 'You squish your squishy when you feel nervous. Now you feel calm.', 2, ['cute'], [{ k: 'heal', v: 9 }, { k: 'cleanse' }]),
+        M('dogs', 'Two Wiener Dogs', 'Your two dogs help you move faster.', 1, ['team'], [{ k: 'haste' }]),
+      ],
+      basic: B('Hair Brushing', 'You brush your curls. Now you are ready!', ['phys'], [d(6), { k: 'flag', name: 'warm', v: true }]),
+    },
+    {
+      id: 'witchcat', name: 'Witch Cat', emoji: '🐱', img: 'img/witchcat.jpg', color: '#9c59d1', role: 'Bossy cat',
+      blurb: 'A brown cat with green eyes, a purple hat with a gold belt and a necklace with a pink heart that lets her fly. A meteorite hit her and she became a cat.',
+      says: 'Make my mom proud.',
+      q: {}, weakTag: 'cute', weakText: 'Cats! When she sees one she goes to pet it: cute and furry attacks hurt more.',
+      moves: [
+        M('impatient', 'Impatient Attack', 'You become impatient and everyone does what you want.', 1, ['mind'], [d(8), { k: 'skip', n: 1 }]),
+        M('firehead', 'Fire Head', 'Your head becomes fire.', 2, ['fire'], [d(19)]),
+        M('pushy', 'Pushy', 'You push people to do what you want.', 3, ['phys'], [d(11), { k: 'weak', m: .7, hits: 1 }]),
+        M('heart', 'Heart Necklace', 'Your heart necklace lets you fly where nobody can reach you.', 2, [], [{ k: 'vanish', n: 1 }]),
+        M('hat', 'Magic Hat', 'Your magic hat with a gold belt gives you more power.', 2, ['magic'], [{ k: 'boost', m: 1.6, hits: 1 }]),
+      ],
+      basic: B('Cat Scratch', 'You scratch the enemy with your paw.', ['phys'], [d(8)]),
+    },
+    {
+      id: 'clone', name: 'Gravity Clone', emoji: '👯', img: 'img/clone.jpg', color: '#2a9d8f', role: 'Clones & shields',
+      blurb: 'A tall girl with long brown hair and dark eyes. She is shy at first, but very confident once you know her. She hates waiting. One night she found a mysterious object in her room and got superpowers.',
+      says: 'I work better alone.',
+      q: { noRepeat: true }, quirk: 'So indecisive that she can never use the same power twice in a row.',
+      moves: [
+        M('clones', 'Two Clones', 'You are so indecisive that you create two different clones. The enemy gets confused.', 2, ['mind'], [d(10), { k: 'confuse', n: 1 }]),
+        M('gravity', 'Gravity Shield', 'You use gravity to create a shield. You never get hurt.', 2, ['phys'], [d(7), { k: 'guard', p: .7, hits: 1 }]),
+        M('hurry', 'Hurry Up!', 'You are so impatient that you finish everything now, but you ruin your own plan a little.', 1, ['phys'], [d(18), { k: 'recoil', v: 8 }]),
+        M('phone', 'Active Phone', 'Your phone activates your powers.', 2, [], [{ k: 'boost', m: 1.8, hits: 2 }]),
+        M('teddy', 'Teddy Bear', 'Your teddy bear protects you.', 2, ['cute'], [{ k: 'guard', p: .5, hits: 2 }, { k: 'heal', v: 6 }]),
+      ],
+      basic: B('Phone Scroll', 'You scroll your phone until the enemy gets bored.', ['mind'], [d(9)]),
+    },
+    {
+      id: 'glitter', name: 'Glitter Blind', emoji: '✨', img: 'img/glitter.jpg', color: '#d4a017', role: 'Light & sound',
+      blurb: 'Tall, with long brown hair. She is hot-tempered, impatient and lazy. She always wears a star necklace to control her anger and stay patient.',
+      says: 'One magic star.',
+      q: {}, quirk: 'No patience: she gets angry very fast. Her star necklace is her only calm.',
+      moves: [
+        M('blind', 'The Glitter Blind', 'Your silver earrings flash a powerful light. The enemy cannot see anything.', 2, ['light'], [d(5), { k: 'weak', m: .5, hits: 2 }]),
+        M('flash', 'Gold Flash', 'A bright light from your earrings stops all enemies for 10 seconds.', 1, ['light'], [{ k: 'skip', n: 1 }]),
+        M('glass', 'The Scream that Breaks Glass', 'You scream so loud that the glass breaks.', 2, ['sound'], [d(15)]),
+        M('brother', 'Little Brother', 'Your little brother screams so loud that he scares the enemies away.', 3, ['sound', 'team'], [d(6, 2)]),
+        M('star', 'Star Necklace', 'Your star necklace helps you control your anger.', 2, [], [{ k: 'heal', v: 9 }, { k: 'cleanse' }]),
+      ],
+      basic: B('Glitter Flick', 'You flick some glitter in the enemy’s eyes.', ['light'], [d(8)]),
+    },
+    {
+      id: 'bodyflame', name: 'Body Flame', emoji: '🔥', img: 'img/bodyflame.jpg', color: '#e2503a', role: 'Dark flame',
+      blurb: 'A tall girl with long brown hair and cat ears. She loves the dark and plays attacker in volleyball. If she gets angry, she loses control.',
+      says: 'Relax on the sofa and be with friends.',
+      q: {}, weakTag: 'light', weakText: 'Loves the dark: bright, light attacks hurt more.',
+      moves: [
+        M('flame', 'Body Flame', 'Your whole body is on fire.', 2, ['fire'], [d(19)]),
+        M('steal', 'Necklace Energy', 'Your necklace steals the enemy’s energy.', 2, ['dark'], [d(9), { k: 'heal', v: 7 }]),
+        M('invisible', 'Invisible in the Dark', 'You disappear in the dark.', 2, ['dark'], [{ k: 'vanish', n: 1 }]),
+        M('spike', 'Volleyball Attack', 'You jump and attack the ball at the enemy.', 3, ['phys'], [d(13)]),
+        M('device', 'Star Device', 'Your star device gives you more power.', 2, [], [{ k: 'boost', m: 1.6, hits: 1 }]),
+      ],
+      basic: B('Ear Flick', 'You flick the enemy with your cat ears. It is not much.', ['phys'], [d(8)]),
+    },
+    {
+      id: 'pikakid', name: 'Pika Kid', emoji: '⚡', img: 'img/pikakid.jpg', color: '#f2c81c', role: 'Pokémon',
+      blurb: 'A kid who watched Pokémon cards all night. The next morning… he was Pikachu!',
+      says: 'To become a Pokémon is child’s play.',
+      q: { tired: true }, quirk: 'Gets tired easily: every power makes Pika Kid more tired. At 3 he has to rest and loses a turn. Looking at the album helps!',
+      moves: [
+        M('shock', 'Electric Shock', 'A big electric shock.', 2, ['light'], [d(14), { k: 'confuse', n: 1 }]),
+        M('fireball', 'Fire Ball', 'A ball of fire flies at the enemy.', 2, ['fire'], [d(16)]),
+        M('swim', 'Swim Under Water', 'You swim under water. The next attack misses.', 2, [], [{ k: 'vanish', n: 1 }]),
+        M('become', 'I Become a Pokémon', 'You become a Pokémon and feel stronger.', 1, ['cute'], [{ k: 'boost', m: 1.5, hits: 1 }, { k: 'heal', v: 4 }]),
+        M('trainer', 'My Trainer', 'Your trainer helps you with a quick attack.', 3, ['team'], [d(7, 2)]),
+      ],
+      basic: B('Pokémon Album', 'You look at your Pokémon album and rest a little.', ['cute'], [d(6), { k: 'mark', name: 'tired', n: -1, self: true }]),
     },
   ];
 
@@ -288,7 +412,7 @@
   ];
 
   // how much planning a villain needs (1 = easy to play, 3 = for experts): from the duels of the computer at the easy level
-  const SKILL = { goget: 1, kick: 1, dancer: 1, wavy: 1, hands: 1, cactus: 1, skater: 2, mask: 2, explodingball: 2, honey: 2, anxious: 2, lazy: 3, vampire: 3, sixseven: 3, rebel: 3 };
+  const SKILL = { goget: 1, kick: 1, dancer: 1, wavy: 1, hands: 1, cactus: 1, skater: 2, mask: 2, explodingball: 2, honey: 2, anxious: 2, lazy: 3, vampire: 3, sixseven: 3, rebel: 3, punchhead: 1, wordstorm: 2, inventor: 3, karol: 2, witchcat: 1, clone: 2, glitter: 1, bodyflame: 1, pikakid: 3 };
 
   // add the strength of each move, the words that hint at it, and fill the gaps
   [...ROSTER, ...HEROES].forEach(k => {

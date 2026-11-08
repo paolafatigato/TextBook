@@ -76,8 +76,15 @@ const CONTENTS = {
         { title: 'Music', color: '#dc3394' },
         { title: 'INVALSI practice', color: '#e3b505' },
         { title: 'Exam practice', color: '#262626' },
+      ],
+    },
+    {
+      // for every class, not only the 3rd year (keep this part AFTER the three years: the folders above use year 0–2)
+      title: 'For everybody',
+      gradient: true, // lilac → fuchsia → lime (book palette): heading and chapter covers
+      chapters: [
         // the last pages of the pupils' book: writing challenges, one per page (writing-challenges.css)
-        { title: 'Writing challenges', start: 'wc-intro', color: '#e8c547' },
+        { title: 'Writing challenges', start: 'wc-intro', color: '#de3796' },
       ],
     },
     {
@@ -279,6 +286,7 @@ const CONTENTS = {
     { title: 'Happy Job Race: values & reasons', color: '#e8820c', pages: ['jobs-pros:L'] },
     { title: 'Reading: the story of your game (past simple)', color: '#e8820c', pages: ['jobs-story'] },
     { title: 'Writing a CV', color: '#e8820c', pages: [['jobs-cv-model', 'jobs-my-cv']] },
+    { title: 'A CV to impress: trivial things, big words', color: '#de3796', pages: ['jobs-impress'] },
     { title: 'Reading: a dating CV (Brandon) & write your own', color: '#de3796', pages: ['jobs-dating-cv'] },
     { title: 'Writing a letter to yourself', color: '#f5a53b', pages: ['summer-letters'] },
     { title: 'Past simple: irregular verbs & -ed spelling', color: '#f5a53b', pages: ['summer-gratitude:R'] },

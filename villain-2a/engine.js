@@ -1,4 +1,4 @@
-// Villain 2A: the rules of the duel (no screen here: the browser and the balance tests both use this file).
+// Villain 2A & 2B: the rules of the duel (no screen here: the browser and the balance tests both use this file).
 //
 // A fighter has a kit: up to 5 powers with a few uses each + a basic move that is always ready.
 // A move is { name, story, uses, tags, fx: [ … ] }. The numbers (fx) are secret for the pupils; the descriptions

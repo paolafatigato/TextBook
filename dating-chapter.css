@@ -296,3 +296,55 @@ textarea.fill.dt-ta.sm { min-height: 10cqw; font-size: 1.8cqw; }
 #dt-ex2 .dt-num.sm.abc > div i { align-self: flex-start; flex: none; }
 #dt-ex2 .dt-num.sm.abc > div p { font-size: 1.9cqw; font-weight: 600; }
 #dt-ex2 .dt-num.sm > div { min-height: 17cqw; }
+
+/* the animal portraits: whole head on white, a taller photo area */
+.dt-prof.eq { height: 92cqw; }
+.dt-prof.eq .ph { height: 28cqw; }
+.dt-prof .ph .dt-fr:has(img) { background: var(--pal-white); }
+.dt-prof .ph .dt-fr img { object-fit: contain; }
+
+/* ---- the junction spread "Brandon's CV" (jobs-dating-cv, in Jobs & CVs): the reproduced post, email and CV wear the Dating colors ---- */
+.dt .jb-mail { border-color: var(--dt-b); box-shadow: 0 .6cqw 1.6cqw color-mix(in srgb, var(--dt-a) 14%, transparent); }
+.dt .jb-mail-file b { background: var(--dt-soft-b); color: var(--dt-a); }
+.dt .jb-cv { border: .25cqw solid var(--dt-a); box-shadow: .6cqw .6cqw 0 var(--dt-b); }
+.dt .jb-dcv aside { background: var(--dt-soft-b); color: var(--dt-a); }
+.dt .jb-dcv aside h4 { color: var(--dt-a); border-bottom-color: var(--dt-c); }
+.dt .jb-dcv .jb-cv-main h4 { color: var(--dt-a); }
+.dt .jb-dcv .jb-cv-main h4::after { background: var(--dt-b); }
+.dt .jb-dcv-name, .dt .jb-dcv-tag { font-family: 'Gloock', 'Playfair Display', serif; color: var(--dt-a); }
+.dt .jb-dcv-why li::marker { color: var(--dt-c); font-weight: 800; }
+
+/* the light-bulb post (Jobs & CVs: a CV to impress) */
+.dt-tweet { z-index: 2; padding: 1.4cqw 2cqw; border-radius: 1.8cqw; background: var(--pal-white); border: .22cqw solid var(--dt-a); font: 600 1.85cqw/1.35 'Nunito', sans-serif; color: var(--pal-night); }
+.dt-tweet small { display: block; margin-bottom: .5cqw; font: 800 1.2cqw/1 'Nunito', sans-serif; color: var(--dt-mute); }
+.dt-tweet.re { margin-left: 4cqw; width: calc(86cqw - 4cqw); font-size: 1.7cqw; background: var(--dt-soft-b); box-shadow: .5cqw .5cqw 0 var(--dt-c); }
+.dt-field small { text-transform: none; letter-spacing: 0; font: 600 1.1cqw/1 'Nunito', sans-serif; margin-left: .6cqw; }
+
+/* headers inspired by CV templates */
+.dt-hang-line { z-index: 2; width: .25cqw; background: var(--dt-a); }
+.dt-fr.pill { border-radius: 50cqw; }
+.dt-fr.pill::before { border-radius: 50cqw; }
+.dt-kick.sl[style*="text-align:right"]::before { content: none; }
+.dt-h em.fx { background: none; color: var(--dt-c); }
+
+/* "A CV to impress" belongs to the Jobs & CVs chapter: the dt- pieces take the colors of the CV chapter (navy, sun yellow, red) */
+.jb-imp { --dt-a: var(--navy); --dt-b: var(--jb-sun); --dt-c: var(--jb-red); --dt-soft-b: var(--sh-soft); --dt-soft-c: var(--sh-soft); --dt-mute: #5c5c66; color: #333; }
+.jb-imp .dt-h { font: 700 5cqw/1.02 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.jb-imp h1.dt-h { font-size: 7.6cqw; }
+.jb-imp .dt-h em { font: 900 1.06em/1 'Playfair Display', serif; background: none; color: var(--jb-sun); padding: 0; margin: 0; }
+.jb-imp h2.dt-h em { background: linear-gradient(transparent 58%, var(--jb-sun) 58% 90%, transparent 90%); font: inherit; color: inherit; padding: 0 .4cqw; }
+.jb-imp .dt-kick.sl { font: 400 1.25cqw/1 'Quicksand', 'Nunito', sans-serif; letter-spacing: .45em; text-transform: uppercase; color: var(--navy); }
+.jb-imp .dt-kick.sl::before { color: var(--jb-red); }
+.jb-imp .dt-lab b { background: var(--jb-sun); box-shadow: none; color: var(--navy); }
+.jb-imp .dt-dots { background: radial-gradient(circle, var(--jb-violet) 22%, transparent 25%) 0 0 / 2cqw 2cqw; }
+.jb-imp .dt-tweet { border-color: var(--navy); }
+.jb-imp .dt-tweet.re { background: var(--sh-soft); box-shadow: .5cqw .5cqw 0 var(--jb-sun); }
+.jb-imp .dt-card { border-color: var(--navy); box-shadow: .6cqw .6cqw 0 var(--jb-sun); }
+.jb-imp .dt-bank { font-family: 'Nunito', sans-serif; font-weight: 700; }
+.jb-imp .dt-list > li::before { background: var(--jb-sun); color: var(--navy); font-family: 'Nunito', sans-serif; font-weight: 800; }
+.jb-imp .check { background: #4aa8ec; box-shadow: none; }
+.jb-imp .dt-talk { color: var(--navy); }
+.jb-imp .dt-talk::before { content: "🗣️"; }
+.jb-imp .dt-foot { color: #9a9aa6; }
+.jb-imp .pageno { color: #9a9aa6; font: 400 2.3cqw/1 'Nunito', sans-serif; }
+.page.jb-imp:not(.jb-paper) { background: #fff; }

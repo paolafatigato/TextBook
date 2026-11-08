@@ -1,13 +1,13 @@
-// Villain 2A: the duel with the villains made by the pupils of 2A (the game is in the folder villain-2a/).
+// Villain 2A & 2B: the duel with the villains made by the pupils of 2A and 2B (the game is in the folder villain-2a/).
 // It opens full screen over the book and is a game of the Personality pill, next to Villain Battle.
 (() => {
   const overlay = document.createElement('div');
   overlay.hidden = true;
   overlay.setAttribute('role', 'dialog');
   overlay.setAttribute('aria-modal', 'true');
-  overlay.setAttribute('aria-label', 'Villain 2A');
+  overlay.setAttribute('aria-label', 'Villain 2A & 2B');
   overlay.style.cssText = 'position:fixed;inset:0;z-index:100;background:#8e2de2';
-  overlay.innerHTML = '<button type="button" aria-label="Close" style="position:absolute;top:8px;right:10px;z-index:2;width:38px;height:38px;border:2px solid #2a2a30;border-radius:50%;background:#fff;color:#2a2a30;font:700 17px/1 Nunito,sans-serif;cursor:pointer">✕</button><iframe title="Villain 2A" style="width:100%;height:100%;border:0"></iframe>';
+  overlay.innerHTML = '<button type="button" aria-label="Close" style="position:absolute;top:8px;right:10px;z-index:2;width:38px;height:38px;border:2px solid #2a2a30;border-radius:50%;background:#fff;color:#2a2a30;font:700 17px/1 Nunito,sans-serif;cursor:pointer">✕</button><iframe title="Villain 2A & 2B" style="width:100%;height:100%;border:0"></iframe>';
   document.body.append(overlay);
   const frame = overlay.querySelector('iframe');
   let lastFocus = null;
@@ -32,7 +32,7 @@
     if (!box) return;
     const a = document.createElement('a');
     a.href = box.querySelector('a[data-vb]').getAttribute('href');
-    a.textContent = '😈 Villain 2A';
+    a.textContent = '😈 Villain 2A & 2B';
     a.addEventListener('click', e => { e.preventDefault(); a.closest('details')?.removeAttribute('open'); open(); });
     box.append(a);
     const n = box.closest('details').querySelector('summary small');
