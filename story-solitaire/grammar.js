@@ -4,11 +4,12 @@
  *   1. punctuation and capitals: after . ! ? the next card must start with a capital letter (a new sentence);
  *      after a comma or no punctuation it must start with a small letter - or with the name of a person (After three months, Zara planted a flag).
  *   2. sense: every half has a "kind" (what it is) and sometimes a class/flags (who does it, what kind of verb it is...), see SPEC below.
+ * Only the GRAMMAR counts, not the sense: silly pairs are fine (The face in the painting sailed to a faraway island).
  * Cards of the SAME story that follow each other in the story always fit (engine.js), whatever is written here.
  *
  * SPEC: for every story, 10 tokens (one per card, in story order). A token is  KIND[:arg][+flag+flag...]
  *  first halves (they start a sentence, capital letter):
- *    NP:<who>        a subject that still needs its verb: H human, A animal, W wizard, B body part, O thing, P place
+ *    NP:<who>[+pl]   a subject (+pl = plural) that still needs its verb: H human, A animal, W wizard, B body part, O thing, P place
  *    CLn:<who>+flags a whole clause with no comma (She felt sad / They ran away);  CLc:<who>  the same but ending with a comma
  *                    flags: act (someone does something) tr (has an object) dur (lasts) mot (movement) wea (weather) lm ("last minute")
  *                           toh (can go to a house) net past ben list air box rel   -> for the phrases that only fit some verbs
@@ -16,29 +17,29 @@
  *    V:<verb>        a verb that needs its object: found heard saw took got drank pulled said
  *    VBE (Peanut was)   VBEPL (Inside there were)   VI (Tom wanted)   X = does not fit anywhere else
  *  second halves (small letter, ending with a full stop):
- *    VP:<who can do it>   a verb phrase       AND:vp (and + verb phrase) / AND:cl (and + clause)    SO / BUT (+ clause)    REL (who ...)
+ *    VP:<who can do it>[+was|+were]   a verb phrase (+was only with a singular subject, +were only with a plural one)       AND:vp (and + verb phrase) / AND:cl (and + clause)    SO / BUT (+ clause)    REL (who ...)
  *    CL2 a clause after an opening phrase     EXIST (there was...)       INF (to + verb)
  *    OBJ:<SOUND ANIMAL THING THINGPL FOOD VEHICLE>   QUOTE   PP:<kind of phrase: LOC DUR BEF FROM TOHOUSE NET PAST INSTR BEN OF LIST AIR BOX>
  */
 (() => {
   const SPEC = {
     dragon:   'X X CLc:H SO CLc:H BUT CLn:H+act+tr+ben PP:BEN ADV CL2',
-    phone:    'NP:H VP:HW CLc:H BUT V:said QUOTE CLn:O+mot PP:FROM NP:A VP:HAW',
+    phone:    'NP:H VP:HW CLc:H BUT V:said QUOTE CLn:O+mot PP:FROM NP:A VP:HAW+was',
     ghost:    'CLn:H+dur PP:LOC V:heard OBJ:SOUND CLn:H+act+mot+toh+net+past AND:vp V:found OBJ:ANIMAL CLn:H+act+tr+list AND:vp',
     birthday: 'ADV CL2 CLn:H+dur AND:vp ADV CL2 CLn:H+act+tr+ben AND:cl CLn:H+act+tr AND:vp',
     space:    'NP:H VP:HW CLc:O AND:cl CLn:H+act+tr+ben PP:INSTR ADV CL2 CLn:H+act+tr+ben AND:vp',
-    cook:     'VI INF CLn:H+act+tr+ben AND:vp NP:P VP:P CLn:H+act+mot AND:vp CLn:H+act+tr+ben AND:vp',
+    cook:     'VI INF CLn:H+act+tr+ben AND:vp NP:P VP:P+was CLn:H+act+mot AND:vp CLn:H+act+tr+ben AND:vp',
     cat:      'CLn:A+rel REL ADV CL2 CLc:O SO CLn:A+act+mot AND:vp X X',
     treasure: 'V:found OBJ:THING ADV CL2 CLn:H+act+tr+dur+ben AND:vp VBEPL OBJ:THINGPL CLn:H+act+mot+toh+past AND:vp',
     student:  'NP:H VP:HW CLc:H SO NP:H VP:HAW CLn:H+act+tr+dur AND:cl ADV CL2',
     sneakers: 'CLc:H BUT CLn:H+act+tr+ben AND:vp NP:B VP:HAWB CLn:H+act+mot PP:BEF ADVP EXIST',
-    museum:   'ADV CL2 V:found OBJ:THINGPL CLn:H+act+tr+mot+toh PP:TOHOUSE NP:H VP:HW NP:O VP:O',
+    museum:   'ADV CL2 V:found OBJ:THINGPL CLn:H+act+tr+mot+toh PP:TOHOUSE NP:H VP:HW NP:O VP:O+was',
     singer:   'CLc:H BUT CLn:H+act+tr+ben+list PP:LIST ADV CL2 CLn:H+act+tr AND:vp CLn:H+act+dur+air AND:cl',
-    camping:  'NP:H VP:H CLn:H+act+tr+dur+ben AND:vp NP:H VP:HAW NP:A VP:HAW ADV CL2',
+    camping:  'NP:H+pl VP:H CLn:H+act+tr+dur+ben AND:vp NP:H VP:HAW NP:A VP:HAW ADV CL2',
     time:     'NP:H VP:HW NP:H VP:HW V:saw OBJ:ANIMAL NP:A VP:HAW NP:H VP:HW',
     train:    'CLn:H+act+tr+toh INF CLc:H AND:cl CLn:H PP:LOC V:took OBJ:VEHICLE CLn:H+act+tr+dur PP:LOC',
     hamster:  'V:got OBJ:ANIMAL ADV CL2 CLn:H+act+dur+box AND:vp VBE PP:BOX CLc:H BUT',
-    snow:     'CLn:O+wea+dur PP:DUR ADV EXIST NP:H VP:HW V:drank OBJ:FOOD ADV CL2',
+    snow:     'CLn:O+wea+dur PP:DUR ADV EXIST NP:H+pl VP:HW V:drank OBJ:FOOD ADV CL2',
     fishing:  'NP:H VP:HW CLn:H+act+dur PP:DUR NP:O VP:O V:pulled OBJ:THING CLn:H+dur AND:vp',
     soccer:   'CLn:O+lm PP:OF ADV CL2 CLn:H+act+mot+dur+toh+net+past PP:PAST CLn:O+mot+toh+net+past PP:NET CLn:H+act+tr+air PP:AIR',
     library:  'V:found OBJ:THING ADV CL2 CLn:H+act+tr AND:vp NP:H VP:HW NP:W VP:HAW',
@@ -48,7 +49,7 @@
     found: ['ANIMAL', 'THING', 'THINGPL', 'FOOD', 'VEHICLE'], heard: ['SOUND', 'ANIMAL'], saw: ['ANIMAL', 'THING', 'THINGPL', 'FOOD', 'VEHICLE'],
     took: ['VEHICLE', 'THING', 'THINGPL', 'FOOD', 'ANIMAL'], got: ['THING', 'THINGPL', 'ANIMAL', 'FOOD', 'VEHICLE'], drank: ['FOOD'], pulled: ['THING', 'THINGPL'],
   };
-  const NAMES = new Set(['Captain', 'Detective', 'Professor', 'Grandpa', 'Grandma', 'Zara', 'Tom', 'Oscar', 'Ella', 'Leo', 'Nina', 'Dan', 'Maria', 'Emma', 'Peanut', 'Zoe', 'Dylan', 'Lily', 'Kenji', 'Alice', 'Scrooge', 'Doctor', 'Hyde', 'Sir', 'Holmes', 'Montresor', 'Legrand']);
+  const NAMES = new Set(['Captain', 'Detective', 'Professor', 'Grandpa', 'Grandma', 'Zara', 'Tom', 'Oscar', 'Ella', 'Leo', 'Nina', 'Dan', 'Maria', 'Emma', 'Peanut', 'Zoe', 'Dylan', 'Lily', 'Kenji', 'Alice', 'Scrooge', 'Doctor', 'Hyde', 'Sir', 'Holmes', 'Montresor', 'Legrand', ...(window.EXTRA_NAMES || [])]);
   const NAME_OK = ['NP', 'CLn', 'CLc', 'V', 'VBE', 'VBEPL', 'VI', 'CL2'];
 
   const endS = t => /[.!?][”"]?$/.test(t);
@@ -89,17 +90,20 @@
       return a.k === 'ADV' && isName(b.t) && NAME_OK.includes(b.k);
     }
     switch (a.k) {
-      case 'NP': return b.k === 'VP' && b.a.includes(a.a);
+      case 'NP':   // a subject needs a verb phrase, and was/were must agree with it
+        if (b.f.has('was') && a.f.has('pl')) return false;
+        if (b.f.has('were') && !a.f.has('pl')) return false;
+        return b.k === 'VP';                    // silly is fine (The face in the painting sailed to a faraway island), only the grammar counts
       case 'CLn': case 'CLc':
         if (b.k === 'SO' || b.k === 'BUT') return true;
-        if (b.k === 'AND') return b.a === 'cl' || 'HAW'.includes(a.a);
+        if (b.k === 'AND') return true;                        // and + clause, or and + verb phrase with the same subject
         if (b.k === 'REL') return a.f.has('rel');
         if (b.k === 'INF') return a.k === 'CLn' && a.f.has('act');
         if (b.k === 'PP') return a.k === 'CLn' && ppOk(a, b.a);
         return false;
       case 'ADV': return b.k === 'CL2' || b.k === 'EXIST';
       case 'ADVP': return b.k === 'EXIST';
-      case 'V': return b.k === 'OBJ' && (VERB[a.a] || []).includes(b.a);
+      case 'V': return b.k === 'OBJ';                         // a verb that needs an object takes any noun phrase (even a silly one)
       case 'VBE': return b.k === 'PP' && (b.a === 'LOC' || b.a === 'BOX');
       case 'VBEPL': return b.k === 'OBJ' && b.a === 'THINGPL';
       case 'VI': return b.k === 'INF';
