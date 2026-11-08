@@ -32,7 +32,7 @@
     cat:      'CLn:A+rel REL ADV CL2 CLc:O SO CLn:A+act+mot AND:vp X X',
     treasure: 'V:found OBJ:THING ADV CL2 CLn:H+act+tr+dur+ben AND:vp VBEPL OBJ:THINGPL CLn:H+act+mot+toh+past AND:vp',
     student:  'NP:H VP:HW CLc:H SO NP:H VP:HAW CLn:H+act+tr+dur AND:cl ADV CL2',
-    sneakers: 'CLc:H BUT CLn:H+act+tr+ben AND:vp NP:B VP:HAWB CLn:H+act+mot PP:BEF ADVP EXIST',
+    sneakers: 'CLc:H BUT CLn:H+act+tr+ben AND:vp NP:B VP:HAWB CLn:H+act+mot PP:BEF ADV CL2',
     museum:   'ADV CL2 V:found OBJ:THINGPL CLn:H+act+tr+mot+toh PP:TOHOUSE NP:H VP:HW NP:O VP:O+was',
     singer:   'CLc:H BUT CLn:H+act+tr+ben+list PP:LIST ADV CL2 CLn:H+act+tr AND:vp CLn:H+act+dur+air AND:cl',
     camping:  'NP:H+pl VP:H CLn:H+act+tr+dur+ben AND:vp NP:H VP:HAW NP:A VP:HAW ADV CL2',

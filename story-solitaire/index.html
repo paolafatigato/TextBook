@@ -21,8 +21,11 @@
       <button class="btn" data-action="again">Deal again</button>
       <button class="btn btn-main" data-action="new">New stories</button>
       <button class="btn" data-action="rules">? Rules</button>
+      <button class="btn" data-cls="open" id="clsOpen">👥 Class game</button>
     </div>
   </header>
+
+  <div class="cls-bar" id="classBar" hidden></div>
 
   <main class="table" id="table">
     <div class="board" id="board"></div>
@@ -37,6 +40,7 @@
     <div id="drawerBody"></div>
   </aside>
 
+  <div class="cls-overlay" id="classBox" hidden></div>
   <div class="modal" id="modal" hidden><div class="modal-box" id="modalBox"></div></div>
 
   <script src="stories.js"></script>
@@ -45,5 +49,7 @@
   <script src="grammar.js"></script>
   <script src="engine.js"></script>
   <script src="script.js"></script>
+  <script src="class.js"></script>
+  <script type="module" src="online.js"></script>
 </body>
 </html>

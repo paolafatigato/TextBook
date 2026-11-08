@@ -12,6 +12,7 @@
   let games = [];          // the 4 stories of this deal: { id, title, emoji, lines }
   let S = null;            // the state of the table
   let visited = new Set(), hist = [], moves = 0, sel = null, drag = null, won = false;
+  let classMode = null;     // a class game (class.js): { hooks: { change(info), win(info) } }
   let msgTimer = 0, hintTimer = 0;
   const LEVEL_KEY = 'story-solitaire-level';
   const level = 'medium';       // easy and hard are switched off for now (their texts are still in levels.js / stories.js)
@@ -35,11 +36,36 @@
     games.forEach(g => { g.lines = g.sets[level]; });
     // medium: on the columns, two halves that make a good sentence together fit even from different stories
     E.cfg.compat = (x, y) => midFits(games, x, y);
-    document.body.className = 'lvl-' + level;
+    document.body.classList.remove('lvl-easy', 'lvl-medium', 'lvl-hard');
+    document.body.classList.add('lvl-' + level);
     document.querySelectorAll('.lvl').forEach(b => b.classList.toggle('on', b.dataset.level === level));
   }
 
   function newStories() { pickStories(); dealAgain(); }
+
+  // ------------------------------------------------------------ class game (class.js): the same deal for everybody
+  const info = () => ({ moves, piles: S ? S.found.reduce((a, b) => a + b, 0) : 0, won });
+  function mulberry32(a) {              // a seed gives always the same numbers: every device makes the same deal
+    return () => { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  }
+  window.SSGame = {
+    stories: () => STORIES,
+    info,
+    debugState: () => S,        // for the tests
+    startClass(ids, seed, hooks) {
+      if (ids.some(id => !STORIES.some(s => s.id === id))) return false;       // this device does not know one of the stories
+      classMode = { hooks: hooks || {} };
+      document.body.classList.add('class-mode');
+      games = ids.map(id => Object.assign({}, STORIES.find(s => s.id === id)));
+      applyLevel();
+      S = E.winnableDeal(mulberry32(seed));
+      hist = []; visited = new Set(); moves = 0; sel = null; won = false;
+      $('modal').hidden = true; say('');
+      render();
+      return true;
+    },
+    leaveClass() { classMode = null; document.body.classList.remove('class-mode'); newStories(); },
+  };
   function dealAgain() {
     S = E.winnableDeal();
     hist = []; visited = new Set(); moves = 0; sel = null; won = false;
@@ -133,6 +159,7 @@
     $('undoBtn').disabled = !hist.length;
     renderDrawer();
     read(sel ? (sel.t === 'w' ? S.waste[S.waste.length - 1] : S.tab[sel.col][sel.idx]) : null);
+    if (classMode && classMode.hooks.change) classMode.hooks.change(info());
   }
 
   // a story that comes from a book sends the pupils to the original
@@ -189,7 +216,11 @@
     E.apply(S, { from, to });
     moves++; sel = null; clearHint();
     render();
-    if (E.won(S) && !won) { won = true; setTimeout(showWin, 500); }
+    if (E.won(S) && !won) {
+      won = true;
+      if (classMode && classMode.hooks.win) classMode.hooks.win(info());
+      else setTimeout(showWin, 500);
+    }
     return true;
   }
 
@@ -254,7 +285,8 @@
   // ------------------------------------------------------------ undo, hint
   function undo() {
     const h = hist.pop(); if (!h) return;
-    S = JSON.parse(h.s); moves = h.moves; sel = null; won = false; clearHint();
+    S = JSON.parse(h.s); moves = classMode ? moves + 1 : h.moves; sel = null; clearHint();   // in a class game an undo counts as a move
+    if (!classMode) won = false;
     render();
   }
   function clearHint() { clearTimeout(hintTimer); document.querySelectorAll('.hint').forEach(el => el.classList.remove('hint')); }
@@ -304,6 +336,7 @@
   }
 
   function action(a) {
+    if (classMode && ['hint', 'again', 'new'].includes(a)) return;      // not in a class game: everybody plays the same deal, without help
     if (a === 'undo') undo();
     else if (a === 'hint') hint();
     else if (a === 'stories') $('drawer').classList.toggle('open');
@@ -334,5 +367,5 @@
   window.addEventListener('resize', () => { if (S) render(); });
 
   newStories();
-  if (!/norules/.test(location.search)) showRules();
+  if (!/norules|teacher|fake/.test(location.search)) showRules();
 })();
