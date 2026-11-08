@@ -1,0 +1,298 @@
+/* ---------- Dating: [dt-intro … dt-profile] (reading "Please, date my dad!", Tinder profiles, my own Tinder profile) ---------- */
+/* Look: the pink "Please, date my dad!" slides (reference): pink full-bleed pages, charcoal slab-like titles, dark rounded cards with a
+   numbered tab on top, big black numerals over A-D columns that fade from dark pink to pale pink, drop-shaped speech bubbles
+   (round, one square corner), grey Tinder pages with white profile cards, confetti.
+   The three colors of the chapter are charcoal (--dt-a: titles, outlines, dark cards), pink (--dt-b: bands, highlights, pages)
+   and magenta (--dt-c: numbers, flame, accents). Everything else is a neutral of the book palette (rose-white, cream, blush,
+   white, cool grey) or a soft mix of the three. Small text is always charcoal or night (pink and magenta are only fills,
+   or white text on large magenta shapes). Pieces that come back now and then, never all on one page: confetti, tab cards,
+   numeral columns, drop bubbles, Tinder card, flame, swipe buttons, « » quotes. Class prefix dt- (short names clash with style.css). */
+.dt {
+  --dt-a: var(--pal-charcoal);
+  --dt-b: var(--pal-pink);
+  --dt-c: var(--pal-magenta);
+  --dt-paper: var(--pal-rose-white);
+  --dt-ink: var(--pal-charcoal);
+  --dt-mute: var(--pal-slate);
+  --dt-soft-a: color-mix(in srgb, var(--pal-charcoal) 8%, var(--pal-white));
+  --dt-soft-b: var(--pal-blush);
+  --dt-soft-c: color-mix(in srgb, var(--pal-magenta) 14%, var(--pal-white));
+  --dt-grey: color-mix(in srgb, var(--pal-cool-grey) 38%, var(--pal-white));
+  background: var(--dt-paper); color: var(--dt-ink);
+}
+.dt.cream { background: var(--pal-cream); }
+.dt.pink { background: var(--dt-b); }
+.dt.grey { background: var(--dt-grey); }
+.dt.dark { background: var(--dt-a); color: var(--pal-white); }
+.dt .page-bg { z-index: 0; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+/* ---- type ---- */
+.dt-kick { margin: 0; font: 800 1.3cqw/1 'Nunito', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--dt-a); }
+.dt-kick.light { color: var(--dt-b); }
+.dt-h { margin: 0; font: 400 5.6cqw/1.04 'Gloock', 'Playfair Display', serif; color: var(--dt-a); }
+.dt-h.nw { white-space: nowrap; }
+.dt-h.light { color: var(--pal-white); }
+.dt-h.big { font-size: 10.6cqw; line-height: .94; letter-spacing: -.01em; }
+.dt-h em { font-style: normal; padding: 0 .5cqw; margin: 0 -.2cqw; background: linear-gradient(transparent 56%, var(--dt-b) 56%, var(--dt-b) 92%, transparent 92%); }
+.dt.pink .dt-h em { background: linear-gradient(transparent 56%, var(--pal-white) 56%, var(--pal-white) 92%, transparent 92%); }
+.dt-h.light em { background: none; color: var(--dt-b); }
+.dt-p { margin: 0; font: 400 2cqw/1.45 'Nunito', sans-serif; }
+.dt-p.small { font-size: 1.55cqw; color: var(--dt-mute); }
+.dt-p b { color: var(--dt-a); font-weight: 800; }
+.dt-p.light { color: var(--pal-white); } .dt-p.light b { color: var(--dt-b); }
+.dt-script { margin: 0; font: 400 3cqw/1.05 'Patrick Hand', cursive; color: var(--dt-a); }
+.dt-script.light { color: var(--dt-b); }
+.dt-flow { display: flex; flex-direction: column; gap: var(--g, 2cqw); }
+.dt-row { display: flex; align-items: center; gap: 1.5cqw; }
+.dt-row.between { justify-content: space-between; }
+.dt-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8cqw; align-items: start; }
+.dt-foot { font: 800 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .24em; text-transform: uppercase; color: var(--dt-mute); }
+.dt .pageno { font: 700 2.3cqw/1 'Fredoka', sans-serif; color: var(--dt-a); }
+.dt.dark .pageno, .dt.dark .dt-foot, .dt .pageno.light, .dt-foot.light { color: var(--pal-white); }
+.dt .deco { z-index: 1; pointer-events: none; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.dt .deco svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.dt mark { background: var(--dt-b); color: inherit; border-radius: .7cqw; padding: .1cqw .5cqw; margin: 0 -.2cqw; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.dt-quote { position: relative; font: 400 3cqw/1.25 'Gloock', serif; color: var(--dt-a); padding: 0 4.6cqw; }
+.dt-quote::before, .dt-quote::after { position: absolute; top: -1.2cqw; font: 400 7cqw/1 'Gloock', serif; color: var(--dt-c); }
+.dt-quote::before { content: "«"; left: -1cqw; } .dt-quote::after { content: "»"; right: -1cqw; }
+
+/* ---- exercise pill + Check ---- */
+.dt .check { background: var(--dt-a); color: var(--pal-white); font-size: 1.5cqw; padding: .65cqw 1.6cqw; box-shadow: .3cqw .3cqw 0 var(--dt-b); }
+.dt .check:hover { background: var(--dt-c); color: var(--pal-white); }
+
+/* ---- notes, chips ---- */
+.dt-note { background: var(--dt-soft-b); border-radius: 2cqw; padding: 1.2cqw 2cqw; font: 400 1.8cqw/1.45 'Nunito', sans-serif; border-left: .8cqw solid var(--dt-b); }
+.dt-note p { margin: 0 0 .4cqw; } .dt-note p:last-child { margin: 0; }
+.dt-note b { color: var(--dt-a); }
+.dt-note.magenta { background: var(--dt-soft-c); border-left-color: var(--dt-c); }
+.dt-note.dark { background: var(--dt-a); color: var(--pal-white); border-left-color: var(--dt-c); }
+.dt-note.dark b { color: var(--dt-b); }
+.dt-note.white { background: var(--pal-white); border: .22cqw solid var(--dt-a); border-left-width: .8cqw; border-left-color: var(--dt-c); }
+.dt-chips { display: flex; flex-wrap: wrap; gap: .9cqw; }
+.dt-chips span { padding: .6cqw 1.5cqw; border-radius: 999px; background: var(--pal-white); border: .2cqw solid var(--dt-a); font: 400 1.7cqw/1 'Gloock', serif; color: var(--dt-a); }
+.dt-chips.b span { background: var(--dt-b); } .dt-chips.c span { background: var(--dt-soft-c); }
+.dt-chips .toggle { cursor: pointer; }
+.dt-chips .toggle:hover { background: var(--dt-soft-b); }
+.dt-chips .toggle.on { background: var(--dt-a); color: var(--pal-white); }
+.dt-bank { padding: 1cqw 1.6cqw; border-radius: 1.6cqw; background: var(--pal-white); border: .2cqw dashed var(--dt-a); font: 400 1.75cqw/1.5 'Gloock', serif; color: var(--dt-a); text-align: center; }
+.dt-bank small { display: block; font: 800 1.1cqw/1 'Nunito', sans-serif; letter-spacing: .18em; text-transform: uppercase; color: var(--dt-mute); margin-bottom: .4cqw; }
+.dt-talk { display: flex; align-items: center; gap: 1.2cqw; font: 400 1.65cqw/1.35 'Nunito', sans-serif; color: var(--dt-a); }
+.dt-talk::before { content: "🗣️"; font-size: 2.6cqw; }
+.dt-talk.light { color: var(--pal-white); }
+
+/* ---- numbered lists of items (gap fill, choices, true / false) ---- */
+.dt-list { list-style: none; margin: 0; padding: 0; counter-reset: dtn; display: flex; flex-direction: column; gap: var(--lg, 1.5cqw); }
+.dt-list > li { position: relative; counter-increment: dtn; display: flex; align-items: flex-end; flex-wrap: wrap; gap: .4cqw .8cqw; padding-left: 4cqw; min-height: 3.6cqw; font: 400 var(--fs, 1.95cqw)/1.4 'Nunito', sans-serif; }
+.dt-list > li::before { content: counter(dtn); position: absolute; left: 0; bottom: .1cqw; width: 2.8cqw; height: 2.8cqw; border-radius: 50%; background: var(--dt-b); color: var(--dt-a); display: grid; place-items: center; font: 400 1.6cqw/1 'Gloock', serif; }
+.dt-list.mag > li::before { background: var(--dt-c); color: var(--pal-white); }
+.dt-list > li > .grow { flex: 1 1 0; align-self: center; min-width: 0; }
+.dt-list > li.ok::after, .dt-list > li.no::after { position: absolute; right: -.4cqw; top: 0; font: 800 1.9cqw/1 'Nunito', sans-serif; }
+.dt-list > li.ok::after { content: "✓"; color: var(--pal-green); }
+.dt-list > li.no::after { content: "✗"; color: var(--pal-coral); }
+.dt-list input.fill.blank { width: 13cqw; height: 3cqw; font-size: 2cqw; border-bottom: .15cqw solid var(--dt-a); padding: 0 .4cqw; text-align: center; }
+.dt-list input.fill.blank.w1 { width: 8cqw; } .dt-list input.fill.blank.w2 { width: 18cqw; } .dt-list input.fill.blank.w3 { width: 10cqw; }
+.dt-list input.fill.long { flex: 1; width: auto; min-width: 20cqw; height: 3.2cqw; font-size: 2cqw; border-bottom: .15cqw solid var(--dt-a); text-align: left; }
+.dt .opt { display: inline-flex; flex-wrap: wrap; gap: .45cqw; flex: 0 0 auto; padding: .2cqw; border-radius: 999px; }
+.dt .opt button { font: 700 1.55cqw/1 'Nunito', sans-serif; padding: .55cqw 1.2cqw; border-radius: 999px; background: var(--pal-white); color: var(--dt-a); border: .18cqw solid var(--dt-a); cursor: pointer; white-space: nowrap; }
+.dt .opt button:hover { background: var(--dt-soft-b); }
+.dt .opt button.on { background: var(--dt-a); color: var(--pal-white); border-color: var(--dt-a); }
+.dt .opt.ok { box-shadow: 0 0 0 .3cqw var(--pal-green); } .dt .opt.no { box-shadow: 0 0 0 .3cqw var(--pal-coral); }
+.dt .tf button { width: 2.9cqw; height: 2.9cqw; font-size: 1.4cqw; background: var(--dt-soft-b); color: var(--dt-a); }
+.dt .tf button.on { background: var(--dt-a); color: var(--pal-white); box-shadow: none; }
+.dt .tf.ok { box-shadow: 0 0 0 .3cqw var(--pal-green); } .dt .tf.no { box-shadow: 0 0 0 .3cqw var(--pal-coral); }
+.dt .tf { margin-left: auto; }
+.dt .fill::placeholder { color: color-mix(in srgb, var(--dt-mute) 75%, transparent); font: italic 1.35cqw 'Nunito', sans-serif; }
+
+/* ---- writing areas ---- */
+textarea.fill.dt-ta { display: block; width: 100%; height: auto; min-height: 14cqw; resize: none; padding: .8cqw 1.2cqw; font: 2cqw/1.65 'Patrick Hand', cursive; color: var(--ink); border: .22cqw solid var(--dt-a); border-radius: 1.6cqw; background: repeating-linear-gradient(transparent 0 3.17cqw, color-mix(in srgb, var(--dt-a) 22%, transparent) 3.17cqw 3.27cqw), var(--pal-white); background-attachment: local; }
+textarea.fill.dt-ta.sm { min-height: 10cqw; font-size: 1.8cqw; }
+.dt-field { display: block; padding: .7cqw 1.4cqw .5cqw; border-radius: 1.4cqw; background: var(--pal-white); border: .2cqw solid var(--dt-a); font: 800 1.1cqw/1 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--dt-mute); }
+.dt-field input.fill { display: block; margin-top: .5cqw; height: 3cqw; font-size: 2cqw; border-bottom: .12cqw solid color-mix(in srgb, var(--dt-a) 35%, transparent); text-transform: none; letter-spacing: 0; }
+
+/* ---- photo frames: empty until the PNG (img/dating/…) is added; then only the picture shows ---- */
+.dt-fr { z-index: 3; margin: 0; position: absolute; overflow: hidden; display: grid; place-items: center; text-align: center; border: .3cqw solid var(--dt-a); background: var(--dt-soft-c); print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.dt-fr.round { border-radius: 3cqw; }
+.dt-fr.arch { border-radius: 50cqw 50cqw 1.4cqw 1.4cqw; }
+.dt-fr.circ { border-radius: 50%; }
+.dt-fr img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.dt-fr figcaption { position: relative; padding: 0 2.4cqw; font: 400 1.5cqw/1.25 'Gloock', serif; color: var(--dt-a); }
+.dt-fr figcaption small { display: block; margin-top: .4cqw; font: 600 1cqw/1.2 'Nunito', sans-serif; color: var(--dt-mute); }
+.dt-fr::before { content: ""; position: absolute; inset: 1cqw; border: .2cqw dashed color-mix(in srgb, var(--dt-a) 45%, transparent); border-radius: inherit; }
+.dt-fr:has(img)::before, .dt-fr:has(img) figcaption { display: none; }
+.dt-fr.inflow { position: relative; z-index: 1; width: 100%; }
+
+/* ---- the dark question cards with a numbered tab (the slides' "1 / 2 / 4" cards) ---- */
+.dt-qs { display: grid; grid-template-columns: 1fr 1fr; gap: 6cqw 2.4cqw; }
+.dt-q { position: relative; display: flex; flex-direction: column; gap: 1.2cqw; padding: 4.4cqw 2cqw 2cqw; border-radius: 6cqw 1.6cqw 6cqw 1.6cqw; background: var(--dt-a); color: var(--pal-white); font: 600 1.9cqw/1.35 'Nunito', sans-serif; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.dt-q > i { position: absolute; left: 2.2cqw; top: -2.6cqw; display: grid; place-items: center; width: 5.6cqw; height: 5.6cqw; border-radius: 1.5cqw; background: linear-gradient(var(--dt-b), var(--dt-c)); color: var(--pal-night); font: 400 3.2cqw/1 'Gloock', serif; font-style: normal; }
+.dt-q textarea.fill { flex: 1; min-height: 14cqw; height: auto; resize: none; padding: .8cqw 1.2cqw; font: 1.9cqw/1.6 'Patrick Hand', cursive; color: var(--ink); border: 0; border-radius: 1.2cqw; background: repeating-linear-gradient(transparent 0 3cqw, color-mix(in srgb, var(--dt-a) 20%, transparent) 3cqw 3.1cqw), var(--pal-white); background-attachment: local; }
+.dt-q input.fill { height: 3.4cqw; padding: 0 1cqw; font: 1.8cqw 'Patrick Hand', cursive; color: var(--ink); border: 0; border-radius: .9cqw; background: var(--pal-white); }
+.dt-q small { font: 800 1.05cqw/1 'Nunito', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--dt-b); }
+
+/* ---- the numerals: 1-4 over A-D, columns fading from dark to pale pink ---- */
+.dt-num { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4cqw; }
+.dt-num > div { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: .8cqw; padding: 1cqw 1cqw 1.4cqw; border-radius: 1.8cqw; background: var(--t, var(--dt-b)); print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.dt-num > div:nth-child(1) { --t: var(--pal-pink); }
+.dt-num > div:nth-child(2) { --t: color-mix(in srgb, var(--pal-pink) 68%, var(--pal-white)); }
+.dt-num > div:nth-child(3) { --t: color-mix(in srgb, var(--pal-pink) 42%, var(--pal-white)); }
+.dt-num > div:nth-child(4) { --t: color-mix(in srgb, var(--pal-pink) 22%, var(--pal-white)); }
+.dt-num i { font: 400 9cqw/1 'Gloock', serif; font-style: normal; color: var(--pal-night); }
+.dt-num p { margin: 0; font: 700 1.5cqw/1.3 'Nunito', sans-serif; letter-spacing: .06em; text-transform: uppercase; color: var(--dt-a); }
+.dt-num p small { display: block; font: 400 1.35cqw/1.2 'Nunito', sans-serif; letter-spacing: .04em; text-transform: none; color: var(--dt-mute); }
+.dt-num .opt { margin-top: auto; justify-content: center; }
+.dt-num .opt button { padding: .5cqw .95cqw; }
+.dt-num.abc > div { min-height: 22cqw; justify-content: flex-end; }
+.dt-num.abc > div p { font-weight: 600; letter-spacing: .04em; }
+
+/* ---- drop-shaped bubbles (round, one square corner) ---- */
+.dt-drops { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8cqw; }
+.dt-drop { padding: 1.8cqw 2.4cqw 2cqw; border-radius: 8cqw 8cqw 8cqw 0; background: var(--dt-b); color: var(--dt-a); print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.dt-drop:nth-child(2n) { border-radius: 8cqw 8cqw 0 8cqw; }
+.dt-drop b { display: block; font: 400 2.3cqw/1.1 'Gloock', serif; margin-bottom: .5cqw; }
+.dt-drop span { display: block; font: 600 1.55cqw/1.3 'Nunito', sans-serif; }
+.dt-drop.m { background: var(--dt-c); color: var(--pal-white); }
+.dt-drop.d { background: var(--dt-a); color: var(--pal-white); }
+.dt-drop.d b { color: var(--dt-b); }
+.dt-drop.w { background: var(--pal-white); box-shadow: inset 0 0 0 .25cqw var(--dt-a); }
+
+/* ---- a Tinder profile (white boxes on the grey page) ---- */
+.dt-prof { position: absolute; display: flex; flex-direction: column; gap: 1cqw; z-index: 2; font: 400 1.5cqw/1.4 'Nunito', sans-serif; color: var(--pal-night); }
+.dt-prof .hd { display: flex; align-items: center; justify-content: space-between; padding: .5cqw .2cqw .3cqw; font: 400 2.4cqw/1 'Nunito', sans-serif; }
+.dt-prof .hd b { font-weight: 800; }
+.dt-prof .hd i { display: grid; place-items: center; width: 4.2cqw; height: 4.2cqw; border-radius: 50%; background: linear-gradient(135deg, var(--pal-coral), var(--pal-magenta)); color: var(--pal-white); font: 800 2.2cqw/1 'Nunito', sans-serif; font-style: normal; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.dt-prof .hd i::before { content: "↓"; }
+.dt-prof .ph { position: relative; z-index: 1; width: 100%; height: var(--ph, 22cqw); }
+.dt-prof .ph .dt-fr { position: absolute; inset: 0; border-radius: .6cqw; }
+.dt-prof .bx { background: var(--pal-white); border-radius: 2cqw; padding: 1.1cqw 1.6cqw 1.3cqw; }
+.dt-prof .bx > b { display: block; font: 800 1.6cqw/1.2 'Nunito', sans-serif; margin-bottom: .4cqw; }
+.dt-prof .bx p { margin: 0 0 .5cqw; }
+.dt-prof .bx p:last-child { margin-bottom: 0; }
+.dt-prof .bx .e { display: inline-grid; place-items: center; width: 3.2cqw; height: 3.2cqw; margin-right: 1cqw; vertical-align: middle; border-radius: 50%; background: var(--dt-soft-a); font-size: 1.8cqw; }
+.dt-prof .ch { display: flex; flex-wrap: wrap; gap: .6cqw; }
+.dt-prof .ch span { padding: .45cqw 1.2cqw; border-radius: 999px; background: var(--dt-grey); font-size: 1.4cqw; }
+.dt-prof.model .bx p { font-family: 'Patrick Hand', cursive; font-size: 1.8cqw; }
+
+/* the three Tinder buttons + the flame */
+
+/* ---- the wish list (dark card with numbers) ---- */
+
+/* ---- annotations next to the model profile ---- */
+.dt-ann { list-style: none; margin: 0; padding: 0; counter-reset: dta; display: flex; flex-direction: column; gap: 1.2cqw; }
+.dt-ann li { counter-increment: dta; position: relative; padding: .8cqw 1.2cqw .8cqw 4.6cqw; border-radius: 1.4cqw; background: var(--pal-white); border: .2cqw solid var(--dt-a); font: 400 1.5cqw/1.3 'Nunito', sans-serif; }
+.dt-ann li::before { content: counter(dta); position: absolute; left: .7cqw; top: .7cqw; display: grid; place-items: center; width: 3cqw; height: 3cqw; border-radius: 50%; background: var(--dt-c); color: var(--pal-white); font: 400 1.8cqw/1 'Gloock', serif; }
+.dt-ann b { display: block; font: 400 1.7cqw/1.15 'Gloock', serif; color: var(--dt-a); }
+
+/* ---- the article ---- */
+.dt-text p { margin: 0 0 1.5cqw; font: 400 1.95cqw/1.5 'Nunito', sans-serif; }
+.dt-text p:last-child { margin-bottom: 0; }
+
+/* ---- matching lines (adjectives) ---- */
+.dt-match { padding-left: .6cqw; }
+.dt .match-words { width: 21cqw; }
+.dt .match-words button { font: 400 2cqw/1 'Gloock', serif; color: var(--dt-a); }
+.dt .match-words b { font-weight: 400; color: var(--dt-a); }
+.dt .match-defs button { font: 600 1.45cqw/1.1 'Nunito', sans-serif; color: var(--dt-a); background: var(--pal-white); box-shadow: inset 0 0 0 .18cqw var(--dt-a); }
+.dt .match-defs li:nth-child(odd) button { background: var(--dt-soft-b); }
+.dt .match button.linked-w::after, .dt .match button.linked-d::before { background: var(--dt-c); }
+.dt .match button.selected { outline-color: var(--dt-c); }
+.dt .match-lines line { stroke: var(--dt-c); }
+
+/* ---- sizes tuned after the first preview ---- */
+.dt.pink .dt-h.light em { background: none; }
+.dt-text.big p { font-size: 2.2cqw; margin-bottom: 1.9cqw; }
+.dt-bank { font-size: 2cqw; }
+.dt-talk { font-size: 1.95cqw; }
+.dt-prof .hd { font-size: 2.8cqw; }
+.dt-prof .bx > b { font-size: 1.9cqw; }
+.dt-prof .bx .e { width: 3.8cqw; height: 3.8cqw; font-size: 2.1cqw; }
+.dt-prof .ch span { font-size: 1.6cqw; }
+.dt-drop { padding: 2.2cqw 3cqw 2.4cqw; }
+.dt-drop b { font-size: 2.7cqw; }
+.dt-drop span { font-size: 1.8cqw; }
+.dt-ann li { font-size: 1.7cqw; padding: 1cqw 1.2cqw 1cqw 4.8cqw; }
+.dt-ann b { font-size: 1.95cqw; }
+.dt-field input.fill { height: 3.8cqw; font-size: 2.1cqw; }
+.dt-chips span { font-size: 1.85cqw; }
+
+/* ---- continuity with Jobs & CVs: // kickers and labels, dots, tilted stripe, dark box with a dot, arch frame ---- */
+.dt .check { box-shadow: .3cqw .3cqw 0 var(--dt-b); }
+.dt.pink .check { box-shadow: .3cqw .3cqw 0 var(--dt-c); }
+.dt-kick.sl::before { content: "//\00a0"; color: var(--dt-c); letter-spacing: -.05em; }
+.dt.pink .dt-kick.sl::before { color: var(--dt-a); }
+.dt-kick.sl.light::before { color: var(--dt-b); }
+.dt-lab { display: flex; align-items: center; gap: .9cqw; font: 800 1.6cqw/1.2 'Nunito', sans-serif; color: var(--dt-a); }
+.dt-lab::before { content: "//"; font-weight: 800; letter-spacing: -.05em; color: var(--dt-c); }
+.dt-lab b { flex: none; padding: .45cqw 1.1cqw; border-radius: 999px; background: var(--dt-b); font: 800 1.3cqw/1 'Nunito', sans-serif; color: var(--pal-night); }
+.dt.pink .dt-lab b, .dt.grey .dt-lab b { background: var(--pal-white); box-shadow: inset 0 0 0 .18cqw var(--dt-a); }
+.dt-lab small { font: 600 1.25cqw/1.1 'Nunito', sans-serif; color: var(--dt-mute); }
+.dt-dots { z-index: 1; background: radial-gradient(circle, var(--dt-c) 22%, transparent 25%) 0 0 / 2cqw 2cqw; opacity: .85; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.dt-marq { z-index: 2; overflow: hidden; white-space: nowrap; margin: 0; padding: 1cqw 0; background: var(--dt-a); transform: rotate(-2deg); font: 800 1.45cqw/1 'Nunito', sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--dt-b); print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.dt-marq.alt { background: var(--dt-c); color: var(--pal-white); transform: rotate(1.5deg); }
+.dt-box { position: relative; z-index: 2; padding: 1.7cqw 2.4cqw; border-radius: 1.6cqw; background: var(--dt-a); color: var(--pal-white); font: 600 1.75cqw/1.4 'Nunito', sans-serif; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+.dt-box b { color: var(--dt-b); }
+.dt-box::after { content: ""; position: absolute; top: -1.5cqw; right: 2.4cqw; width: 3.2cqw; height: 3.2cqw; border-radius: 50%; background: var(--dt-c); }
+.dt-card { padding: 1.8cqw 2.2cqw 2.2cqw; border-radius: 2cqw; background: var(--pal-white); border: .22cqw solid var(--dt-a); box-shadow: .6cqw .6cqw 0 var(--dt-c); }
+
+/* ---- matching with small letters ---- */
+.dt-xgrid { display: flex; flex-direction: column; gap: 1.2cqw; }
+.dt-num.sm { gap: 1.1cqw; }
+.dt-num.sm > div { gap: .6cqw; padding: .9cqw .8cqw 1cqw; border-radius: 1.4cqw; }
+.dt-num.sm p { font-size: 1.45cqw; line-height: 1.25; }
+.dt-num.sm p small { font-size: 1.2cqw; }
+.dt-num.sm .opt { gap: .3cqw; padding: 0; }
+.dt-num.sm .opt button { padding: .4cqw .8cqw; font-size: 1.3cqw; }
+.dt-num.sm > div { min-height: 13cqw; justify-content: space-between; }
+.dt-num.sm.abc > div { align-items: flex-start; text-align: left; justify-content: flex-start; background: var(--pal-white); box-shadow: inset 0 0 0 .2cqw var(--dt-a); }
+.dt-num.sm.abc > div:nth-child(odd) { background: var(--dt-soft-b); }
+.dt-num.sm.abc i { display: grid; place-items: center; width: 3cqw; height: 3cqw; border-radius: 50%; background: var(--dt-a); color: var(--pal-white); font: 400 1.5cqw/1 'Gloock', serif; }
+.dt-num.sm.abc p { font-weight: 600; letter-spacing: 0; text-transform: none; font-size: 1.4cqw; }
+
+/* ---- the article on one page, small question boxes, two-column true/false ---- */
+.dt-text.sm p { font-size: 1.6cqw; line-height: 1.42; margin-bottom: 1.1cqw; }
+.dt-list.two { display: grid; grid-template-columns: 1fr 1fr; column-gap: 2.6cqw; }
+.dt-list.two > li { align-items: center; }
+.dt-qs.sm { gap: 3.4cqw 1.8cqw; margin-top: 1.6cqw; }
+.dt-qs.sm .dt-q { padding: 3.4cqw 1.4cqw 1.4cqw; gap: .8cqw; font-size: 1.45cqw; line-height: 1.3; border-radius: 4cqw 1.2cqw 4cqw 1.2cqw; }
+.dt-qs.sm .dt-q > i { left: 1.6cqw; top: -2cqw; width: 4.2cqw; height: 4.2cqw; font-size: 2.4cqw; }
+.dt-qs.sm .dt-q textarea.fill { min-height: 9cqw; font-size: 1.55cqw; }
+
+/* ---- four profiles of the same height ---- */
+.dt-prof.eq { height: 88cqw; font-size: 1.58cqw; gap: 1.1cqw; }
+.dt-prof.eq .hd { font-size: 2.6cqw; flex: none; }
+.dt-prof.eq .ph { flex: none; height: 22cqw; }
+.dt-prof.eq .bx { overflow: hidden; padding: 1cqw 1.5cqw; }
+.dt-prof.eq .bx > b { font-size: 1.7cqw; }
+.dt-prof.eq .bx.lf { flex: none; height: 9.5cqw; }
+.dt-prof.eq .bx.bio { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+.dt-prof.eq .bx.ab { flex: none; height: 13.4cqw; }
+.dt-prof.eq .bx.it { flex: none; height: 13.4cqw; }
+.dt-prof.eq .ch span { font-size: 1.45cqw; }
+.dt-prof.blank .fill { display: block; width: 100%; height: 3.4cqw; padding: 0 .4cqw; font: 1.75cqw 'Patrick Hand', cursive; color: var(--ink); border-bottom: .12cqw solid color-mix(in srgb, var(--dt-a) 30%, transparent); }
+.dt-prof.blank .hd input.age { display: inline-block; width: 9cqw; height: 3.6cqw; font-size: 2.3cqw; }
+.dt-prof.blank .bx.bio textarea.fill { flex: 1; height: auto; min-height: 0; resize: none; padding: 0 .4cqw; font: 1.75cqw/2.7cqw 'Patrick Hand', cursive; border: 0; background: repeating-linear-gradient(transparent 0 2.6cqw, color-mix(in srgb, var(--dt-a) 25%, transparent) 2.6cqw 2.7cqw); background-attachment: local; }
+.dt-prof.blank .bx.ab .fill, .dt-prof.blank .bx.it .fill { height: 3.3cqw; }
+.dt-prof.blank .ph .dt-fr figcaption { font-size: 1.6cqw; }
+
+/* swipe buttons under a profile */
+.dt-sw { z-index: 2; display: flex; justify-content: center; }
+.dt-sw .opt { position: relative; gap: 20cqw; padding: 0; }
+.dt-sw .opt::after { content: "swipe left or right"; position: absolute; left: 50%; top: 50%; width: 18cqw; transform: translate(-50%, -50%); text-align: center; font: 800 1.4cqw/1.2 'Nunito', sans-serif; letter-spacing: .06em; text-transform: uppercase; color: var(--dt-mute); pointer-events: none; }
+.dt-sw .opt button { display: grid; place-items: center; width: 7cqw; height: 7cqw; padding: 0; border-radius: 50%; border-width: .3cqw; font: 800 3cqw/1 'Nunito', sans-serif; box-shadow: .35cqw .35cqw 0 var(--dt-b); }
+.dt-sw .opt button:nth-child(2) { color: var(--dt-c); }
+.dt-sw .opt button.on { background: var(--dt-a); color: var(--pal-white); box-shadow: none; }
+.dt-sw .opt button:nth-child(2).on { background: var(--dt-c); color: var(--pal-white); border-color: var(--dt-c); }
+
+/* ---- final size tuning ---- */
+.dt-num.sm > div { min-height: 15cqw; }
+.dt-text.sm p { font-size: 1.72cqw; margin-bottom: 1.3cqw; }
+.dt-qs.sm .dt-q textarea.fill { min-height: 11cqw; }
+.dt-qs.sm .dt-q { font-size: 1.55cqw; }
+.dt-drop { padding: 2.4cqw 3cqw 2.6cqw; }
+
+/* exercise 2 of [dt-intro]: bigger texts, centered in their rectangles */
+#dt-ex2 .dt-num.sm > div p { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-size: 1.95cqw; line-height: 1.25; }
+#dt-ex2 .dt-num.sm > div p small { font-size: 1.5cqw; }
+#dt-ex2 .dt-num.sm.abc > div { align-items: center; }
+#dt-ex2 .dt-num.sm.abc > div i { align-self: flex-start; flex: none; }
+#dt-ex2 .dt-num.sm.abc > div p { font-size: 1.9cqw; font-weight: 600; }
+#dt-ex2 .dt-num.sm > div { min-height: 17cqw; }

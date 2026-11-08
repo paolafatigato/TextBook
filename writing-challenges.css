@@ -84,3 +84,48 @@ input.fill.wc-name { display: block; height: 4.4cqw; font: 3cqw 'Patrick Hand', 
 .wc-pair { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.6cqw; }
 .wc-pair .wc-write { min-width: 0; }
 .wc-pair textarea.fill.wc-ta { font-size: 1.9cqw; }
+
+/* challenge 21: the dating CV form */
+.wc-dcv { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: .5cqw; padding: 1.4cqw 2cqw 1.2cqw; border: .22cqw solid var(--pal-night); border-radius: 1.8cqw; background: var(--pal-white); }
+.wc-dcv h4 { margin: .8cqw 0 0; font: 800 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--pal-night); }
+.wc-dcv h4::after { content: ""; display: block; height: .18cqw; margin-top: .5cqw; background: var(--wc-c); }
+.wc-dcv input.fill { height: 5.2cqw; font: 2cqw 'Patrick Hand', cursive; color: var(--ink); border-bottom: .14cqw solid color-mix(in srgb, var(--pal-night) 30%, transparent); }
+.wc-dcv-top { display: grid; grid-template-columns: 11cqw 1fr; align-items: end; gap: 1cqw; }
+.wc-dcv-top span { font: 800 1.15cqw/1 'Nunito', sans-serif; letter-spacing: .2em; text-transform: uppercase; color: var(--pal-slate); padding-bottom: 1cqw; }
+.wc-dcv-top:first-child input.fill { font: 700 3cqw 'Fredoka', sans-serif; height: 5cqw; }
+textarea.fill.wc-dcv-ta { flex: none; height: 14.6cqw; resize: none; padding: .2cqw .6cqw; font: 2cqw/3.5cqw 'Patrick Hand', cursive; color: var(--ink); border: 0; background: linear-gradient(transparent calc(100% - .14cqw), color-mix(in srgb, var(--pal-night) 30%, transparent) 0) 0 .4cqw / 100% 3.5cqw; background-attachment: local; }
+.wc-dcv ol { list-style: none; margin: 0; padding: 0; counter-reset: dcv; }
+.wc-dcv ol li { counter-increment: dcv; position: relative; padding-left: 3.4cqw; }
+.wc-dcv ol li::before { content: counter(dcv); position: absolute; left: 0; top: 1.8cqw; width: 2.4cqw; height: 2.4cqw; border-radius: 50%; background: var(--wc-c); color: var(--pal-night); display: grid; place-items: center; font: 700 1.3cqw/1 'Fredoka', sans-serif; }
+.wc-dcv ol li input.fill { height: 5.3cqw; }
+.wc-dcv-two { display: grid; grid-template-columns: 1fr 1fr; gap: 2cqw; }
+.wc-dcv-two label { display: block; }
+/* scaffolding box + post author (challenge 22) */
+.wc-author { display: block; margin: 0 0 .6cqw; font: 800 1.7cqw/1 'Nunito', sans-serif; color: var(--pal-night); }
+.wc-scaf { flex: none; padding: 1cqw 1.6cqw 1.2cqw; border-radius: 1.8cqw; background: var(--pal-white); border: .22cqw dashed var(--pal-night); }
+.wc-scaf small { margin-bottom: .8cqw; }
+.wc-scaf .wc-chips span { padding: .4cqw 1.2cqw; font-size: 1.5cqw; background: color-mix(in srgb, var(--wc-c) 45%, var(--pal-white)); }
+.wc-scaf ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: .5cqw; font: 400 1.55cqw/1.35 'Nunito', sans-serif; }
+.wc-scaf li b { color: var(--pal-night); }
+
+/* challenge 23: a Tinder profile */
+.wc-chips .toggle { cursor: pointer; }
+.wc-chips .toggle:hover { background: color-mix(in srgb, var(--wc-c) 35%, var(--pal-white)); }
+.wc-chips .toggle.on { background: var(--pal-night); color: var(--pal-white); }
+.wc-tin-top { display: grid; grid-template-columns: 16cqw 1fr; gap: 1.6cqw; align-items: center; }
+.wc-tin-ph { position: relative; width: 16cqw; height: 16cqw; border-radius: 50%; border: .22cqw dashed var(--pal-night); display: grid; place-items: center; text-align: center; font: 700 1.2cqw/1.2 'Nunito', sans-serif; color: var(--pal-slate); background: color-mix(in srgb, var(--wc-c) 30%, var(--pal-white)); }
+.wc-dcv.big input.fill { height: 6.4cqw; }
+.wc-dcv.big .wc-tin-top input.fill { height: 5.4cqw; }
+.wc-tin-top { grid-template-columns: 19cqw 1fr; }
+.wc-tin-ph { width: 19cqw; height: 19cqw; }
+/* reading comprehension (wc-16) */
+.wc-res { margin: 0; padding: 0 0 0 3.4cqw; display: flex; flex-direction: column; gap: .5cqw; font: 400 1.9cqw/1.3 'Patrick Hand', cursive; color: var(--pal-night); }
+.wc-res li::marker { font: 700 1.5cqw 'Fredoka', sans-serif; color: var(--pal-slate); }
+.wc-rd { flex: none; }
+.wc-rd small { margin-bottom: .5cqw; }
+.wc-rd p { margin: .5cqw 0 0; font: 600 1.6cqw/1.3 'Nunito', sans-serif; }
+.wc-rd ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .5cqw; }
+.wc-rd li { display: flex; align-items: center; gap: 1cqw; font: 400 1.6cqw/1.3 'Nunito', sans-serif; }
+.wc-rd li input.wc-line { flex: none; width: 5.5cqw; text-align: center; }
+.wc-hint { font-weight: 400 !important; color: var(--pal-slate); }
+input.fill.wc-line { display: block; width: 100%; height: 4cqw; font: 2cqw 'Patrick Hand', cursive; border-bottom: .15cqw solid var(--pal-night); padding: 0 .4cqw; }
