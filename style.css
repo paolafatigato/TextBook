@@ -1,6 +1,9 @@
 /* All page measurements are in cqw (1cqw = 1% of the page width),
    so the page scales as one piece and keeps the printed layout. */
 
+/* phones must not enlarge the text on their own: every size in the book is tied to the width of the page */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
 @font-face {
   font-family: 'OpenDyslexic';
   src: url('fonts/OpenDyslexic-Regular.woff2') format('woff2');

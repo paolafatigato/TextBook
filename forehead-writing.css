@@ -55,3 +55,19 @@
 .fw-odl .fw-head, .fw-odl .fw-card p, .fw-odl .fw-src, .fw-odl .fw-head b { font-family: 'OpenDyslexic', 'Nunito', sans-serif; font-style: normal; font-weight: 400; font-synthesis: none; }
 .fw-odl.fw-p4 .fw-card p { font-size: 2.24cqw; line-height: 1.8; font-weight: 400; }
 .fw-odl .fw-src { font-size: 2.15cqw; white-space: nowrap; }
+
+/* Sonnet 130 cards on paper: fixed sizes (the same as 1cqw = 2.1mm on an A4 page), because phones can print text
+   sized in cqw at the width of the screen while the boxes grow to the width of the sheet */
+@media print {
+  .fw-p4.fw-in { padding: 9.24mm 10.5mm 0; }
+  .fw-p4 .fw-head { margin: 0 0 3.36mm; font-size: 6.72mm; }
+  .fw-p4 .fw-card { height: 117.6mm; border-width: 1.89mm; border-radius: 6.3mm; padding: 7.56mm 9.24mm; }
+  .fw-p4 .fw-card p { font-size: 6.615mm; }
+  .fw-p4 .fw-tag { top: -1.89mm; left: -1.89mm; width: 14.7mm; height: 14.7mm; border-radius: 6.3mm 0 6.3mm 0; font-size: 8.82mm; line-height: 14.7mm; }
+  .fw-p4 .fw-cut { margin: 1.26mm 0; font-size: 6.3mm; }
+  .fw-p4 .fw-src { margin-top: 2.1mm; font-size: 5.67mm; }
+  .fw-caps.fw-p4 .fw-card, .fw-odl.fw-p4 .fw-card { padding-left: 5.46mm; padding-right: 4.62mm; }
+  .fw-caps.fw-p4 .fw-card p { font-size: 5.71mm; }
+  .fw-odl.fw-p4 .fw-card p { font-size: 4.7mm; }
+  .fw-odl.fw-p4 .fw-src { font-size: 4.5mm; }
+}
