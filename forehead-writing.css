@@ -40,3 +40,18 @@
 .fw-p2 .fw-card p { font-size: 3.3cqw; line-height: 1.36; }
 .fw-p3 .fw-card p { font-size: 2.95cqw; line-height: 1.4; font-weight: 600; white-space: nowrap; }
 .fw-p3 .fw-card, .fw-t2 .fw-card { padding-top: 6cqw; padding-bottom: 2cqw; }
+
+/* Sonnet 130: 7 lines per card, a bit bigger */
+.fw-p4 .fw-card p { font-size: 3.15cqw; line-height: 1.6; font-weight: 600; white-space: nowrap; }
+/* small button between scaffolding pages (top right of the page) */
+.scf-go { position: absolute; top: 3.6cqw; right: 5cqw; padding: .8cqw 2cqw; border-radius: 99cqw; background: #1f2a6b; color: #fff !important; font: 800 1.7cqw/1.2 'Nunito', sans-serif; text-decoration: none; box-shadow: 0 .3cqw 0 rgba(0,0,0,.25); }
+.scf-go:hover { background: #e8820c; }
+@media print { .scf-go { display: none; } }
+
+/* Sonnet 130, the same two cards in more readable versions: block capitals, OpenDyslexic. One line of the poem = one line on the card */
+.fw-caps .fw-card, .fw-odl .fw-card { padding-left: 2.6cqw; padding-right: 2.2cqw; }
+.fw-caps .fw-head, .fw-caps .fw-card p, .fw-caps .fw-src { text-transform: uppercase; font-style: normal; }
+.fw-caps.fw-p4 .fw-card p { font-size: 2.72cqw; line-height: 1.75; font-weight: 700; }
+.fw-odl .fw-head, .fw-odl .fw-card p, .fw-odl .fw-src, .fw-odl .fw-head b { font-family: 'OpenDyslexic', 'Nunito', sans-serif; font-style: normal; font-weight: 400; font-synthesis: none; }
+.fw-odl.fw-p4 .fw-card p { font-size: 2.24cqw; line-height: 1.8; font-weight: 400; }
+.fw-odl .fw-src { font-size: 2.15cqw; white-space: nowrap; }
