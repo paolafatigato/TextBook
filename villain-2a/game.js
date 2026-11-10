@@ -1,7 +1,7 @@
 // Villain 2A & 2B: the screens. The rules are in engine.js, the villains in villains.js.
 //
 // Ways to play: villain vs villain on one computer (the two players take turns on the same screen),
-// villain vs the computer (easy / normal / hard), or watch the computer fight itself (#demo).
+// villain vs the computer (easy / normal / hard), or online: each player on their own device with a 4-letter room code (the room is the one of cloud.js, see the NET block below).
 // The points of every power are secret: the pupils only read words ("a strong hit", "the enemy loses a turn").
 // The teacher's page (#teacher) shows all the numbers and can run a balance simulation.
 (() => {
@@ -11,13 +11,14 @@
   const wait = ms => new Promise(r => setTimeout(r, ms));
 
   const state = {
-    mode: '2p',            // '2p' · 'cpu' · 'demo'
+    mode: '2p',            // '2p' · 'cpu' · 'net' (online, from home)
     level: 'normal',       // the computer: easy / normal / hard
     picks: [null, null],   // the kits (seat 0 = player 1, seat 1 = player 2 or the computer)
     who: 0,                // who is choosing now
     stage: 'villain',      // 'villain' · 'hero' (in Villain vs Computer the player then chooses the challenge)
     sel: null,             // the villain on show in the choosing screen
     g: null, names: ['', ''], log: [], busy: false, first: 0, token: 0,
+    me: 0,                 // online: my seat
   };
   const STARS = ['', '★☆☆ easy to play', '★★☆ some tricks', '★★★ for experts'];
   const LEVEL_NAME = { easy: 'Easy', normal: 'Normal', hard: 'Hard' };
@@ -29,7 +30,7 @@
     : `<span class="emo">${k.emoji}</span>`}</div>`;
   const pips = (m, left = m.uses) => m.uses === Infinity ? '<span class="pips"><i class="inf">always ready</i></span>'
     : `<span class="pips">${Array.from({ length: m.uses }, (_, i) => `<i class="${i < left ? 'on' : ''}"></i>`).join('')}</span>`;
-  const isHuman = seat => state.mode === '2p' || (state.mode === 'cpu' && seat === 0);
+  const isHuman = seat => state.mode === '2p' || (state.mode === 'cpu' && seat === 0) || (state.mode === 'net' && seat === state.me);
 
   // a villain's file: picture, who it is, its quirk and weak spot, all its powers
   function card(k, withPick = false) {
@@ -54,7 +55,7 @@
   /* ================= 0. home ================= */
 
   function home() {
-    state.token++; state.g = null;
+    state.token++; state.g = null; netStop();
     app.innerHTML = `
       <div class="box">
         <h1 class="title">VILLAIN 2A & 2B<small>the villains of our classes · duel!</small></h1>
@@ -63,6 +64,7 @@
           <button type="button" class="mode" data-act="mode" data-m="2p"><i>🦹 ⚔ 🦹</i><b>Villain vs Villain</b><span>2 players, 1 computer. Each player chooses a villain and you take turns.</span></button>
           <button type="button" class="mode" data-act="mode" data-m="cpu"><i>🦹 ⚔ 🤖</i><b>Villain vs Challenge</b><span>1 player. Your villain fights a hero from real life: the Professor, the Coach, the Stressed Parent…</span></button>
         </div>
+        <p class="sub" style="margin-top:14px">🏠 At home? Play from your own device with a code: <button type="button" class="btn" data-act="net">🌐 Play online with a friend</button></p>
         <div class="levels" role="radiogroup" aria-label="Computer level"><span style="align-self:center;font-weight:800">Computer:</span>
           ${['easy', 'normal', 'hard'].map(l => `<label><input type="radio" name="lv" value="${l}" ${state.level === l ? 'checked' : ''}>${LEVEL_NAME[l]}</label>`).join('')}
         </div>
@@ -101,8 +103,8 @@
 
   function choose() {
     const two = state.mode === '2p', list = state.stage === 'hero' ? HEROES : ROSTER;
-    const title = state.stage === 'hero' ? 'Choose your challenge' : two ? `Player ${state.who + 1}: choose your villain` : 'Choose your villain';
-    const sub = state.stage === 'hero' ? `Who will your villain fight? The computer is on ${LEVEL_NAME[state.level]} level.` : two ? (state.who === 0 ? 'Player 2, look away! 🙈 You will choose without seeing this.' : 'Player 1, look away! 🙈') : `Then you will meet a challenge from real life.`;
+    const title = state.stage === 'hero' ? 'Choose your challenge' : state.mode === 'net' ? 'Choose your villain' : two ? `Player ${state.who + 1}: choose your villain` : 'Choose your villain';
+    const sub = state.mode === 'net' ? `Room code: <b class="code">${net.code}</b> · your friend cannot see what you choose.` : state.stage === 'hero' ? `Who will your villain fight? The computer is on ${LEVEL_NAME[state.level]} level.` : two ? (state.who === 0 ? 'Player 2, look away! 🙈 You will choose without seeing this.' : 'Player 1, look away! 🙈') : `Then you will meet a challenge from real life.`;
     app.innerHTML = `
       <div class="box">
         <h2 class="h2">${title}</h2>
@@ -139,6 +141,7 @@
       state.picks[1] = HEROES[state.sel]; state.sel = null; state.stage = 'villain';
       fight(Math.random() < .5 ? 0 : 1); return;
     }
+    if (state.mode === 'net') { netPicked(); return; }
     state.picks[state.who] = ROSTER[state.sel];
     state.sel = null;
     if (state.who === 0) {
@@ -157,11 +160,11 @@
 
   /* ================= 2. the fight ================= */
 
-  function fight(first) {
+  function fight(first, rng) {
     state.first = first; state.token++;
     const [a, b] = state.picks;
     state.names = a === b || a.name === b.name ? [a.name, `${b.name} 2`] : [a.name, b.name];
-    state.g = E.newGame(a, b, first);
+    state.g = E.newGame(a, b, first, rng);
     state.log = []; state.busy = false;
     const second = 1 - first;
     app.innerHTML = `
@@ -171,7 +174,7 @@
         <p class="turn-banner" id="banner"></p>
         <div class="attacks" id="attacks"></div>
         <div class="nav">
-          <button type="button" class="btn" data-act="quit">${state.mode === 'demo' ? 'Stop' : 'Give up'}</button>
+          <button type="button" class="btn" data-act="quit">${state.mode === 'net' ? 'Leave' : 'Give up'}</button>
         </div>
       </div>`;
     say(`🪙 <b>${esc(state.names[first])}</b> goes first. ${esc(state.names[second])} starts with ${E.SECOND_BONUS} extra HP.`, 'sys');
@@ -213,7 +216,7 @@
       <div class="side s${seat}${g.cur === seat && !g.over ? ' turn' : ''}" data-seat="${seat}">
         <button type="button" class="info" data-act="info" data-seat="${seat}" aria-label="Read the file of ${esc(k.name)}">i</button>
         ${pic(k)}
-        <b class="fname">${esc(state.names[seat])}<small>${esc(k.role)}${state.mode === 'cpu' && seat === 1 ? ' · 🤖 computer' : ''}</small></b>
+        <b class="fname">${esc(state.names[seat])}<small>${esc(k.role)}${state.mode === 'cpu' && seat === 1 ? ' · 🤖 computer' : ''}${state.mode === 'net' && seat === state.me ? ' · you' : ''}</small></b>
         <div class="hpbar${pct <= 30 ? ' low' : ''}"><span style="width:${pct}%"></span><em>${f.hp} / ${f.maxHp} HP</em></div>
         <div class="status">${chips(f)}</div>
         <div class="kit">${k.moves.map((m, i) => `<span class="${f.left[i] <= 0 ? 'gone' : f.seal && f.seal.i === i ? 'sealed' : ''}" title="${esc(m.story)}">${esc(m.name)}${pips(m, f.left[i])}</span>`).join('')}</div>
@@ -233,7 +236,7 @@
     const seat = g.cur, f = g.f[seat];
     banner.className = 'turn-banner s' + seat;
     if (!isHuman(seat)) {
-      banner.textContent = `${state.names[seat]} is thinking…`;
+      banner.textContent = state.mode === 'net' ? `Waiting for ${state.names[seat]}…` : `${state.names[seat]} is thinking…`;
       box.innerHTML = '';
       return;
     }
@@ -321,8 +324,8 @@
       return;
     }
     state.busy = true; paintPanel();
-    const level = state.mode === 'demo' ? 'normal' : state.level;
-    setTimeout(() => { if (state.token === tok && !g.over) doAct(E.pick(g, level)); }, state.mode === 'demo' ? 1700 : 1300);
+    if (state.mode === 'net') return;   // the move arrives from the other device
+    setTimeout(() => { if (state.token === tok && !g.over) doAct(E.pick(g, state.level)); }, 1300);
   }
 
   /* ================= 3. the end ================= */
@@ -339,7 +342,7 @@
         ${w >= 0 ? `<div style="display:flex;justify-content:center">${pic(g.f[w].kit, 'big')}</div>` : ''}
         <p>${w === -1 ? 'Both villains fell at the same time.' : `Won after ${rounds} round${rounds === 1 ? '' : 's'}${g.timeout ? ' (more HP at the end)' : ''}.`} ${human}</p>
         <button type="button" class="btn go" data-act="rematch">Fight again ⚔ <small>(the other goes first)</small></button>
-        <button type="button" class="btn" data-act="again">New villains</button>
+        ${state.mode === 'net' ? '' : '<button type="button" class="btn" data-act="again">New villains</button>'}
         <button type="button" class="btn" data-act="home">Home</button>
       </div></div>`;
   }
@@ -453,6 +456,131 @@
     btn.disabled = false;
   }
 
+  /* ================= NET: two devices, one 4-letter code ================= */
+  // The room is the document duels/<CODE> of cloud.js (the same rooms as Villain Battle), in the field `v2`:
+  //   n0 n1 · k0 k1 (the ids of the two villains) · gid, seed, first (a new fight) · acts (the moves, in order) · left
+  // Both devices build the same fight from the same seed and then play the same list of moves, so they always agree.
+  // Only the player whose turn it is writes `acts`; nobody writes for the other.
+  const net = { code: '', me: 0, unsub: null, gid: 0, acts: [], applied: 0, starting: false, client: Math.random().toString(36).slice(2) + Date.now().toString(36), v: {} };
+  const rooms = () => { try { return (window.book || window.parent.book || {}).rooms || null; } catch (e) { return null; } };
+  const hash = s => { let h = 1779033703 ^ s.length; for (let i = 0; i < s.length; i++) { h = Math.imul(h ^ s.charCodeAt(i), 3432918353); h = (h << 13) | (h >>> 19); } h = Math.imul(h ^ (h >>> 16), 2246822507); h = Math.imul(h ^ (h >>> 13), 3266489909); return (h ^ (h >>> 16)) >>> 0; };
+  const mulberry = a => () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const kitById = id => ROSTER.find(k => k.id === id);
+
+  function netError(e) {
+    const c = (e && (e.code || e.message)) || '';
+    if (/operation-not-allowed|admin-restricted|permission-denied/.test(c)) return 'Online play is not set up yet. Ask your teacher!';
+    if (c === 'notfound') return 'There is no room with this code. Check the letters!';
+    if (c === 'full') return 'This room already has two players.';
+    if (c === 'expired') return 'This room is too old. Ask your friend to make a new one.';
+    if (c === 'busy') return 'Could not make a room. Try again.';
+    if (c === 'offline') return 'Online play only works from the book, with the internet.';
+    return 'Could not connect. Check the internet and try again.';
+  }
+  const netPost = patch => { const R = rooms(); if (!R || !net.code) return; try { R.update(net.code, patch).catch(() => say('⚠️ The connection is lost. Check the internet.', 'sys')); } catch (e) { /* offline */ } };
+
+  function netStop() {
+    if (net.unsub) { try { net.unsub(); } catch (e) { /* already closed */ } }
+    net.unsub = null; net.code = ''; net.gid = 0; net.acts = []; net.applied = 0; net.starting = false; net.v = {};
+  }
+  function netLeave() { netPost({ 'v2.left': state.me }); }
+
+  function netMenu() {
+    state.mode = 'net'; state.token++;
+    app.innerHTML = `
+      <div class="box">
+        <h2 class="h2">🌐 Play online</h2>
+        <p class="sub">Each player uses their own phone, tablet or computer. One makes a room and tells the code to the other.</p>
+        <div class="modes">
+          <button type="button" class="mode" data-act="netmake"><i>🏠</i><b>Make a room</b><span>You get a 4-letter code. Tell it to your friend.</span></button>
+          <div class="mode joinbox" style="cursor:default"><i>🔑</i><b>Join a room</b>
+            <input id="netcode" class="codeinp" maxlength="4" autocomplete="off" autocapitalize="characters" placeholder="ABCD" aria-label="Room code">
+            <button type="button" class="btn go" data-act="netjoin">Join ▶</button></div>
+        </div>
+        <p class="sub" id="neterr" role="alert"></p>
+        <div class="nav"><button type="button" class="btn" data-act="home">◀ Back</button></div>
+      </div>`;
+  }
+
+  async function netEnter(make) {
+    const err = document.getElementById('neterr'), R = rooms();
+    const code = make ? '' : (document.getElementById('netcode').value || '').toUpperCase().replace(/[^A-Z]/g, '');
+    if (!make && code.length !== 4) { err.textContent = 'The code has 4 letters.'; return; }
+    err.textContent = 'Connecting…';
+    try {
+      if (!R) throw Object.assign(new Error('offline'), { code: 'offline' });
+      netStop();
+      net.code = make ? await R.create(net.client) : code;
+      net.me = make ? 0 : await R.join(code, net.client);
+      state.me = net.me;
+      await R.update(net.code, make ? { v2: { n0: 'Player 1', k0: null, k1: null, gid: 0, acts: [], left: null } } : { 'v2.n1': 'Player 2' });
+      net.unsub = R.watch(net.code, d => onRoom(d), () => say('⚠️ The connection is lost.', 'sys'));
+    } catch (e) { netStop(); err.textContent = netError(e); return; }
+    state.picks = [null, null]; state.sel = null; state.stage = 'villain';
+    choose();
+  }
+
+  function netPicked() {
+    const k = ROSTER[state.sel];
+    state.picks[state.me] = k; state.sel = null;
+    netPost({ [`v2.k${state.me}`]: k.id });
+    netWaiting();
+  }
+  function netWaiting() {
+    const v = net.v, other = v[`k${1 - state.me}`];
+    app.innerHTML = `
+      <div class="box"><div class="pass">
+        <div class="bigemo">⏳</div>
+        <h2 class="h2">${other ? 'Starting…' : 'Waiting for your friend…'}</h2>
+        <p>Room code: <b class="code">${net.code}</b></p>
+        <p>${other ? 'Both villains are ready!' : 'Tell your friend the code. They must choose a villain too.'}</p>
+        <button type="button" class="btn" data-act="quit">◀ Leave</button>
+      </div></div>`;
+  }
+
+  // every change of the room comes here
+  function onRoom(d) {
+    const v = d && d.v2;
+    if (!v) return;
+    net.v = v;
+    if (v.left !== null && v.left !== undefined && v.left !== state.me) { netGone(); return; }
+    if (v.gid && v.gid !== net.gid) startNetFight(v);
+    else if (!v.gid && v.k0 && v.k1 && state.me === 0 && !net.starting) {   // the host starts the first fight
+      net.starting = true;
+      netPost({ 'v2.gid': 1, 'v2.seed': Math.random().toString(36).slice(2, 8), 'v2.first': Math.random() < .5 ? 0 : 1, 'v2.acts': [] });
+    }
+    if (v.gid && v.gid === net.gid && state.g && Array.isArray(v.acts)) {
+      for (let i = net.applied; i < v.acts.length; i++) { net.applied = i + 1; net.acts = v.acts.slice(0, i + 1); doAct(v.acts[i]); }
+    } else if (!v.gid && !state.g) {
+      if (state.picks[state.me] && !document.querySelector('.vcard')) netWaiting();
+    }
+  }
+  function startNetFight(v) {
+    const a = kitById(v.k0), b = kitById(v.k1);
+    if (!a || !b) return;
+    net.gid = v.gid; net.acts = []; net.applied = 0; net.starting = true;
+    state.picks = [a, b]; state.mode = 'net';
+    fight(v.first, mulberry(hash(`${v.seed}:${v.gid}`)));
+  }
+  function netSend(i) {
+    net.acts.push(i); net.applied = net.acts.length;
+    netPost({ 'v2.acts': net.acts.slice() });
+  }
+  function netRematch() {
+    netPost({ 'v2.gid': net.gid + 1, 'v2.seed': Math.random().toString(36).slice(2, 8), 'v2.first': 1 - state.first, 'v2.acts': [] });
+    const b = app.querySelector('[data-act=rematch]'); if (b) { b.disabled = true; b.textContent = 'Starting…'; }
+  }
+  function netGone() {
+    state.token++; state.g = null; netStop();
+    app.innerHTML = `
+      <div class="box"><div class="pass">
+        <div class="bigemo">👋</div>
+        <h2 class="h2">Your friend has left</h2>
+        <p>The room is closed.</p>
+        <button type="button" class="btn go" data-act="home">Home</button>
+      </div></div>`;
+  }
+
   /* ================= clicks and the address ================= */
 
   app.addEventListener('click', e => {
@@ -460,17 +588,20 @@
     if (!b || b.disabled) return;
     const act = b.dataset.act;
     if (act === 'mode') startMode(b.dataset.m);
+    else if (act === 'net') netMenu();
+    else if (act === 'netmake') netEnter(true);
+    else if (act === 'netjoin') netEnter(false);
     else if (act === 'sel') select(+b.dataset.i);
     else if (act === 'random') { state.sel = Math.floor(Math.random() * (state.stage === 'hero' ? HEROES : ROSTER).length); choose(); }
     else if (act === 'backvillain') { state.stage = 'villain'; state.sel = null; choose(); }
     else if (act === 'ok') confirmPick();
     else if (act === 'pass2') choose();
-    else if (act === 'attack') { if (!state.busy && isHuman(state.g.cur)) { state.busy = true; doAct(+b.dataset.i); } }
+    else if (act === 'attack') { if (!state.busy && isHuman(state.g.cur)) { state.busy = true; if (state.mode === 'net') netSend(+b.dataset.i); doAct(+b.dataset.i); } }
     else if (act === 'info') showCard(state.g.f[+b.dataset.seat].kit);
-    else if (act === 'rematch') fight(1 - state.first);
-    else if (act === 'again') { state.mode === 'demo' ? startMode('demo') : startMode(state.mode); }
-    else if (act === 'quit') { state.token++; home(); }
-    else if (act === 'home') { location.hash = ''; home(); }
+    else if (act === 'rematch') { if (state.mode === 'net') netRematch(); else fight(1 - state.first); }
+    else if (act === 'again') startMode(state.mode);
+    else if (act === 'quit') { state.token++; if (state.mode === 'net') netLeave(); home(); }
+    else if (act === 'home') { if (net.code) netLeave(); location.hash = ''; home(); }
     else if (act === 'sim') simulate();
   });
 
