@@ -20,6 +20,12 @@
  *    VP:<who can do it>[+was|+were]   a verb phrase (+was only with a singular subject, +were only with a plural one)       AND:vp (and + verb phrase) / AND:cl (and + clause)    SO / BUT (+ clause)    REL (who ...)
  *    CL2 a clause after an opening phrase     EXIST (there was...)       INF (to + verb)
  *    OBJ:<SOUND ANIMAL THING THINGPL FOOD VEHICLE>   QUOTE   PP:<kind of phrase: LOC DUR BEF FROM TOHOUSE NET PAST INSTR BEN OF LIST AIR BOX>
+ *
+ * LONGER SENTENCES (chapters.js): a sentence can have 1-4 cards.
+ *    S               a whole sentence on one card
+ *    <any>+m         the card does not end its clause (no full stop): after it, it works like a clause with its own flags (act tr mot dur ben di ...)
+ *    NPM / ADV2      a phrase after a subject (The girl | in the red cloak | walked...) / a second opening phrase (One day, | when it rained, | the boy...)
+ *    PP types added  WITH (act) DIR (mot) TIME MOD (tr) TO SRC ONTO (di = gave/told/sold...) LIKE (act)
  */
 (() => {
   const SPEC = {
@@ -53,7 +59,7 @@
   const NAME_OK = ['NP', 'CLn', 'CLc', 'V', 'VBE', 'VBEPL', 'VI', 'CL2'];
 
   const endS = t => /[.!?][”"]?$/.test(t);
-  const upper = t => /^[A-Z]/.test(t);
+  const upper = t => /^[A-Z“"]/.test(t);
   const lower = t => /^[a-z]/.test(t);
   const isName = t => NAMES.has(t.split(/[ ,]/)[0]);
 
@@ -65,7 +71,12 @@
   function ppOk(a, type) {
     const f = a.f, bad = f.has('wea') || f.has('lm');
     switch (type) {
-      case 'LOC': case 'BEF': return !bad;
+      case 'LOC': case 'BEF': case 'TIME': return !bad;
+      case 'WITH': return f.has('act');                 // with his sister / with a basket
+      case 'DIR': return f.has('mot');                  // into the forest / across the river
+      case 'MOD': return f.has('tr');                   // a house made of candy (after an object)
+      case 'TO': case 'SRC': case 'ONTO': return f.has('di');   // told a lie to the fairy / bought dye from a peddler / sewed it onto his foot
+      case 'LIKE': return f.has('act');                 // like a lizard
       case 'DUR': return f.has('dur');
       case 'FROM': return f.has('mot');
       case 'TOHOUSE': return f.has('toh');
@@ -81,8 +92,21 @@
     }
   }
 
+  // MIDDLE cards: a sentence can have 1 to 4 cards. A card with the flag  m  does not end its clause: after it, it works like a whole clause
+  // (CLn, or CLc if it ends with a comma) with its own flags, so it can be followed by a PP, an INF, AND, SO, BUT ... or by another m card.
+  //   Tom went | into the forest | with his sister | to cut wood.      CLn:H+act+mot  PP:DIR+m+act  PP:WITH+m+act  INF
+  // ADV2 = a second opening phrase (One day, | when it rained, | the boy ...), NPM = a phrase after a subject (The girl | in the red cloak | walked ...),
+  // S = a whole sentence on one card.
+  function norm(a) {
+    if (a.f.has('m')) return Object.assign({}, a, { k: /,[”"]?$/.test(a.t) ? 'CLc' : 'CLn' });
+    if (a.k === 'ADV2') return Object.assign({}, a, { k: 'ADV' });
+    if (a.k === 'NPM') return Object.assign({}, a, { k: 'NP' });
+    return a;
+  }
+
   /** can b come right after a? (a, b = parsed halves) */
   function fits(a, b) {
+    a = norm(a);
     if (endS(a.t)) return upper(b.t) && b.k !== 'QUOTE';                       // a new sentence starts with a capital letter
     if (a.k === 'X') return false;
     if (!lower(b.t)) {                                                          // a capital letter in the middle of a sentence: only a name or a quotation
@@ -93,7 +117,7 @@
       case 'NP':   // a subject needs a verb phrase, and was/were must agree with it
         if (b.f.has('was') && a.f.has('pl')) return false;
         if (b.f.has('were') && !a.f.has('pl')) return false;
-        return b.k === 'VP';                    // silly is fine (The face in the painting sailed to a faraway island), only the grammar counts
+        return b.k === 'VP' || b.k === 'NPM';   // silly is fine (The face in the painting sailed to a faraway island), only the grammar counts
       case 'CLn': case 'CLc':
         if (b.k === 'SO' || b.k === 'BUT') return true;
         if (b.k === 'AND') return true;                        // and + clause, or and + verb phrase with the same subject
@@ -101,7 +125,7 @@
         if (b.k === 'INF') return a.k === 'CLn' && a.f.has('act');
         if (b.k === 'PP') return a.k === 'CLn' && ppOk(a, b.a);
         return false;
-      case 'ADV': return b.k === 'CL2' || b.k === 'EXIST';
+      case 'ADV': return b.k === 'CL2' || b.k === 'EXIST' || b.k === 'ADV2';
       case 'ADVP': return b.k === 'EXIST';
       case 'V': return b.k === 'OBJ';                         // a verb that needs an object takes any noun phrase (even a silly one)
       case 'VBE': return b.k === 'PP' && (b.a === 'LOC' || b.a === 'BOX');
