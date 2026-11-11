@@ -1089,6 +1089,162 @@
     start();
   }
 
+  /* ---------- 🔨 Error auction (data: auction-data.js) ----------
+     Sentences with a mistake (the pupils' own, from the Jobs test of 3A and 3B), in three piles: easy · medium · hard.
+     A team chooses a pile (and so the stake: 10 / 20 / 30 coins); the teacher draws a random sentence from that pile; the team
+     finds the mistake and fixes it together. Right = +stake, wrong = −stake.
+     Two ways: on the whiteboard, or A4 slips to print and cut (2 columns × 12 rows = 24 slips a page, one pile for each level). */
+  function auctionGame() {
+    const A = window.AUCTION || { levels: [], items: [] };
+    let cls = 'all'; // the sentences of: all | A | B (a sentence without a class is always in)
+    const inCls = x => cls === 'all' || !x.cl || x.cl === cls;
+    const pile = l => A.items.filter(x => x.lv === l.id && inCls(x));
+    const clsName = c => (c ? '3' + c : '');
+
+    const start = () => {
+      openGame('🔨 Error auction', { onBack: menu });
+      area.innerHTML = `<div class="tg-card">
+        <p class="tg-intro">Sentences with a <b>mistake</b>, written by 3A and 3B in the Jobs test, in three piles: <b class="ea-e">easy</b> (wrong translations), <b class="ea-m">medium</b>, <b class="ea-h">hard</b>. The teams go <b>in order</b>: Team 1 chooses a pile, you draw a sentence at random, the team writes the correction. Right: it wins <b>10 / 20 / 30</b> coins. Wrong: it loses them and the <b>same sentence</b> goes to the next team. Then the next team chooses a pile.</p>
+        <p class="tg-label">Sentences from <small>(those without a class are always in)</small></p>
+        <div class="tg-row" style="margin-top:0">${[['all', 'All'], ['A', '3A'], ['B', '3B']].map(([v, t]) => `<button type="button" class="tg-btn alt${cls === v ? ' sel' : ''}" data-cls="${v}">${t}</button>`).join('')}</div>
+        <div class="tg-row"><button type="button" class="tg-btn go" data-act="lim">📺 Play on the whiteboard</button>
+          <button type="button" class="tg-btn alt" data-act="print">🖨️ Printable slips to cut</button></div>
+        <p class="tg-help" style="text-align:center">${A.levels.map(l => `${l.icon} ${l.name}: ${pile(l).length}`).join(' · ')} sentences</p></div>`;
+      area.onclick = e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.cls) { cls = b.dataset.cls; start(); }
+        else if (b.dataset.act === 'lim') setup();
+        else if (b.dataset.act === 'print') printer();
+      };
+    };
+
+    /* ----- on the whiteboard: the teams play in order ----- */
+    // Team 1 chooses a pile, the team writes its correction. Right: it wins the stake. Wrong: it loses the stake and the SAME sentence
+    // goes to the next team (it wins the stake if it is right, loses nothing if it is wrong), and so on. Then the next team chooses a pile.
+    let nTeams = 4, purse = 100, secs = 60, teams = [], bags = {};
+    let turn = 0;          // the team that chooses the pile
+    let rd = null;         // the sentence on the board: { it, cur (team that tries now), shown, done, ok, winner, log }
+    const setup = () => {
+      openGame('🔨 Error auction', { onBack: start });
+      area.innerHTML = `<div class="tg-card">
+        <p class="tg-line"><span>Teams</span><button type="button" class="tg-btn alt" data-n="-1">−</button><b class="tg-big" id="eaN">${nTeams}</b><button type="button" class="tg-btn alt" data-n="1">+</button></p>
+        <p class="tg-line"><span>Coins for each team</span><button type="button" class="tg-btn alt" data-p="-50">−</button><b class="tg-big" id="eaP">${purse}</b><button type="button" class="tg-btn alt" data-p="50">+</button></p>
+        <p class="tg-line"><span>Time to answer</span><button type="button" class="tg-btn alt" data-s="-15">−</button><b class="tg-big" id="eaS">${secs} s</b><button type="button" class="tg-btn alt" data-s="15">+</button></p>
+        <div class="tg-row"><button type="button" class="tg-btn go" id="eaGo">🔨 Start!</button></div></div>`;
+      area.onclick = e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.s) { secs = Math.min(180, Math.max(15, secs + +b.dataset.s)); $('eaS').textContent = secs + ' s'; }
+        else if (b.dataset.n) { nTeams = Math.min(8, Math.max(2, nTeams + +b.dataset.n)); $('eaN').textContent = nTeams; }
+        else if (b.dataset.p) { purse = Math.min(500, Math.max(50, purse + +b.dataset.p)); $('eaP').textContent = purse; }
+        else if (b.id === 'eaGo') {
+          teams = Array.from({ length: nTeams }, (_, i) => ({ name: 'Team ' + (i + 1), coins: purse }));
+          bags = Object.fromEntries(A.levels.map(l => [l.id, bag(pile(l))]));
+          turn = 0; rd = null; play();
+        }
+      };
+    };
+    const fmt = n => Math.floor(n / 60) + ':' + String(n % 60).padStart(2, '0');
+    const tick = () => {
+      const el = $('eaTimer'); if (!el || !rd) return;
+      const n = Math.max(0, Math.ceil((rd.t0 + secs * 1000 - Date.now()) / 1000));
+      el.textContent = fmt(n); el.classList.toggle('low', n > 0 && n <= 10); el.classList.toggle('end', n === 0);
+    };
+    const play = () => {
+      openGame('🔨 Error auction', { onBack: setup });
+      area.onclick = onBoard;
+      const lv = rd && A.levels.find(l => l.id === rd.it.lv);
+      const active = rd ? (rd.done ? rd.winner : rd.cur) : turn; // the team highlighted on the board
+      const board = `<div class="ea-teams">${teams.map((t, i) => `<div class="ea-team${active === i && !(rd && rd.done && !rd.ok) ? ' on' : ''}${rd && rd.done && rd.ok && rd.winner === i ? ' won' : ''}" data-team="${i}"><b>${esc(t.name)}</b><span>${t.coins}</span><em><button type="button" data-adj="${i}:-10" aria-label="minus 10 coins">−10</button><button type="button" data-adj="${i}:10" aria-label="plus 10 coins">+10</button></em></div>`).join('')}</div>`;
+      if (!rd) {
+        area.innerHTML = `${board}<p class="tg-label" style="margin-top:14px"><b>${esc(teams[turn].name)}</b> chooses a pile:</p>
+          <div class="ea-piles">${A.levels.map(l => `<button type="button" class="ea-pile" data-lv="${l.id}" style="--c:${l.color}"${pile(l).length ? '' : ' disabled'}><span>${l.icon}</span><b>${l.name}</b><small>+${l.stake} / −${l.stake}</small></button>`).join('')}</div>`;
+        return;
+      }
+      const t = teams[rd.cur], first = rd.cur === turn, tried = rd.log.length;
+      const note = rd.done
+        ? (rd.ok ? `✓ ${esc(teams[rd.winner].name)} fixed it and wins ${lv.stake} coins!` : '✗ Nobody fixed it: here is the answer.')
+        : first ? `${esc(t.name)} writes the correction.` : `${esc(t.name)}: it is your turn, same sentence. Write the correction.`;
+      area.innerHTML = `${board}
+        <div class="ea-card" style="--c:${lv.color}">${rd.it.cl ? `<i class="ea-cl">${clsName(rd.it.cl)}</i>` : ''}<small>${lv.icon} ${lv.name} · +${lv.stake} / −${lv.stake}${rd.it.cat === 'Translate' ? ' · fix the translation' : ''}</small>
+          ${rd.it.ctx ? `<p class="ea-ctx">${esc(rd.it.ctx)}</p>` : ''}<p class="ea-sent">${rd.shown ? rd.it.right : rd.it.wrong}</p>
+          ${rd.shown ? `<small class="ea-cat">${esc(rd.it.cat)}${rd.it.fixes > 1 ? ' · ' + rd.it.fixes + ' mistakes' : ''}</small>` : ''}</div>
+        ${rd.log.length ? `<p class="tg-help" style="text-align:center">${rd.log.map(x => esc(x)).join(' · ')}</p>` : ''}
+        ${rd.done ? '' : '<div class="ea-timer" id="eaTimer"></div>'}
+        <p class="ea-res ${rd.done ? (rd.ok ? 'ok' : 'no') : ''}" ${rd.done ? '' : 'style="color:var(--navy)"'}>${note}</p>
+        ${rd.done ? `<div class="tg-row"><button type="button" class="tg-btn go" data-act="next">▶ ${esc(teams[(turn + 1) % teams.length].name)} chooses next</button></div>`
+        : `<div class="tg-row"><button type="button" class="tg-btn alt" data-act="show">👁 ${rd.shown ? 'Hide' : 'Show'} the answer</button>
+            <button type="button" class="tg-btn go" data-act="ok">✓ Fixed it</button>
+            <button type="button" class="tg-btn big2" data-act="no">✗ Wrong${tried + 1 < teams.length ? ' → ' + esc(teams[(rd.cur + 1) % teams.length].name) : ''}</button>
+            <button type="button" class="tg-btn alt" data-act="retime">⏱ Restart the timer</button>
+            ${!tried ? '<button type="button" class="tg-btn alt" data-act="skip">⏭ Another sentence</button>' : ''}</div>`}`;
+      if (!rd.done) { tick(); const tm = setInterval(tick, 250); cleanup = () => clearInterval(tm); }
+    };
+    // one click handler for the whole board
+    const onBoard = e => {
+      const b = e.target.closest('button'); if (!b) return;
+      if (b.dataset.adj) { const [i, d] = b.dataset.adj.split(':').map(Number); teams[i].coins += d; play(); return; }
+      if (b.dataset.lv) { rd = { it: bags[b.dataset.lv](), cur: turn, t0: Date.now(), shown: false, done: false, log: [] }; play(); return; }
+      if (!rd && b.dataset.act !== 'next') return;
+      const act = b.dataset.act;
+      if (act === 'show') { rd.shown = !rd.shown; play(); }
+      else if (act === 'retime') { rd.t0 = Date.now(); play(); }
+      else if (act === 'skip' && !rd.log.length) { rd = { it: bags[rd.it.lv](), cur: turn, t0: Date.now(), shown: false, done: false, log: [] }; play(); }
+      else if (act === 'ok') {
+        teams[rd.cur].coins += A.levels.find(l => l.id === rd.it.lv).stake;
+        rd.done = true; rd.ok = true; rd.winner = rd.cur; rd.shown = true; play();
+      } else if (act === 'no') {
+        const stake = A.levels.find(l => l.id === rd.it.lv).stake;
+        if (rd.cur === turn) teams[rd.cur].coins -= stake; // only the team that chose the pile loses
+        rd.log.push(`${teams[rd.cur].name} ✗${rd.cur === turn ? ' −' + stake : ''}`);
+        const next = (rd.cur + 1) % teams.length;
+        if (next === turn) { rd.done = true; rd.ok = false; rd.shown = true; } else { rd.cur = next; rd.t0 = Date.now(); } // everybody tried
+        play();
+      } else if (act === 'next') { turn = (turn + 1) % teams.length; rd = null; play(); }
+    };
+
+    /* ----- the slips to print ----- */
+    const PER = 24; // 2 columns × 12 rows
+    const prn = { levels: new Set(A.levels.map(l => l.id)), corner: 'data', key: true };
+    const cornerOf = x => (prn.corner === 'none' ? '' : prn.corner === 'data' ? clsName(x.cl) : '3' + prn.corner);
+    const pagesOf = () => A.levels.filter(l => prn.levels.has(l.id)).flatMap(l => {
+      const list = pile(l);
+      return Array.from({ length: Math.ceil(list.length / PER) }, (_, p) => ({ l, items: list.slice(p * PER, p * PER + PER) }));
+    });
+    const slipHTML = (x, l) => `<div class="ea-slip${x.ctx ? " hc" : ""}${x.wrong.length > 105 ? ' s3' : x.wrong.length > (x.cat === 'Translate' || x.ctx ? 34 : 78) ? ' s2' : ''}" style="--c:${l.color}">${cornerOf(x) ? `<b class="ea-corner">${cornerOf(x)}</b>` : ''}${x.cat === 'Translate' ? '<small class="ea-tr">Fix the translation</small>' : x.ctx ? `<small class="ea-tr ctx">${esc(x.ctx)}</small>` : ''}<p>${x.wrong}</p><div class="ea-fix"><i>${x.id}</i><span>→</span></div></div>`;
+    const pageHTML = s => `<section class="ea-sheet" style="--c:${s.l.color}">${s.items.map(x => slipHTML(x, s.l)).join('')}</section>`;
+    const keyHTML = () => `<section class="ea-sheet ea-key"><h2>🔨 Error auction · answer key <small>only for the teacher</small></h2><div class="ea-keycols">${A.levels.filter(l => prn.levels.has(l.id)).map(l => `<h3 style="--c:${l.color}">${l.icon} ${l.name} <small>+${l.stake} / −${l.stake}</small></h3>${pile(l).map(x => `<p><i>${x.id}</i>${x.ctx ? `<em>${esc(x.ctx)}: </em>` : ''}${x.right}${x.cat ? ` <u>${esc(x.cat)}</u>` : ''}</p>`).join('')}`).join('')}</div></section>`;
+    const printer = () => {
+      openGame('🔨 Error auction · slips', { onBack: start });
+      const pages = pagesOf(), count = pages.reduce((n, s) => n + s.items.length, 0);
+      const html = pages.map(pageHTML).join('') + (prn.key && pages.length ? keyHTML() : '');
+      area.innerHTML = `<div class="tg-card">
+        <p class="tg-intro">A4 pages with <b>two columns</b> of slips, one sentence in each. Print, cut along the dashed lines and keep <b>one pile for each level</b>: when a team has bet, you draw a slip from its pile and hand it over.</p>
+        <p class="tg-label">Piles to print</p>
+        <div class="tg-row" style="margin-top:0">${A.levels.map(l => `<button type="button" class="tg-btn alt${prn.levels.has(l.id) ? ' sel' : ''}" data-lv="${l.id}">${l.icon} ${l.name} (${pile(l).length})</button>`).join('')}</div>
+        <p class="tg-label">Class in the corner of the slip</p>
+        <div class="tg-row" style="margin-top:0">${[['data', 'From the sentence'], ['A', 'All 3A'], ['B', 'All 3B'], ['none', 'None']].map(([v, t]) => `<button type="button" class="tg-btn alt${prn.corner === v ? ' sel' : ''}" data-cor="${v}">${t}</button>`).join('')}</div>
+        <div class="tg-row"><button type="button" class="tg-btn alt${prn.key ? ' sel' : ''}" data-act="key">${prn.key ? '☑' : '☐'} Answer key page</button></div></div>
+        <div class="ea-prev">${html}</div>
+        <div class="tg-row"><button type="button" class="tg-btn go" data-act="go"${count ? '' : ' disabled'}>🖨️ Print ${pages.length + (prn.key && pages.length ? 1 : 0)} page${pages.length > 1 || prn.key ? 's' : ''}</button></div>
+        <p class="tg-help" style="text-align:center">A4 portrait · print at 100%, not “fit to page” · ${count} slips.</p>`;
+      area.onclick = e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.lv) { prn.levels.has(b.dataset.lv) ? prn.levels.delete(b.dataset.lv) : prn.levels.add(b.dataset.lv); printer(); }
+        else if (b.dataset.cor) { prn.corner = b.dataset.cor; printer(); }
+        else if (b.dataset.act === 'key') { prn.key = !prn.key; printer(); }
+        else if (b.dataset.act === 'go') {
+          let box = $('eaPrint');
+          if (!box) { box = document.createElement('div'); box.id = 'eaPrint'; document.body.appendChild(box); }
+          box.innerHTML = html;
+          document.body.classList.add('ea-printing');
+          window.addEventListener('afterprint', () => document.body.classList.remove('ea-printing'), { once: true });
+          setTimeout(() => window.print(), 50);
+        }
+      };
+    };
+    start();
+  }
+
   /* ---------- the tiles: they are in the "For the teacher" part of the home page (script.js renderHome), before the guided meditations ---------- */
   const ENTRIES = [
     { icon: '🧰', title: 'Class tools', color: '#1f2a6b', text: 'Who goes next? · groups · timer · scoreboard.', run: toolsGame },
@@ -1096,6 +1252,7 @@
     { icon: '🚩', title: 'Flag game', color: '#f05f4b', text: 'Bandierina: two teams, a number, a card on the board. Pronouns, to be, verbs, jobs…', run: flagGame },
     { icon: '🏀', title: 'Paper basket', color: '#8e2de2', text: 'The class writes the answer on a paper, crumples it and shoots: verb paradigms, words and phrases to translate, at every level.', run: basketGame },
     { icon: '🖼️', title: 'Board race', color: '#f05f4b', text: 'Two printable A4 sheets with 12 pictures: pupils run to the board and write the word in the right box. School things, clothes, jobs, animals… in 2 levels.', run: boardGame },
+    { icon: '🔨', title: 'Error auction', color: '#e0584a', text: 'The pupils’ own mistakes in three piles (easy, medium, hard): a team bets coins, you draw a sentence, the team fixes it. On the whiteboard or as A4 slips to print and cut, with 3A / 3B in the corner.', run: auctionGame },
     { icon: '✏️', title: 'Draw blind', color: '#2f9e6f', text: 'Draw without looking, the team guesses. Every card has an easy word (1 point) and a hard one (2 points): on your phone or printed. Topics: home, body, clothes, jobs… or your own words.', run: drawGame },
     { icon: '🅰️', title: 'Four corners', color: '#3aa04a', text: 'A question and A-B-C-D: the class walks to the right corner of the room.', run: cornersGame },
     { icon: '👋', title: 'Slap the word', color: '#4aa8ec', text: 'Six words on the board, two players: slap the right one first!', run: slapGame },
