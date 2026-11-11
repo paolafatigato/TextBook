@@ -291,3 +291,34 @@
 .an-parts input.fill.blank.no { border-color: #e53935; color: #c62828; }
 .an-parts span { font: 400 1.25cqw/1.3 'Nunito', sans-serif; color: #444; }
 .an-parts span b { display: block; font: 800 1.5cqw/1.2 'Nunito', sans-serif; letter-spacing: .04em; color: var(--an-navy); }
+
+/* ================= [scaf-animals-hotseat]: sentences to copy + Animal roulette (scaffold.js) ================= */
+.hs-box { margin: 0 0 2cqw; padding: 1.4cqw 2cqw 1.6cqw; border: .3cqw solid var(--c, #4aa8ec); border-radius: 2cqw; background: #fff; }
+.hs-box.ask { --c: #4aa8ec; } .hs-box.ans { --c: #f05f4b; } .hs-box.say { --c: #8e2de2; }
+.hs-box h2 { margin: 0 0 1cqw; font: 700 2.5cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: var(--c); }
+.hs-box ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 1.4cqw; font-size: 2.5cqw; }
+.hs-box li b, .hs-box p b { color: var(--c); }
+.hs-box p { margin: 0; font-size: 2.5cqw; }
+.hs-ans { display: grid; grid-template-columns: 1fr 1fr; gap: .8cqw 2cqw; }
+.hs-ans p { display: flex; gap: 1.6cqw; flex-wrap: wrap; }
+.hs-ans .no { color: #1f2a6b; }
+.hs-ans i { color: #777; }
+.hs-note { margin: 0; padding: 1.4cqw 2cqw; border-radius: 1.4cqw; background: #fff4d6; font-size: 2.2cqw; }
+.hs-steps { margin: 0 0 2cqw; padding-left: 3.4cqw; font-size: 2cqw; }
+.hs-steps li { margin-bottom: .7cqw; }
+.hs-steps li::marker { font: 700 2.2cqw 'Fredoka', sans-serif; color: #e8820c; }
+.hs-wheel { display: grid; justify-items: center; gap: 1cqw; padding: 2cqw 2cqw 2.4cqw; border: .35cqw solid #1f2a6b; border-radius: 3cqw; background: #f6edfd; box-shadow: .6cqw .6cqw 0 #1f2a6b; min-height: 42cqw; align-content: start; }
+.hs-emoji { font-size: 16cqw; line-height: 1.1; }
+.hs-name { font: 700 4.6cqw/1.1 'Fredoka', 'Nunito', sans-serif; color: #1f2a6b; text-align: center; }
+.hs-name.hidden { color: #b9a6d8; letter-spacing: .3em; }
+.hs-ask { min-height: 5cqw; }
+.hs-ask span { display: inline-block; padding: .8cqw 2.2cqw; border-radius: 999px; background: #4aa8ec; color: #fff; font: 800 2.6cqw/1.2 'Nunito', sans-serif; }
+.hs-ask span.is { background: #3aa04a; } .hs-ask span.can { background: #e8820c; } .hs-ask span.have { background: #8e2de2; } .hs-ask span.live { background: #f05f4b; } .hs-ask span.eat { background: #dc3394; }
+.hs-facts { max-width: 100%; text-align: center; font: 600 1.9cqw/1.4 'Nunito', sans-serif; color: #333; }
+.hs-facts:empty { display: none; }
+.hs-facts b { color: #1f2a6b; }
+.hs-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2cqw; margin-top: 2.2cqw; }
+.hs-small { cursor: pointer; border: .3cqw solid #1f2a6b; border-radius: 999px; padding: .9cqw 1.8cqw; background: #fff; color: #1f2a6b; font: 800 1.8cqw/1 'Nunito', sans-serif; }
+.hs-small:hover { background: #dfee6a; }
+.hs-count { margin: 1.2cqw 0 0; text-align: center; font-size: 1.5cqw; color: #888; }
+@media print { .hs-btns { display: none; } }

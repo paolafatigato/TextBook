@@ -2590,6 +2590,75 @@
     </section>
   </div>
 
+  <!-- ============ SCAFFOLDING (teacher only, no page numbers: pages.js) ============ -->
+  <!-- [scaf-animals-hotseat] after [own-animals-have] (p.45): the questions and answers pupils copy
+       BEFORE the hot seat with animals (they have not done the present simple yet: "Does it…?" is taught
+       as a fixed chunk, only "it"), plus "Animal roulette": a random animal emoji, the pupil says its name,
+       asks a classmate a question, the classmate answers. The code is in scaffold.js, style in animals-chapter.css (.hs-*) -->
+  <div class="spread scaffold" data-id="scaf-animals-hotseat" data-title="Animals" data-name="Hot seat · Sentences to copy · Animal roulette">
+
+    <section class="page page-left scf-page"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · hot seat</p>
+      <h1 class="scf-title">Ask about <span>animals</span> 🐾</h1>
+      <p class="scf-sub">Copy these sentences into your notebook. You need them for the next activity.</p>
+
+      <div class="hs-box ask">
+        <h2>❓ Ask</h2>
+        <ul>
+          <li><b>Is it</b> a mammal / a bird / a reptile / a fish / an insect?</li>
+          <li><b>Is it</b> big / small / dangerous / a pet?</li>
+          <li><b>Can it</b> fly / swim / run fast / climb?</li>
+          <li><b>Does it have</b> a tail / wings / fur / four legs?</li>
+          <li><b>Does it live</b> in the forest / in the water / in Africa / on a farm?</li>
+          <li><b>Does it eat</b> meat / grass / fish / insects?</li>
+        </ul>
+      </div>
+
+      <div class="hs-box ans">
+        <h2>💬 Answer</h2>
+        <div class="hs-ans">
+          <p><b>Yes, it is.</b> <b class="no">No, it isn’t.</b></p>
+          <p><b>Yes, it can.</b> <b class="no">No, it can’t.</b></p>
+          <p><b>Yes, it does.</b> <b class="no">No, it doesn’t.</b></p>
+          <p><i>I don’t know!</i> <i>Maybe.</i></p>
+        </div>
+      </div>
+
+      <div class="hs-box say">
+        <h2>🪑 In the hot seat: say who you are</h2>
+        <p>I’m a… · I live in… · I eat… · I can… · I can’t… · I have…</p>
+      </div>
+
+      <p class="hs-note">⚠️ After <b>Does it</b> the verb does not change: <i>Does it live…?</i> <s>Does it lives…?</s></p>
+    </div></section>
+
+    <section class="page page-right scf-page"><div class="scf-in">
+      <p class="scf-tape">🧱 Scaffolding · in pairs</p>
+      <h2 class="scf-h2">Animal roulette 🎰</h2>
+      <ol class="hs-steps">
+        <li>Look at the animal. Say its name: <i>“It’s a…”</i></li>
+        <li>Ask your partner <b>one question</b> about it.</li>
+        <li>Your partner <b>answers</b>: <i>“Yes, it does.”</i></li>
+        <li>Swap! Next animal.</li>
+      </ol>
+
+      <div class="hs-wheel" aria-live="polite">
+        <div class="hs-emoji" aria-label="Animal">🎰</div>
+        <div class="hs-name">Press the button!</div>
+        <div class="hs-ask"></div>
+        <div class="hs-facts"></div>
+      </div>
+
+      <div class="hs-btns">
+        <button type="button" class="jf-btn hs-next">🎲 Next animal ▶</button>
+        <button type="button" class="hs-small hs-q">🎯 Pick a question</button>
+        <button type="button" class="hs-small hs-show">👀 Show the name</button>
+        <button type="button" class="hs-small hs-key">✅ Show the answers</button>
+      </div>
+      <p class="hs-count"></p>
+    </div></section>
+  </div>
+
   <div class="spread" data-id="own-animals-guess" data-title="Animals" data-name="What am I? · Draw it from memory">
 
     <!-- ============ LEFT PAGE ============ -->
