@@ -1,4 +1,4 @@
-// Villain 2A & 2B: the 24 villains made by the pupils of 2A and 2B. Only the villains' names are used (never the pupils' names).
+// Villain 2A & 2B: the 26 villains made by the pupils of 2A and 2B. Only the villains' names are used (never the pupils' names).
 //
 // Every villain comes from a villain file: powers, equipment, main attack, weakness and motto are the pupil's own.
 // The numbers (fx) are the teacher's balance work; see engine.js for what each effect does and how a move is rated.
@@ -256,7 +256,7 @@
       id: 'karol', name: 'Karol the Wiener Dog', emoji: '🐕', img: 'img/karol.jpg', color: '#9a5a48', role: 'Curls & faces',
       blurb: 'A girl who fell into a puddle that turned her into her pet, a wiener dog. She has a long muzzle, a big nose and curly hair that gets tangled easily. She is chatty and messy.',
       says: 'Every curl has a surprise.',
-      q: { needsWarm: true }, quirk: 'Needs to do her hair: no powers until the hair brushing is done.',
+      q: { needsWarm: true }, warmText: { cold: 'Messy hair', ok: 'Hair done', why: 'needs to do her hair', done: 'has done her hair' }, quirk: 'Needs to do her hair: no powers until the hair brushing is done.',
       moves: [
         M('face', 'The Face Shift', 'You make weird, funny faces. The enemy gets distracted.', 3, ['mind'], [d(9), { k: 'weak', m: .6, hits: 1 }]),
         M('curl', 'Curl Capture', 'You wrap the enemy with your hair.', 2, ['phys'], [d(11), { k: 'skip', n: 1 }]),
@@ -336,6 +336,35 @@
       ],
       basic: B('Pokémon Album', 'You look at your Pokémon album and rest a little.', ['cute'], [d(6), { k: 'mark', name: 'tired', n: -1, self: true }]),
     },
+    {
+      id: 'anix', name: 'Anix', emoji: '🐴', img: 'img/anix.jpg', color: '#7a8fd1', role: 'Talker',
+      blurb: 'A short girl with wavy hair and round glasses. She is 12 and goes to the average school. She is very acidic! One day she fell from a horse, but it is not for sure…',
+      says: 'Don’t stop!',
+      q: { lowConf: true }, quirk: 'Insecure: below half of the HP, Anix stops believing in herself and hits weaker.',
+      moves: [
+        M('acid', 'Acid Tongue', 'She is so acidic that you might change your mind.', 2, ['mind'], [d(11), { k: 'weak', m: .6, hits: 1 }]),
+        M('talk', 'Talk Non-Stop', 'She talks and talks and it doesn’t stop!', 3, ['sound'], [d(6, 3)]),
+        M('bag', 'Messy Bag', 'Her bag is so full and messy that the enemy gets lost in it.', 1, [], [d(10), { k: 'skip', n: 1 }]),
+        M('horse', 'Horse Escape', 'You jump on your horse and escape from the situation.', 2, [], [{ k: 'vanish', n: 1 }]),
+        M('glasses', 'Sharp Glasses', 'Your glasses help you not to miss a thing.', 2, [], [{ k: 'pierce', n: 1 }, { k: 'boost', m: 1.5, hits: 1 }]),
+      ],
+      basic: B('Sharp Remark', 'You say something very acidic.', ['mind'], [d(8)]),
+    },
+    {
+      id: 'blackcat', name: 'Black Cat', emoji: '🐈‍⬛', img: 'img/blackcat.jpg', color: '#6b2d86', role: 'Music & mind',
+      blurb: 'A girl with black afro hair and an incredible hearing. One day she was listening to music and a song took her mind and turned her into a crazy girl.',
+      says: 'Forget it! This is the villain’s move.',
+      q: { needsWarm: true }, warmText: { cold: 'No music', ok: 'Music on', why: 'needs her music', done: 'puts on her music' },
+      quirk: 'If she does not listen to music she goes crazy: no powers until she puts on her music.',
+      moves: [
+        M('forget', 'Mind Reader', 'You read the villain’s mind and make it forget its next move.', 2, ['mind'], [d(8), { k: 'seal', n: 2 }]),
+        M('kick', 'Impatient Kick', 'You lose your patience and kick.', 2, ['phys'], [d(17)]),
+        M('song', 'Crazy Song', 'A song takes the enemy’s mind and makes it crazy.', 2, ['sound', 'mind'], [d(10), { k: 'confuse', n: 1 }]),
+        M('voice', 'Voice and Energy', 'You sing with all your energy and feel stronger.', 2, ['sound'], [{ k: 'boost', m: 1.6, hits: 1 }, { k: 'heal', v: 5 }]),
+        M('friend', 'Best Friend', 'Your best friend gives you strength when you are sad.', 2, ['team'], [{ k: 'heal', v: 13 }, { k: 'cleanse' }]),
+      ],
+      basic: B('Phone Playlist', 'You put on your phone and press play. Now you are ready!', ['sound'], [d(6), { k: 'flag', name: 'warm', v: true }]),
+    },
   ];
 
 
@@ -412,7 +441,7 @@
   ];
 
   // how much planning a villain needs (1 = easy to play, 3 = for experts): from the duels of the computer at the easy level
-  const SKILL = { goget: 1, kick: 1, dancer: 1, wavy: 1, hands: 1, cactus: 1, skater: 2, mask: 2, explodingball: 2, honey: 2, anxious: 2, lazy: 3, vampire: 3, sixseven: 3, rebel: 3, punchhead: 1, wordstorm: 2, inventor: 3, karol: 2, witchcat: 1, clone: 2, glitter: 1, bodyflame: 1, pikakid: 3 };
+  const SKILL = { goget: 1, kick: 1, dancer: 1, wavy: 1, hands: 1, cactus: 1, skater: 2, mask: 2, explodingball: 2, honey: 2, anxious: 2, lazy: 3, vampire: 3, sixseven: 3, rebel: 3, punchhead: 1, wordstorm: 2, inventor: 3, karol: 2, witchcat: 1, clone: 2, glitter: 1, bodyflame: 1, pikakid: 3, anix: 2, blackcat: 2 };
 
   // add the strength of each move, the words that hint at it, and fill the gaps
   [...ROSTER, ...HEROES].forEach(k => {

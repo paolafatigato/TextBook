@@ -88,7 +88,7 @@
     if (i === k.moves.length) return '';
     if (f.left[i] <= 0) return 'no uses left';
     if (f.seal && f.seal.i === i) return 'forgotten (sealed)';
-    if (k.q.needsWarm && !f.flags.warm) return 'needs a warm-up';
+    if (k.q.needsWarm && !f.flags.warm) return k.warmText ? k.warmText.why : 'needs a warm-up';
     if (k.q.needsGinger && !f.flags.ginger) return 'Ginger is away';
     if (k.q.noRepeat && f.last === i) return 'cannot repeat';
     return '';

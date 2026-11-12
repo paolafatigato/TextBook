@@ -205,7 +205,7 @@
     if (f.marks.sleepy) out.push(`<span class="st bad" title="Sleepy: at ${E.SLEEP_AT} it falls asleep">😴 ${f.marks.sleepy}/${E.SLEEP_AT}</span>`);
     if (f.marks.tired) out.push(f.kit.q.tired === 'hungry' ? `<span class="st bad" title="Hungry: at ${E.TIRED_AT} no more powers until a snack">🍽️ ${f.marks.tired}/${E.TIRED_AT}</span>` : `<span class="st bad" title="Tired: at ${E.TIRED_AT} it has to rest">🥱 ${f.marks.tired}/${E.TIRED_AT}</span>`);
     if (f.kit.q.needsGinger) out.push(`<span class="st ${f.flags.ginger ? 'good' : 'bad'}" title="Without Ginger no powers">🐭 ${f.flags.ginger ? 'Ginger is here' : 'Ginger is away'}</span>`);
-    if (f.kit.q.needsWarm) out.push(`<span class="st ${f.flags.warm ? 'good' : 'bad'}" title="No powers before the warm-up">🔥 ${f.flags.warm ? 'Warmed up' : 'Cold legs'}</span>`);
+    if (f.kit.q.needsWarm) { const w = f.kit.warmText || { cold: 'Cold legs', ok: 'Warmed up', why: 'No powers before the warm-up' }; out.push(`<span class="st ${f.flags.warm ? 'good' : 'bad'}" title="${esc(w.why)}">🔥 ${f.flags.warm ? w.ok : w.cold}</span>`); }
     return out.join('') || '&nbsp;';
   }
 
@@ -286,7 +286,7 @@
         case 'immune': add(`${N(e.who)} has a reminder spoon: nothing is forgotten!`); break;
         case 'stole': add(e.got ? `${N(e.who)} grabs the enemy’s tricks!` : 'There is nothing to grab.'); break;
         case 'overload': add(`${N(e.who)} grabs too much: the ${e.name === 'rage' ? 'anger' : 'sleepiness'} comes too!`); break;
-        case 'flag': add(e.name === 'ginger' ? (e.v ? '🐭 Ginger runs back!' : '🐭 Ginger runs away!') : e.v ? `${N(e.who)} is warmed up!` : ''); break;
+        case 'flag': add(e.name === 'ginger' ? (e.v ? '🐭 Ginger runs back!' : '🐭 Ginger runs away!') : e.v ? `${N(e.who)} ${state.g.f[e.who].kit.warmText ? state.g.f[e.who].kit.warmText.done : 'is warmed up'}!` : ''); break;
         case 'skipped': sys(`${N(e.who)} cannot act this turn!`); break;
         case 'again': sys(`${N(e.who)} acts again!`); break;
         case 'sudden': sys(`⏳ Sudden death! Both villains lose ${e.dmg} HP.`); floats.push([0, `-${e.dmg}`, 'dmg'], [1, `-${e.dmg}`, 'dmg']); break;
@@ -402,7 +402,7 @@
           <li>Ogni potere vale in “punti danno”: un turno d’attacco medio vale circa ${E.fxValue({ k: 'guard', p: 1, hits: 1 })}. Esempi: un colpo da 20 = 20; uno scudo al 50% su 2 colpi = 16; saltare un turno ≈ 19; schivata ≈ 18; guarire X ≈ 0,9X; il danno a se stessi si sottrae.</li>
           <li>Poi ogni kit è stato <b>messo a punto con migliaia di duelli simulati</b> (computer contro computer): ogni villain vince tra il 46% e il 56% dei duelli di livello Normal; chi parte per primo vince il 53%, e per questo chi gioca per secondo parte con ${E.SECOND_BONUS} HP in più.</li>
           <li><b>L’ordine conta</b>: un giocatore che ragiona batte uno che sceglie a caso il 91% delle volte (test fatto con <code>node tools/balance.js</code>). Combinazioni principali: Super Sight → colpo forte; stop-tempo → attacco; sbadigli + coperta (sonno 3); Six Seven! + Music Control (rabbia 7 = esplosione); scudo prima del colpo grosso; Honey Bear che “fa dimenticare” il potere appena usato; Four Hands che ruba scudi e boost.</li>
-          <li><b>Le sfide della vita reale</b> (Professor, Coach, Stressed Parent, Little Sibling) sono gli avversari del computer in “Villain vs Challenge”. Sono state bilanciate contro tutti i 24 villain: vincono tra il 45% e il 57% dei duelli (livello Normal) e ognuna ha almeno un villain che la batte facilmente: bisogna sceglierlo con cura.</li>
+          <li><b>Le sfide della vita reale</b> (Professor, Coach, Stressed Parent, Little Sibling) sono gli avversari del computer in “Villain vs Challenge”. Sono state bilanciate contro tutti i ${ROSTER.length} villain: vincono tra il 45% e il 57% dei duelli (livello Normal) e ognuna ha almeno un villain che la batte facilmente: bisogna sceglierlo con cura.</li>
           <li>Ogni villain è forte contro qualcuno e debole contro qualcun altro (punti deboli: dolce, mente, suono, luce, “aiutanti”). Il livello di difficoltà (★) indica quanto serve pianificare.</li>
         </ul>
         <h2>Simulazione di bilanciamento</h2>

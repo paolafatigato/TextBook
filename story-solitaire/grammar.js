@@ -145,7 +145,12 @@
   const spec = (games, c) => games[(c / 10) | 0].spec[c % 10];
 
   /** card x may stand right before card y (cards of different stories) */
-  window.midFits = (games, x, y) => fits(spec(games, x), spec(games, y));
+  window.midFits = (games, x, y) => {
+    const a = spec(games, x), b = spec(games, y);
+    // present-simple stories (myths.js) and past-simple stories never mix inside one sentence (after a full stop it is fine)
+    if (!endS(a.t) && (games[(x / 10) | 0].tense || 'past') !== (games[(y / 10) | 0].tense || 'past')) return false;
+    return fits(a, b);
+  };
   /** why not? (the card above = a, the card put under it = b), a short hint for the pupil */
   window.midWhy = (games, a, b) => {
     const p = spec(games, a), q = spec(games, b);

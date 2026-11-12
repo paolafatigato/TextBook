@@ -1,20 +1,30 @@
-PROMPT FOR GEMINI (aspect ratio 1:1, save the result as img/jobs/town.png)
+PROMPT FOR GEMINI (save the result as img/jobs/town.png). Attach one of your pencil drawings.
+Alternative: 9 separate blocks img/jobs/town-1..9.png, see gemini-prompts.html.
 
-Create a hugely detailed black-and-white line-art illustration in the style of a "Where's Waldo?" / "Where's Wally?" search-and-find book, for teenage English learners. A busy small town seen from above at an angle (bird's-eye view), packed edge to edge with tiny people at work, with a crowded main square in the middle and streets, shops and rooftops all around. Pure black ink outlines on a pure white background, NO colour, NO grey shading, NO filled black areas, NO gradients, NO text, NO letters, NO speech bubbles. Clean, even, medium-thin lines, big enough shapes to be coloured in with coloured pencils. Friendly cartoon style, funny little scenes, hundreds of small details, no empty space.
+I am attaching one of my own drawings. Create a NEW image in exactly the same style as my drawing:
+- black and white only, soft graphite pencil, slightly imprecise and wobbly hand-drawn outlines, some lines doubled or not perfectly closed, like a quick sketch made with care;
+- a little hatching with the side of the pencil for shadows, no smooth gradients, no grey fills, no digital look, no vector look;
+- pure white background, no frame, no text, no letters, no numbers, no signature;
+- characters have human bodies and human clothes, but ANIMAL HEADS (never human faces), friendly and a bit quirky, like a children's book sketch for teenagers.
 
-The town is full of workers doing their jobs: a nurse, doctors, a dentist, a firefighter with a helmet next to a fire truck, a police officer, a baker with a tall chef hat outside a bakery, a chef, waiters carrying trays of drinks outside a cafe, a mechanic in work trousers repairing a car in a garage, a hairdresser in an apron in a salon window, a farmer in big boots with a tractor at the edge of town, a mail carrier with a big bag on a bicycle, a street cleaner with a broom, a vet with a dog on a leash outside a clinic, a builder on a ladder at a building site with a crane, an ice-cream seller with a cart, a teacher with schoolchildren, a librarian, a taxi driver, a bus driver, a pilot walking with a suitcase, a lifeguard at a small pool, a gardener, a window cleaner, a painter, a photographer, a musician, a market with fruit sellers, a farmer's market, a delivery person, a tailor, a shoe shop, a pharmacy, a hotel, a school, a hospital, a train station.
-
-These 12 things MUST be clearly visible, each ONCE, as clearly separate, easy-to-colour shapes with a clearly closed outline (large white areas):
-1. the nurse's shoes
-2. the mechanic's trousers
-3. the baker's hat
-4. the firefighter's helmet
-5. the farmer's boots
-6. the hairdresser's apron
-7. the mail carrier's bag
-8. the street cleaner's broom
-9. the vet's dog leash
-10. the waiter's tray of drinks
-11. the builder's ladder
-12. the ice-cream seller's cart
-Do not hide them, but place them far apart from each other, in different corners of the picture, among many other people and objects. Add some funny hidden extras (a cat on a roof, a person asleep on a bench, a dog stealing a sausage) without making the 12 items unclear.
+WHAT TO DRAW:
+A search-and-find illustration of a small, busy town seen from above at a three-quarter angle, like a page of a "find it" book, for teenagers who will colour details with coloured pencils.
+The picture is organised as a 3x3 grid of town blocks connected by streets (the grid is NOT drawn, it is only how you arrange the scene). Put exactly one block in each place:
+- 1 · top left: the farm at the edge of town: A small wooden barn and a field. The FARMER (a deer with antlers, in overalls) stands next to a tractor, wearing a pair of rubber BOOTS on his feet (normal size, knee high). A cat sleeping on the barn roof.
+- 2 · top centre: the building site: A half-built brick house and a small crane. The BUILDER (a beaver in a hard hat) climbs a wooden LADDER leaning on the wall, carrying a bucket. A pile of bricks.
+- 3 · top right: the fire station: A fire station with its door open and a fire truck. The FIREFIGHTER (a bulldog) wears a HELMET on his head and holds a hose, a small cat stuck in a tree next to him.
+- 4 · middle left: the garage: A garage with a car with its bonnet open. The MECHANIC (a raccoon) wears work TROUSERS with pockets and holds a wrench. On the road in front, the MAIL CARRIER (a goose) rides a bicycle with a big BAG over the shoulder full of letters (no writing on them).
+- 5 · centre: the town square: A round square with a fountain and benches. The ICE-CREAM SELLER (a polar bear) stands at an ice-cream CART with an umbrella. The STREET CLEANER (a hedgehog) sweeps with a long BROOM. Someone (a sloth) is asleep on a bench.
+- 6 · middle right: the hospital and the vet: The entrance of a small hospital with a cross symbol. The NURSE (a sheep in a uniform) walks out, her SHOES clearly visible on her feet (normal size). Next door, a vet clinic with a paw symbol: the VET (an owl in a white coat) walks a dog on a long LEASH.
+- 7 · bottom left: the bakery: A bakery shop with loaves and cakes in the window and a sign showing only a loaf of bread. The BAKER (a badger) stands outside wearing a tall white chef HAT and holding a tray of baguettes.
+- 8 · bottom centre: the café: A café terrace with small round tables and customers. The WAITER (a fox with a bow tie) carries a TRAY with three drinks. A small dog under a table is stealing a sausage.
+- 9 · bottom right: the hairdresser: A hairdresser's salon with a big window: inside, the HAIRDRESSER (a poodle) wears an APRON and cuts the hair of a customer (a lion with a big mane). Next to it a pharmacy with a cross symbol and a bus stop with two people waiting.
+Between the blocks: streets, sidewalks, trees, a few extra passers-by with animal heads (a teacher with schoolchildren, a bus, a cyclist), but keep plenty of white space so the 12 items stay readable.
+The 12 "find me" items (in CAPITALS above, written in capitals only for you, NOT to be written in the picture): the nurse's shoes, the mechanic's trousers, the baker's hat, the firefighter's helmet, the farmer's boots, the hairdresser's apron, the mail carrier's bag, the street cleaner's broom, the vet's dog leash, the waiter's tray of drinks, the builder's ladder, the ice-cream seller's cart.
+STRICT RULES (very important):
+1. SCALE: every object is the NORMAL real size for the character who uses it. Shoes, boots, hats and helmets are small and worn on the body, NEVER giant, NEVER bigger than a head. All the workers are about the same size (each one roughly 1/12 of the picture height).
+2. NO TEXT ANYWHERE: no words, no letters, no numbers, not on shops, not on vehicles, not on signs. Shop signs are blank boards or show a small picture symbol (a loaf of bread, scissors, a cross).
+3. STYLE: soft graphite pencil like my drawing, slightly wobbly imprecise lines, NOT clean digital ink, NOT vector, NOT a colouring-book app.
+4. The "find me" items (the words in CAPITALS: never write them in the picture) have NO hatching at all (clean white shapes with a closed outline, ready to colour). Everything else can have light hatching.
+5. Every worker has an ANIMAL head and big perfectly round black eyes with a tiny highlight.
+Square format (1:1).

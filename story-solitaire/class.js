@@ -187,12 +187,12 @@
   function pickScreen(msg) {
     show(`<h2>🃏 Story Solitaire: class game</h2>
       <p>Choose <b>4 stories</b>. Everybody plays the same cards. Wins ⚡ who clears the table first and 🎯 who needs fewer moves.</p>
-      ${groups().map(([author, list]) => `<h4>${esc(author)}</h4><div class="cls-chips">${list.map(s =>
-        `<button type="button" class="cls-chip${T.picked.includes(s.id) ? ' on' : ''}" data-id="${s.id}" title="${esc(s.source ? s.source.book : s.title)}">${s.emoji} ${esc(s.title)}</button>`).join('')}</div>`).join('')}
+      <div class="row"><button class="btn" data-cls="random">🎲 Pick 4 for me</button><button class="btn" data-cls="myths">🏛️ The 4 Greek myths</button><button class="btn" data-cls="clear">Clear</button>
+      <button class="btn btn-main" data-cls="create"${T.picked.length === 4 ? '' : ' disabled'}>Create the room</button></div>
       <p class="cls-count"><b>${T.picked.length}</b> / 4 stories</p>
       <p class="cls-err" id="clsErr">${esc(msg || '')}</p>
-      <div class="row"><button class="btn" data-cls="random">🎲 Pick 4 for me</button><button class="btn" data-cls="clear">Clear</button>
-      <button class="btn btn-main" data-cls="create"${T.picked.length === 4 ? '' : ' disabled'}>Create the room</button></div>`, 'wide');
+      ${groups().map(([author, list]) => `<h4>${esc(author)}</h4><div class="cls-chips">${list.map(s =>
+        `<button type="button" class="cls-chip${T.picked.includes(s.id) ? ' on' : ''}" data-id="${s.id}" title="${esc(s.source ? s.source.book : s.title)}">${s.emoji} ${esc(s.title)}</button>`).join('')}</div>`).join('')}`, 'wide');
   }
 
   async function create() {
@@ -271,6 +271,7 @@
     else if (a === 'join') join();
     else if (a === 'leave') leave();
     else if (a === 'random') { T.picked = window.SSGame.stories().map(s => s.id).sort(() => Math.random() - 0.5).slice(0, 4); pickScreen(); }
+    else if (a === 'myths') { T.picked = window.SSGame.stories().filter(s => s.source && s.source.myth).map(s => s.id).slice(0, 4); pickScreen(); }
     else if (a === 'clear') { T.picked = []; pickScreen(); }
     else if (a === 'create') create();
     else if (a === 'start') B().updateRoom(T.code, { phase: 'play', t0: B().serverTime() }).catch(() => {});

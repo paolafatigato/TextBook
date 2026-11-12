@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompt Gemini</title>
+<!-- Teacher-only checklist: every empty picture box of the book (missing img/... files, data-pic placeholders, dress-up pieces,
+     farm-cards art) with a prompt for Gemini. Ticks are saved in this browser (localStorage). Not linked from the book. -->
+<style>
+  :root { --bg:#fbfaf7; --card:#fff; --ink:#222; --soft:#6b6b6b; --line:#e3e0d8; --gem:#4aa8ec; --pen:#fa6e5f; --ok:#dff2d8; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#1c1c1c; --card:#262626; --ink:#eee; --soft:#aaa; --line:#3a3a3a; --ok:#24361f; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.45 system-ui, sans-serif; }
+  main { max-width:960px; margin:0 auto; padding:16px; }
+  h1 { margin:.2em 0; font-size:1.6em; }
+  h2 { margin:1.6em 0 .4em; font-size:1.15em; border-bottom:2px solid var(--line); padding-bottom:.2em; }
+  .note { color:var(--soft); font-size:.92em; }
+  .base { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px; white-space:pre-wrap; font-size:.9em; }
+  .bar { position:sticky; top:0; z-index:5; background:var(--bg); padding:8px 0; display:flex; flex-wrap:wrap; gap:8px; align-items:center; border-bottom:1px solid var(--line); }
+  .bar button, .card button { font:inherit; border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:8px; padding:4px 10px; cursor:pointer; }
+  .bar button.on { background:var(--ink); color:var(--bg); }
+  .count { margin-left:auto; font-weight:600; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px 12px; margin:8px 0; }
+  .card.done { background:var(--ok); }
+  .head { display:flex; flex-wrap:wrap; gap:6px 12px; align-items:baseline; }
+  .head b { font-size:1.02em; }
+  code { font-size:.85em; background:rgba(0,0,0,.06); padding:1px 5px; border-radius:4px; word-break:break-all; }
+  .where { color:var(--soft); font-size:.85em; }
+  .p { margin:6px 0; font-size:.92em; }
+  .checks { display:flex; flex-wrap:wrap; gap:8px 16px; align-items:center; }
+  .checks label { display:flex; gap:5px; align-items:center; cursor:pointer; font-weight:600; }
+  .checks label.g { color:var(--gem); } .checks label.m { color:var(--pen); }
+  .checks input { width:18px; height:18px; }
+  .hide { display:none; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Prompt per Gemini · riquadri vuoti del libro</h1>
+  <p class="note">Tutti i riquadri immagine del libro che sono ancora vuoti (file che mancano in <code>img/…</code>). Per ognuno: dove salvarlo, il prompt e due spunte — <b style="color:var(--gem)">Gemini</b> se l’hai fatta fare a Gemini, <b style="color:var(--pen)">a matita</b> se l’hai ricopiata e ridisegnata tu. Le spunte restano salvate in questo browser. Il bottone “Copia prompt” copia già la parte comune + la parte specifica: allega a Gemini uno dei tuoi disegni (il topo con la matita, il cervo col teschio o il gruppo di ragazzi) e incolla.</p>
+
+  <details><summary><b>Parte comune (già inclusa in ogni “Copia prompt”)</b></summary><div class="base" id="base"></div></details>
+
+  <div class="bar">
+    <button data-f="all" class="on">Tutti</button>
+    <button data-f="todo">Da fare</button>
+    <button data-f="gem">Solo Gemini fatto</button>
+    <button data-f="done">Ridisegnati</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div id="list"></div>
+</main>
+
+<script>
+const ROUND = 'big, perfectly round eyes: a solid black disc with a tiny white highlight (like the mouse in my drawing)';
+const LONG = 'big, elongated almond-shaped eyes with a black pupil, a small highlight and a few eyelashes (like the deer in my drawing)';
+
+const BASE = `I am attaching one of my own drawings. Create a NEW image in exactly the same style as my drawing:
+- black and white only, soft graphite pencil, slightly imprecise and wobbly hand-drawn outlines, some lines doubled or not perfectly closed, like a quick sketch made with care;
+- a little hatching with the side of the pencil for shadows, no smooth gradients, no grey fills, no digital look, no vector look;
+- pure white background, no frame, no text, no letters, no numbers, no signature;
+- characters have human bodies and human clothes, but ANIMAL HEADS (never human faces), friendly and a bit quirky, like a children's book sketch for teenagers.`;
+
+const A = { // aspect hints
+  sq:'Square format (1:1).', p34:'Portrait format (3:4).', l32:'Landscape format (3:2).', l43:'Landscape format (4:3).', l169:'Landscape format (16:9).'
+};
+const ch = (eye, text, ar) => `${text}\nEyes: ${eye}.\n${A[ar] || ar}`;
+const obj = (text, ar='sq') => `${text}\nThis is an OBJECT drawing: no characters, no hands, no people. The object alone, centred, filling most of the image.\n${A[ar] || ar}`;
+const human = (text, ar) => `${text}\nTHIS character is a HUMAN (not an animal head) because in the story the humans are the enemies of the animals; keep the same pencil style and give him big expressive almond-shaped eyes.\n${A[ar] || ar}`;
+const farm = (text) => `${text}\nThis is a real farm animal (on four legs where natural, no human clothes), with big perfectly round eyes, solid black with a tiny highlight, so it looks expressive. Card illustration, the animal fills the image.\n${A.p34}`;
+const garment = (name) => obj(`A single ${name}, drawn alone, flat front view as if laid on a table, so it can be cut out and placed on a paper doll. Clear, closed outlines so pupils can colour it.`);
+const deco = (name) => obj(`A decorative drawing of a ${name}, alone, seen slightly from three-quarters, with a few folds and hatching, like an illustration in a fashion sketchbook.`);
+
+const G = [];
+const add = (group, file, where, prompt) => G.push({ group, file, where, prompt });
+
+/* ---------- Present simple / extra reading / CLIL ---------- */
+add('Present simple · extra reading e CLIL', 'img/auggie-face.png', 'ps-extra-reading · cerchio “Auggie’s face”',
+  ch(ROUND, 'Head-and-shoulders portrait of Auggie, a shy, kind 10-year-old boy from the novel "Wonder", with the head of a small owlet whose face is a little uneven and unusual, drawn with tenderness, not scary. He wears a hoodie and holds a toy astronaut helmet under his arm. A gentle, hopeful little smile. The portrait will be cut into a circle, so keep the head in the centre.', 'sq'));
+add('Present simple · extra reading e CLIL', 'img/perfect-day.png', 'ps-extra-reading · riquadro “My perfect day”',
+  ch(LONG, 'A teenager with the head of a happy otter on a dream day: lying in a hammock between two palm trees, a slice of pizza in one paw, headphones on, a dog asleep below, a little ice-cream cart nearby and the sea in the background. Relaxed, slightly absurd and funny.', 'Almost square, slightly wider than tall (7:6).'));
+add('Present simple · extra reading e CLIL', 'img/clil/wulf.jpg', 'ps-clil-wulf · foto di Wulf (Longobardi, circa 600 d.C.)',
+  ch(LONG, 'Wulf, a 13-year-old Longobard boy around 600 AD in northern Italy, son of a warrior, with the head of a young wolf. Long hair tied back, a wool tunic with a belt, a short cloak fastened with a big round brooch, leather shoes with straps. He holds a small round wooden shield and a wooden practice sword, proud but still a kid. Behind him, a few wooden houses with thatched roofs and a fence.', 'p34'));
+add('Present simple · extra reading e CLIL', 'img/clil/aemilia.jpg', 'ps-clil-aemilia · foto di Aemilia (Romani, circa 350 d.C.)',
+  ch(ROUND, 'Aemilia, a 12-year-old Roman girl around 350 AD in Mediolanum (Milan), daughter of a senator, with the head of a young fawn. Hair in a braided bun, a long tunic and a draped stola, a small bulla necklace. She holds a wax tablet and a stylus. Behind her, the atrium of a rich Roman domus: columns, a small pool (impluvium), a mosaic floor.', 'p34'));
+
+/* ---------- Habits ---------- */
+add('Tiny habits', 'img/habits/loop-phone.png', 'hb-loop · “a phone that buzzes”',
+  obj('A smartphone lying on a desk, buzzing: little vibration lines around it, a blank notification bubble popping out of the screen (no text), a cup and a pencil next to it.'));
+add('Tiny habits', 'img/habits/identity.png', 'hb-loop · “I am a reader”',
+  ch(ROUND, 'A teenager with the head of a cat wearing big square glasses, sitting cross-legged on a pile of cushions and reading a book with great pleasure, a tall stack of books beside them, a mug of tea. Proud, calm, "this is who I am" feeling.', 'sq'));
+add('Tiny habits', 'img/habits/flames.png', 'hb-bad · “two hands with small flames”',
+  obj('Two cupped hands seen from the front, each holding a small dancing flame, like holding a bad habit that can burn you. Only the hands and wrists, with sleeves; no face.'));
+add('Tiny habits', 'img/habits/workout.png', 'hb-attractive · “a workout that feels good”',
+  ch(LONG, 'A teenager with the head of a hare, in a tracksuit and sneakers, jogging happily with big headphones on, eyes half closed enjoying the music, ears flying behind. A bottle of water and a small smoothie waiting on a bench.', 'sq'));
+add('Tiny habits', 'img/habits/friends.png', 'hb-advice · “two friends who help each other”',
+  ch(ROUND, 'Two teenage friends helping each other: a small hedgehog girl with a beanie gives a hand to a big clumsy bear-cub boy who is carrying a tower of books that is about to fall; both laughing.', 'sq'));
+add('Tiny habits', 'img/habits/talk.png', 'hb-advice2 · “two friends talking”',
+  ch(LONG, 'Two teenage friends sitting on a park bench and talking: a fox girl with a denim jacket explains something with her hands, a duck boy with a striped T-shirt listens carefully. Kind, calm, "good advice" feeling.', 'l32'));
+
+/* ---------- Personality / villains ---------- */
+add('Personality · i cattivi', 'img/villain-potion.png', 'pers-villain-words e pers-villain-powers · in alto a sinistra',
+  obj('A round glass potion flask with a cork, half full of a bubbling liquid, smoke and little bubbles coming out of the top, a small tag tied to the neck (no text on it). Evil-scientist feeling, a bit funny.', 'p34'));
+add('Personality · i cattivi', 'img/villain-skull.png', 'pers-villain-words e pers-villain-powers · in basso a destra',
+  obj('A small cartoon skull with two crossed bones behind it, slightly cute rather than scary, with a little crack on the top.'));
+
+/* ---------- Jobs ---------- */
+/* Busy Town (9.27): the first tries came out with giant shoes/boots, written shop signs and a clean digital line,
+   so the prompt is a 3x3 map with explicit scale rules. Alternative: the 9 blocks one by one, joined by hand. */
+const TOWN_RULES = `STRICT RULES (very important):
+1. SCALE: every object is the NORMAL real size for the character who uses it. Shoes, boots, hats and helmets are small and worn on the body, NEVER giant, NEVER bigger than a head. All the workers are about the same size (each one roughly 1/12 of the picture height).
+2. NO TEXT ANYWHERE: no words, no letters, no numbers, not on shops, not on vehicles, not on signs. Shop signs are blank boards or show a small picture symbol (a loaf of bread, scissors, a cross).
+3. STYLE: soft graphite pencil like my drawing, slightly wobbly imprecise lines, NOT clean digital ink, NOT vector, NOT a colouring-book app.
+4. The "find me" items (the words in CAPITALS: never write them in the picture) have NO hatching at all (clean white shapes with a closed outline, ready to colour). Everything else can have light hatching.
+5. Every worker has an ANIMAL head and big perfectly round black eyes with a tiny highlight.`;
+const TOWN_CELLS = [
+  ['1 · top left: the farm at the edge of town', 'A small wooden barn and a field. The FARMER (a deer with antlers, in overalls) stands next to a tractor, wearing a pair of rubber BOOTS on his feet (normal size, knee high). A cat sleeping on the barn roof.'],
+  ['2 · top centre: the building site', 'A half-built brick house and a small crane. The BUILDER (a beaver in a hard hat) climbs a wooden LADDER leaning on the wall, carrying a bucket. A pile of bricks.'],
+  ['3 · top right: the fire station', 'A fire station with its door open and a fire truck. The FIREFIGHTER (a bulldog) wears a HELMET on his head and holds a hose, a small cat stuck in a tree next to him.'],
+  ['4 · middle left: the garage', 'A garage with a car with its bonnet open. The MECHANIC (a raccoon) wears work TROUSERS with pockets and holds a wrench. On the road in front, the MAIL CARRIER (a goose) rides a bicycle with a big BAG over the shoulder full of letters (no writing on them).'],
+  ['5 · centre: the town square', 'A round square with a fountain and benches. The ICE-CREAM SELLER (a polar bear) stands at an ice-cream CART with an umbrella. The STREET CLEANER (a hedgehog) sweeps with a long BROOM. Someone (a sloth) is asleep on a bench.'],
+  ['6 · middle right: the hospital and the vet', 'The entrance of a small hospital with a cross symbol. The NURSE (a sheep in a uniform) walks out, her SHOES clearly visible on her feet (normal size). Next door, a vet clinic with a paw symbol: the VET (an owl in a white coat) walks a dog on a long LEASH.'],
+  ['7 · bottom left: the bakery', 'A bakery shop with loaves and cakes in the window and a sign showing only a loaf of bread. The BAKER (a badger) stands outside wearing a tall white chef HAT and holding a tray of baguettes.'],
+  ['8 · bottom centre: the café', 'A café terrace with small round tables and customers. The WAITER (a fox with a bow tie) carries a TRAY with three drinks. A small dog under a table is stealing a sausage.'],
+  ['9 · bottom right: the hairdresser', 'A hairdresser\'s salon with a big window: inside, the HAIRDRESSER (a poodle) wears an APRON and cuts the hair of a customer (a lion with a big mane). Next to it a pharmacy with a cross symbol and a bus stop with two people waiting.'],
+];
+add('Jobs', 'img/jobs/town.png', 'jobs-riddles · 9.27 Busy Town · versione intera (mappa 3×3)',
+  `A search-and-find illustration of a small, busy town seen from above at a three-quarter angle, like a page of a "find it" book, for teenagers who will colour details with coloured pencils.
+The picture is organised as a 3x3 grid of town blocks connected by streets (the grid is NOT drawn, it is only how you arrange the scene). Put exactly one block in each place:
+${TOWN_CELLS.map(([w, d]) => `- ${w}: ${d}`).join('\n')}
+Between the blocks: streets, sidewalks, trees, a few extra passers-by with animal heads (a teacher with schoolchildren, a bus, a cyclist), but keep plenty of white space so the 12 items stay readable.
+The 12 "find me" items (in CAPITALS above, written in capitals only for you, NOT to be written in the picture): the nurse's shoes, the mechanic's trousers, the baker's hat, the firefighter's helmet, the farmer's boots, the hairdresser's apron, the mail carrier's bag, the street cleaner's broom, the vet's dog leash, the waiter's tray of drinks, the builder's ladder, the ice-cream seller's cart.
+${TOWN_RULES}
+${A.sq}`);
+TOWN_CELLS.forEach(([w, d], i) =>
+  add('Busy Town a pezzi (alternativa: 9 blocchi da unire a mano)', `img/jobs/town-${i + 1}.png`, `blocco ${w} · poi li monti 3×3 in img/jobs/town.png`,
+    `One block of a small town seen from above at a three-quarter angle (it will be joined by hand with 8 other blocks drawn in the same view, so keep the same angle and leave a street or sidewalk along all four edges).
+${d}
+Add 2–3 small passers-by with animal heads and a tree or two, nothing more.
+${TOWN_RULES}
+${A.sq}`));
+add('Jobs', 'img/dating/heart-cv.png', 'jobs-dating-cv · “a heart on a CV”',
+  obj('A sheet of paper that is clearly a CV/résumé: a small photo box, lines of scribbled pretend writing (no readable letters), and a big hand-drawn heart on it, as if someone drew it with a pen; the pen lies next to the sheet.'));
+
+/* ---------- Dating ---------- */
+add('Dating', 'img/dating/shrek.png', 'dt-profile · foto del profilo modello “Shrek”',
+  ch(ROUND, 'A big, friendly swamp ogre with the head of a huge toad: wide funny smile, two little ears shaped like trumpets, a tuft of hair, a simple waistcoat over a loose shirt. He proudly holds up an onion. Reeds and mud of a swamp behind him. A quirky original character, NOT a copy of any film character.', 'l32'));
+
+/* ---------- Describing photos ---------- */
+const PH = 'Draw it like a photo of a real scene (everybody with animal heads), with a clear foreground, middle and background, because pupils will describe it ("in the foreground…", "on the left…"). Keep all the listed details clearly visible.';
+add('Describing photos (scaf-dp-key)', 'img/photos/photo1.png', 'Photo 1 · the park (sunny, summer)',
+  ch(ROUND, `${PH}\nIn the foreground a girl (rabbit head) in a jacket and jeans riding a bike. On the left a boy with short dark hair (bear-cub head) reading on a bench. In the middle a dog running after a ball. On the right an ice-cream seller at a big cart. In the background trees and a lake with two ducks. A kite at the top right. Flowers at the bottom left, a picnic basket at the bottom right.`, 'l43'));
+add('Describing photos (scaf-dp-key)', 'img/photos/photo2.png', 'Photo 2 · the kitchen (rainy)',
+  ch(LONG, `${PH}\nOn the left a mother (cat head) cooking at the stove. In the middle a father (badger head) in an apron and a boy (fox head) in a T-shirt laying the table: exactly three plates, glasses, a vase of flowers. A real cat sitting on a chair near the table. On the right a fridge with a clock above it. Rain on the window behind.`, 'l32'));
+add('Describing photos (scaf-dp-key)', 'img/photos/photo3.png', 'Photo 3 · the beach (sunny)',
+  ch(ROUND, `${PH}\nIn the foreground two friends (otter and hare heads) playing volleyball. At the bottom left a girl (mouse head) building a sandcastle. On the right a family sitting under a big beach umbrella. A boy swimming. In the background boats on the sea and exactly three seagulls in the sky. Everybody wears sunglasses or hats.`, 'l32'));
+add('Describing photos (scaf-dp-key)', 'img/photos/photo4.png', 'Photo 4 · the classroom',
+  ch(LONG, `${PH}\nOn the left a teacher (heron head) with glasses, short dark hair and a jacket at the board. In the middle pupils at desks; a girl (squirrel head) in a sweater raising her hand, with a big bag under her desk. Posters on the wall on the right (no text on them), a plant on the window sill.`, 'l32'));
+add('Describing photos (scaf-dp-key)', 'img/photos/photo5.png', 'Photo 5 · the party',
+  ch(ROUND, `${PH}\nIn the middle a boy (raccoon head) blowing out the candles of a birthday cake, friends with different animal heads clapping around him. Balloons at the top. Presents on the table in front. A girl (lamb head) in a dress and a party hat. A dog under the table.`, 'l32'));
+add('Describing photos (scaf-dp-key)', 'img/photos/photo6.png', 'Photo 6 · the museum trip',
+  ch(LONG, `${PH}\nIn the background a guide (giraffe head) pointing at a big dinosaur skeleton. In the foreground pupils with animal heads taking photos with phones and writing notes; one boy (frog head) kneeling to tie his shoelace. On the left a sign with a crossed-out mouth symbol (no letters).`, 'l32'));
+
+/* ---------- Orwell ---------- */
+add('Orwell · Animal Farm e 1984', 'img/orwell/af-pig.(png/jpg)', 'af-quiz · copertina “Animal Farm”',
+  farm('A pig standing on its hind legs like a leader, chest out, one trotter raised as if making a speech, a farmhouse and a windmill far behind.'));
+add('Orwell · Animal Farm e 1984', 'img/orwell/af-meeting.(png/jpg)', 'af-meeting · la riunione nel fienile, DA COLORARE (arancione, marrone, azzurro, grigio, rosa)',
+  `Night inside a big wooden barn lit by a hanging lantern. Old Major, a huge old white boar, lies on a raised bed of straw and speaks; all the farm animals listen: two big carthorses, an old donkey, a white mare with ribbons in her mane, pigs in front, three dogs, sheep, cows, hens and pigeons on the beams, a cat looking for the warmest spot, a raven asleep on a perch. Real farm animals (no clothes) with big perfectly round expressive eyes.
+This picture is TO COLOUR: very light hatching, large closed white areas, clear outlines.
+Portrait format, almost square (9:10).`);
+add('Orwell · Animal Farm e 1984', 'img/orwell/af-beasts-song.(png/jpg)', 'af-beasts · striscia larga: gli animali cantano',
+  `A long horizontal frieze of farm animals singing all together in the barn, mouths open, heads up: horses, a donkey, cows, pigs, sheep, dogs, hens, ducks, a cat; little musical notes floating above them. Real farm animals with big perfectly round eyes.
+VERY wide panoramic strip (about 6:1): the animals in a single row.`);
+add('Orwell · Animal Farm e 1984', 'img/orwell/eye.(png/jpg)', 'n1984 · “Big Brother is watching you”',
+  obj('One single huge staring eye, wide open, perfectly round dark iris, heavy eyebrow and lashes, on an old torn poster stuck to a brick wall. Cold, watchful, a bit creepy. No text: the slogan is written on the page.', 'sq'));
+
+/* ---------- Romeo & Juliet ---------- */
+const RJ = 'The Montagues are hares, the Capulets are cats (Tybalt is "the Prince of Cats"). Renaissance clothes from Verona: doublets, puffed sleeves, long gowns, capes.';
+add('Romeo e Giulietta', 'img/romeo/cover.(png/jpg)', 'rj-verona · copertina',
+  ch(LONG, `${RJ}\nRomeo (a young hare in a doublet) and Juliet (a young cat in a long gown) holding hands under a balcony covered with roses; the rooftops and towers of Verona behind them. Romantic and a bit funny.`, 'p34'));
+const chars = [
+  ['romeo', 'Romeo', ROUND, 'a romantic young man, a Montague: a young hare with long ears, a dreamy look, a doublet and a rose in his hand'],
+  ['juliet', 'Juliet', LONG, 'a 13-year-old girl, a Capulet: a young cat with her hair in a braid with pearls, a long gown, brave and curious'],
+  ['tybalt', 'Tybalt', LONG, 'Juliet\'s angry cousin, "the Prince of Cats": a sleek black cat with a sword and a feathered hat, an arrogant sneer'],
+  ['benvolio', 'Benvolio', ROUND, 'Romeo\'s peaceful cousin, a Montague: a calm hare who raises his paws to stop a fight'],
+  ['mercutio', 'Mercutio', LONG, 'Romeo\'s funny, wild friend (neither Montague nor Capulet): a fox with a wide grin, juggling, a jester-like colourful cape (lines only)'],
+  ['nurse', 'the Nurse', ROUND, 'Juliet\'s chatty old nurse: a plump hen in an apron and a bonnet, laughing loudly'],
+  ['lord-capulet', 'Lord Capulet', LONG, 'Juliet\'s father: a big serious tomcat with grey whiskers, a heavy chain and a velvet robe'],
+  ['lady-montague', 'Lady Montague', LONG, 'Romeo\'s worried mother: an elegant hare with a veil and a long gown'],
+  ['friar-lawrence', 'Friar Lawrence', ROUND, 'the friar who helps the lovers: a kind old badger in a monk\'s robe with a rope belt, a basket of herbs and small potion bottles'],
+  ['prince-escalus', 'Prince Escalus', LONG, 'the prince of Verona: a lion with a crown and a long cloak, stern, pointing his finger'],
+  ['paris', 'Paris', LONG, 'the rich young man who wants to marry Juliet: a vain peacock-head nobleman with a bunch of flowers'],
+  ['abram', 'Abram', ROUND, 'a servant of the Montagues: a scruffy little terrier dog with a broom, biting his thumb at someone'],
+];
+for (const [id, name, eye, d] of chars)
+  add('Romeo e Giulietta', `img/romeo/char-${id}.(png/jpg)`, `rj-verona · scheda personaggio ${name}`,
+    ch(eye, `${RJ}\nBust portrait (head and shoulders) of ${name}, ${d}.`, 'sq'));
+add('Romeo e Giulietta', 'img/romeo/party.(png/jpg)', 'rj-party · la festa dai Capuleti',
+  ch(LONG, `${RJ}\nA masked ball at the Capulets' house: guests with animal heads dancing, wearing half masks, musicians with lutes, a long table of food, candles. In the middle Romeo and Juliet see each other for the first time and touch hands.`, 'l32'));
+add('Romeo e Giulietta', 'img/romeo/balcony.(png/jpg)', 'rj-balcony · la scena del balcone',
+  ch(LONG, `${RJ}\nNight. Juliet on a stone balcony looking at the moon and the stars; Romeo hiding in the garden below among bushes and trees, looking up at her in love.`, 'p34'));
+add('Romeo e Giulietta', 'img/romeo/rehearsal.(png/jpg)', 'rj-rehearsal · attori sul palco',
+  ch(ROUND, 'Modern teenagers with animal heads rehearsing Romeo and Juliet on a school stage: one holds the script, one stands on a cardboard balcony, one is on the floor laughing because he forgot his lines, a teacher-director with a megaphone in the front row.', 'l32'));
+
+/* ---------- Shakespeare ---------- */
+add('Shakespeare', 'img/shakespeare/machine.(png/jpg)', 'shk-rhyme-machine · “an engraving of a machine”',
+  obj('A whimsical Victorian "rhyme machine": a big contraption with gears, a funnel on top where words go in, pipes, a crank handle, little puffs of steam and a small tray where words come out (no letters, only small blank cards).', 'l43'));
+add('Shakespeare', 'img/shakespeare/model-1.(png/jpg)', 'shk-meet · Model clue 1 (indizio: è uno scrittore)',
+  obj('A goose-feather quill pen and an old inkpot standing on a sheet of paper covered with scribbled pretend handwriting (no readable letters), a drop of ink on the paper.'));
+add('Shakespeare', 'img/shakespeare/model-2.(png/jpg)', 'shk-meet · Model clue 2 (indizio: il padre faceva guanti → “Do you work with leather?”)',
+  obj('A pair of old-fashioned leather gloves with stitching and a little embroidered cuff, next to a pair of scissors and a piece of leather.'));
+
+/* ---------- Farm cards ---------- */
+const FC = [
+  ['rats', 'The rats', 'farm', 'Three sneaky rats peeping out of a hole in the barn wall.'],
+  ['mollie', 'Mollie', 'farm', 'Mollie, a pretty, vain white mare with ribbons in her mane, chewing a lump of sugar.'],
+  ['moses', 'Moses', 'farm', 'Moses, a tame black raven on a branch, beak open as if telling a story about a magical mountain in the clouds behind him.'],
+  ['hens', 'The hens', 'farm', 'Three angry hens protecting a nest of eggs, feathers ruffled.'],
+  ['sheep', 'The sheep', 'farm', 'A crowd of sheep all bleating together, mouths wide open.'],
+  ['jones', 'Mr Jones', 'human', 'Mr Jones, a messy, sleepy farmer with a big belly, an unbuttoned shirt and a lantern, yawning at the farm gate.'],
+  ['frederick', 'Mr Frederick', 'human', 'Mr Frederick, a tough, mean little farmer with a cowboy-style hat and a whip, squinting suspiciously.'],
+  ['pilkington', 'Mr Pilkington', 'human', 'Mr Pilkington, a relaxed gentleman farmer in a tweed jacket, fishing with a rod and not caring about his farm.'],
+  ['squealer', 'Squealer', 'farm', 'Squealer, a small, plump, very talkative pig standing on a barrel, waving a trotter, tail twitching.'],
+  ['benjamin', 'Benjamin', 'farm', 'Benjamin, an old grumpy donkey with a wise, bored look, standing next to a fence.'],
+  ['clover', 'Clover', 'farm', 'Clover, a big gentle motherly mare protecting a few ducklings near her front leg.'],
+  ['dogs', 'The dogs', 'farm', 'Three fierce dogs growling, showing their teeth, with big studded collars.'],
+  ['major', 'Old Major', 'farm', 'Old Major, a huge old wise white boar with long tusks, lying on straw, looking straight at us.'],
+  ['boxer', 'Boxer', 'farm', 'Boxer, an enormous strong carthorse pulling a cart full of stones, determined, a white stripe on his nose.'],
+  ['napoleon', 'Napoleon', 'farm', 'Napoleon, a big fierce boar standing proud with a cruel look, two dogs at his sides.'],
+  ['snowball', 'Snowball', 'farm', 'Snowball, a lively, clever young pig drawing the plan of a windmill with chalk on the barn floor.'],
+];
+for (const [id, name, kind, d] of FC)
+  add('Animal Farm Cards (cartella farm-cards)', `farm-cards/img/${id}.png`, `carta “${name}”`,
+    kind === 'human' ? human(d, 'p34') : farm(d));
+
+/* ---------- Clothes chapter art ---------- */
+for (const n of ['bag','boots','coat','dress','gloves','hat','heels','hoodie','jeans','necklace','scarf','shorts','sneakers','socks','sunglasses','sweater','tie','tshirt','watch'])
+  add('Clothes · disegni decorativi (ora c’è un sostituto)', `img/clothes/art/${n}.png`, 'capitolo Clothes · disegno decorativo del capo',
+    deco({ tshirt: 'T-shirt', heels: 'pair of high heels', boots: 'pair of boots', gloves: 'pair of gloves', jeans: 'pair of jeans', shorts: 'pair of shorts', sneakers: 'pair of sneakers', socks: 'pair of socks', sunglasses: 'pair of sunglasses' }[n] || n));
+
+/* ---------- Dress-up game ---------- */
+const PAIR = { boots:1, 'cowboy-boots':1, earrings:1, 'flip-flops':1, glasses:1, 'high-heels':1, leggings:1, loafers:1, mittens:1, pajamas:1, sandals:1, slippers:1, 'suit-pants':1, suspenders:1, 'swim-trunks':1 };
+for (const n of ['apron','beanie','belt','bikini','blouse','boots','bow-tie','bracelet','cardigan','colorful-coat','cowboy-boots','dress','earrings','fancy-jacket','fleece','flip-flops','fur-coat','glasses','handbag','hat','headband','high-heels','leggings','loafers','maxi-skirt','mittens','necklace','pajamas','polo-shirt','ring','sandals','scrunchie','shirt','slippers','suit-pants','suit','suspenders','swim-trunks','swimsuit','tie','top-hat','tracksuit','turtleneck','umbrella','uniform','vest','wallet','watch','wig'])
+  add('Dress-up game (p. 292-293) · ora c’è l’emoji', `img/dress/${n}.png`, 'dress-up · pezzo da vestire la bambola (stile degli altri pezzi già in img/dress)',
+    garment((PAIR[n] ? 'pair of ' : '') + n.replace(/-/g, ' ')));
+
+/* ---------- render ---------- */
+const KEY = 'gemini-prompts-v1';
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+const esc = s => s.replace(/[&<>]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' })[c]);
+document.getElementById('base').textContent = BASE;
+
+const list = document.getElementById('list');
+let html = '', last = '';
+G.forEach((it, i) => {
+  if (it.group !== last) { html += `<h2 data-g="${esc(it.group)}">${esc(it.group)}</h2>`; last = it.group; }
+  html += `<div class="card" data-i="${i}" data-g="${esc(it.group)}">
+    <div class="head"><b>${esc(it.file.split('/').pop())}</b><code>${esc(it.file)}</code></div>
+    <div class="where">${esc(it.where)}</div>
+    <div class="p">${esc(it.prompt).replace(/\n/g, '<br>')}</div>
+    <div class="checks">
+      <button type="button" class="copy">📋 Copia prompt</button>
+      <label class="g"><input type="checkbox" data-k="g"> Gemini</label>
+      <label class="m"><input type="checkbox" data-k="m"> Ridisegnato a matita</label>
+    </div></div>`;
+});
+list.innerHTML = html;
+
+let filter = 'all';
+function refresh() {
+  let g = 0, m = 0;
+  list.querySelectorAll('.card').forEach(c => {
+    const s = state[G[c.dataset.i].file] || {};
+    c.querySelector('[data-k=g]').checked = !!s.g;
+    c.querySelector('[data-k=m]').checked = !!s.m;
+    c.classList.toggle('done', !!s.m);
+    if (s.g) g++; if (s.m) m++;
+    const show = filter === 'all' || (filter === 'todo' && !s.g && !s.m) || (filter === 'gem' && s.g && !s.m) || (filter === 'done' && s.m);
+    c.classList.toggle('hide', !show);
+  });
+  list.querySelectorAll('h2').forEach(h => {
+    const any = [...list.querySelectorAll(`.card[data-g="${CSS.escape(h.dataset.g)}"]`)].some(c => !c.classList.contains('hide'));
+    h.classList.toggle('hide', !any);
+  });
+  document.getElementById('count').textContent = `${G.length} immagini · Gemini ${g} · a matita ${m}`;
+}
+list.addEventListener('change', e => {
+  const c = e.target.closest('.card'); if (!c) return;
+  const f = G[c.dataset.i].file;
+  state[f] = state[f] || {};
+  state[f][e.target.dataset.k] = e.target.checked;
+  save(); refresh();
+});
+list.addEventListener('click', async e => {
+  if (!e.target.classList.contains('copy')) return;
+  const it = G[e.target.closest('.card').dataset.i];
+  const text = `${BASE}\n\nWHAT TO DRAW:\n${it.prompt}`;
+  try { await navigator.clipboard.writeText(text); }
+  catch (err) { const t = document.createElement('textarea'); t.value = text; document.body.append(t); t.select(); document.execCommand('copy'); t.remove(); }
+  e.target.textContent = '✓ Copiato'; setTimeout(() => e.target.textContent = '📋 Copia prompt', 1200);
+});
+document.querySelector('.bar').addEventListener('click', e => {
+  if (!e.target.dataset.f) return;
+  filter = e.target.dataset.f;
+  document.querySelectorAll('.bar button').forEach(b => b.classList.toggle('on', b === e.target));
+  refresh();
+});
+refresh();
+</script>
+</body>
+</html>

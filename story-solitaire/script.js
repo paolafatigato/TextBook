@@ -163,7 +163,7 @@
   }
 
   // a story that comes from a book sends the pupils to the original
-  const srcLine = g => g.source ? `<p class="src">📖 Inspired by <b>“${esc(g.source.book)}”</b> by ${esc(g.source.author)}. Read the original!</p>` : '';
+  const srcLine = g => g.source && g.source.myth ? '<p class="src">🏛️ A Greek myth, told in the present simple.</p>' : g.source ? `<p class="src">📖 Inspired by <b>“${esc(g.source.book)}”</b> by ${esc(g.source.author)}. Read the original!</p>` : '';
 
   // what is on a story pile so far, as a text
   const told = (g, n) => g.lines.slice(0, n).join(' ') + (n < E.N ? ' …' : '');
