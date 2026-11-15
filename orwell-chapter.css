@@ -201,14 +201,14 @@
 .ow-clue-head { align-items: end; padding-bottom: .5cqw; border-bottom: .14cqw solid var(--ow-ink); font: var(--ow-label); letter-spacing: .12em; text-transform: uppercase; }
 .ow-clue-head small { display: block; margin-top: .3cqw; font: 400 .9cqw/1 var(--ow-type); text-transform: none; letter-spacing: 0; color: #8a7f72; }
 .ow-clues ol { list-style: none; margin: 0; padding: 0; }
-.ow-clues li { align-items: center; height: 7.4cqw; border-bottom: .12cqw solid var(--ow-line); }
+.ow-clues li { align-items: center; height: 6cqw; }
 .ow-clues li > b { align-self: start; margin-top: .9cqw; font: 400 1.6cqw/1 var(--ow-head); color: var(--ow-o); }
 .ow-clues textarea.fill {
-  height: 7cqw; padding: 0 .3cqw; font-size: 1.5cqw; line-height: 3.5cqw; overflow: hidden;
-  background: repeating-linear-gradient(transparent 0 calc(3.5cqw - .12cqw), var(--ow-line) calc(3.5cqw - .12cqw) 3.5cqw);
+  height: 6cqw; padding: 0 .3cqw; font-size: 1.5cqw; line-height: 3cqw; overflow: hidden;
+  background: repeating-linear-gradient(transparent 0 calc(3cqw - .12cqw), var(--ow-line) calc(3cqw - .12cqw) 3cqw);
 }
 .ow-clues li .pd-mark { margin-left: 0; justify-self: center; }
-.ow-clues li.model { height: 7.6cqw; background: rgba(255,155,133,.16); }
+.ow-clues li.model { height: 6.6cqw; border-bottom: .12cqw solid var(--ow-line); background: rgba(255,155,133,.16); }
 .ow-clues li.model > span { font: 400 1.25cqw/1.3 'Patrick Hand', cursive; color: #5a5249; }
 .ow-clues li.model > b { margin-left: .2cqw; font: 500 1.6cqw/1 var(--ow-script); color: var(--ow-o); }
 .ow-clues li.model > em { justify-self: center; font: 800 1.7cqw/1 'Nunito', sans-serif; font-style: normal; color: #43a047; }
@@ -243,10 +243,9 @@
 /* [author-clues:R]: our facts, then in order */
 .ow-tl { z-index: 2; list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, auto); column-gap: 3cqw; }
 .ow-tl li { display: flex; align-items: flex-end; gap: .8cqw; height: 4.8cqw; border-bottom: .12cqw solid var(--ow-line); }
-.ow-tl li > i { flex: 0 0 2cqw; padding-bottom: .7cqw; font: 400 1.4cqw/1 var(--ow-head); font-style: normal; color: var(--ow-o); }
 .ow-tl input.fill { height: 3.6cqw; font-size: 1.7cqw; }
-.ow-tl input.ow-tl-year { flex: 0 0 6.6cqw; width: 6.6cqw; text-align: center; border-radius: 999px; background: var(--ow-card); box-shadow: inset 0 0 0 .12cqw var(--ow-line); }
-.ow-tl input.ow-tl-year::placeholder { color: #bbb0a2; font: 400 1.05cqw var(--ow-type); }
+.ow-tl .ow-tl-year { flex: 0 0 6.6cqw; width: 6.6cqw; align-self: center; padding: .7cqw 0; text-align: center; border-radius: 999px; background: var(--ow-ink); color: var(--ow-paper); font: 400 1.6cqw/1 var(--ow-head); }
+.ow-tl .ow-tl-clue { flex: 0 0 5.4cqw; align-self: center; text-align: center; font-size: 2.3cqw; line-height: 1; letter-spacing: .1cqw; white-space: nowrap; }
 .ow-tl.sorted li { animation: owSorted .6s ease-out; }
 @keyframes owSorted { from { background: rgba(255,155,133,.45); } to { background: transparent; } }
 /* the score as a ticket stub */
@@ -736,3 +735,21 @@
 .ow-modal .am-sentence { min-height: 64px; margin: 0 0 6px; font: 400 25px/1.3 'Gloock', Georgia, serif; color: #2b2723; }
 .ow-modal .am-kept { margin: 12px auto 0; padding-left: 26px; max-width: 520px; text-align: left; font: 700 16px/1.6 'Nunito', sans-serif; color: #4a433c; }
 .ow-modal .rj-card.up { color: #2b2723; }
+
+/* scaffolding: things to bring (teacher only) */
+.ow-scf .ow-bring-h { margin: 2.2cqw 0 .8cqw; font: 700 2.6cqw 'Fredoka', 'Nunito', sans-serif; color: var(--navy); }
+.ow-scf .scf-title + .scf-sub { margin-bottom: 0; }
+.ow-bring { list-style: none; margin: 0; padding: 0; }
+.ow-bring li { border-bottom: .12cqw solid rgba(43,39,35,.15); }
+.ow-bring li label { display: grid; grid-template-columns: 3.4cqw 1fr; grid-template-rows: auto auto; column-gap: 1.2cqw; align-items: center; padding: .7cqw 0; cursor: pointer; }
+.ow-bring li { position: relative; padding-left: 4.4cqw; }
+.ow-bring input[type="checkbox"] { position: absolute; left: .2cqw; top: 1.2cqw; width: 2.8cqw; height: 2.8cqw; accent-color: #43a047; }
+.ow-bring i { grid-row: 1 / 3; font-style: normal; font-size: 2.6cqw; text-align: center; }
+.ow-bring b { font: 700 1.75cqw/1.2 'Nunito', sans-serif; }
+.ow-bring small { font: 400 1.4cqw/1.2 'Nunito', sans-serif; color: #777; }
+.ow-bring input:checked ~ label b { text-decoration: line-through; color: #888; }
+.ow-bring-keys { width: 100%; border-collapse: collapse; font: 400 1.55cqw/1.3 'Nunito', sans-serif; background: #fff; }
+.ow-bring-keys th { padding: .8cqw 1cqw; text-align: left; background: var(--navy); color: #fff; font-size: 1.3cqw; letter-spacing: .08em; text-transform: uppercase; }
+.ow-bring-keys td { padding: .9cqw 1cqw; vertical-align: top; border-bottom: .12cqw solid rgba(43,39,35,.15); }
+.ow-bring-keys td:first-child { width: 11cqw; font-size: 2.2cqw; white-space: nowrap; }
+.ow-bring-keys td:nth-child(2) { width: 9cqw; font-weight: 700; white-space: nowrap; }

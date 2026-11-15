@@ -2,7 +2,7 @@
 // A button with data-ow="life" opens that game, data-ow="" opens the menu with all the games.
 // Before the detectives' game ([author-meet … author-clues]) no game may tell facts about Orwell's life:
 // only "life" does, and it is not in the menu (its button is on [author-case:R], after the game).
-// Also here: "Put in order" of the facts ([author-clues:R]) and the quiz "Which animal are you?" ([af-quiz:R]).
+// Also here: the quiz "Which animal are you?" ([af-quiz:R]).
 
 (() => {
   const DATA = {
@@ -672,22 +672,11 @@
     e.stopPropagation();
   }, true);
 
-  /* ---------- [author-clues:R]: our facts, then in order ---------- */
-  // "Put in order" sorts the facts by the year written next to them; facts without a year go after,
-  // empty lines go to the end. The values move from line to line, so they stay saved.
-  document.querySelectorAll('.check[data-tl]').forEach(btn => btn.addEventListener('click', () => {
-    const list = $(btn.dataset.tl);
-    const rows = [...list.querySelectorAll('li')].map(li => [...li.querySelectorAll('input.fill')]);
-    const year = v => { const m = v.match(/\d{3,4}/); return m ? +m[0] : Infinity; };
-    const rank = ([y, f]) => (!f.trim() && !y.trim() ? 2 : 0) + (year(y) === Infinity ? 1 : 0);
-    const values = rows.map(r => r.map(inp => inp.value))
-      .sort((a, b) => rank(a) - rank(b) || year(a[0]) - year(b[0]));
-    rows.forEach((r, i) => r.forEach((inp, k) => { inp.value = values[i][k]; saved[inp.id] = inp.value; }));
-    persist();
-    list.classList.remove('sorted');
-    void list.offsetWidth; // restart the flash
-    list.classList.add('sorted');
-  }));
+  /* ---------- [scaf-ow-bring]: the checklist of things to bring (checkboxes are not saved by script.js) ---------- */
+  document.querySelectorAll('.ow-bring input[type="checkbox"]').forEach(cb => {
+    cb.checked = saved[cb.id] === '1';
+    cb.addEventListener('change', () => { saved[cb.id] = cb.checked ? '1' : ''; persist(); });
+  });
 
   /* ---------- [af-quiz:R]: Which animal are you? ---------- */
   // each question is an .opt (script.js saves the chosen sentence); the 1st answer is A, the 5th is E.
