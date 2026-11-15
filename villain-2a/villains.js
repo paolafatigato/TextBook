@@ -1,4 +1,4 @@
-// Villain 2A & 2B: the 26 villains made by the pupils of 2A and 2B. Only the villains' names are used (never the pupils' names).
+// Villain 2A & 2B: the 30 villains made by the pupils of 2A and 2B. Only the villains' names are used (never the pupils' names).
 //
 // Every villain comes from a villain file: powers, equipment, main attack, weakness and motto are the pupil's own.
 // The numbers (fx) are the teacher's balance work; see engine.js for what each effect does and how a move is rated.
@@ -126,7 +126,7 @@
       q: { tired: true }, quirk: 'Gets tired easily: every power makes the Vampire more tired. At 3 it has to rest and loses a turn. The drone helps!',
       moves: [
         M('clap', 'Clap Freeze', 'You clap your hands and time stops.', 2, ['time'], [{ k: 'skip', n: 1 }]),
-        M('bomb', 'Time Bomb Combo', 'You freeze time, place an explosive, teleport behind the enemy and attack.', 1, ['time'], [d(18), { k: 'skip', n: 1 }]),
+        M('bomb', 'Time Bomb Combo', 'You freeze time, place an explosive, teleport behind the enemy and attack.', 1, ['time'], [d(14), { k: 'skip', n: 1 }]),
         M('teleport', 'Teleport Strike', 'You teleport behind the enemy, where there is no shield.', 3, [], [d(17, 1, { pierce: true })]),
         M('timeshield', 'Time Shield', 'Time slows down for the enemies near you.', 2, ['time'], [{ k: 'weak', m: .6, hits: 2 }]),
         M('shell', 'Cozy Shell', 'You hide in your shell and calm down.', 2, [], [{ k: 'guard', p: .8, hits: 1 }, { k: 'heal', v: 6 }, { k: 'cleanse' }]),
@@ -330,7 +330,7 @@
       moves: [
         M('shock', 'Electric Shock', 'A big electric shock.', 2, ['light'], [d(14), { k: 'confuse', n: 1 }]),
         M('fireball', 'Fire Ball', 'A ball of fire flies at the enemy.', 2, ['fire'], [d(16)]),
-        M('swim', 'Swim Under Water', 'You swim under water. The next attack misses.', 2, [], [{ k: 'vanish', n: 1 }]),
+        M('swim', 'Swim Under Water', 'You swim under water. The next attack misses.', 2, ['water'], [{ k: 'vanish', n: 1 }]),
         M('become', 'I Become a Pokémon', 'You become a Pokémon and feel stronger.', 1, ['cute'], [{ k: 'boost', m: 1.5, hits: 1 }, { k: 'heal', v: 4 }]),
         M('trainer', 'My Trainer', 'Your trainer helps you with a quick attack.', 3, ['team'], [d(7, 2)]),
       ],
@@ -364,6 +364,61 @@
         M('friend', 'Best Friend', 'Your best friend gives you strength when you are sad.', 2, ['team'], [{ k: 'heal', v: 13 }, { k: 'cleanse' }]),
       ],
       basic: B('Phone Playlist', 'You put on your phone and press play. Now you are ready!', ['sound'], [d(6), { k: 'flag', name: 'warm', v: true }]),
+    },
+    {
+      id: 'slimequeen', name: 'Slime Queen', emoji: '🟢', img: 'img/slimequeen.jpg', color: '#5fbf3f', role: 'Slime & talk',
+      blurb: 'Long hair like snakes, gigantic ears that hear everything and a shirt with a bear. She thinks she is superior to everyone and always right. Slime spilled all over her face and gave her very strange powers.',
+      says: 'Slime are priority!!!',
+      q: {}, weakTag: 'water', weakText: 'If she hears the word “water” she faints: water attacks hurt more.',
+      moves: [
+        M('shot', 'Sticky Shot', 'You shoot a sticky substance like nail glue from your hands.', 3, ['slime'], [d(8), { k: 'weak', m: .7, hits: 1 }]),
+        M('rope', 'Sticky Rope', 'A sticky rope catches the enemy and almost suffocates it.', 2, ['slime'], [d(10), { k: 'skip', n: 1 }]),
+        M('talk', 'Slimy Ice Cream Talk', 'You talk so much about slimy ice cream that the enemy forgets its purpose.', 2, ['sound', 'mind'], [d(7), { k: 'seal', n: 2 }]),
+        M('spiders', 'Giant Spiders', 'The spiders on your lashes become giant and attack!', 1, ['phys'], [d(24)]),
+        M('shirt', 'Talking Shirt', 'Your shirt tells you what to do to fight everyone.', 2, [], [{ k: 'boost', m: 1.5, hits: 1 }, { k: 'pierce', n: 1 }]),
+      ],
+      basic: B('Slime Splash', 'You splash some slime on the enemy.', ['slime'], [d(8)]),
+    },
+    {
+      id: 'lordshadow', name: 'Lord Shadow', emoji: '🦇', img: 'img/lordshadow.jpg', color: '#3a3a52', role: 'Shadows',
+      blurb: 'A tall boy with a black hoodie, a pulled-up hood and glowing red eyes. A laser experiment at school gave him the power to control shadows and darkness. Now he wants revenge on those who made fun of him.',
+      says: 'Total darkness will be my kingdom.',
+      q: {}, weakTag: 'light', weakText: 'Very bright lights or flashes blind him: light attacks hurt more.',
+      moves: [
+        M('ray', 'Shadow Ray', 'A beam of dark energy paralyzes anyone it hits.', 1, ['dark'], [d(16), { k: 'skip', n: 1 }]),
+        M('barrier', 'Dark Barrier', 'You create a dark barrier to protect yourself from attacks.', 2, ['dark'], [d(8), { k: 'guard', p: .6, hits: 1 }]),
+        M('hide', 'Hide in the Shadows', 'You hide inside the shadows.', 2, ['dark'], [{ k: 'vanish', n: 1 }, { k: 'boost', m: 1.3, hits: 1 }]),
+        M('goggles', 'Night Goggles', 'Your special goggles help you see in the dark.', 2, [], [{ k: 'pierce', n: 1 }, { k: 'boost', m: 1.5, hits: 1 }]),
+        M('pack', 'Hi-Tech Backpack', 'Your hi-tech backpack recharges your energy.', 2, [], [{ k: 'heal', v: 14 }]),
+      ],
+      basic: B('Shadow Punch', 'A punch out of the dark.', ['dark'], [d(9)]),
+    },
+    {
+      id: 'timeskipper', name: 'Time Skipper', emoji: '⏩', img: 'img/timeskipper.jpg', color: '#e08a3c', role: 'Time-bender',
+      blurb: 'A short girl with curly brown hair and a small nose. One day she woke up and found out that her watch controls time. She speeds time up when she feels anxious or impatient, and skips boring tasks because she is lazy.',
+      says: 'I want to go home.',
+      q: { tired: true }, quirk: 'Lazy: every power makes her more tired. At 3 she has to rest and loses a turn. A little nap helps!',
+      moves: [
+        M('speed', 'Speed Up Time', 'You speed up time and act twice in a row.', 2, ['time'], [{ k: 'haste' }]),
+        M('skip', 'Skip the Boring Task', 'You skip the boring part. The enemy loses its turn.', 1, ['time'], [d(14), { k: 'skip', n: 1 }]),
+        M('watch', 'Watch Control', 'Your watch shows you the best moment to hit.', 2, ['time'], [{ k: 'boost', m: 1.8, hits: 1 }, { k: 'pierce', n: 1 }]),
+        M('rush', 'Impatient Rush', 'You are so impatient that you hit again and again.', 3, ['phys'], [d(7, 3)]),
+      ],
+      basic: B('Lazy Nap', 'You take a little nap on the spot. You feel better.', ['phys'], [d(8), { k: 'mark', name: 'tired', n: -1, self: true }]),
+    },
+    {
+      id: 'keywitch', name: 'Key Witch', emoji: '🔑', img: 'img/keywitch.jpg', color: '#3b5bdb', role: 'Witch',
+      blurb: 'A witch with a big blue hat and a red sweater that says “I’m a witch”. She became a witch after some experiments and got her superpowers. She is bad, but not too much.',
+      says: 'Oooooh, is so cute!',
+      q: {},
+      moves: [
+        M('stop', 'Stop the Time', 'My time is… stop the time.', 1, ['time'], [d(13), { k: 'skip', n: 1 }]),
+        M('mind', 'Read the Mind', 'You read the mind of the enemy and make it forget its last power.', 2, ['mind'], [d(9), { k: 'seal', n: 2 }]),
+        M('become', 'Become Anybody', 'You become the person you want. The attack goes back.', 2, ['magic'], [{ k: 'reflect', p: .5, hits: 1 }]),
+        M('keys', 'Magic Keys', 'Your keys can open every door, even the ones with a shield.', 2, ['magic'], [d(15, 1, { pierce: true })]),
+        M('earring', 'Wish Earring', 'Everything you want, your earring gives to you.', 2, ['magic'], [{ k: 'boost', m: 1.6, hits: 1 }, { k: 'heal', v: 6 }]),
+      ],
+      basic: B('Hat Bump', 'You bump the enemy with your big blue hat.', ['magic'], [d(9)]),
     },
   ];
 
@@ -441,7 +496,7 @@
   ];
 
   // how much planning a villain needs (1 = easy to play, 3 = for experts): from the duels of the computer at the easy level
-  const SKILL = { goget: 1, kick: 1, dancer: 1, wavy: 1, hands: 1, cactus: 1, skater: 2, mask: 2, explodingball: 2, honey: 2, anxious: 2, lazy: 3, vampire: 3, sixseven: 3, rebel: 3, punchhead: 1, wordstorm: 2, inventor: 3, karol: 2, witchcat: 1, clone: 2, glitter: 1, bodyflame: 1, pikakid: 3, anix: 2, blackcat: 2 };
+  const SKILL = { goget: 1, kick: 1, dancer: 1, wavy: 1, hands: 1, cactus: 1, skater: 2, mask: 2, explodingball: 2, honey: 2, anxious: 2, lazy: 3, vampire: 3, sixseven: 3, rebel: 3, punchhead: 1, wordstorm: 2, inventor: 3, karol: 2, witchcat: 1, clone: 2, glitter: 1, bodyflame: 1, pikakid: 3, anix: 2, blackcat: 2, slimequeen: 2, lordshadow: 2, timeskipper: 3, keywitch: 1 };
 
   // add the strength of each move, the words that hint at it, and fill the gaps
   [...ROSTER, ...HEROES].forEach(k => {
