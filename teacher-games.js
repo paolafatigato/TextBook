@@ -1097,22 +1097,27 @@
   function auctionGame() {
     const A = window.AUCTION || { levels: [], items: [] };
     let cls = 'all'; // the sentences of: all | A | B (a sentence without a class is always in)
+    let topic = (A.topics && A.topics[0] || {}).id; // the folder: jobs · summer · … (auction-data.js)
     const inCls = x => cls === 'all' || !x.cl || x.cl === cls;
-    const pile = l => A.items.filter(x => x.lv === l.id && inCls(x));
+    const pile = l => A.items.filter(x => x.tp === topic && x.lv === l.id && inCls(x));
+    const hasCls = () => A.items.some(x => x.tp === topic && x.cl);
     const clsName = c => (c ? '3' + c : '');
 
     const start = () => {
       openGame('🔨 Error auction', { onBack: menu });
       area.innerHTML = `<div class="tg-card">
-        <p class="tg-intro">Sentences with a <b>mistake</b>, written by 3A and 3B in the Jobs test, in three piles: <b class="ea-e">easy</b> (wrong translations), <b class="ea-m">medium</b>, <b class="ea-h">hard</b>. The teams go <b>in order</b>: Team 1 chooses a pile, you draw a sentence at random, the team writes the correction. Right: it wins <b>10 / 20 / 30</b> coins. Wrong: it loses them and the <b>same sentence</b> goes to the next team. Then the next team chooses a pile.</p>
-        <p class="tg-label">Sentences from <small>(those without a class are always in)</small></p>
-        <div class="tg-row" style="margin-top:0">${[['all', 'All'], ['A', '3A'], ['B', '3B']].map(([v, t]) => `<button type="button" class="tg-btn alt${cls === v ? ' sel' : ''}" data-cls="${v}">${t}</button>`).join('')}</div>
+        <p class="tg-intro">Sentences with a <b>mistake</b> (Jobs: written by 3A and 3B in the test; Summer: from Error Breaker), one folder for each topic, in three piles: <b class="ea-e">easy</b> (wrong translations), <b class="ea-m">medium</b>, <b class="ea-h">hard</b>. The teams go <b>in order</b>: Team 1 chooses a pile, you draw a sentence at random, the team writes the correction. Right: it wins <b>10 / 20 / 30</b> coins. Wrong: it loses them and the <b>same sentence</b> goes to the next team. Then the next team chooses a pile.</p>
+        <p class="tg-label">Folder</p>
+        <div class="tg-row" style="margin-top:0">${(A.topics || []).map(t => `<button type="button" class="tg-btn alt${topic === t.id ? ' sel' : ''}" data-tp="${t.id}">${t.icon} ${t.name} (${t.count})</button>`).join('')}</div>
+        ${hasCls() ? `<p class="tg-label">Sentences from <small>(those without a class are always in)</small></p>
+        <div class="tg-row" style="margin-top:0">${[['all', 'All'], ['A', '3A'], ['B', '3B']].map(([v, t]) => `<button type="button" class="tg-btn alt${cls === v ? ' sel' : ''}" data-cls="${v}">${t}</button>`).join('')}</div>` : ''}
         <div class="tg-row"><button type="button" class="tg-btn go" data-act="lim">📺 Play on the whiteboard</button>
           <button type="button" class="tg-btn alt" data-act="print">🖨️ Printable slips to cut</button></div>
         <p class="tg-help" style="text-align:center">${A.levels.map(l => `${l.icon} ${l.name}: ${pile(l).length}`).join(' · ')} sentences</p></div>`;
       area.onclick = e => {
         const b = e.target.closest('button'); if (!b) return;
-        if (b.dataset.cls) { cls = b.dataset.cls; start(); }
+        if (b.dataset.tp) { topic = b.dataset.tp; cls = 'all'; start(); }
+        else if (b.dataset.cls) { cls = b.dataset.cls; start(); }
         else if (b.dataset.act === 'lim') setup();
         else if (b.dataset.act === 'print') printer();
       };

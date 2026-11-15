@@ -1,0 +1,17 @@
+{
+  "name": "Error Breaker",
+  "short_name": "Error Breaker",
+  "description": "A fast sentence-correction game.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#2B1A47",
+  "theme_color": "#2B1A47",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

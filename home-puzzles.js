@@ -55,6 +55,13 @@ window.addEventListener('load', () => {
   solitaire.innerHTML = '<summary>Story Solitaire <small>1</small></summary><div class="topic-pages"><a href="story-solitaire/index.html" target="_blank" rel="noopener">🃏 Story Solitaire</a></div>';
   list.append(solitaire);
   document.addEventListener('click', e => { if (!e.target.closest('#gameList')) solitaire.open = false; });
+  // Error Breaker (folder error-breaker/): sentences fall, shoot the mistake and fix it; the mistakes are the folders of auction-data.js (Jobs, Summer, ...)
+  const breaker = document.createElement('details');
+  breaker.className = 'game-topic';
+  breaker.style.setProperty('--c', '#7a4fb5');
+  breaker.innerHTML = '<summary>Error Breaker <small>1</small></summary><div class="topic-pages"><a href="error-breaker/index.html" target="_blank" rel="noopener">🧱 Error Breaker</a></div>';
+  list.append(breaker);
+  document.addEventListener('click', e => { if (!e.target.closest('#gameList')) breaker.open = false; });
   list.addEventListener('toggle', e => {
     if (e.target.open) list.querySelectorAll('.game-topic').forEach(o => { if (o !== e.target) o.open = false; });
   }, true);
