@@ -1,0 +1,148 @@
+@charset "UTF-8";
+/* Rome vs Longobards: the Clash (clash.js). Full-screen game for the teacher.
+   Colors: the book palette. Romans = coral on blush, Longobards = green on pale lime, the rest charcoal / lime / mustard. */
+.cl-overlay {
+  --R: var(--pal-coral, #f06054); --R-soft: var(--pal-blush, #ffd7d3); --R-ink: var(--pal-brown, #7a5244);
+  --L: var(--pal-green, #4e964c); --L-soft: var(--pal-pale-lime, #e2ebb2); --L-ink: var(--pal-forest, #073226);
+  --ink: var(--pal-charcoal, #232323); --lime: var(--pal-lime, #dfec72); --mustard: var(--pal-mustard, #e8c547); --paper: var(--pal-cream, #f8eddc);
+  position: fixed; inset: 0; z-index: 230; display: flex; background: var(--ink); font: 400 16px/1.4 'Nunito', sans-serif; color: var(--ink);
+}
+.cl-overlay[hidden] { display: none; }
+.cl-box { flex: 1; display: flex; flex-direction: column; min-width: 0; background: var(--paper); }
+.cl-top { display: flex; align-items: center; gap: 10px; padding: 10px 16px; background: var(--ink); color: #fff; }
+.cl-title { flex: 1; font: 700 26px 'Fredoka', 'Nunito', sans-serif; }
+.cl-title i { font-style: normal; color: var(--mustard); }
+.cl-score { display: flex; align-items: center; gap: 10px; padding: 2px 18px; border-radius: 999px; background: #fff; font: 700 30px 'Fredoka', sans-serif; }
+.cl-score[hidden] { display: none; }
+.cl-score i { font-style: normal; color: #aaa; }
+.cl-score .R { color: var(--R); } .cl-score .L { color: var(--L); }
+.cl-area { flex: 1; min-height: 0; overflow: auto; padding: 18px 22px 26px; }
+.cl-btn { font: 800 16px 'Nunito', sans-serif; color: #fff; background: var(--ink); border: 0; border-radius: 999px; padding: 10px 20px; cursor: pointer; }
+.cl-btn:hover { filter: brightness(1.25); }
+.cl-btn.light { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+.cl-btn[hidden] { display: none; }
+.cl-btn.go { background: var(--mustard); color: var(--pal-night, #0a0010); }
+.cl-btn.R { background: var(--R); color: var(--pal-night, #0a0010); }
+.cl-btn.L { background: var(--L); }
+.cl-mini { border: 0; border-radius: 8px; background: #0001; cursor: pointer; padding: 4px 8px; font-size: 15px; }
+.cl-mini:hover { background: #0003; }
+.cl-intro { margin: 0 0 14px; font-size: 17px; }
+.cl-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+.cl-col h3 { margin: 0 0 10px; font: 700 26px 'Fredoka', sans-serif; }
+.cl-col h3 small { font: 700 14px 'Nunito', sans-serif; color: #777; }
+.cl-col.R h3 { color: var(--R); } .cl-col.L h3 { color: var(--L); }
+.cl-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 18px; }
+.cl-empty { color: #888; font-style: italic; }
+.cl-rule { display: flex; align-items: center; gap: 6px; margin: 0 0 10px; font-weight: 800; }
+.cl-seg { font: 800 14px 'Nunito', sans-serif; border: 2px solid var(--ink); background: #fff; border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+.cl-seg.on { background: var(--ink); color: #fff; }
+
+/* the families (setup) */
+.cl-fam { margin: 0 0 12px; padding: 12px; border-radius: 16px; border: 3px solid var(--c); background: var(--bg); }
+.cl-fam.R { --c: var(--R); --bg: var(--R-soft); } .cl-fam.L { --c: var(--L); --bg: var(--L-soft); }
+.cl-fam-top { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 22px; }
+.cl-in { font: 700 15px 'Nunito', sans-serif; padding: 6px 8px; border: 2px solid #0002; border-radius: 10px; background: #fff; min-width: 0; }
+.cl-in.big { flex: 1; font: 700 20px 'Fredoka', sans-serif; }
+.cl-hero { margin: 0 0 8px; padding: 8px; border-radius: 12px; background: #ffffffa8; display: grid; gap: 6px; }
+.cl-hero-top { display: flex; align-items: center; gap: 6px; }
+.cl-hero-top .cl-in { flex: 1; }
+.cl-role { font-weight: 800; white-space: nowrap; }
+.cl-stats { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.cl-stats label { display: flex; align-items: center; gap: 3px; font-size: 18px; }
+.cl-stats select { padding: 4px; }
+.cl-tot { margin-left: auto; padding: 3px 10px; border-radius: 999px; font: 800 14px 'Nunito', sans-serif; }
+.cl-tot.ok { background: var(--L); color: #fff; } .cl-tot.no { background: var(--mustard); }
+
+/* choosing the battle */
+.cl-chip { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; width: 100%; margin: 0 0 8px; padding: 10px 14px; text-align: left; font: 700 17px 'Nunito', sans-serif; border-radius: 14px; border: 3px solid transparent; cursor: pointer; }
+.cl-chip.R { background: var(--R-soft); color: var(--R-ink); } .cl-chip.L { background: var(--L-soft); color: var(--L-ink); }
+.cl-chip.R.on { border-color: var(--R); } .cl-chip.L.on { border-color: var(--L); }
+.cl-chip span { font-weight: 400; flex: 1; }
+.cl-chip.done { opacity: .5; cursor: default; }
+.cl-chip em { font-style: normal; font-weight: 800; background: var(--ink); color: #fff; border-radius: 999px; padding: 1px 10px; }
+
+/* the arena */
+.cl-arena { display: grid; grid-template-columns: minmax(230px, 1fr) minmax(280px, 1.25fr) minmax(230px, 1fr); gap: 16px; align-items: start; }
+.cl-side h3 { margin: 0 0 8px; font: 700 22px 'Fredoka', sans-serif; }
+.cl-side h3 small { font: 700 13px 'Nunito', sans-serif; opacity: .7; }
+.cl-side.R h3 { color: var(--R); } .cl-side.L h3 { color: var(--L); }
+.cl-mem { position: relative; display: flex; align-items: center; gap: 10px; margin: 0 0 10px; padding: 10px 12px; border-radius: 16px; border: 3px solid transparent; transition: transform .2s, opacity .3s; }
+.cl-mem.R { background: var(--R-soft); color: var(--R-ink); } .cl-mem.L { background: var(--L-soft); color: var(--L-ink); }
+.cl-mem > div { flex: 1; min-width: 0; }
+.cl-av { font-size: 42px; line-height: 1; }
+.cl-mem b { font-size: 18px; } .cl-mem small { opacity: .75; }
+.cl-hp { position: relative; height: 18px; margin: 4px 0; border-radius: 9px; background: #0002; overflow: hidden; }
+.cl-hp i { display: block; height: 100%; background: var(--c, var(--L)); transition: width .5s; }
+.cl-mem.R .cl-hp i { background: var(--R); } .cl-mem.L .cl-hp i { background: var(--L); }
+.cl-hp span { position: absolute; inset: 0; text-align: center; font: 800 12px/18px 'Nunito', sans-serif; color: #fff; text-shadow: 0 0 3px #0008; }
+.cl-st { font-size: 14px; font-weight: 700; }
+.cl-state { font-size: 26px; }
+.cl-mem.down { opacity: .4; filter: grayscale(1); }
+.cl-mem.safe { border-color: var(--mustard); }
+.cl-mem.hit { animation: cl-shake .5s; border-color: var(--pal-coral, #f06054); }
+.cl-mem.win { animation: cl-pop .6s; border-color: var(--mustard); }
+.cl-mem.dodge { transform: translateX(10px); }
+@keyframes cl-shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-9px); } 40%, 80% { transform: translateX(9px); } }
+@keyframes cl-pop { 50% { transform: scale(1.06); } }
+.cl-q { padding: 16px; border-radius: 18px; background: #fff; box-shadow: 0 4px 16px #0002; text-align: center; }
+.cl-round { font: 800 13px 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #777; }
+.cl-qtext { margin: 10px 0 14px; font: 700 26px/1.25 'Fredoka', 'Nunito', sans-serif; }
+.cl-blank { color: var(--mustard); letter-spacing: 2px; }
+.cl-answers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; text-align: left; }
+.cl-answers > div { padding: 8px; border-radius: 12px; }
+.cl-answers > div:first-child { background: var(--R-soft); } .cl-answers > div:last-child { background: var(--L-soft); }
+.cl-opts { display: grid; gap: 6px; margin-top: 6px; }
+.cl-opt { font: 700 16px 'Nunito', sans-serif; padding: 8px; border-radius: 10px; border: 2px solid var(--ink); background: #fff; cursor: pointer; }
+.cl-opt:hover { background: var(--lime); }
+.cl-opt.on.R { background: var(--R); border-color: var(--R); color: #fff; } .cl-opt.on.L { background: var(--L); border-color: var(--L); color: #fff; }
+.cl-gap { width: 100%; box-sizing: border-box; margin-top: 6px; padding: 8px; font: 700 18px 'Nunito', sans-serif; text-align: center; border: 3px solid var(--ink); border-radius: 10px; }
+.cl-wait { margin: 12px 0 0; font: 700 22px 'Fredoka', sans-serif; }
+.cl-q.over h2 { margin: 0; font: 700 30px 'Fredoka', sans-serif; }
+.cl-q.over.R h2 { color: var(--R); } .cl-q.over.L h2 { color: var(--L); }
+.cl-log { list-style: none; margin: 16px 0 0; padding: 12px 16px; border-radius: 14px; background: var(--ink); color: #fff; font-size: 17px; }
+.cl-log li { padding: 3px 0; border-bottom: 1px solid #fff2; }
+.cl-log li:last-child { border: 0; font-weight: 700; }
+.cl-log li.R { border-left: 6px solid var(--R); padding-left: 8px; } .cl-log li.L { border-left: 6px solid var(--L); padding-left: 8px; }
+.cl-end { text-align: center; }
+.cl-end h2 { margin: 0; font: 700 40px 'Fredoka', sans-serif; }
+.cl-end.R h2 { color: var(--R); } .cl-end.L h2 { color: var(--L); }
+.cl-big { margin: 6px 0 14px; font: 700 64px 'Fredoka', sans-serif; }
+.cl-rank { margin: 0; padding-left: 26px; text-align: left; }
+.cl-rank li { padding: 4px 0; } .cl-rank em { float: right; font-style: normal; font-weight: 800; }
+@media (max-width: 900px) { .cl-cols, .cl-arena { grid-template-columns: 1fr; } }
+@media print { .cl-overlay { display: none; } }
+
+/* ---------- online: heroes of the pupils, match code, the groups' PCs ---------- */
+.cl-code { padding: 4px 14px; border-radius: 999px; background: var(--mustard); color: var(--pal-night, #0a0010); font: 800 16px 'Nunito', sans-serif; }
+.cl-code b { font: 700 24px 'Fredoka', sans-serif; letter-spacing: .12em; }
+.cl-code[hidden] { display: none; }
+.cl-actions.top { margin: 0 0 8px; }
+.cl-msg { min-height: 1.4em; margin: 6px 0; text-align: center; font-weight: 700; color: var(--R-ink); }
+.cl-pool { margin: 0 0 14px; padding: 8px 14px; border-radius: 12px; background: #fff; }
+.cl-pool summary { cursor: pointer; font-weight: 800; }
+.cl-pool ul { margin: 8px 0 0; padding: 0; list-style: none; max-height: 220px; overflow: auto; }
+.cl-pool li { padding: 3px 0; border-bottom: 1px solid #0001; }
+.cl-pick { background: var(--lime); }
+.cl-who { font-size: 13px; color: #555; } .cl-who small { opacity: .8; }
+.cl-net { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 14px; padding: 10px 16px; border-radius: 14px; background: #fff; box-shadow: inset 0 0 0 2px #0002; }
+.cl-net.on { background: var(--lime); box-shadow: none; }
+.cl-bigcode { font: 700 34px 'Fredoka', sans-serif; letter-spacing: .14em; }
+.cl-netline { margin: 0 0 10px; font-weight: 700; color: #555; }
+.cl-join { max-width: 520px; margin: 30px auto; text-align: center; }
+.cl-join.wide { max-width: 900px; }
+.cl-join h2 { margin: 0 0 6px; font: 700 34px 'Fredoka', sans-serif; }
+.cl-codein { width: 200px; margin: 8px 0 14px; padding: 8px; text-align: center; font: 700 46px 'Fredoka', sans-serif; letter-spacing: .25em; border: 4px solid var(--ink); border-radius: 16px; text-transform: uppercase; }
+.cl-player { max-width: 1100px; margin: 0 auto; }
+.cl-pfam { padding: 12px 16px; border-radius: 18px; margin-bottom: 14px; }
+.cl-pfam.R { background: var(--R-soft); color: var(--R-ink); } .cl-pfam.L { background: var(--L-soft); color: var(--L-ink); }
+.cl-pfam h2 { margin: 0 0 8px; font: 700 28px 'Fredoka', sans-serif; } .cl-pfam h2 small { font: 700 14px 'Nunito', sans-serif; opacity: .7; }
+.cl-pheroes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.cl-pheroes > div { padding: 8px 12px; border-radius: 12px; background: #ffffffa8; }
+.cl-pscore { margin: 8px 0 0; font: 700 26px 'Fredoka', sans-serif; text-align: center; }
+.cl-pwho { margin: 6px 0; font-weight: 800; color: var(--R-ink); }
+.cl-sent { min-height: 1.4em; margin: 8px 0 0; font-weight: 700; color: var(--L); }
+.cl-q .cl-opts { max-width: 480px; margin: 0 auto; }
+.cl-q .cl-gap { max-width: 320px; margin: 0 auto 10px; display: block; }
+.cl-arena.small { grid-template-columns: 1fr 1fr; margin-top: 14px; }
+.cl-arena.small .cl-av { font-size: 30px; }
+.cl-av img { display: block; width: 46px; height: 62px; object-fit: cover; border: 2px solid #fff; border-radius: 22px 22px 6px 6px; background: #fff; }

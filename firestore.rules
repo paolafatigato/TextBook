@@ -23,6 +23,14 @@ service cloud.firestore {
       }
     }
 
+    // Rome vs Longobards: a pupil (signed in with Google) writes and reads only his or her own heroes (heroes/<uid>_<1 or 2>);
+    // the teacher reads and deletes all of them
+    match /heroes/{id} {
+      allow create, update: if request.auth != null && request.auth.token.email != null
+        && id.matches(request.auth.uid + '_[12]') && request.resource.data.uid == request.auth.uid;
+      allow read, delete: if isTeacher() || (request.auth != null && resource.data.uid == request.auth.uid);
+    }
+
     // Villain Battle online: a room is a document named with a 4-letter code.
     // Anybody signed in (even anonymously) who knows the code can read and play; nobody can list the rooms.
     match /duels/{code} {

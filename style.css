@@ -5280,3 +5280,26 @@ body.toc-open .toc { display: block; }
 .shg-marks input.fill { width: 4.6cqw; height: 2.8cqw; text-align: center; border-bottom: .14cqw solid #b9b6d3; font-size: 1.9cqw; }
 .shg-marks .final { font-weight: 800; color: #b23a48; }
 
+
+/* [shk-one-line:R] 7.18 my answers and my mistakes after the oral test */
+.shg-myline input.fill { max-width: 30cqw; }
+.shg-mine { z-index: 2; }
+.shg-mine p { display: grid; grid-template-columns: 15cqw 1fr 1fr 6cqw; column-gap: 1.4cqw; align-items: stretch; margin: 0; min-height: 7.4cqw; border-bottom: .12cqw solid var(--hair); }
+.shg-mine p.shg-mine-head { min-height: 0; padding-bottom: .6cqw; border-bottom: .16cqw solid var(--sh); font: 800 1.05cqw/1 "Nunito", sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); }
+.shg-mine b { align-self: center; font: 900 1.45cqw/1.15 var(--serif); color: var(--sh); }
+.shg-mine b small { display: block; margin-top: .3cqw; font: 600 1.02cqw/1.2 "Nunito", sans-serif; color: #8f8689; }
+.shg-mine textarea.fill { height: 7cqw; padding: 0 .4cqw; font-size: 1.55cqw; line-height: 2.3cqw; background: repeating-linear-gradient(transparent 0 calc(2.3cqw - 1px), var(--hair) calc(2.3cqw - 1px) 2.3cqw); }
+.shg-mine input.fill { align-self: center; height: 3.4cqw; text-align: center; font-size: 1.9cqw; border: .14cqw solid var(--hair-red); border-radius: .6cqw; }
+
+/* [scaf-shk-oral] two blank grids to fill in during the oral test */
+.scf-in .shg-flip { margin-top: 2cqw; }
+.shg-blank { width: 100%; margin-top: 1.6cqw; border-collapse: collapse; table-layout: fixed; font-size: 1.3cqw; }
+.shg-blank th, .shg-blank td { border: 1px solid #e3dccd; padding: .5cqw .8cqw; height: 3.2cqw; text-align: left; }
+.shg-blank thead th { background: #fff6e5; font: 700 1.3cqw/1 "Nunito", sans-serif; color: #2b2b38; }
+.shg-blank thead th span { margin-right: .5cqw; }
+.shg-blank thead th i { display: inline-block; width: 22cqw; margin-right: 2cqw; border-bottom: 1px solid #999; }
+.shg-blank thead th i.s { width: 9cqw; }
+.shg-blank tbody th { width: 16cqw; font: 800 1.3cqw/1.1 "Nunito", sans-serif; color: #b23a48; }
+.shg-blank td.m { width: 7cqw; }
+.shg-blank tr.fin th, .shg-blank tr.fin td { background: #fff6e5; }
+.shg-blank th, .shg-blank td { height: 4.2cqw; } .shg-blank thead th.m { text-align: center; color: #b23a48; }

@@ -753,3 +753,5 @@
 .ow-bring-keys td { padding: .9cqw 1cqw; vertical-align: top; border-bottom: .12cqw solid rgba(43,39,35,.15); }
 .ow-bring-keys td:first-child { width: 11cqw; font-size: 2.2cqw; white-space: nowrap; }
 .ow-bring-keys td:nth-child(2) { width: 9cqw; font-weight: 700; white-space: nowrap; }
+.ow-bring-two td:first-child { width: 17cqw; font-size: 1.7cqw; font-weight: 700; white-space: normal; }
+.ow-bring-two td:nth-child(2) { width: auto; font-weight: 400; white-space: normal; }

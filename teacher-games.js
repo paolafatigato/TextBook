@@ -1266,6 +1266,7 @@
     { icon: '🎡', title: 'Word wheel', color: '#12a4a4', text: 'Letters in a circle: which team finds more words with the middle letter?', run: wheelGame },
     { icon: '🧩', title: 'Sentence maker', color: '#7a5cc9', text: 'A cloud of words: which team makes more correct sentences in the time?', run: sentenceGame },
     { icon: '📷', title: 'Photo words', color: '#46d9c0', text: 'A photo and 5 minutes: write words about it. Then 7 bonus words worth 2, 3, 4 or 5 points.', run: photoGame },
+    { icon: '⚔️', title: 'Rome vs Longobards', color: '#b23a48', text: 'The Clash: Roman and Longobard families (heroes with D&D-like stats) fight in battles, with grammar questions and dice. The pupils create their heroes in the book.', run: () => window.CLASH?.open?.() },
     { icon: '🏁', title: 'Grammar Race', color: '#8e2de2', text: 'Timed race for the whole class: needs the pupils’ own devices.', run: () => window.GRAMMAR_RACE?.open?.() },
     { icon: '🃏', title: 'Story Solitaire: class game', color: '#2e9a62', text: 'You choose 4 stories and make a room with a code: every pupil plays the same solitaire on their own device. Wins who clears the table first and who needs fewer moves. Needs the pupils’ own devices.', run: () => window.open('story-solitaire/index.html?teacher', '_blank') },
   ];

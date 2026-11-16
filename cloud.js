@@ -310,3 +310,25 @@ book.race = {
     return onSnapshot(playersRef(code), s => onList(s.docs.map(d => d.data())), onError);
   },
 };
+
+/* ---------- Rome vs Longobards (clash.js): the pupils send their heroes to the teacher ---------- */
+// A hero is the document heroes/<uid>_<slot> (slot 1 or 2): written by the pupil (signed in with Google), read by the teacher.
+// The teacher's game reads them all to make the families; the match itself uses a room (book.rooms) like the Grammar Race.
+const heroRef = (uid, slot) => doc(db, 'heroes', `${uid}_${slot}`);
+book.clash = {
+  async sendHero(slot, hero) {
+    if (!user) throw roomError('signin');
+    await setDoc(heroRef(user.uid, slot), { uid: user.uid, email: user.email, name: user.displayName || user.email, slot, hero, updated: Date.now() });
+  },
+  async myHero(slot) {
+    if (!user) return null;
+    const s = await getDoc(heroRef(user.uid, slot));
+    return s.exists() ? s.data() : null;
+  },
+  // the teacher: all the heroes of all the pupils
+  async allHeroes() {
+    const s = await getDocs(collection(db, 'heroes'));
+    return s.docs.map(d => ({ id: d.id, ...d.data() }));
+  },
+  deleteHero(id) { return deleteDoc(doc(db, 'heroes', id)); },
+};

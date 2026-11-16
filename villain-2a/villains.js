@@ -1,4 +1,4 @@
-// Villain 2A & 2B: the 30 villains made by the pupils of 2A and 2B. Only the villains' names are used (never the pupils' names).
+// Villain 2A & 2B: the 32 villains made by the pupils of 2A and 2B. Only the villains' names are used (never the pupils' names).
 //
 // Every villain comes from a villain file: powers, equipment, main attack, weakness and motto are the pupil's own.
 // The numbers (fx) are the teacher's balance work; see engine.js for what each effect does and how a move is rated.
@@ -420,6 +420,35 @@
       ],
       basic: B('Hat Bump', 'You bump the enemy with your big blue hat.', ['magic'], [d(9)]),
     },
+    {
+      id: 'lorisgoat', name: 'Laundry Striker', emoji: '🎮', img: 'img/lorisgoat.jpg', color: '#2f7fd1', role: 'Footballer & gamer',
+      blurb: 'A short guy with short hair who moves so much that when he stops he has to start moving again. One day he ran so fast to take the ball that he got superpowers. He wants to be the goat of football.',
+      says: 'Lock in, chat!',
+      q: { needsWarm: true }, warmText: { cold: 'Sleepy', ok: 'Awake', why: 'is too sleepy to use his powers', done: 'is awake and ready' },
+      quirk: 'Shy, indecisive and messy. When he is sleepy he cannot use his powers: no powers until he is awake.',
+      moves: [
+        M('laundry', 'Laundry Kaneah', 'You throw a lot of messy clothes at the enemy.', 3, ['phys'], [d(4, 3)]),
+        M('controller', 'Controller Attack', 'You throw your controller at the enemy.', 2, ['phys'], [d(13)]),
+        M('celebration', 'Football Celebration', 'A celebration like a battle dance. The enemy does not know what to do.', 2, [], [d(6), { k: 'confuse', n: 1 }]),
+        M('fortnite', 'Fortnite Duel', 'One player against one player: a duel only for the two of you.', 1, [], [d(16), { k: 'skip', n: 1 }]),
+        M('pavon', 'Pavon Attack', 'It flies and attacks from above.', 2, ['phys'], [d(12, 1, { pierce: true })]),
+      ],
+      basic: B('Football Shot', 'You kick a football at the enemy.', ['phys'], [d(6), { k: 'flag', name: 'warm', v: true }]),
+    },
+    {
+      id: 'roxie', name: 'Roxie', emoji: '🦊', img: 'img/roxie.jpg', color: '#e8832a', role: 'Deceiver',
+      blurb: 'A very furry and chubby little fox, small and orange. One day she ate a piece of meat in the woods and found out it was a magic stone that gave her special powers.',
+      says: 'If others treat me badly, they cannot expect me to be kind to them.',
+      q: { tired: true }, quirk: 'Very tired: almost every day she wakes up late. Every power makes her more tired. At 3 she has to rest and loses a turn.',
+      moves: [
+        M('clever', 'Too Clever', 'Roxie is so clever that she manages to fool everyone.', 2, ['mind'], [d(10), { k: 'weak', m: .6, hits: 1 }]),
+        M('cute', 'Cuteness Trap', 'She deceives people with her cuteness, but she can be very wicked.', 2, ['cute'], [d(14), { k: 'confuse', n: 1 }]),
+        M('hypno', 'Big Eyes', 'With her big eyes, she hypnotizes people.', 1, ['mind'], [d(8), { k: 'skip', n: 1 }]),
+        M('read', 'Read Minds', 'You read the mind of the enemy and see what is coming.', 2, ['mind'], [{ k: 'pierce', n: 1 }, { k: 'boost', m: 1.5, hits: 1 }]),
+        M('phones', 'Headphones', 'With your headphones, any spell cast on you becomes ineffective.', 2, [], [{ k: 'guard', p: .7, hits: 2 }]),
+      ],
+      basic: B('Mirror Face', 'You look in the mirror and take the face you want. The enemy is deceived.', ['mind'], [d(8), { k: 'mark', name: 'tired', n: -1, self: true }]),
+    },
   ];
 
 
@@ -496,7 +525,7 @@
   ];
 
   // how much planning a villain needs (1 = easy to play, 3 = for experts): from the duels of the computer at the easy level
-  const SKILL = { goget: 1, kick: 1, dancer: 1, wavy: 1, hands: 1, cactus: 1, skater: 2, mask: 2, explodingball: 2, honey: 2, anxious: 2, lazy: 3, vampire: 3, sixseven: 3, rebel: 3, punchhead: 1, wordstorm: 2, inventor: 3, karol: 2, witchcat: 1, clone: 2, glitter: 1, bodyflame: 1, pikakid: 3, anix: 2, blackcat: 2, slimequeen: 2, lordshadow: 2, timeskipper: 3, keywitch: 1 };
+  const SKILL = { goget: 1, kick: 1, dancer: 1, wavy: 1, hands: 1, cactus: 1, skater: 2, mask: 2, explodingball: 2, honey: 2, anxious: 2, lazy: 3, vampire: 3, sixseven: 3, rebel: 3, punchhead: 1, wordstorm: 2, inventor: 3, karol: 2, witchcat: 1, clone: 2, glitter: 1, bodyflame: 1, pikakid: 3, anix: 2, blackcat: 2, slimequeen: 2, lordshadow: 2, timeskipper: 3, keywitch: 1, lorisgoat: 2, roxie: 2 };
 
   // add the strength of each move, the words that hint at it, and fill the gaps
   [...ROSTER, ...HEROES].forEach(k => {
