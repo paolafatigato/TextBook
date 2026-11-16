@@ -1531,6 +1531,11 @@ else {
   const range = () => pp.querySelector('[name="ppRange"]:checked').value;
   const atSpread = () => spreads[current].classList.contains('current');
   [from, to].forEach(inp => { inp.addEventListener('input', () => { radio('range').checked = true; }); });
+  // "this group": all the spreads with the same data-group as the one open (e.g. all the sheets of Bingo: Classroom)
+  const groupOf = open => {
+    const g = open?.dataset.group;
+    return g ? spreads.filter(s => s.dataset.group === g && canSee(s)) : [];
+  };
 
   document.getElementById('printBtn').addEventListener('click', () => {
     what.hidden = !isTeacher();
@@ -1546,6 +1551,9 @@ else {
         .join('');
       // every time: the two pages open now are chosen (or "Pages … to …" on the contents page)
       radio('spread').disabled = !atSpread();
+      const grp = atSpread() ? groupOf(spreads[current]) : [];
+      document.getElementById('ppGroupLabel').hidden = grp.length < 2;
+      if (grp.length > 1) document.getElementById('ppGroupName').textContent = `Print the whole group “${spreads[current].dataset.group}” (${grp.length} sheets)`;
       radio(atSpread() ? 'spread' : 'range').checked = true;
       chapter.value = '';
       const open = spreads[current];
@@ -1568,6 +1576,17 @@ else {
       pp.close();
       document.body.classList.toggle('eco-print', eco);
       setTimeout(() => window.print(), 50);
+      return;
+    }
+    if (range() === 'group') {
+      const ids = groupOf(spreads[current]).map(s => s.dataset.id);
+      const q = new URLSearchParams({ print: '', from: 0, to: 999999, ids: ids.join(',') });
+      if (eco) q.set('eco', '');
+      if (blank) q.set('blank', '');
+      if (document.getElementById('ppDuplex').checked) q.set('duplex', '');
+      if (document.getElementById('ppFour').checked) q.set('four', '');
+      pp.close();
+      window.open(`${location.pathname}?${q}`, '_blank');
       return;
     }
     let [a, z] = range() === 'all' ? [firstPage, lastPage]
@@ -1691,7 +1710,7 @@ if (isPrintCopy) (async () => {
   };
   const pages = spreads.filter(canSee)
     .flatMap(s => [...s.querySelectorAll(':scope > .page')])
-    .filter(p => printNo(p) >= a && printNo(p) <= z);
+    .filter(p => PRINT_JOB.has('ids') ? PRINT_JOB.get('ids').split(',').includes(p.closest('.spread').dataset.id) : printNo(p) >= a && printNo(p) <= z);
   if (!pages.length) { note.textContent = 'There are no pages to print here.'; return; }
 
   const blankSheet = () => Object.assign(document.createElement('div'), { className: 'print-pad' });
