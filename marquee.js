@@ -2,12 +2,12 @@
 // The sliding is done in CSS (.paused stops it); the metaphors ribbon is an SVG animation, handled in metaphors.js.
 (() => {
   // jb-marquee and wh-marq: make the text long enough for a seamless loop of two identical halves
-  document.querySelectorAll('.jb-marquee > span').forEach(span => {
+  document.querySelectorAll('.jb-marquee > span, .dt-marq > span').forEach(span => {
     const half = (span.textContent.trim() + ' ').repeat(2);
     span.textContent = half + half;
   });
   document.addEventListener('click', e => {
-    const ribbon = e.target.closest('.jb-marquee, .wh-marq, .em-marq, .sp-ribbon');
+    const ribbon = e.target.closest('.jb-marquee, .dt-marq, .wh-marq, .em-marq, .sp-ribbon');
     if (ribbon) ribbon.classList.toggle('paused');
   });
 })();
@@ -41,4 +41,21 @@
   document.addEventListener('spreadchange', start);
   document.fonts?.ready.then(start);
   start();
+})();
+
+// Alice (p. 116): the words round the Dodo turn slowly, a click stops them
+(() => {
+  const text = document.querySelector('#ac-ring')?.closest('svg')?.querySelector('text');
+  if (!text || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const svg = text.ownerSVGElement;
+  const turn = document.createElementNS('http://www.w3.org/2000/svg', 'animateTransform');
+  turn.setAttribute('attributeName', 'transform');
+  turn.setAttribute('type', 'rotate');
+  turn.setAttribute('from', '0 50 50');
+  turn.setAttribute('to', '360 50 50');
+  turn.setAttribute('dur', '90s');
+  turn.setAttribute('repeatCount', 'indefinite');
+  text.appendChild(turn);
+  svg.style.cursor = 'pointer';
+  svg.addEventListener('click', () => svg.animationsPaused() ? svg.unpauseAnimations() : svg.pauseAnimations());
 })();

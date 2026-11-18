@@ -4733,13 +4733,13 @@ body.toc-open .toc { display: block; }
 @media print { .du-hint, .du-scramble, .du-tools, .du-reset, .du-print, .du-bgbtn, .du-bgpal, .du-help { display: none !important; } }
 
 /* ---------- ribbons of words: slow slide, a click stops them [marquee.js] ---------- */
-.jb-marquee, .wh-marq, .em-marq, .sp-ribbon { cursor: pointer; }
-.jb-marquee > span { display: inline-block; animation: rb-slide 100s linear infinite; }
+.jb-marquee, .dt-marq, .wh-marq, .em-marq, .sp-ribbon { cursor: pointer; }
+.jb-marquee > span, .dt-marq > span { display: inline-block; animation: rb-slide 100s linear infinite; }
 .wh-marq > span { animation: rb-slide 90s linear infinite; }
 @keyframes rb-slide { to { transform: translateX(-50%); } }
 .paused > span { animation-play-state: paused !important; }
-@media (prefers-reduced-motion: reduce) { .jb-marquee > span, .wh-marq > span { animation: none; } }
-@media print { .jb-marquee > span, .wh-marq > span { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .jb-marquee > span, .dt-marq > span, .wh-marq > span { animation: none; } }
+@media print { .jb-marquee > span, .dt-marq > span, .wh-marq > span { animation: none; } }
 
 /* ===== [jobs-differ] "How can jobs differ?": the job map (where / what kind / when / who with … ), drag exercise, job profile ===== */
 .jb-aan.one { grid-template-columns: 1fr; }
