@@ -249,3 +249,22 @@
     });
   });
 })();
+
+// Yoga self-assessment: the five rows [alice-yoga:R] give a grade out of 10 (4 to 10, like the tests of the book)
+(() => {
+  const box = document.getElementById('ac-grade');
+  if (!box) return;
+  const rows = [...document.querySelectorAll('.yg-row.opt')];
+  const num = box.querySelector('.num'), msg = box.querySelector('.msg');
+  const show = () => {
+    const lv = rows.map(r => [...r.querySelectorAll('button')].findIndex(b => b.classList.contains('on')) + 1);
+    const done = lv.filter(Boolean).length;
+    if (done < rows.length) { num.textContent = '–'; msg.textContent = `choose a level for each trait (${done}/${rows.length})`; return; }
+    const sum = lv.reduce((a, b) => a + b, 0);                       // 5 … 20
+    const g = Math.round((4 + (sum - rows.length) / (3 * rows.length) * 6) * 2) / 2; // 4 … 10, steps of 0.5
+    num.textContent = String(g).replace('.', ',');
+    msg.textContent = `${sum} points out of ${4 * rows.length}`;
+  };
+  rows.forEach(r => new MutationObserver(show).observe(r, { attributes: true, subtree: true, attributeFilter: ['class'] }));
+  show();
+})();

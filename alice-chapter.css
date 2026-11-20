@@ -99,6 +99,8 @@
 .ac-playing.spade::before, .ac-playing.spade::after { content: "♠"; color: var(--ac-deep); }
 
 /* ---- drawing frames: a placeholder until the black-and-white drawing is put inside (img/alice/<name>.png) ---- */
+/* the White Rabbit drawing (alice-there-is) sits behind the exercise lines */
+.ac-rabbit { z-index: 6; height: auto; pointer-events: none; }
 .ac-draw { position: relative; margin: 0; overflow: hidden; border-radius: 1.4cqw; border: .3cqw solid var(--ac-deep); background: var(--pal-white); aspect-ratio: var(--ar, 4 / 3); display: grid; place-items: center; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 .ac-draw img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .ac-draw figcaption { position: relative; text-align: center; font: 700 1.91cqw/1.25 'Fredoka', sans-serif; color: var(--ac-deep); padding: 0 2cqw; }
@@ -347,3 +349,41 @@ textarea.fill.ac-write { width: 100%; resize: none; border: 0; outline: none; ba
 .ac-foot.footer { text-align: inherit; }
 .ac-ticks li { display: flex; align-items: center; gap: 1.4cqw; font: 400 1.85cqw/1.25 'Nunito', sans-serif; color: var(--pal-night); }
 .ac-ticks .ac-tick { flex: none; }
+
+/* ---- yoga poses and ideal society: the same look as the rest of the chapter ---- */
+.spread[data-id="alice-yoga"] .big-title, .spread[data-id="alice-society"] .big-title { font: 400 7.4cqw/1 'Gloock', serif; letter-spacing: -.01em; color: var(--pal-plum) !important; }
+.spread[data-id="alice-yoga"] .yg-title { font: 400 3.1cqw/1.05 'Gloock', serif; color: var(--pal-plum) !important; display: inline-block; padding: 0 .8cqw; margin-left: -.8cqw; background: linear-gradient(transparent 58%, var(--u, var(--pal-lime)) 58%, var(--u, var(--pal-lime)) 92%, transparent 92%); width: auto; }
+.spread[data-id="alice-yoga"] h2.yg-title:nth-of-type(1) { --u: var(--pal-lime); } .spread[data-id="alice-yoga"] h2.yg-title:nth-of-type(2) { --u: var(--pal-lilac); } .spread[data-id="alice-yoga"] h2.yg-title:nth-of-type(3) { --u: var(--pal-pink); }
+.spread[data-id="alice-yoga"] .yg-text { color: var(--pal-charcoal); line-height: 1.9; }
+.spread[data-id="alice-yoga"] .yg-legend-pill { background: var(--pal-plum); color: var(--pal-white); }
+.spread[data-id="alice-yoga"] .yg-legend { color: var(--pal-slate); font-size: 1.35cqw; }
+.spread[data-id="alice-yoga"] .yg-head { background: var(--pal-plum); color: var(--pal-white); }
+.spread[data-id="alice-yoga"] .yg-row:nth-child(odd) { background: var(--pal-rose-white); }
+.spread[data-id="alice-yoga"] .yg-trait { color: var(--pal-plum); }
+.spread[data-id="alice-yoga"] .yg-row button.on { background: var(--pal-lime); }
+.spread[data-id="alice-yoga"] .yg-row button:hover { background: color-mix(in srgb, var(--pal-lime) 40%, transparent); }
+.spread[data-id="alice-yoga"] .yg-row button i { color: var(--pal-slate); }
+.spread[data-id="alice-society"] .is-pill { background: var(--pal-plum); color: var(--pal-white); border-radius: 999px; font: 400 1.9cqw/1 'Gloock', serif; padding: .8cqw 0; }
+.spread[data-id="alice-society"] .is-sub { color: var(--pal-slate); font-size: 1.5cqw; }
+.spread[data-id="alice-society"] .is-label { color: var(--pal-plum); font-size: 1.6cqw; }
+.spread[data-id="alice-society"] .is-quote { color: var(--pal-charcoal); font-size: 1.65cqw; }
+.spread[data-id="alice-society"] .is-react button.on { background: var(--pal-lime); box-shadow: 0 0 0 .22cqw var(--pal-plum); }
+.spread[data-id="alice-society"] .is-own { background: color-mix(in srgb, var(--pal-lilac) 30%, var(--pal-white)); border: .3cqw solid var(--pal-plum); border-radius: 2.4cqw; }
+.spread[data-id="alice-society"] .is-own h3 { font: 400 2.6cqw/1 'Gloock', serif; color: var(--pal-plum); }
+.spread[data-id="alice-society"] .is-own label { color: var(--pal-plum); font-weight: 700; }
+.spread[data-id="alice-society"] .is-own input.fill { border-bottom-color: var(--pal-plum); }
+.spread[data-id="alice-society"] .is-row { border-bottom: .15cqw dashed color-mix(in srgb, var(--pal-plum) 35%, transparent); }
+.spread[data-id="alice-society"] .is-pill { font-size: 1.7cqw; padding: .55cqw 0; }
+.spread[data-id="alice-society"] .is-own li { height: 7.7cqw; }
+.spread[data-id="alice-society"] .is-own { padding-top: 1.6cqw; }
+.spread[data-id="alice-yoga"] .page-right h2.yg-title:nth-of-type(1) { --u: var(--pal-lilac); }
+.spread[data-id="alice-yoga"] .page-right h2.yg-title:nth-of-type(2) { --u: var(--pal-pink); }
+.spread[data-id="alice-yoga"] .yg-head { height: 3.8cqw; }
+.spread[data-id="alice-yoga"] .yg-row { height: 4.6cqw; }
+.ac-legend { display: flex; align-items: center; gap: 1.4cqw; padding: .5cqw 1.6cqw .5cqw .6cqw; border-radius: 999px; background: var(--pal-rose-white); border: .2cqw solid var(--pal-plum); font: 400 1.3cqw/1.2 'Nunito', sans-serif; color: var(--pal-charcoal); }
+.ac-legend b { flex: none; padding: .45cqw 1.2cqw; border-radius: 999px; background: var(--pal-plum); color: var(--pal-white); font: 800 1.05cqw/1 'Nunito', sans-serif; letter-spacing: .12em; }
+.ac-legend span.i { white-space: nowrap; }
+.ac-grade { display: flex; align-items: center; gap: 1.6cqw; padding: .6cqw 2cqw .6cqw .8cqw; border-radius: 999px; background: var(--pal-white); border: .25cqw solid var(--pal-plum); box-shadow: .4cqw .4cqw 0 var(--pal-lime); font: 700 1.6cqw/1.2 'Fredoka', sans-serif; color: var(--pal-plum); }
+.ac-grade .num { flex: none; min-width: 9cqw; padding: .3cqw 1.4cqw; border-radius: 999px; background: var(--pal-lime); color: var(--pal-night); font: 400 3.2cqw/1 'Gloock', serif; text-align: center; }
+.ac-grade .of { font: 800 1.3cqw/1 'Nunito', sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.ac-grade .msg { font: 400 1.4cqw/1.25 'Nunito', sans-serif; color: var(--pal-slate); }
