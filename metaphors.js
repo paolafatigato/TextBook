@@ -164,7 +164,7 @@
           <div><small>Level 2 · different color</small><b>${a2} ms</b><small>${plural(errors[2], 'mistake')}</small></div>
         </div>
         <p class="mt-gmsg">${msg}</p>
-        <p><small>1000 ms = 1 second. Your results are written on page ${PAGES.ofEl(document.getElementById('mt-game-1'))}.</small></p>
+        <p><small>1000 ms = 1 second. Your results are written on page ${PAGES.shown(PAGES.ofEl(document.getElementById('mt-game-1')))}.</small></p>
         <button type="button" class="mt-gbtn" data-act="again">↻ Play again</button><button type="button" class="mt-gbtn alt" data-act="close">Close</button>`;
       fillIn('mt-game-1', `${a1} ms · ${plural(errors[1], 'mistake')}`);
       fillIn('mt-game-2', `${a2} ms · ${plural(errors[2], 'mistake')}`);
@@ -271,7 +271,7 @@
           <div><small>Metaphors<br>“Time is a thief.”</small><b>${m} ms</b></div>
         </div>
         <p class="mt-gmsg">${msg}</p>
-        <p><small>True sentences: ${avg(times.true)} ms · ${plural(errors, 'mistake')}. Your results are written on page ${PAGES.ofEl(document.getElementById('mt-tr-false'))}.</small></p>
+        <p><small>True sentences: ${avg(times.true)} ms · ${plural(errors, 'mistake')}. Your results are written on page ${PAGES.shown(PAGES.ofEl(document.getElementById('mt-tr-false')))}.</small></p>
         <button type="button" class="mt-gbtn" data-act="again">↻ Play again</button><button type="button" class="mt-gbtn alt" data-act="close">Close</button>`;
       fillIn('mt-tr-false', `${f} ms`);
       fillIn('mt-tr-meta', `${m} ms`);

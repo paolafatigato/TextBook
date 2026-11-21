@@ -352,3 +352,33 @@
 .ea-ctx { margin: 6px 0 0; font: 800 clamp(16px, 2.4vw, 26px) 'Nunito', sans-serif; font-style: italic; color: var(--c); }
 .ea-key p em { color: #5f6592; }
 .ea-slip.hc { padding-top: 2.2mm; } .ea-slip.hc p { line-height: 1.18; } .ea-slip.hc.s2 p { font-size: 3.55mm; } .ea-slip.hc .ea-fix { height: 4.8mm; bottom: 1.6mm; } .ea-slip.hc .ea-fix i { margin-bottom: .4mm; }
+
+/* Silent mime duel: numbered cards on the board (number top left, emoji, then the text, centered) */
+.tg-md { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; margin-bottom: 10px; }
+.tg-md > div { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-width: 0; padding: 14px 12px 12px; border-radius: 16px; background: #fff; border: 4px solid var(--c); text-align: center; }
+.tg-md i { position: absolute; top: 8px; left: 8px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--c); color: #fff; font: 700 24px 'Fredoka', sans-serif; font-style: normal; }
+.tg-md em { font-style: normal; font-size: clamp(34px, 4.4vw, 54px); line-height: 1; }
+.tg-md span { max-width: 100%; font: 700 clamp(17px, 2.2vw, 26px)/1.15 'Fredoka', sans-serif; color: var(--navy); overflow-wrap: break-word; }
+.tg-md-rules { max-width: 780px; margin: 6px auto 0; text-align: left; font: 600 16px/1.4 'Nunito', sans-serif; }
+
+/* Comparative trios: 12 big cards on an A4 page (3 x 4), dashed lines to cut; same colour on every card so the trios do not give themselves away */
+.cs-sheet { box-sizing: border-box; width: 210mm; height: 297mm; padding: 8mm; background: #fff; color: #1f2a6b; font-family: 'Nunito', sans-serif; }
+.cs-grid { height: 100%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 1fr); border-top: .35mm dashed #8a8a99; border-left: .35mm dashed #8a8a99; }
+.cs-card { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4mm; padding: 3mm; text-align: center; border-right: .35mm dashed #8a8a99; border-bottom: .35mm dashed #8a8a99; }
+.cs-card i { font-style: normal; font-size: 24mm; line-height: 1; }
+.cs-card b { font: 700 8mm/1.1 'Fredoka', 'Nunito', sans-serif; color: #1f2a6b; }
+.cs-card b.long { font-size: 6.4mm; }
+.cs-key h2 { margin: 2mm 0 2mm; font: 700 9mm/1 'Fredoka', sans-serif; }
+.cs-key p { margin: 0 0 4mm; font: 600 3.8mm/1.3 'Nunito', sans-serif; color: #5f6592; }
+.cs-key ol { margin: 0; padding-left: 8mm; columns: 2; column-gap: 8mm; font: 600 3.6mm/1.25 'Nunito', sans-serif; }
+.cs-key li { break-inside: avoid; margin-bottom: 2.6mm; } .cs-key li span { display: block; }
+.cs-key .miss { text-decoration: underline; text-decoration-thickness: .5mm; color: #d6334f; font-weight: 800; }
+.cs-prev { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 14px; }
+.cs-prev .cs-sheet { zoom: .4; box-shadow: 0 0 0 2px rgba(31, 42, 107, .2), 0 6px 20px rgba(0, 0, 0, .15); }
+#csPrint { display: none; }
+@media print {
+  body.cs-printing > :not(#csPrint) { display: none !important; }
+  body.cs-printing #csPrint { display: block; }
+  body.cs-printing .cs-sheet { zoom: 1; break-after: page; box-shadow: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body.cs-printing .cs-sheet:last-child { break-after: auto; }
+}

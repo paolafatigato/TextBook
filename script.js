@@ -79,12 +79,28 @@ const spreadTitle = document.getElementById('spreadTitle');
 
 const pagesOf = s => s.dataset.pages.split('-').map(Number);
 let firstPage, lastPage;
+// Page numbers: each school year has its own book (pages.js). The numbers the scripts work with are unique
+// for the whole book (pagesOf, #p12, goToPage); sh() gives the number written on the page, and the box
+// "Page [ ] 2nd year" of the toolbar says which year's book the typed number is in.
+const sh = n => (n >= SCAFFOLD_FIRST ? n : PAGES.shown(n));
+const yearSel = document.getElementById('yearSel');
+// the last page of a year's book (as written on it)
+const lastShownOf = year => {
+  const ofYear = spreads.filter(s => !isUnnumbered(s) && PAGES.yearOf(pagesOf(s)[0]) === year);
+  return ofYear.length ? sh(pagesOf(ofYear.at(-1)).at(-1)) : '–';
+};
+let yearsReady = false; // (isUnnumbered and SCAFFOLD_FIRST are defined further down)
+function paintYear() {
+  if (!yearsReady) return;
+  document.getElementById('pageTotal').textContent = lastShownOf(+yearSel.value);
+}
+yearSel.addEventListener('change', paintYear);
 function countPages() {
   firstPage = pagesOf(spreads[0])[0];
   lastPage = pagesOf(spreads[spreads.length - 1]).at(-1);
-  document.getElementById('pageTotal').textContent = lastPage;
-  pageInput.min = firstPage;
+  pageInput.min = 0;
   pageInput.max = lastPage;
+  paintYear();
 }
 countPages();
 
@@ -126,6 +142,8 @@ const isUnnumbered = s => isScaffold(s) || isPrintout(s);
 // scaffolding and tests (teacher only) have a number from 1000 up, in the order of the book: type it in the
 // page box to open it. No page of the book can have such a number, so it can't be mixed up with one.
 const SCAFFOLD_FIRST = 1000;
+yearsReady = true;
+paintYear();
 // each page counts, as in the book: a spread with a left and a right page takes two numbers (1040–1041)
 const scaffoldNo = new Map(); // spread → its first number
 const scaffoldLast = new Map(); // spread → its last number
@@ -169,7 +187,8 @@ function show(index) {
   document.body.classList.remove('at-home');
   spreads.forEach((s, i) => s.classList.toggle('current', i === current));
   const [first] = pagesOf(spreads[current]);
-  pageInput.value = isUnnumbered(spreads[current]) ? (scaffoldNo.get(spreads[current]) ?? '') : first;
+  pageInput.value = isUnnumbered(spreads[current]) ? (scaffoldNo.get(spreads[current]) ?? '') : sh(first);
+  if (!isUnnumbered(spreads[current])) { yearSel.value = PAGES.yearOf(first); paintYear(); }
   paintDesk();
   prevBtn.disabled = visibleFrom(current - 1, -1) < 0;
   nextBtn.disabled = visibleFrom(current + 1, 1) < 0;
@@ -281,7 +300,9 @@ nextBtn.addEventListener('click', () => step(1));
 document.getElementById('gotoForm').noValidate = true; // 1000+ is above the last page (max) but is allowed
 document.getElementById('gotoForm').addEventListener('submit', e => {
   e.preventDefault();
-  goToPage(parseFloat(pageInput.value));
+  const typed = parseFloat(pageInput.value);
+  // a number from 1000 up is scaffolding or a test; any other number is a page of the year chosen in the box
+  goToPage(typed >= SCAFFOLD_FIRST || !Number.isFinite(typed) ? typed : PAGES.internal(+yearSel.value, typed));
   pageInput.blur();
 });
 document.addEventListener('keydown', e => {
@@ -1527,6 +1548,11 @@ else {
   const from = document.getElementById('ppFrom');
   const to = document.getElementById('ppTo');
   const chapter = document.getElementById('ppChapter');
+  const ppYear = document.getElementById('ppYear'); // the numbers typed in "from … to" are in this year's book
+  // the unique number of a typed page (scaffolding and tests, 1000 and up, have none of the years)
+  const typedPage = v => (v >= SCAFFOLD_FIRST ? v : PAGES.internal(+ppYear.value, v));
+  // the other way: a unique number in the boxes, as written on the page (and the year of that page)
+  const fillRange = (a, z) => { if (a < SCAFFOLD_FIRST) ppYear.value = PAGES.yearOf(a); [from.value, to.value] = [sh(a), sh(z)]; };
   const radio = v => pp.querySelector(`[name="ppRange"][value="${v}"]`);
   const range = () => pp.querySelector('[name="ppRange"]:checked').value;
   const atSpread = () => spreads[current].classList.contains('current');
@@ -1541,13 +1567,14 @@ else {
     what.hidden = !isTeacher();
     // up to the last number of the scaffolding (1000 and up), not just the last page of the book
     const top = Math.max(lastPage, ...scaffoldLast.values());
-    [from, to].forEach(inp => { inp.min = firstPage; inp.max = top; });
+    [from, to].forEach(inp => { inp.min = 0; inp.max = top; });
+    ppYear.value = yearSel.value;
     if (isTeacher()) {
       // the chapters with their pages: choosing one writes its pages in "from … to"
       // (scaffolding and tests have no page numbers: they are printed one spread at a time)
       chapter.innerHTML = '<option value="">… or choose a chapter</option>' + CHAPTERS
         .map(ch => ch.items.filter(s => canSee(s) && !isUnnumbered(s)))
-        .map((items, i) => items.length ? `<option value="${pagesOf(items[0])[0]}-${pagesOf(items.at(-1)).at(-1)}">${esc(CHAPTERS[i].title)} (p. ${pagesOf(items[0])[0]}–${pagesOf(items.at(-1)).at(-1)})</option>` : '')
+        .map((items, i) => items.length ? `<option value="${pagesOf(items[0])[0]}-${pagesOf(items.at(-1)).at(-1)}">${esc(CHAPTERS[i].title)} (p. ${sh(pagesOf(items[0])[0])}–${sh(pagesOf(items.at(-1)).at(-1))})</option>` : '')
         .join('');
       // every time: the two pages open now are chosen (or "Pages … to …" on the contents page)
       radio('spread').disabled = !atSpread();
@@ -1557,13 +1584,13 @@ else {
       radio(atSpread() ? 'spread' : 'range').checked = true;
       chapter.value = '';
       const open = spreads[current];
-      if (atSpread()) [from.value, to.value] = isScaffold(open) ? [scaffoldNo.get(open), scaffoldLast.get(open)] : [pagesOf(open)[0], pagesOf(open).at(-1)];
+      if (atSpread()) fillRange(...(isScaffold(open) ? [scaffoldNo.get(open), scaffoldLast.get(open)] : [pagesOf(open)[0], pagesOf(open).at(-1)]));
     }
     pp.showModal();
   });
   chapter.addEventListener('change', () => {
     if (!chapter.value) return;
-    [from.value, to.value] = chapter.value.split('-');
+    fillRange(...chapter.value.split('-').map(Number));
     radio('range').checked = true;
   });
   pp.querySelector('.pp-cancel').addEventListener('click', () => pp.close());
@@ -1591,7 +1618,7 @@ else {
     }
     let [a, z] = range() === 'all' ? [firstPage, lastPage]
       : range() === 'spread' ? [pagesOf(spreads[current])[0], pagesOf(spreads[current]).at(-1)]
-      : [parseInt(from.value, 10), parseInt(to.value, 10)];
+      : [typedPage(parseInt(from.value, 10)), typedPage(parseInt(to.value, 10))];
     if (!Number.isFinite(a) || !Number.isFinite(z)) { from.focus(); return; }
     if (a > z) [a, z] = [z, a];
     const q = new URLSearchParams({ print: '', from: a, to: z });
@@ -1796,7 +1823,7 @@ document.getElementById('clearBtn').addEventListener('click', () => {
 /* ================= home page ================= */
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const range = (a, b) => (a === b ? `p. ${a}` : `p. ${a}–${b}`);
+const range = (a, b) => (a === b ? `p. ${sh(a)}` : `p. ${sh(a)}–${sh(b)}`);
 
 // a topic page in contents.js ('id', 'id:L', 'id:R' or [from, to]) → [first page, last page]
 const topicPages = item => {
@@ -1861,6 +1888,23 @@ function chapterCard(ch) {
     </article>`;
 }
 
+// opening (or closing) the "+ n more" of a chapter does the same in the cards of its row, so no white space is left
+let syncingMore = false;
+document.getElementById('chapterGrid').addEventListener('toggle', e => {
+  const d = e.target;
+  if (syncingMore || !d.classList?.contains('chapter-more')) return;
+  const card = d.closest('.chapter');
+  if (!card) return;
+  syncingMore = true;
+  [...card.parentElement.querySelectorAll('.chapter')].forEach(c => {
+    if (c !== card && Math.abs(c.offsetTop - card.offsetTop) < 4) {
+      const m = c.querySelector('.chapter-more');
+      if (m) m.open = d.open;
+    }
+  });
+  setTimeout(() => { syncingMore = false; }, 0);
+}, true);
+
 function renderHome() {
   // one block per school year (and the teacher's materials): a heading, then its chapters
   document.getElementById('chapterGrid').innerHTML = PARTS.map(part => {
@@ -1922,7 +1966,7 @@ function tocGroup(group, ch) {
   const mark = isScaffold(s) ? ' class="scaffold-link"' : '';
   return `<li${mark}><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}" data-ids="${esc(ids)}"${off}><b${isScaffold(s) ? scaffoldColor(s) : ''}>${range}</b><span>${esc(name)}</span></a></li>`;
 }
-const range2 = (a, b) => (a === b ? `${a}` : `${a}–${b}`);
+const range2 = (a, b) => (a === b ? `${sh(a)}` : `${sh(a)}–${sh(b)}`);
 
 function renderToc() {
   toc.innerHTML = `
@@ -1939,14 +1983,14 @@ function renderToc() {
         const [, b] = pagesOf(inside.at(-1));
         return `
         <details class="toc-ch" data-ch="${esc(ch.title)}" style="--c:${esc(ch.color || '#f05f4b')}"${tocChaptersOpen.has(ch.title) ? ' open' : ''}>
-          <summary><i class="toc-dot"></i><span>${esc(ch.title)}</span><small>${ch.collect ? inside.length : `${a}–${b}`}</small></summary>
+          <summary><i class="toc-dot"></i><span>${esc(ch.title)}</span><small>${ch.collect ? inside.length : `${sh(a)}–${sh(b)}`}</small></summary>
           <ul>${tocEntries(inside).map(entry => {
             if (Array.isArray(entry)) return tocGroup(entry, ch);
             const s = entry;
             if (isUnnumbered(s)) return `<li class="scaffold-link"><a href="${hrefOf(s)}" data-id="${esc(s.dataset.id)}"${isVisible(s) || teacherOnly(s) ? '' : ' class="off" title="Hidden from students"'}><b${scaffoldColor(s)}>${scaffoldRange(s) || scaffoldSign(s)}</b><span>${esc(scaffoldName(s, ch))}</span></a></li>`;
             const [x, y] = pagesOf(s);
             const off = isVisible(s) || teacherOnly(s) ? '' : ' class="off" title="Hidden from students"';
-            return `<li><a href="#p${x}" data-id="${esc(s.dataset.id)}"${off}><b>${x}–${y}</b><span>${esc(s.dataset.name || s.dataset.title || '')}</span></a></li>`;
+            return `<li><a href="#p${x}" data-id="${esc(s.dataset.id)}"${off}><b>${sh(x)}–${sh(y)}</b><span>${esc(s.dataset.name || s.dataset.title || '')}</span></a></li>`;
           }).join('')}</ul>
         </details>`;
       }).join('');
@@ -2087,7 +2131,7 @@ function updateContinueLink() {
   if (!link.hidden) {
     const [last] = pagesOf(spread);
     link.href = hrefOf(spread);
-    link.textContent = isUnnumbered(spread) ? `Continue from ${spread.dataset.name || 'where you were'} →` : `Continue from page ${last} →`;
+    link.textContent = isUnnumbered(spread) ? `Continue from ${spread.dataset.name || 'where you were'} →` : `Continue from page ${sh(last)}${PAGES.yearOf(last) ? ` (${PAGES.years[PAGES.yearOf(last)].tag})` : ''} →`;
   }
 }
 

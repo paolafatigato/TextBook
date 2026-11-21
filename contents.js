@@ -26,6 +26,8 @@ const CONTENTS = {
         { title: 'Owners', start: 'own-adjectives', color: '#8fb82e', image: 'img/goat-p28.png' },
         { title: 'Present Simple', start: 'ps-affirmative', color: '#c97df6', image: 'img/game-p34.png', zoom: 1.8 },
         { title: 'Daily routine', start: 'ps-routine-pictures', color: '#fa6e5f' },
+        // the history lessons that used to be at the end of Daily routine: Wulf, Aemilia, the Clash (history-chapter.css)
+        { title: 'CLIL: Romans & Longobards', start: 'ps-clil-wulf', color: '#4e964c' },
         { title: 'Home', start: 'home-coraline', color: '#c9de3c', image: 'img/home/sofa.png' },
         {
           title: 'Literature: Alice',
@@ -105,6 +107,8 @@ const CONTENTS = {
         { title: 'Bullshit cards', start: 'bsdeck-1', color: '#1a4a2e' },
         // Spoons: cards with words (adjectives, verbs, nouns, adverbs, little words) to choose and print (spoons-deck.js)
         { title: 'Spoons (word cards)', start: 'spoons-1', color: '#2f6fd6' },
+        // Mime cards to print and cut: the clothes cards (fashion show) + the hard scenes (action + circumstance) of Mime charades
+        { title: 'Mime cards', start: 'mimecards-1', color: '#46d9c0' },
         // "find someone who…" bingo cards to print, one per page: Classroom (20), Holiday (12), Fashion show (4)
         { title: 'Bingo (to print)', start: 'bingo-class-1', color: '#d1a07f' },
         // pair writing: texts to stick on the partner's forehead, A1 / A2 / B1, 4 pairs per level (forehead-writing.css)
@@ -258,6 +262,9 @@ const CONTENTS = {
     { title: 'The Caucus Race: reading, the Dodo, Dodgson', color: '#de3796', pages: ['alice-caucus'] },
     { title: 'Can / can’t · secret rules · desert island game', color: '#c97ff7', pages: ['alice-can'] },
     { title: 'Karl Marx: rich, poor and social classes', color: '#de3796', pages: ['alice-marx'] },
+    { title: 'Victorian school: reading (rich & poor, Three Rs, punishment)', color: '#e8c547', pages: ['alice-victorian'] },
+    { title: 'Victorian school: comprehension, vocabulary, then & now', color: '#49acf0', pages: ['alice-victorian2'] },
+    { title: 'Poem: Father William (Southey vs Carroll)', color: '#e8c547', pages: ['alice-william'] },
     { title: 'Ideal society: discuss & design', color: '#de3796', pages: ['alice-society'] },
     { title: 'Meet the author: Shakespeare (evidence game)', color: '#b23a48', pages: [['shk-meet', 'shk-id-card']] },
     { title: 'Questions with do / does / am / is / are', color: '#b23a48', pages: ['shk-meet:L', 'shk-id-card:L'] },

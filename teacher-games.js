@@ -474,36 +474,31 @@
       const paint = () => {
         const clock = '<p class="tg-clock sm' + (state === 'run' && left <= 10 ? ' hot' : '') + (state === 'over' ? ' over' : '') + '">' + (state === 'over' ? 'Time!' : mmss(left)) + '</p>';
         let ctl = '';
-        if (state === 'ready') ctl = '<div class="tg-sjbar"><i></i><button type="button" class="tg-btn go" data-act="go">▶ Start (' + mmss(secs) + ')</button><span class="tg-pr"><button type="button" class="tg-pr-btn" aria-label="Print">🖨</button><span class="tg-pr-menu"><button type="button" data-act="print1">Print this cloud</button><button type="button" data-act="printall">Print all (' + CLOUDS.length + ')</button></span></span></div><p class="tg-foot">Time <button type="button" data-s="120" class="' + (secs === 120 ? 'on' : '') + '">2 min</button><button type="button" data-s="180" class="' + (secs === 180 ? 'on' : '') + '">3 min</button><button type="button" data-s="300" class="' + (secs === 300 ? 'on' : '') + '">5 min</button></p>';
-        else if (state === 'run') ctl = '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="stop">■ Stop</button></div><p class="tg-help">Words of 3+ letters with the <b>middle letter</b>. Only real words count!</p>';
-        else ctl = '<p class="tg-help">Check the papers: count only <b>real words</b> made with the letters.</p>' +
+        if (state === 'ready') ctl = '<div class="tg-row"><button type="button" class="tg-btn go" data-act="go">▶ Start (' + mmss(secs) + ')</button></div><p class="tg-help">Write on paper or on the board: <b>prefix + root + suffix</b> and what it means.</p>';
+        else if (state === 'run') ctl = '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="stop">■ Stop</button></div><p class="tg-help">Write words <b>with their meaning</b>. Only real words count!</p>';
+        else ctl = '<p class="tg-help">Check the papers: count only <b>real words with the right meaning</b>.</p>' +
           '<div class="tg-count2"><div class="a"><b>Team A</b><p><button type="button" data-d="a-1">−</button><span>' + a + '</span><button type="button" data-d="a1">+1</button></p></div>' +
           '<div class="b"><b>Team B</b><p><button type="button" data-d="b-1">−</button><span>' + b + '</span><button type="button" data-d="b1">+1</button></p></div></div>' +
-          '<form class="tg-check" data-act="check"><input id="tgWord" autocomplete="off" placeholder="Check a word…" aria-label="Check a word"><button type="submit" class="tg-btn alt">Check</button>' + (check ? '<span class="' + (check.ok ? 'ok' : 'no') + '">' + (check.ok ? '✔ ' + esc(check.w) + ': the letters are right' : '✖ ' + esc(check.w) + ': not with these letters') + '</span>' : '') + '</form>' +
           '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="reveal">' + (show ? 'Hide' : '👀 Show') + ' example words</button><button type="button" class="tg-btn go" data-act="bank">✔ Winner: ' + (a === b ? 'draw' : a > b ? 'Team A' : 'Team B') + ' · add to scores</button></div>' +
-          (show ? '<p class="tg-help">The long word: <b>' + wh.big + '</b></p><ul class="tg-mx-words tg-wh-words">' + wh.words.map(w => '<li>' + esc(w) + '</li>').join('') + '</ul>' : '');
-        area.innerHTML = '<div class="tg-round">' + wheel() + clock + ctl + '</div>';
+          (show ? '<ul class="tg-mx-words">' + m.words.map(([w, d]) => '<li><b>' + esc(w) + '</b> ' + esc(d) + '</li>').join('') + '</ul>' : '');
+        area.innerHTML = '<div class="tg-round tg-mxbox">' + matrix() + clock + ctl + '</div>';
       };
       const tick = () => { left--; if (left <= 0) { left = 0; clearInterval(timer); timer = null; state = 'over'; beep(); } paint(); };
-      area.onsubmit = e => { e.preventDefault(); const w = $('tgWord').value.trim(); if (w) { check = { w, ok: wheelOk(w, wh) }; paint(); $('tgWord').focus(); } };
       area.onclick = e => {
-        const t = e.target.closest('button'); if (!t || t.type === 'submit') return;
+        const t = e.target.closest('button'); if (!t) return;
         const d = t.dataset;
-        if (d.go) { idx = (idx + +d.go + WHEELS.length) % WHEELS.length; play(); return; }
-        if (d.s) { secs = +d.s; play(); return; }
         if (d.act === 'go') { state = 'run'; left = secs; clearInterval(timer); timer = setInterval(tick, 1000); }
-        else if (d.act === 'shuffle') { ring = shuffle(ring); tilt = ring.map(() => Math.round((Math.random() - .5) * 40)); }
         else if (d.act === 'stop') { clearInterval(timer); timer = null; state = 'over'; }
         else if (d.act === 'reveal') show = !show;
         else if (d.act === 'bank') {
           if (a > b) score.a++; else if (b > a) score.b++; else { score.a++; score.b++; }
-          paintScore(); state = 'ready'; left = secs; a = b = 0; show = false; check = null; ring = shuffle(ring); tilt = ring.map(() => Math.round((Math.random() - .5) * 40));
+          paintScore(); state = 'ready'; left = secs; a = b = 0; show = false;
         } else if (d.d) { const k = d.d[0], v = +d.d.slice(1); if (k === 'a') a = Math.max(0, a + v); else b = Math.max(0, b + v); }
         paint();
       };
       paint();
     };
-    play();
+    start();
   }
 
 
@@ -559,7 +554,7 @@
       const paint = () => {
         const clock = '<p class="tg-clock sm' + (state === 'run' && left <= 10 ? ' hot' : '') + (state === 'over' ? ' over' : '') + '">' + (state === 'over' ? 'Time!' : mmss(left)) + '</p>';
         let ctl = '';
-        if (state === 'ready') ctl = '<div class="tg-row"><button type="button" class="tg-btn go" data-act="go">▶ Start (' + mmss(secs) + ')</button><button type="button" class="tg-btn alt" data-act="print1">🖨 Print this cloud</button><button type="button" class="tg-btn alt" data-act="printall">🖨 Print all (' + CLOUDS.length + ')</button></div><p class="tg-foot">Time <button type="button" data-s="120" class="' + (secs === 120 ? 'on' : '') + '">2 min</button><button type="button" data-s="180" class="' + (secs === 180 ? 'on' : '') + '">3 min</button><button type="button" data-s="300" class="' + (secs === 300 ? 'on' : '') + '">5 min</button></p>';
+        if (state === 'ready') ctl = '<div class="tg-sjbar"><i></i><button type="button" class="tg-btn go" data-act="go">▶ Start (' + mmss(secs) + ')</button><span class="tg-pr"><button type="button" class="tg-pr-btn" aria-label="Print">🖨</button><span class="tg-pr-menu"><button type="button" data-act="print1">Print this cloud</button><button type="button" data-act="printall">Print all (' + CLOUDS.length + ')</button></span></span></div><p class="tg-foot">Time <button type="button" data-s="120" class="' + (secs === 120 ? 'on' : '') + '">2 min</button><button type="button" data-s="180" class="' + (secs === 180 ? 'on' : '') + '">3 min</button><button type="button" data-s="300" class="' + (secs === 300 ? 'on' : '') + '">5 min</button></p>';
         else if (state === 'run') ctl = '<div class="tg-row"><button type="button" class="tg-btn alt" data-act="stop">■ Stop</button></div>';
         else ctl = '<p class="tg-help">Read the sentences aloud. Count only <b>correct</b> sentences (words can be used once in a sentence).</p>' +
           '<div class="tg-count2"><div class="a"><b>Team A</b><p><button type="button" data-d="a-1">−</button><span>' + a + '</span><button type="button" data-d="a1">+1</button></p></div>' +
@@ -916,6 +911,177 @@
     start();
   }
 
+  /* ---------- 🤫 Silent mime duel: 6 or 7 numbered mime cards on the board, two teams mime at the same time ----------
+     Each team has one guesser. Every other pupil gets a NUMBER (= a card on the board) and mimes it in silence.
+     Both teams play at once: mime when YOUR guesser looks at you and the other one doesn't; confuse the other guesser when he/she looks at you.
+     Cards: the same cards as For the teacher > Mime cards (clothes, easy, medium, hard scenes). */
+  function mimeDuelGame() {
+    const SETS = [
+      { id: 'clothes', icon: '👗', color: '#dc3394', title: 'Clothes & fashion show', items: ['put on a coat', 'take off boots', 'tie a tie', 'sew a button', 'take a selfie', 'look in the mirror', 'pack a suitcase', 'dance at a party', 'look for a sock', 'put on makeup', 'try on a hat', 'walk on the runway', 'brush your hair', 'take a photo', 'write notes', 'carry a box', 'wave to the audience', 'polish your shoes', 'sing on stage', 'clean your sunglasses', 'iron a shirt', 'drink water', 'carry shopping bags', 'put on lipstick'] },
+      { id: 'easy', icon: '⭐', color: '#2f9e6f', title: 'Easy: one action', items: ['swim', 'run', 'jump', 'dance', 'sing', 'cook', 'read', 'draw', 'paint', 'ski', 'skate', 'fish', 'sleep', 'laugh', 'climb', 'play soccer', 'play tennis', 'play basketball', 'play volleyball', 'play the guitar', 'play the piano', 'ride a bike', 'drive a car', 'take a photo', 'do karate', 'do yoga', 'brush your teeth', 'knit', 'surf', 'box'] },
+      { id: 'medium', icon: '⭐⭐', color: '#e8820c', title: 'Medium: action + object', items: ['cook lasagna', 'bake a cake', 'paint a picture', 'play video games', 'walk the dog', 'iron a shirt', 'clean your room', 'wash the dishes', 'ride a horse', 'play chess', 'play the drums', 'take a selfie', 'do gymnastics', 'knit a scarf', 'fix a bike', 'plant a flower', 'build a sandcastle', 'shoot a basket', 'serve in tennis', 'catch a fish', 'dive into a pool', 'sing in the shower', 'do a cartwheel', 'make a pizza', 'play the violin', 'go hiking', 'row a boat', 'throw a javelin'] },
+      { id: 'hard', icon: '⭐⭐⭐', color: '#8e2de2', title: 'Hard: action + circumstance', items: ['play soccer in the rain', 'ski down a mountain with no poles', 'cook spaghetti and burn it', 'ride a bike with no hands', 'swim with a shark', 'walk the dog while it runs away', 'bake a cake and drop it on the floor', 'play tennis with a very heavy racket', 'do yoga on a moving train', 'take a selfie with a lion', 'play video games at 3 a.m. and fall asleep', 'run a marathon in flip-flops', 'learn to skate and fall down', 'play the guitar for a crowd and forget the song', 'paint a portrait of a very angry cat', 'go hiking and see a bear', 'catch a huge fish that pulls you into the water', "dance with somebody who can't dance", 'cook lasagna for twenty people', 'play basketball with a very tall giant', 'surf a giant wave and lose your board', "ride a horse that doesn't want to move", 'play chess against a robot and lose', 'row a boat in a storm'] },
+    ];
+    const EMO = {"put on a coat":"🧥","take off boots":"👢","tie a tie":"👔","sew a button":"🧵","take a selfie":"🤳","look in the mirror":"🪞","pack a suitcase":"🧳","dance at a party":"💃","look for a sock":"🧦","put on makeup":"🧴","try on a hat":"🎩","walk on the runway":"🚶","brush your hair":"💇","take a photo":"📸","write notes":"📝","carry a box":"📦","wave to the audience":"👋","polish your shoes":"👞","sing on stage":"🎤","clean your sunglasses":"🕶️","iron a shirt":"👕","drink water":"🥤","carry shopping bags":"🛍️","put on lipstick":"💄","swim":"🏊","run":"🏃","jump":"🤾","dance":"🕺","sing":"🎤","cook":"🍳","read":"📖","draw":"✏️","paint":"🎨","ski":"⛷️","skate":"⛸️","fish":"🎣","sleep":"😴","laugh":"😂","climb":"🧗","play soccer":"⚽","play tennis":"🎾","play basketball":"🏀","play volleyball":"🏐","play the guitar":"🎸","play the piano":"🎹","ride a bike":"🚲","drive a car":"🚗","do karate":"🥋","do yoga":"🧘","brush your teeth":"🪥","knit":"🧶","surf":"🏄","box":"🥊","cook lasagna":"🍝","bake a cake":"🎂","paint a picture":"🖼️","play video games":"🎮","walk the dog":"🐕","clean your room":"🧹","wash the dishes":"🍽️","ride a horse":"🐴","play chess":"♟️","play the drums":"🥁","do gymnastics":"🤸","knit a scarf":"🧣","fix a bike":"🔧","plant a flower":"🌷","build a sandcastle":"🏰","shoot a basket":"🏀","serve in tennis":"🎾","catch a fish":"🐟","dive into a pool":"🤿","sing in the shower":"🚿","do a cartwheel":"🤸","make a pizza":"🍕","play the violin":"🎻","go hiking":"🥾","row a boat":"🚣","throw a javelin":"🎯","play soccer in the rain":"⚽🌧️","ski down a mountain with no poles":"⛷️","cook spaghetti and burn it":"🍝🔥","ride a bike with no hands":"🚲","swim with a shark":"🦈","walk the dog while it runs away":"🐕💨","bake a cake and drop it on the floor":"🎂","play tennis with a very heavy racket":"🎾","do yoga on a moving train":"🧘🚆","take a selfie with a lion":"🤳🦁","play video games at 3 a.m. and fall asleep":"🎮😴","run a marathon in flip-flops":"🏃🩴","learn to skate and fall down":"⛸️","play the guitar for a crowd and forget the song":"🎸😳","paint a portrait of a very angry cat":"🎨😾","go hiking and see a bear":"🥾🐻","catch a huge fish that pulls you into the water":"🎣🐟","dance with somebody who can't dance":"💃🕺","cook lasagna for twenty people":"🍽️👥","play basketball with a very tall giant":"🏀","surf a giant wave and lose your board":"🏄🌊","ride a horse that doesn't want to move":"🐴","play chess against a robot and lose":"♟️🤖","row a boat in a storm":"🚣⛈️"};
+    const chosen = new Set(['medium', 'hard']);
+    let n = 6;
+    const start = () => {
+      openGame('🤫 Silent mime duel', { onBack: menu });
+      area.innerHTML = `<div class="tg-card">
+        <p class="tg-intro">Two teams, <b>one guesser each</b>. Show the numbered cards on the board and give every other pupil <b>a number</b> (the card he or she must mime). The guesser matches pupils and cards. <b>Both teams play at the same time, in total silence</b>: mime when <i>your</i> guesser is looking at you and the other one isn't. Confuse the other guesser when he/she looks at you!</p>
+        <p class="tg-label">Choose the cards <small>(more than one: they get mixed)</small></p>
+        <div class="tg-decks">${SETS.map(s => `<button type="button" class="tg-deck${chosen.has(s.id) ? ' on' : ''}" data-d="${s.id}" style="--c:${s.color}"><span>${s.icon}</span>${esc(s.title)}<small>${s.items.length} cards</small></button>`).join('')}</div>
+        <p class="tg-label">Cards on the board</p>
+        <div class="tg-decks"><button type="button" class="tg-deck${n === 6 ? ' on' : ''}" data-n="6" style="--c:#1f2a6b"><span>6</span>6 cards<small>teams of 7 (1 guesser + 6)</small></button><button type="button" class="tg-deck${n === 7 ? ' on' : ''}" data-n="7" style="--c:#1f2a6b"><span>7</span>7 cards<small>teams of 8 (1 guesser + 7)</small></button></div>
+        <div class="tg-row"><button type="button" class="tg-btn" id="tgMdGo"${chosen.size ? '' : ' disabled'}>${chosen.size ? '▶ Show the cards' : 'Choose the cards first'}</button></div></div>`;
+      area.onclick = e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.d) { chosen.has(b.dataset.d) ? chosen.delete(b.dataset.d) : chosen.add(b.dataset.d); start(); }
+        else if (b.dataset.n) { n = +b.dataset.n; start(); }
+        else if (b.id === 'tgMdGo' && chosen.size) play();
+      };
+    };
+    const play = () => {
+      openGame('🤫 Silent mime duel', { scored: true, onBack: start });
+      const nextCard = bag(SETS.filter(s => chosen.has(s.id)).flatMap(s => s.items.map(t => ({ t, s }))));
+      let cards = [], a = 0, b = 0, help = false;
+      const deal = () => { const seen = new Set(); cards = []; while (cards.length < n) { const c = nextCard(); if (!seen.has(c.t)) { seen.add(c.t); cards.push(c); } } a = b = 0; };
+      const rules = '<ul class="tg-md-rules"><li>Each team has <b>1 guesser</b>. Every other pupil gets a <b>number</b> (1–' + n + ') and mimes that card. Both teams have the same numbers.</li><li><b>Total silence.</b> No words, no sounds, no pointing at the board.</li><li>Mime only when <b>your</b> guesser looks at you and the other guesser does not. When the <b>other</b> guesser looks at you, confuse him or her: mime another card!</li><li>The guesser writes on paper which card each pupil is miming (name → number). After 3 or 4 minutes: stop and check.</li><li>The team with more right matches wins the round.</li></ul>';
+      const paint = () => {
+        area.innerHTML = `<div class="tg-round">
+          <div class="tg-md">${cards.map((c, i) => `<div style="--c:${c.s.color}"><i>${i + 1}</i><em>${EMO[c.t] || '🎭'}</em><span>${esc(c.t)}</span></div>`).join('')}</div>
+          <div class="tg-count2"><div class="a"><b>Team A: right matches</b><p><button type="button" data-d="a-1">−</button><span>${a}</span><button type="button" data-d="a1">+1</button></p></div>
+          <div class="b"><b>Team B: right matches</b><p><button type="button" data-d="b-1">−</button><span>${b}</span><button type="button" data-d="b1">+1</button></p></div></div>
+          <div class="tg-row"><button type="button" class="tg-btn alt" data-act="new">🔄 New cards</button><button type="button" class="tg-btn go" data-act="bank">✔ Winner: ${a === b ? 'draw' : a > b ? 'Team A' : 'Team B'} · add to scores, new cards</button></div>
+          <p class="tg-foot"><button type="button" class="tg-link" data-act="help">${help ? 'Hide' : '📖 Show'} the rules</button></p>
+          ${help ? rules : ''}</div>`;
+      };
+      area.onclick = e => {
+        const t = e.target.closest('button'); if (!t) return;
+        const d = t.dataset;
+        if (d.act === 'new') deal();
+        else if (d.act === 'help') help = !help;
+        else if (d.act === 'bank') { if (a > b) score.a++; else if (b > a) score.b++; else { score.a++; score.b++; } paintScore(); deal(); }
+        else if (d.d) { const k = d.d[0], v = +d.d.slice(1); if (k === 'a') a = Math.max(0, Math.min(n, a + v)); else b = Math.max(0, Math.min(n, b + v)); }
+        paint();
+      };
+      score.a = score.b = 0; paintScore();
+      deal(); paint();
+    };
+    start();
+  }
+
+  /* ---------- 📈 Comparative trios: big cards to print (3 x 4 on A4), each pupil gets 1 of the 2 printed cards of a trio ----------
+     A trio = adjective + comparative + superlative, each with its emoji (fast 🐕 · faster 🐆 · the fastest 🏎️).
+     The printed version leaves out ONE card of every trio at random: the pupils find their partners and write the missing word.
+     The teacher's key page says which card was left out. */
+  function trioGame() {
+    const GROUPS = {
+      short: { icon: '📏', color: '#2f6fd6', title: 'Short words', hint: 'faster · the fastest' },
+      y: { icon: '🙂', color: '#dc3394', title: 'Ending in -y', hint: 'happier · the happiest' },
+      more: { icon: '➕', color: '#e8820c', title: 'Long words', hint: 'more … · the most …' },
+      irr: { icon: '⚡', color: '#8e2de2', title: 'Irregular', hint: 'better · the best' },
+    };
+    // [group, base, comparative, superlative, emoji x3]
+    const TRIOS = [
+      ['short', 'fast', 'faster', 'the fastest', '🐕', '🐆', '🏎️'],
+      ['short', 'big', 'bigger', 'the biggest', '🐘', '🐋', '🪐'],
+      ['short', 'tall', 'taller', 'the tallest', '🌳', '🦒', '🗼'],
+      ['short', 'small', 'smaller', 'the smallest', '🐈', '🐁', '🐜'],
+      ['short', 'old', 'older', 'the oldest', '🏠', '🏰', '🏛️'],
+      ['short', 'long', 'longer', 'the longest', '🐍', '🚆', '🛣️'],
+      ['short', 'high', 'higher', 'the highest', '🪁', '✈️', '🚀'],
+      ['short', 'cold', 'colder', 'the coldest', '🌬️', '❄️', '🧊'],
+      ['short', 'hot', 'hotter', 'the hottest', '☕', '☀️', '🌋'],
+      ['short', 'slow', 'slower', 'the slowest', '🚶', '🐢', '🐌'],
+      ['short', 'strong', 'stronger', 'the strongest', '🐴', '🐻', '🦍'],
+      ['y', 'happy', 'happier', 'the happiest', '🙂', '😄', '🥳'],
+      ['y', 'funny', 'funnier', 'the funniest', '😆', '😂', '🤣'],
+      ['y', 'heavy', 'heavier', 'the heaviest', '🎒', '🚗', '🚢'],
+      ['y', 'pretty', 'prettier', 'the prettiest', '🌼', '🌹', '🌈'],
+      ['y', 'scary', 'scarier', 'the scariest', '🕷️', '🐍', '👻'],
+      ['more', 'expensive', 'more expensive', 'the most expensive', '👟', '💎', '🛥️'],
+      ['more', 'dangerous', 'more dangerous', 'the most dangerous', '🐝', '🐊', '🦈'],
+      ['more', 'beautiful', 'more beautiful', 'the most beautiful', '🌸', '🦚', '🌅'],
+      ['more', 'comfortable', 'more comfortable', 'the most comfortable', '🪑', '🛋️', '🛏️'],
+      ['more', 'difficult', 'more difficult', 'the most difficult', '🧩', '♟️', '🧮'],
+      ['irr', 'good', 'better', 'the best', '🥉', '🥈', '🥇'],
+      ['irr', 'bad', 'worse', 'the worst', '🌧️', '⛈️', '🌪️'],
+      ['irr', 'far', 'further', 'the furthest', '🏖️', '🗽', '🌙'],
+    ];
+    const chosen = new Set(Object.keys(GROUPS));
+    let count = 12;
+    const poolSize = () => TRIOS.filter(t => chosen.has(t[0])).length;
+    const start = () => {
+      openGame('📈 Comparative trios', { onBack: menu });
+      const max = poolSize();
+      if (count > max) count = max;
+      area.innerHTML = `<div class="tg-card">
+        <p class="tg-intro">Big cards to print and cut: <b>an adjective, its comparative and its superlative</b>, each with a picture (<i>fast 🐕 · faster 🐆 · the fastest 🏎️</i>). Of every trio you give out <b>only 2 cards</b> (the third is taken away at random). Each pupil gets one card, finds the partner and <b>writes the missing word</b>.</p>
+        <p class="tg-label">Choose the adjectives <small>(more than one: they get mixed)</small></p>
+        <div class="tg-decks">${Object.entries(GROUPS).map(([k, g]) => `<button type="button" class="tg-deck${chosen.has(k) ? ' on' : ''}" data-g="${k}" style="--c:${g.color}"><span>${g.icon}</span>${esc(g.title)}<small>${esc(g.hint)} · ${TRIOS.filter(t => t[0] === k).length} trios</small></button>`).join('')}</div>
+        <p class="tg-label">How many trios? <small>(2 cards each: 12 trios = 24 pupils)</small></p>
+        <div class="tg-count2"><div class="a"><p><button type="button" data-c="-1">−</button><span>${count}</span><button type="button" data-c="1">+</button></p></div></div>
+        <div class="tg-row"><button type="button" class="tg-btn go" id="csMake"${max ? '' : ' disabled'}>${max ? '🖨️ Make the cards' : 'Choose the adjectives first'}</button></div></div>`;
+      area.onclick = e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.g) { chosen.has(b.dataset.g) ? chosen.delete(b.dataset.g) : chosen.add(b.dataset.g); start(); }
+        else if (b.dataset.c) { count = Math.max(1, Math.min(max, count + +b.dataset.c)); start(); }
+        else if (b.id === 'csMake' && max) show();
+      };
+    };
+    const cardHTML = (word, emoji) => word == null ? '<div class="cs-card blank"></div>'
+      : `<div class="cs-card"><i>${emoji}</i><b${word.length > 15 ? ' class="long"' : ''}>${esc(word)}</b></div>`;
+    // the cards, 12 for every A4 page, in random order (so that the trios are not next to each other)
+    const sheetsHTML = list => {
+      let out = '';
+      for (let i = 0; i < list.length; i += 12) {
+        const page = list.slice(i, i + 12);
+        while (page.length < 12) page.push(null);
+        out += `<section class="cs-sheet"><div class="cs-grid">${page.map(c => c ? cardHTML(c.word, c.emoji) : cardHTML(null)).join('')}</div></section>`;
+      }
+      return out;
+    };
+    const keyHTML = deal => `<section class="cs-sheet cs-key"><h2>Comparative trios · answer key</h2>
+      <p>Only for the teacher. <u>Underlined</u> = the card that was <b>not</b> printed: the pupil who gets the other two writes it.</p>
+      <ol>${deal.map(d => `<li>${[0, 1, 2].map(k => `<span class="${k === d.miss ? 'miss' : ''}">${d.t[4 + k]} ${esc(d.t[1 + k])}</span>`).join('')}</li>`).join('')}</ol></section>`;
+    let deal = [];
+    const make = () => {
+      const trios = shuffle(TRIOS.filter(t => chosen.has(t[0]))).slice(0, count);
+      deal = trios.map(t => ({ t, miss: Math.floor(Math.random() * 3) }));
+    };
+    const cards = full => shuffle(deal.flatMap(d => [0, 1, 2].filter(k => full || k !== d.miss).map(k => ({ word: d.t[1 + k], emoji: d.t[4 + k] }))));
+    const printNow = html => {
+      let box = $('csPrint');
+      if (!box) { box = document.createElement('div'); box.id = 'csPrint'; document.body.appendChild(box); }
+      box.innerHTML = html;
+      document.body.classList.add('cs-printing');
+      window.addEventListener('afterprint', () => document.body.classList.remove('cs-printing'), { once: true });
+      setTimeout(() => window.print(), 50);
+    };
+    const show = (again) => {
+      if (!again || !deal.length) make();
+      openGame('📈 Comparative trios · ' + deal.length + ' trios', { onBack: start });
+      const pupils = deal.length * 2;
+      const preview = cards(false);
+      area.innerHTML = `<div class="cs-prev">${sheetsHTML(preview)}${keyHTML(deal)}</div>
+        <div class="tg-row">
+          <button type="button" class="tg-btn go" data-act="p2">🖨️ Print the cards (${pupils} for ${pupils} pupils)</button>
+          <button type="button" class="tg-btn" data-act="p2k">🖨️ Cards + answer key</button>
+          <button type="button" class="tg-btn alt" data-act="again">🔀 Take away other cards</button>
+          <button type="button" class="tg-btn alt" data-act="full">🖨️ All ${deal.length * 3} cards (no card removed)</button></div>
+        <p class="tg-help" style="text-align:center">A4 portrait, 12 big cards on each page: print, cut along the dashed lines, give one card to each pupil. An odd number of pupils? Give out one card more and play in a group of three.</p>`;
+      area.onclick = e => {
+        const b = e.target.closest('button'); if (!b) return;
+        if (b.dataset.act === 'p2') printNow(sheetsHTML(preview));
+        else if (b.dataset.act === 'p2k') printNow(sheetsHTML(preview) + keyHTML(deal));
+        else if (b.dataset.act === 'full') printNow(sheetsHTML(cards(true)));
+        else if (b.dataset.act === 'again') { make(); show(true); }
+      };
+    };
+    start();
+  }
+
   /* ---------- 🖼️ board race: printable A4 sheets with 12 pictures (data: board-data.js) ----------
      Two sheets per game (team A and team B): same topic, same level, same 12 words, but in a different order.
      The pupils look at their sheet, run to the board and write the word in the box with the same position/number. */
@@ -1256,6 +1422,8 @@
     { icon: '🔥', title: 'Hot seat', color: '#d6334f', text: 'A pupil guesses the word the class explains: literature of the book and vocabulary, you choose the topics.', run: hotGame },
     { icon: '🚩', title: 'Flag game', color: '#f05f4b', text: 'Bandierina: two teams, a number, a card on the board. Pronouns, to be, verbs, jobs…', run: flagGame },
     { icon: '🏀', title: 'Paper basket', color: '#8e2de2', text: 'The class writes the answer on a paper, crumples it and shoots: verb paradigms, words and phrases to translate, at every level.', run: basketGame },
+    { icon: '🤫', title: 'Silent mime duel', color: '#dc3394', text: 'Two teams, one guesser each: 6 or 7 numbered mime cards on the board, every other pupil gets a number and mimes in silence. Both teams play at the same time: mime when your guesser looks at you, confuse the other one!', run: mimeDuelGame },
+    { icon: '📈', title: 'Comparative trios', color: '#2f6fd6', text: 'Big cards to print: adjective, comparative and superlative with an emoji each (fast 🐕, faster 🐆, the fastest 🏎️). Every trio is given out with ONE card taken away at random: the pupils find their partners and write the missing word.', run: trioGame },
     { icon: '🖼️', title: 'Board race', color: '#f05f4b', text: 'Two printable A4 sheets with 12 pictures: pupils run to the board and write the word in the right box. School things, clothes, jobs, animals… in 2 levels.', run: boardGame },
     { icon: '🔨', title: 'Error auction', color: '#e0584a', text: 'The pupils’ own mistakes in three piles (easy, medium, hard): a team bets coins, you draw a sentence, the team fixes it. On the whiteboard or as A4 slips to print and cut, with 3A / 3B in the corner.', run: auctionGame },
     { icon: '✏️', title: 'Draw blind', color: '#2f9e6f', text: 'Draw without looking, the team guesses. Every card has an easy word (1 point) and a hard one (2 points): on your phone or printed. Topics: home, body, clothes, jobs… or your own words.', run: drawGame },

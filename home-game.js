@@ -197,7 +197,7 @@
       tile.append(picture(o.k, '', f));
       pic.append(tile);
       if (unlocked) {
-        tile.title = `Drag me into the house (p. ${PAGES.of('home-vocab:R')})`;
+        tile.title = `Drag me into the house (p. ${PAGES.shown(PAGES.of('home-vocab:R'))})`;
         dragSource(tile, () => ({ k: o.k, f, zone: 'h' }));
       }
     });
@@ -208,7 +208,7 @@
     el.append(pic, tl);
 
     if (unlocked) {
-      el.insertAdjacentHTML('beforeend', `<span class="hm-status">✔ drag it to p. ${PAGES.of('home-vocab:R')} →</span>`);
+      el.insertAdjacentHTML('beforeend', `<span class="hm-status">✔ drag it to p. ${PAGES.shown(PAGES.of('home-vocab:R'))} →</span>`);
       return el;
     }
     const row = document.createElement('div');

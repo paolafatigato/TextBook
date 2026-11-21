@@ -18,7 +18,7 @@
     'ps-extra-spelling': { title: 'Present simple: the -s', from: 'ps-affirmative', games: ['s-rule', 's-catch'], poker: true },
   };
   for (const [key, set] of Object.entries(SETS)) {
-    set.intro = `pp. ${PAGES.of(set.from || key)}–${PAGES.end(key)} · Scegli un gioco!`;
+    set.intro = `pp. ${PAGES.shown(PAGES.of(set.from || key))}–${PAGES.shown(PAGES.end(key))} · Scegli un gioco!`;
   }
   const INFO = {
     speed: { icon: '⚡', name: 'Speed Clicker', text: 'Clicca il pronome giusto prima che scompaia. 5 vite!' },

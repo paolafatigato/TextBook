@@ -100,6 +100,9 @@ body {
   border: 1px solid #ddd6cc; border-radius: 8px; padding: 5px 4px;
 }
 .goto input:focus { outline: 2px solid var(--coral-soft); outline-offset: 1px; }
+/* each school year has its own page numbers: which book the number belongs to */
+.goto select, .pp-what select#ppYear { font: 700 13px 'Nunito', sans-serif; border: 1px solid #ddd6cc; border-radius: 8px; padding: 4px 2px; background: #fff; color: inherit; }
+body.at-home .goto select { display: none; }
 
 /* ---------- side page-turn buttons ---------- */
 .side {
@@ -256,6 +259,8 @@ input.fill:focus { background: rgba(79,163,227,.10); border-radius: .5cqw; }
 .lines input.fill { font-size: 2cqw; }
 
 .pageno { font: 400 2.6cqw/1 'Nunito', sans-serif; color: #a6a6b0; }
+/* pages of the 2nd and 3rd year book: pages.js writes the year in data-yr, small, before the number */
+.pageno[data-yr]::before { content: attr(data-yr) " · "; font-size: .64em; letter-spacing: .05em; text-transform: uppercase; opacity: .85; vertical-align: .14em; }
 
 /* ---------- RIGHT PAGE ---------- */
 .unit {
@@ -5303,3 +5308,8 @@ body.toc-open .toc { display: block; }
 .shg-blank td.m { width: 7cqw; }
 .shg-blank tr.fin th, .shg-blank tr.fin td { background: #fff6e5; }
 .shg-blank th, .shg-blank td { height: 4.2cqw; } .shg-blank thead th.m { text-align: center; color: #b23a48; }
+
+/* Mime phrases to print: same-size cells (3 x 10) on A4, no pictures (For the teacher > Mime cards) */
+.scf-words { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 10.6cqw; gap: 0; margin: 0; padding: 0; list-style: none; border-top: .25cqw dashed #8a8a99; border-left: .25cqw dashed #8a8a99; }
+.scf-words li { display: flex; align-items: center; justify-content: center; padding: .8cqw 1.2cqw; text-align: center; border-right: .25cqw dashed #8a8a99; border-bottom: .25cqw dashed #8a8a99; background: #fff; font: 700 2.3cqw/1.2 'Fredoka', 'Nunito', sans-serif; color: #1f2a6b; }
+@media print { .scf-page:has(.scf-words) .scf-tape, .scf-page:has(.scf-words) .scf-title, .scf-page:has(.scf-words) .scf-sub { display: none; } .scf-words { grid-auto-rows: 12.6cqw; } }

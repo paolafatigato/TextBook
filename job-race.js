@@ -968,7 +968,7 @@
     const p = humans > 1 ? `Player ${maker + 1}` : 'Your';
     screen.innerHTML = `
       <h2 class="jr-title">${humans > 1 ? `${p}: your Me card` : 'Your Me card'}</h2>
-      <p class="jr-sub">${draft.fromBook ? `These are your hearts from exercise 9.29! You can still change them.` : `What makes you happy in a job? Give your <b>${HEARTS} hearts</b> (up to ${MAX_H} for one thing).`}</p>
+      <p class="jr-sub">${draft.fromBook ? `These are your hearts from exercise 3.29! You can still change them.` : `What makes you happy in a job? Give your <b>${HEARTS} hearts</b> (up to ${MAX_H} for one thing).`}</p>
       <label class="jr-name">My name <input type="text" maxlength="18" autocomplete="off" value="${esc(draft.name)}" placeholder="e.g. Maya"></label>
       <div class="jr-avs">${AVATARS.map(a => `<button type="button" class="jr-av${a === draft.avatar ? ' on' : ''}" data-act="avatar" data-a="${a}" aria-label="Picture ${a}">${a}</button>`).join('')}</div>
       <div class="jr-values">${VALUES.map(v => `
@@ -1284,7 +1284,7 @@
         <ol class="jr-rank">${rank.map(p => `<li>${p.avatar} <b>${esc(p.name)}</b> · ${JOB[p.job].icon} ${JOB[p.job].name} · ${Math.min(p.joy, GOAL)} 😊</li>`).join('')}</ol>
         <div class="jr-why"><b>✏️ Now say it in English!</b> Your best reasons in this race:
           ${human.map(p => `<p>${p.avatar} <i>${esc(sentence(p))}</i></p>`).join('')}
-          <small>Is it true for you too? Use it in exercise 9.39!</small>
+          <small>Is it true for you too? Use it in exercise 3.39!</small>
         </div>
         <button type="button" class="jr-btn go" data-act="again">Race again with the same jobs 🏁</button>
         <button type="button" class="jr-btn" data-act="modes">New game</button>
@@ -1554,7 +1554,7 @@
   function storyScreen() {
     screen.innerHTML = `
       <div class="jr-story">${storyHtml(theStory())}</div>
-      <p class="jr-other">📖 This story is now the reading on p. ${typeof PAGES !== 'undefined' ? PAGES.of('jobs-story') : ''} of your book!</p>
+      <p class="jr-other">📖 This story is now the reading on p. ${typeof PAGES !== 'undefined' ? PAGES.shown(PAGES.of('jobs-story')) : ''} of your book!</p>
       <div class="jr-nav">
         <button type="button" class="jr-btn" data-act="mend">◀ Back</button>
         <button type="button" class="jr-btn go" data-act="print">🖨️ Print the story</button>
