@@ -491,3 +491,17 @@ input.fill.hp-name::placeholder { color: color-mix(in srgb, var(--c) 35%, transp
 .lr-lines-hp textarea.fill { height: 100%; padding: 0 .6cqw; font-size: 1.9cqw; line-height: 4.4cqw; background: transparent; }
 .hp-send .lr-b.big { font-size: 1.3cqw; padding: .7cqw 1.6cqw; }
 .hp-send .lr-sendmsg { font-size: 1.15cqw; }
+
+/* ---------- Aemilia looks at your mouse (deer-look.js) ---------- */
+/* the panel behind her: the Romans' coral; she is drawn on top of it (and of the page), so her ears may leave the panel */
+.lr-photo.deer { background: radial-gradient(circle at 56% 34%, var(--pal-salmon), var(--pal-coral) 70%); }
+.lr-photo.deer .deer-print { display: none; }
+.deer-cv { position: absolute; top: 0; height: 141.4cqw; z-index: 5; pointer-events: none; }
+.deer-cv.l { left: 30cqw; width: 70cqw; }
+.deer-cv.r { left: 0; width: 65cqw; }
+/* on paper: the drawing, as before */
+@media print {
+  .lr-photo.deer { background: #fff !important; }
+  .deer-cv { display: none; }
+  .lr-photo.deer .deer-print { display: block; }
+}
