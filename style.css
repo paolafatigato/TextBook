@@ -5313,3 +5313,8 @@ body.toc-open .toc { display: block; }
 .scf-words { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 10.6cqw; gap: 0; margin: 0; padding: 0; list-style: none; border-top: .25cqw dashed #8a8a99; border-left: .25cqw dashed #8a8a99; }
 .scf-words li { display: flex; align-items: center; justify-content: center; padding: .8cqw 1.2cqw; text-align: center; border-right: .25cqw dashed #8a8a99; border-bottom: .25cqw dashed #8a8a99; background: #fff; font: 700 2.3cqw/1.2 'Fredoka', 'Nunito', sans-serif; color: #1f2a6b; }
 @media print { .scf-page:has(.scf-words) .scf-tape, .scf-page:has(.scf-words) .scf-title, .scf-page:has(.scf-words) .scf-sub { display: none; } .scf-words { grid-auto-rows: 12.6cqw; } }
+
+/* the deer in the circle of "CLIL: Romans & Longobards" follows the mouse (home-deer.js) */
+/* her ears stick out above the white circle: the circle is only the background, the canvas is bigger and clips the lower part itself */
+.chapter-pic.follow { overflow: visible; }
+.chapter-pic .home-deer { position: absolute; left: -10%; top: -30%; width: 120%; height: 130%; display: block; }

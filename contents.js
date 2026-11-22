@@ -5,6 +5,7 @@
 // the `collect` folders of "Scaffolding" and "Tests" (one per school year) list them all in one place.
 // A chapter without `start` is not written yet: only the teacher sees it, as "coming soon".
 // When its first spread is in index.html, add `start: '<its data-id>'`.
+// follow (optional): 'deer-home' puts the deer that follows the mouse (home-deer.js) in the circle instead of an image.
 // zoom (optional) enlarges the drawing inside its circle, e.g. 1.5.
 // dy (optional) moves the drawing down by that % of the circle (negative = up).
 // linkColors (optional): spread name → the color of its link.
@@ -27,7 +28,7 @@ const CONTENTS = {
         { title: 'Present Simple', start: 'ps-affirmative', color: '#c97df6', image: 'img/game-p34.png', zoom: 1.8 },
         { title: 'Daily routine', start: 'ps-routine-pictures', color: '#fa6e5f' },
         // the history lessons that used to be at the end of Daily routine: Wulf, Aemilia, the Clash (history-chapter.css)
-        { title: 'CLIL: Romans & Longobards', start: 'ps-clil-wulf', color: '#4e964c' },
+        { title: 'CLIL: Romans & Longobards', start: 'ps-clil-wulf', color: '#4e964c', follow: 'deer-home' },   // follow: the deer in the circle follows the mouse (home-deer.js)
         { title: 'Home', start: 'home-coraline', color: '#c9de3c', image: 'img/home/sofa.png' },
         {
           title: 'Literature: Alice',

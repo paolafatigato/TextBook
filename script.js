@@ -1855,7 +1855,7 @@ const scaffoldColor = s => { const c = chapterOf.get(s)?.color; return c ? ` sty
 
 function chapterCard(ch) {
   const color = esc(ch.color || '#f05f4b');
-  const pic = ch.image ? `<span class="chapter-pic"><img src="${esc(ch.image)}" alt=""${ch.zoom ? ` style="--zoom:${+ch.zoom}${ch.dy ? `;--dy:${+ch.dy}%` : ""}"` : ''}></span>` : '';
+  const pic = ch.follow ? '<span class="chapter-pic follow"><canvas class="home-deer" role="img" aria-label="A deer girl who follows your mouse"></canvas></span>' : ch.image ? `<span class="chapter-pic"><img src="${esc(ch.image)}" alt=""${ch.zoom ? ` style="--zoom:${+ch.zoom}${ch.dy ? `;--dy:${+ch.dy}%` : ""}"` : ''}></span>` : '';
   // not written yet: only the teacher sees it, to have the plan of the year in view
   if (!ch.items.length) {
     return isTeacher() && !ch.collect ? `

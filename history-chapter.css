@@ -505,3 +505,15 @@ input.fill.hp-name::placeholder { color: color-mix(in srgb, var(--c) 35%, transp
   .deer-cv { display: none; }
   .lr-photo.deer .deer-print { display: block; }
 }
+
+/* ---------- Wulf follows your mouse (wolf-look.js) ---------- */
+/* the panel behind him is the Longobards' lime (the colour of the video); the frames are drawn on a canvas that fills the panel */
+.lr-photo.wolf { background: var(--pal-lime); }
+.lr-photo.wolf .wolf-print { display: none; }
+.wolf-cv { position: relative; display: block; width: 100%; height: 100%; pointer-events: none; }
+/* on paper: the drawing, as before */
+@media print {
+  .lr-photo.wolf { background: #fff !important; }
+  .wolf-cv { display: none; }
+  .lr-photo.wolf .wolf-print { display: block; }
+}
