@@ -375,7 +375,7 @@ const CONTENTS = {
     { title: 'Clothes crossword', color: '#dc3394', pages: ['clothes-wearing:R'] },
     { title: 'Present continuous: the rule (am / is / are + -ing)', color: '#8e2de2', pages: ['clothes-pc-rule:L'] },
     { title: 'Present continuous: -ing spelling', color: '#8e2de2', pages: ['clothes-pc-rule:R'] },
-    { title: 'Present continuous: practice (am / is / are, negatives, questions, mistakes)', color: '#8e2de2', pages: ['clothes-pc-practice'] },
+    { title: 'Present continuous: practice + board game (am / is / are, negatives, questions, mistakes)', color: '#8e2de2', pages: ['clothes-pc-practice'] },
     { title: 'Present continuous: backstage story', color: '#8e2de2', pages: ['clothes-pc-story:L'] },
     { title: 'Fashion show bingo', color: '#46d9c0', pages: ['clothes-pc-story:R'] },
     { title: 'The runway board game (present continuous)', color: '#46d9c0', pages: ['clothes-pc-games:L'] },

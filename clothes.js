@@ -298,4 +298,97 @@ function clArtFallback(img) {
       btn.textContent = '🎲 Roll again';
     }, 70);
   });
+
+  // [clothes-pc-practice]: goose game around the border of p.81-82 — ? squares open a question card, START has a die
+  const RB_CARDS = [
+    {"q":"Which time word is NOT normally used with the present simple?","o":["usually","never","right now"],"a":"c) right now — it goes with the present continuous."},
+    {"q":"Which sentence is correct? Why?","o":["She wears a red coat every winter.","She is wearing a red coat every winter."],"a":"a) “Every winter” is a habit, so we use the present simple."},
+    {"q":"What is the missing word?","t":"What ______ the model wearing today?","a":"is — What is the model wearing today?"},
+    {"q":"Which time word is NOT normally used with the present continuous?","o":["at the moment","every day","today"],"a":"b) every day — it goes with the present simple."},
+    {"q":"Finish the sentence: “I always …”","o":["wear sneakers to school.","am wearing sneakers to school.","wearing sneakers to school."],"a":"a) I always wear sneakers to school."},
+    {"q":"Why do we use the present simple here?","t":"“Our school has a fashion club.”","a":"It is a fact that is always true (permanent), not something happening right now."},
+    {"q":"Complete with the correct form.","t":"Please be quiet! The judges ______ (look) at the models.","a":"are looking"},
+    {"q":"Correct this sentence.","t":"The models walking on the runway.","a":"The models are walking on the runway."},
+    {"q":"Which sentence is correct?","o":["I don’t wear a hat in summer.","I’m not wear a hat in summer.","I not wear a hat in summer."],"a":"a) I don’t wear a hat in summer."},
+    {"q":"Make a correct sentence with these words.","t":"we / try on / new jackets / right now","a":"We are trying on new jackets right now."},
+    {"q":"Correct this sentence.","t":"Lucy is wanting a blue dress.","a":"Lucy wants a blue dress. (“want” does not take -ing)"},
+    {"q":"Complete the sentence.","t":"My brother usually ______ (wear) jeans, but today he ______ (wear) a suit.","a":"wears · is wearing"},
+    {"q":"Complete the sentence.","t":"Emma ______ (not like) pink, so she ______ (not try on) the pink skirt.","a":"doesn’t like · isn’t trying on"},
+    {"q":"Correct this sentence.","t":"My sister doesn’t never wear shorts.","a":"My sister never wears shorts. / My sister doesn’t ever wear shorts."},
+    {"q":"What is the difference in meaning?","o":["Tom plays the guitar.","Tom is playing the guitar."],"a":"a) It is a habit or a skill. b) He is doing it right now."},
+    {"q":"Finish the sentence: “The tailors are sewing a dress …”","o":["every Monday.","at the moment.","usually."],"a":"b) at the moment."},
+    {"q":"Complete the sentence.","t":"Mia ______ (not usually / wear) heels, but tonight she ______ (wear) high heels!","a":"doesn’t usually wear · is wearing"},
+    {"q":"Finish the sentence: “I can’t talk now because …”","o":["I try on shoes.","I’m trying on shoes.","I tries on shoes."],"a":"b) I’m trying on shoes."},
+    {"q":"Make a correct question.","t":"where / your cousin / buy / her clothes","a":"Where does your cousin buy her clothes?"},
+    {"q":"Correct this sentence.","t":"Who are Anna go shopping with?","a":"Who does Anna go shopping with?"},
+    {"q":"Choose the correct form.","t":"Look! The model ______ a red hat.","o":["wears","is wearing","wearing"],"a":"b) is wearing — “Look!” = right now."},
+    {"q":"Which question is correct?","o":["Does she wears glasses?","Does she wear glasses?","Is she wear glasses?"],"a":"b) Does she wear glasses?"},
+    {"q":"Complete the sentence.","t":"Every morning my dad ______ (put on) a tie.","a":"puts on"},
+    {"q":"Correct this sentence.","t":"I am knowing the answer.","a":"I know the answer. (“know” does not take -ing)"},
+    {"q":"Make a correct question.","t":"you / wear / a uniform / at school","a":"Do you wear a uniform at school?"},
+    {"q":"Make a correct question.","t":"the judges / look at / the models / now","a":"Are the judges looking at the models now?"},
+    {"q":"Complete the sentence.","t":"We ______ (not wear) shorts in winter.","a":"don’t wear"},
+    {"q":"Complete the sentence.","t":"Be quiet! The baby ______ (sleep).","a":"is sleeping"},
+    {"q":"Which time word goes with the present continuous?","o":["always","right now","every day"],"a":"b) right now"},
+    {"q":"Correct this sentence.","t":"She don’t like high heels.","a":"She doesn’t like high heels."},
+    {"q":"Finish the sentence: “Look at Ben! He …”","o":["wears a funny hat.","is wearing a funny hat."],"a":"b) is wearing a funny hat."},
+    {"q":"Complete the question.","t":"What ______ you usually ______ (wear) to a party?","a":"do · wear"},
+    {"q":"Correct this sentence.","t":"The students is trying on uniforms.","a":"The students are trying on uniforms."},
+    {"q":"Which sentence is correct?","o":["He isn’t wearing a coat today.","He doesn’t wearing a coat today."],"a":"a) He isn’t wearing a coat today."},
+    {"q":"Write the -ing form.","t":"take · run · tie · put","a":"taking · running · tying · putting"},
+    {"q":"What is the difference in meaning?","o":["I wear sneakers.","I’m wearing sneakers."],"a":"a) It is a habit (usually). b) I am wearing them now."},
+    {"q":"Complete the sentence.","t":"Listen! Mia ______ (sing) in the shower.","a":"is singing"},
+    {"q":"Which sentence is correct?","o":["We are usually eating lunch at noon.","We usually eat lunch at noon."],"a":"b) We usually eat lunch at noon."},
+    {"q":"Correct this question.","t":"What do the models wear now?","a":"What are the models wearing now?"},
+    {"q":"Complete the sentence.","t":"My mother ______ (not work) on Sundays.","a":"doesn’t work"},
+    {"q":"Make a correct sentence.","t":"she / never / wear / sandals / in winter","a":"She never wears sandals in winter."},
+    {"q":"Finish the sentence: “Sorry, I can’t come. I …”","o":["study.","am studying.","studying."],"a":"b) I am studying. (right now)"},
+    {"q":"Complete the question.","t":"______ your sister like pink?","a":"Does"},
+    {"q":"Correct this question.","t":"Is Tom wear a jacket today?","a":"Is Tom wearing a jacket today?"},
+    {"q":"Which time word goes with the present simple?","o":["at the moment","on Fridays","now"],"a":"b) on Fridays"},
+    {"q":"Complete the sentence.","t":"Look! It ______ (rain) and the kids ______ (wear) raincoats.","a":"is raining · are wearing"},
+    {"q":"Correct this sentence.","t":"He watch TV every night.","a":"He watches TV every night."},
+    {"q":"Write the -ing form.","t":"write · sit · dance · swim","a":"writing · sitting · dancing · swimming"}
+  ];
+  let rbDeck = [], rbPop = null;
+  const rbDraw = () => {
+    if (!rbDeck.length) {
+      rbDeck = RB_CARDS.map((_, i) => i);
+      for (let i = rbDeck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [rbDeck[i], rbDeck[j]] = [rbDeck[j], rbDeck[i]]; }
+    }
+    return rbDeck.pop();
+  };
+  const rbClose = () => { if (rbPop) { rbPop.remove(); rbPop = null; } };
+  const rbOpen = () => {
+    rbClose();
+    const i = rbDraw(), c = RB_CARDS[i];
+    rbPop = document.createElement('div');
+    rbPop.className = 'rb-pop';
+    rbPop.innerHTML = '<div class="rb-card" role="dialog" aria-label="Question card"><span class="rb-mark">?</span>'
+      + '<p class="rb-qn"><b>' + (i + 1) + '.</b> ' + c.q + '</p>'
+      + (c.t ? '<p class="rb-qt">' + c.t + '</p>' : '')
+      + (c.o ? '<ol>' + c.o.map((x, j) => '<li><b>' + 'abc'[j] + ')</b> ' + x + '</li>').join('') + '</ol>' : '')
+      + '<p class="rb-ans" hidden>✔ ' + c.a + '</p>'
+      + '<div class="rb-btns"><button type="button" data-rb="show">Show answer</button><button type="button" data-rb="close" class="ghost">Close</button></div></div>';
+    document.body.appendChild(rbPop);
+  };
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') rbClose(); });
+  document.addEventListener('click', e => {
+    if (rbPop) {
+      const act = e.target.closest('[data-rb]');
+      if (act && act.dataset.rb === 'show') { rbPop.querySelector('.rb-ans').hidden = false; act.hidden = true; return; }
+      if (act || e.target === rbPop) { rbClose(); return; }
+    }
+    if (e.target.closest('.rb-q')) { rbOpen(); return; }
+    const die = e.target.closest('.rb-die');
+    if (!die || die.disabled) return;
+    const glyph = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+    let ticks = 0;
+    die.disabled = true;
+    const t = setInterval(() => {
+      const n = 1 + Math.floor(Math.random() * 6);
+      die.innerHTML = '<span>' + glyph[n - 1] + '</span>' + (ticks >= 8 ? '<b>' + n + '</b>' : '');
+      if (++ticks > 8) { clearInterval(t); die.disabled = false; }
+    }, 70);
+  });
 })();

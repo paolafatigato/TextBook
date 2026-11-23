@@ -141,6 +141,10 @@
 /* ---------- drawing frame (campfire) ---------- */
 .lr-frame { z-index: 3; box-sizing: border-box; padding: 1.2cqw; background: var(--pal-lime); }
 .lr-frame img { display: block; width: 100%; background: var(--pal-white); }
+/* p.77 campfire: looping video on screen (the image underneath sets the size), the still drawing in print */
+.lr-frame { position: relative; }
+.lr-frame .lr-fire-vid { position: absolute; inset: 1.2cqw; width: calc(100% - 2.4cqw); height: calc(100% - 2.4cqw); object-fit: cover; background: var(--pal-white); filter: brightness(1.08) contrast(1.35); /* whiter paper and fire, blacks stay black */ }
+@media print { .lr-frame .lr-fire-vid { display: none; } }
 .lr-cap { font: 400 2cqw/1.2 'Patrick Hand', cursive; color: var(--pal-slate); }
 
 /* ---------- numbered / lined lists ---------- */

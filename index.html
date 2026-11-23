@@ -4171,7 +4171,7 @@
     <!-- ============ RIGHT PAGE ============ -->
     <section class="page page-right lr-page both paper">
 
-      <div class="lr-frame abs" style="--x:10;--y:5.6;--w:80"><img src="img/clil/campfire.png" alt="Animals sitting around a campfire: a badger tells a story"></div>
+      <div class="lr-frame abs" style="--x:10;--y:5.6;--w:80"><img class="lr-fire-img" src="img/clil/campfire.png" alt="Animals sitting around a campfire: a badger tells a story"><video class="lr-fire-vid" src="videos/longobardifuoco.mp4" autoplay loop muted playsinline preload="auto" aria-hidden="true"></video></div>
       <p class="lr-cap abs" style="--x:10;--y:56.6;--w:80">Wulf’s father tells stories around the fire.</p>
       <div class=" abs" style="--x:8;--y:62.6"><span class="lr-task lb"><b>7.10</b>Order the routine</span></div>
       <button class="check abs" type="button" style="--x:80;--y:62.8" data-list="lr-order">✓ Check</button>
@@ -13639,16 +13639,47 @@
     </section>
   </div>
 
-  <div class="spread" data-id="clothes-pc-practice" data-group="Present continuous &amp; the runway" data-title="Clothes &amp; Fashion show" data-name="Practice: am / is / are · negatives, questions, mistakes">
+  <div class="spread" data-id="clothes-pc-practice" data-group="Present continuous &amp; the runway" data-title="Clothes &amp; Fashion show" data-name="Practice: am / is / are · Board game with question cards">
 
     <!-- ============ LEFT PAGE ============ -->
-    <section class="page page-left cl">
+    <section class="page page-left cl rb-pg">
+      <!-- goose-game board around the border (squares 1-20 start here, 53-64 come back up the left side) -->
+      <div class="rb-mat abs" style="--x:11.8;--y:10.99;--w:88.2;--h:113.88"></div>
+      <div class="rb-c rb-go abs" style="--x:2;--y:1.5;--w:9.8;--h:9.49;--c:#dc3394"><b>1</b><em>START</em><button class="rb-die" type="button" aria-label="Roll the die">🎲</button></div>
+      <div class="rb-c rb-e abs" style="--x:11.8;--y:1.5;--w:9.8;--h:9.49;--c:var(--pal-lime)"><b>2</b><i>👁️</i></div>
+      <button class="rb-c rb-q rb-k0 abs" type="button" style="--x:21.6;--y:1.5;--w:9.8;--h:9.49" aria-label="Question card"><b>3</b><span>?</span></button>
+      <div class="rb-c rb-e abs" style="--x:31.4;--y:1.5;--w:9.8;--h:9.49;--c:#4aa8ec"><b>4</b><i>🍕</i></div>
+      <div class="rb-c rb-e abs" style="--x:41.2;--y:1.5;--w:9.8;--h:9.49;--c:#fa6e5f"><b>5</b><i>🎧</i></div>
+      <button class="rb-c rb-q rb-k1 rb-round abs" type="button" style="--x:51;--y:1.5;--w:9.8;--h:9.49" aria-label="Question card"><b>6</b><span>?</span></button>
+      <div class="rb-c rb-fw abs" style="--x:60.8;--y:1.5;--w:9.8;--h:9.49"><b>7</b><i style="transform:rotate(0deg)">⏩</i><u>GO FORWARD 2</u></div>
+      <div class="rb-c rb-e abs" style="--x:70.6;--y:1.5;--w:9.8;--h:9.49;--c:#8e2de2"><b>8</b><i>📖</i></div>
+      <div class="rb-c rb-e abs" style="--x:80.4;--y:1.5;--w:9.8;--h:9.49;--c:#dc3394"><b>9</b><i>🚿</i></div>
+      <button class="rb-c rb-q rb-k2 abs" type="button" style="--x:90.2;--y:1.5;--w:9.8;--h:9.49" aria-label="Question card"><b>10</b><span>?</span></button>
+      <div class="rb-c rb-fw abs" style="--x:90.2;--y:124.87;--w:9.8;--h:9.49"><b>43</b><i style="transform:rotate(180deg)">⏩</i><u>GO FORWARD 2</u></div>
+      <div class="rb-c rb-e abs" style="--x:80.4;--y:124.87;--w:9.8;--h:9.49;--c:#8e2de2"><b>44</b><i>🛏️</i></div>
+      <div class="rb-c rb-e abs" style="--x:70.6;--y:124.87;--w:9.8;--h:9.49;--c:#dc3394"><b>45</b><i>🎨</i></div>
+      <button class="rb-c rb-q rb-k0 rb-round abs" type="button" style="--x:60.8;--y:124.87;--w:9.8;--h:9.49" aria-label="Question card"><b>46</b><span>?</span></button>
+      <div class="rb-c rb-e abs" style="--x:51;--y:124.87;--w:9.8;--h:9.49;--c:#4aa8ec"><b>47</b><i>🎮</i></div>
+      <div class="rb-c rb-e abs" style="--x:41.2;--y:124.87;--w:9.8;--h:9.49;--c:#fa6e5f"><b>48</b><i>🏊</i></div>
+      <button class="rb-c rb-q rb-k1 abs" type="button" style="--x:31.4;--y:124.87;--w:9.8;--h:9.49" aria-label="Question card"><b>49</b><span>?</span></button>
+      <div class="rb-c rb-bk abs" style="--x:21.6;--y:124.87;--w:9.8;--h:9.49"><b>50</b><i style="transform:rotate(180deg)">⏪</i><u>GO BACK 2</u></div>
+      <div class="rb-c rb-e abs" style="--x:11.8;--y:124.87;--w:9.8;--h:9.49;--c:#8e2de2"><b>51</b><i>🎬</i></div>
+      <div class="rb-c rb-e abs" style="--x:2;--y:124.87;--w:9.8;--h:9.49;--c:#dc3394"><b>52</b><i>📞</i></div>
+      <button class="rb-c rb-q rb-k2 rb-round abs" type="button" style="--x:2;--y:115.38;--w:9.8;--h:9.49" aria-label="Question card"><b>53</b><span>?</span></button>
+      <div class="rb-c rb-e abs" style="--x:2;--y:105.89;--w:9.8;--h:9.49;--c:#4aa8ec"><b>54</b><i>🧥</i></div>
+      <div class="rb-c rb-e abs" style="--x:2;--y:96.4;--w:9.8;--h:9.49;--c:#fa6e5f"><b>55</b><i>🎹</i></div>
+      <button class="rb-c rb-q rb-k0 abs" type="button" style="--x:2;--y:86.91;--w:9.8;--h:9.49" aria-label="Question card"><b>56</b><span>?</span></button>
+      <div class="rb-c rb-fw abs" style="--x:2;--y:77.42;--w:9.8;--h:9.49"><b>57</b><i style="transform:rotate(270deg)">⏩</i><u>GO FORWARD 2</u></div>
+      <div class="rb-c rb-e abs" style="--x:2;--y:67.93;--w:9.8;--h:9.49;--c:#8e2de2"><b>58</b><i>🧵</i></div>
+      <div class="rb-c rb-e abs" style="--x:2;--y:58.44;--w:9.8;--h:9.49;--c:#dc3394"><b>59</b><i>👗</i></div>
+      <button class="rb-c rb-q rb-k1 rb-round abs" type="button" style="--x:2;--y:48.95;--w:9.8;--h:9.49" aria-label="Question card"><b>60</b><span>?</span></button>
+      <div class="rb-c rb-e abs" style="--x:2;--y:39.46;--w:9.8;--h:9.49;--c:#4aa8ec"><b>61</b><i>🧢</i></div>
+      <button class="rb-c rb-q rb-k2 abs" type="button" style="--x:2;--y:29.97;--w:9.8;--h:9.49" aria-label="Question card"><b>62</b><span>?</span></button>
+      <div class="rb-c rb-e abs" style="--x:2;--y:20.48;--w:9.8;--h:9.49;--c:#fa6e5f"><b>63</b><i>🍦</i></div>
+      <div class="rb-c rb-go rb-end abs" style="--x:2;--y:10.99;--w:9.8;--h:9.49;--c:#8e2de2"><b>64</b><em>FINISH</em><i>🏆</i></div>
 
-      <svg class="page-bg" data-cv="zig" data-c="#4aa8ec" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><path d="M0,0 H100 L100,10.5 L97.5,14 L95,10.5 L92.5,14 L90,10.5 L87.5,14 L85,10.5 L82.5,14 L80,10.5 L77.5,14 L75,10.5 L72.5,14 L70,10.5 L67.5,14 L65,10.5 L62.5,14 L60,10.5 L57.5,14 L55,10.5 L52.5,14 L50,10.5 L47.5,14 L45,10.5 L42.5,14 L40,10.5 L37.5,14 L35,10.5 L32.5,14 L30,10.5 L27.5,14 L25,10.5 L22.5,14 L20,10.5 L17.5,14 L15,10.5 L12.5,14 L10,10.5 L7.5,14 L5,10.5 L2.5,14 L0,10.5Z" fill="#4aa8ec"/><path transform="translate(-5.37049159258604 62.47) scale(0.11)" d="M96.50,50.00L96.34,51.12L95.87,52.22L95.14,53.28L94.19,54.29L93.11,55.23L91.97,56.13L90.86,56.98L89.86,57.80L89.04,58.63L88.45,59.48L88.12,60.38L88.04,61.35L88.20,62.41L88.56,63.57L89.05,64.81L89.59,66.12L90.11,67.47L90.54,68.84L90.79,70.17L90.82,71.42L90.58,72.57L90.07,73.57L89.28,74.40L88.25,75.06L87.02,75.56L85.66,75.91L84.23,76.16L82.81,76.35L81.45,76.54L80.23,76.78L79.16,77.12L78.29,77.62L77.62,78.29L77.12,79.16L76.78,80.23L76.54,81.45L76.35,82.81L76.16,84.23L75.91,85.66L75.56,87.02L75.06,88.25L74.40,89.28L73.57,90.07L72.57,90.58L71.42,90.82L70.17,90.79L68.84,90.54L67.47,90.11L66.12,89.59L64.81,89.05L63.57,88.56L62.41,88.20L61.35,88.04L60.38,88.12L59.48,88.45L58.63,89.04L57.80,89.86L56.98,90.86L56.13,91.97L55.23,93.11L54.29,94.19L53.28,95.14L52.22,95.87L51.12,96.34L50.00,96.50L48.88,96.34L47.78,95.87L46.72,95.14L45.71,94.19L44.77,93.11L43.87,91.97L43.02,90.86L42.20,89.86L41.37,89.04L40.52,88.45L39.62,88.12L38.65,88.04L37.59,88.20L36.43,88.56L35.19,89.05L33.88,89.59L32.53,90.11L31.16,90.54L29.83,90.79L28.58,90.82L27.43,90.58L26.43,90.07L25.60,89.28L24.94,88.25L24.44,87.02L24.09,85.66L23.84,84.23L23.65,82.81L23.46,81.45L23.22,80.23L22.88,79.16L22.38,78.29L21.71,77.62L20.84,77.12L19.77,76.78L18.55,76.54L17.19,76.35L15.77,76.16L14.34,75.91L12.98,75.56L11.75,75.06L10.72,74.40L9.93,73.57L9.42,72.57L9.18,71.42L9.21,70.17L9.46,68.84L9.89,67.47L10.41,66.12L10.95,64.81L11.44,63.57L11.80,62.41L11.96,61.35L11.88,60.38L11.55,59.48L10.96,58.63L10.14,57.80L9.14,56.98L8.03,56.13L6.89,55.23L5.81,54.29L4.86,53.28L4.13,52.22L3.66,51.12L3.50,50.00L3.66,48.88L4.13,47.78L4.86,46.72L5.81,45.71L6.89,44.77L8.03,43.87L9.14,43.02L10.14,42.20L10.96,41.37L11.55,40.52L11.88,39.62L11.96,38.65L11.80,37.59L11.44,36.43L10.95,35.19L10.41,33.88L9.89,32.53L9.46,31.16L9.21,29.83L9.18,28.58L9.42,27.43L9.93,26.43L10.72,25.60L11.75,24.94L12.98,24.44L14.34,24.09L15.77,23.84L17.19,23.65L18.55,23.46L19.77,23.22L20.84,22.88L21.71,22.38L22.38,21.71L22.88,20.84L23.22,19.77L23.46,18.55L23.65,17.19L23.84,15.77L24.09,14.34L24.44,12.98L24.94,11.75L25.60,10.72L26.43,9.93L27.43,9.42L28.58,9.18L29.83,9.21L31.16,9.46L32.53,9.89L33.88,10.41L35.19,10.95L36.43,11.44L37.59,11.80L38.65,11.96L39.62,11.88L40.52,11.55L41.37,10.96L42.20,10.14L43.02,9.14L43.87,8.03L44.77,6.89L45.71,5.81L46.72,4.86L47.78,4.13L48.88,3.66L50.00,3.50L51.12,3.66L52.22,4.13L53.28,4.86L54.29,5.81L55.23,6.89L56.13,8.03L56.98,9.14L57.80,10.14L58.63,10.96L59.48,11.55L60.38,11.88L61.35,11.96L62.41,11.80L63.57,11.44L64.81,10.95L66.12,10.41L67.47,9.89L68.84,9.46L70.17,9.21L71.42,9.18L72.57,9.42L73.57,9.93L74.40,10.72L75.06,11.75L75.56,12.98L75.91,14.34L76.16,15.77L76.35,17.19L76.54,18.55L76.78,19.77L77.12,20.84L77.62,21.71L78.29,22.38L79.16,22.88L80.23,23.22L81.45,23.46L82.81,23.65L84.23,23.84L85.66,24.09L87.02,24.44L88.25,24.94L89.28,25.60L90.07,26.43L90.58,27.43L90.82,28.58L90.79,29.83L90.54,31.16L90.11,32.53L89.59,33.88L89.05,35.19L88.56,36.43L88.20,37.59L88.04,38.65L88.12,39.62L88.45,40.52L89.04,41.37L89.86,42.20L90.86,43.02L91.97,43.87L93.11,44.77L94.19,45.71L95.14,46.72L95.87,47.78L96.34,48.88Z" fill="#fdf87e"/><circle cx="4.5" cy="133.5" r="1.71" fill="#dc3394"/></svg>
-      <div class="cl-art abs cl-sh-burst" style="--x:78.74;--y:4.2;--w:13;--c1:#dfee6a;--c2:#fff;--rot:-18deg" aria-hidden="true"><i class="b1"></i><i class="b2"></i><span class="ph">🩳</span><img src="img/clothes/art/shorts.png" alt="" loading="lazy" onerror="clArtFallback(this)"></div>
-      <h1 class="cl-h abs" style="--x:6;--y:3.4">Practice: step by step</h1>
-      <div class="cl-flow abs" style="--x:5.2;--y:18;--w:89.6;--g:2.4">
-
+      <div class="cl-flow abs" style="--x:13.4;--y:12.9;--w:83.6;--g:1.7">
+        <p class="rb-note"><b>🎲 Board game</b> · Click the die on <b>START</b>, move your counter and follow the square. Use <b>am / is / are + -ing</b>!</p>
         <div class="cl-row"><div class="cl-pill"><b>5.17</b> Choose am, is or are</div><button class="check" type="button" data-tf="cl45">✓ Check</button></div>
         <ol class="cl-qa cl-qa-tight cl-pcq" id="cl45">
           <li><i>1.</i><span>The model</span><span class="opt" id="cl45-1" data-answer="is"><button type="button">am</button><button type="button">is</button><button type="button">are</button></span><span>wearing a long coat.</span></li>
@@ -13673,18 +13704,48 @@
           <li><i>7.</i><div><p>The judges are writing notes.</p><input class="fill" id="cl46-7" data-given="" data-answer="The judges aren't writing notes|The judges are not writing notes|The judges're not writing notes" autocomplete="off" aria-label="negative 7"></div></li>
         </ol>
       </div>
-      <span class="pageno abs" style="--x:9.7;--y:134.2"></span>
+      <span class="pageno abs" style="--x:9.7;--y:136.2"></span>
     </section>
 
 
     <!-- ============ RIGHT PAGE ============ -->
-    <section class="page page-right cl">
+    <section class="page page-right cl rb-pg">
+      <div class="rb-mat abs" style="--x:0;--y:10.99;--w:88.2;--h:113.88"></div>
+      <div class="rb-c rb-e abs" style="--x:0;--y:1.5;--w:9.8;--h:9.49;--c:#4aa8ec"><b>11</b><i>☕</i></div>
+      <div class="rb-c rb-e abs" style="--x:9.8;--y:1.5;--w:9.8;--h:9.49;--c:#fa6e5f"><b>12</b><i>🏃</i></div>
+      <div class="rb-c rb-bk abs" style="--x:19.6;--y:1.5;--w:9.8;--h:9.49"><b>13</b><i style="transform:rotate(0deg)">⏪</i><u>GO BACK 2</u></div>
+      <button class="rb-c rb-q rb-k0 rb-round abs" type="button" style="--x:29.4;--y:1.5;--w:9.8;--h:9.49" aria-label="Question card"><b>14</b><span>?</span></button>
+      <div class="rb-c rb-e abs" style="--x:39.2;--y:1.5;--w:9.8;--h:9.49;--c:#8e2de2"><b>15</b><i>👟</i></div>
+      <div class="rb-c rb-e abs" style="--x:49;--y:1.5;--w:9.8;--h:9.49;--c:#dc3394"><b>16</b><i>🎸</i></div>
+      <button class="rb-c rb-q rb-k1 abs" type="button" style="--x:58.8;--y:1.5;--w:9.8;--h:9.49" aria-label="Question card"><b>17</b><span>?</span></button>
+      <div class="rb-c rb-e abs" style="--x:68.6;--y:1.5;--w:9.8;--h:9.49;--c:#4aa8ec"><b>18</b><i>🐶</i></div>
+      <div class="rb-c rb-fw abs" style="--x:78.4;--y:1.5;--w:9.8;--h:9.49"><b>19</b><i style="transform:rotate(0deg)">⏩</i><u>GO FORWARD 3</u></div>
+      <div class="rb-c rb-e abs" style="--x:88.2;--y:1.5;--w:9.8;--h:9.49;--c:#fa6e5f"><b>20</b><i>🌧️</i></div>
+      <button class="rb-c rb-q rb-k2 rb-round abs" type="button" style="--x:88.2;--y:10.99;--w:9.8;--h:9.49" aria-label="Question card"><b>21</b><span>?</span></button>
+      <div class="rb-c rb-e abs" style="--x:88.2;--y:20.48;--w:9.8;--h:9.49;--c:#8e2de2"><b>22</b><i>📺</i></div>
+      <div class="rb-c rb-e abs" style="--x:88.2;--y:29.97;--w:9.8;--h:9.49;--c:#dc3394"><b>23</b><i>🍳</i></div>
+      <button class="rb-c rb-q rb-k0 abs" type="button" style="--x:88.2;--y:39.46;--w:9.8;--h:9.49" aria-label="Question card"><b>24</b><span>?</span></button>
+      <div class="rb-c rb-bk abs" style="--x:88.2;--y:48.95;--w:9.8;--h:9.49"><b>25</b><i style="transform:rotate(90deg)">⏪</i><u>GO BACK 3</u></div>
+      <div class="rb-c rb-e abs" style="--x:88.2;--y:58.44;--w:9.8;--h:9.49;--c:#4aa8ec"><b>26</b><i>💤</i></div>
+      <div class="rb-c rb-e abs" style="--x:88.2;--y:67.93;--w:9.8;--h:9.49;--c:#fa6e5f"><b>27</b><i>🚗</i></div>
+      <button class="rb-c rb-q rb-k1 rb-round abs" type="button" style="--x:88.2;--y:77.42;--w:9.8;--h:9.49" aria-label="Question card"><b>28</b><span>?</span></button>
+      <div class="rb-c rb-e abs" style="--x:88.2;--y:86.91;--w:9.8;--h:9.49;--c:#8e2de2"><b>29</b><i>🕶️</i></div>
+      <div class="rb-c rb-e abs" style="--x:88.2;--y:96.4;--w:9.8;--h:9.49;--c:#dc3394"><b>30</b><i>🎤</i></div>
+      <div class="rb-c rb-fw abs" style="--x:88.2;--y:105.89;--w:9.8;--h:9.49"><b>31</b><i style="transform:rotate(90deg)">⏩</i><u>GO FORWARD 2</u></div>
+      <button class="rb-c rb-q rb-k2 abs" type="button" style="--x:88.2;--y:115.38;--w:9.8;--h:9.49" aria-label="Question card"><b>32</b><span>?</span></button>
+      <div class="rb-c rb-e abs" style="--x:88.2;--y:124.87;--w:9.8;--h:9.49;--c:#4aa8ec"><b>33</b><i>🧘</i></div>
+      <div class="rb-c rb-e abs" style="--x:78.4;--y:124.87;--w:9.8;--h:9.49;--c:#fa6e5f"><b>34</b><i>🛒</i></div>
+      <button class="rb-c rb-q rb-k0 rb-round abs" type="button" style="--x:68.6;--y:124.87;--w:9.8;--h:9.49" aria-label="Question card"><b>35</b><span>?</span></button>
+      <div class="rb-c rb-e abs" style="--x:58.8;--y:124.87;--w:9.8;--h:9.49;--c:#8e2de2"><b>36</b><i>🚴</i></div>
+      <div class="rb-c rb-bk abs" style="--x:49;--y:124.87;--w:9.8;--h:9.49"><b>37</b><i style="transform:rotate(180deg)">⏪</i><u>GO BACK 2</u></div>
+      <div class="rb-c rb-e abs" style="--x:39.2;--y:124.87;--w:9.8;--h:9.49;--c:#dc3394"><b>38</b><i>🧹</i></div>
+      <button class="rb-c rb-q rb-k1 abs" type="button" style="--x:29.4;--y:124.87;--w:9.8;--h:9.49" aria-label="Question card"><b>39</b><span>?</span></button>
+      <div class="rb-c rb-e abs" style="--x:19.6;--y:124.87;--w:9.8;--h:9.49;--c:#4aa8ec"><b>40</b><i>🎂</i></div>
+      <div class="rb-c rb-e abs" style="--x:9.8;--y:124.87;--w:9.8;--h:9.49;--c:#fa6e5f"><b>41</b><i>👔</i></div>
+      <button class="rb-c rb-q rb-k2 rb-round abs" type="button" style="--x:0;--y:124.87;--w:9.8;--h:9.49" aria-label="Question card"><b>42</b><span>?</span></button>
 
-      <svg class="page-bg" data-cv="tab" data-c="#fa6e5f" viewBox="0 0 100 141.42" preserveAspectRatio="none" aria-hidden="true"><g transform="translate(-100 0)"><path d="M100,0 H171.05 L171.05,11.97 L170,10.5 L167.5,14 L165,10.5 L162.5,14 L160,10.5 L157.5,14 L155,10.5 L152.5,14 L150,10.5 L147.5,14 L145,10.5 L142.5,14 L140,10.5 L137.5,14 L135,10.5 L132.5,14 L130,10.5 L127.5,14 L125,10.5 L122.5,14 L120,10.5 L117.5,14 L115,10.5 L112.5,14 L110,10.5 L107.5,14 L105,10.5 L102.5,14 L100,10.5Z" fill="#4aa8ec"/></g><rect x="4.6" y="-4.4" width="74.05" height="21" rx="5.5" fill="#fdf87e"/><rect x="3" y="-6" width="74.05" height="21" rx="5.5" fill="#fa6e5f"/><path transform="translate(95.62238618154079 62.16) scale(0.09)" d="M96.50,50.00L96.34,51.12L95.87,52.22L95.14,53.28L94.19,54.29L93.11,55.23L91.97,56.13L90.86,56.98L89.86,57.80L89.04,58.63L88.45,59.48L88.12,60.38L88.04,61.35L88.20,62.41L88.56,63.57L89.05,64.81L89.59,66.12L90.11,67.47L90.54,68.84L90.79,70.17L90.82,71.42L90.58,72.57L90.07,73.57L89.28,74.40L88.25,75.06L87.02,75.56L85.66,75.91L84.23,76.16L82.81,76.35L81.45,76.54L80.23,76.78L79.16,77.12L78.29,77.62L77.62,78.29L77.12,79.16L76.78,80.23L76.54,81.45L76.35,82.81L76.16,84.23L75.91,85.66L75.56,87.02L75.06,88.25L74.40,89.28L73.57,90.07L72.57,90.58L71.42,90.82L70.17,90.79L68.84,90.54L67.47,90.11L66.12,89.59L64.81,89.05L63.57,88.56L62.41,88.20L61.35,88.04L60.38,88.12L59.48,88.45L58.63,89.04L57.80,89.86L56.98,90.86L56.13,91.97L55.23,93.11L54.29,94.19L53.28,95.14L52.22,95.87L51.12,96.34L50.00,96.50L48.88,96.34L47.78,95.87L46.72,95.14L45.71,94.19L44.77,93.11L43.87,91.97L43.02,90.86L42.20,89.86L41.37,89.04L40.52,88.45L39.62,88.12L38.65,88.04L37.59,88.20L36.43,88.56L35.19,89.05L33.88,89.59L32.53,90.11L31.16,90.54L29.83,90.79L28.58,90.82L27.43,90.58L26.43,90.07L25.60,89.28L24.94,88.25L24.44,87.02L24.09,85.66L23.84,84.23L23.65,82.81L23.46,81.45L23.22,80.23L22.88,79.16L22.38,78.29L21.71,77.62L20.84,77.12L19.77,76.78L18.55,76.54L17.19,76.35L15.77,76.16L14.34,75.91L12.98,75.56L11.75,75.06L10.72,74.40L9.93,73.57L9.42,72.57L9.18,71.42L9.21,70.17L9.46,68.84L9.89,67.47L10.41,66.12L10.95,64.81L11.44,63.57L11.80,62.41L11.96,61.35L11.88,60.38L11.55,59.48L10.96,58.63L10.14,57.80L9.14,56.98L8.03,56.13L6.89,55.23L5.81,54.29L4.86,53.28L4.13,52.22L3.66,51.12L3.50,50.00L3.66,48.88L4.13,47.78L4.86,46.72L5.81,45.71L6.89,44.77L8.03,43.87L9.14,43.02L10.14,42.20L10.96,41.37L11.55,40.52L11.88,39.62L11.96,38.65L11.80,37.59L11.44,36.43L10.95,35.19L10.41,33.88L9.89,32.53L9.46,31.16L9.21,29.83L9.18,28.58L9.42,27.43L9.93,26.43L10.72,25.60L11.75,24.94L12.98,24.44L14.34,24.09L15.77,23.84L17.19,23.65L18.55,23.46L19.77,23.22L20.84,22.88L21.71,22.38L22.38,21.71L22.88,20.84L23.22,19.77L23.46,18.55L23.65,17.19L23.84,15.77L24.09,14.34L24.44,12.98L24.94,11.75L25.60,10.72L26.43,9.93L27.43,9.42L28.58,9.18L29.83,9.21L31.16,9.46L32.53,9.89L33.88,10.41L35.19,10.95L36.43,11.44L37.59,11.80L38.65,11.96L39.62,11.88L40.52,11.55L41.37,10.96L42.20,10.14L43.02,9.14L43.87,8.03L44.77,6.89L45.71,5.81L46.72,4.86L47.78,4.13L48.88,3.66L50.00,3.50L51.12,3.66L52.22,4.13L53.28,4.86L54.29,5.81L55.23,6.89L56.13,8.03L56.98,9.14L57.80,10.14L58.63,10.96L59.48,11.55L60.38,11.88L61.35,11.96L62.41,11.80L63.57,11.44L64.81,10.95L66.12,10.41L67.47,9.89L68.84,9.46L70.17,9.21L71.42,9.18L72.57,9.42L73.57,9.93L74.40,10.72L75.06,11.75L75.56,12.98L75.91,14.34L76.16,15.77L76.35,17.19L76.54,18.55L76.78,19.77L77.12,20.84L77.62,21.71L78.29,22.38L79.16,22.88L80.23,23.22L81.45,23.46L82.81,23.65L84.23,23.84L85.66,24.09L87.02,24.44L88.25,24.94L89.28,25.60L90.07,26.43L90.58,27.43L90.82,28.58L90.79,29.83L90.54,31.16L90.11,32.53L89.59,33.88L89.05,35.19L88.56,36.43L88.20,37.59L88.04,38.65L88.12,39.62L88.45,40.52L89.04,41.37L89.86,42.20L90.86,43.02L91.97,43.87L93.11,44.77L94.19,45.71L95.14,46.72L95.87,47.78L96.34,48.88Z" fill="#dc3394"/><path transform="translate(96.6 137.4) rotate(229)" d="M0,-1.77 L1.77,1.77 L-1.77,1.77Z" fill="#8e2de2" stroke="#8e2de2" stroke-width=".6" stroke-linejoin="round"/></svg>
-      <div class="cl-art abs cl-sh-clover" style="--x:81.09;--y:2.2;--w:15;--c1:#8e2de2;--c2:#fff;--rot:-15deg" aria-hidden="true"><i class="b1"></i><i class="b2"></i><span class="ph">🧣</span><img src="img/clothes/art/scarf.png" alt="" loading="lazy" onerror="clArtFallback(this)"></div>
-      <h1 class="cl-h abs" style="--x:6;--y:3.4">Practice: ask and fix</h1>
-      <div class="cl-flow abs" style="--x:5.2;--y:18;--w:89.6;--g:2.4">
-
+      <div class="cl-flow abs" style="--x:3;--y:12.9;--w:83.6;--g:1.7">
+        <p class="rb-note"><b>❓</b> Click a question card · <b>emoji</b> = say a sentence about it · <b>⏩ ⏪</b> move your counter · first to <b>FINISH 🏆</b> wins.</p>
         <div class="cl-row"><div class="cl-pill"><b>5.19</b> Write the question</div><button class="check" type="button" data-list="cl47">✓ Check</button></div>
         <ol class="cl-rw" id="cl47">
           <li><i>1.</i><div><p>she / wear / a dress <em>→ ?</em></p><input class="fill" id="cl47-1" data-given="" data-answer="Is she wearing a dress" autocomplete="off" aria-label="question 1"></div></li>
@@ -13706,8 +13767,70 @@
           <li><i>6.</i><div><p>The model are smiling at the judges.</p><input class="fill" id="cl48-6" data-given="" data-answer="The model is smiling at the judges|The model's smiling at the judges" autocomplete="off" aria-label="corrected 6"></div></li>
         </ol>
       </div>
-      <span class="footer abs" style="--x:64;--y:133.4;--w:30">Clothes &amp; Fashion show</span>
+      <span class="footer abs" style="--x:64;--y:136.4;--w:30">Clothes &amp; Fashion show</span>
     </section>
+  </div>
+
+  <!-- the question cards of the board game on [clothes-pc-practice:L-R]: the pupils cannot cut the book, so the teacher prints these pages and cuts them -->
+  <div class="spread scaffold" data-id="scaf-clothes-board-cards" data-title="Clothes &amp; Fashion show" data-name="Board game · Question cards to print and cut">
+
+    <section class="page page-left scf-page scf-cards"><div class="scf-in">
+      <ul class="scf-qc">
+          <li><div class="qc"><p><b>1.</b> Which time word is NOT normally used with the present simple?</p><ol><li><b>a)</b> usually</li><li><b>b)</b> never</li><li><b>c)</b> right now</li></ol></div></li>
+          <li><div class="qc"><p><b>2.</b> Which sentence is correct? Why?</p><ol><li><b>a)</b> She wears a red coat every winter.</li><li><b>b)</b> She is wearing a red coat every winter.</li></ol></div></li>
+          <li><div class="qc"><p><b>3.</b> What is the missing word?</p><p class="qc-t">What ______ the model wearing today?</p></div></li>
+          <li><div class="qc"><p><b>4.</b> Which time word is NOT normally used with the present continuous?</p><ol><li><b>a)</b> at the moment</li><li><b>b)</b> every day</li><li><b>c)</b> today</li></ol></div></li>
+          <li><div class="qc"><p><b>5.</b> Finish the sentence: “I always …”</p><ol><li><b>a)</b> wear sneakers to school.</li><li><b>b)</b> am wearing sneakers to school.</li><li><b>c)</b> wearing sneakers to school.</li></ol></div></li>
+          <li><div class="qc"><p><b>6.</b> Why do we use the present simple here?</p><p class="qc-t">“Our school has a fashion club.”</p></div></li>
+          <li><div class="qc"><p><b>7.</b> Complete with the correct form.</p><p class="qc-t">Please be quiet! The judges ______ (look) at the models.</p></div></li>
+          <li><div class="qc"><p><b>8.</b> Correct this sentence.</p><p class="qc-t">The models walking on the runway.</p></div></li>
+          <li><div class="qc"><p><b>9.</b> Which sentence is correct?</p><ol><li><b>a)</b> I don’t wear a hat in summer.</li><li><b>b)</b> I’m not wear a hat in summer.</li><li><b>c)</b> I not wear a hat in summer.</li></ol></div></li>
+          <li><div class="qc"><p><b>10.</b> Make a correct sentence with these words.</p><p class="qc-t">we / try on / new jackets / right now</p></div></li>
+          <li><div class="qc"><p><b>11.</b> Correct this sentence.</p><p class="qc-t">Lucy is wanting a blue dress.</p></div></li>
+          <li><div class="qc"><p><b>12.</b> Complete the sentence.</p><p class="qc-t">My brother usually ______ (wear) jeans, but today he ______ (wear) a suit.</p></div></li>
+          <li><div class="qc"><p><b>13.</b> Complete the sentence.</p><p class="qc-t">Emma ______ (not like) pink, so she ______ (not try on) the pink skirt.</p></div></li>
+          <li><div class="qc"><p><b>14.</b> Correct this sentence.</p><p class="qc-t">My sister doesn’t never wear shorts.</p></div></li>
+          <li><div class="qc"><p><b>15.</b> What is the difference in meaning?</p><ol><li><b>a)</b> Tom plays the guitar.</li><li><b>b)</b> Tom is playing the guitar.</li></ol></div></li>
+          <li><div class="qc"><p><b>16.</b> Finish the sentence: “The tailors are sewing a dress …”</p><ol><li><b>a)</b> every Monday.</li><li><b>b)</b> at the moment.</li><li><b>c)</b> usually.</li></ol></div></li>
+          <li><div class="qc"><p><b>17.</b> Complete the sentence.</p><p class="qc-t">Mia ______ (not usually / wear) heels, but tonight she ______ (wear) high heels!</p></div></li>
+          <li><div class="qc"><p><b>18.</b> Finish the sentence: “I can’t talk now because …”</p><ol><li><b>a)</b> I try on shoes.</li><li><b>b)</b> I’m trying on shoes.</li><li><b>c)</b> I tries on shoes.</li></ol></div></li>
+          <li><div class="qc"><p><b>19.</b> Make a correct question.</p><p class="qc-t">where / your cousin / buy / her clothes</p></div></li>
+          <li><div class="qc"><p><b>20.</b> Correct this sentence.</p><p class="qc-t">Who are Anna go shopping with?</p></div></li>
+          <li><div class="qc"><p><b>21.</b> Choose the correct form.</p><p class="qc-t">Look! The model ______ a red hat.</p><ol><li><b>a)</b> wears</li><li><b>b)</b> is wearing</li><li><b>c)</b> wearing</li></ol></div></li>
+          <li><div class="qc"><p><b>22.</b> Which question is correct?</p><ol><li><b>a)</b> Does she wears glasses?</li><li><b>b)</b> Does she wear glasses?</li><li><b>c)</b> Is she wear glasses?</li></ol></div></li>
+          <li><div class="qc"><p><b>23.</b> Complete the sentence.</p><p class="qc-t">Every morning my dad ______ (put on) a tie.</p></div></li>
+          <li><div class="qc"><p><b>24.</b> Correct this sentence.</p><p class="qc-t">I am knowing the answer.</p></div></li>
+      </ul>
+    </div></section>
+
+    <section class="page page-right scf-page scf-cards"><div class="scf-in">
+      <ul class="scf-qc">
+          <li><div class="qc"><p><b>25.</b> Make a correct question.</p><p class="qc-t">you / wear / a uniform / at school</p></div></li>
+          <li><div class="qc"><p><b>26.</b> Make a correct question.</p><p class="qc-t">the judges / look at / the models / now</p></div></li>
+          <li><div class="qc"><p><b>27.</b> Complete the sentence.</p><p class="qc-t">We ______ (not wear) shorts in winter.</p></div></li>
+          <li><div class="qc"><p><b>28.</b> Complete the sentence.</p><p class="qc-t">Be quiet! The baby ______ (sleep).</p></div></li>
+          <li><div class="qc"><p><b>29.</b> Which time word goes with the present continuous?</p><ol><li><b>a)</b> always</li><li><b>b)</b> right now</li><li><b>c)</b> every day</li></ol></div></li>
+          <li><div class="qc"><p><b>30.</b> Correct this sentence.</p><p class="qc-t">She don’t like high heels.</p></div></li>
+          <li><div class="qc"><p><b>31.</b> Finish the sentence: “Look at Ben! He …”</p><ol><li><b>a)</b> wears a funny hat.</li><li><b>b)</b> is wearing a funny hat.</li></ol></div></li>
+          <li><div class="qc"><p><b>32.</b> Complete the question.</p><p class="qc-t">What ______ you usually ______ (wear) to a party?</p></div></li>
+          <li><div class="qc"><p><b>33.</b> Correct this sentence.</p><p class="qc-t">The students is trying on uniforms.</p></div></li>
+          <li><div class="qc"><p><b>34.</b> Which sentence is correct?</p><ol><li><b>a)</b> He isn’t wearing a coat today.</li><li><b>b)</b> He doesn’t wearing a coat today.</li></ol></div></li>
+          <li><div class="qc"><p><b>35.</b> Write the -ing form.</p><p class="qc-t">take · run · tie · put</p></div></li>
+          <li><div class="qc"><p><b>36.</b> What is the difference in meaning?</p><ol><li><b>a)</b> I wear sneakers.</li><li><b>b)</b> I’m wearing sneakers.</li></ol></div></li>
+          <li><div class="qc"><p><b>37.</b> Complete the sentence.</p><p class="qc-t">Listen! Mia ______ (sing) in the shower.</p></div></li>
+          <li><div class="qc"><p><b>38.</b> Which sentence is correct?</p><ol><li><b>a)</b> We are usually eating lunch at noon.</li><li><b>b)</b> We usually eat lunch at noon.</li></ol></div></li>
+          <li><div class="qc"><p><b>39.</b> Correct this question.</p><p class="qc-t">What do the models wear now?</p></div></li>
+          <li><div class="qc"><p><b>40.</b> Complete the sentence.</p><p class="qc-t">My mother ______ (not work) on Sundays.</p></div></li>
+          <li><div class="qc"><p><b>41.</b> Make a correct sentence.</p><p class="qc-t">she / never / wear / sandals / in winter</p></div></li>
+          <li><div class="qc"><p><b>42.</b> Finish the sentence: “Sorry, I can’t come. I …”</p><ol><li><b>a)</b> study.</li><li><b>b)</b> am studying.</li><li><b>c)</b> studying.</li></ol></div></li>
+          <li><div class="qc"><p><b>43.</b> Complete the question.</p><p class="qc-t">______ your sister like pink?</p></div></li>
+          <li><div class="qc"><p><b>44.</b> Correct this question.</p><p class="qc-t">Is Tom wear a jacket today?</p></div></li>
+          <li><div class="qc"><p><b>45.</b> Which time word goes with the present simple?</p><ol><li><b>a)</b> at the moment</li><li><b>b)</b> on Fridays</li><li><b>c)</b> now</li></ol></div></li>
+          <li><div class="qc"><p><b>46.</b> Complete the sentence.</p><p class="qc-t">Look! It ______ (rain) and the kids ______ (wear) raincoats.</p></div></li>
+          <li><div class="qc"><p><b>47.</b> Correct this sentence.</p><p class="qc-t">He watch TV every night.</p></div></li>
+          <li><div class="qc"><p><b>48.</b> Write the -ing form.</p><p class="qc-t">write · sit · dance · swim</p></div></li>
+      </ul>
+    </div></section>
   </div>
 
   <div class="spread" data-id="clothes-pc-story" data-group="Present continuous &amp; the runway" data-title="Clothes &amp; Fashion show" data-name="Backstage story · Fashion show bingo">

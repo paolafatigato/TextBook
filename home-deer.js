@@ -22,7 +22,18 @@
   const FRONT = 6, BLINK = [6, 24];
   const LEFT = 54, LEFT_CLOSED = 62, LEFT_HOLD_MS = 900;     // far left: d-054 (open) … d-062 (closed) … back
   const CARD = [160, 239];                                   // pointer inside her card
-  const KEYS = [
+  // MIRROR_LEFT: the video only turns her head well to the RIGHT, so the left side is the right side flipped (a frame number + MIRROR
+  // = that frame drawn mirrored). Set it to false to go back to the single "head turns left" movement (frames d-026 … d-062 are kept).
+  const MIRROR_LEFT = true, MIRROR = 1000;
+  const KEYS = MIRROR_LEFT ? [
+    { a: -20, n: 78,  j: false },                    // right
+    { a: 45,  n: 108, j: false },                    // up-right
+    { a: 90,  n: 120, j: true  },                    // up
+    { a: 92,  n: MIRROR + 120, j: false },           // up (mirrored: the same picture, so no jump) …
+    { a: 135, n: MIRROR + 108, j: false },           // up-left
+    { a: 200, n: MIRROR + 78,  j: true  },           // left
+    { a: 260, n: 156, j: true  },                    // down
+  ] : [
     { a: -20, n: 78,  j: false },                    // right
     { a: 45,  n: 108, j: false },                    // up-right
     { a: 90,  n: 120, j: true  },                    // up
@@ -30,13 +41,13 @@
     { a: 185, n: LEFT, j: true },                    // far left
     { a: 260, n: 156, j: true  },                    // down
   ];
-  const idOf = n => 'd-' + String(n).padStart(3, '0');
+  const idOf = n => 'd-' + String(n % 1000).padStart(3, '0');
   const P = [], K = [];
   KEYS.forEach((k, i) => {
     K.push({ pos: P.length, a: k.a });
     P.push(k.n);
     const nx = KEYS[i + 1];
-    if (nx && !k.j) { const s = Math.sign(nx.n - k.n); for (let n = k.n + s; n !== nx.n; n += s) P.push(n); }
+    if (nx && !k.j) { const s = Math.sign(nx.n - k.n); for (let n = k.n + s; n !== nx.n; n += s) P.push(n); }   // (a mirrored key is n + MIRROR)
   });
   K.push({ pos: P.length, a: KEYS[0].a + 360 });
   const LEN = P.length;
@@ -51,7 +62,7 @@
 
   const imgs = {};
   const load = n => new Promise(res => {
-    if (imgs[n]) return res(imgs[n]);
+    if (imgs[n]) return res(imgs[n]);   // n is always a real frame number (< MIRROR)
     const im = new Image();
     im.onload = () => { imgs[n] = im; res(im); };
     im.onerror = () => res(null);
@@ -63,12 +74,12 @@
     if (started) return;
     started = true;
     await load(FRONT);
-    const todo = [...new Set([...P, ...range(BLINK[0], BLINK[1]), ...range(LEFT, LEFT_CLOSED), ...range(CARD[0], CARD[1])])];
+    const todo = [...new Set([...P.map(n => n % MIRROR), ...range(BLINK[0], BLINK[1]), ...range(LEFT, LEFT_CLOSED), ...range(CARD[0], CARD[1])])];
     let next = 0;
     const worker = async () => { while (next < todo.length) await load(todo[next++]); };
     await Promise.all([worker(), worker(), worker()]);
   };
-  const nearestLoaded = n => { for (let d = 0; d < 40; d++) for (const q of [n - d, n + d]) if (imgs[q]) return q; return null; };
+  const nearestLoaded = w => { const m = w >= MIRROR ? MIRROR : 0, n = w - m; for (let d = 0; d < 40; d++) for (const q of [n - d, n + d]) if (imgs[q]) return q + m; return null; };
 
   const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -77,6 +88,7 @@
 
   const paint = (st, n, prev, a) => {
     const cv = st.cv, ctx = cv.getContext('2d'), w = cv.width, D = w / 1.2, S = SCALE * D, x = (w - S) / 2 + SHIFT * D, y = 1.3 * D - S;
+    const draw = (im, m, X, Y, W) => { if (!m) return ctx.drawImage(im, X, Y, W, W); ctx.save(); ctx.translate(2 * X + W, 0); ctx.scale(-1, 1); ctx.drawImage(im, X, Y, W, W); ctx.restore(); };
     ctx.clearRect(0, 0, w, cv.height);
     ctx.save();
     ctx.beginPath();
@@ -84,8 +96,8 @@
     ctx.moveTo(w / 2 + 0.5 * D, 0.8 * D);
     ctx.arc(w / 2, 0.8 * D, 0.5 * D, 0, Math.PI * 2);    // ... plus the circle itself
     ctx.clip();
-    if (prev) ctx.drawImage(prev, x, y, S, S);
-    ctx.globalAlpha = a; ctx.drawImage(imgs[n], x, y, S, S); ctx.globalAlpha = 1;
+    if (prev) draw(prev.im, prev.m, x, y, S);
+    ctx.globalAlpha = a; draw(imgs[n % MIRROR], n >= MIRROR, x, y, S); ctx.globalAlpha = 1;
     ctx.restore();
   };
   const show = (st, want, now) => {
@@ -93,7 +105,7 @@
     if (n == null) return;
     if (n !== st.shown) {
       const joined = st.shown != null && Math.abs(st.shown - n) <= 3;
-      st.fade = st.shown != null && !joined && imgs[st.shown] ? { from: imgs[st.shown], t0: now } : null;
+      st.fade = st.shown != null && !joined && imgs[st.shown % MIRROR] ? { from: { im: imgs[st.shown % MIRROR], m: st.shown >= MIRROR }, t0: now } : null;
       st.shown = n; st.dirty = false;
       paint(st, n, st.fade && st.fade.from, st.fade ? 0 : 1);
     } else if (st.fade) {
