@@ -1,0 +1,23 @@
+PROMPTS FOR GEMINI (image generation). Save each result in this folder with the file name in its title.
+Attach one of your own drawings (for example img/dating/rita.png) as the style reference.
+
+COMMON STYLE (already repeated inside every prompt):
+animal head on a human body, big expressive eyes, hand-drawn pencil line on pure white.
+
+--- cover.png (portrait, 5:6) ---
+Draw an illustration in exactly the same style as the attached drawing: animal heads on human bodies, very big expressive eyes, hand-drawn pencil line, black and white, on a pure white background. Two teenagers sit side by side on a park bench, shown full length. On the left a girl with the head of a rabbit, long soft ears, hoodie and sneakers; she holds her phone and moves it a little away, with a worried look in her big eyes. On the right a boy with the head of a dog, denim jacket; he leans over her shoulder and peeks at her screen with narrowed, suspicious eyes. No colors, no grey background, no text, no frame.
+
+--- rooster.png (square, 1:1) ---
+Draw in exactly the same style as the attached drawing: animal head on a human body, very big expressive eyes, hand-drawn pencil line, black and white, pure white background. A young man with the head of a proud rooster, wearing a neat suit and tie, bust portrait. He raises one finger as if giving a lecture, his chin up, eyes half closed with a superior smile. Centered, the whole head and comb inside the picture. No colors, no text, no frame.
+
+--- bulldog.png (square, 1:1) ---
+Draw in exactly the same style as the attached drawing: animal head on a human body, very big expressive eyes, hand-drawn pencil line, black and white, pure white background. A man with the head of a stern bulldog, tight polo shirt, a whistle around his neck, bust portrait, arms crossed, big staring eyes and a serious frown. Centered, the whole head inside the picture. No colors, no text, no frame.
+
+--- spaniel.png (square, 1:1) ---
+Draw in exactly the same style as the attached drawing: animal head on a human body, very big expressive eyes, hand-drawn pencil line, black and white, pure white background. A young man with the head of a cocker spaniel with long droopy ears, soft knitted sweater, bust portrait. One hand on his heart, enormous wet sad eyes, a theatrical hurt expression, but one eyebrow slightly raised as if he is checking your reaction. Centered. No colors, no text, no frame.
+
+--- crocodile.png (square, 1:1) ---
+Draw in exactly the same style as the attached drawing: animal head on a human body, very big expressive eyes, hand-drawn pencil line, black and white, pure white background. A man with the head of a crocodile, elegant turtleneck, bust portrait, calmly holding a small teacup. A tiny cold smile and big, quiet, half-closed eyes. Centered, the whole snout inside the picture. No colors, no text, no frame.
+
+--- friends.png (portrait, 5:6) ---
+Draw in exactly the same style as the attached drawing: animal heads on human bodies, very big expressive eyes, hand-drawn pencil line, black and white, pure white background. Two best friends sitting close together, shown from the knees up: a girl with the head of an otter and a girl with the head of a gentle bear, sharing one pair of earphones. The otter looks a little sad, the bear looks at her kindly and puts an arm around her shoulders. Warm, safe feeling. No colors, no text, no frame.

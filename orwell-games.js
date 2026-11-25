@@ -199,9 +199,10 @@
 
   function play(id) {
     stop();
-    $('owBack').hidden = false;
+    const solo = ORDER.includes(id); // the class activities of the story are not in the menu
+    $('owBack').hidden = !solo;
     $('owTitle').textContent = `${INFO[id].icon} ${INFO[id].name}`;
-    setScore(0);
+    setScore(solo || id === 'slogans' ? 0 : null);
     GAMES[id]();
     modal.querySelector('.gq-box').scrollTop = 0;
   }
@@ -654,6 +655,135 @@
     },
   });
 
+  /* ---------- 1984, the story: [s84-slogans] the slogan lab · [s84-hate] the Two Minutes of Hate ---------- */
+  Object.assign(INFO, {
+    hate: { icon: '📺', name: 'The Two Minutes of Hate', text: '' },
+    slogans: { icon: '📢', name: 'Slogan lab', text: '' },
+  });
+  const WAVE = [['irritated', '😒'], ['furious', '😡'], ['explosive', '🤬'], ['angry', '😠'], ['tired', '😮‍💨'], ['calm', '😌'], ['happy', '😊'], ['serene', '🧘']];
+  const FEELINGS = [...WAVE.map(w => w[0]), 'scared', 'nervous', 'surprised', 'bored', 'proud', 'jealous', 'disgusted', 'sad', 'excited', 'embarrassed'];
+  const SAY = [
+    'Big Brother is watching you.', 'Put your hands in the air!', 'Could you come and have a look at our kitchen faucet?',
+    'We want to see the execution!', 'You can do better than that!', 'I am with you.', 'Come on, comrades!', 'You’re a thought criminal!',
+  ];
+  const pickOne = list => list[Math.floor(Math.random() * list.length)];
+
+  Object.assign(GAMES, {
+    hate() {
+      area.innerHTML = `<div class="gq-card s84h">
+        <div class="s84h-tabs"><button type="button" data-mode="walk" class="on">🚶 Everybody walks</button><button type="button" data-mode="guess">🕵️ Guess my feeling</button><button type="button" data-mode="say">🎭 Say it</button></div>
+        <div id="s84h"></div></div>`;
+      const box = $('s84h');
+      const walk = () => {
+        box.innerHTML = `<p class="gq-instr">Stand up! Walk around the room and become the feeling on the screen.</p>
+          <div class="s84h-face"><i id="s84hIcon">📺</i><b id="s84hWord">ready?</b></div>
+          <ol class="s84h-wave">${WAVE.map(w => `<li>${w[0]}</li>`).join('')}</ol>
+          <div class="s84h-time" id="s84hTime">2:00</div>
+          <div class="gq-row"><button type="button" class="gq-btn" id="s84hGo">▶ Start</button></div>`;
+        const dots = [...box.querySelectorAll('.s84h-wave li')];
+        let left = 120, running = false;
+        const paint = () => {
+          const step = Math.min(WAVE.length - 1, Math.floor((120 - left) / 15));
+          $('s84hIcon').textContent = left ? WAVE[step][1] : '🤫';
+          $('s84hWord').textContent = left ? WAVE[step][0] : 'Stop. Breathe.';
+          $('s84hTime').textContent = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+          dots.forEach((d, i) => d.classList.toggle('on', left > 0 && i === step));
+        };
+        $('s84hGo').addEventListener('click', () => {
+          if (!left) { left = 120; running = false; }
+          running = !running;
+          stop();
+          $('s84hGo').textContent = running ? '⏸ Pause' : '▶ Go on';
+          if (!running) return;
+          paint();
+          every(() => {
+            left--;
+            paint();
+            if (!left) { stop(); running = false; $('s84hGo').textContent = '↻ Again'; }
+          }, 1000);
+        });
+      };
+      // one pupil only sees the feeling, walks like that, and the class guesses
+      const secret = say => {
+        let word = '', line = '';
+        const deal = () => {
+          word = pickOne(FEELINGS.filter(f => f !== word));
+          line = pickOne(SAY.filter(s => s !== line));
+          box.innerHTML = `<p class="gq-instr">${say ? 'One pupil reads the sentence with the secret feeling. The class guesses!' : 'One pupil looks at the secret feeling, then walks across the room like that. The class guesses!'} <br>Everybody else: close your eyes while they look.</p>
+            ${say ? `<p class="s84h-line">“${esc(line)}”</p>` : ''}
+            <div class="s84h-face hidden" id="s84hFace"><i>🙈</i><b>secret</b></div>
+            <div class="gq-row"><button type="button" class="gq-btn" id="s84hPeek">👀 Show / hide</button><button type="button" class="gq-btn alt" id="s84hNext">Next pupil →</button></div>`;
+          $('s84hPeek').addEventListener('click', () => {
+            const face = $('s84hFace');
+            const show = face.classList.toggle('hidden') === false;
+            const w = WAVE.find(x => x[0] === word);
+            face.querySelector('i').textContent = show ? (w ? w[1] : '🎭') : '🙈';
+            face.querySelector('b').textContent = show ? word : 'secret';
+          });
+          $('s84hNext').addEventListener('click', deal);
+        };
+        deal();
+      };
+      area.querySelectorAll('[data-mode]').forEach(b => b.addEventListener('click', () => {
+        stop();
+        area.querySelectorAll('[data-mode]').forEach(x => x.classList.toggle('on', x === b));
+        if (b.dataset.mode === 'walk') walk(); else secret(b.dataset.mode === 'say');
+      }));
+      walk();
+    },
+
+    slogans() {
+      const NAMES = ['WAR IS PEACE', 'FREEDOM IS SLAVERY', 'IGNORANCE IS STRENGTH'];
+      // [an argument the Party could use, the slogan it supports]
+      const WHY = [
+        ['“When we all fight one enemy, we stop fighting each other.”', 0],
+        ['“A country at war stays united and quiet.”', 0],
+        ['“While the soldiers fight far away, nobody protests at home.”', 0],
+        ['“A person alone is weak and always loses.”', 1],
+        ['“If you must choose everything, you are a prisoner of your choices.”', 1],
+        ['“Only when you obey the Party can you feel safe.”', 1],
+        ['“If you don’t ask questions, you never have doubts.”', 2],
+        ['“People who know little can’t criticize the leader.”', 2],
+        ['“When nobody remembers the past, the Party stays strong.”', 2],
+      ];
+      const qs = shuffle(WHY);
+      let i = 0, score = 0;
+      const next = () => {
+        if (i === qs.length) {
+          stop();
+          area.innerHTML = `<div class="gq-card" style="text-align:center"><p class="gq-instr">You scored <span>${score} / ${qs.length}</span></p>
+            <p class="gq-instr">Now you are the Party spokesperson! Defend this slogan for 30 seconds. The class votes: convinced or not?</p>
+            <p class="s84h-line" id="s84sName">${pickOne(NAMES)}</p><div class="s84h-time" id="s84sTime">0:30</div>
+            <div class="gq-row"><button type="button" class="gq-btn" id="s84sGo">▶ Start the speech</button><button type="button" class="gq-btn alt" id="s84sNew">Another slogan</button><button type="button" class="gq-btn alt" data-play="slogans">↻ Play again</button></div></div>`;
+          $('s84sNew').addEventListener('click', () => { stop(); $('s84sName').textContent = pickOne(NAMES.filter(n => n !== $('s84sName').textContent)); $('s84sTime').textContent = '0:30'; });
+          $('s84sGo').addEventListener('click', () => {
+            stop();
+            let left = 30;
+            $('s84sTime').textContent = '0:30';
+            every(() => {
+              left--;
+              $('s84sTime').textContent = left ? `0:${String(left).padStart(2, '0')}` : 'Time! Vote!';
+              if (!left) stop();
+            }, 1000);
+          });
+          return;
+        }
+        const [text, right] = qs[i];
+        area.innerHTML = `<div class="gq-card">
+          <div class="gq-count">${i + 1} / ${qs.length}</div>
+          <p class="gq-instr">Think like the Party. Which slogan does this argument support?</p>
+          <p class="s84h-line">${esc(text)}</p>
+          <div class="gq-choices">${NAMES.map(n => `<button type="button" class="gq-choice" data-v="${n}">${n}</button>`).join('')}</div>
+          <p class="gq-fb" id="owFb"></p></div>`;
+        const buttons = [...area.querySelectorAll('.gq-choice')];
+        buttons.forEach(b => b.addEventListener('click', () => {
+          if (judge(buttons, b, NAMES[right], $('owFb'), 'The Party is happy with you!', () => { i++; next(); })) setScore(++score);
+        }));
+      };
+      next();
+    },
+  });
+
   area.addEventListener('click', e => {
     const b = e.target.closest('[data-play], [data-menu]');
     if (!b) return;
@@ -727,4 +857,68 @@
   document.querySelectorAll('.ow-topic').forEach(t => t.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); t.click(); }
   }));
+  /* ---------- 1984, the story: highlighters and stars on the reading pages (.s84-mark) ---------- */
+  // pick a pen, then click the words; with no pen a click underlines. The ★ in the margin marks a new character.
+  // saved[box.id] = {"w": {word number: "y"|"b"|"r"|"g"|"u"}, "s": [paragraph numbers]}
+  let pen = '';
+  const pens = [...document.querySelectorAll('.s84-pens button')];
+  pens.forEach(b => b.addEventListener('click', () => {
+    pen = pen === b.dataset.pen ? '' : b.dataset.pen;
+    pens.forEach(x => x.classList.toggle('on', x.dataset.pen === pen));
+  }));
+  const markBoxes = [...document.querySelectorAll('.s84-mark')].map(box => {
+    const walker = document.createTreeWalker(box, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while (walker.nextNode()) if (walker.currentNode.textContent.trim()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      const frag = document.createDocumentFragment();
+      node.textContent.split(/(\s+)/).forEach(part => {
+        if (!part) return;
+        if (/^\s+$/.test(part)) { frag.append(part); return; }
+        const w = document.createElement('span');
+        w.className = 'w';
+        w.textContent = part;
+        frag.append(w);
+      });
+      node.replaceWith(frag);
+    });
+    const words = [...box.querySelectorAll('.w')];
+    const paras = [...box.querySelectorAll(':scope > p:not(.s84-slog)')];
+    const stars = paras.map(p => {
+      const s = document.createElement('button');
+      s.type = 'button';
+      s.className = 's84-star';
+      s.textContent = '★';
+      s.setAttribute('aria-label', 'A new character on this line');
+      p.prepend(s);
+      return s;
+    });
+    const read = () => { try { return { w: {}, s: [], ...JSON.parse(saved[box.id] || '{}') }; } catch { return { w: {}, s: [] }; } };
+    const paint = () => {
+      const m = read();
+      words.forEach((w, i) => { if (m.w[i]) w.dataset.m = m.w[i]; else delete w.dataset.m; });
+      stars.forEach((s, i) => s.classList.toggle('on', m.s.includes(i)));
+    };
+    const write = m => { saved[box.id] = JSON.stringify(m); persist(); paint(); };
+    words.forEach((w, i) => w.addEventListener('click', () => {
+      const m = read(), colour = pen || 'u';
+      if (colour === 'x' || m.w[i] === colour) delete m.w[i]; else m.w[i] = colour;
+      write(m);
+    }));
+    stars.forEach((s, i) => s.addEventListener('click', () => {
+      const m = read();
+      m.s = m.s.includes(i) ? m.s.filter(n => n !== i) : [...m.s, i];
+      write(m);
+    }));
+    paint();
+    return paint;
+  });
+  // [s84-lookback]: the first vote of the same statement, written next to the new one
+  const echoes = [...document.querySelectorAll('[data-echo]')];
+  const FACE = { agree: '😊', 'not sure': '🤔', disagree: '😨' };
+  const paintEchoes = () => echoes.forEach(o => { o.textContent = FACE[saved[o.dataset.echo]] || '–'; });
+  paintEchoes();
+  document.addEventListener('spreadchange', () => { markBoxes.forEach(p => p()); paintEchoes(); });
+  document.addEventListener('click', e => { if (e.target.closest('[id^="s84-ag-"] button')) setTimeout(paintEchoes); });
+
 })();

@@ -4267,6 +4267,19 @@ body.zoomed .toolbar { position: sticky; left: 0; width: 100vw; }
 .rjx .sh-poem.rj-kiss { font: 500 1.95cqw/1 var(--serif2); color: #1f191b; background: #fff; }
 .rjx .sh-qa p, .rjx .rj-tf p, .rjx .al-fill, .rjx .al-lines { color: #2b2326; }
 
+/* [rj-story] the whole story in short: text-only comic panels, no pictures */
+.rjs { z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 1.2cqw 1.8cqw; align-content: space-between; height: calc(var(--h) * 1cqw); margin: 0; padding: 0; list-style: none; }
+.rjs li.wide { grid-column: 1 / -1; }
+.rjs li.rjs-draw { padding: 0; border: 0; }
+.rjs-draw .pd-draw canvas { aspect-ratio: auto; height: auto; border: .18cqw dashed var(--hair-red); border-radius: 1.4cqw; }
+.rjs li { padding: 1.3cqw 1.8cqw 1.4cqw; border: .14cqw solid var(--hair-red); border-radius: 1.4cqw; }
+.rjs h3 { margin: 0 0 .5cqw; font: 800 1.4cqw/1.2 'Nunito', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--sh); }
+.rjs h3 i { margin-right: 1cqw; font: italic 600 2.5cqw/1 var(--serif2); letter-spacing: 0; }
+.rjs p { margin: 0; font: 400 2.15cqw/1.35 'Nunito', sans-serif; color: #2b2326; }
+.rjs-talk { display: flex; flex-wrap: wrap; gap: .6cqw .8cqw; margin-top: .9cqw; }
+.rjs-talk span { padding: .45cqw 1.3cqw .55cqw; background: var(--sh-soft); border-radius: 2cqw 2cqw 2cqw .3cqw; font: italic 600 2.35cqw/1.2 var(--serif2); color: #1f191b; }
+.rjs-talk b { margin-right: .7cqw; font: 800 1.15cqw/1 'Nunito', sans-serif; font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: var(--sh); }
+
 /* ---------- pp. 137.1–137.4: "The Boy Who Harnessed the Wind" (reading before the Jobs unit) ---------- */
 .page.bw { background: #fffaf3; --bw: #e8820c; --bw-soft: #fdebd3; }
 .bw .bw-hr { background: #f3c48a; height: .2cqw; }

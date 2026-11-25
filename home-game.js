@@ -1,5 +1,6 @@
 // Home ([home-vocab … home-missions]): the logic of "Home Sweet Vocab".
-// [home-vocab]: spell the word → the object is unlocked.
+// [home-vocab]: spell the word → the object is unlocked. On screen one object at a time, with arrows and
+// sentences about it (home-furniture.js); the printed page keeps the grid with all the cards.
 // [home-vocab:R]: drag the unlocked objects into the house (as many as you like).
 // [home-prepositions:R … home-missions]: room missions (bedroom, living room, kitchen), every object once: the missions check the prepositions of place.
 // What students do is kept in `saved` (script.js), so "Clear answers" empties it too.
@@ -17,7 +18,7 @@
     { k: 'books', w: 3, emoji: '📚' },
     { k: 'mirror', w: 4.5, emoji: '🪞' },
     { k: 'curtains', w: 8, emoji: '🪟' },
-    { k: 'sofa', w: 13, emoji: '🛋️' },
+    { k: 'sofa', w: 13, emoji: '🛋️', pop3d: true },
     { k: 'armchair', w: 6, emoji: '💺' },
     { k: 'rocking chair', w: 6, emoji: '🪑' },
     { k: 'pouf', w: 4.5, emoji: '🟤' },
@@ -109,7 +110,7 @@
   });
 
   const KEY = 'home-game';
-  const blank = () => ({ u: [], h: [], r: [], l: [], k: [] }); // unlocked words, house objects, objects of each room
+  const blank = () => ({ u: [], h: [], r: [], l: [], k: [], i: 0, a: {} }); // unlocked words, house objects, objects of each room, object on screen, answers to its sentences
   let state;
   function load() {
     try { state = { ...blank(), ...JSON.parse(saved[KEY] || '{}') }; } catch { state = blank(); }
@@ -126,6 +127,7 @@
   const $ = id => document.getElementById(id);
   const cardsBox = $('hm-cards');
   const house = $('hm-house');
+  const solo = $('hm-solo');
   if (!cardsBox || !house) return;
   // the page elements of each room: #hm-room, #hm-palette, #hm-missions… (+ "-l", "-k")
   ROOMS.forEach(room => {
@@ -268,11 +270,37 @@
     if (state.u.includes(k)) return;
     state.u.push(k);
     store();
-    const old = cardsBox.querySelector(`[data-k="${k}"]`);
     const fresh = card(BY_KEY[k]);
     fresh.classList.add('pop');
-    old.replaceWith(fresh);
+    cardsBox.querySelector(`[data-k="${k}"]`).replaceWith(fresh);
+    const big = solo.querySelector(`.hm-card[data-k="${k}"]`);
+    if (big) {
+      const next = bigCard(BY_KEY[k]);
+      next.classList.add('pop');
+      big.replaceWith(next);
+      popOut(next, k);
+    }
     score();
+  }
+
+  // The guessed drawing pops out of the book: it turns 3D for a moment, then goes back to 2D.
+  // Only for the words with a second picture, img/home/<name>-3d.png.
+  function popOut(el, k) {
+    if (!BY_KEY[k].pop3d) return;
+    const f = models(k)[0];
+    const img = new Image();
+    img.src = `img/home/${f}-3d.png`;
+    img.alt = '';
+    img.draggable = false;
+    img.className = 'hm-3d';
+    img.onload = () => {
+      el.querySelector('.hm-model').append(img);
+      el.classList.add('popping');
+      img.addEventListener('animationend', () => {
+        img.remove();
+        el.classList.remove('popping');
+      }, { once: true });
+    };
   }
 
   function score() {
@@ -281,8 +309,67 @@
 
   function drawCards() {
     cardsBox.replaceChildren(...WORDS.map(card));
+    drawSolo();
     score();
   }
+
+  /* ---- on screen: one object, the arrows, the sentences about it ---- */
+
+  function bigCard(o) {
+    const el = card(o);
+    el.classList.add('hm-big');
+    return el;
+  }
+
+  function drawSolo() {
+    state.i = ((state.i % WORDS.length) + WORDS.length) % WORDS.length || 0;
+    const o = WORDS[state.i];
+    const ex = window.HOME_FURNITURE[o.k];
+    const ans = state.a[o.k] ||= { g: [], t: [] };
+    const parts = ex.g.map(s => s.match(/^(.*)\{(.+)\}(.*)$/).slice(1));
+    const bank = [...parts.map(p => p[1]), ex.x].sort();
+    solo.innerHTML = `
+      <div class="hm-stage">
+        <button type="button" class="hm-arrow prev" data-step="-1" aria-label="Previous object">❮</button>
+        <button type="button" class="hm-arrow next" data-step="1" aria-label="Next object">❯</button>
+        <span class="hm-count">${state.i + 1} / ${WORDS.length}</span>
+      </div>
+      <div class="hmc-pill"><i class="n">A</i> Complete the sentences</div>
+      <p class="hmc-bank">${bank.map(w => `<span>${w}</span>`).join('')}</p>
+      <ol class="hm-gaps">${parts.map(([before, word, after], n) => `<li>${before}<input type="text" class="hm-gap" data-n="${n}" data-answer="${word}" autocomplete="off" spellcheck="false" aria-label="Sentence ${n + 1}">${after}</li>`).join('')}</ol>
+      <div class="hmc-pill" style="--c:var(--pal-salmon)"><i class="n">B</i> True or false?</div>
+      <ol class="hm-tfs">${ex.tf.map(([text, right], n) => `<li><span>${text}</span><span class="hm-tf" data-n="${n}" data-answer="${right}">${['T', 'F'].map(v => `<button type="button" data-v="${v}"${ans.t[n] === v ? ' class="on"' : ''}>${v}</button>`).join('')}</span></li>`).join('')}</ol>
+      <button type="button" class="check hm-check">✓ Check</button>`;
+    solo.querySelectorAll('.hm-gap').forEach(inp => { inp.value = ans.g[inp.dataset.n] || ''; });
+    solo.querySelector('.hm-stage .next').before(bigCard(o));
+  }
+
+  solo.addEventListener('input', e => {
+    const inp = e.target.closest('.hm-gap');
+    if (!inp) return;
+    inp.classList.remove('ok', 'no');
+    state.a[WORDS[state.i].k].g[inp.dataset.n] = inp.value;
+    store();
+  });
+  solo.addEventListener('click', e => {
+    const b = e.target.closest('button');
+    if (!b) return;
+    if (b.dataset.step) {
+      state.i += +b.dataset.step;
+      drawSolo();
+      store();
+    } else if (b.dataset.v) {
+      const box = b.parentElement;
+      box.classList.remove('ok', 'no');
+      box.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+      state.a[WORDS[state.i].k].t[box.dataset.n] = b.dataset.v;
+      store();
+    } else if (b.classList.contains('hm-check')) {
+      const mark = (el, ok) => { el.classList.toggle('ok', ok); el.classList.toggle('no', !ok); };
+      solo.querySelectorAll('.hm-gap').forEach(inp => mark(inp, inp.value.trim().toLowerCase() === inp.dataset.answer));
+      solo.querySelectorAll('.hm-tf').forEach(box => mark(box, box.querySelector('.on')?.dataset.v === box.dataset.answer));
+    }
+  });
 
   /* ================= dragging ================= */
   // From a card ([home-vocab]) or the palette ([home-prepositions:R]) into a .hm-drop area.

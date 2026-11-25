@@ -9,8 +9,10 @@ window.addEventListener('load', () => {
     { title: 'Owners', color: '#8fb82e', games: [['🧭 Possessive maze', 'own-mistakes:R']] },
     { title: 'Home', color: '#c9de3c', games: [['🛋️ Decorate the house', 'home-vocab:R']] },
     { title: 'Romeo &amp; Juliet', color: '#d6334f', games: [
-      ['🎯 Who am I?', 'rj-verona', () => window.RJ_GAMES?.open('who')],
+      ['⚡ Speed round', 'rj-verona', () => window.RJ_GAMES?.open('speed')],
+      ['🎯 The final choice', 'rj-verona', () => window.RJ_GAMES?.open('choice')],
       ['🃏 Memory pairs', 'rj-verona', () => window.RJ_GAMES?.open('memory')],
+      ['🌹 The falling rose', 'rj-verona', () => window.RJ_GAMES?.open('rose')],
     ] },
     { title: 'School trip', color: '#f06054', games: [['✈️ Travel Agent', 'trip-budget', () => window.TRIP_AGENCY?.open()]] },
     { title: 'Orwell', color: '#262626', games: [
