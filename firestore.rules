@@ -2,17 +2,32 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // only the teacher
-    function isTeacher() {
+    function isVerified() {
       return request.auth != null
-        && request.auth.token.email_verified == true
-        && request.auth.token.email in ['paola.fatigato@gmail.com'];
+        && request.auth.token.email != null
+        && request.auth.token.email_verified == true;
+    }
+    // only the admin (the same list is in cloud.js)
+    function isAdmin() {
+      return isVerified() && request.auth.token.email in ['paola.fatigato@gmail.com'];
+    }
+    // the admin, or a colleague the admin added in the Admin panel
+    function isTeacher() {
+      return isAdmin() || (isVerified()
+        && exists(/databases/$(database)/documents/teachers/$(request.auth.token.email.lower())));
     }
 
-    // which pages students can see: everybody reads, only the teacher writes
+    // which pages students can see: everybody reads, only the admin writes
     match /config/{doc} {
       allow read: if true;
-      allow write: if isTeacher();
+      allow write: if isAdmin();
+    }
+
+    // the colleagues with access to the teacher materials: one document per email (in small letters).
+    // Only the admin sees the list and changes it; each person can only ask about their own email.
+    match /teachers/{email} {
+      allow get: if isAdmin() || (isVerified() && request.auth.token.email.lower() == email);
+      allow list, write: if isAdmin();
     }
 
     // a student's answers (and drawings): only that student
@@ -24,11 +39,12 @@ service cloud.firestore {
     }
 
     // Rome vs Longobards: a pupil (signed in with Google) writes and reads only his or her own heroes (heroes/<uid>_<1 or 2>);
-    // the teacher reads and deletes all of them
+    // the teachers read all of them, only the admin deletes any of them
     match /heroes/{id} {
       allow create, update: if request.auth != null && request.auth.token.email != null
         && id.matches(request.auth.uid + '_[12]') && request.resource.data.uid == request.auth.uid;
-      allow read, delete: if isTeacher() || (request.auth != null && resource.data.uid == request.auth.uid);
+      allow read: if isTeacher() || (request.auth != null && resource.data.uid == request.auth.uid);
+      allow delete: if isAdmin() || (request.auth != null && resource.data.uid == request.auth.uid);
     }
 
     // Villain Battle online: a room is a document named with a 4-letter code.

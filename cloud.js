@@ -1,5 +1,5 @@
 // Firebase: Google login, progress saved in the cloud (so a student can go on from another device)
-// and the list of pages the teacher has made visible.
+// the list of pages the admin has made visible and the colleagues who can open the teacher materials.
 // Talks to script.js through window.book (see "access" in script.js).
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
@@ -19,8 +19,9 @@ const firebaseConfig = {
   appId: '1:354398633560:web:7446ea659454cfa868942d',
 };
 
-// Only these Google accounts get the teacher panel (the same list is in firestore.rules)
-const TEACHER_EMAILS = ['paola.fatigato@gmail.com'];
+// Only these Google accounts get the Admin panel (the same list is in firestore.rules).
+// The admin is a teacher too; the other teachers are added in the panel (collection "teachers").
+const ADMIN_EMAILS = ['paola.fatigato@gmail.com'];
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -102,6 +103,32 @@ book.onSaveVisible = async spreads => {
     throw new Error(`${err.code} — check the Firestore rules and that the database exists`);
   }
 };
+
+/* ---------- colleagues with access to the teacher materials ---------- */
+// A colleague is the document teachers/<email in small letters>: only the admin lists, adds and removes them.
+const teacherRef = email => doc(db, 'teachers', email.toLowerCase());
+const teacherError = err => {
+  console.error('Teachers:', err.code, err.message);
+  return new Error(`${err.code} — check that the new Firestore rules are published`);
+};
+book.teachers = {
+  async list() {
+    try { return (await getDocs(collection(db, 'teachers'))).docs.map(d => d.id).sort(); } catch (err) { throw teacherError(err); }
+  },
+  async add(email) {
+    try { await setDoc(teacherRef(email), { email: email.toLowerCase(), added: Date.now() }); } catch (err) { throw teacherError(err); }
+  },
+  async remove(email) {
+    try { await deleteDoc(teacherRef(email)); } catch (err) { throw teacherError(err); }
+  },
+};
+// has the admin added this email? (no, also when it cannot be read)
+async function isColleague(email) {
+  try { return (await getDoc(teacherRef(email))).exists(); } catch (err) {
+    console.warn('Cannot check the teacher access:', err.code, err.message);
+    return false;
+  }
+}
 
 /* ---------- login ---------- */
 
@@ -186,11 +213,11 @@ onAuthStateChanged(auth, async signed => {
   const u = signed && !signed.isAnonymous ? signed : null;
   user = u;
   ready = false;
-  book.setUser(u && {
-    name: u.displayName || u.email,
-    email: u.email,
-    teacher: TEACHER_EMAILS.includes(u.email) && u.emailVerified,
-  });
+  const verified = !!u?.email && u.emailVerified;
+  const admin = verified && ADMIN_EMAILS.includes(u.email);
+  const teacher = admin || (verified && await isColleague(u.email));
+  if (user !== u) return; // somebody else signed in or out in the meantime
+  book.setUser(u && { name: u.displayName || u.email, email: u.email, admin, teacher });
   // a print copy only needs to know who is signed in: it never pulls or sends answers
   if (!u || book.printCopy) return;
 

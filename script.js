@@ -21,15 +21,16 @@ function persist() {
 const VS_SIGN = '<span class="vs-sign" title="You can play against an opponent">⚔</span>';
 
 /* ================= access: login and visible pages ================= */
-// cloud.js (Firebase) fills this in. Students see only the spreads the teacher ticked;
-// the teacher sees everything and can tick them in the panel.
+// cloud.js (Firebase) fills this in. Students see only the spreads the admin ticked;
+// the teachers see everything, and only the admin can tick them in the Admin panel.
 
 // the visible spreads are kept by name (data-id), so adding pages never changes them
 const VISIBLE_KEY = 'libro-visible-v6';
 let visibleSpreads = new Set();
 try { visibleSpreads = new Set(JSON.parse(localStorage.getItem(VISIBLE_KEY)) || []); } catch { /* none yet */ }
-let account = null; // { name, email, teacher }
+let account = null; // { name, email, teacher, admin }
 const isTeacher = () => !!account?.teacher;
+const isAdmin = () => !!account?.admin;
 
 let userKnown;
 const userReady = new Promise(r => { userKnown = r; }); // cloud.js has said who is signed in
@@ -37,6 +38,7 @@ const userReady = new Promise(r => { userKnown = r; }); // cloud.js has said who
 window.book = {
   storageKey: KEY,
   printCopy: isPrintCopy, // cloud.js does not sync a print copy
+  isAdmin: () => isAdmin(),
   getSaved: () => saved,
   replaceSaved(data) {
     if (isPrintCopy) return;
@@ -2135,15 +2137,15 @@ function updateContinueLink() {
   }
 }
 
-/* ================= account bar + teacher panel ================= */
+/* ================= account bar + admin panel ================= */
 
 const accountBtn = document.getElementById('accountBtn');
-const teacherBtn = document.getElementById('teacherBtn');
-const panel = document.getElementById('teacherPanel');
+const adminBtn = document.getElementById('adminBtn');
+const panel = document.getElementById('adminPanel');
 const SYNC_TEXT = { saving: '⏳ saving…', ok: '☁️ saved', error: '⚠️ not saved (offline?)' };
 
 function paintAccount() {
-  teacherBtn.hidden = !isTeacher();
+  adminBtn.hidden = !isAdmin();
   if (!account) {
     accountBtn.textContent = '👤 Sign in';
     accountBtn.title = 'Sign in with Google to keep your answers on every device';
@@ -2151,7 +2153,7 @@ function paintAccount() {
   }
   const first = (account.name || '').split(' ')[0];
   accountBtn.textContent = `${first} · sign out`;
-  accountBtn.title = `${account.email} ${SYNC_TEXT[syncState] || ''}`.trim();
+  accountBtn.title = `${account.email}${isTeacher() ? ' (teacher access)' : ''} ${SYNC_TEXT[syncState] || ''}`.trim();
 }
 
 accountBtn.addEventListener('click', () => {
@@ -2215,7 +2217,7 @@ function hideClosedGames() {
   });
 }
 
-/* the teacher's panel: tick the chapters and pages students can see */
+/* the admin's panel: tick the chapters and pages students can see */
 
 // the chapters students can be given (the teacher's materials are not in the list)
 function groups() {
@@ -2280,7 +2282,37 @@ panel.querySelector('.tp-nothing').addEventListener('click', () => {
   savePanel();
 });
 panel.querySelector('.tp-close').addEventListener('click', () => panel.close());
-teacherBtn.addEventListener('click', () => {
+// the colleagues who can open the teacher materials (cloud.js keeps the list)
+const teachStatus = panel.querySelector('.tp-teach-status');
+async function paintTeachers() {
+  const list = await window.book.teachers.list();
+  panel.querySelector('.tp-emails').innerHTML = list.length
+    ? list.map(e => `<li>${esc(e)} <button type="button" data-email="${esc(e)}">Remove</button></li>`).join('')
+    : '<li>Nobody yet.</li>';
+}
+async function changeTeachers(change, done) {
+  if (!window.book.teachers) return;
+  teachStatus.textContent = change ? 'Saving…' : '';
+  try {
+    await change?.();
+    await paintTeachers();
+    teachStatus.textContent = done;
+  } catch (err) { teachStatus.textContent = 'Could not do it: ' + err.message; }
+}
+panel.querySelector('.tp-add').addEventListener('submit', e => {
+  e.preventDefault();
+  const input = e.target.querySelector('input');
+  const email = input.value.trim().toLowerCase();
+  if (!email) return;
+  changeTeachers(async () => { await window.book.teachers.add(email); input.value = ''; }, `Added ✓ ${email} (they reload the book to see the materials).`);
+});
+panel.querySelector('.tp-emails').addEventListener('click', e => {
+  const email = e.target.dataset.email;
+  if (email && confirm(`Remove ${email}?`)) changeTeachers(() => window.book.teachers.remove(email), `Removed ✓ ${email}`);
+});
+
+adminBtn.addEventListener('click', () => {
+  changeTeachers(null, '');
   if (!panel.querySelector('.tp-one')) buildPanel();
   panel.querySelector('.tp-status').textContent = '';
   panel.showModal();

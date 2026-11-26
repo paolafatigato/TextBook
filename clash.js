@@ -121,7 +121,7 @@
     if (!pool.length) return '';
     const n = (p, r) => pool.filter(x => x.hero.people === p && x.hero.role === r).length;
     return `<details class="cl-pool"><summary>📥 ${pool.length} heroes received · 🏛️ ${n('R', 'man')} men, ${n('R', 'woman')} women · 🌲 ${n('L', 'man')} men, ${n('L', 'woman')} women</summary>
-      <ul>${pool.map(p => `<li>${p.hero.people === 'R' ? '🏛️' : '🌲'} <b>${esc(p.hero.name)}</b> · ${esc(p.hero.jobName)} (${p.hero.role === 'man' ? '♂' : '♀'}) — ${esc(p.name || p.email)} <small>${esc((p.hero.adj || []).join(', '))}</small> <button type="button" class="cl-mini" data-act="delhero" data-id="${esc(p.id)}" title="Delete this hero">🗑</button></li>`).join('')}</ul></details>`;
+      <ul>${pool.map(p => `<li>${p.hero.people === 'R' ? '🏛️' : '🌲'} <b>${esc(p.hero.name)}</b> · ${esc(p.hero.jobName)} (${p.hero.role === 'man' ? '♂' : '♀'}) — ${esc(p.name || p.email)} <small>${esc((p.hero.adj || []).join(', '))}</small> ${window.book?.isAdmin?.() ? `<button type="button" class="cl-mini" data-act="delhero" data-id="${esc(p.id)}" title="Delete this hero">🗑</button>` : ''}</li>`).join('')}</ul></details>`;
   }
   function setup(msg = '') {
     war = null; bat = null;

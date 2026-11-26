@@ -75,16 +75,26 @@
     </div>
     <button id="printBtn" type="button" title="Print">🖨️<span class="lbl"> Print</span></button>
     <button id="clearMenuBtn" type="button" title="Clear answers">🧹<span class="lbl"> Clear answers</span></button>
-    <button id="teacherBtn" type="button" title="Teacher" hidden>🎓<span class="lbl"> Teacher</span></button>
+    <button id="adminBtn" type="button" title="Admin" hidden>⚙️<span class="lbl"> Admin</span></button>
     <button id="accountBtn" type="button">👤 Sign in</button>
   </nav>
 
-  <dialog class="teacher-panel" id="teacherPanel">
+  <dialog class="admin-panel" id="adminPanel">
     <header class="tp-head">
-      <h2>🎓 What students can see</h2>
+      <h2>⚙️ Admin · What students can see</h2>
       <button class="tp-close" type="button" aria-label="Close">✕</button>
     </header>
     <p class="tp-help">Tick a chapter to open all its pages, or tick single pages. Students see the changes right away. You always see everything.</p>
+    <details class="tp-teachers">
+      <summary>👩‍🏫 Colleagues with access to the teacher materials</summary>
+      <p>They sign in with Google using the email you add here. They see every page and the teacher materials, but not this panel.</p>
+      <form class="tp-add">
+        <input type="email" required placeholder="name@example.com" aria-label="Colleague's email" autocomplete="off">
+        <button type="submit">Add</button>
+      </form>
+      <ul class="tp-emails"></ul>
+      <span class="tp-teach-status" role="status"></span>
+    </details>
     <div class="tp-tools">
       <button class="tp-everything" type="button">Tick all</button>
       <button class="tp-nothing" type="button">Untick all</button>
