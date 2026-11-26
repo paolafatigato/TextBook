@@ -168,6 +168,13 @@ const scaffoldRange = s => {
 const teacherOnly = s => isScaffold(s) || !!chapterOf.get(s)?.teacher;
 // a link to a spread: by its first page, or by its name for scaffolding (its pages have no number)
 const hrefOf = s => (isUnnumbered(s) ? `#s=${s.dataset.id}` : `#p${pagesOf(s)[0]}`);
+// what the address bar says: the page as the pupils read it, with its year (#p49, #y2-p49, #y3-p12). The links
+// inside the book keep the unique number (#p290): route() opens both
+const addressOf = s => {
+  if (isUnnumbered(s)) return hrefOf(s);
+  const n = pagesOf(s)[0], year = PAGES.yearOf(n);
+  return year ? `#y${year + 1}-p${PAGES.shown(n)}` : hrefOf(s);
+};
 // the tests are scaffolding too (class "scaffold test"), with their own sign
 const isTest = s => s.classList.contains('test');
 const scaffoldSign = s => (isTest(s) ? '📝' : isPrintout(s) ? '🖨️' : '🧱');
@@ -194,7 +201,7 @@ function show(index) {
   paintDesk();
   prevBtn.disabled = visibleFrom(current - 1, -1) < 0;
   nextBtn.disabled = visibleFrom(current + 1, 1) < 0;
-  history.replaceState(null, '', hrefOf(spreads[current]));
+  history.replaceState(null, '', addressOf(spreads[current]));
   try { localStorage.setItem(KEY + ':spread', spreads[current].dataset.id); } catch { /* ignore */ }
   window.scrollTo(0, 0);
   redrawAllMatches();
@@ -260,7 +267,7 @@ function showHome() {
   document.dispatchEvent(new Event('spreadchange'));
 }
 
-// #home → home page, #p6 → page 6, nothing → home page
+// #home → home page, #p6 → page 6, #y2-p6 → page 6 of the 2nd year (#y3-… 3rd year), nothing → home page
 // #s=own-saxon / #s=own-saxon:R → that page by the name of its spread: links from outside the book
 // (AgendaProf) use this, so they still work when pages are added
 async function route() {
@@ -281,10 +288,10 @@ async function route() {
         && right.getBoundingClientRect().top >= left.getBoundingClientRect().bottom - 1) right.scrollIntoView();
     return;
   }
-  const m = location.hash.match(/^#p(\d+(?:\.\d+)?)/);
+  const m = location.hash.match(/^#(?:y([23])-)?p(\d+(?:\.\d+)?)/);
   if (m) {
     // the exact page may be one only the teacher sees: wait for the sign-in before choosing the closest one
-    const n = parseFloat(m[1]);
+    const n = m[1] ? PAGES.internal(m[1] - 1, parseFloat(m[2])) : parseFloat(m[2]);
     const exact = spreads.find(sp => !isUnnumbered(sp) && pagesOf(sp)[0] <= n && n <= pagesOf(sp)[1]);
     if (exact && !canSee(exact)) {
       const hash = location.hash;
@@ -2093,7 +2100,23 @@ new ResizeObserver(() => document.documentElement.style.setProperty('--tb', `${t
 document.addEventListener('spreadchange', () => { paintToc(); markToc(); });
 paintToc();
 
-// topics are listed only while something is typed in the search bar
+// the words written on a page, for the search bar: its title (name and headings) and all its text.
+// Read once per page. A space is added around the blocks, so two of them never stick into one word.
+const searchCache = new WeakMap();
+function searchText(s) {
+  if (!searchCache.has(s)) {
+    const html = s.innerHTML
+      .replace(/<\/?(?:p|div|li|ol|ul|td|th|tr|h[1-6]|br|button|label|header|section|article|figcaption)\b[^>]*>/g, ' $& ')
+      .replace(/<!--[\s\S]*?-->|<[^>]*>|&[a-z]+;/g, '');
+    const heads = [...s.querySelectorAll('h1, h2')].map(h => h.textContent);
+    searchCache.set(s, { title: norm([s.dataset.name || '', ...heads].join(' ')), text: norm(html) });
+  }
+  return searchCache.get(s);
+}
+const startsAWord = (text, w) => new RegExp(`(^|[ '])${w}`).test(text);
+
+// topics are listed only while something is typed in the search bar.
+// First the pages with the words in their title, then those with the words in the exercises, last the scaffolding.
 function renderTopics() {
   const list = document.getElementById('topicList');
   const words = norm(document.getElementById('topicSearch').value).split(' ').filter(Boolean);
@@ -2111,6 +2134,29 @@ function renderTopics() {
       <div class="topic-pages">${links}</div>
     </article>`;
   }).filter(Boolean);
+  // the other pages of the book (not already in a topic above): by their title or by the words in their exercises.
+  // Not for page numbers, and not for one or two letters (they are everywhere).
+  const inTitle = new Map(), inText = new Map(); // chapter → links
+  if (words.join('').length > 2 && !words.some(w => /^\d+$/.test(w))) {
+    const listed = topics.flatMap(t => t.pages.map(topicPages));
+    spreads.filter(s => !isUnnumbered(s) && canSee(s)).forEach(s => {
+      const [a, b] = pagesOf(s);
+      if (listed.some(([x, y]) => a <= y && b >= x)) return;
+      const { title, text } = searchText(s);
+      const found = words.every(w => startsAWord(title, w)) ? inTitle
+        : words.every(w => startsAWord(text, w)) ? inText : null;
+      if (!found) return;
+      const ch = chapterOf.get(s);
+      if (!found.has(ch)) found.set(ch, []);
+      found.get(ch).push(pageLink(a, b));
+    });
+  }
+  const chapterCards = (found, icon) => [...found].map(([ch, links]) => `
+    <article class="topic" style="--c:${esc(ch?.color || '#7b3fc4')}">
+      <h3>${icon} ${esc(ch?.title || 'Other pages')}</h3>
+      <div class="topic-pages">${links.join('')}</div>
+    </article>`);
+  cards.push(...chapterCards(inTitle, '📖'), ...chapterCards(inText, '✏️ In the exercises ·'));
   // the teacher also finds the scaffolding: by its name, its chapter, any word written on it, or "scaffolding"
   const scaffolds = !isTeacher() ? [] : spreads.filter(isScaffold).filter(s => {
     const text = norm(`scaffolding ${s.dataset.name || ''} ${s.dataset.title || ''} ${s.textContent}`);
@@ -2120,7 +2166,7 @@ function renderTopics() {
       <h3>${scaffoldSign(s)} ${isTest(s) ? 'Test' : 'Scaffolding'} · ${esc(chapterOf.get(s)?.title || s.dataset.title || '')}</h3>
       <div class="topic-pages"><a href="${hrefOf(s)}">${esc(s.dataset.name || '')}</a></div>
     </article>`);
-  cards.unshift(...scaffolds);
+  cards.push(...scaffolds);
   list.innerHTML = cards.length ? cards.join('') : '<p class="topic-none">No topic found.</p>';
 }
 document.getElementById('topicSearch').addEventListener('input', renderTopics);

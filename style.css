@@ -1857,6 +1857,12 @@ body.at-home .side, body.at-home .goto span, body.at-home #printBtn { display: n
   padding: 6px 12px; border-radius: 999px;
 }
 .topic-pages a:hover { filter: brightness(.92); }
+/* the search results are small, to see many at a glance */
+#topicList { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 7px; }
+#topicList .topic { border-radius: 10px; border-left-width: 4px; padding: 7px 9px; box-shadow: 0 2px 6px rgba(60,40,20,.1); }
+#topicList .topic h3 { margin-bottom: 5px; font-size: 13px; line-height: 1.2; }
+#topicList .topic-pages { gap: 4px; }
+#topicList .topic-pages a { font-size: 11px; padding: 2px 7px; }
 .soon { font: 600 14px 'Nunito', sans-serif; color: #aaa; }
 .topic-pages .soon { padding: 6px 12px; border: 1px dashed #ccc; border-radius: 999px; }
 .soon i { font-style: normal; font-size: 12px; }
@@ -5482,3 +5488,6 @@ body.toc-open .toc { display: block; }
 .sc-panel .cl-lines2 input.fill { height: 2.6cqw; font-size: 1.9cqw; }
 .sc-pg .pageno, .sc-pg .footer { z-index: 3; }
 .sc-pg .pageno, .sc-pg .footer { color: #fff; text-shadow: 0 0 .6cqw rgba(160,40,30,.6); }
+
+.home-about { margin: 36px 0 0; text-align: center; font: 600 15px 'Nunito', sans-serif; }
+.home-about a { color: #6b3fb5; }
