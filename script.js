@@ -5,10 +5,12 @@ const KEY = 'libro-u1l1';
 // a copy of the book opened by the print panel (index.html?print&from=…): it only prints.
 // Nothing written in it is saved, and with &blank it starts with no answers.
 const PRINT_JOB = new URLSearchParams(location.search);
-const isPrintCopy = PRINT_JOB.has('print');
+// (index.html?sheet=… is a printable game on its own page, sheet.js: nothing is saved there either)
+const isSheet = PRINT_JOB.has('sheet');
+const isPrintCopy = PRINT_JOB.has('print') || isSheet;
 let saved = {};
 try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch { saved = {}; }
-if (isPrintCopy && PRINT_JOB.has('blank')) saved = {};
+if (isSheet || (isPrintCopy && PRINT_JOB.has('blank'))) saved = {};
 
 function persist() {
   if (isPrintCopy) return;
@@ -271,6 +273,7 @@ function showHome() {
 // #s=own-saxon / #s=own-saxon:R → that page by the name of its spread: links from outside the book
 // (AgendaProf) use this, so they still work when pages are added
 async function route() {
+  if (isSheet) return;
   const s = location.hash.match(/^#s=([\w-]+(?::[LR])?)$/);
   if (s) {
     const hash = location.hash;
@@ -1728,7 +1731,7 @@ else {
 }
 
 /* the print copy: show only the pages asked for, add the blank pages, wait for pictures and fonts, print */
-if (isPrintCopy) (async () => {
+if (isPrintCopy && !isSheet) (async () => {
   document.body.classList.add('print-job');
   document.body.classList.toggle('eco-print', PRINT_JOB.has('eco'));
   const note = document.createElement('p');

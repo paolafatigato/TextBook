@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free English Memory Games for ESL Students</title>
+  <meta name="description" content="Free online memory games for English learners: choose a topic (sports, jobs, Romeo and Juliet, Animal Farm, the Middle Ages) and find the pairs.">
+  <link rel="canonical" href="https://paolafatigato.github.io/TextBook/games/memory.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Free English Memory Games for ESL Students">
+  <meta property="og:description" content="Free online memory games for English learners: choose a topic (sports, jobs, Romeo and Juliet, Animal Farm, the Middle Ages) and find the pairs.">
+  <meta property="og:image" content="https://paolafatigato.github.io/TextBook/img/share/home.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../img/icons/favicon-32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Mono:wght@400;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="memory.css">
+</head>
+<body>
+  <nav class="bar">
+    <a href="./#digital">← All games</a>
+    <strong>Memory</strong>
+    <a href="#" id="change" hidden>Change topic</a>
+  </nav>
+
+  <main id="choose">
+    <h1>Choose a <em>topic</em></h1>
+    <div class="topics">
+      <a class="topic" href="#sports"><span aria-hidden="true">⚽</span><b>Sports &amp; hobbies</b><small>Match the picture with its word.</small></a>
+      <a class="topic" href="#jobs"><span aria-hidden="true">👷</span><b>Jobs</b><small>Find each job and what they do.</small></a>
+      <a class="topic" href="#romeo"><span aria-hidden="true">🌹</span><b>Romeo &amp; Juliet</b><small>Who is who in Verona?</small></a>
+      <a class="topic" href="#farm"><span aria-hidden="true">🐷</span><b>Animal Farm</b><small>Find each animal and who it is in history.</small></a>
+      <a class="topic" href="#working-men"><span aria-hidden="true">🔨</span><b>Middle Ages: working men</b><small>Match each tool with the man who uses it.</small></a>
+      <a class="topic" href="#working-women"><span aria-hidden="true">🌿</span><b>Middle Ages: working women</b><small>Match each thing with the woman who uses it.</small></a>
+    </div>
+  </main>
+
+  <main id="play" hidden>
+    <h1 id="title"></h1>
+    <p class="how" id="how"></p>
+    <div class="tools">
+      <div class="players" role="group" aria-label="Players">
+        <button type="button" data-players="1">1 player</button>
+        <button type="button" data-players="2">2 players</button>
+      </div>
+      <p id="status" aria-live="polite"></p>
+      <button type="button" id="again">🔀 New cards</button>
+    </div>
+    <div class="cards" id="cards"></div>
+  </main>
+
+  <script>const TOPICS = [{"id":"sports","icon":"⚽","title":"Sports & hobbies","text":"Match the picture with its word.","show":6,"pairs":[["⚽","soccer"],["🏀","basketball"],["🎾","tennis"],["🏐","volleyball"],["🏊","swimming"],["🚴","cycling"],["⛸️","skating"],["🥋","karate"],["🧘","yoga"],["🎸","guitar"],["🎨","painting"],["🍳","cooking"],["📚","reading"],["🎮","video games"],["💃","dancing"],["📷","photography"],["♟️","chess"],["🎤","singing"]]},{"id":"jobs","icon":"👷","title":"Jobs","text":"Find each job and what they do.","pairs":[["doctor","treats sick people"],["teacher","helps students learn"],["chef","cooks food"],["pilot","flies planes"],["builder","builds houses"],["vet","treats animals"],["author","writes books"],["gardener","looks after plants"]]},{"id":"romeo","icon":"🌹","title":"Romeo & Juliet","text":"Who is who in Verona?","pairs":[["Romeo","a Montague"],["Juliet","a girl of 13"],["Tybalt","Juliet's cousin"],["Benvolio","Romeo's cousin"],["Mercutio","Romeo's best friend"],["Friar Lawrence","marries the lovers"],["the Nurse","takes care of Juliet"],["Paris","wants to marry Juliet"]]},{"id":"farm","icon":"🐷","title":"Animal Farm","text":"Find each animal and who it is in history.","pairs":[["Old Major","Marx & Lenin"],["Napoleon","Stalin"],["Snowball","Trotsky"],["Mr. Jones","the Tsar"],["Boxer","the workers"],["the dogs","the secret police"],["Squealer","propaganda"],["Moses","the Church"]]},{"id":"working-men","icon":"🔨","title":"Middle Ages: working men","text":"Match each tool with the man who uses it.","pairs":[["blacksmith","🔨 hammer"],["farmer","🐂 plough"],["craftsman","🪚 saw"],["⚖️ scales","merchant"],["🍺 ale mug","innkeeper"],["beggar","🥣 bowl"]]},{"id":"working-women","icon":"🌿","title":"Middle Ages: working women","text":"Match each thing with the woman who uses it.","pairs":[["🌿 herbs","herbalist"],["healer","🩹 bandage"],["midwife","👶 newborn baby"],["🪣 bucket","maid"],["🧵 spindle","spinner"],["innkeeper","🍺 ale"]]}];</script>
+  <script src="memory.js"></script>
+</body>
+</html>

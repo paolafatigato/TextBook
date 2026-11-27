@@ -1,0 +1,78 @@
+/* Clothes & Fashion show: the look of the chapter.
+   Three colors (magenta, lemon, purple). Every spread has its own header, drawn as ONE picture across the two pages
+   (the <svg class="page-bg"> of each page shows its half: viewBox from x 0 on the left, from x 100 on the right). */
+
+.cl { --cl-mag: #dc3394; --cl-pink: #dc3394; --cl-yel: #fffa80; --cl-teal: #8e3db5; --cl-lime: #fffa80; --cl-ink: #2b1a2e; --cl-plum: #67288a; }
+
+/* the soft fold would cut the pictures that cross the two pages */
+.page-left.cl-d::after, .page-right.cl-d::after { opacity: .5; }
+
+/* titles: white on the color, or on a label when the background is busy */
+.cl-d .cl-h { line-height: 1.1; }
+.cl-d .cl-h-long { font-size: 4.8cqw; }
+.cl-d-label .cl-h { color: var(--cl-plum); background: #fff; font-size: 4.2cqw; line-height: 1; padding: .8cqw 2.2cqw 1cqw; border-radius: 999px; box-shadow: .5cqw .5cqw 0 rgba(60, 0, 50, .22); margin-top: .2cqw; }
+.cl-d-y .cl-h { background: var(--cl-yel); }
+.cl-d-dark .cl-h { color: var(--cl-plum); }
+.cl-d-photo .cl-h { text-shadow: 0 .3cqw 1.2cqw rgba(60, 0, 40, .75); }
+.cl-d-full .pageno, .cl-d-full .footer { color: #fff; }
+.cl-d-full.cl-d-inkfoot .footer { color: var(--cl-plum); }
+.cl-d-full.page-left .pageno[data-yr]::before { color: inherit; }
+
+/* cover: the title and the big drawing, nothing else */
+.cl-d-cover .cl-cover { filter: drop-shadow(.8cqw 1cqw 0 rgba(103, 40, 138, .35)); }
+
+/* Dress to Impress: the 20 clothes fill a square as big as the square of the model */
+.cl-d .du-cards { grid-template-rows: repeat(4, minmax(0, 1fr)); }
+.cl-d .du-card { height: auto; min-height: 0; }
+.cl-d .du-pic { flex: 1 1 0; min-height: 0; }
+.cl-d .du-pic img { position: absolute; max-height: 92%; }
+.cl-d .du-theme { font-size: 2.6cqw; padding: .6cqw 1.6cqw; white-space: nowrap; }
+.cl-d .du-theme small { display: inline; }
+.cl-d .du-help { font-size: 1.15cqw; }
+.cl-d .du-start { font-size: 1.35cqw; }
+.cl-d .du-start-r { margin-top: .1cqw; font-size: 1.15cqw; }
+
+/* clash.css uses some of the same class names (.cl-role, .cl-big, .cl-chip): here the chapter wins */
+.page.cl .cl-role { font-weight: 400; white-space: normal; }
+.page.cl .cl-big { margin: 0; font: 700 23cqw/.9 'Fredoka', 'Nunito', sans-serif; }
+.page.cl .cl-chip { display: inline-block; width: auto; margin: 0; padding: .7cqw 1.2cqw; text-align: center; font: 700 1.68cqw/1 'Nunito', sans-serif; border: .15cqw solid #e9bfd8; border-radius: 999px; }
+.page.cl .cl-build .out .cl-chip { border-color: var(--cl-mag); }
+
+/* Show training 1: the four word builders end above the foot of the page */
+.page.cl .cl-build { padding: .5cqw 1.4cqw .6cqw; }
+.page.cl .cl-build .out { min-height: 3.8cqw; padding-bottom: .4cqw; }
+.page.cl .cl-build .bank { padding: .5cqw 0 .4cqw; min-height: 3.4cqw; }
+
+/* title styles that go with the different compositions */
+.cl-t-hi .cl-h, .cl-t-pur .cl-h { color: var(--cl-mag); width: max-content; max-width: 90cqw; }
+.cl-t-hi .cl-h { color: var(--cl-plum); background: linear-gradient(transparent 56%, var(--cl-yel) 56% 96%, transparent 96%); padding: 0 1cqw; margin-left: -.6cqw; }
+.cl-t-pur .cl-h { color: var(--cl-teal); }
+.cl-t-block .cl-h { color: #fff; background: var(--cl-mag); margin: -3.2cqw 0 0 -5.2cqw; padding: 3.4cqw 3cqw 1.8cqw 5.2cqw; border-radius: 0 0 3cqw 0; }
+
+/* page number and footer on the color */
+.cl-f-w .pageno, .cl-f-w .footer, .cl-f-w.page-left .pageno[data-yr]::before { color: #fff; }
+.cl-f-ink .pageno, .cl-f-ink .footer, .cl-f-ink.page-left .pageno[data-yr]::before { color: var(--cl-plum); }
+.cl-f-pill .pageno, .cl-f-pill .footer { color: var(--cl-plum); background: #fff; border-radius: 999px; padding: .3cqw 1.2cqw; }
+.cl-f-pill .footer { width: auto; left: auto; right: 6cqw; }
+
+/* 6.14b and 6.16b at the same height on the two pages: both columns end on the same line */
+.spread[data-id="clothes-pc-rule"] .cl-flow { height: 111.4cqw; }
+.spread[data-id="clothes-pc-rule"] .page-left .cl-flow { gap: 2.2cqw; }
+.spread[data-id="clothes-pc-rule"] .page-left #cl42 { margin-top: -.4cqw; } /* the same space under the title as on the right (1.8) */
+.spread[data-id="clothes-pc-rule"] .cl-row:nth-last-child(2) { margin-top: auto; }
+
+/* Present continuous: a plain lemon card behind the three forms (6.14) */
+.spread[data-id="clothes-pc-rule"] .cl-h { text-shadow: .25cqw .25cqw 0 rgba(60, 0, 60, .45); }
+.spread[data-id="clothes-pc-rule"] .cl-grule { padding: .7cqw; border-radius: 1.6cqw; -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  background: #fffa80; }
+
+/* Dress to Impress 1: a white card holds the clothes, so the lemon block shows only around it */
+.spread[data-id="clothes-dress"] .du-cards { background: #fff; box-sizing: border-box; }
+
+@media print {
+  .page.cl .page-bg { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* the big scene sits on stripes: page number and footer need their own white label */
+.spread[data-id="clothes-pc-games"] .pageno, .spread[data-id="clothes-pc-games"] .footer { background: #fff; color: var(--cl-plum); border-radius: 999px; padding: .3cqw 1.2cqw; }
+.spread[data-id="clothes-pc-games"] .footer { width: auto; left: auto; right: 6cqw; }
