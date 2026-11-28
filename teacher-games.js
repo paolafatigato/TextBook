@@ -847,18 +847,27 @@
   function basketGame() {
     score.a = score.b = 0;
     const SETS = window.BASKET_SETS || [];
-    const KINDS = ['Paradigms', 'Words IT → EN', 'Words EN → IT', 'Phrases IT → EN'];
+    const KINDS = ['Paradigms', 'Words', 'Phrases'];
+    let see = 'it'; // translation sets: the language the board shows ('it' or 'en'); the pupils write the other one
+    const seeButtons = () => `<p class="tg-label">The class sees… <small>(words and phrases)</small></p>
+      <div class="tg-row">${[['it', 'Italian', 'they write English'], ['en', 'English', 'they write Italian']].map(([id, t, s]) => `<button type="button" class="tg-btn${see === id ? ' go' : ' alt'}" data-see="${id}" aria-pressed="${see === id}">${t} <small>→ ${s}</small></button>`).join('')}</div>`;
+    // the instruction of a translation set when the board shows the English
+    const toItalian = s => s.id === 'w-false' ? 'Careful! The Italian word is NOT the one that looks the same.'
+      : s.id === 'w-verbs1' ? 'Write the verb in Italian.' : s.kind === 'Phrases' ? 'Write the whole sentence in Italian.' : 'Write the Italian word.';
     const start = () => {
       openGame('🏀 Paper basket', { onBack: menu });
       const chosen = new Set();
       const kinds = [...new Set(SETS.map(s => s.kind))].sort((a, b) => KINDS.indexOf(a) - KINDS.indexOf(b));
       area.innerHTML = `<div class="tg-card">
         <p class="tg-intro">The board shows a question. <b>Every pupil writes the answer on a slip of paper</b>, crumples it and <b>shoots it into the basket</b> (a bin, a box…) before the time is over! Check the papers with the answer, then give a point to the team.</p>
+        <div id="tgSee">${seeButtons()}</div>
         <p class="tg-label">Choose a set <small>(or more than one: they get mixed)</small></p>
         ${kinds.map(k => `<p class="tg-label">${esc(k)}</p><div class="tg-decks">${SETS.filter(s => s.kind === k).map(s => `<button type="button" class="tg-deck" data-d="${s.id}" style="--c:${s.color}"><span>${s.icon}</span>${esc(s.title)}<small>${s.items.length} cards · ${s.secs} s</small></button>`).join('')}</div>`).join('')}
         <div class="tg-row"><button type="button" class="tg-btn" id="tgDeckGo" disabled>Choose a set first</button></div></div>`;
       const go = $('tgDeckGo');
       area.onclick = e => {
+        const l = e.target.closest('[data-see]');
+        if (l) { see = l.dataset.see; $('tgSee').innerHTML = seeButtons(); return; }
         const b = e.target.closest('.tg-deck');
         if (b) {
           const id = b.dataset.d;
@@ -873,10 +882,12 @@
       openGame('🏀 Paper basket', { scored: true, onBack: start });
       const cards = sets.flatMap(s => s.items.map(([q, a, pill, fam]) => ({ q, a, pill, fam, s })));
       const nextCard = bag(cards);
+      const translating = sets.some(s => s.kind !== 'Paradigms');
       let r, left = 0, timer = null;
       cleanup = () => { clearInterval(timer); timer = null; };
       const next = () => {
-        const c = nextCard();
+        let c = nextCard();
+        if (see === 'en' && c.s.kind !== 'Paradigms') c = { ...c, q: c.a, a: c.q, pill: toItalian(c.s) };
         r = { c, state: 'write', show: false, point: false };
         left = c.s.secs;
         clearInterval(timer); timer = setInterval(tick, 1000);
@@ -897,11 +908,12 @@
           <p class="tg-answer">${r.show ? '💡 ' + esc(c.a) : '<button type="button" class="tg-link" data-act="show">💡 Show the answer</button>'}</p>
           ${pointButtons(r.point)}
           <div class="tg-row"><button type="button" class="tg-btn alt" data-act="skip">⏭ Skip</button><button type="button" class="tg-btn go" data-act="next">Next question ▶</button></div>
-          <p class="tg-foot"><button type="button" class="tg-link" data-act="reset">↺ new game (scores to 0)</button></p></div>`;
+          <p class="tg-foot">${translating ? `<button type="button" class="tg-link" data-act="swap">🔄 The class sees ${see === 'it' ? 'Italian · show English instead' : 'English · show Italian instead'}</button> &nbsp; ` : ''}<button type="button" class="tg-link" data-act="reset">↺ new game (scores to 0)</button></p></div>`;
       };
       area.onclick = e => {
         const b = e.target.closest('button'); if (!b) return;
         if (b.dataset.t) { givePoint(b.dataset.t, r); paint(); }
+        else if (b.dataset.act === 'swap') { see = see === 'it' ? 'en' : 'it'; next(); } // a new card, so nobody has already seen the answer
         else if (b.dataset.act === 'show') { r.show = true; clearInterval(timer); timer = null; if (r.state === 'write') r.state = 'shoot'; paint(); }
         else if (b.dataset.act === 'next' || b.dataset.act === 'skip') next();
         else if (b.dataset.act === 'reset') { score.a = score.b = 0; paintScore(); next(); }

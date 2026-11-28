@@ -2,7 +2,8 @@
 // crumple it and shoot it into the basket. Data of the game; the game itself is in teacher-games.js.
 // A set = { id, y: [school years 0-2], icon, color, title, kind, secs (time to write), hint, items: [[question, answer, pill?, family?], ...] }
 // To add a card: add a pair ['question', 'answer'] to the items of a set. To add a set: add an object to BASKET_SETS.
-// Translation sets: the board shows the Italian, the pupils write the English (AmE). Variants are separated by " / ".
+// Translation sets (kind 'Words' / 'Phrases'): pairs are always ['Italian', 'English' (AmE)]; the teacher chooses in the game
+// which of the two the board shows. Variants are separated by " / ".
 (() => {
   // the verb paradigms of Paradigms Basket: [question, answer, how the board asks, family of the verb]
   const FAMILIES = {"pod":"🫛 3 Peas in a Pod","burger":"🍔 The Hamburger","ought":"💭 The -ought Gang","short":"🔠 Short Vowel Switch","tee":"✉️ The T-Ending","iau":"🎤 The i-a-u Singers","eww":"💨 The -ew Group","riders":"🚴 The Riders","en":"📝 The -en Group","loners":"🌟 The Loners"};
@@ -110,62 +111,62 @@
       items: VERBS.map(([q, a, t, g]) => [q, a, PILL[t], FAMILIES[g]]) },
 
     /* ----- single words: Italian → English ----- */
-    { id: 'w-school', y: [0], icon: '🎒', color: '#f05f4b', title: 'School things', kind: 'Words IT → EN', secs: 12, hint: 'Write the English word.', items: [
+    { id: 'w-school', y: [0], icon: '🎒', color: '#f05f4b', title: 'School things', kind: 'Words', secs: 12, hint: 'Write the English word.', items: [
       ['zaino', 'backpack'], ['penna', 'pen'], ['matita', 'pencil'], ['gomma', 'eraser'], ['righello', 'ruler'], ['quaderno', 'notebook'], ['astuccio', 'pencil case'], ['lavagna', 'board / blackboard'],
       ['banco', 'desk'], ['sedia', 'chair'], ['finestra', 'window'], ['porta', 'door'], ['forbici', 'scissors'], ['colla', 'glue'], ['libro', 'book'], ['compiti', 'homework'], ['aula', 'classroom'], ['palestra', 'gym'] ] },
-    { id: 'w-food', y: [0], icon: '🍕', color: '#e0902c', title: 'Food and drinks', kind: 'Words IT → EN', secs: 12, hint: 'Write the English word.', items: [
+    { id: 'w-food', y: [0], icon: '🍕', color: '#e0902c', title: 'Food and drinks', kind: 'Words', secs: 12, hint: 'Write the English word.', items: [
       ['pane', 'bread'], ['latte', 'milk'], ['formaggio', 'cheese'], ['uovo', 'egg'], ['mela', 'apple'], ['fragola', 'strawberry'], ['pollo', 'chicken'], ['pesce', 'fish'], ['riso', 'rice'], ['succo di frutta', 'juice'],
       ['acqua', 'water'], ['biscotto', 'cookie'], ['gelato', 'ice cream'], ['verdure', 'vegetables'], ['carota', 'carrot'], ['patate', 'potatoes'], ['colazione', 'breakfast'], ['cena', 'dinner'] ] },
-    { id: 'w-animals', y: [0], icon: '🐾', color: '#3aa04a', title: 'Animals', kind: 'Words IT → EN', secs: 12, hint: 'Write the English word.', items: [
+    { id: 'w-animals', y: [0], icon: '🐾', color: '#3aa04a', title: 'Animals', kind: 'Words', secs: 12, hint: 'Write the English word.', items: [
       ['cane', 'dog'], ['gatto', 'cat'], ['cavallo', 'horse'], ['mucca', 'cow'], ['maiale', 'pig'], ['pecora', 'sheep'], ['coniglio', 'rabbit'], ['topo', 'mouse'], ['uccello', 'bird'],
       ['rana', 'frog'], ['serpente', 'snake'], ['ragno', 'spider'], ['farfalla', 'butterfly'], ['leone', 'lion'], ['scimmia', 'monkey'], ['lupo', 'wolf'], ['tartaruga', 'turtle'] ] },
-    { id: 'w-body', y: [0], icon: '🧍', color: '#c35fb4', title: 'Family and body', kind: 'Words IT → EN', secs: 12, hint: 'Write the English word.', items: [
+    { id: 'w-body', y: [0], icon: '🧍', color: '#c35fb4', title: 'Family and body', kind: 'Words', secs: 12, hint: 'Write the English word.', items: [
       ['nonna', 'grandmother / grandma'], ['zio', 'uncle'], ['cugino / cugina', 'cousin'], ['fratello', 'brother'], ['sorella', 'sister'], ['genitori', 'parents'], ['mano', 'hand'], ['piede', 'foot'],
       ['testa', 'head'], ['gamba', 'leg'], ['braccio', 'arm'], ['occhi', 'eyes'], ['orecchio', 'ear'], ['naso', 'nose'], ['dente', 'tooth'], ['schiena', 'back'], ['ginocchio', 'knee'], ['capelli', 'hair'] ] },
-    { id: 'w-verbs1', y: [0, 1], icon: '🏃', color: '#4aa8ec', title: 'Everyday verbs', kind: 'Words IT → EN', secs: 12, hint: 'Write the verb in English (infinitive).', items: [
+    { id: 'w-verbs1', y: [0, 1], icon: '🏃', color: '#4aa8ec', title: 'Everyday verbs', kind: 'Words', secs: 12, hint: 'Write the verb in English (infinitive).', items: [
       ['svegliarsi', 'wake up'], ['alzarsi', 'get up'], ['lavarsi', 'wash'], ['mangiare', 'eat'], ['bere', 'drink'], ['giocare', 'play'], ['guardare', 'watch / look at'], ['ascoltare', 'listen to'],
       ['aiutare', 'help'], ['imparare', 'learn'], ['aprire', 'open'], ['chiudere', 'close'], ['camminare', 'walk'], ['correre', 'run'], ['ridere', 'laugh'], ['piangere', 'cry'], ['cucinare', 'cook'], ['dormire', 'sleep'] ] },
-    { id: 'w-town', y: [1], icon: '🏙️', color: '#12a4a4', title: 'Town, house and clothes', kind: 'Words IT → EN', secs: 12, hint: 'Write the English word.', items: [
+    { id: 'w-town', y: [1], icon: '🏙️', color: '#12a4a4', title: 'Town, house and clothes', kind: 'Words', secs: 12, hint: 'Write the English word.', items: [
       ['negozio', 'shop / store'], ['ospedale', 'hospital'], ['biblioteca', 'library'], ['stazione', 'station'], ['ponte', 'bridge'], ['incrocio', 'intersection'], ['marciapiede', 'sidewalk'], ['appartamento', 'apartment'],
       ['cucina', 'kitchen'], ['soffitta', 'attic'], ['scale', 'stairs'], ['giacca', 'jacket'], ['maglione', 'sweater'], ['calzini', 'socks'], ['stivali', 'boots'], ['cappello', 'hat'], ['sciarpa', 'scarf'], ['gonna', 'skirt'] ] },
-    { id: 'w-adj', y: [1], icon: '😀', color: '#e0584a', title: 'Adjectives and feelings', kind: 'Words IT → EN', secs: 12, hint: 'Write the English adjective.', items: [
+    { id: 'w-adj', y: [1], icon: '😀', color: '#e0584a', title: 'Adjectives and feelings', kind: 'Words', secs: 12, hint: 'Write the English adjective.', items: [
       ['arrabbiato', 'angry'], ['annoiato', 'bored'], ['spaventato', 'scared / afraid'], ['stanco', 'tired'], ['orgoglioso', 'proud'], ['geloso', 'jealous'], ['timido', 'shy'], ['pigro', 'lazy'],
       ['simpatico', 'nice / friendly'], ['generoso', 'generous'], ['coraggioso', 'brave'], ['divertente', 'funny'], ['maleducato', 'rude'], ['preoccupato', 'worried'], ['curioso', 'curious'], ['pericoloso', 'dangerous'] ] },
-    { id: 'w-hard', y: [2], icon: '🎓', color: '#1f2a6b', title: 'Harder words', kind: 'Words IT → EN', secs: 15, hint: 'Write the English word.', items: [
+    { id: 'w-hard', y: [2], icon: '🎓', color: '#1f2a6b', title: 'Harder words', kind: 'Words', secs: 15, hint: 'Write the English word.', items: [
       ['ambiente', 'environment'], ['governo', 'government'], ['scelta', 'choice'], ['successo', 'success'], ['sicurezza', 'safety / security'], ['cittadino', 'citizen'], ['lavoro', 'job / work'], ['esperienza', 'experience'],
       ['sviluppare', 'develop'], ['sconfiggere', 'defeat / beat'], ['promettere', 'promise'], ['prendere in prestito', 'borrow'], ['prestare', 'lend'], ['ricordare', 'remember'], ['dimenticare', 'forget'], ['crescere', 'grow'],
       ['fiducia', 'trust'], ['straniero', 'foreigner'], ['sciopero', 'strike'], ['vittima', 'victim'] ] },
-    { id: 'w-false', y: [1, 2], icon: '🪤', color: '#d6334f', title: 'False friends', kind: 'Words IT → EN', secs: 15, hint: 'Careful! The English word is NOT the one that looks the same.', items: [
+    { id: 'w-false', y: [1, 2], icon: '🪤', color: '#d6334f', title: 'False friends', kind: 'Words', secs: 15, hint: 'Careful! The English word is NOT the one that looks the same.', items: [
       ['parenti', 'relatives'], ['biblioteca', 'library'], ['libreria', 'bookstore'], ['magazzino', 'warehouse'], ['attualmente', 'currently / at the moment'], ['eventualmente', 'possibly'],
       ['fabbrica', 'factory'], ['educato', 'polite'], ['pretendere', 'demand / expect'], ['assistere a', 'attend'], ['camera (stanza)', 'room'], ['sensibile', 'sensitive'], ['morbido', 'soft'], ['ritirare, andare a prendere', 'pick up'] ] },
 
     /* ----- sentences: Italian → English ----- */
-    { id: 's-1', y: [0], icon: '💬', color: '#f05f4b', title: 'Phrases 1', kind: 'Phrases IT → EN', secs: 30, hint: 'Write the whole sentence in English.', items: [
+    { id: 's-1', y: [0], icon: '💬', color: '#f05f4b', title: 'Phrases 1', kind: 'Phrases', secs: 30, hint: 'Write the whole sentence in English.', items: [
       ['Come ti chiami?', "What's your name?"], ['Ho dodici anni.', "I'm twelve (years old)."], ['Sono italiano.', "I'm Italian."], ['Abito a Milano.', 'I live in Milan.'],
       ['Ho un fratello e due sorelle.', 'I have a brother and two sisters.'], ['Mi piace la pizza.', 'I like pizza.'], ['Non mi piacciono i ragni.', "I don't like spiders."], ['Che ore sono?', 'What time is it?'],
       ['Dov’è la scuola?', 'Where is the school?'], ['Il mio gatto è nero.', 'My cat is black.'], ['Posso andare in bagno?', 'Can I go to the bathroom?'], ['Non capisco.', "I don't understand."],
       ['Puoi ripetere, per favore?', 'Can you repeat, please?'], ['Lei ha i capelli lunghi.', 'She has long hair.'], ['Che giorno è oggi?', 'What day is it today?'], ['Dove sei?', 'Where are you?'] ] },
-    { id: 's-2', y: [1], icon: '🗣️', color: '#3aa04a', title: 'Phrases 2', kind: 'Phrases IT → EN', secs: 35, hint: 'Write the whole sentence in English. Watch the tense!', items: [
+    { id: 's-2', y: [1], icon: '🗣️', color: '#3aa04a', title: 'Phrases 2', kind: 'Phrases', secs: 35, hint: 'Write the whole sentence in English. Watch the tense!', items: [
       ['Ieri sono andato al cinema.', 'Yesterday I went to the movies.'], ['Che cosa hai fatto nel weekend?', 'What did you do on the weekend?'], ['Domani giocherò a calcio.', "Tomorrow I'll play soccer."],
       ['Sto leggendo un libro.', "I'm reading a book."], ['Lui si alza alle sette.', 'He gets up at seven.'], ['Lei non mangia carne.', "She doesn't eat meat."], ['Quanto costa?', 'How much is it?'],
       ['Mio fratello è più alto di me.', 'My brother is taller than me.'], ['Questo è il film più bello.', 'This is the best movie.'], ['Devo fare i compiti.', 'I have to do my homework.'],
       ['Posso aiutarti?', 'Can I help you?'], ['Non so nuotare.', "I can't swim."], ['Vado a scuola in autobus.', 'I go to school by bus.'], ['Hai mai visto un delfino?', 'Have you ever seen a dolphin?'],
       ['Stavo dormendo quando hai chiamato.', 'I was sleeping when you called.'], ['Perché sei in ritardo?', 'Why are you late?'] ] },
-    { id: 's-3', y: [2], icon: '📜', color: '#1f2a6b', title: 'Phrases 3', kind: 'Phrases IT → EN', secs: 45, hint: 'Write the whole sentence in English. Think about the grammar!', items: [
+    { id: 's-3', y: [2], icon: '📜', color: '#1f2a6b', title: 'Phrases 3', kind: 'Phrases', secs: 45, hint: 'Write the whole sentence in English. Think about the grammar!', items: [
       ['Se avessi tempo, viaggerei di più.', 'If I had time, I would travel more.'], ['Se piove, resteremo a casa.', "If it rains, we'll stay home."], ['Questo libro è stato scritto nel 1950.', 'This book was written in 1950.'],
       ['Vivo qui da cinque anni.', "I've lived here for five years."], ['Mi ha detto che era stanco.', 'He told me (that) he was tired.'], ['Non avresti dovuto mentire.', "You shouldn't have lied."],
       ['Ho smesso di fumare.', 'I stopped smoking.'], ['Non vedo l’ora di vederti.', "I'm looking forward to seeing you."], ['È troppo difficile per me.', "It's too difficult for me."],
       ['Sono abbastanza grande per guidare.', "I'm old enough to drive."], ['La ragazza che vive accanto è una cantante.', 'The girl who lives next door is a singer.'], ['Mi sono perso.', 'I got lost.'],
       ['Ci conosciamo da anni.', 'We have known each other for years.'], ['Quanto tempo ci vuole?', 'How long does it take?'], ['Preferisco il tè al caffè.', 'I prefer tea to coffee.'], ['Avrei voluto aiutarti.', 'I would have liked to help you.'] ] },
-    { id: 's-talk', y: [0, 1, 2], icon: '☎️', color: '#8fb82e', title: 'Useful class talk', kind: 'Phrases IT → EN', secs: 25, hint: 'Say it in English like in a real class!', items: [
+    { id: 's-talk', y: [0, 1, 2], icon: '☎️', color: '#8fb82e', title: 'Useful class talk', kind: 'Phrases', secs: 25, hint: 'Say it in English like in a real class!', items: [
       ['Posso uscire?', 'Can I go out? / May I go out?'], ['Come si dice “gatto” in inglese?', 'How do you say “gatto” in English?'], ['Non ho la penna.', "I don't have a pen."], ['Ho dimenticato il quaderno.', 'I forgot my notebook.'],
       ['Puoi parlare più piano?', 'Can you speak more slowly?'], ['Che cosa significa?', 'What does it mean?'], ['Non ho finito.', "I haven't finished."], ['Posso avere un foglio?', 'Can I have a sheet of paper?'],
       ['Mi presti la gomma?', 'Can I borrow your eraser?'], ['A che pagina siamo?', 'What page are we on?'], ['Ho una domanda.', 'I have a question.'], ['Scusi, sono in ritardo.', "Sorry, I'm late."] ] },
 
-    /* ----- the other way: English → Italian ----- */
-    { id: 'r-words', y: [1, 2], icon: '🔁', color: '#e8820c', title: 'English → Italian', kind: 'Words EN → IT', secs: 12, hint: 'Write the Italian word.', items: [
-      ['although', 'anche se / sebbene'], ['however', 'tuttavia / però'], ['actually', 'in realtà'], ['already', 'già'], ['enough', 'abbastanza / basta'], ['whether', 'se'], ['borrow', 'prendere in prestito'], ['lend', 'prestare'],
-      ['fridge', 'frigorifero'], ['lawyer', 'avvocato'], ['neighbor', 'vicino (di casa)'], ['pillow', 'cuscino'], ['kitten', 'gattino'], ['cheap', 'economico'], ['fair', 'giusto / equo'], ['wise', 'saggio'], ['to improve', 'migliorare'], ['to achieve', 'raggiungere / ottenere'] ] },
+    /* ----- link words and more ----- */
+    { id: 'r-words', y: [1, 2], icon: '🔁', color: '#e8820c', title: 'Link words and more', kind: 'Words', secs: 12, hint: 'Write the English word.', items: [
+      ['anche se / sebbene', 'although'], ['tuttavia / però', 'however'], ['in realtà', 'actually'], ['già', 'already'], ['abbastanza / basta', 'enough'], ['se (… oppure no)', 'whether'], ['prendere in prestito', 'borrow'], ['prestare', 'lend'],
+      ['frigorifero', 'fridge'], ['avvocato', 'lawyer'], ['vicino (di casa)', 'neighbor'], ['cuscino', 'pillow'], ['gattino', 'kitten'], ['economico', 'cheap'], ['giusto / equo', 'fair'], ['saggio', 'wise'], ['migliorare', 'to improve'], ['raggiungere / ottenere', 'to achieve'] ] },
   ];
   window.BASKET_SETS = BASKET_SETS;
 })();
